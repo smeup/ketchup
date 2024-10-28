@@ -243,6 +243,10 @@ components.data = [
         id: 'time-picker.html',
     },
     {
+        value: 'Toolbar',
+        id: 'toolbar.html',
+    },
+    {
         value: 'Typography',
         id: 'typography.html',
     },

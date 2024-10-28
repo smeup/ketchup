@@ -30,7 +30,6 @@ import {
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
     CHIAdapter,
-    CHKAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     RADAdapter,
@@ -57,7 +56,7 @@ import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import { FRadioProps } from '../f-radio/f-radio-declarations';
+import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     DataAdapterFn,
@@ -94,7 +93,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        cell.data = mapData(cell) ?? cell.data;
+        const cellData = mapData(cell);
+        cell.data = cellData
+            ? {
+                  ...cellData,
+                  ...cell.data,
+              }
+            : cell.data;
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -102,9 +107,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const subcomponentProps: unknown = { ...cell.data };
     let cssClasses = cell.cssClass
         ? cell.cssClass
-        : column.cssClass
-        ? column.cssClass
+        : column?.cssClass
+        ? column?.cssClass
         : '';
+
     if ((props.component as KupDataTable).legacyLook) {
         cssClasses += ' monospace c-pre';
     }
@@ -238,7 +244,6 @@ const mapData = (cell: KupDataCellOptions) => {
     if (!cell) {
         return null;
     }
-
     const options = cell.options;
     const fieldLabel = cell.title;
     const currentValue = cell.value;
@@ -319,9 +324,11 @@ const MainITXAdapter = (
 const MainRADAdapter = (
     options: CellOptions[],
     _fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    cell?: KupDataCellOptions
 ) => {
-    return RADAdapter(currentValue, options);
+    const newData = RADAdapter(currentValue, options);
+    cell.data = { ...cell.data, ...newData };
 };
 
 const MainCMBandACPAdapter = (
@@ -609,6 +616,7 @@ function setEditableCell(
                         fullWidth={true}
                         slot="field"
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-text-field>
                 </kup-chip>
             );
@@ -689,6 +697,7 @@ function setEditableCell(
                         }
                         showDropDownIcon={false}
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -722,6 +731,7 @@ function setEditableCell(
                             )
                         }
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -1251,7 +1261,7 @@ function cellEvent(
     const comp = props.component;
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
-        let value = getValueFromEventTaget(e, cellType);
+        let value = getValueFromEventTarget(e, cellType);
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:
@@ -1270,7 +1280,13 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.RADIO:
-                // data change handled outside this switchcase to avoid passing the index
+                if (cell.data.data) {
+                    const radioData = cell.data.data as FRadioData[];
+                    const checkedItem = radioData.find((item) => item.checked);
+                    if (checkedItem) {
+                        value = checkedItem.value;
+                    }
+                }
                 break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -1285,9 +1301,9 @@ function cellEvent(
                 break;
         }
         if (cell.obj) {
-            cell.obj.k = value.toString();
+            cell.obj.k = value?.toString();
         }
-        cell.value = value.toString();
+        cell.value = value?.toString();
         cell.displayedValue = null;
         cell.displayedValue = getCellValueForDisplay(column, cell);
     }
@@ -1321,7 +1337,7 @@ function cellEvent(
     }
 }
 
-function getValueFromEventTaget(
+function getValueFromEventTarget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
@@ -1337,6 +1353,7 @@ function getValueFromEventTaget(
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
         value = dom.ketchup.math.formattedStringToNumberString(value, '');
     }
+
     return value;
 }
 

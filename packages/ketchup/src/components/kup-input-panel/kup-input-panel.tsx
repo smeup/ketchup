@@ -751,7 +751,7 @@ export class KupInputPanel {
                           const mappedCell = cell
                               ? {
                                     ...cell,
-                                    data: this.#setProps(cell, column),
+                                    data: this.#setData(cell, column),
                                     slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
@@ -783,7 +783,7 @@ export class KupInputPanel {
         this.inputPanelCells = inpuPanelCells;
     }
 
-    #setProps(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+    #setData(cell: KupInputPanelCell, column: KupInputPanelColumn) {
         const defaultProps = {
             ...this.#mapData(cell, column),
             disabled: !cell.editable,

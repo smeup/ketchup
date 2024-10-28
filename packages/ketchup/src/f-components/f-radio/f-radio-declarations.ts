@@ -3,7 +3,6 @@ import type { FComponent } from '../../types/GenericTypes';
  * Props of the f-radio component.
  */
 export interface FRadioProps extends FComponent {
-    type?: FRadioType;
     columns?: number;
     data?: FRadioData[];
     disabled?: boolean;
@@ -13,6 +12,7 @@ export interface FRadioProps extends FComponent {
     onChange?: (i: number, event: Event) => void;
     onFocus?: (event: FocusEvent) => void;
     horizontal?: boolean;
+    type?: FRadioType;
 }
 /**
  * The object of a single radio.

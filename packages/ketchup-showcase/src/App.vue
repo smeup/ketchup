@@ -426,6 +426,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'toolbar',
+                  },
+                },
+                icon: 'app',
+                value: 'Toolbar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'tree',
                   },
                 },

@@ -5,14 +5,14 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                             | Type                                                                                                                                             | Default                             |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- |
-| `customStyle`    | `custom-style`    | Custom style of the component.                                                          | `string`                                                                                                                                         | `''`                                |
-| `data`           | --                | The data of the cell.                                                                   | `KupDataCell`                                                                                                                                    | `null`                              |
-| `density`        | `density`         | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE`                                                            | `FCellPadding.NONE`                 |
-| `dragEnabled`    | `drag-enabled`    | When set to true, the component is draggable.                                           | `boolean`                                                                                                                                        | `false`                             |
-| `showSubmit`     | `show-submit`     | Show submit button                                                                      | `boolean`                                                                                                                                        | `false`                             |
-| `submitPosition` | `submit-position` | Submit button position, default is right                                                | `KupCellSubmitButtonPosition.bottom \| KupCellSubmitButtonPosition.left \| KupCellSubmitButtonPosition.right \| KupCellSubmitButtonPosition.top` | `KupCellSubmitButtonPosition.right` |
+| Property         | Attribute         | Description                                                                             | Type                                                                                                                             | Default                         |
+| ---------------- | ----------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `customStyle`    | `custom-style`    | Custom style of the component.                                                          | `string`                                                                                                                         | `''`                            |
+| `data`           | --                | The data of the cell.                                                                   | `KupDataCell`                                                                                                                    | `null`                          |
+| `density`        | `density`         | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE`                                            | `FCellPadding.NONE`             |
+| `dragEnabled`    | `drag-enabled`    | When set to true, the component is draggable.                                           | `boolean`                                                                                                                        | `false`                         |
+| `showSubmit`     | `show-submit`     | Show submit button                                                                      | `boolean`                                                                                                                        | `false`                         |
+| `submitPosition` | `submit-position` | Submit button position, default is right                                                | `KupCellElementsPosition.bottom \| KupCellElementsPosition.left \| KupCellElementsPosition.right \| KupCellElementsPosition.top` | `KupCellElementsPosition.right` |
 
 
 ## Events
@@ -116,6 +116,7 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
 - [kup-text-field](../kup-text-field)
@@ -129,13 +130,13 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-cell --> kup-card
   kup-cell --> kup-dialog
+  kup-cell --> kup-badge
   kup-cell --> kup-autocomplete
   kup-cell --> kup-chip
   kup-cell --> kup-text-field
@@ -149,7 +150,6 @@ graph TD;
   kup-cell --> kup-chart
   kup-cell --> kup-gauge
   kup-cell --> kup-progress-bar
-  kup-cell --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -282,10 +282,26 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

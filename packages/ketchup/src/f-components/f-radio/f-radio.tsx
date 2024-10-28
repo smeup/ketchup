@@ -37,7 +37,6 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
             >
                 <div class={classObj}>
                     {radioType === FRadioType.RADIO ? (
-                        // Radio button type rendering
                         <input
                             class="radio__native-control"
                             type="radio"
@@ -54,7 +53,6 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                             onFocus={props.onFocus}
                         ></input>
                     ) : (
-                        // Chevron type rendering
                         <>
                             {data.checked ? (
                                 <FImage

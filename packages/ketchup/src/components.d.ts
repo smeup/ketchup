@@ -22,7 +22,7 @@ import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-import { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -57,7 +57,7 @@ import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
+import { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
@@ -80,7 +80,7 @@ export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-export { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -115,7 +115,7 @@ export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-export { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
+export { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
@@ -971,7 +971,7 @@ export namespace Components {
         /**
           * Submit button position, default is right
          */
-        "submitPosition": KupCellSubmitButtonPosition;
+        "submitPosition": KupCellElementsPosition;
     }
     interface KupChart {
         /**
@@ -1798,6 +1798,11 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
@@ -4184,6 +4189,11 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -4225,6 +4235,34 @@ export namespace Components {
           * @default 10
          */
         "timeMinutesStep": number;
+    }
+    interface KupToolbar {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The data of the list.
+          * @default []
+         */
+        "data": KupTreeNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTooltip {
         "TooltipContent": any;
@@ -4691,6 +4729,10 @@ export interface KupTextFieldCustomEvent<T> extends CustomEvent<T> {
 export interface KupTimePickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupTimePickerElement;
+}
+export interface KupToolbarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupToolbarElement;
 }
 export interface KupTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -5722,6 +5764,23 @@ declare global {
         prototype: HTMLKupTimePickerElement;
         new (): HTMLKupTimePickerElement;
     };
+    interface HTMLKupToolbarElementEventMap {
+        "kup-toolbar-click": KupToolbarClickEventPayload;
+    }
+    interface HTMLKupToolbarElement extends Components.KupToolbar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupToolbarElementEventMap>(type: K, listener: (this: HTMLKupToolbarElement, ev: KupToolbarCustomEvent<HTMLKupToolbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupToolbarElementEventMap>(type: K, listener: (this: HTMLKupToolbarElement, ev: KupToolbarCustomEvent<HTMLKupToolbarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupToolbarElement: {
+        prototype: HTMLKupToolbarElement;
+        new (): HTMLKupToolbarElement;
+    };
     interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {
     }
     var HTMLKupTooltipElement: {
@@ -5864,6 +5923,7 @@ declare global {
         "kup-task-list-table": HTMLKupTaskListTableElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
+        "kup-toolbar": HTMLKupToolbarElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
         "kup-typography": HTMLKupTypographyElement;
@@ -6611,7 +6671,7 @@ declare namespace LocalJSX {
         /**
           * Submit button position, default is right
          */
-        "submitPosition"?: KupCellSubmitButtonPosition;
+        "submitPosition"?: KupCellElementsPosition;
     }
     interface KupChart {
         /**
@@ -7334,6 +7394,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
@@ -9324,6 +9389,11 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -9347,6 +9417,20 @@ declare namespace LocalJSX {
           * @default 10
          */
         "timeMinutesStep"?: number;
+    }
+    interface KupToolbar {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the list.
+          * @default []
+         */
+        "data"?: KupTreeNode[];
+        "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarClickEventPayload>) => void;
     }
     interface KupTooltip {
         "TooltipContent"?: any;
@@ -9652,6 +9736,7 @@ declare namespace LocalJSX {
         "kup-task-list-table": KupTaskListTable;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
+        "kup-toolbar": KupToolbar;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
         "kup-typography": KupTypography;
@@ -9728,6 +9813,7 @@ declare module "@stencil/core" {
             "kup-task-list-table": LocalJSX.KupTaskListTable & JSXBase.HTMLAttributes<HTMLKupTaskListTableElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
+            "kup-toolbar": LocalJSX.KupToolbar & JSXBase.HTMLAttributes<HTMLKupToolbarElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
             "kup-typography": LocalJSX.KupTypography & JSXBase.HTMLAttributes<HTMLKupTypographyElement>;
