@@ -93,7 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        const cellData = mapData(cell);
+        const cellData = mapData(cell, column);
         cell.data = cellData
             ? {
                   ...cellData,
@@ -240,12 +240,12 @@ export const FCell: FunctionalComponent<FCellProps> = (
     );
 };
 
-const mapData = (cell: KupDataCellOptions) => {
+const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
     if (!cell) {
         return null;
     }
     const options = cell.options;
-    const fieldLabel = cell.title;
+    const fieldLabel = column.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
