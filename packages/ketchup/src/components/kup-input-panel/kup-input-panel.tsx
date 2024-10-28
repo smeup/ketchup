@@ -131,7 +131,7 @@ export class KupInputPanel {
     @Prop() customButtonClickHandler?: InputPanelButtonClickHandler = null;
 
     /**
-     * Sets the callback function on blur input when checkObject is true
+     * Sets the callback for valid the object when cell checkObject is true
      * @default null
      */
     @Prop() checkValidObjCallback?: InputPanelCheckValidObjCallback = null;
@@ -186,6 +186,14 @@ export class KupInputPanel {
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
+
+    #eventBlurNames = new Map<FCellShapes, string>([
+        [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
+        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
+        [FCellShapes.COMBOBOX, 'kup-combobox-blur'],
+        [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
+    ]);
+
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
@@ -1051,6 +1059,10 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
+        if (cell.inputSetting.checkObject) {
+            this.#checkCMBandACPObj(cell.shape, cell.obj, cell.fun);
+        }
+
         return configCMandACP;
     }
 
@@ -1097,7 +1109,7 @@ export class KupInputPanel {
             return {
                 label: fieldLabel,
                 onBlur: () => {
-                    this.#checkITXObjOnBlur(cell, id);
+                    this.#checkITXObj(cell, id);
                 },
             };
         }
@@ -1380,38 +1392,66 @@ export class KupInputPanel {
         });
     }
 
-    #checkITXObjOnBlur(cell: KupInputPanelCell, id: string) {
+    #checkITXObj(cell: KupInputPanelCell, id: string) {
         this.checkValidObjCallback({
             obj: cell.obj,
             currentState: this.#reverseMapCells(),
             fun: cell.fun,
         }).then(({ valid }) => {
-            // If it's not a valid object set the error message
-            if (!valid) {
-                this.inputPanelCells = this.inputPanelCells.map((cell) => ({
-                    ...cell,
-                    cells: cell.cells.map(({ cell, column }) => {
-                        // Setting the error on cell
-                        const data =
-                            column.name === id
-                                ? {
-                                      ...cell.data,
-                                      error: this.#kupManager.language.translate(
-                                          KupLanguageGeneric.INVALID_VALUE
-                                      ),
-                                  }
-                                : cell.data;
+            this.inputPanelCells = this.inputPanelCells.map((cell) => ({
+                ...cell,
+                cells: cell.cells.map(({ cell, column }) => {
+                    const data =
+                        column.name === id
+                            ? {
+                                  ...cell.data,
+                                  error: valid
+                                      ? // If it's a valid object remove the error message
+                                        null
+                                      : // else set the error message
+                                        this.#kupManager.language.translate(
+                                            KupLanguageGeneric.INVALID_VALUE
+                                        ),
+                              }
+                            : cell.data;
 
-                        return {
-                            column,
-                            cell: {
-                                ...cell,
-                                data,
-                            },
-                        };
-                    }),
-                }));
-            }
+                    return {
+                        column,
+                        cell: {
+                            ...cell,
+                            data,
+                        },
+                    };
+                }),
+            }));
+        });
+    }
+
+    #checkCMBandACPObj(shape: FCellShapes, obj: KupObj, fun: string) {
+        const evName = this.#eventBlurNames.get(shape);
+
+        if (!evName) {
+            return;
+        }
+
+        const handler = (e: CustomEvent<KupAutocompleteEventPayload>) => {
+            this.checkValidObjCallback({
+                obj: obj,
+                currentState: this.#reverseMapCells(),
+                fun: fun,
+            }).then(({ valid }) => {
+                e.detail.comp.error = valid
+                    ? null
+                    : this.#kupManager.language.translate(
+                          KupLanguageGeneric.INVALID_VALUE
+                      );
+                e.detail.comp.refresh();
+            });
+        };
+        this.rootElement.addEventListener(evName, handler);
+        this.#listeners.push({
+            event: evName,
+            handler,
         });
     }
 

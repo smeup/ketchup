@@ -2793,7 +2793,7 @@ export namespace Components {
     }
     interface KupInputPanel {
         /**
-          * Sets the callback function on blur input when checkObject is true
+          * Sets the callback for valid the object when cell checkObject is true
           * @default null
          */
         "checkValidObjCallback"?: InputPanelCheckValidObjCallback;
@@ -8177,7 +8177,7 @@ declare namespace LocalJSX {
     }
     interface KupInputPanel {
         /**
-          * Sets the callback function on blur input when checkObject is true
+          * Sets the callback for valid the object when cell checkObject is true
           * @default null
          */
         "checkValidObjCallback"?: InputPanelCheckValidObjCallback;
