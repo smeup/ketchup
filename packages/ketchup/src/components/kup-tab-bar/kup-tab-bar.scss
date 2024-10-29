@@ -160,6 +160,12 @@
       }
     }
 
+    @media screen and (min-width: 678px) {
+      .tab {
+        flex: none;
+      }
+    }
+
     .tab__content {
       position: relative;
       width: 100%;
