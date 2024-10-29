@@ -189,9 +189,12 @@ export class KupInputPanel {
 
     #eventBlurNames = new Map<FCellShapes, string>([
         [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
-        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
+        [FCellShapes.CHIP, 'kup-textfield-blur'],
         [FCellShapes.COMBOBOX, 'kup-combobox-blur'],
+        [FCellShapes.DATE, 'kup-datepicker-blur'],
+        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
         [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
+        [FCellShapes.TIME, 'kup-timepicker-blur'],
     ]);
 
     #listeners: { event: string; handler: (e) => void }[] = [];
@@ -958,8 +961,14 @@ export class KupInputPanel {
     #CHIAdapter(
         _options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
+
         return CHIAdapter(currentValue);
     }
 
@@ -1060,7 +1069,7 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkObject) {
-            this.#checkObjOnEvent(cell.shape, cell.obj, cell.fun);
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
         }
 
         return configCMandACP;
@@ -1069,9 +1078,22 @@ export class KupInputPanel {
     #CHKAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
-        return CHKAdapter(currentValue, fieldLabel);
+        let data = CHKAdapter(currentValue, fieldLabel);
+
+        if (cell.inputSettings?.checkObject) {
+            return {
+                ...data,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
+        return data;
     }
 
     #CLPAdapter(
@@ -1109,7 +1131,7 @@ export class KupInputPanel {
             return {
                 label: fieldLabel,
                 onBlur: () => {
-                    this.#checkITXObj(cell, id);
+                    this.#checkObjProp(cell, id);
                 },
             };
         }
@@ -1119,9 +1141,22 @@ export class KupInputPanel {
     #RADAdapter(
         options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
-        return RADAdapter(currentValue, options);
+        let data = RADAdapter(currentValue, options);
+
+        if (cell.inputSettings?.checkObject) {
+            return {
+                ...data,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
+        return data;
     }
 
     #SWTAdapter(
@@ -1135,8 +1170,14 @@ export class KupInputPanel {
     #DateAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
+
         return {
             data: {
                 'kup-text-field': {
@@ -1151,9 +1192,20 @@ export class KupInputPanel {
         _options: GenericObject,
         fieldLabel: string,
         currentValue: string,
-        _cell: KupInputPanelCell,
-        _id: string
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            return {
+                initialValue: currentValue || '',
+                label: fieldLabel || ' ',
+                value: currentValue || '',
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
         return {
             initialValue: currentValue || '',
             label: fieldLabel || ' ',
@@ -1164,8 +1216,13 @@ export class KupInputPanel {
     #TimeAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
         return {
             data: {
                 'kup-text-field': {
@@ -1178,8 +1235,18 @@ export class KupInputPanel {
     #NumberAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            return {
+                label: fieldLabel,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
         return { label: fieldLabel };
     }
 
@@ -1392,7 +1459,7 @@ export class KupInputPanel {
         });
     }
 
-    #checkITXObj(cell: KupInputPanelCell, id: string) {
+    #checkObjProp(cell: KupInputPanelCell, id: string) {
         this.checkValidObjCallback({
             obj: cell.obj,
             currentState: this.#reverseMapCells(),
@@ -1427,7 +1494,7 @@ export class KupInputPanel {
         });
     }
 
-    #checkObjOnEvent(shape: FCellShapes, obj: KupObj, fun: string) {
+    #checkObjOnEvent(id: string, shape: FCellShapes, obj: KupObj, fun: string) {
         const evName = this.#eventBlurNames.get(shape);
 
         if (!evName) {
@@ -1435,6 +1502,9 @@ export class KupInputPanel {
         }
 
         const handler = (e: CustomEvent<KupAutocompleteEventPayload>) => {
+            if (e.detail.id !== id) {
+                return;
+            }
             this.checkValidObjCallback({
                 obj: obj,
                 currentState: this.#reverseMapCells(),
