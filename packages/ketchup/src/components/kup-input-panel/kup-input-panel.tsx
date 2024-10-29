@@ -47,6 +47,7 @@ import {
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
+    InputPanelCheckValidObjCallback,
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
@@ -73,6 +74,7 @@ import {
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -127,6 +129,12 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() customButtonClickHandler?: InputPanelButtonClickHandler = null;
+
+    /**
+     * Sets the callback for valid the object when cell checkObject is true
+     * @default null
+     */
+    @Prop() checkValidObjCallback?: InputPanelCheckValidObjCallback = null;
     //#endregion
 
     //#region STATES
@@ -175,9 +183,20 @@ export class KupInputPanel {
             FCellTypes.MULTI_AUTOCOMPLETE,
             ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
         ],
-        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
+        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
+
+    #eventBlurNames = new Map<FCellShapes, string>([
+        [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
+        [FCellShapes.CHIP, 'kup-textfield-blur'],
+        [FCellShapes.COMBOBOX, 'kup-combobox-blur'],
+        [FCellShapes.DATE, 'kup-datepicker-blur'],
+        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
+        [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
+        [FCellShapes.TIME, 'kup-timepicker-blur'],
+    ]);
+
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
@@ -585,7 +604,6 @@ export class KupInputPanel {
             );
 
             const hasError = cells.cells.some((cellData) => {
-                console.log(cells);
                 const cell = cellData.cell;
                 const column = cellData.column;
                 return (
@@ -943,8 +961,14 @@ export class KupInputPanel {
     #CHIAdapter(
         _options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
+
         return CHIAdapter(currentValue);
     }
 
@@ -1044,15 +1068,32 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
+
         return configCMandACP;
     }
 
     #CHKAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
-        return CHKAdapter(currentValue, fieldLabel);
+        let data = CHKAdapter(currentValue, fieldLabel);
+
+        if (cell.inputSettings?.checkObject) {
+            return {
+                ...data,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
+        return data;
     }
 
     #CLPAdapter(
@@ -1082,17 +1123,40 @@ export class KupInputPanel {
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            return {
+                label: fieldLabel,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
         return { label: fieldLabel };
     }
 
     #RADAdapter(
         options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
-        return RADAdapter(currentValue, options);
+        let data = RADAdapter(currentValue, options);
+
+        if (cell.inputSettings?.checkObject) {
+            return {
+                ...data,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
+        return data;
     }
 
     #SWTAdapter(
@@ -1106,8 +1170,14 @@ export class KupInputPanel {
     #DateAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
+
         return {
             data: {
                 'kup-text-field': {
@@ -1122,9 +1192,20 @@ export class KupInputPanel {
         _options: GenericObject,
         fieldLabel: string,
         currentValue: string,
-        _cell: KupInputPanelCell,
-        _id: string
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            return {
+                initialValue: currentValue || '',
+                label: fieldLabel || ' ',
+                value: currentValue || '',
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
+
         return {
             initialValue: currentValue || '',
             label: fieldLabel || ' ',
@@ -1135,8 +1216,13 @@ export class KupInputPanel {
     #TimeAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        }
         return {
             data: {
                 'kup-text-field': {
@@ -1149,8 +1235,18 @@ export class KupInputPanel {
     #NumberAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        if (cell.inputSettings?.checkObject) {
+            return {
+                label: fieldLabel,
+                onBlur: () => {
+                    this.#checkObjProp(cell, id);
+                },
+            };
+        }
         return { label: fieldLabel };
     }
 
@@ -1360,6 +1456,72 @@ export class KupInputPanel {
             data.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(options, currentValue) ?? [];
             detail.comp.refresh();
+        });
+    }
+
+    #checkObjProp(cell: KupInputPanelCell, id: string) {
+        this.checkValidObjCallback({
+            obj: cell.obj,
+            currentState: this.#reverseMapCells(),
+            fun: cell.fun,
+        }).then(({ valid }) => {
+            this.inputPanelCells = this.inputPanelCells.map((cell) => ({
+                ...cell,
+                cells: cell.cells.map(({ cell, column }) => {
+                    const data =
+                        column.name === id
+                            ? {
+                                  ...cell.data,
+                                  error: valid
+                                      ? // If it's a valid object remove the error message
+                                        null
+                                      : // else set the error message
+                                        this.#kupManager.language.translate(
+                                            KupLanguageGeneric.INVALID_VALUE
+                                        ),
+                              }
+                            : cell.data;
+
+                    return {
+                        column,
+                        cell: {
+                            ...cell,
+                            data,
+                        },
+                    };
+                }),
+            }));
+        });
+    }
+
+    #checkObjOnEvent(id: string, shape: FCellShapes, obj: KupObj, fun: string) {
+        const evName = this.#eventBlurNames.get(shape);
+
+        if (!evName) {
+            return;
+        }
+
+        const handler = (e: CustomEvent<KupAutocompleteEventPayload>) => {
+            if (e.detail.id !== id) {
+                return;
+            }
+            this.checkValidObjCallback({
+                obj: obj,
+                currentState: this.#reverseMapCells(),
+                fun: fun,
+            }).then(({ valid }) => {
+                e.detail.comp.error = valid
+                    ? null
+                    : this.#kupManager.language.translate(
+                          KupLanguageGeneric.INVALID_VALUE
+                      );
+                e.detail.comp.refresh();
+            });
+        };
+        this.rootElement.addEventListener(evName, handler);
+        this.#listeners.push({
+            event: evName,
+            handler,
         });
     }
 

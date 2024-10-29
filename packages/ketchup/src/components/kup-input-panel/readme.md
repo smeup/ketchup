@@ -9,6 +9,7 @@
 
 | Property                   | Attribute              | Description                                                            | Type                                                                                                           | Default |
 | -------------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| `checkValidObjCallback`    | --                     | Sets the callback for valid the object when cell checkObject is true   | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>`   | `null`  |
 | `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                           | `null`  |
 | `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                       | `''`    |
 | `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                                            | `null`  |

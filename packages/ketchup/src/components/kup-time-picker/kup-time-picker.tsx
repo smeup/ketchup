@@ -535,6 +535,7 @@ export class KupTimePicker {
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
+                onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClick={() => this.onKupClick()}
                 onFocus={() => this.onKupFocus()}
