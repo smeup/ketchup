@@ -267,7 +267,7 @@ const MainCHIAdapter = (
         data: options?.length
             ? options?.map((option) => ({
                   id: option.id,
-                  value: option.value,
+                  value: option.id,
               }))
             : [],
     };
