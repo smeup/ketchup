@@ -178,6 +178,7 @@ export enum KupLanguageGeneric {
     ROW_ADD = 'genericRowAdd',
     ROW_DELETE = 'genericRowDelete',
     INVALID_VALUE = 'genericInvalidValue',
+    REQUIRED_VALUE = 'genericRequiredValue',
 }
 /**
  * Grid decodes (data table customization settings).
