@@ -1131,7 +1131,9 @@ export class KupInputPanel {
             return {
                 label: fieldLabel,
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    if (cell.obj?.k) {
+                        this.#checkObjProp(cell, id);
+                    }
                 },
             };
         }
@@ -1502,7 +1504,7 @@ export class KupInputPanel {
         }
 
         const handler = (e: CustomEvent<KupAutocompleteEventPayload>) => {
-            if (e.detail.id !== id) {
+            if (e.detail.id !== id || !e.detail.value) {
                 return;
             }
             this.checkValidObjCallback({
