@@ -506,7 +506,7 @@
             "genericRowDelete": "Elimina riga",
             "genericRowAdd": "Aggiungi riga",
             "genericInvalidValue": "Valore non valido",
-            "genericRequiredValue": "Valore obbliggatorio"
+            "genericRequiredValue": "Valore obbligatorio"
         },
         "variants": {
             "smeup": {
