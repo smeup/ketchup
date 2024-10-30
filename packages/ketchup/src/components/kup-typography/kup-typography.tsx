@@ -38,6 +38,7 @@ import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
+    assetsDirs: ['assets/fonts'],
     tag: 'kup-typography',
     styleUrl: 'kup-typography.scss',
     shadow: true,

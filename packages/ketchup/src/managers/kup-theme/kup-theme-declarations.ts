@@ -211,7 +211,7 @@ export interface KupThemeElement {
     cssVariables: KupThemeCSSVariables;
     icons: KupThemeIcons;
     customStyles?: GenericObject;
-    imports?: string[];
+    fonts?: KupThemeFonts[];
 }
 /**
  * All CSS variables managed by KupTheme.
@@ -342,3 +342,11 @@ export enum KupThemeIconValues {
     KEY = '--kup-key-icon',
     SEARCH = '--kup-search-icon',
 }
+export enum KupThemeFonts {
+    IBM_PLEX_MONO = 'IbmPlexMono-Regular',
+    IBM_PLEX_SANS = 'IbmPlexSans-Regular',
+}
+export const KupThemeFontFamilyMap: Record<KupThemeFonts, string> = {
+    [KupThemeFonts.IBM_PLEX_MONO]: 'IBM Plex Mono',
+    [KupThemeFonts.IBM_PLEX_SANS]: 'IBM Plex Sans',
+};
