@@ -182,9 +182,6 @@ export class KupInputPanel {
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
-        // [FCellTypes.COMBOBOX, 'kup-combobox'],
-        // [FCellTypes.EDITOR, 'kup-editor'],
-        // [FCellTypes.CHIP, 'kup-chip'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
