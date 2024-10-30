@@ -182,6 +182,9 @@ export class KupInputPanel {
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
+        // [FCellTypes.COMBOBOX, 'kup-combobox'],
+        // [FCellTypes.EDITOR, 'kup-editor'],
+        // [FCellTypes.CHIP, 'kup-chip'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -225,7 +228,6 @@ export class KupInputPanel {
             });
             this.#keysShortcut = [];
         }
-
         this.#mapCells(this.data);
     }
     //#endregion
@@ -751,7 +753,6 @@ export class KupInputPanel {
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
-
         inpuPanelCells.map(({ cells }: InputPanelCells) =>
             cells.map(({ cell, column }) => {
                 const cellType = dom.ketchup.data.cell.getType(
@@ -764,8 +765,12 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name}]`
+                    `${componentQuery}[id=${column.name.replace(
+                        /\//g,
+                        '\\$1'
+                    )}]`
                 );
+
                 el?.setValue(cell.value);
             })
         );
