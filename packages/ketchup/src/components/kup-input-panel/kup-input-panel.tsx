@@ -321,6 +321,7 @@ export class KupInputPanel {
         const layout = inputPanelCell.row.layout;
 
         const horizontal = layout?.horizontal || false;
+        const styleObj: GenericObject = {};
 
         let rowContent: VNode[];
 
@@ -329,9 +330,29 @@ export class KupInputPanel {
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
         } else {
-            rowContent = layout.absolute
-                ? this.#renderAbsoluteLayout(inputPanelCell, layout)
-                : this.#renderGridLayout(inputPanelCell, layout);
+            if (layout.absolute) {
+                rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
+            } else {
+                const hasDim = layout.sections.some((sec) => sec.dim);
+
+                if (layout.horizontal) {
+                    styleObj.display = 'grid';
+                    styleObj.gridTemplateColumns = hasDim
+                        ? layout.sections
+                              .map((sec) => sec.dim || 'auto')
+                              .join(' ')
+                        : `repeat(${layout.sections.length}, 1fr)`;
+                } else {
+                    styleObj.display = 'grid';
+                    styleObj.gridTemplateRows = hasDim
+                        ? layout.sections
+                              .map((sec) => sec.dim || 'auto')
+                              .join(' ')
+                        : `repeat(${layout.sections.length}, 1fr)`;
+                }
+
+                rowContent = this.#renderGridLayout(inputPanelCell, layout);
+            }
         }
 
         const classObj = {
@@ -343,7 +364,6 @@ export class KupInputPanel {
         // We create a form for each row in data
         return (
             <form
-                class={classObj}
                 name={this.rootElement.id}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
@@ -355,7 +375,9 @@ export class KupInputPanel {
                     });
                 }}
             >
-                {rowContent}
+                <div class={classObj} style={styleObj}>
+                    {rowContent}
+                </div>
                 {!this.hiddenSubmitButton ? (
                     <FButton
                         buttonType="submit"
