@@ -12,7 +12,21 @@ export enum KupTabBarProps {
     data = 'List of elements.',
     ripple = "When enabled displays Material's ripple effect on item headers.",
     toolbar = 'when true, it will show the toolbar activation icon',
+    variant = 'Variant of the component. It is either flat or contained',
 }
+
+/**
+ * Styling options for the f-button component.
+ * @enum {string}
+ * @property {string} FLAT - Flat style: no background nor borders.
+ * @property {string} CONTAINED - Background and active field as background.
+
+ */
+export enum KupTabbarStyling {
+    FLAT = 'flat',
+    CONTAINED = 'contained',
+}
+
 /**
  * The object of a single radio.
  */

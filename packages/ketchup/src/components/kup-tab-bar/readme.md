@@ -5,14 +5,15 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type              | Default     |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`        |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`      |
-| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false`     |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false`     |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `true`      |
-| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`   | `undefined` |
+| Property      | Attribute      | Description                                                     | Type                                                  | Default                      |
+| ------------- | -------------- | --------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                              | `''`                         |
+| `data`        | --             | List of elements.                                               | `KupTabBarNode[]`                                     | `null`                       |
+| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`                                             | `false`                      |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                      |
+| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `true`                       |
+| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`                                       | `undefined`                  |
+| `variant`     | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.CONTAINED` |
 
 
 ## Events
