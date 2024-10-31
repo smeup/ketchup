@@ -144,6 +144,10 @@ export type InputPanelButtonClickHandler = (event: {
     currentState: KupInputPanelData;
 }) => void;
 
+export type InputPanelCheckValidValueCallback = (
+    currentState: KupInputPanelSubmitValue
+) => void;
+
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the input panel.',

@@ -48,6 +48,7 @@ import {
     InputPanelButtonClickHandler,
     InputPanelCells,
     InputPanelCheckValidObjCallback,
+    InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
@@ -135,6 +136,12 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() checkValidObjCallback?: InputPanelCheckValidObjCallback = null;
+
+    /**
+     * Sets the callback for valid the object when cell checkObject is true
+     * @default null
+     */
+    @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
     //#endregion
 
     //#region STATES
@@ -976,7 +983,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             this.#checkOnBlurEvent(cell, id);
         }
 
@@ -1079,7 +1090,11 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             this.#checkOnBlurEvent(cell, id);
         }
 
@@ -1095,7 +1110,11 @@ export class KupInputPanel {
     ) {
         let data = CHKAdapter(currentValue, fieldLabel);
 
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             return {
                 ...data,
                 onBlur: () => {
@@ -1138,7 +1157,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             return {
                 label: fieldLabel,
                 onBlur: () => {
@@ -1158,7 +1181,11 @@ export class KupInputPanel {
     ) {
         let data = RADAdapter(currentValue, options);
 
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             return {
                 ...data,
                 onBlur: () => {
@@ -1185,7 +1212,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             this.#checkOnBlurEvent(cell, id);
         }
 
@@ -1206,7 +1237,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             return {
                 initialValue: currentValue || '',
                 label: fieldLabel || ' ',
@@ -1231,7 +1266,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             this.#checkOnBlurEvent(cell, id);
         }
         return {
@@ -1250,7 +1289,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject || cell.mandatory) {
+        if (
+            cell.inputSettings?.checkObject ||
+            cell.inputSettings?.checkValueOnExit ||
+            cell.mandatory
+        ) {
             return {
                 label: fieldLabel,
                 onBlur: () => {
@@ -1470,7 +1513,7 @@ export class KupInputPanel {
         });
     }
 
-    #checkOnBlurProp(cell: KupInputPanelCell, id: string) {
+    async #checkOnBlurProp(cell: KupInputPanelCell, id: string) {
         const currCell = this.#getCell(id);
 
         // Required cell check
@@ -1485,29 +1528,36 @@ export class KupInputPanel {
                           KupLanguageGeneric.REQUIRED_VALUE
                       )
             );
-        }
 
-        if (!currCell.value) {
-            return;
+            if (!currCell.value) {
+                return;
+            }
         }
 
         // Valid object check
-        if (cell.inputSettings?.checkObject) {
-            this.checkValidObjCallback({
+        if (cell.inputSettings?.checkObject && currCell.value) {
+            const { valid } = await this.checkValidObjCallback({
                 obj: cell.obj,
                 currentState: this.#reverseMapCells(),
                 fun: cell.fun,
-            }).then(({ valid }) => {
+            });
+            if (valid) {
+                this.#setCellError(id, null);
+            } else {
                 this.#setCellError(
                     id,
-                    valid
-                        ? // If it's a valid object remove the error message
-                          null
-                        : // else set the error message
-                          this.#kupManager.language.translate(
-                              KupLanguageGeneric.INVALID_VALUE
-                          )
+                    this.#kupManager.language.translate(
+                        KupLanguageGeneric.INVALID_VALUE
+                    )
                 );
+                return;
+            }
+        }
+
+        if (cell.inputSettings?.checkValueOnExit) {
+            this.checkValidValueCallback({
+                before: { ...this.#originalData },
+                after: this.#reverseMapCells(),
             });
         }
     }
@@ -1519,7 +1569,7 @@ export class KupInputPanel {
             return;
         }
 
-        const handler = (e: CustomEvent<KupAutocompleteEventPayload>) => {
+        const handler = async (e: CustomEvent<KupAutocompleteEventPayload>) => {
             if (e.detail.id !== id) {
                 return;
             }
@@ -1534,25 +1584,34 @@ export class KupInputPanel {
                           KupLanguageGeneric.REQUIRED_VALUE
                       );
                 e.detail.comp.refresh();
-            }
 
-            if (!e.detail.value) {
-                return;
+                if (!e.detail.value) {
+                    return;
+                }
             }
 
             // Valid object check
-            if (cell.inputSettings?.checkObject) {
-                this.checkValidObjCallback({
+            if (cell.inputSettings?.checkObject && e.detail.value) {
+                const { valid } = await this.checkValidObjCallback({
                     obj: cell.obj,
                     currentState: this.#reverseMapCells(),
                     fun: cell.fun,
-                }).then(({ valid }) => {
-                    e.detail.comp.error = valid
-                        ? null
-                        : this.#kupManager.language.translate(
-                              KupLanguageGeneric.INVALID_VALUE
-                          );
-                    e.detail.comp.refresh();
+                });
+                e.detail.comp.error = valid
+                    ? null
+                    : this.#kupManager.language.translate(
+                          KupLanguageGeneric.INVALID_VALUE
+                      );
+                e.detail.comp.refresh();
+                if (!valid) {
+                    return;
+                }
+            }
+
+            if (cell.inputSettings?.checkValueOnExit) {
+                this.checkValidValueCallback({
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
                 });
             }
         };
