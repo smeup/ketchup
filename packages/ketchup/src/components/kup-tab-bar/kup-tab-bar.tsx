@@ -17,6 +17,7 @@ import {
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
+    KupTabbarStyling,
 } from './kup-tab-bar-declarations';
 import {
     KupManager,
@@ -70,6 +71,11 @@ export class KupTabBar {
      * @default null
      */
     @Prop() data: KupTabBarNode[] = null;
+    /**
+     * List of elements.
+     * @default KupTabbarStyling.FLAT
+     */
+    @Prop() variant: KupTabbarStyling = KupTabbarStyling.FLAT;
     /**
      * Defaults at false. When set to true, the component is dense.
      * @default false
@@ -465,6 +471,11 @@ export class KupTabBar {
             tabBar.push(tabEl);
         }
 
+        const tabbarRole: Record<string, boolean> = {
+            'tab-bar': true,
+            [`tab-bar--${this.variant}`]: this.variant ? true : false,
+        };
+
         return (
             <Host>
                 <style>
@@ -473,7 +484,7 @@ export class KupTabBar {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div class="tab-bar" role="tablist">
+                    <div class={tabbarRole} role="tablist">
                         <div class="tab-scroller">
                             <div
                                 class="tab-scroller__scroll-area"

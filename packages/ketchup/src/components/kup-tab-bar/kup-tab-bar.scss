@@ -119,6 +119,7 @@
       &.tab--active {
         .tab__iconToolbar {
           opacity: 0.3;
+          min-width: 16px;
         }
         &:hover {
           .tab__iconToolbar:hover {
@@ -241,6 +242,29 @@
           color: var(--kup_tabindicator_border_bottom_color);
         }
       }
+    }
+  }
+
+  &.tab-bar--contained {
+    .tab-scroller .tab-scroller__scroll-content {
+      gap: 0px;
+    }
+    .tab {
+      background-color: var(--kup-gray-color-10);
+      border-right: 1px solid var(--kup-gray-color-20);
+      &:nth-last-child(1) {
+        border-right: none;
+      }
+      &:hover {
+        background-color: var(--kup-gray-color-10-hover);
+      }
+      .tab-indicator {
+        height: auto;
+      }
+    }
+    .tab--active {
+      background-color: var(--kup-gray-color-0);
+      border: none;
     }
   }
 }
