@@ -56,7 +56,7 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabBarNode, KupTabbarStyling } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
@@ -114,7 +114,7 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabBarNode, KupTabbarStyling } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
@@ -3887,6 +3887,11 @@ export namespace Components {
           * @default null
          */
         "toolbarData": KupDataNode[];
+        /**
+          * List of elements.
+          * @default KupTabbarStyling.CONTAINED
+         */
+        "variant": KupTabbarStyling;
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -9074,6 +9079,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "toolbarData"?: KupDataNode[];
+        /**
+          * List of elements.
+          * @default KupTabbarStyling.CONTAINED
+         */
+        "variant"?: KupTabbarStyling;
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];

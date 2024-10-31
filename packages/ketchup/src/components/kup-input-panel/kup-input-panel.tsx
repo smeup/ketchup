@@ -244,7 +244,6 @@ export class KupInputPanel {
             });
             this.#keysShortcut = [];
         }
-
         this.#mapCells(this.data);
     }
     //#endregion
@@ -301,6 +300,15 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    #getCell(id: string) {
+        return this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
+            if (!cell) {
+                return cells.find(({ column }) => column.name === id).cell;
+            }
+            return cell;
+        }, null);
+    }
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
@@ -769,7 +777,6 @@ export class KupInputPanel {
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
-
         inpuPanelCells.map(({ cells }: InputPanelCells) =>
             cells.map(({ cell, column }) => {
                 const cellType = dom.ketchup.data.cell.getType(
@@ -782,8 +789,12 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name}]`
+                    `${componentQuery}[id=${column.name.replace(
+                        /\//g,
+                        '\\$1'
+                    )}]`
                 );
+
                 el?.setValue(cell.value);
             })
         );
@@ -965,8 +976,8 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
-            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
+            this.#checkOnBlurEvent(cell, id);
         }
 
         return CHIAdapter(currentValue);
@@ -1068,8 +1079,8 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
-        if (cell.inputSettings?.checkObject) {
-            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
+            this.#checkOnBlurEvent(cell, id);
         }
 
         return configCMandACP;
@@ -1084,11 +1095,11 @@ export class KupInputPanel {
     ) {
         let data = CHKAdapter(currentValue, fieldLabel);
 
-        if (cell.inputSettings?.checkObject) {
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
             return {
                 ...data,
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    this.#checkOnBlurProp(cell, id);
                 },
             };
         }
@@ -1127,11 +1138,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
             return {
                 label: fieldLabel,
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    this.#checkOnBlurProp(cell, id);
                 },
             };
         }
@@ -1147,11 +1158,11 @@ export class KupInputPanel {
     ) {
         let data = RADAdapter(currentValue, options);
 
-        if (cell.inputSettings?.checkObject) {
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
             return {
                 ...data,
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    this.#checkOnBlurProp(cell, id);
                 },
             };
         }
@@ -1174,8 +1185,8 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
-            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
+            this.#checkOnBlurEvent(cell, id);
         }
 
         return {
@@ -1195,13 +1206,13 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
             return {
                 initialValue: currentValue || '',
                 label: fieldLabel || ' ',
                 value: currentValue || '',
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    this.#checkOnBlurProp(cell, id);
                 },
             };
         }
@@ -1220,8 +1231,8 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
-            this.#checkObjOnEvent(id, cell.shape, cell.obj, cell.fun);
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
+            this.#checkOnBlurEvent(cell, id);
         }
         return {
             data: {
@@ -1239,11 +1250,11 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSettings?.checkObject) {
+        if (cell.inputSettings?.checkObject || cell.mandatory) {
             return {
                 label: fieldLabel,
                 onBlur: () => {
-                    this.#checkObjProp(cell, id);
+                    this.#checkOnBlurProp(cell, id);
                 },
             };
         }
@@ -1459,43 +1470,50 @@ export class KupInputPanel {
         });
     }
 
-    #checkObjProp(cell: KupInputPanelCell, id: string) {
-        this.checkValidObjCallback({
-            obj: cell.obj,
-            currentState: this.#reverseMapCells(),
-            fun: cell.fun,
-        }).then(({ valid }) => {
-            this.inputPanelCells = this.inputPanelCells.map((cell) => ({
-                ...cell,
-                cells: cell.cells.map(({ cell, column }) => {
-                    const data =
-                        column.name === id
-                            ? {
-                                  ...cell.data,
-                                  error: valid
-                                      ? // If it's a valid object remove the error message
-                                        null
-                                      : // else set the error message
-                                        this.#kupManager.language.translate(
-                                            KupLanguageGeneric.INVALID_VALUE
-                                        ),
-                              }
-                            : cell.data;
+    #checkOnBlurProp(cell: KupInputPanelCell, id: string) {
+        const currCell = this.#getCell(id);
 
-                    return {
-                        column,
-                        cell: {
-                            ...cell,
-                            data,
-                        },
-                    };
-                }),
-            }));
-        });
+        // Required cell check
+        if (cell.mandatory) {
+            this.#setCellError(
+                id,
+                currCell.value
+                    ? // If it's not empty remove the error message
+                      null
+                    : // else set the error message
+                      this.#kupManager.language.translate(
+                          KupLanguageGeneric.REQUIRED_VALUE
+                      )
+            );
+        }
+
+        if (!currCell.value) {
+            return;
+        }
+
+        // Valid object check
+        if (cell.inputSettings?.checkObject) {
+            this.checkValidObjCallback({
+                obj: cell.obj,
+                currentState: this.#reverseMapCells(),
+                fun: cell.fun,
+            }).then(({ valid }) => {
+                this.#setCellError(
+                    id,
+                    valid
+                        ? // If it's a valid object remove the error message
+                          null
+                        : // else set the error message
+                          this.#kupManager.language.translate(
+                              KupLanguageGeneric.INVALID_VALUE
+                          )
+                );
+            });
+        }
     }
 
-    #checkObjOnEvent(id: string, shape: FCellShapes, obj: KupObj, fun: string) {
-        const evName = this.#eventBlurNames.get(shape);
+    #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
+        const evName = this.#eventBlurNames.get(cell.shape);
 
         if (!evName) {
             return;
@@ -1505,24 +1523,66 @@ export class KupInputPanel {
             if (e.detail.id !== id) {
                 return;
             }
-            this.checkValidObjCallback({
-                obj: obj,
-                currentState: this.#reverseMapCells(),
-                fun: fun,
-            }).then(({ valid }) => {
-                e.detail.comp.error = valid
-                    ? null
-                    : this.#kupManager.language.translate(
-                          KupLanguageGeneric.INVALID_VALUE
+
+            // Required cell check
+            if (cell.mandatory) {
+                e.detail.comp.error = e.detail.value
+                    ? // If it's not empty remove the error message
+                      null
+                    : // else set the error message
+                      this.#kupManager.language.translate(
+                          KupLanguageGeneric.REQUIRED_VALUE
                       );
                 e.detail.comp.refresh();
-            });
+            }
+
+            if (!e.detail.value) {
+                return;
+            }
+
+            // Valid object check
+            if (cell.inputSettings?.checkObject) {
+                this.checkValidObjCallback({
+                    obj: cell.obj,
+                    currentState: this.#reverseMapCells(),
+                    fun: cell.fun,
+                }).then(({ valid }) => {
+                    e.detail.comp.error = valid
+                        ? null
+                        : this.#kupManager.language.translate(
+                              KupLanguageGeneric.INVALID_VALUE
+                          );
+                    e.detail.comp.refresh();
+                });
+            }
         };
         this.rootElement.addEventListener(evName, handler);
         this.#listeners.push({
             event: evName,
             handler,
         });
+    }
+
+    #setCellError(id: string, error: string) {
+        this.inputPanelCells = this.inputPanelCells.map((cell) => ({
+            ...cell,
+            cells: cell.cells.map(({ cell, column }) => {
+                const data =
+                    column.name === id
+                        ? {
+                              ...cell.data,
+                              error,
+                          }
+                        : cell.data;
+                return {
+                    column,
+                    cell: {
+                        ...cell,
+                        data,
+                    },
+                };
+            }),
+        }));
     }
 
     //#endregion
