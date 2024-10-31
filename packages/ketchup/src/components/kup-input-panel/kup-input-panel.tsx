@@ -244,7 +244,6 @@ export class KupInputPanel {
             });
             this.#keysShortcut = [];
         }
-
         this.#mapCells(this.data);
     }
     //#endregion
@@ -328,7 +327,6 @@ export class KupInputPanel {
         // We create a form for each row in data
         return (
             <form
-                class={classObj}
                 name={this.rootElement.id}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
@@ -340,7 +338,7 @@ export class KupInputPanel {
                     });
                 }}
             >
-                {rowContent}
+                <div class={classObj}>{rowContent}</div>
                 {!this.hiddenSubmitButton ? (
                     <FButton
                         buttonType="submit"
@@ -769,7 +767,6 @@ export class KupInputPanel {
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
-
         inpuPanelCells.map(({ cells }: InputPanelCells) =>
             cells.map(({ cell, column }) => {
                 const cellType = dom.ketchup.data.cell.getType(
@@ -782,8 +779,12 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name}]`
+                    `${componentQuery}[id=${column.name.replace(
+                        /\//g,
+                        '\\$1'
+                    )}]`
                 );
+
                 el?.setValue(cell.value);
             })
         );
