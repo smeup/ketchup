@@ -3879,7 +3879,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * When enabled displays toolbar item inside each single tab.
-          * @default true
+          * @default false
          */
         "toolbar": boolean;
         /**
@@ -9066,7 +9066,7 @@ declare namespace LocalJSX {
         "ripple"?: boolean;
         /**
           * When enabled displays toolbar item inside each single tab.
-          * @default true
+          * @default false
          */
         "toolbar"?: boolean;
         /**

@@ -82,9 +82,9 @@ export class KupTabBar {
     @Prop() ripple: boolean = false;
     /**
      * When enabled displays toolbar item inside each single tab.
-     * @default true
+     * @default false
      */
-    @Prop() toolbar: boolean = true;
+    @Prop() toolbar: boolean = false;
     /**
      * Display DataNode Toolbar.
      * @default null

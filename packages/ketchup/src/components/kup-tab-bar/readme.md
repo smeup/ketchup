@@ -11,7 +11,7 @@
 | `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`      |
 | `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false`     |
 | `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false`     |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `true`      |
+| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `false`     |
 | `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`   | `undefined` |
 
 
