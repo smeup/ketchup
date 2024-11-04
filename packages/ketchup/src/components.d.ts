@@ -3894,7 +3894,7 @@ export namespace Components {
         "toolbarData": KupDataNode[];
         /**
           * List of elements.
-          * @default KupTabbarStyling.CONTAINED
+          * @default KupTabbarStyling.FLAT
          */
         "variant": KupTabbarStyling;
     }
@@ -9091,7 +9091,7 @@ declare namespace LocalJSX {
         "toolbarData"?: KupDataNode[];
         /**
           * List of elements.
-          * @default KupTabbarStyling.CONTAINED
+          * @default KupTabbarStyling.FLAT
          */
         "variant"?: KupTabbarStyling;
     }
