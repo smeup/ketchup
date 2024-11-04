@@ -1577,7 +1577,7 @@ export class KupInputPanel {
             }
         }
 
-        if (cell.inputSettings?.checkValueOnExit) {
+        if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
             this.checkValidValueCallback({
                 before: { ...this.#originalData },
                 after: this.#reverseMapCells(),
@@ -1631,7 +1631,10 @@ export class KupInputPanel {
                 }
             }
 
-            if (cell.inputSettings?.checkValueOnExit) {
+            if (
+                cell.inputSettings?.checkValueOnExit &&
+                this.#areValuesUpdated()
+            ) {
                 this.checkValidValueCallback({
                     before: { ...this.#originalData },
                     after: this.#reverseMapCells(),
@@ -1665,6 +1668,15 @@ export class KupInputPanel {
                 };
             }),
         }));
+    }
+
+    #areValuesUpdated() {
+        return this.inputPanelCells.some(({ cells, row }) =>
+            cells.some(
+                ({ cell, column: { name } }) =>
+                    cell.value !== row.cells[name].value
+            )
+        );
     }
 
     //#endregion
