@@ -628,6 +628,26 @@ export class KupInputPanel {
         return <div style={sectionStyle}>{content}</div>;
     }
 
+    #extractContentIds(node: KupInputPanelLayoutSection) {
+        let ids: string[] = [];
+
+        if (Array.isArray(node.content)) {
+            node.content.forEach((item) => {
+                if (item.id) {
+                    ids.push(item.id);
+                }
+            });
+        }
+
+        if (Array.isArray(node.sections) && node.sections.length > 0) {
+            node.sections.forEach((section) => {
+                ids = ids.concat(this.#extractContentIds(section));
+            });
+        }
+
+        return ids;
+    }
+
     #renderSectionTab(
         cells: InputPanelCells,
         sections: KupInputPanelLayoutSection[]
@@ -637,9 +657,7 @@ export class KupInputPanel {
         }
 
         const tabNodes: KupTabBarNode[] = sections.map((section, i) => {
-            const cellIdsInSection = section.content.map(
-                (contentItem) => contentItem.id
-            );
+            const cellIdsInSection = this.#extractContentIds(section);
 
             const hasError = cells.cells.some((cellData) => {
                 const cell = cellData.cell;
@@ -1587,27 +1605,39 @@ export class KupInputPanel {
 
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
         const evName = this.#eventBlurNames.get(cell.shape);
-
         if (!evName) {
             return;
         }
 
         const handler = async (e: CustomEvent<KupAutocompleteEventPayload>) => {
+            const currCell = this.#getCell(id);
+
             if (e.detail.id !== id) {
                 return;
             }
-
+            
             // Required cell check
             if (cell.mandatory) {
+                this.#setCellError(
+                    id,
+                    currCell.value
+                        ? // If it's not empty remove the error message
+                          null
+                        : // else set the error message
+                          this.#kupManager.language.translate(
+                              KupLanguageGeneric.REQUIRED_VALUE
+                          )
+                );
+                // TODO: is necessary?
                 e.detail.comp.error = e.detail.value
-                    ? // If it's not empty remove the error message
-                      null
-                    : // else set the error message
-                      this.#kupManager.language.translate(
-                          KupLanguageGeneric.REQUIRED_VALUE
-                      );
+                ? // If it's not empty remove the error message
+                null
+                : // else set the error message
+                this.#kupManager.language.translate(
+                    KupLanguageGeneric.REQUIRED_VALUE
+                );
                 e.detail.comp.refresh();
-
+                
                 if (!e.detail.value) {
                     return;
                 }
@@ -1615,6 +1645,17 @@ export class KupInputPanel {
 
             // Valid object check
             if (cell.inputSettings?.checkObject && e.detail.value) {
+                
+                this.#setCellError(
+                    id,
+                    currCell.value
+                        ? // If it's not empty remove the error message
+                          null
+                        : // else set the error message
+                          this.#kupManager.language.translate(
+                              KupLanguageGeneric.REQUIRED_VALUE
+                          )
+                );
                 const { valid } = await this.checkValidObjCallback({
                     obj: cell.obj,
                     currentState: this.#reverseMapCells(),
