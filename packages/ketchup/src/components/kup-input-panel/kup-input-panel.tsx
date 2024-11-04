@@ -333,22 +333,23 @@ export class KupInputPanel {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
             } else {
-                const hasDim = layout.sections.some((sec) => sec.dim);
+                if (!layout.sectionsType) {
+                    const hasDim = layout.sections.some((sec) => sec.dim);
+                    styleObj.display = 'grid';
 
-                if (layout.horizontal) {
-                    styleObj.display = 'grid';
-                    styleObj.gridTemplateColumns = hasDim
-                        ? layout.sections
-                              .map((sec) => sec.dim || 'auto')
-                              .join(' ')
-                        : `repeat(${layout.sections.length}, 1fr)`;
-                } else {
-                    styleObj.display = 'grid';
-                    styleObj.gridTemplateRows = hasDim
-                        ? layout.sections
-                              .map((sec) => sec.dim || 'auto')
-                              .join(' ')
-                        : `repeat(${layout.sections.length}, 1fr)`;
+                    if (layout.horizontal) {
+                        styleObj.gridTemplateColumns = hasDim
+                            ? layout.sections
+                                  .map((sec) => sec.dim || 'auto')
+                                  .join(' ')
+                            : `repeat(${layout.sections.length}, 1fr)`;
+                    } else {
+                        styleObj.gridTemplateRows = hasDim
+                            ? layout.sections
+                                  .map((sec) => sec.dim || 'auto')
+                                  .join(' ')
+                            : `repeat(${layout.sections.length}, 1fr)`;
+                    }
                 }
 
                 rowContent = this.#renderGridLayout(inputPanelCell, layout);
