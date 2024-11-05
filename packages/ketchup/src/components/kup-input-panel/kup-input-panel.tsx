@@ -631,7 +631,7 @@ export class KupInputPanel {
     #extractContentIds(node: KupInputPanelLayoutSection) {
         let ids: string[] = [];
 
-        if (Array.isArray(node.content)) {
+        if (node.content?.length) {
             node.content.forEach((item) => {
                 if (item.id) {
                     ids.push(item.id);
@@ -639,7 +639,7 @@ export class KupInputPanel {
             });
         }
 
-        if (Array.isArray(node.sections) && node.sections.length > 0) {
+        if (node.sections?.length) {
             node.sections.forEach((section) => {
                 ids = ids.concat(this.#extractContentIds(section));
             });
@@ -1604,7 +1604,6 @@ export class KupInputPanel {
     }
 
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
-        const type = this.data.rows[0]?.layout?.sectionsType
         const evName = this.#eventBlurNames.get(cell.shape);
         if (!evName) {
             return;
@@ -1616,7 +1615,7 @@ export class KupInputPanel {
             if (e.detail.id !== id) {
                 return;
             }
-            
+
             // Required cell check
             if (cell.mandatory) {
                 this.#setCellError(
@@ -1629,16 +1628,7 @@ export class KupInputPanel {
                               KupLanguageGeneric.REQUIRED_VALUE
                           )
                 );
-                // TODO: is necessary?
-                e.detail.comp.error = e.detail.value
-                ? // If it's not empty remove the error message
-                null
-                : // else set the error message
-                this.#kupManager.language.translate(
-                    KupLanguageGeneric.REQUIRED_VALUE
-                );
-                e.detail.comp.refresh();
-                
+
                 if (!e.detail.value) {
                     return;
                 }
@@ -1646,10 +1636,15 @@ export class KupInputPanel {
 
             // Valid object check
             if (cell.inputSettings?.checkObject && e.detail.value) {
-                
+                const { valid } = await this.checkValidObjCallback({
+                    obj: cell.obj,
+                    currentState: this.#reverseMapCells(),
+                    fun: cell.fun,
+                });
+
                 this.#setCellError(
                     id,
-                    currCell.value
+                    valid
                         ? // If it's not empty remove the error message
                           null
                         : // else set the error message
@@ -1657,17 +1652,6 @@ export class KupInputPanel {
                               KupLanguageGeneric.REQUIRED_VALUE
                           )
                 );
-                const { valid } = await this.checkValidObjCallback({
-                    obj: cell.obj,
-                    currentState: this.#reverseMapCells(),
-                    fun: cell.fun,
-                });
-                e.detail.comp.error = valid
-                    ? null
-                    : this.#kupManager.language.translate(
-                          KupLanguageGeneric.INVALID_VALUE
-                      );
-                e.detail.comp.refresh();
                 if (!valid) {
                     return;
                 }
