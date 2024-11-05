@@ -788,6 +788,7 @@ export class KupInputPanel {
     }
 
     #mapCells(data: KupInputPanelData) {
+        const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
                   const cells = data.columns
@@ -797,7 +798,7 @@ export class KupInputPanel {
                           const mappedCell = cell
                               ? {
                                     ...cell,
-                                    data: this.#setData(cell, column),
+                                    data: this.#setData(cell, column, layout),
                                     slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
@@ -832,9 +833,13 @@ export class KupInputPanel {
         this.inputPanelCells = inpuPanelCells;
     }
 
-    #setData(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+    #setData(
+        cell: KupInputPanelCell,
+        column: KupInputPanelColumn,
+        layout?: KupInputPanelLayout
+    ) {
         const defaultProps = {
-            ...this.#mapData(cell, column),
+            ...this.#mapData(cell, column, layout),
             disabled: !cell.editable,
             id: column.name,
         };
@@ -921,13 +926,22 @@ export class KupInputPanel {
         );
     }
 
-    #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
+    #mapData(
+        cell: KupInputPanelCell,
+        col: KupInputPanelColumn,
+        layout?: KupInputPanelLayout
+    ) {
         if (!cell) {
             return null;
         }
 
         const options = cell.options;
-        const fieldLabel = col.title;
+        let fieldLabel: string;
+        if (layout?.absolute) {
+            fieldLabel = null;
+        } else {
+            fieldLabel = col.title;
+        }
         const currentValue = cell.value;
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
