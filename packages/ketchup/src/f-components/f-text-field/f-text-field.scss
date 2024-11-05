@@ -91,9 +91,6 @@
       flex-direction: column;
       gap: 8px;
     }
-    .mdc-text-field-container--disabled {
-      opacity: 0.5;
-    }
 
     .mdc-text-field__label-container {
       display: flex;
@@ -606,6 +603,18 @@
     }
     .mdc-text-field__input::placeholder {
       opacity: 1;
+    }
+
+    .mdc-text-field-container--disabled {
+      .mdc-text-field__label-container {
+        label,
+        .mdc-text-field-character-counter {
+          color: var(--kup-text-disabled);
+        }
+      }
+      .mdc-text-field__input {
+        color: var(--kup-text-disabled);
+      }
     }
   }
 }
