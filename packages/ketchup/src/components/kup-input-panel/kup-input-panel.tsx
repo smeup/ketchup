@@ -75,7 +75,6 @@ import {
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -154,6 +153,12 @@ export class KupInputPanel {
      * @default []
      */
     @State() private inputPanelCells: InputPanelCells[] = [];
+
+    /**
+     * Values to send as props to FCell
+     * @default []
+     */
+    @State() private inputPanelCommands: VNode[] = [];
 
     /**
      * Id of selected tab if exists
@@ -379,15 +384,18 @@ export class KupInputPanel {
                 <div class={classObj} style={styleObj}>
                     {rowContent}
                 </div>
-                {!this.hiddenSubmitButton ? (
-                    <FButton
-                        buttonType="submit"
-                        label={this.#kupManager.language.translate(
-                            KupLanguageGeneric.CONFIRM
-                        )}
-                        wrapperClass="form__submit"
-                    ></FButton>
-                ) : null}
+                <div class="input-panel__commands">
+                    {!this.hiddenSubmitButton ? (
+                        <FButton
+                            buttonType="submit"
+                            label={this.#kupManager.language.translate(
+                                KupLanguageGeneric.CONFIRM
+                            )}
+                            wrapperClass="form__submit"
+                        ></FButton>
+                    ) : null}
+                    {this.inputPanelCommands}
+                </div>
             </form>
         );
     }
@@ -805,7 +813,31 @@ export class KupInputPanel {
         );
     }
 
+    #mapCommands() {
+        this.inputPanelCommands = this.data.setup.commands
+            .map((commandObj) =>
+                Object.entries(commandObj?.cells).map(([id, cell]) => {
+                    const buttonCell = {
+                        ...cell,
+                        data: this.#BTNAdapter(
+                            null,
+                            null,
+                            cell.value,
+                            cell,
+                            id
+                        ),
+                    };
+                    return this.#renderButton(buttonCell, id);
+                })
+            )
+            .flat();
+    }
+
     #mapCells(data: KupInputPanelData) {
+        if (data.setup?.commands?.length) {
+            this.#mapCommands();
+        }
+
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {

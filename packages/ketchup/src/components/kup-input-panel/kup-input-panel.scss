@@ -39,6 +39,11 @@
     position: relative;
     gap: 2rem;
 
+    &__commands {
+      display: flex;
+      gap: 2rem;
+    }
+
     &--column {
       flex-direction: column;
     }

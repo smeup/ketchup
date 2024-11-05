@@ -18,6 +18,15 @@ export interface KupInputPanelData {
     columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
     actions?: KupInputPanelAction[];
+    setup?: {
+        commands?: [
+            {
+                cells: {
+                    [key: string]: KupDataCell;
+                };
+            }
+        ];
+    };
 }
 
 export interface KupInputPanelAction {
