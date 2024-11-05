@@ -1604,6 +1604,7 @@ export class KupInputPanel {
     }
 
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
+        const type = this.data.rows[0]?.layout?.sectionsType
         const evName = this.#eventBlurNames.get(cell.shape);
         if (!evName) {
             return;
