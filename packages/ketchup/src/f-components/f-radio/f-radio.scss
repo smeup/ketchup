@@ -164,9 +164,16 @@
           border-color: var(--kup_radio_outer_circle_color);
         }
       }
+
+      &.radio--chevron:hover {
+        border: 1px solid transparent;
+      }
+    }
+
+    &.radio--chevron .radio:hover {
+      border: 1px solid transparent;
     }
   }
-
   &.#{$kup-class-horizontal} {
     display: flex;
     gap: var(--kup-space-05);

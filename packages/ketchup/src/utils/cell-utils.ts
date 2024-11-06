@@ -7,6 +7,7 @@ import {
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 import { GenericObject } from '../components';
+import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -274,7 +275,7 @@ export const RADAdapter = (value: string, options: GenericObject) => ({
         ? options?.map((option) => ({
               value: option.id,
               label: option.label,
-              checked: option.id === value,
+              checked: option.id == value,
           }))
         : [],
 });
@@ -292,3 +293,16 @@ export const CHIAdapter = (value: string) => ({
               .filter((value) => !!value)
         : null,
 });
+
+export const submitPositionAdapter = (position: KupCellElementsPosition) => {
+    const positionAdapterMap = new Map<KupCellElementsPosition, string>([
+        [KupCellElementsPosition.top, 'column-reverse'],
+        [KupCellElementsPosition.bottom, 'column'],
+        [KupCellElementsPosition.left, 'row-reverse'],
+        [KupCellElementsPosition.right, 'row'],
+    ]);
+
+    const buttonPosition = positionAdapterMap.get(position);
+
+    return buttonPosition ?? 'row';
+};

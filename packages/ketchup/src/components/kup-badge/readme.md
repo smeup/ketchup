@@ -113,10 +113,12 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-planner](../kup-planner)
+ - [kup-radio](../kup-radio)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
  - [kup-typography](../kup-typography)
 
@@ -133,8 +135,7 @@ graph TD;
   kup-card --> kup-badge
   kup-autocomplete --> kup-badge
   kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-chip --> kup-badge
   kup-text-field --> kup-badge
@@ -162,6 +163,7 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-badge
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-badge
   kup-tree --> kup-badge
   kup-accordion --> kup-badge
   kup-activity-timeline --> kup-badge

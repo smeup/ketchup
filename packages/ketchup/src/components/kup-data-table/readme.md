@@ -98,27 +98,27 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                                  | Description                                                                                                     | Type                                                      |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `kup-datatable-cell-action-icon-click` | Event fired when the cell action icon is pressed                                                                | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-cell-actions-menu`      | Generic right click event on a cell in data table.                                                              | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-click`                  | Generic click event on data table.                                                                              | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-columnmenu`             | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                           | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
-| `kup-datatable-columnmove`             | Event fired when columns are moved (sorted).                                                                    | `CustomEvent<KupDatatableColumnMoveEventPayload>`         |
-| `kup-datatable-columnremove`           | Event fired when columns are removed (set to hidden).                                                           | `CustomEvent<KupDatatableColumnRemoveEventPayload>`       |
-| `kup-datatable-contextmenu`            | Generic right click event on data table.                                                                        | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-dblclick`               | Generic double click event on data table.                                                                       | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-delete-row`             | Event fired when the delete row button is pressed.                                                              | `CustomEvent<KupDatatableDeleteRowEventPayload>`          |
-| `kup-datatable-didload`                | When component load is complete                                                                                 | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-didunload`              | When component unload is complete                                                                               | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-history`                | Event fired when the history confirm button is pressed.                                                         | `CustomEvent<KupDatatableHistoryEventPayload>`            |
-| `kup-datatable-insert-row`             | Event fired when the insert row confirm button is pressed.                                                      | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
-| `kup-datatable-loadmoreclick`          |                                                                                                                 | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
-| `kup-datatable-resetselectedrows`      | When rows selections reset                                                                                      | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-rowaction-item-click`   | Event fired when the history confirm button is pressed.                                                         | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
-| `kup-datatable-rowselected`            | When a row is selected                                                                                          | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
-| `kup-datatable-save`                   | Event fired when the save button is pressed.                                                                    | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
-| `kup-datatable-update`                 | Event fired when the user click on update button, update button is visible when the props updatableData is true | `CustomEvent<KupDatatableUpdatePayload>`                  |
+| Event                                  | Description                                                                                                                                                    | Type                                                      |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `kup-datatable-cell-action-icon-click` | Event fired when the cell action icon is pressed                                                                                                               | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-cell-actions-menu`      | Generic right click event on a cell in data table.                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-click`                  | Generic click event on data table.                                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-columnmenu`             | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                                                                          | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
+| `kup-datatable-columnmove`             | Event fired when columns are moved (sorted).                                                                                                                   | `CustomEvent<KupDatatableColumnMoveEventPayload>`         |
+| `kup-datatable-columnremove`           | Event fired when columns are removed (set to hidden).                                                                                                          | `CustomEvent<KupDatatableColumnRemoveEventPayload>`       |
+| `kup-datatable-contextmenu`            | Generic right click event on data table.                                                                                                                       | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-dblclick`               | Generic double click event on data table.                                                                                                                      | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-delete-row`             | Event fired when the delete row button is pressed.                                                                                                             | `CustomEvent<KupDatatableDeleteRowEventPayload>`          |
+| `kup-datatable-didload`                | When component load is complete                                                                                                                                | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-didunload`              | When component unload is complete                                                                                                                              | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-history`                | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableHistoryEventPayload>`            |
+| `kup-datatable-insert-row`             | Event fired when the insert row confirm button is pressed.                                                                                                     | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
+| `kup-datatable-loadmoreclick`          |                                                                                                                                                                | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
+| `kup-datatable-resetselectedrows`      | When rows selections reset                                                                                                                                     | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-rowaction-item-click`   | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
+| `kup-datatable-rowselected`            | When a row is selected                                                                                                                                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
+| `kup-datatable-save`                   | Event fired when the save button is pressed.                                                                                                                   | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
+| `kup-datatable-update`                 | Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true | `CustomEvent<KupDatatableUpdatePayload>`                  |
 
 
 ## Methods
@@ -270,15 +270,16 @@ Type: `Promise<void>`
 
 
 
-### `insertNewRow(row: KupDataTableRow) => Promise<void>`
+### `insertNewRow(row: KupDataTableRow, unshift?: boolean) => Promise<void>`
 
 Adds a new row to the list data
 
 #### Parameters
 
-| Name  | Type              | Description |
-| ----- | ----------------- | ----------- |
-| `row` | `KupDataTableRow` | new row     |
+| Name      | Type              | Description |
+| --------- | ----------------- | ----------- |
+| `row`     | `KupDataTableRow` | new row     |
+| `unshift` | `boolean`         |             |
 
 #### Returns
 
@@ -514,6 +515,7 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -569,10 +571,26 @@ graph TD;
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

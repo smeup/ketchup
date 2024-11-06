@@ -3,6 +3,7 @@ import {
     KupDataCell,
     KupDataColumn,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 export interface KupInputPanelSubmit {
     value: KupInputPanelSubmitValue;
@@ -43,6 +44,7 @@ export interface KupInputPanelCell extends KupDataCell {
     options?: GenericObject | GenericObject[];
     editable?: boolean;
     mandatory?: boolean;
+    inputSettings?: GenericObject;
     fun?: string;
 }
 
@@ -126,11 +128,25 @@ export type InputPanelOptionsHandler = (
     cellId: string
 ) => Promise<GenericObject>;
 
+export type InputPanelCheckValidObjCallback = (event: {
+    obj: KupObj;
+    currentState: KupInputPanelData;
+    fun?: string;
+}) => Promise<ValidCheckObjResponse>;
+
+export interface ValidCheckObjResponse {
+    valid: boolean;
+}
+
 export type InputPanelButtonClickHandler = (event: {
     fun: string;
     cellId: string;
     currentState: KupInputPanelData;
 }) => void;
+
+export type InputPanelCheckValidValueCallback = (
+    currentState: KupInputPanelSubmitValue
+) => void;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',

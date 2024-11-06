@@ -43,9 +43,9 @@ import {
     KupThemeRGBValues,
     masterCustomStyle,
     rippleUsers,
+    KupThemeFontFamilyMap,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { FTypography } from '../../f-components/f-typography/f-typography';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -71,18 +71,24 @@ export class KupTheme {
             .querySelector('head')
             .appendChild(document.createElement('style'));
     }
-    /**
-     * Sets the CSS variables of the theme.
-     */
-    private imports(): string {
-        const imports: string[] = this.list[this.name].imports
-            ? this.list[this.name].imports
-            : [];
-        let css: string = '';
-        for (let index = 0; index < imports.length; index++) {
-            css += '@import ' + imports[index] + ';';
+
+    private fonts(): string {
+        const theme = this.list[this.name];
+
+        let fonts = '';
+        if (theme.fonts) {
+            theme.fonts.forEach((f) => {
+                const fontPath = getAssetPath(`./assets/fonts/${f}`);
+                const fontFace = `@font-face {
+                    font-family: ${KupThemeFontFamilyMap[f]};
+                    src: url('${fontPath}.woff2') format('woff2'),
+                         url('${fontPath}.woff') format('woff');
+                  }`;
+                fonts += fontFace;
+            });
         }
-        return css;
+
+        return fonts;
     }
     /**
      * Sets the CSS variables of the theme.
@@ -171,7 +177,7 @@ export class KupTheme {
 
         this.cssVars = {};
         this.styleTag.innerText =
-            this.imports() +
+            this.fonts() +
             ' :root[kup-theme="' +
             this.name +
             '"]{' +

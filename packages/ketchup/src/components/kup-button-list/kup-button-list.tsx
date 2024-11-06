@@ -238,7 +238,7 @@ export class KupButtonList {
                 : false,
             shaped: data.shaped,
             sizing: data.sizing,
-            styling: data.id === this.selected ? 'raised' : data.styling,
+            styling: data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,

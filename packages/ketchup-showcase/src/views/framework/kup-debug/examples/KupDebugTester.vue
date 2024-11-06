@@ -204,6 +204,10 @@ export default {
               id: 'kup-time-picker',
             },
             {
+              value: 'kup-toolbar',
+              id: 'kup-toolbar',
+            },
+            {
               value: 'kup-tree',
               id: 'kup-tree',
             },

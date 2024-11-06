@@ -12,6 +12,7 @@ export interface FRadioProps extends FComponent {
     onChange?: (i: number, event: Event) => void;
     onFocus?: (event: FocusEvent) => void;
     horizontal?: boolean;
+    type?: FRadioType;
 }
 /**
  * The object of a single radio.
@@ -20,4 +21,9 @@ export interface FRadioData {
     checked: boolean;
     label: string;
     value: string;
+}
+
+export enum FRadioType {
+    RADIO = 'radio',
+    CHEVRON = 'chevron',
 }

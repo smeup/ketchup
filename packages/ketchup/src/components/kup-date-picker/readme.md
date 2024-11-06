@@ -10,6 +10,7 @@
 | `customStyle`               | `custom-style`                  | Custom style of the component.                                                                | `string`                                                                                                                                                | `''`                        |
 | `data`                      | --                              | Props of the sub-components.                                                                  | `Object`                                                                                                                                                | `null`                      |
 | `disabled`                  | `disabled`                      | Defaults at false. When set to true, the component is disabled.                               | `boolean`                                                                                                                                               | `false`                     |
+| `error`                     | `error`                         | Set error message                                                                             | `string`                                                                                                                                                | `''`                        |
 | `firstDayIndex`             | `first-day-index`               | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                         |
 | `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                        |
 | `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                     |
@@ -109,6 +110,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -135,6 +137,7 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -191,10 +194,11 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-date-picker
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-date-picker
   kup-tree --> kup-date-picker
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker

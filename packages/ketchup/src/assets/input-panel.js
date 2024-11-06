@@ -1,3 +1,6 @@
+const inputPanel = document.getElementById('input-panel');
+inputPanel.data = absoluteLayoutTest;
+
 // Tables
 const datatable = {
     type: 'SmeupDataTable',
@@ -63,6 +66,518 @@ const datatable = {
             },
         },
     ],
+};
+
+const absoluteLayoutTest = {
+    type: 'SmeupDataTable',
+    serviceInfo: {
+        fun: 'F(EXB;B£SER_46;WRK.SCP) 1(MB;SCP_SET;WETEST_INP) 2(;;INP_035) SS(ID({i957611}) DV(W))',
+        serviceName: 'B£SER_46',
+    },
+    columns: [
+        {
+            name: 'AGENL',
+            title: 'Agenti.L',
+            visible: true,
+            isEditable: false,
+            maxLength: 15,
+            length: 15,
+            shape: 'LBL',
+        },
+        {
+            name: 'AGEN',
+            title: 'Agenti',
+            visible: true,
+            isEditable: true,
+            obj: {
+                t: 'TA',
+                p: 'AGE',
+            },
+            maxLength: 15,
+            length: 15,
+        },
+        {
+            name: 'CLIEL',
+            title: 'Clienti.L',
+            visible: true,
+            isEditable: false,
+            maxLength: 15,
+            length: 15,
+            shape: 'LBL',
+        },
+        {
+            name: 'CLIE',
+            title: 'Clienti',
+            visible: true,
+            isEditable: true,
+            obj: {
+                t: 'CN',
+                p: 'CLI',
+            },
+            maxLength: 15,
+            length: 15,
+        },
+        {
+            name: 'FORNL',
+            title: 'Fornitori.L',
+            visible: true,
+            isEditable: false,
+            maxLength: 15,
+            length: 15,
+            shape: 'LBL',
+        },
+        {
+            name: 'FORN',
+            title: 'Fornitori',
+            visible: true,
+            isEditable: false,
+            obj: {
+                t: 'CN',
+                p: 'FOR',
+            },
+            maxLength: 15,
+            length: 15,
+        },
+        {
+            name: 'V£COML',
+            title: 'Commessa',
+            visible: true,
+            isEditable: true,
+            maxLength: 12,
+            length: 12,
+            shape: 'LBL',
+        },
+        {
+            name: 'V£COM',
+            title: 'Commessa',
+            visible: true,
+            isEditable: true,
+            obj: {
+                t: 'CM',
+                p: '',
+            },
+            maxLength: 12,
+            length: 12,
+        },
+        {
+            name: 'V£ORA',
+            title: 'Ora',
+            visible: true,
+            isEditable: true,
+            obj: {
+                t: 'I1',
+                p: '2',
+            },
+            maxLength: 8,
+            length: 8,
+        },
+        {
+            name: 'V£DATA',
+            title: 'Data',
+            visible: true,
+            isEditable: true,
+            obj: {
+                t: 'D8',
+                p: '*YYMD',
+            },
+            maxLength: 8,
+            length: 8,
+        },
+        {
+            name: 'V£DESC',
+            title: 'Descrizione',
+            visible: true,
+            isEditable: true,
+            maxLength: 300,
+            length: 300,
+        },
+        {
+            name: 'SUBSZBL',
+            title: 'Label sotto-sez.B',
+            visible: true,
+            isEditable: false,
+            maxLength: 30,
+            length: 30,
+            shape: 'LBL',
+        },
+        {
+            name: 'SUBSZCL',
+            title: 'Label sotto-sez.C',
+            visible: true,
+            isEditable: false,
+            maxLength: 30,
+            length: 30,
+            shape: 'LBL',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                AGENL: {
+                    value: 'Cod.Agente',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Cod.Agente',
+                    },
+                    editable: false,
+                    shape: 'LBL',
+                    data: {
+                        size: 15,
+                        maxLength: 15,
+                    },
+                },
+                AGEN: {
+                    obj: {
+                        t: 'TA',
+                        p: 'AGE',
+                        k: 'SMEWW',
+                    },
+                    shape: 'CMB',
+                    tooltip: true,
+                },
+                CLIEL: {
+                    value: 'Cod.Cliente',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Cod.Cliente',
+                    },
+                    editable: false,
+                    shape: 'LBL',
+                    data: {
+                        size: 15,
+                        maxLength: 15,
+                    },
+                },
+                CLIE: {
+                    value: '100001',
+                    obj: {
+                        t: 'CN',
+                        p: 'CLI',
+                        k: '100001',
+                    },
+                    editable: true,
+                    shape: 'CMB',
+                    tooltip: true,
+                    data: {
+                        size: 15,
+                        maxLength: 15,
+                    },
+                },
+                FORNL: {
+                    value: 'Cod.Fornitore',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Cod.Fornitore',
+                    },
+                    editable: false,
+                    shape: 'LBL',
+                    data: {
+                        size: 15,
+                        maxLength: 15,
+                    },
+                },
+                FORN: {
+                    value: '20140702',
+                    obj: {
+                        t: 'CN',
+                        p: 'FOR',
+                        k: '20140702',
+                    },
+                    editable: false,
+                    tooltip: true,
+                    data: {
+                        size: 15,
+                        maxLength: 15,
+                    },
+                },
+                'V£COML': {
+                    value: 'Cod.Commessa',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Cod.Commessa',
+                    },
+                    editable: true,
+                    shape: 'LBL',
+                    data: {
+                        size: 12,
+                        maxLength: 12,
+                    },
+                },
+                'V£COM': {
+                    value: '',
+                    obj: {
+                        t: 'CM',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    tooltip: true,
+                    data: {
+                        size: 12,
+                        maxLength: 12,
+                    },
+                },
+                'V£ORA': {
+                    value: '00:00:00',
+                    obj: {
+                        t: 'I1',
+                        p: '2',
+                        k: '',
+                    },
+                    editable: true,
+                    tooltip: true,
+                    data: {
+                        size: 8,
+                        maxLength: 8,
+                    },
+                },
+                'V£DATA': {
+                    value: '',
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '',
+                    },
+                    editable: true,
+                    tooltip: true,
+                    data: {
+                        size: 8,
+                        maxLength: 8,
+                    },
+                },
+                'V£DESC': {
+                    value: '',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    data: {
+                        size: 300,
+                        maxLength: 300,
+                    },
+                },
+                SUBSZBL: {
+                    value: 'Dati sotto-sezione B',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Dati sotto-sezione B',
+                    },
+                    editable: false,
+                    shape: 'LBL',
+                    data: {
+                        size: 30,
+                        maxLength: 30,
+                    },
+                },
+                SUBSZCL: {
+                    value: 'Dati sotto-sezione C',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Dati sotto-sezione C',
+                    },
+                    editable: false,
+                    shape: 'LBL',
+                    data: {
+                        size: 30,
+                        maxLength: 30,
+                    },
+                },
+            },
+            layout: {
+                horizontal: true,
+                absolute: true,
+                sections: [
+                    {
+                        id: 'A',
+                        content: [
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                id: 'AGENL',
+                                absoluteColumn: 2,
+                                absoluteRow: 2,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                id: 'AGEN',
+                                absoluteColumn: 12,
+                                absoluteRow: 2,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                id: 'V£COML',
+                                absoluteColumn: 2,
+                                absoluteRow: 3,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                id: 'V£COM',
+                                absoluteColumn: 12,
+                                absoluteRow: 3,
+                            },
+                        ],
+                        sections: [],
+                        absoluteColumn: 1,
+                        absoluteWidth: 40,
+                        absoluteRow: 1,
+                        absoluteHeight: 300,
+                    },
+                    {
+                        id: 'B',
+                        content: [
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'SUBSZBL',
+                                absoluteColumn: 2,
+                                absoluteRow: 1,
+                                absoluteLength: 50,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'FORNL',
+                                absoluteColumn: 2,
+                                absoluteRow: 2,
+                                absoluteLength: 50,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'FORN',
+                                absoluteColumn: 12,
+                                absoluteRow: 2,
+                                absoluteLength: 50,
+                            },
+                        ],
+                        sections: [],
+                        absoluteColumn: 6,
+                        absoluteWidth: 40,
+                        absoluteRow: 4,
+                        absoluteHeight: 300,
+                    },
+                    {
+                        id: 'C',
+                        content: [
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'SUBSZCL',
+                                absoluteColumn: 2,
+                                absoluteRow: 1,
+                                absoluteLength: 50,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'CLIEL',
+                                absoluteColumn: 3,
+                                absoluteRow: 4,
+                                absoluteLength: 50,
+                            },
+                            {
+                                value: '',
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: '',
+                                },
+                                data: {
+                                    size: 50,
+                                    maxLength: 50,
+                                },
+                                id: 'CLIE',
+                                absoluteColumn: 13,
+                                absoluteRow: 4,
+                                absoluteLength: 50,
+                            },
+                        ],
+                        sections: [],
+                        absoluteColumn: 50,
+                        absoluteWidth: 40,
+                        absoluteRow: 4,
+                        absoluteHeight: 300,
+                    },
+                ],
+            },
+        },
+    ],
+    setup: {
+        components: {},
+    },
+    debugInfo: {
+        executionTime_ms: 451,
+        initialTimestamp: '2024-11-05T10:10:21.512574669Z',
+        finalTimestamp: '2024-11-05T10:10:21.964351842Z',
+        runtime: 'Java 21',
+    },
 };
 
 const dataTableGroupsTest = {
@@ -2972,8 +3487,6 @@ const keyButtonClickTest = {
 //     ],
 // };
 
-const inputPanel = document.getElementById('input-panel');
-inputPanel.data = keyButtonClickTest;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 
