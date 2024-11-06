@@ -35,9 +35,10 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
-import { KupToolbarItemClickEventPayload } from '../../managers/kup-toolbar/kup-toolbar-declarations';
+import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
+    assetsDirs: ['assets/fonts'],
     tag: 'kup-typography',
     styleUrl: 'kup-typography.scss',
     shadow: true,
@@ -153,23 +154,23 @@ export class KupTypography {
     /*-------------------------------------------------*/
 
     closeRowToolbarList() {
-        this.kupManager.dynamicPosition.stop(
-            this.toolbarList as KupDynamicPositionElement
-        );
-        this.kupManager.removeClickCallback(this.#clickCbDropCard);
-        this.toolbarList.remove();
-        this.toolbarList = null;
+        if (this.toolbarList) {
+            this.kupManager.dynamicPosition.stop(
+                this.toolbarList as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.toolbarList.remove();
+            this.toolbarList = null;
+        }
     }
 
     createDropDownToolbarList() {
         if (this.toolbarList) {
             this.closeRowToolbarList();
         }
-        const listEl = document.createElement('kup-list');
+        const listEl = document.createElement('kup-toolbar');
         listEl.data = this.toolbarData;
-        listEl.isMenu = true;
-        listEl.menuVisible = true;
-        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+        listEl.addEventListener('kup-toolbar-click', (e: CustomEvent) => {
             this.onKupToolbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();

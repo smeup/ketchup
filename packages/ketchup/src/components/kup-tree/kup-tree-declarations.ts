@@ -2,11 +2,11 @@ import {
     KupDataCell,
     KupDataColumn,
     KupDataNode,
-    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import type { PointerEvent } from '@interactjs/types/index';
 import { GenericMap, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 /**
  * Props of the kup-tree component.
  * Used to export every prop in an object.
@@ -25,8 +25,8 @@ export enum KupTreeProps {
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterValue = 'The value of the global filter.',
     globalFilterMode = 'The mode of the global filter.',
-    removableColumns = 'Sets the possibility to remove the selected column.',
     preventXScroll = 'Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.',
+    removableColumns = 'Sets the possibility to remove the selected column.',
     ripple = "When enabled displays Material's ripple effect on nodes (only when no columns are displayed).",
     scrollOnHover = 'Activates the scroll on hover function.',
     showColumns = 'Shows the tree data as a table.',
@@ -45,6 +45,7 @@ export interface KupTreeNode extends KupDataNode {
     iconColor?: string;
     style?: GenericMap;
     visible?: boolean;
+    selected?: boolean;
 }
 
 export type TreeNodePath = number[];
@@ -64,7 +65,7 @@ export interface KupTreeEventHandlerDetails {
     column: KupDataColumn;
     filterRemove: HTMLSpanElement;
     originalEvent: PointerEvent;
-    row: KupDataRow;
+    row: KupTreeNode;
     td: HTMLElement;
     th: HTMLElement;
     tr: HTMLElement;

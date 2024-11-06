@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.0.0"
-            >v10.0.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.0.1"
+            >v10.0.1</a
           ></div
         ></div
       >
@@ -428,6 +428,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'toolbar',
+                  },
+                },
+                icon: 'app',
+                value: 'Toolbar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'tree',
                   },
                 },
@@ -592,6 +602,16 @@ export default {
                 },
                 icon: 'apps',
                 value: 'Grid',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'htm',
+                  },
+                },
+                icon: 'HTM',
+                value: 'HTM',
                 visible: true,
               },
               {

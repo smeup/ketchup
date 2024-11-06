@@ -128,6 +128,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
+ - [kup-htm](../kup-htm)
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -151,6 +152,7 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
@@ -190,6 +192,7 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
   kup-tab-bar --> kup-dialog
+  kup-toolbar --> kup-dialog
   kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog
@@ -203,6 +206,7 @@ graph TD;
   kup-editor --> kup-dialog
   kup-family-tree --> kup-dialog
   kup-grid --> kup-dialog
+  kup-htm --> kup-dialog
   kup-iframe --> kup-dialog
   kup-image-list --> kup-dialog
   kup-input-panel --> kup-dialog

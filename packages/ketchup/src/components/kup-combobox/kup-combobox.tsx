@@ -422,8 +422,8 @@ export class KupCombobox {
             return;
         }
         // Manage list open while helperline is displayed
-        const hasError = this.error.trim().length > 0;
-        const hasAlert = this.alert.trim().length > 0;
+        const hasError = this.error?.trim().length > 0;
+        const hasAlert = this.alert?.trim().length > 0;
         const topOffset = hasError || hasAlert ? -20 : 0;
         this.#textfieldWrapper.classList.add('toggled');
         this.#listEl.menuVisible = true;

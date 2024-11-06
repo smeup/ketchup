@@ -94,6 +94,11 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/grid/Grid.vue`),
   },
   {
+    path: `/htm`,
+    name: 'htm',
+    component: () => import(`@/views/components/basic/htm/Htm.vue`),
+  },
+  {
     path: `/iframe`,
     name: 'iframe',
     component: () => import(`@/views/components/basic/iframe/Iframe.vue`),
@@ -256,6 +261,11 @@ const advancedRoutes = [
     name: 'inputpanel',
     component: () =>
       import(`@/views/components/advanced/inputpanel/InputPanel.vue`),
+  },
+  {
+    path: `/toolbar`,
+    name: 'Toolbar',
+    component: () => import(`@/views/components/advanced/toolbar/Toolbar.vue`),
   },
   {
     path: `/tree`,

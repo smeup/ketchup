@@ -104,6 +104,17 @@ export interface KupDataCell {
     styleContent?: GenericMap;
     title?: string;
 }
+
+export interface KupDataCellOptions extends KupDataCell {
+    options?: CellOptions[];
+}
+
+export interface CellOptions {
+    id: string;
+    label: string;
+    checked?: boolean;
+    value?: string;
+}
 /**
  *
  */
@@ -125,6 +136,9 @@ export interface KupDataNode extends KupDataRow {
     isExpanded?: boolean;
     title?: string;
     data?: GenericObject;
+    shape?: FCellShapes;
+    isEditable?: boolean;
+    options?: CellOptions[];
 }
 /**
  * Interface related to cells operations.

@@ -5,14 +5,15 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                | Type                                                                                                               | Default                      |
-| ---------------- | ----------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| `currentDate`    | `current-date`    | Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD). | `string`                                                                                                           | `null`                       |
-| `customStyle`    | `custom-style`    | Custom style of the component.                                             | `string`                                                                                                           | `''`                         |
-| `data`           | --                | Actual data of the calendar.                                               | `KupCalendarData`                                                                                                  | `null`                       |
-| `editableEvents` | `editable-events` | When true, events are editable.                                            | `boolean`                                                                                                          | `true`                       |
-| `hideNavigation` | `hide-navigation` | When disabled, the navigation toolbar won't be displayed.                  | `boolean`                                                                                                          | `false`                      |
-| `viewType`       | `view-type`       | Type of the view.                                                          | `KupCalendarViewTypes.DAY \| KupCalendarViewTypes.LIST \| KupCalendarViewTypes.MONTH \| KupCalendarViewTypes.WEEK` | `KupCalendarViewTypes.MONTH` |
+| Property          | Attribute         | Description                                                                                                     | Type                                                                                                               | Default                                                                                                                                                                                                                                                                                       |
+| ----------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `calendarColumns` | --                | Sets which columns of the data property will be used to render each characteristic of an event in the calendar. | `{ date: string; descr: string; end: string; icon: string; image: string; start: string; style: string; }`         | `{         [KupCalendarOptions.DATE]: '',         [KupCalendarOptions.DESCR]: '',         [KupCalendarOptions.END]: '',         [KupCalendarOptions.ICON]: '',         [KupCalendarOptions.IMAGE]: '',         [KupCalendarOptions.START]: '',         [KupCalendarOptions.STYLE]: '',     }` |
+| `currentDate`     | `current-date`    | Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).                                      | `string`                                                                                                           | `null`                                                                                                                                                                                                                                                                                        |
+| `customStyle`     | `custom-style`    | Custom style of the component.                                                                                  | `string`                                                                                                           | `''`                                                                                                                                                                                                                                                                                          |
+| `data`            | --                | Actual data of the calendar.                                                                                    | `KupCalendarData`                                                                                                  | `null`                                                                                                                                                                                                                                                                                        |
+| `editableEvents`  | `editable-events` | When true, events are editable.                                                                                 | `boolean`                                                                                                          | `true`                                                                                                                                                                                                                                                                                        |
+| `hideNavigation`  | `hide-navigation` | When disabled, the navigation toolbar won't be displayed.                                                       | `boolean`                                                                                                          | `false`                                                                                                                                                                                                                                                                                       |
+| `viewType`        | `view-type`       | Type of the view.                                                                                               | `KupCalendarViewTypes.DAY \| KupCalendarViewTypes.LIST \| KupCalendarViewTypes.MONTH \| KupCalendarViewTypes.WEEK` | `KupCalendarViewTypes.MONTH`                                                                                                                                                                                                                                                                  |
 
 
 ## Events
@@ -150,6 +151,7 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -245,10 +247,26 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

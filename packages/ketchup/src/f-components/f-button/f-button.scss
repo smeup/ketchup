@@ -325,6 +325,47 @@
       }
     }
 
+    &.button--flat {
+      --kup_button_text_color: var(--kup-primary-color-60);
+      color: var(--kup_button_text_color);
+      background-color: transparent;
+
+      &:hover {
+        --kup_button_background_color_hover: var(--kup-gray-color-10-hover);
+        background-color: var(--kup_button_background_color_hover);
+      }
+
+      &:hover .f-image .f-image__icon,
+      &:hover .f-image .f-image__placeholder {
+        background-color: var(--kup_button_text_color) !important;
+      }
+
+      &:focus {
+        border: 1px solid var(--kup_button_border_color);
+        background-color: transparent;
+      }
+
+      &:focus .f-image .f-image__icon,
+      &:focus .f-image .f-image__placeholder {
+        background-color: var(--kup_button_text_color) !important;
+      }
+
+      &:active {
+        border: 1px solid var(--kup_button_border_color);
+        --kup_button_background_color_active: var(--kup-gray-color-20-hover);
+        background-color: var(--kup_button_background_color_active);
+      }
+
+      &:active .f-image .f-image__icon,
+      &:active .f-image .f-image__placeholder {
+        --kup_button_text_color: var(--kup-primary-color-60);
+      }
+
+      &.button--disabled {
+        border-color: var(--kup_button_border_color_disabled);
+      }
+    }
+
     &.button--no-label {
       min-width: unset;
       padding: 0 0.5em;
@@ -471,6 +512,33 @@
 
         &:active {
           background-color: var(--kup-text-primary);
+        }
+
+        &.button--disabled {
+          --kup_button_text_color: var(--kup_button_text_color_disabled);
+          --kup_button_border_color: var(--kup-gray-color-40);
+        }
+      }
+
+      &.button--flat {
+        --kup_button_text_color: var(--kup-gray-color-70);
+        &:hover {
+          --kup_button_background_color_hover: var(--kup-gray-color-10-hover);
+          background-color: var(--kup_button_background_color_hover);
+        }
+
+        &:active {
+          --kup_button_background_color_active: var(--kup-gray-color-20-hover);
+          background-color: var(--kup_button_background_color_active);
+          .f-image .f-image__icon,
+          .f-image .f-image__placeholder {
+            background-color: var(--kup-gray-color-70) !important;
+          }
+        }
+
+        &:focus {
+          border: 1px solid var(--kup-gray-color-70);
+          background-color: transparent;
         }
 
         &.button--disabled {
@@ -659,6 +727,38 @@
 
         &:active {
           --kup_button_background_color_active: var(--kup-danger-color-80);
+        }
+
+        &.button--disabled {
+          --kup_button_text_color: var(--kup_button_text_color_disabled);
+          --kup_button_border_color: var(--kup-gray-color-40);
+        }
+      }
+
+      &.button--flat {
+        --kup_button_text_color: var(--kup-danger-color-60);
+        &:hover {
+          --kup_button_background_color_hover: var(--kup-danger-color-70);
+          --kup_button_text_color_hover: var(--kup-primary-color-0);
+          color: var(--kup_button_text_color_hover);
+          .f-image__icon,
+          .f-image__placeholder {
+            background: var(--kup_button_text_color_hover) !important;
+          }
+        }
+
+        &:active {
+          border: 1px solid var(--kup-danger-color-60);
+          --kup_button_background_color_active: var(--kup-danger-color-80);
+          .f-image__icon,
+          .f-image__placeholder {
+            background: var(--kup_button_text_color_hover) !important;
+          }
+        }
+
+        &:focus {
+          --kup_button_background_color_focus: var(--kup-danger-color-80);
+          --kup_button_text_color: var(--kup-primary-color-0);
         }
 
         &.button--disabled {

@@ -139,6 +139,10 @@ components.data = [
         id: 'grid.html',
     },
     {
+        value: 'HTM',
+        id: 'htm.html',
+    },
+    {
         value: 'Image',
         id: 'image.html',
     },
@@ -237,6 +241,10 @@ components.data = [
     {
         value: 'Time picker',
         id: 'time-picker.html',
+    },
+    {
+        value: 'Toolbar',
+        id: 'toolbar.html',
     },
     {
         value: 'Typography',

@@ -79,7 +79,21 @@ export enum KupDataTableProps {
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
     rows?: KupDataTableRow[];
+    setup?: {
+        operations?: {
+            insert: boolean;
+            delete: boolean;
+        };
+        commands?: [
+            {
+                cells: {
+                    [key: string]: KupDataCell;
+                };
+            }
+        ];
+    };
 }
+
 export interface KupDataTableRow extends KupDataRow {
     cells?: KupDataTableRowCells;
     group?: KupDataTableRowGroup;
@@ -338,4 +352,5 @@ export interface KupDatatableHistoryEventPayload extends KupEventPayload {
 export interface KupDatatableUpdatePayload extends KupEventPayload {
     originalData: KupDataTableDataset;
     updatedData: KupDataTableDataset;
+    command?: KupDataCell;
 }
