@@ -1587,6 +1587,8 @@ export class KupInputPanel {
             if (!currCell.value) {
                 return;
             }
+        } else {
+            this.#setCellError(id, null);
         }
 
         // Valid object check
@@ -1646,6 +1648,8 @@ export class KupInputPanel {
                 if (!e.detail.value) {
                     return;
                 }
+            } else {
+                this.#setCellError(id, null);
             }
 
             // Valid object check
@@ -1663,7 +1667,7 @@ export class KupInputPanel {
                           null
                         : // else set the error message
                           this.#kupManager.language.translate(
-                              KupLanguageGeneric.REQUIRED_VALUE
+                              KupLanguageGeneric.INVALID_VALUE
                           )
                 );
                 if (!valid) {
