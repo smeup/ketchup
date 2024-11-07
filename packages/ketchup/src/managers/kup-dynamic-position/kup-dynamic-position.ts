@@ -59,7 +59,7 @@ export class KupDynamicPosition {
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
-        el.style.zIndex = `calc(var(--kup-navbar-zindex) + 1)`;
+        el.style.zIndex = `calc(var(--kup-navbar-zindex) + 10)`;
         const originalPath: HTMLElement[] = [];
         if (detach) {
             let currentEl: unknown = el;
