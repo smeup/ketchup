@@ -1861,4 +1861,58 @@ describe('kup-input-panel', () => {
         );
         expect(classKupDanger).not.toBeNull();
     });
+
+    it('render inputpanel with commands', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            type: 'SmeupDataTable',
+            columns: [],
+            rows: [
+                {
+                    cells: {},
+                },
+            ],
+            setup: {
+                components: {},
+                commands: [
+                    {
+                        children: [],
+                        cells: {
+                            CLEAR: {
+                                value: 'Clear (F5)',
+                                icon: 'close',
+                                data: {
+                                    keyShortcut: 'f5',
+                                },
+                            },
+                            TST: {
+                                value: 'TST',
+                                icon: 'save',
+                            },
+                        },
+                        forcedLeaf: false,
+                    },
+                ],
+            },
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const form = await page.find(
+            'kup-input-panel >>> form.input-panel-form'
+        );
+        expect(form).not.toBeNull();
+
+        const commands = await form.find('div.input-panel__commands');
+        expect(commands).not.toBeNull();
+
+        const buttons = await commands.findAll('div.f-button.form__submit');
+        expect(buttons.length).toBe(2 + 1);
+    });
 });
