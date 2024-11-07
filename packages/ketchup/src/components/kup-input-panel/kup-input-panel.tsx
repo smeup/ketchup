@@ -371,6 +371,8 @@ export class KupInputPanel {
         return (
             <form
                 name={this.rootElement.id}
+                id={this.rootElement.id}
+                class={{ 'input-panel-form': true }}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
                     this.submitCb({
