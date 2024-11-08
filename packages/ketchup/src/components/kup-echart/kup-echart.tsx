@@ -482,13 +482,10 @@ export class KupEchart {
             .filter((data) => this.series.includes(data.name))
             .map((data) => data.title);
 
-        if (content.length == 0) {
-            this.data.columns.forEach((data) => {
-                content.push(data.title);
-            });
-        }
+        // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
 
-        if (content && content.length) {
+        if (content && content.length > 0) {
+            // content[0] but could be any number inside square brackets, because each row will have the same amount of cells (== number of columns)
             for (let i = 0; i < y[content[0]].length; i++) {
                 const arr = [];
                 for (let j = 0; j < content.length; j++) {

@@ -898,6 +898,8 @@ echart7.data = {
 echart8.consistencyCheck = true;
 echart8.types = ['Bubble'];
 echart8.colors = ['blue'];
+// if no series are specified chart would be empty
+echart8.series = ['GDP', 'AGE', 'SIZE', 'COUNTRY', 'YEAR'];
 echart8.axis = '';
 echart8.chartTitle = {
     value: 'Bubble',
