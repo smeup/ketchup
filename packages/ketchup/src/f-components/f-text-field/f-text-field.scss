@@ -607,7 +607,7 @@
 
     .mdc-text-field-container--disabled {
       .mdc-text-field__label-container {
-        label,
+        label.mdc-label,
         .mdc-text-field-character-counter {
           color: var(--kup-text-disabled);
         }
