@@ -478,15 +478,20 @@ export class KupEchart {
             series = [];
         let year = [];
 
-        // const content = this.data.columns.map((data) => data.title);
         const content = this.data.columns
             .filter((data) => this.series.includes(data.name))
             .map((data) => data.title);
 
+        if (content.length == 0) {
+            this.data.columns.forEach((data) => {
+                content.push(data.title);
+            });
+        }
+
         if (content && content.length) {
-            for (let i = 0; i < content.length; i++) {
+            for (let i = 0; i < y[content[0]].length; i++) {
                 const arr = [];
-                for (let j = 0; j < y[content[i]].length; j++) {
+                for (let j = 0; j < content.length; j++) {
                     arr.push(y[content[j]][i]);
                     // last value always be a year
                     if (j === content.length - 1) {

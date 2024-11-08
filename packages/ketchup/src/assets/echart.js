@@ -899,6 +899,11 @@ echart8.consistencyCheck = true;
 echart8.types = ['Bubble'];
 echart8.colors = ['blue'];
 echart8.axis = '';
+// echart8.series = ['A', 'B', 'C', 'D'];
+// echart8.series = ['GDP', 'AGE', 'SIZE'];
+// echart8.series = ['GDP', 'AGE'];
+// echart8.series = ['Gdp', 'Age', 'Size', 'Country', 'Year'];
+// echart8.series = ['Gdp', 'Age', 'Size'];
 echart8.chartTitle = {
     value: 'Bubble',
     color: 'red',
@@ -1457,7 +1462,6 @@ echart11.data = {
         },
     ],
 };
-
 
 echart12.types = ['Bar', 'Bar'];
 echart12.colors = ['blue'];
