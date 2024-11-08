@@ -19,13 +19,11 @@ export interface KupInputPanelData {
     rows?: KupInputPanelRow[];
     actions?: KupInputPanelAction[];
     setup?: {
-        commands?: [
-            {
-                cells: {
-                    [key: string]: KupDataCell;
-                };
-            }
-        ];
+        commands?: Array<{
+            cells: {
+                [key: string]: KupDataCell;
+            };
+        }>;
     };
 }
 
