@@ -56,6 +56,7 @@
 
     &__section {
       display: grid;
+      min-width: 0;
 
       .f-cell__content {
         > * {
