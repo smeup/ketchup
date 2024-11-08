@@ -748,6 +748,7 @@ export class KupInputPanel {
         const rowEnd = +field.rowEnd > 0 ? `${field.rowEnd}` : '';
 
         const styleObj = {
+            'min-width': '0',
             'grid-column-start': colStart,
             'grid-column-end': colEnd,
             'grid-row-start': rowStart,
