@@ -14,10 +14,13 @@ import {
 } from '@stencil/core';
 import {
     KupAutocompleteEventPayload,
+    KupButtonListClickEventPayload,
+    KupButtonListNode,
     KupComboboxIconClickEventPayload,
     KupDataCell,
     KupDataTableDataset,
     KupDataTableRow,
+    KupDropdownButtonEventPayload,
     KupEditorEventPayload,
     KupTabBarEventPayload,
     KupTabBarNode,
@@ -39,6 +42,7 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
@@ -52,7 +56,9 @@ import {
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
+    KupInputPanelCommandChildrenData,
     KupInputPanelData,
+    KupInputPanelDataCommand,
     KupInputPanelLayout,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
@@ -75,6 +81,9 @@ import {
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
+import { KupDropdownButton } from '../kup-dropdown-button/kup-dropdown-button';
+import { dA } from '@fullcalendar/core/internal-common';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -159,6 +168,8 @@ export class KupInputPanel {
      * @default []
      */
     @State() private inputPanelCommands: VNode[] = [];
+
+    @State() private inputPanelCommands2: VNode = null;
 
     /**
      * Id of selected tab if exists
@@ -397,6 +408,7 @@ export class KupInputPanel {
                         ></FButton>
                     ) : null}
                     {this.inputPanelCommands}
+                    {this.inputPanelCommands2}
                 </div>
             </form>
         );
@@ -449,6 +461,24 @@ export class KupInputPanel {
                 {...cell.data}
                 wrapperClass="form__submit"
             ></FButton>
+        );
+    }
+
+    #renderDropDownButton(
+        name: string,
+        data: KupInputPanelCommandChildrenData
+    ) {
+        return (
+            <kup-dropdown-button
+                sizing={KupComponentSizing.MEDIUM}
+                label={name}
+                data={data}
+                onkup-dropdownbutton-itemclick={(
+                    e: CustomEvent<KupDropdownButtonEventPayload>
+                ) => {
+                    this.#getFunctionOnClickBTN(e.detail.node, e.detail.value);
+                }}
+            ></kup-dropdown-button>
         );
     }
 
@@ -818,21 +848,24 @@ export class KupInputPanel {
 
     #mapCommands() {
         this.inputPanelCommands = this.data.setup.commands
-            .map((commandObj) =>
-                Object.entries(commandObj?.cells).map(([id, cell]) => {
-                    const buttonCell = {
-                        ...cell,
-                        data: this.#BTNAdapter(
-                            null,
-                            null,
-                            cell.value,
-                            cell,
-                            id
-                        ),
+            .map((commandObj) => {
+                if (commandObj?.children && commandObj?.children.length > 0) {
+                    const data: KupInputPanelCommandChildrenData = {
+                        'kup-list': {
+                            data: commandObj.children.map((c) => {
+                                return this.#getKupDataCellByEntryMap(
+                                    Object.entries(c?.cells)[0]
+                                );
+                            }),
+                        },
                     };
-                    return this.#renderButton(buttonCell, id);
-                })
-            )
+                    return this.#renderDropDownButton(commandObj.value, data);
+                } else if (commandObj?.cells) {
+                    const firstBtn = Object.entries(commandObj?.cells)[0];
+                    const buttonCell = this.#getKupDataCellByEntryMap(firstBtn);
+                    return this.#renderButton(buttonCell, firstBtn[0]);
+                }
+            })
             .flat();
     }
 
@@ -1109,19 +1142,7 @@ export class KupInputPanel {
         cell.data = cell.data || {};
 
         cell.data.onClick = () => {
-            cell.fun
-                ? this.customButtonClickHandler({
-                      fun: cell.fun,
-                      cellId: id,
-                      currentState: this.#reverseMapCells(),
-                  })
-                : this.submitCb({
-                      value: {
-                          before: { ...this.#originalData },
-                          after: this.#reverseMapCells(),
-                      },
-                      cell: id,
-                  });
+            this.#getFunctionOnClickBTN(cell, id);
         };
 
         if (cell.data?.keyShortcut && !cell.data?.disabled) {
@@ -1756,6 +1777,35 @@ export class KupInputPanel {
                     cell.value !== row.cells[name].value
             )
         );
+    }
+
+    #getFunctionOnClickBTN(cell: KupInputPanelCell, id: string) {
+        cell.fun
+            ? this.customButtonClickHandler({
+                  fun: cell.fun,
+                  cellId: id,
+                  currentState: this.#reverseMapCells(),
+              })
+            : this.submitCb({
+                  value: {
+                      before: { ...this.#originalData },
+                      after: this.#reverseMapCells(),
+                  },
+                  cell: id,
+              });
+    }
+
+    #getKupDataCellByEntryMap(
+        entryCell: Array<any>,
+        id: string = undefined
+    ): KupDataCell {
+        id = id ?? entryCell[0];
+        const cell = entryCell[1];
+        const buttonCell = {
+            ...cell,
+            data: this.#BTNAdapter(null, null, cell.value, cell, id),
+        };
+        return buttonCell;
     }
 
     //#endregion
