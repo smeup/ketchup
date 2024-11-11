@@ -476,7 +476,10 @@ export class KupInputPanel {
                 onkup-dropdownbutton-itemclick={(
                     e: CustomEvent<KupDropdownButtonEventPayload>
                 ) => {
-                    this.#getFunctionOnClickBTN(e.detail.node, e.detail.value);
+                    this.#getFunctionOnClickBTN(
+                        e.detail.node,
+                        e.detail.node.data.key
+                    );
                 }}
             ></kup-dropdown-button>
         );
@@ -1803,7 +1806,10 @@ export class KupInputPanel {
         const cell = entryCell[1];
         const buttonCell = {
             ...cell,
-            data: this.#BTNAdapter(null, null, cell.value, cell, id),
+            data: {
+                ...this.#BTNAdapter(null, null, cell.value, cell, id),
+                key: id,
+            },
         };
         return buttonCell;
     }
