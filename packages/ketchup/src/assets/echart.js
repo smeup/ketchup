@@ -1068,17 +1068,9 @@ echart8.data = {
     ],
 };
 
-echart9.consistencyCheck = true;
-echart9.types = ['Sankey'];
-echart9.colors = ['blue'];
-echart9.axis = '';
-echart9.chartTitle = {
-    value: 'Sankey',
-    color: 'red',
-    position: 'top',
-    size: 16,
-};
-echart9.data = {
+const sankeyData1Axis = 'SOURCE';
+const sankeyData1Series = [];
+const sankeyData1 = {
     // actual dataset
     columns: [
         {
@@ -1210,6 +1202,365 @@ echart9.data = {
         },
     ],
 };
+const sankeyData2Axis = 'COL1';
+const sankeyData2Series = ['COL2', 'COL3'];
+const sankeyData2 = {
+    columns: [
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'COL1',
+            title: 'Da',
+            tooltip: false,
+        },
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'COL2',
+            title: 'A',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'COL3',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Peso',
+            tooltip: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '5',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '5',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'MASCHIO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'MASCHIO',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'PROPRIETA',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'PROPRIETA',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '7',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '7',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'FEMMINA',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'FEMMINA',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'PROPRIETA',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'PROPRIETA',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '6',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '6',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'MASCHIO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'MASCHIO',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'AFFITTO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'AFFITTO',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '2',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'FEMMINA',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'FEMMINA',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'AFFITTO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'AFFITTO',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '9',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '9',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'MASCHIO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'MASCHIO',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'ALTRO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'ALTRO',
+                },
+            },
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '4',
+                },
+                COL2: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'FEMMINA',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'FEMMINA',
+                },
+                COL1: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'ALTRO',
+                        p: '',
+                        t: '',
+                    },
+                    value: 'ALTRO',
+                },
+            },
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+echart9.consistencyCheck = true;
+echart9.types = ['Sankey'];
+echart9.colors = ['blue'];
+echart9.axis = sankeyData2Axis;
+echart9.series = sankeyData2Series;
+echart9.chartTitle = {
+    value: 'Sankey',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart9.data = sankeyData2;
 
 echart10.consistencyCheck = true;
 echart10.types = ['Candle'];
@@ -1457,7 +1808,6 @@ echart11.data = {
         },
     ],
 };
-
 
 echart12.types = ['Bar', 'Bar'];
 echart12.colors = ['blue'];

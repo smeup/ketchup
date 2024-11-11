@@ -568,17 +568,19 @@ export class KupEchart {
 
     #sankeyChart() {
         const links: GenericObject[] = [],
+            x = this.#createX(),
             y = this.#createY(),
-            keys = Object.keys(y);
+            // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
+            yKeys = [this.data.columns[1].title, this.data.columns[2].title];
         // Assuming all arrays in the question object have the same length
-        const arrayLength = y[keys[0]].length;
+        const arrayLength = y[yKeys[0]].length;
 
         for (let i = 0; i < arrayLength; i++) {
             const entry: GenericObject = {};
 
-            entry['source'] = y[keys[0]][i];
-            entry['target'] = y[keys[1]][i];
-            entry['value'] = parseInt(y[keys[2]][i]);
+            entry['source'] = x[i];
+            entry['target'] = y[yKeys[0]][i];
+            entry['value'] = parseInt(y[yKeys[1]][i]);
 
             links.push(entry);
         }
