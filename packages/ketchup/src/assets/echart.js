@@ -895,19 +895,7 @@ echart7.data = {
     ],
 };
 
-echart8.consistencyCheck = true;
-echart8.types = ['Bubble'];
-echart8.colors = ['blue'];
-// if no series are specified chart would be empty
-echart8.series = ['GDP', 'AGE', 'SIZE', 'COUNTRY', 'YEAR'];
-echart8.axis = '';
-echart8.chartTitle = {
-    value: 'Bubble',
-    color: 'red',
-    position: 'top',
-    size: 16,
-};
-echart8.data = {
+const bubbleChartData1 = {
     columns: [
         {
             name: 'GDP',
@@ -1069,6 +1057,358 @@ echart8.data = {
         },
     ],
 };
+const data1Series = ['GDP', 'AGE', 'SIZE', 'COUNTRY', 'YEAR'];
+const bubbleChartData2 = {
+    columns: [
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'A',
+            obj: {
+                k: '',
+                p: '',
+                t: '**',
+            },
+            title: 'Marchi',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'B',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Price',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'C',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Labels',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'D',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Size',
+            tooltip: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Audi',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Audi',
+                },
+                B: {
+                    obj: {
+                        k: '100',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '100',
+                },
+                C: {
+                    obj: {
+                        k: '14',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '14',
+                },
+                D: {
+                    obj: {
+                        k: '1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '1',
+                },
+            },
+            cssClass: 'clickable',
+            id: '0',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Alfa Romeo',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Alfa Romeo',
+                },
+                B: {
+                    obj: {
+                        k: '28',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '28',
+                },
+                C: {
+                    obj: {
+                        k: '27',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '27',
+                },
+                D: {
+                    obj: {
+                        k: '7',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '7',
+                },
+            },
+            cssClass: 'clickable',
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'BMW',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'BMW',
+                },
+                B: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '10',
+                },
+                C: {
+                    obj: {
+                        k: '160',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '160',
+                },
+                D: {
+                    obj: {
+                        k: '15',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '15',
+                },
+            },
+            cssClass: 'clickable',
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'FCA',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'FCA',
+                },
+                B: {
+                    obj: {
+                        k: '20',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '20',
+                },
+                C: {
+                    obj: {
+                        k: '12',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '12',
+                },
+                D: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '10',
+                },
+            },
+            cssClass: 'clickable',
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Ferrari',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Ferrari',
+                },
+                B: {
+                    obj: {
+                        k: '230',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '230',
+                },
+                C: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '3',
+                },
+                D: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '10',
+                },
+            },
+            cssClass: 'clickable',
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Lamborghini',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Lamborghini',
+                },
+                B: {
+                    obj: {
+                        k: '190',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '190',
+                },
+                C: {
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '2',
+                },
+                D: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '3',
+                },
+            },
+            cssClass: 'clickable',
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Jeep',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Jeep',
+                },
+                B: {
+                    obj: {
+                        k: '49',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '49',
+                },
+                C: {
+                    obj: {
+                        k: '6',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '6',
+                },
+                D: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '10',
+                },
+            },
+            cssClass: 'clickable',
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+const data2Series = ['B', 'C', 'D'];
+echart8.consistencyCheck = true;
+echart8.types = ['Bubble'];
+echart8.colors = ['blue'];
+// if no series are specified chart would be empty
+echart8.series = data1Series;
+echart8.axis = '';
+echart8.chartTitle = {
+    value: 'Bubble',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart8.data = bubbleChartData1;
 
 echart9.consistencyCheck = true;
 echart9.types = ['Sankey'];
