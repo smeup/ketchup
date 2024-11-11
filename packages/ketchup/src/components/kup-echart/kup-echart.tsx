@@ -618,6 +618,7 @@ export class KupEchart {
     }
 
     #candleChart() {
+        const x = this.#createX();
         const y = this.#createY(),
             answer = [],
             itemStyle = {
@@ -643,7 +644,6 @@ export class KupEchart {
                 return undefined;
             },
         });
-        const date = caseInsensitiveObj['date'];
 
         for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
             answer.push([
@@ -654,7 +654,7 @@ export class KupEchart {
             ]);
         }
         let legend = {};
-        date.forEach((e, i) => {
+        x.forEach((e, i) => {
             legend[e] = i;
         });
         return {
@@ -665,7 +665,7 @@ export class KupEchart {
             },
             title: this.#setTitle(),
             xAxis: {
-                data: date,
+                data: x,
             },
             yAxis: {},
             series: [

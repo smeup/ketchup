@@ -1211,17 +1211,7 @@ echart9.data = {
     ],
 };
 
-echart10.consistencyCheck = true;
-echart10.types = ['Candle'];
-echart10.colors = ['blue'];
-echart10.axis = '';
-echart10.chartTitle = {
-    value: 'Candle',
-    color: 'red',
-    position: 'top',
-    size: 16,
-};
-echart10.data = {
+const candlestickChartData1 = {
     // actual dataset
     columns: [
         {
@@ -1361,6 +1351,500 @@ echart10.data = {
         },
     ],
 };
+const candlestickChartData1Axis = 'DATE';
+
+const candlestickChartData2 = {
+    columns: [
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'AXE',
+            obj: {
+                k: '',
+                p: '',
+                t: '**',
+            },
+            title: 'Col',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'OPN',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'open',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'HIG',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'high',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'LOW',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'low',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'CLO',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'close',
+            tooltip: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                LOW: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '38',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '38',
+                },
+                HIG: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '28',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '28',
+                },
+                CLO: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '38',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '38',
+                },
+                OPN: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '28',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '28',
+                },
+                AXE: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'Lun',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Lun',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                LOW: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '55',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '55',
+                },
+                HIG: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '38',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '38',
+                },
+                CLO: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '55',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '55',
+                },
+                OPN: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '38',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '38',
+                },
+                AXE: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'Mar',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Mar',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                LOW: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '77',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '77',
+                },
+                HIG: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '55',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '55',
+                },
+                CLO: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '77',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '77',
+                },
+                OPN: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '55',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '55',
+                },
+                AXE: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'Mer',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Mer',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                LOW: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '66',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '66',
+                },
+                HIG: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '77',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '77',
+                },
+                CLO: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '66',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '66',
+                },
+                OPN: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '77',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '77',
+                },
+                AXE: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'Gio',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Gio',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                LOW: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '22',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '22',
+                },
+                HIG: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '66',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '66',
+                },
+                CLO: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '22',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '22',
+                },
+                OPN: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        maxLength: 10,
+                        integers: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '66',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '66',
+                },
+                AXE: {
+                    data: {
+                        size: 10,
+                        helperEnabled: false,
+                        hiddenCounter: true,
+                        maxLength: 10,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: 'Ven',
+                        p: '',
+                        t: '**',
+                    },
+                    value: 'Ven',
+                },
+            },
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+const candlestickChartData2Axis = 'AXE';
+echart10.consistencyCheck = true;
+echart10.types = ['Candle'];
+echart10.colors = ['blue'];
+echart10.chartTitle = {
+    value: 'Candle',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart10.axis = candlestickChartData1Axis;
+echart10.data = candlestickChartData1;
 
 echart11.consistencyCheck = true;
 echart11.types = ['Calendar'];
@@ -1457,7 +1941,6 @@ echart11.data = {
         },
     ],
 };
-
 
 echart12.types = ['Bar', 'Bar'];
 echart12.colors = ['blue'];
