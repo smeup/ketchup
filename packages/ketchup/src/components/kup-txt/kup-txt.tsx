@@ -29,7 +29,7 @@ const NEW_LINE_SEPARATOR = '\\*char_combination\\*';
     styleUrl: 'kup-txt.scss',
     shadow: true,
 })
-export class KupTXT {
+export class KupTxt {
     /**
      * References the root HTML element of the component (<kup-txt>).
      */
@@ -100,7 +100,8 @@ export class KupTXT {
     /*-------------------------------------------------*/
 
     getValue(): string {
-        return this.data.value.replace(
+        const value = this.data?.value || '';
+        return value.replace(
             new RegExp(`${NEW_LINE_SEPARATOR}`, 'g'),
             '<br />'
         );

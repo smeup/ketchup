@@ -2,6 +2,9 @@
   height: 100%;
   width: 100%;
   display: block;
+  color: var(--kup-text-color);
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size);
 }
 
 #kup-component {
