@@ -76,6 +76,7 @@ export const KupTimePicker = /*@__PURE__*/createReactComponent<JSX.KupTimePicker
 export const KupToolbar = /*@__PURE__*/createReactComponent<JSX.KupToolbar, HTMLKupToolbarElement>('kup-toolbar');
 export const KupTooltip = /*@__PURE__*/createReactComponent<JSX.KupTooltip, HTMLKupTooltipElement>('kup-tooltip');
 export const KupTree = /*@__PURE__*/createReactComponent<JSX.KupTree, HTMLKupTreeElement>('kup-tree');
+export const KupTxt = /*@__PURE__*/createReactComponent<JSX.KupTxt, HTMLKupTxtElement>('kup-txt');
 export const KupTypography = /*@__PURE__*/createReactComponent<JSX.KupTypography, HTMLKupTypographyElement>('kup-typography');
 export const KupTypographyList = /*@__PURE__*/createReactComponent<JSX.KupTypographyList, HTMLKupTypographyListElement>('kup-typography-list');
 export const KupVerticalScroll = /*@__PURE__*/createReactComponent<JSX.KupVerticalScroll, HTMLKupVerticalScrollElement>('kup-vertical-scroll');

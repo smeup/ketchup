@@ -4466,6 +4466,28 @@ export namespace Components {
          */
         "useDynamicExpansion": boolean;
     }
+    interface KupTxt {
+        /**
+          * Data containing the text.
+          * @default null
+         */
+        "data": KupDataCell;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupTypography {
         /**
           * Custom style of the component.
@@ -4747,6 +4769,10 @@ export interface KupToolbarCustomEvent<T> extends CustomEvent<T> {
 export interface KupTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupTreeElement;
+}
+export interface KupTxtCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupTxtElement;
 }
 export interface KupTypographyCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -5824,6 +5850,23 @@ declare global {
         prototype: HTMLKupTreeElement;
         new (): HTMLKupTreeElement;
     };
+    interface HTMLKupTxtElementEventMap {
+        "kup-txt-ready": KupEventPayload;
+    }
+    interface HTMLKupTxtElement extends Components.KupTxt, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTxtElementEventMap>(type: K, listener: (this: HTMLKupTxtElement, ev: KupTxtCustomEvent<HTMLKupTxtElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTxtElementEventMap>(type: K, listener: (this: HTMLKupTxtElement, ev: KupTxtCustomEvent<HTMLKupTxtElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupTxtElement: {
+        prototype: HTMLKupTxtElement;
+        new (): HTMLKupTxtElement;
+    };
     interface HTMLKupTypographyElementEventMap {
         "kup-typography-iconclick": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
@@ -5936,6 +5979,7 @@ declare global {
         "kup-toolbar": HTMLKupToolbarElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
+        "kup-txt": HTMLKupTxtElement;
         "kup-typography": HTMLKupTypographyElement;
         "kup-typography-list": HTMLKupTypographyListElement;
         "kup-vertical-scroll": HTMLKupVerticalScrollElement;
@@ -9626,6 +9670,17 @@ declare namespace LocalJSX {
          */
         "useDynamicExpansion"?: boolean;
     }
+    interface KupTxt {
+        /**
+          * Data containing the text.
+          * @default null
+         */
+        "data"?: KupDataCell;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-txt-ready"?: (event: KupTxtCustomEvent<KupEventPayload>) => void;
+    }
     interface KupTypography {
         /**
           * Custom style of the component.
@@ -9759,6 +9814,7 @@ declare namespace LocalJSX {
         "kup-toolbar": KupToolbar;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
+        "kup-txt": KupTxt;
         "kup-typography": KupTypography;
         "kup-typography-list": KupTypographyList;
         "kup-vertical-scroll": KupVerticalScroll;
@@ -9836,6 +9892,7 @@ declare module "@stencil/core" {
             "kup-toolbar": LocalJSX.KupToolbar & JSXBase.HTMLAttributes<HTMLKupToolbarElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
+            "kup-txt": LocalJSX.KupTxt & JSXBase.HTMLAttributes<HTMLKupTxtElement>;
             "kup-typography": LocalJSX.KupTypography & JSXBase.HTMLAttributes<HTMLKupTypographyElement>;
             "kup-typography-list": LocalJSX.KupTypographyList & JSXBase.HTMLAttributes<HTMLKupTypographyListElement>;
             "kup-vertical-scroll": LocalJSX.KupVerticalScroll & JSXBase.HTMLAttributes<HTMLKupVerticalScrollElement>;

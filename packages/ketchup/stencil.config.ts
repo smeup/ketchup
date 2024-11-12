@@ -114,6 +114,7 @@ export const config: Config = {
                 { src: 'text-field.html' },
                 { src: 'tree-performance.html' },
                 { src: 'tree.html' },
+                { src: 'txt.html' },
             ],
             serviceWorker: null, // disable service workers
         },
