@@ -31,12 +31,6 @@ export interface KupInputPanelDataCommand {
     value: string;
 }
 
-export interface KupInputPanelCommandChildrenData {
-    'kup-list': {
-        data: Array<KupDataCell>;
-    };
-}
-
 export interface KupInputPanelAction {
     type?: string;
     fun?: string;

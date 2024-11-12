@@ -14,8 +14,6 @@ import {
 } from '@stencil/core';
 import {
     KupAutocompleteEventPayload,
-    KupButtonListClickEventPayload,
-    KupButtonListNode,
     KupComboboxIconClickEventPayload,
     KupDataCell,
     KupDataTableDataset,
@@ -33,6 +31,7 @@ import {
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
@@ -45,6 +44,13 @@ import {
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
+import {
+    CHIAdapter,
+    CHKAdapter,
+    CMBandACPAdapter,
+    RADAdapter,
+    SWTAdapter,
+} from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
@@ -56,9 +62,7 @@ import {
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
-    KupInputPanelCommandChildrenData,
     KupInputPanelData,
-    KupInputPanelDataCommand,
     KupInputPanelLayout,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
@@ -67,23 +71,12 @@ import {
     KupInputPanelRow,
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     getAbsoluteHeight,
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
 } from './kup-input-panel-utils';
-import {
-    CHIAdapter,
-    CHKAdapter,
-    CMBandACPAdapter,
-    RADAdapter,
-    SWTAdapter,
-} from '../../utils/cell-utils';
-import { KupDropdownButton } from '../kup-dropdown-button/kup-dropdown-button';
-import { dA } from '@fullcalendar/core/internal-common';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -464,21 +457,19 @@ export class KupInputPanel {
         );
     }
 
-    #renderDropDownButton(
-        name: string,
-        data: KupInputPanelCommandChildrenData
-    ) {
+    #renderDropDownButton(cell: KupDataCell, data: GenericObject) {
         return (
             <kup-dropdown-button
+                {...cell.data}
                 sizing={KupComponentSizing.MEDIUM}
-                label={name}
+                label={cell.value}
                 data={data}
                 onkup-dropdownbutton-itemclick={(
                     e: CustomEvent<KupDropdownButtonEventPayload>
                 ) => {
                     this.#getFunctionOnClickBTN(
                         e.detail.node,
-                        e.detail.node.data.key
+                        e.detail.node.id
                     );
                 }}
             ></kup-dropdown-button>
@@ -853,19 +844,20 @@ export class KupInputPanel {
         this.inputPanelCommands = this.data.setup.commands
             .map((commandObj) => {
                 if (commandObj?.children && commandObj?.children.length > 0) {
-                    const data: KupInputPanelCommandChildrenData = {
+                    const data = {
                         'kup-list': {
+                            showIcons: true,
                             data: commandObj.children.map((c) => {
-                                return this.#getKupDataCellByEntryMap(
+                                return this.#commandAdapter(
                                     Object.entries(c?.cells)[0]
                                 );
                             }),
                         },
                     };
-                    return this.#renderDropDownButton(commandObj.value, data);
+                    return this.#renderDropDownButton(commandObj, data);
                 } else if (commandObj?.cells) {
                     const firstBtn = Object.entries(commandObj?.cells)[0];
-                    const buttonCell = this.#getKupDataCellByEntryMap(firstBtn);
+                    const buttonCell = this.#commandAdapter(firstBtn);
                     return this.#renderButton(buttonCell, firstBtn[0]);
                 }
             })
@@ -1602,6 +1594,20 @@ export class KupInputPanel {
         });
     }
 
+    #commandAdapter(
+        entryCell: Array<any>,
+        id: string = undefined
+    ): KupDataCell {
+        id = id ?? entryCell[0];
+        const cell = entryCell[1];
+        const buttonCell = {
+            ...cell,
+            data: this.#BTNAdapter(null, null, cell.value, cell, id),
+            id,
+        };
+        return buttonCell;
+    }
+
     #getAutocompleteEventCallback(
         detail: KupAutocompleteEventPayload | KupComboboxIconClickEventPayload,
         fun: string,
@@ -1796,22 +1802,6 @@ export class KupInputPanel {
                   },
                   cell: id,
               });
-    }
-
-    #getKupDataCellByEntryMap(
-        entryCell: Array<any>,
-        id: string = undefined
-    ): KupDataCell {
-        id = id ?? entryCell[0];
-        const cell = entryCell[1];
-        const buttonCell = {
-            ...cell,
-            data: {
-                ...this.#BTNAdapter(null, null, cell.value, cell, id),
-                key: id,
-            },
-        };
-        return buttonCell;
     }
 
     //#endregion
