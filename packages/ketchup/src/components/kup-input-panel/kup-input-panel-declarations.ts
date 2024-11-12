@@ -23,7 +23,7 @@ export interface KupInputPanelData {
     };
 }
 
-export interface KupInputPanelDataCommand {
+export interface KupInputPanelDataCommand extends KupDataCell {
     children?: Array<KupInputPanelDataCommand>;
     cells?: {
         [key: string]: KupDataCell;

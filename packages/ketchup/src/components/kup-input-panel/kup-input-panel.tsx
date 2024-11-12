@@ -162,8 +162,6 @@ export class KupInputPanel {
      */
     @State() private inputPanelCommands: VNode[] = [];
 
-    @State() private inputPanelCommands2: VNode = null;
-
     /**
      * Id of selected tab if exists
      * @default null
@@ -401,7 +399,6 @@ export class KupInputPanel {
                         ></FButton>
                     ) : null}
                     {this.inputPanelCommands}
-                    {this.inputPanelCommands2}
                 </div>
             </form>
         );
@@ -847,18 +844,15 @@ export class KupInputPanel {
                     const data = {
                         'kup-list': {
                             showIcons: true,
-                            data: commandObj.children.map((c) => {
-                                return this.#commandAdapter(
-                                    Object.entries(c?.cells)[0]
-                                );
-                            }),
+                            data: commandObj.children.map((c) =>
+                                this.#commandAdapter(c)
+                            ),
                         },
                     };
                     return this.#renderDropDownButton(commandObj, data);
-                } else if (commandObj?.cells) {
-                    const firstBtn = Object.entries(commandObj?.cells)[0];
-                    const buttonCell = this.#commandAdapter(firstBtn);
-                    return this.#renderButton(buttonCell, firstBtn[0]);
+                } else {
+                    const buttonCell = this.#commandAdapter(commandObj);
+                    return this.#renderButton(buttonCell, commandObj.value);
                 }
             })
             .flat();
@@ -1594,16 +1588,11 @@ export class KupInputPanel {
         });
     }
 
-    #commandAdapter(
-        entryCell: Array<any>,
-        id: string = undefined
-    ): KupDataCell {
-        id = id ?? entryCell[0];
-        const cell = entryCell[1];
+    #commandAdapter(cell: KupDataCell): KupDataCell {
         const buttonCell = {
             ...cell,
-            data: this.#BTNAdapter(null, null, cell.value, cell, id),
-            id,
+            data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),
+            id: cell.obj.k,
         };
         return buttonCell;
     }
