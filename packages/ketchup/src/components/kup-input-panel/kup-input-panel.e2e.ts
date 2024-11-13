@@ -1862,7 +1862,7 @@ describe('kup-input-panel', () => {
         expect(classKupDanger).not.toBeNull();
     });
 
-    it('render inputpanel with commands', async () => {
+    it('render inputpanel with commands buttons', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-input-panel></kup-input-panel>');
@@ -1881,19 +1881,25 @@ describe('kup-input-panel', () => {
                 commands: [
                     {
                         children: [],
+                        value: 'Clear (F5)',
+                        icon: 'close',
+                        data: {
+                            keyShortcut: 'f5',
+                        },
+                        obj: { t: 'J1', p: 'KEY', k: 'CLEAR' },
                         cells: {
-                            CLEAR: {
-                                value: 'Clear (F5)',
-                                icon: 'close',
-                                data: {
-                                    keyShortcut: 'f5',
-                                },
-                            },
                             TST: {
                                 value: 'TST',
                                 icon: 'save',
                             },
                         },
+                        forcedLeaf: false,
+                    },
+                    {
+                        children: [],
+                        value: 'TST',
+                        obj: { t: 'J1', p: 'KEY', k: 'TST' },
+                        cells: {},
                         forcedLeaf: false,
                     },
                 ],
@@ -1914,5 +1920,68 @@ describe('kup-input-panel', () => {
 
         const buttons = await commands.findAll('div.f-button.form__submit');
         expect(buttons.length).toBe(2 + 1);
+    });
+
+    it('render inputpanel with commands dropdown-button', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            type: 'SmeupDataTable',
+            columns: [],
+            rows: [
+                {
+                    cells: {},
+                },
+            ],
+            setup: {
+                components: {},
+                commands: [
+                    {
+                        children: [
+                            {
+                                children: [],
+                                value: 'CLEAR',
+                                obj: { t: 'J1', p: 'KEY', k: 'CLEAR' },
+                                cells: {},
+                                data: {
+                                    keyShortcut: 'f5',
+                                },
+                                forcedLeaf: false,
+                            },
+                            {
+                                children: [],
+                                value: 'TST',
+                                obj: { t: 'J1', p: 'KEY', k: 'TST' },
+                                cell: {},
+                                forcedLeaf: false,
+                            },
+                        ],
+                        value: 'DDB',
+                        data: {
+                            icon: 'save',
+                        },
+                        forcedLeaf: false,
+                    },
+                ],
+            },
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const form = await page.find(
+            'kup-input-panel >>> form.input-panel-form'
+        );
+        expect(form).not.toBeNull();
+
+        const commands = await form.find('div.input-panel__commands');
+        expect(commands).not.toBeNull();
+
+        const buttons = await commands.findAll('kup-dropdown-button');
+        expect(buttons.length).toBe(1);
     });
 });
