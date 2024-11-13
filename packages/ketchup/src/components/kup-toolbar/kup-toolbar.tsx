@@ -20,7 +20,10 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
-import { KupToolbarClickEventPayload } from './kup-toolbar-declarations';
+import {
+    KupToolbarClickEventPayload,
+    KupToolbarTreeNode,
+} from './kup-toolbar-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupDataCellOptions,
@@ -72,7 +75,7 @@ export class KupToolbar {
      * The data of the list.
      * @default []
      */
-    @Prop({ mutable: true }) data: KupTreeNode[] = [];
+    @Prop({ mutable: true }) data: KupToolbarTreeNode[] = [];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -95,7 +98,7 @@ export class KupToolbar {
     })
     kupClick: EventEmitter<KupToolbarClickEventPayload>;
 
-    onKupClick(index: number, node: KupTreeNode) {
+    onKupClick(index: number, node: KupToolbarTreeNode) {
         this.#handleClick(index, node);
     }
 
@@ -133,14 +136,14 @@ export class KupToolbar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private generateRowForNode(treeNode: KupTreeNode): KupDataRow {
+    private generateRowForNode(treeNode: KupToolbarTreeNode): KupDataRow {
         const col: KupDataColumn = this.generateColumnForNode(treeNode);
         const row: KupDataRow = { cells: {} };
         row.cells[col.name] = treeNode;
         return row;
     }
 
-    private generateColumnForNode(treeNode: KupTreeNode): KupDataColumn {
+    private generateColumnForNode(treeNode: KupToolbarTreeNode): KupDataColumn {
         const colname: string =
             treeNode.obj && treeNode.obj.t
                 ? treeNode.obj.t + ';' + treeNode.obj.p
@@ -158,7 +161,7 @@ export class KupToolbar {
         };
     }
 
-    #renderTreeNode(node: KupTreeNode, index: number): VNode {
+    #renderTreeNode(node: KupToolbarTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
 
         if (!hasChildren) {
@@ -192,6 +195,16 @@ export class KupToolbar {
                             }
                         >
                             <span>{node.value}</span>
+                            <div class="chevron-type-wrapper">
+                                {node.componentType && (
+                                    <div class="component-type-chip">
+                                        {node.componentType}
+                                    </div>
+                                )}
+                                <div
+                                    style={{ width: '14px', height: '14px' }}
+                                ></div>
+                            </div>
                         </div>
                     )}
                 </>
@@ -200,13 +213,20 @@ export class KupToolbar {
             return (
                 <div class="parent-class" tabindex="0">
                     <span>{node.value}</span>
-                    <FImage
-                        resource="chevron-right"
-                        sizeX="14px"
-                        sizeY="14px"
-                        color="var(--kup-text-secondary)"
-                        wrapperClass="chevron-right"
-                    ></FImage>
+                    <div class="chevron-type-wrapper">
+                        {node.componentType && (
+                            <div class="component-type-chip">
+                                {node.componentType}
+                            </div>
+                        )}
+                        <FImage
+                            resource="chevron-right"
+                            sizeX="14px"
+                            sizeY="14px"
+                            color="var(--kup-text-secondary)"
+                            wrapperClass="chevron-right"
+                        ></FImage>
+                    </div>
                     <div class="nested-class">
                         {this.#renderNestedChildren(node.children, index)}
                     </div>
@@ -215,7 +235,7 @@ export class KupToolbar {
         }
     }
 
-    #handleClick(index: number, node: KupTreeNode): void {
+    #handleClick(index: number, node: KupToolbarTreeNode): void {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -225,7 +245,7 @@ export class KupToolbar {
     }
 
     #renderNestedChildren(
-        children: KupTreeNode[],
+        children: KupToolbarTreeNode[],
         parentIndex: number
     ): VNode[] {
         return children.map((child, index) =>

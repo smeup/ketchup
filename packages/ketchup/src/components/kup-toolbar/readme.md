@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type            | Default |
-| ------------- | -------------- | ------------------------------ | --------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`        | `''`    |
-| `data`        | --             | The data of the list.          | `KupTreeNode[]` | `[]`    |
+| Property      | Attribute      | Description                    | Type                   | Default |
+| ------------- | -------------- | ------------------------------ | ---------------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`               | `''`    |
+| `data`        | --             | The data of the list.          | `KupToolbarTreeNode[]` | `[]`    |
 
 
 ## Events
