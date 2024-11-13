@@ -27,7 +27,7 @@
   font-family: var(--kup_cell_font_family);
   font-size: var(--kup_cell_font_size);
   min-height: 100%;
-  width: 100%;
+  width: if(var(--kup-f-cell_width) != null, var(--kup-f-cell_width), 100%);
   word-break: break-all;
   word-wrap: break-word;
 
