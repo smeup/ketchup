@@ -28,7 +28,6 @@ export interface KupInputPanelDataCommand extends KupDataCell {
     cells?: {
         [key: string]: KupDataCell;
     };
-    value: string;
 }
 
 export interface KupInputPanelAction {
