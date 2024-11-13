@@ -181,6 +181,11 @@ const basicRoutes = [
     component: () =>
       import(`@/views/components/basic/timepicker/TimePicker.vue`),
   },
+  {
+    path: `/txt`,
+    name: 'txt',
+    component: () => import(`@/views/components/basic/txt/Txt.vue`),
+  },
 ];
 
 const advancedRoutes = [
