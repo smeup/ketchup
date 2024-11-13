@@ -87,7 +87,7 @@ export interface KupCommand {
  * Generic cell interface.
  */
 export interface KupDataCell {
-    value: string;
+    value?: string;
     cardID?: number;
     cssClass?: string;
     data?: GenericObject;
