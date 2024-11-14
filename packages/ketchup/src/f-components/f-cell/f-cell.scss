@@ -1,4 +1,5 @@
 .f-cell {
+  --kup_fcell_width: var(--kup-fcell-width, 100%);
   --kup_cell_background: var(--kup-cell-background);
   --kup_cell_font_family: var(--kup-cell-font-family);
   --kup_cell_font_family_monospace: var(
@@ -27,7 +28,7 @@
   font-family: var(--kup_cell_font_family);
   font-size: var(--kup_cell_font_size);
   min-height: 100%;
-  width: if(var(--kup-f-cell_width) != null, var(--kup-f-cell_width), 100%);
+  width: var(--kup_fcell_width);
   word-break: break-all;
   word-wrap: break-word;
 
