@@ -84,13 +84,14 @@ export interface KupDataTableDataset {
             insert: boolean;
             delete: boolean;
         };
-        commands?: [
-            {
-                cells: {
-                    [key: string]: KupDataCell;
-                };
-            }
-        ];
+        commands?: Array<KupDataTableCommand>;
+    };
+}
+
+export interface KupDataTableCommand extends KupDataCell {
+    children?: Array<KupDataTableCommand>;
+    cells?: {
+        [key: string]: KupDataCell;
     };
 }
 

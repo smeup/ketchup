@@ -54,6 +54,7 @@ import {
     KupDatatableRowActionItemClickEventPayload,
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
+    KupDataTableCommand,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -6002,6 +6003,54 @@ export class KupDataTable {
         );
     }
 
+    #renderCommandButton(
+        commandObj: KupDataTableCommand,
+        styling: FButtonStyling
+    ) {
+        return (
+            <kup-button
+                styling={styling}
+                onKup-button-click={() => this.#handleUpdateClick(commandObj)}
+                keyShortcut={commandObj.data?.keyShortcut}
+                icon={commandObj.icon}
+                label={commandObj.value}
+            />
+        );
+    }
+
+    #renderCommandDropDownButton(
+        commandObj: KupDataTableCommand,
+        styling: FButtonStyling
+    ) {
+        const data = {
+            'kup-list': {
+                showIcons: true,
+                data: commandObj.children.map((c) => {
+                    return {
+                        ...c,
+                        data: {
+                            label: c.value,
+                            ...c.data,
+                        },
+                        id: c.obj.k,
+                    };
+                }),
+            },
+        };
+        return (
+            <kup-dropdown-button
+                {...commandObj.data}
+                styling={styling}
+                sizing={KupComponentSizing.MEDIUM}
+                label={commandObj.value}
+                data={data}
+                onkup-dropdownbutton-itemclick={() => {
+                    this.#handleUpdateClick(commandObj);
+                }}
+            ></kup-dropdown-button>
+        );
+    }
+
     #renderUpdateButtons() {
         const styling: FButtonStyling = FButtonStyling.FLAT;
 
@@ -6062,20 +6111,11 @@ export class KupDataTable {
 
         const addCommands = () => {
             this.data?.setup?.commands?.forEach((commandObj) => {
-                Object.entries(commandObj?.cells).forEach(([, cell]) => {
-                    const newButton = (
-                        <kup-button
-                            styling={styling}
-                            onKup-button-click={() =>
-                                this.#handleUpdateClick(cell)
-                            }
-                            keyShortcut={cell.data?.keyShortcut}
-                            icon={cell.icon}
-                            label={cell.value}
-                        />
-                    );
-                    commandButtons.push(newButton);
-                });
+                commandButtons.push(
+                    commandObj?.children && commandObj?.children.length > 0
+                        ? this.#renderCommandDropDownButton(commandObj, styling)
+                        : this.#renderCommandButton(commandObj, styling)
+                );
             });
         };
 
