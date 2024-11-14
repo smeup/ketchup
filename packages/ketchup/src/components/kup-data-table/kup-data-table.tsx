@@ -161,6 +161,7 @@ import {
     KupCommand,
     KupDataCell,
     KupDataColumn,
+    KupDataCommand,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
@@ -173,6 +174,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
+import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -6002,6 +6004,53 @@ export class KupDataTable {
         );
     }
 
+    #renderCommandButton(commandObj: KupDataCommand, styling: FButtonStyling) {
+        return (
+            <kup-button
+                styling={styling}
+                onKup-button-click={() => this.#handleUpdateClick(commandObj)}
+                keyShortcut={commandObj.data?.keyShortcut}
+                icon={commandObj.icon}
+                label={commandObj.value}
+            />
+        );
+    }
+
+    #renderCommandDropDownButton(
+        commandObj: KupDataCommand,
+        styling: FButtonStyling
+    ) {
+        const data = {
+            'kup-list': {
+                showIcons: true,
+                data: commandObj.children.map((c) => {
+                    return {
+                        ...c,
+                        data: {
+                            label: c.value,
+                            ...c.data,
+                        },
+                        id: c.obj.k,
+                    };
+                }),
+            },
+        };
+        return (
+            <kup-dropdown-button
+                {...commandObj.data}
+                styling={styling}
+                sizing={KupComponentSizing.MEDIUM}
+                label={commandObj.value}
+                data={data}
+                onkup-dropdownbutton-itemclick={(
+                    e: CustomEvent<KupDropdownButtonEventPayload>
+                ) => {
+                    this.#handleUpdateClick(e.detail.node);
+                }}
+            ></kup-dropdown-button>
+        );
+    }
+
     #renderUpdateButtons() {
         const styling: FButtonStyling = FButtonStyling.FLAT;
 
@@ -6062,20 +6111,11 @@ export class KupDataTable {
 
         const addCommands = () => {
             this.data?.setup?.commands?.forEach((commandObj) => {
-                Object.entries(commandObj?.cells).forEach(([, cell]) => {
-                    const newButton = (
-                        <kup-button
-                            styling={styling}
-                            onKup-button-click={() =>
-                                this.#handleUpdateClick(cell)
-                            }
-                            keyShortcut={cell.data?.keyShortcut}
-                            icon={cell.icon}
-                            label={cell.value}
-                        />
-                    );
-                    commandButtons.push(newButton);
-                });
+                commandButtons.push(
+                    commandObj?.children && commandObj?.children.length > 0
+                        ? this.#renderCommandDropDownButton(commandObj, styling)
+                        : this.#renderCommandButton(commandObj, styling)
+                );
             });
         };
 
