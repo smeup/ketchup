@@ -6,6 +6,7 @@ import {
     DropDownAction,
     KupDataCell,
     KupDataColumn,
+    KupDataCommand,
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -84,14 +85,7 @@ export interface KupDataTableDataset {
             insert: boolean;
             delete: boolean;
         };
-        commands?: Array<KupDataTableCommand>;
-    };
-}
-
-export interface KupDataTableCommand extends KupDataCell {
-    children?: Array<KupDataTableCommand>;
-    cells?: {
-        [key: string]: KupDataCell;
+        commands?: Array<KupDataCommand>;
     };
 }
 

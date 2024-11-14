@@ -54,7 +54,6 @@ import {
     KupDatatableRowActionItemClickEventPayload,
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
-    KupDataTableCommand,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -162,6 +161,7 @@ import {
     KupCommand,
     KupDataCell,
     KupDataColumn,
+    KupDataCommand,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
@@ -174,6 +174,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
+import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -6003,10 +6004,7 @@ export class KupDataTable {
         );
     }
 
-    #renderCommandButton(
-        commandObj: KupDataTableCommand,
-        styling: FButtonStyling
-    ) {
+    #renderCommandButton(commandObj: KupDataCommand, styling: FButtonStyling) {
         return (
             <kup-button
                 styling={styling}
@@ -6019,7 +6017,7 @@ export class KupDataTable {
     }
 
     #renderCommandDropDownButton(
-        commandObj: KupDataTableCommand,
+        commandObj: KupDataCommand,
         styling: FButtonStyling
     ) {
         const data = {
@@ -6044,8 +6042,10 @@ export class KupDataTable {
                 sizing={KupComponentSizing.MEDIUM}
                 label={commandObj.value}
                 data={data}
-                onkup-dropdownbutton-itemclick={() => {
-                    this.#handleUpdateClick(commandObj);
+                onkup-dropdownbutton-itemclick={(
+                    e: CustomEvent<KupDropdownButtonEventPayload>
+                ) => {
+                    this.#handleUpdateClick(e.detail.node);
                 }}
             ></kup-dropdown-button>
         );

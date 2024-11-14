@@ -140,6 +140,17 @@ export interface KupDataNode extends KupDataRow {
     isEditable?: boolean;
     options?: CellOptions[];
 }
+
+/**
+ * Interface related to smeup data structure setup commands.
+ */
+export interface KupDataCommand extends KupDataCell {
+    children?: Array<KupDataCommand>;
+    cells?: {
+        [key: string]: KupDataCell;
+    };
+}
+
 /**
  * Interface related to cells operations.
  */

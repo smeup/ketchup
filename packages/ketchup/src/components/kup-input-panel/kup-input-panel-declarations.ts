@@ -2,6 +2,7 @@ import { GenericObject } from '../../components';
 import {
     KupDataCell,
     KupDataColumn,
+    KupDataCommand,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
@@ -19,14 +20,7 @@ export interface KupInputPanelData {
     rows?: KupInputPanelRow[];
     actions?: KupInputPanelAction[];
     setup?: {
-        commands?: Array<KupInputPanelDataCommand>;
-    };
-}
-
-export interface KupInputPanelDataCommand extends KupDataCell {
-    children?: Array<KupInputPanelDataCommand>;
-    cells?: {
-        [key: string]: KupDataCell;
+        commands?: Array<KupDataCommand>;
     };
 }
 
