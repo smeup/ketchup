@@ -160,6 +160,10 @@
     }
   }
 
+  &.full-description .image-list__image {
+    display: flow-root;
+  }
+
   &__item {
     background-color: var(--kup_imagelist_item_background_color);
     border-radius: var(--kup_imagelist_item_border_radius);
@@ -193,6 +197,12 @@
     white-space: nowrap;
     padding: var(--kup-space-03);
     @include kup-label-01;
+    &.label-full-description {
+      overflow: unset;
+      text-align: center;
+      text-overflow: unset;
+      white-space: normal;
+    }
   }
 }
 
