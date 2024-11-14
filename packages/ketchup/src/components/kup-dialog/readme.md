@@ -154,6 +154,7 @@ Type: `Promise<void>`
  - [kup-time-picker](../kup-time-picker)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
+ - [kup-txt](../kup-txt)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
 
@@ -220,6 +221,7 @@ graph TD;
   kup-probe --> kup-dialog
   kup-qlik --> kup-dialog
   kup-snackbar --> kup-dialog
+  kup-txt --> kup-dialog
   kup-typography --> kup-dialog
   kup-typography-list --> kup-dialog
   style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px

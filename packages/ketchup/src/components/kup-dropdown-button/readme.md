@@ -112,6 +112,7 @@ Type: `Promise<void>`
 
  - [kup-button-list](../kup-button-list)
  - [kup-card](../kup-card)
+ - [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
@@ -265,6 +266,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-input-panel --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

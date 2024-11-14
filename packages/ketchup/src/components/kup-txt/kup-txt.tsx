@@ -22,7 +22,7 @@ import {
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupTXTProps } from './kup-txt-declarations';
-const NEW_LINE_SEPARATOR = '\\*char_combination\\*';
+const NEW_LINE_SEPARATOR = '\r\n';
 
 @Component({
     tag: 'kup-txt',

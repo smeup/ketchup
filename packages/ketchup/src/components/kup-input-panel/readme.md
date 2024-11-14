@@ -88,6 +88,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-dropdown-button](../kup-dropdown-button)
 - [kup-editor](../kup-editor)
 - [kup-data-table](../kup-data-table)
 - [kup-tab-bar](../kup-tab-bar)
@@ -111,6 +112,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-input-panel --> kup-dropdown-button
   kup-input-panel --> kup-editor
   kup-input-panel --> kup-data-table
   kup-input-panel --> kup-tab-bar
@@ -130,8 +132,18 @@ graph TD;
   kup-input-panel --> kup-progress-bar
   kup-input-panel --> kup-card
   kup-input-panel --> kup-dialog
-  kup-editor --> kup-card
-  kup-editor --> kup-dialog
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
+  kup-dropdown-button --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-dialog
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -161,14 +173,6 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-card
-  kup-list --> kup-dialog
-  kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
-  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -208,10 +212,6 @@ graph TD;
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
-  kup-dropdown-button --> kup-list
-  kup-dropdown-button --> kup-card
-  kup-dropdown-button --> kup-dialog
-  kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
   kup-chart --> kup-dialog
   kup-gauge --> kup-card
@@ -301,6 +301,8 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-editor --> kup-card
+  kup-editor --> kup-dialog
   style kup-input-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

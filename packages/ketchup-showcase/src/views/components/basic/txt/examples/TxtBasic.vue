@@ -4,10 +4,10 @@
       <p
         >The KupTxt component provides a simple and efficient way to handle and
         display text content. It supports replacing custom separators (e.g.,
-        *char_combination*) with line break for rendering formatted text. This
-        makes it ideal for displaying user-generated or dynamic content with
-        line breaks or other formatting needs. Simply pass the text with the
-        separator, and KupTxt will handle the conversion seamlessly.</p
+        \r\n) with line break for rendering formatted text. This makes it ideal
+        for displaying user-generated or dynamic content with line breaks or
+        other formatting needs. Simply pass the text with the separator, and
+        KupTxt will handle the conversion seamlessly.</p
       >
       <div class="demo-container">
         <p class="centered">Sample markup</p>
