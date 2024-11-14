@@ -2788,6 +2788,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When enabled images descriptions will be fully shown.
+          * @default toDecide
+         */
+        "showFullDescription": boolean;
         "stateId": string;
         "store": KupStore;
     }
@@ -8231,6 +8236,11 @@ declare namespace LocalJSX {
           * An array of integers containing the path to a selected child.\
          */
         "selectedNode"?: TreeNodePath;
+        /**
+          * When enabled images descriptions will be fully shown.
+          * @default toDecide
+         */
+        "showFullDescription"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
     }
