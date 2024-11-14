@@ -31,7 +31,7 @@
   width: var(--kup_fcell_width);
   word-break: break-all;
   word-wrap: break-word;
-
+  max-width: 100%;
   &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
     max-height: 100%;
   }
