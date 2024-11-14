@@ -9,6 +9,7 @@
 */
 
 :host {
+  --kup-fcell-width: fit-content;
   --kup_input_panel_background_color: var(
     --kup-input-panel-background-color,
     var(--kup-layer-0)
@@ -38,6 +39,7 @@
     padding: var(--kup_input_panel_padding);
     position: relative;
     gap: 2rem;
+    // width: var(--kup-fcell_width);
 
     &__commands {
       display: flex;
