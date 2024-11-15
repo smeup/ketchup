@@ -150,6 +150,7 @@ Type: `Promise<void>`
  - [kup-time-picker](../kup-time-picker)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
+ - [kup-txt](../kup-txt)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
 
@@ -238,6 +239,7 @@ graph TD;
   kup-probe --> kup-card
   kup-qlik --> kup-card
   kup-snackbar --> kup-card
+  kup-txt --> kup-card
   kup-typography --> kup-card
   kup-typography-list --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
