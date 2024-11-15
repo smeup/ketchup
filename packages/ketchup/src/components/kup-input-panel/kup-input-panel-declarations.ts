@@ -149,7 +149,8 @@ export type InputPanelButtonClickHandler = (event: {
 }) => void;
 
 export type InputPanelCheckValidValueCallback = (
-    currentState: KupInputPanelSubmitValue
+    currentState: KupInputPanelSubmitValue,
+    cellId: string
 ) => void;
 
 export enum KupInputPanelProps {
