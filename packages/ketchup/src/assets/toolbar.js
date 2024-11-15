@@ -7,6 +7,7 @@ const toolbarData = [
         isExpanded: false,
         value: 'Element 1 Parent',
         visible: true,
+        componentType: 'MAT',
     },
     {
         children: [
@@ -39,6 +40,7 @@ const toolbarData = [
                     },
                 ],
                 value: '0',
+                componentType: 'MAT',
             },
         ],
         disabled: false,
@@ -47,6 +49,7 @@ const toolbarData = [
         isExpanded: false,
         style: {},
         value: 'element 2 parent',
+        componentType: 'MAT',
         visible: true,
     },
     {

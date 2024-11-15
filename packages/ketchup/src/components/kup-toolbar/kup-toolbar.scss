@@ -3,6 +3,13 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
 }
 
+.component-type-chip {
+  background-color: var(--kup-layer-2);
+  color: var(--kup-text-disabled);
+  padding: var(--kup-space-02) var(--kup-space-03);
+  @include kup-caption-01;
+}
+
 .parent-class {
   position: relative;
   cursor: pointer;
@@ -12,6 +19,7 @@
   justify-content: space-between;
   padding: var(--kup-space-03);
   border-left: 1px solid transparent;
+  align-items: center;
 
   &:hover:not(:has(> .f-cell)) {
     background-color: var(--kup-gray-color-10-hover);
@@ -41,15 +49,27 @@
 
   .chevron-right {
     float: right;
-    font-size: 14px;
     margin: 0;
-    margin-left: 10px;
+    margin-left: var(--kup-space-03);
+    @include kup-caption-01;
   }
 
   &:hover {
     > .nested-class {
       display: block;
     }
+  }
+}
+
+.chevron-type-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--kup-space-03);
+  .chevron-right {
+    float: right;
+    margin: 0;
+    margin-left: var(--kup-space-00);
+    @include kup-caption-01;
   }
 }
 
