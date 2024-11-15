@@ -2814,6 +2814,11 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Sets verical layout if dashboardMode is true
+          * @default false
+         */
+        "dashboardMode": boolean;
+        /**
           * Actual data of the form.
           * @default null
          */
@@ -8251,6 +8256,11 @@ declare namespace LocalJSX {
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Sets verical layout if dashboardMode is true
+          * @default false
+         */
+        "dashboardMode"?: boolean;
         /**
           * Actual data of the form.
           * @default null
