@@ -1666,10 +1666,13 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
-            this.checkValidValueCallback({
-                before: { ...this.#originalData },
-                after: this.#reverseMapCells(),
-            });
+            this.checkValidValueCallback(
+                {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                id
+            );
         }
     }
 
@@ -1733,10 +1736,13 @@ export class KupInputPanel {
                 cell.inputSettings?.checkValueOnExit &&
                 this.#areValuesUpdated()
             ) {
-                this.checkValidValueCallback({
-                    before: { ...this.#originalData },
-                    after: this.#reverseMapCells(),
-                });
+                this.checkValidValueCallback(
+                    {
+                        before: { ...this.#originalData },
+                        after: this.#reverseMapCells(),
+                    },
+                    id
+                );
             }
         };
         this.rootElement.addEventListener(evName, handler);
