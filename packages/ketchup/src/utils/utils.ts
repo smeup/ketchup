@@ -95,3 +95,13 @@ export function getRegExpFromString(s: string, flags?: string): RegExp {
 function escapeRegExp(s: string) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
+
+export function formatStringForID(s: string): string {
+    return s
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '') //remove special chars
+        .replace(/\s+/g, '-') //spaces -> dash
+        .replace(/-+/g, '-') //multiple dashes -> single dash
+        .replace(/^-|-$/g, ''); //remove trailing/single dashes
+}

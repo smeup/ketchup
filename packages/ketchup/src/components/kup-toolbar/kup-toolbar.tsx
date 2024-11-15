@@ -17,7 +17,7 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { getProps, setProps } from '../../utils/utils';
+import { formatStringForID, getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
 import {
@@ -183,7 +183,7 @@ export class KupToolbar {
                         <FCell {...cellProps} />
                     ) : (
                         <div
-                            id={node.value}
+                            id={formatStringForID(node.value)}
                             class="parent-class"
                             tabindex="0"
                             onClick={
@@ -211,7 +211,11 @@ export class KupToolbar {
             );
         } else {
             return (
-                <div class="parent-class" tabindex="0">
+                <div
+                    id={formatStringForID(node.value)}
+                    class="parent-class"
+                    tabindex="0"
+                >
                     <span>{node.value}</span>
                     <div class="chevron-type-wrapper">
                         {node.componentType && (
