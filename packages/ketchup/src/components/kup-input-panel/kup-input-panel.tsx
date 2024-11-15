@@ -145,6 +145,13 @@ export class KupInputPanel {
     @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
     //#endregion
 
+    /**
+     * Sets verical layout if dashboardMode is true
+     * @default false
+     */
+    @Prop() dashboardMode: boolean = false;
+    //#endregion
+
     //#region STATES
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -351,11 +358,15 @@ export class KupInputPanel {
                                   .join(' ')
                             : `repeat(${layout.sections.length}, 1fr)`;
                     } else {
-                        styleObj.gridTemplateRows = hasDim
-                            ? layout.sections
-                                  .map((sec) => sec.dim || 'auto')
-                                  .join(' ')
-                            : `repeat(${layout.sections.length}, 1fr)`;
+                        console.log('ELSE');
+                        if (this.dashboardMode) {
+                            console.log('ELSE IN');
+                            styleObj.gridTemplateRows = hasDim
+                                ? layout.sections
+                                      .map((sec) => sec.dim || 'auto')
+                                      .join(' ')
+                                : `repeat(${layout.sections.length}, 1fr)`;
+                        }
                     }
                 }
 
@@ -590,7 +601,11 @@ export class KupInputPanel {
                     : `repeat(${section.sections.length}, 1fr)`;
             }
 
-            if (!section.gridRows && !section.horizontal) {
+            if (
+                !section.gridRows &&
+                !section.horizontal &&
+                this.dashboardMode
+            ) {
                 styleObj.gridTemplateRows = hasDim
                     ? section.sections.map((sec) => sec.dim || 'auto').join(' ')
                     : `repeat(${section.sections.length}, 1fr)`;
@@ -601,9 +616,12 @@ export class KupInputPanel {
             );
             styleObj.gridTemplateColumns =
                 +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '';
-
-            styleObj.gridTemplateRows =
-                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '';
+            if (this.dashboardMode) {
+                styleObj.gridTemplateRows =
+                    +section.gridRows > 0
+                        ? `repeat(${section.gridRows}, 1fr)`
+                        : '';
+            }
         }
 
         const sectionContent = (
