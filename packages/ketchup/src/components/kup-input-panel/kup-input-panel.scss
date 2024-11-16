@@ -30,6 +30,18 @@
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
 
+  .input-panel__flex-horizontal {
+    display: flex;
+    flex-direction: row; /* Allinea gli elementi orizzontalmente */
+    gap: 1rem; /* Aggiungi spazio tra gli elementi */
+  }
+
+  .input-panel__flex-vertical {
+    display: flex;
+    flex-direction: column; /* Allinea gli elementi verticalmente */
+    gap: 1rem; /* Aggiungi spazio tra gli elementi */
+  }
+
   .input-panel {
     background: var(--kup_input_panel_background_color);
     color: var(--kup_input_panel_color);

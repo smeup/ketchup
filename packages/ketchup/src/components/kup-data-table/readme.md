@@ -465,6 +465,7 @@ Type: `Promise<void>`
 - [kup-dialog](../kup-dialog)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
+- [kup-dropdown-button](../kup-dropdown-button)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -491,6 +492,7 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-dropdown-button
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-chip

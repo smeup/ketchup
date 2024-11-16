@@ -96,9 +96,9 @@ export class KupDatePicker {
     @Prop() outlined: boolean = false;
     /**
      * Sets the sizing of the textfield of the datepicker
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * Sets the sizing of the textfield of the datepicker
      * @default true

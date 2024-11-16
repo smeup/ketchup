@@ -73,8 +73,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 <label class="mdc-label" htmlFor="kup-input">
                     {props.label}
                 </label>
-                {props.maxLength ? (
-                    <div class="mdc-text-field-character-counter">
+                {props.maxLength && !props.hiddenCounter ? (
+                    <div class="mdc-text-field__label-character-counter">
                         {props.value.length} / {props.maxLength}
                     </div>
                 ) : undefined}
@@ -173,7 +173,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
-        [`mdc-text-field--${props.sizing}`]: props.sizing ? true : false,
+        ...(props.textArea == false && {
+            [`mdc-text-field--${props.sizing || 'small'}`]: true,
+        }),
     };
 
     let value = props.value;

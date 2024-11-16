@@ -221,9 +221,9 @@ export class KupTextField {
     @Prop() size: number = null;
     /**
      * Sets the sizing of the textfield
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * The HTML step of the input element. It has effect only with number input type.
      * @default null

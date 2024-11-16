@@ -164,7 +164,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -332,7 +332,7 @@ export namespace Components {
         "showDropDownIcon": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -1370,7 +1370,7 @@ export namespace Components {
         "showDropDownIcon": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -1854,7 +1854,7 @@ export namespace Components {
         "showPreviousNextMonthDays": boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
     }
@@ -4157,7 +4157,7 @@ export namespace Components {
         "size": number;
         /**
           * Sets the sizing of the textfield
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -6014,7 +6014,7 @@ declare namespace LocalJSX {
         "ripple"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
     }
@@ -6152,7 +6152,7 @@ declare namespace LocalJSX {
         "showDropDownIcon"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -7066,7 +7066,7 @@ declare namespace LocalJSX {
         "showDropDownIcon"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -7494,7 +7494,7 @@ declare namespace LocalJSX {
         "showPreviousNextMonthDays"?: boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
     }
@@ -9416,7 +9416,7 @@ declare namespace LocalJSX {
         "size"?: number;
         /**
           * Sets the sizing of the textfield
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
