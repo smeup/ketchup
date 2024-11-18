@@ -254,9 +254,14 @@ export class KupDialog {
                                 ></FImage>
                             ) : null}
                         </div>
-                    ) : null}
+                    ) : (
+                        <slot
+                            name="header"
+                            ref={(el: HTMLElement) => (this.#header = el)}
+                        ></slot>
+                    )}
                     <div class="content">
-                        <slot></slot>
+                        <slot name="content"></slot>
                     </div>
                 </div>
             </Host>

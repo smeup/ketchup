@@ -358,9 +358,7 @@ export class KupInputPanel {
                                   .join(' ')
                             : `repeat(${layout.sections.length}, 1fr)`;
                     } else {
-                        console.log('ELSE');
                         if (this.dashboardMode) {
-                            console.log('ELSE IN');
                             styleObj.gridTemplateRows = hasDim
                                 ? layout.sections
                                       .map((sec) => sec.dim || 'auto')
