@@ -860,6 +860,7 @@ export class KupInputPanel {
 
         fieldCell.cell.data = {
             ...fieldCell.cell.data,
+            sizing: 'extra-small',
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
@@ -1117,6 +1118,7 @@ export class KupInputPanel {
                 style: { width: '100%' },
                 disabled: !cell.editable,
                 id: col.name,
+                sizing: KupComponentSizing.EXTRA_SMALL,
             };
         }
 
