@@ -76,6 +76,7 @@ import {
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
+    ROW_HEIGHT,
 } from './kup-input-panel-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -346,6 +347,12 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
+                const maxAbsoluteRow = Math.max(
+                    ...layout.sections.flatMap((sec) =>
+                        sec.content.map((cont) => cont.absoluteRow || 0)
+                    )
+                );
+                styleObj.height = `${maxAbsoluteRow * ROW_HEIGHT}px`;
             } else {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
