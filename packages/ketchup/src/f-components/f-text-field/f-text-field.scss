@@ -90,9 +90,6 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      &.mdc-text-field-container-horizontal {
-        flex-direction: row;
-      }
     }
 
     .mdc-text-field__label-container {
