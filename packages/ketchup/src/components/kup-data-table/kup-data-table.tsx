@@ -6097,11 +6097,16 @@ export class KupDataTable {
         };
 
         const addConfirmButton = () => {
+            this.#kupManager.keysBinding.register('enter', () =>
+                this.#handleUpdateClick()
+            );
             commandButtons.push(
                 <kup-button
                     styling={styling}
                     icon="check"
-                    onKup-button-click={() => this.#handleUpdateClick()}
+                    onKup-button-click={() => {
+                        this.#handleUpdateClick();
+                    }}
                     label={this.#kupManager.language.translate(
                         KupLanguageGeneric.CONFIRM
                     )}
@@ -6170,6 +6175,8 @@ export class KupDataTable {
         let elStyle = undefined;
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
+
+        this.#kupManager.keysBinding.unregister('enter');
 
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
