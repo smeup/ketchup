@@ -660,13 +660,26 @@ export class KupInputPanel {
             );
         }
 
-        const width = `${getAbsoluteWidth(section.absoluteWidth)}px`;
-        const height = `${getAbsoluteHeight(section.absoluteHeight)}px`;
+        //If width is not specified the div in the return at the end can be removed
+        if (getAbsoluteWidth(section.absoluteWidth) == null) {
+            return content;
+        }
+
+        const width = `${
+            getAbsoluteWidth(section.absoluteWidth) != null
+                ? `${getAbsoluteWidth(section.absoluteWidth)}px`
+                : '100%'
+        }`;
+        const height = `${
+            getAbsoluteHeight(section.absoluteHeight) != null
+                ? `${getAbsoluteHeight(section.absoluteHeight)}px`
+                : '100%'
+        }`;
         const top = `${getAbsoluteTop(section.absoluteRow)}px`;
         const left = `${getAbsoluteLeft(section.absoluteColumn)}px`;
 
         const sectionStyle = {
-            position: 'absolute',
+            position: 'relative',
             width,
             'min-width': width,
             'max-width': width,
