@@ -7,16 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute      | Description                                                      | Type                     | Default     |
-| -------------- | -------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
-| `columns`      | --             | Number of columns to display in the grid layout.                 | `number[]`               | `[]`        |
-| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`                 | `''`        |
-| `data`         | --             | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
-| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `false`     |
-| `rows`         | `rows`         | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
-| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`               | `[]`        |
-| `stateId`      | `state-id`     |                                                                  | `string`                 | `''`        |
-| `store`        | --             |                                                                  | `KupStore`               | `undefined` |
+| Property              | Attribute               | Description                                                      | Type                     | Default     |
+| --------------------- | ----------------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
+| `columns`             | --                      | Number of columns to display in the grid layout.                 | `number[]`               | `[]`        |
+| `customStyle`         | `custom-style`          | Custom style of the component.                                   | `string`                 | `''`        |
+| `data`                | --                      | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
+| `ripple`              | `ripple`                | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `false`     |
+| `rows`                | `rows`                  | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
+| `selectedNode`        | --                      | An array of integers containing the path to a selected child.\   | `number[]`               | `[]`        |
+| `showFullDescription` | `show-full-description` | When enabled images descriptions will be fully shown.            | `boolean`                | `false`     |
+| `stateId`             | `state-id`              |                                                                  | `string`                 | `''`        |
+| `store`               | --                      |                                                                  | `KupStore`               | `undefined` |
 
 
 ## Events

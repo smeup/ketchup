@@ -2790,7 +2790,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * When enabled images descriptions will be fully shown.
-          * @default toDecide
+          * @default false
          */
         "showFullDescription": boolean;
         "stateId": string;
@@ -3843,7 +3843,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Sets the size of the switch
-          * @default FSwitchSizing.SMALL
+          * @default FSwitchSizing.MEDIUM
          */
         "sizing": FSwitchSizing;
     }
@@ -8238,7 +8238,7 @@ declare namespace LocalJSX {
         "selectedNode"?: TreeNodePath;
         /**
           * When enabled images descriptions will be fully shown.
-          * @default toDecide
+          * @default false
          */
         "showFullDescription"?: boolean;
         "stateId"?: string;
@@ -9094,7 +9094,7 @@ declare namespace LocalJSX {
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Sets the size of the switch
-          * @default FSwitchSizing.SMALL
+          * @default FSwitchSizing.MEDIUM
          */
         "sizing"?: FSwitchSizing;
     }
