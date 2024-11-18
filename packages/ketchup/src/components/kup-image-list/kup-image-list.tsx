@@ -142,7 +142,7 @@ export class KupImageList {
 
     /**
      * When enabled images descriptions will be fully shown.
-     * @default toDecide
+     * @default false
      */
     @Prop() showFullDescription: boolean = false;
 
