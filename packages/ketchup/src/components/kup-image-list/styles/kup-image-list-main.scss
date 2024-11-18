@@ -133,6 +133,19 @@
   width: 100%;
   grid-auto-flow: row;
 
+  &.full-description {
+    .f-cell .f-cell__content .image-list__wrapper .f-image.image-list__image {
+      display: flow-root;
+    }
+    .image-list__label {
+      overflow: unset;
+      text-align: center;
+      text-overflow: unset;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
   .f-cell {
     height: 100%;
     width: 100%;
@@ -160,10 +173,6 @@
     }
   }
 
-  &.full-description .image-list__image {
-    display: flow-root;
-  }
-
   &__item {
     background-color: var(--kup_imagelist_item_background_color);
     border-radius: var(--kup_imagelist_item_border_radius);
@@ -184,7 +193,6 @@
     width: 100%;
     height: calc(100% - 16px - var(--kup-space-03) * 2);
     overflow: hidden;
-
     .f-image__icon {
       mask-size: 100% !important;
     }
@@ -197,12 +205,6 @@
     white-space: nowrap;
     padding: var(--kup-space-03);
     @include kup-label-01;
-    &.label-full-description {
-      overflow: unset;
-      text-align: center;
-      text-overflow: unset;
-      white-space: normal;
-    }
   }
 }
 
