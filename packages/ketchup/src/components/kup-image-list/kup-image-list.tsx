@@ -269,10 +269,7 @@ export class KupImageList {
         };
 
         const image = <FImage {...props}></FImage>;
-        const labelClass =
-            'image-list__label' +
-            (this.showFullDescription == true ? ' label-full-description' : '');
-        const label = <div class={labelClass}>{node.value}</div>;
+        const label = <div class="image-list__label">{node.value}</div>;
 
         const hasExternalResource =
             props.resource.indexOf('.') > -1 ||
