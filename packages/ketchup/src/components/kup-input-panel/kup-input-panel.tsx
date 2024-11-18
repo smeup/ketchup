@@ -38,6 +38,7 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -77,6 +78,8 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
 } from './kup-input-panel-utils';
+import { FTypography } from '../../f-components/f-typography/f-typography';
+import { KupTypographyList } from '../kup-typography-list/kup-typography-list';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -467,7 +470,7 @@ export class KupInputPanel {
         return (
             <kup-dropdown-button
                 {...cell.data}
-                sizing={KupComponentSizing.MEDIUM}
+                sizing={KupComponentSizing.SMALL}
                 label={cell.value}
                 data={data}
                 onkup-dropdownbutton-itemclick={(
@@ -630,7 +633,10 @@ export class KupInputPanel {
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
-                <h3>{section.title}</h3>
+                <FTypography
+                    type={FTypographyType.HEADING1}
+                    value={section.title}
+                ></FTypography>
                 {sectionContent}
             </div>
         ) : (

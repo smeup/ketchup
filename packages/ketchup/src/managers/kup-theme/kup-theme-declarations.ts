@@ -162,6 +162,7 @@ export const fSwitchUsers = [
 export const fTypographyUsers = [
     KupTagNames.TYPOGRAPHY,
     KupTagNames.TYPOGRAPHY_LIST,
+    KupTagNames.INPUT_PANEL,
 ];
 /**
  * Components using the FTextField functional component.

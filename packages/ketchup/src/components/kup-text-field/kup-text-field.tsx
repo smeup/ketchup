@@ -126,7 +126,7 @@ export class KupTextField {
      * Hides the character counter.
      * @default false
      */
-    @Prop() hiddenCounter: boolean = false;
+    @Prop() showCounter: boolean = false;
     /**
      * When set, the text-field will show this icon.
      * @default null
@@ -221,9 +221,9 @@ export class KupTextField {
     @Prop() size: number = null;
     /**
      * Sets the sizing of the textfield
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * The HTML step of the input element. It has effect only with number input type.
      * @default null
@@ -617,7 +617,7 @@ export class KupTextField {
             helperIcon: this.helperIcon,
             helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
-            hiddenCounter: this.hiddenCounter,
+            showCounter: this.showCounter,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
                 ? true

@@ -75,7 +75,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     label={dom.ketchup.language.translate(
                         KupLanguageGeneric.LOAD_MORE
                     )}
-                    sizing={KupComponentSizing.MEDIUM}
+                    sizing={KupComponentSizing.SMALL}
                     styling={FButtonStyling.FLAT}
                     wrapperClass="load-more-button kup-neutral"
                 />
@@ -98,7 +98,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                         icon="chevron_left"
                         disabled={isPrevPageDisabled(props)}
                         onClick={props.onPrevPage}
-                        sizing={KupComponentSizing.MEDIUM}
+                        sizing={KupComponentSizing.SMALL}
                         styling={FButtonStyling.FLAT}
                         wrapperClass="kup-neutral prev-page"
                     />
@@ -108,7 +108,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                         icon="chevron_right"
                         disabled={isNextPageDisabled(props)}
                         onClick={props.onNextPage}
-                        sizing={KupComponentSizing.MEDIUM}
+                        sizing={KupComponentSizing.SMALL}
                         styling={FButtonStyling.FLAT}
                         wrapperClass="kup-neutral next-page"
                     />
