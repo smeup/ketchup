@@ -674,10 +674,10 @@ export class KupInputPanel {
 
         const sectionStyle = {
             position: 'relative',
-            width: width,
+            width,
             'min-width': width,
             'max-width': width,
-            height: height,
+            height,
             'min-height': height,
             'max-height': height,
             top,
