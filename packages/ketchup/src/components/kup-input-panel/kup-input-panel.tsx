@@ -38,6 +38,7 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -77,6 +78,8 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
 } from './kup-input-panel-utils';
+import { FTypography } from '../../f-components/f-typography/f-typography';
+import { KupTypographyList } from '../kup-typography-list/kup-typography-list';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -467,7 +470,7 @@ export class KupInputPanel {
         return (
             <kup-dropdown-button
                 {...cell.data}
-                sizing={KupComponentSizing.MEDIUM}
+                sizing={KupComponentSizing.SMALL}
                 label={cell.value}
                 data={data}
                 onkup-dropdownbutton-itemclick={(
@@ -630,7 +633,10 @@ export class KupInputPanel {
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
-                <h3>{section.title}</h3>
+                <FTypography
+                    type={FTypographyType.HEADING1}
+                    value={section.title}
+                ></FTypography>
                 {sectionContent}
             </div>
         ) : (
@@ -654,13 +660,26 @@ export class KupInputPanel {
             );
         }
 
-        const width = `${getAbsoluteWidth(section.absoluteWidth)}px`;
-        const height = `${getAbsoluteHeight(section.absoluteHeight)}px`;
+        //If width is not specified the div in the return at the end can be removed
+        if (getAbsoluteWidth(section.absoluteWidth) == null) {
+            return content;
+        }
+
+        const width = `${
+            getAbsoluteWidth(section.absoluteWidth) != null
+                ? `${getAbsoluteWidth(section.absoluteWidth)}px`
+                : '100%'
+        }`;
+        const height = `${
+            getAbsoluteHeight(section.absoluteHeight) != null
+                ? `${getAbsoluteHeight(section.absoluteHeight)}px`
+                : '100%'
+        }`;
         const top = `${getAbsoluteTop(section.absoluteRow)}px`;
         const left = `${getAbsoluteLeft(section.absoluteColumn)}px`;
 
         const sectionStyle = {
-            position: 'absolute',
+            position: 'relative',
             width,
             'min-width': width,
             'max-width': width,

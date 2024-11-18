@@ -139,6 +139,13 @@ export class KupImageList {
     @Prop() selectedNode: TreeNodePath = [];
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
+
+    /**
+     * When enabled images descriptions will be fully shown.
+     * @default false
+     */
+    @Prop() showFullDescription: boolean = false;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -543,6 +550,10 @@ export class KupImageList {
             combinedGridStyle = { ...combinedGridStyle, ...gridRowsStyle };
         }
 
+        const imlClass =
+            'image-list' +
+            (this.showFullDescription ? ' full-description' : '');
+
         return (
             <Host>
                 <style>
@@ -601,7 +612,7 @@ export class KupImageList {
                             </div>
                         ) : null}
                     </div>
-                    <div class="image-list" style={combinedGridStyle}>
+                    <div class={imlClass} style={combinedGridStyle}>
                         {...this.#createList()}
                     </div>
                 </div>

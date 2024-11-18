@@ -97,6 +97,9 @@
       justify-content: space-between;
       align-items: center;
       gap: 4px;
+      .mdc-text-field__label-character-counter {
+        @include kup-caption-01;
+      }
     }
 
     .mdc-form-field {
@@ -190,6 +193,8 @@
         cursor: pointer;
         height: 16px;
         width: 16px;
+        min-width: 16px;
+        min-height: 16px;
         outline: none;
         pointer-events: all;
 
@@ -369,8 +374,10 @@
       &:not(.mdc-text-field--disabled) {
         & .mdc-text-field__input,
         & .mdc-floating-label,
-        & .mdc-text-field-character-counter,
-        & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
+        & .mdc-text-field__label-character-counter,
+        &
+          + .mdc-text-field-helper-line
+          .mdc-text-field__label-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
           color: var(--kup_textfield_color);
         }
@@ -381,13 +388,15 @@
 
         & .mdc-floating-label,
         & .mdc-text-field__input::placeholder,
-        & .mdc-text-field-character-counter,
-        & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
+        & .mdc-text-field__label-character-counter,
+        &
+          + .mdc-text-field-helper-line
+          .mdc-text-field__label-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
           border: unset;
         }
 
-        &.mdc-text-field--textarea .mdc-text-field-character-counter {
+        &.mdc-text-field--textarea .mdc-text-field__label-character-counter {
           position: absolute;
           bottom: 9px;
           right: 15px;
@@ -447,6 +456,12 @@
           border-top-color: transparent;
           border-left-color: transparent;
           border-right-color: transparent;
+        }
+
+        .kup-clear-icon {
+          position: absolute;
+          top: var(--kup-space-03);
+          right: var(--kup-space-03);
         }
 
         .mdc-error-icon,
@@ -540,10 +555,6 @@
         &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
           right: 40px;
         }
-
-        &:not(.mdc-text-field--textarea) {
-          height: var(--kup_textfield_fullwidth_height) !important;
-        }
       }
     }
 
@@ -608,7 +619,7 @@
     .mdc-text-field-container--disabled {
       .mdc-text-field__label-container {
         label.mdc-label,
-        .mdc-text-field-character-counter {
+        .mdc-text-field__label-character-counter {
           color: var(--kup-text-disabled);
         }
       }

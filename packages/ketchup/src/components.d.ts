@@ -164,7 +164,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -332,7 +332,7 @@ export namespace Components {
         "showDropDownIcon": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -1370,7 +1370,7 @@ export namespace Components {
         "showDropDownIcon": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -1854,7 +1854,7 @@ export namespace Components {
         "showPreviousNextMonthDays": boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
     }
@@ -2788,6 +2788,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When enabled images descriptions will be fully shown.
+          * @default false
+         */
+        "showFullDescription": boolean;
         "stateId": string;
         "store": KupStore;
     }
@@ -4044,11 +4049,6 @@ export namespace Components {
          */
         "helperWhenFocused": boolean;
         /**
-          * Hides the character counter.
-          * @default false
-         */
-        "hiddenCounter": boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -4151,13 +4151,18 @@ export namespace Components {
          */
         "setValue": (value: string, skipNumberCheck?: boolean) => Promise<void>;
         /**
+          * Hides the character counter.
+          * @default false
+         */
+        "showCounter": boolean;
+        /**
           * The HTML attribute size of the input element.
           * @default null
          */
         "size": number;
         /**
           * Sets the sizing of the textfield
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -6014,7 +6019,7 @@ declare namespace LocalJSX {
         "ripple"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
     }
@@ -6152,7 +6157,7 @@ declare namespace LocalJSX {
         "showDropDownIcon"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -7066,7 +7071,7 @@ declare namespace LocalJSX {
         "showDropDownIcon"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -7494,7 +7499,7 @@ declare namespace LocalJSX {
         "showPreviousNextMonthDays"?: boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
     }
@@ -8231,6 +8236,11 @@ declare namespace LocalJSX {
           * An array of integers containing the path to a selected child.\
          */
         "selectedNode"?: TreeNodePath;
+        /**
+          * When enabled images descriptions will be fully shown.
+          * @default false
+         */
+        "showFullDescription"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
     }
@@ -9280,11 +9290,6 @@ declare namespace LocalJSX {
          */
         "helperWhenFocused"?: boolean;
         /**
-          * Hides the character counter.
-          * @default false
-         */
-        "hiddenCounter"?: boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -9410,13 +9415,18 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
+          * Hides the character counter.
+          * @default false
+         */
+        "showCounter"?: boolean;
+        /**
           * The HTML attribute size of the input element.
           * @default null
          */
         "size"?: number;
         /**
           * Sets the sizing of the textfield
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**

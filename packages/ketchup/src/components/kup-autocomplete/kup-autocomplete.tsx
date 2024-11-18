@@ -156,9 +156,9 @@ export class KupAutocomplete {
     @Prop() showDropDownIcon: boolean = true;
     /**
      * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * When set, the icon will be shown after the text.
      * @default false
