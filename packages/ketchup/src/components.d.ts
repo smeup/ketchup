@@ -3838,7 +3838,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Sets the size of the switch
-          * @default FSwitchSizing.MEDIUM
+          * @default FSwitchSizing.SMALL
          */
         "sizing": FSwitchSizing;
     }
@@ -4044,11 +4044,6 @@ export namespace Components {
          */
         "helperWhenFocused": boolean;
         /**
-          * Hides the character counter.
-          * @default false
-         */
-        "hiddenCounter": boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -4150,6 +4145,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string, skipNumberCheck?: boolean) => Promise<void>;
+        /**
+          * Hides the character counter.
+          * @default false
+         */
+        "showCounter": boolean;
         /**
           * The HTML attribute size of the input element.
           * @default null
@@ -9084,7 +9084,7 @@ declare namespace LocalJSX {
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Sets the size of the switch
-          * @default FSwitchSizing.MEDIUM
+          * @default FSwitchSizing.SMALL
          */
         "sizing"?: FSwitchSizing;
     }
@@ -9280,11 +9280,6 @@ declare namespace LocalJSX {
          */
         "helperWhenFocused"?: boolean;
         /**
-          * Hides the character counter.
-          * @default false
-         */
-        "hiddenCounter"?: boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -9409,6 +9404,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "readOnly"?: boolean;
+        /**
+          * Hides the character counter.
+          * @default false
+         */
+        "showCounter"?: boolean;
         /**
           * The HTML attribute size of the input element.
           * @default null

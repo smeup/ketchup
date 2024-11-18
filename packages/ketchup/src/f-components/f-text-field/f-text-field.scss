@@ -90,6 +90,9 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      &.mdc-text-field-container-horizontal {
+        flex-direction: row;
+      }
     }
 
     .mdc-text-field__label-container {
@@ -554,10 +557,6 @@
 
         &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
           right: 40px;
-        }
-
-        &:not(.mdc-text-field--textarea) {
-          height: var(--kup_textfield_fullwidth_height) !important;
         }
       }
     }

@@ -80,9 +80,9 @@ export class KupSwitch {
     @Prop() leadingLabel: boolean = false;
     /**
      * Sets the size of the switch
-     * @default FSwitchSizing.SMALL
+     * @default FSwitchSizing.MEDIUM
      */
-    @Prop() sizing: FSwitchSizing = FSwitchSizing.SMALL;
+    @Prop() sizing: FSwitchSizing = FSwitchSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

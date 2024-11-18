@@ -5,6 +5,7 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
+import { KupComponentSizing } from '../../types/GenericTypes';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -73,7 +74,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 <label class="mdc-label" htmlFor="kup-input">
                     {props.label}
                 </label>
-                {props.maxLength && !props.hiddenCounter ? (
+                {props.maxLength && props.showCounter ? (
                     <div class="mdc-text-field__label-character-counter">
                         {props.value.length} / {props.maxLength}
                     </div>
@@ -173,7 +174,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
-        ...(props.textArea == false && {
+        ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
     };

@@ -32,6 +32,7 @@
   word-break: break-all;
   word-wrap: break-word;
   max-width: 100%;
+  align-items: self-start;
   &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
     max-height: 100%;
   }
@@ -49,6 +50,7 @@
     display: flex;
     width: 100%;
     position: relative;
+    height: fit-content;
 
     .f-image.f-cell__iconfunction {
       display: block;
