@@ -229,6 +229,11 @@ export class KupDialog {
             '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
         };
 
+        const headerSlot = this.rootElement.querySelector('[slot="header"]');
+        if (headerSlot) {
+            this.#header = headerSlot as HTMLElement;
+        }
+
         return (
             <Host fade-in style={style}>
                 <style>
@@ -254,12 +259,9 @@ export class KupDialog {
                                 ></FImage>
                             ) : null}
                         </div>
-                    ) : (
-                        <slot
-                            name="header"
-                            ref={(el: HTMLElement) => (this.#header = el)}
-                        ></slot>
-                    )}
+                    ) : headerSlot ? (
+                        <slot name="header"></slot>
+                    ) : null}
                     <div class="content">
                         <slot name="content"></slot>
                     </div>
