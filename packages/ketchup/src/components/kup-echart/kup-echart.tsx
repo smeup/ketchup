@@ -877,6 +877,7 @@ export class KupEchart {
 
     #setLegend(y: {}) {
         if (this.legend === KupEchartLegendPlacement.HIDDEN) {
+            console.log('hidden');
             return null;
         }
         const data: string[] = [];
@@ -1140,7 +1141,8 @@ export class KupEchart {
         const data = [];
         for (let key in y) {
             let sum: number = 0;
-            for (let j = 0; j < y[key].length; j++) {
+            // First elem in array is usually a string
+            for (let j = 1; j < y[key].length; j++) {
                 sum = sum + parseFloat(y[key][j]);
             }
             data.push({
