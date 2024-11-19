@@ -95,6 +95,7 @@ function renderButton(props: FButtonProps): VNode {
             props.showSpinner && !props.disabled ? true : false,
         [`button--${props.sizing || 'small'}`]: true,
         [`button--${props.contentAlign}`]: props.contentAlign ? true : false,
+        'button--invisible': props.invisible ? true : false,
     };
 
     const classLabelObj: Record<string, boolean> = {

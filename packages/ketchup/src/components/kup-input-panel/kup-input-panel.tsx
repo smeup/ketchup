@@ -408,15 +408,14 @@ export class KupInputPanel {
                     {rowContent}
                 </div>
                 <div class="input-panel__commands">
-                    {!this.hiddenSubmitButton ? (
-                        <FButton
-                            buttonType="submit"
-                            label={this.#kupManager.language.translate(
-                                KupLanguageGeneric.CONFIRM
-                            )}
-                            wrapperClass="form__submit"
-                        ></FButton>
-                    ) : null}
+                    <FButton
+                        buttonType="submit"
+                        label={this.#kupManager.language.translate(
+                            KupLanguageGeneric.CONFIRM
+                        )}
+                        wrapperClass="form__submit"
+                        invisible={this.hiddenSubmitButton}
+                    ></FButton>
                     {this.inputPanelCommands}
                 </div>
             </form>

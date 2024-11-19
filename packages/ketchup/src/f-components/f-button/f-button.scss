@@ -387,6 +387,10 @@
       left: 0;
       position: absolute;
     }
+
+    &.button--invisible {
+      visibility: hidden;
+    }
   }
 
   .icon-button {
