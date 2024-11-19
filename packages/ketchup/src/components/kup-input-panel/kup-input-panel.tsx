@@ -477,7 +477,6 @@ export class KupInputPanel {
         return (
             <kup-dropdown-button
                 {...cell.data}
-                sizing={KupComponentSizing.SMALL}
                 label={cell.value}
                 data={data}
                 onkup-dropdownbutton-itemclick={(
