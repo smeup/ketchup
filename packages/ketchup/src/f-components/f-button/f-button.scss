@@ -387,10 +387,6 @@
       left: 0;
       position: absolute;
     }
-
-    &.button--invisible {
-      visibility: hidden;
-    }
   }
 
   .icon-button {
@@ -438,6 +434,12 @@
   .button--with-spinner {
     opacity: 0.8;
     pointer-events: none;
+  }
+
+  &.button--invisible {
+    visibility: hidden;
+    width: 0;
+    order: 1;
   }
 
   .content--hidden {
