@@ -295,6 +295,7 @@ export class KupEchart {
                 break;
             case KupEchartTypes.BUBBLE:
                 options = this.#bubbleChart();
+                console.log(options);
                 break;
             case KupEchartTypes.SANKEY:
                 options = this.#sankeyChart();
@@ -877,7 +878,6 @@ export class KupEchart {
 
     #setLegend(y: {}) {
         if (this.legend === KupEchartLegendPlacement.HIDDEN) {
-            console.log('hidden');
             return null;
         }
         const data: string[] = [];
