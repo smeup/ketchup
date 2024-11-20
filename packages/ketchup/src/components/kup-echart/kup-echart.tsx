@@ -480,7 +480,10 @@ export class KupEchart {
 
         const content = this.data.columns.map((data) => data.title);
 
-        if (content && content.length) {
+        // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
+
+        if (content && content.length > 0) {
+            // content[0] but could be any number inside square brackets, because each row will have the same amount of cells (== number of columns)
             for (let i = 0; i < y[content[0]].length; i++) {
                 const arr = [];
                 for (let j = 0; j < content.length; j++) {
@@ -568,17 +571,23 @@ export class KupEchart {
 
     #sankeyChart() {
         const links: GenericObject[] = [],
-            y = this.#createY(),
-            keys = Object.keys(y);
+            x = this.#createX(),
+            y = this.#createYForSankey(),
+            // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
+            yKeys = [
+                this.data.columns[0].title,
+                this.data.columns[1].title,
+                this.data.columns[2].title,
+            ];
         // Assuming all arrays in the question object have the same length
-        const arrayLength = y[keys[0]].length;
+        const arrayLength = y[yKeys[0]].length;
 
         for (let i = 0; i < arrayLength; i++) {
             const entry: GenericObject = {};
 
-            entry['source'] = y[keys[0]][i];
-            entry['target'] = y[keys[1]][i];
-            entry['value'] = parseInt(y[keys[2]][i]);
+            entry['source'] = y[yKeys[0]][i];
+            entry['target'] = y[yKeys[1]][i];
+            entry['value'] = parseInt(y[yKeys[2]][i]);
 
             links.push(entry);
         }
@@ -588,7 +597,9 @@ export class KupEchart {
                 ...links.map((link) => link.source),
                 ...links.map((link) => link.target),
             ])
-        ).map((name) => ({ name }));
+        )
+            .filter((elem) => !!elem)
+            .map((name) => ({ name }));
 
         const legend = {};
         data.forEach((e, i) => {
@@ -618,6 +629,7 @@ export class KupEchart {
     }
 
     #candleChart() {
+        const x = this.#createX();
         const y = this.#createY(),
             answer = [],
             itemStyle = {
@@ -643,7 +655,6 @@ export class KupEchart {
                 return undefined;
             },
         });
-        const date = caseInsensitiveObj['date'];
 
         for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
             answer.push([
@@ -654,7 +665,7 @@ export class KupEchart {
             ]);
         }
         let legend = {};
-        date.forEach((e, i) => {
+        x.forEach((e, i) => {
             legend[e] = i;
         });
         return {
@@ -665,7 +676,7 @@ export class KupEchart {
             },
             title: this.#setTitle(),
             xAxis: {
-                data: date,
+                data: x,
             },
             yAxis: {},
             series: [
@@ -829,6 +840,27 @@ export class KupEchart {
                 }
             }
         }
+        return y;
+    }
+
+    #createYForSankey() {
+        const y = {};
+
+        for (const row of this.data.rows) {
+            for (const key of Object.keys(row.cells)) {
+                const cell = row.cells[key];
+                const value = cell.value;
+                const column = getColumnByName(this.data.columns, key);
+                if (column) {
+                    const title = column.title;
+                    if (!y[title]) {
+                        y[title] = [];
+                    }
+                    y[title].push(value);
+                }
+            }
+        }
+
         return y;
     }
 
@@ -1133,7 +1165,8 @@ export class KupEchart {
         const data = [];
         for (let key in y) {
             let sum: number = 0;
-            for (let j = 0; j < y[key].length; j++) {
+            // First elem in array is usually a string
+            for (let j = 1; j < y[key].length; j++) {
                 sum = sum + parseFloat(y[key][j]);
             }
             data.push({
@@ -1633,7 +1666,9 @@ export class KupEchart {
                     const seriesIndex = indexes[index];
                     const column = this.#kupManager.data.column.find(
                         this.data,
-                        { name: this.series[seriesIndex] }
+                        {
+                            name: this.series[seriesIndex],
+                        }
                     )[0];
                     const newName = column.name + '_' + index;
                     this.#kupManager.data.column.new(
