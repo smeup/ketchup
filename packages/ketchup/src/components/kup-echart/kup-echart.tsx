@@ -478,9 +478,7 @@ export class KupEchart {
             series = [];
         let year = [];
 
-        const content = this.data.columns
-            .filter((data) => this.series.includes(data.name))
-            .map((data) => data.title);
+        const content = this.data.columns.map((data) => data.title);
 
         // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
 
@@ -576,16 +574,20 @@ export class KupEchart {
             x = this.#createX(),
             y = this.#createY(),
             // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
-            yKeys = [this.data.columns[1].title, this.data.columns[2].title];
+            yKeys = [
+                this.data.columns[0].title,
+                this.data.columns[1].title,
+                this.data.columns[2].title,
+            ];
         // Assuming all arrays in the question object have the same length
         const arrayLength = y[yKeys[0]].length;
 
         for (let i = 0; i < arrayLength; i++) {
             const entry: GenericObject = {};
 
-            entry['source'] = x[i];
-            entry['target'] = y[yKeys[0]][i];
-            entry['value'] = parseInt(y[yKeys[1]][i]);
+            entry['source'] = y[yKeys[0]][i];
+            entry['target'] = y[yKeys[1]][i];
+            entry['value'] = parseInt(y[yKeys[2]][i]);
 
             links.push(entry);
         }
@@ -595,7 +597,9 @@ export class KupEchart {
                 ...links.map((link) => link.source),
                 ...links.map((link) => link.target),
             ])
-        ).map((name) => ({ name }));
+        )
+            .filter((elem) => !!elem)
+            .map((name) => ({ name }));
 
         const legend = {};
         data.forEach((e, i) => {
