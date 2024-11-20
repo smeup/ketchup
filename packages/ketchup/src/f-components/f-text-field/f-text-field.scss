@@ -52,7 +52,7 @@
     );
     --kup_textfield_extrasmall_padding: var(
       --kup-textfield-extrasmall-padding,
-      0 4px 0 8px
+      0 var(--kup-space-01) 0 var(--kup-space-01)
     );
     --kup_textfield_medium_padding: var(
       --kup-textfield-medium-padding,
@@ -169,7 +169,7 @@
 
     .mdc-text-field {
       display: flex;
-      gap: var(--kup-space-03);
+      gap: var(--kup-space-02);
       border-radius: var(--kup_textfield_border_radius);
       outline: 2px solid transparent;
       outline-offset: -2px;
@@ -181,7 +181,7 @@
       input {
         @include kup-body-compact-01;
         text-align: var(--kup_textfield_text_align);
-        min-width: max-content;
+        text-overflow: ellipsis;
       }
 
       input::placeholder {

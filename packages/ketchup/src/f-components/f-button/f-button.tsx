@@ -39,6 +39,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         'kup-neutral': props.neutral,
         'kup-black-mode': props.blackMode,
         [props.wrapperClass]: !!props.wrapperClass,
+        'button--invisible': props.invisible ? true : false,
     };
     return (
         <div

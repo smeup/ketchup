@@ -436,6 +436,13 @@
     pointer-events: none;
   }
 
+  &.button--invisible {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    order: 1;
+  }
+
   .content--hidden {
     visibility: hidden;
   }
