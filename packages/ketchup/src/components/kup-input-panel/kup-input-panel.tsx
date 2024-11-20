@@ -1123,7 +1123,6 @@ export class KupInputPanel {
                 style: { width: '100%' },
                 disabled: !cell.editable,
                 id: col.name,
-                sizing: KupComponentSizing.EXTRA_SMALL,
             };
         }
 
