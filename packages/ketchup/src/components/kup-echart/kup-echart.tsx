@@ -295,7 +295,6 @@ export class KupEchart {
                 break;
             case KupEchartTypes.BUBBLE:
                 options = this.#bubbleChart();
-                console.log(options);
                 break;
             case KupEchartTypes.SANKEY:
                 options = this.#sankeyChart();
