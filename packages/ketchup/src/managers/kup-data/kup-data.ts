@@ -329,7 +329,11 @@ export class KupData {
          * @returns { boolean } if COD_VER founded or not.
          */
         hasCodVer: (columns: KupDataColumn[]) => {
-            return columns.some((col) => this.column.isCodVer(col));
+            return columns.some(
+                (col) =>
+                    this.column.isCodVer(col) &&
+                    (!('visible' in col) || col.visible)
+            );
         },
     };
     node = {
