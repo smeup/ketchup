@@ -37,6 +37,8 @@ export const config: Config = {
         },
         collectCoverageFrom: ['src/**/*.ts'],
         browserHeadless: 'new',
+        setupFilesAfterEnv: ['<rootDir>/tests/resources/setup/setup.js'],
+        verbose: true,
         //browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
     },
     outputTargets: [
