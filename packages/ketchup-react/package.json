@@ -20,17 +20,12 @@
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
     "dependencies": {
-        "@sme.up/ketchup": "^11.0.0-SNAPSHOT",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "@sme.up/ketchup": "11.0.0-SNAPSHOT",
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0"
     },
     "devDependencies": {
-        "@types/geojson": "^7946.0.10",
-        "@types/node": "^20.2.5",
-        "@types/react": "^18.2.7",
-        "@types/react-dom": "^18.2.4",
-        "rimraf": "^5.0.1",
-        "typescript": "5.0.4"
+        "rimraf": "6.0.1"
     },
     "installConfig": {
         "hoistingLimits": "workspaces"

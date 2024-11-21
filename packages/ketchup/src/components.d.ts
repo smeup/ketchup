@@ -619,7 +619,7 @@ export namespace Components {
         "showSpinner": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -6441,7 +6441,7 @@ declare namespace LocalJSX {
         "showSpinner"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
