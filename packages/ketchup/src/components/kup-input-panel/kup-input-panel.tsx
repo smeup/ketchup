@@ -16,6 +16,7 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
+    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -49,6 +50,7 @@ import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
+    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -62,8 +64,10 @@ import {
     InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
     KupInputPanelCell,
+    KupInputPanelClickEventPayload,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelEventHandlerDetails,
     KupInputPanelLayout,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
@@ -81,6 +85,7 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupTypographyList } from '../kup-typography-list/kup-typography-list';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -269,7 +274,9 @@ export class KupInputPanel {
             });
             this.#keysShortcut = [];
         }
-        this.#mapCells(this.data);
+        if (this.data) {
+            this.#mapCells(this.data);
+        }
     }
     //#endregion
 
@@ -319,6 +326,59 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupReady: EventEmitter<KupEventPayload>;
+
+    /**
+     * Generic right click event on input panel.
+     */
+    @Event({
+        eventName: 'kup-inputpanel-contextmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
+
+    #formRef: HTMLFormElement;
+
+    #getEventDetails(path: HTMLElement[]): KupInputPanelEventHandlerDetails {
+        let anchor = path[0];
+        let column: KupDataColumn = this.data.columns[2];
+        return { anchor, column };
+    }
+
+    #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {
+        const eventPath = this.#kupManager.getEventPath(
+            e.target,
+            this.rootElement
+        );
+
+        return this.#getEventDetails(eventPath);
+    }
+
+    #didLoadInteractables() {
+        this.#kupManager.interact.managedElements.add(this.#formRef);
+
+        const tapCb = (e: PointerEvent) => {
+            switch (e.button) {
+                case 0:
+                    break;
+                case 2:
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.#contextMenuHandler(e),
+                    });
+                    break;
+            }
+        };
+
+        this.#kupManager.interact.on(
+            this.#formRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+    }
+
     //#endregion
 
     //#region PRIVATE METHODS
@@ -394,6 +454,7 @@ export class KupInputPanel {
                 name={this.rootElement.id}
                 id={this.rootElement.id}
                 class={{ 'input-panel-form': true }}
+                ref={(el: HTMLFormElement) => (this.#formRef = el)}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
                     this.submitCb({
@@ -402,6 +463,9 @@ export class KupInputPanel {
                             after: this.#reverseMapCells(),
                         },
                     });
+                }}
+                onContextMenu={(e: MouseEvent) => {
+                    e.preventDefault();
                 }}
             >
                 <div class={classObj} style={styleObj}>
@@ -1855,6 +1919,7 @@ export class KupInputPanel {
     }
 
     componentDidLoad() {
+        this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
     }
