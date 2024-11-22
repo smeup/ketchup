@@ -341,9 +341,22 @@ export class KupInputPanel {
     #formRef: HTMLFormElement;
 
     #getEventDetails(path: HTMLElement[]): KupInputPanelEventHandlerDetails {
-        let anchor = path[0];
-        let column: KupDataColumn = this.data.columns[2];
-        return { anchor, column };
+        // why find does not work?
+        const fcell = path.find((p) => p?.classList?.contains('f-cell'));
+        const props = fcell['kup-get-cell-props']();
+        const columnName = props.column.name;
+
+        let anchor = fcell;
+        let cell: KupDataCell = this.data?.rows?.[0].cells?.[columnName];
+        let column: KupDataColumn = this.data?.columns?.find(
+            (c) => c.name == columnName
+        );
+
+        return {
+            anchor,
+            cell,
+            column,
+        };
     }
 
     #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {

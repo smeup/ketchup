@@ -1,15 +1,15 @@
 const tooltip = document.getElementById('with-tooltip');
 
 const tooltipShow = (e) => {
-    const anchor = e.detail.details.anchor;
-    const column = e.detail.details.column;
+    console.log(e.detail.details);
 
-    console.log(anchor);
+    const anchor = e.detail.details.anchor;
+    const cell = e.detail.details.cell;
+    const column = e.detail.details.column;
 
     kupManager.tooltip.show(anchor, {
         data: {
-            text: 'Ciao',
-            columns: [column],
+            text: [`Tooltip: ${column.name}`],
         },
     });
 };

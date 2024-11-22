@@ -163,6 +163,7 @@ export enum KupInputPanelProps {
 
 export interface KupInputPanelEventHandlerDetails {
     anchor: HTMLElement;
+    cell: KupDataCell;
     column: KupDataColumn;
 }
 
