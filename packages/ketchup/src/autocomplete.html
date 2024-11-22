@@ -21,8 +21,48 @@
         </script>
         <div>
             <kup-autocomplete id="ac"></kup-autocomplete>
+
             <kup-text-field id="tf"></kup-text-field>
+
+            <kup-autocomplete id="forceSelection"></kup-autocomplete>
+
+            <kup-autocomplete id="minimumChars"></kup-autocomplete>
+
+            <kup-autocomplete id="onlyShowCode"></kup-autocomplete>
+
+            <kup-autocomplete id="customWatermark"></kup-autocomplete>
+
             <script>
+                const data = [
+                    {
+                        value: 'Text 1',
+                        secondaryText: 'Secondary text 1',
+                        id: 'txt1',
+                        icon: '3d_rotation',
+                    },
+                    {
+                        value: 'Text 2',
+                        id: 'txt2',
+                        icon: 'ac_unit',
+                    },
+                    {
+                        value: 'Text 3',
+                        id: 'txt3',
+                        icon: 'accessibility',
+                    },
+                    {
+                        value: 'Text 4',
+                        id: 'txt4',
+                        icon: 'account_box',
+                        separator: true,
+                    },
+                    {
+                        value: 'Text 5',
+                        id: 'txt5',
+                        selected: true,
+                    },
+                ];
+
                 document.addEventListener('kup-autocomplete-change', (e) => {
                     console.log(e);
                 });
@@ -30,41 +70,51 @@
                     let ac =
                         document.getElementsByTagName('kup-autocomplete')[0];
                     ac.data = {
-                        'kup-text-field': { label: 'ciao' },
+                        'kup-text-field': {
+                            label: 'ciao',
+                        },
                         'kup-list': {
-                            data: [
-                                {
-                                    value: 'Text 1',
-                                    secondaryText: 'Secondary text 1',
-                                    id: 'txt1',
-                                    icon: '3d_rotation',
-                                },
-                                {
-                                    value: 'Text 2',
-                                    id: 'txt2',
-                                    icon: 'ac_unit',
-                                },
-                                {
-                                    value: 'Text 3',
-                                    id: 'txt3',
-                                    icon: 'accessibility',
-                                },
-                                {
-                                    value: 'Text 4',
-                                    id: 'txt4',
-                                    icon: 'account_box',
-                                    separator: true,
-                                },
-                                {
-                                    value: 'Text 5',
-                                    id: 'txt5',
-                                    selected: true,
-                                },
-                            ],
+                            data,
                         },
                     };
                     ac.initialValue = 'txt1';
                     ac.selectMode = 'code';
+
+                    const minimumCharsTest =
+                        document.getElementById('minimumChars');
+                    minimumCharsTest.data = {
+                        'kup-text-field': {
+                            label: 'Minimum Characters Test',
+                        },
+                        'kup-list': {
+                            data,
+                        },
+                    };
+                    minimumCharsTest.minimumChars = 2;
+
+                    const onlyShowCodeTest =
+                        document.getElementById('onlyShowCode');
+                    onlyShowCodeTest.data = {
+                        'kup-text-field': {
+                            label: 'Only Show Code Test',
+                        },
+                        'kup-list': {
+                            data,
+                        },
+                    };
+                    onlyShowCodeTest.displayMode = 'code';
+
+                    const customWatermarkTest =
+                        document.getElementById('customWatermark');
+                    customWatermarkTest.data = {
+                        'kup-text-field': {
+                            label: 'Custom Watermark',
+                        },
+                        'kup-list': {
+                            data,
+                        },
+                    };
+                    customWatermarkTest.watermark = 'Test';
                 };
             </script>
         </div>

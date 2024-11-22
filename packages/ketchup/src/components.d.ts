@@ -289,7 +289,7 @@ export namespace Components {
         "leadingLabel": boolean;
         /**
           * The minimum number of chars to trigger the autocomplete
-          * @default 1
+          * @default 3
          */
         "minimumChars": number;
         /**
@@ -340,6 +340,11 @@ export namespace Components {
           * @default false
          */
         "trailingIcon": boolean;
+        /**
+          * Set custom placeholder for text field
+          * @default "Type code or description"
+         */
+        "watermark": string;
     }
     interface KupBadge {
         /**
@@ -5991,7 +5996,7 @@ declare namespace LocalJSX {
         "leadingLabel"?: boolean;
         /**
           * The minimum number of chars to trigger the autocomplete
-          * @default 1
+          * @default 3
          */
         "minimumChars"?: number;
         "onKup-autocomplete-blur"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
@@ -6031,6 +6036,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingIcon"?: boolean;
+        /**
+          * Set custom placeholder for text field
+          * @default "Type code or description"
+         */
+        "watermark"?: string;
     }
     interface KupBadge {
         /**

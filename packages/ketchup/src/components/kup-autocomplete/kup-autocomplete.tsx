@@ -128,12 +128,11 @@ export class KupAutocomplete {
      * @default false
      */
     @Prop() leadingLabel: boolean = false;
-
     /**
      * The minimum number of chars to trigger the autocomplete
-     * @default 1
+     * @default 3
      */
-    @Prop() minimumChars: number = 1;
+    @Prop() minimumChars: number = 3;
     /**
      * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
      * @default false
@@ -164,6 +163,11 @@ export class KupAutocomplete {
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * Set custom placeholder for text field
+     * @default "Type code or description"
+     */
+    @Prop() watermark: string = 'Type code or description';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -588,6 +592,7 @@ export class KupAutocomplete {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            placeholder: this.watermark,
             readOnly: this.readOnly,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
