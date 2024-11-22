@@ -175,7 +175,7 @@ export default {
           description:
             'The minimum number of chars to trigger the autocomplete.',
           type: 'number',
-          default: '1',
+          default: '3',
           try: 'field',
         },
         {
@@ -200,6 +200,13 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'watermark',
+          description: 'Set custom placeholder for text field.',
+          type: 'string',
+          default: 'Type code or description',
+          try: 'field',
         },
       ],
     };
@@ -234,8 +241,9 @@ function createComp() {
   };
   comp.displayMode = 'description';
   comp.initialValue = 'First item';
-  comp.minimumChars = '1';
+  comp.minimumChars = '3';
   comp.selectMode = 'description';
+  comp.watermark = 'Type description';
   return comp;
 }
 </script>
