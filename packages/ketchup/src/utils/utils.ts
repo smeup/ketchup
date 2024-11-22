@@ -95,3 +95,12 @@ export function getRegExpFromString(s: string, flags?: string): RegExp {
 function escapeRegExp(s: string) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
+
+/**
+ * Used to wait for a given number of milliseconds
+ * @param ms number of milliseconds to wait
+ * @returns a promise which resolves after the given number of milliseconds
+ */
+export function jestDelay(ms: number) {
+    return new Promise(res => setTimeout(res, ms));
+}
