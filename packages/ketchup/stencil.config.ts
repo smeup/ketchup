@@ -120,17 +120,14 @@ export const config: Config = {
             ],
             serviceWorker: null, // disable service workers
         },
-        reactOutputTarget({
-            componentCorePackage: '@sme.up/ketchup',
-            proxiesFile: '../ketchup-react/src/index.ts',
-            includeDefineCustomElements: true,
-        }),
+        reactOutputTarget({ outDir: '../ketchup-react' }),
         {
             type: 'dist',
             esmLoaderPath: './loader',
         },
         {
             type: 'dist-custom-elements',
+            externalRuntime: false,
         },
     ],
     extras: {

@@ -21,11 +21,13 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@sme.up/ketchup": "11.0.0-SNAPSHOT",
-        "react": "^16.7.0",
-        "react-dom": "^16.7.0"
+        "@stencil/react-output-target": "^0.7",
+        "react": "^18",
+        "react-dom": "^18"
     },
     "devDependencies": {
-        "rimraf": "6.0.1"
+        "@stencil/core": "^4",
+        "rimraf": "^6"
     },
     "installConfig": {
         "hoistingLimits": "workspaces"

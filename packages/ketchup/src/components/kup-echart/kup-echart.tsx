@@ -12,11 +12,7 @@ import {
 } from '@stencil/core';
 import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
-import {
-    VisualMapComponentOption,
-    XAXisComponentOption,
-    YAXisComponentOption,
-} from 'echarts';
+import { VisualMapComponentOption } from 'echarts';
 import {
     KupEchartClickEventPayload,
     KupEchartLegendPlacement,
@@ -24,6 +20,8 @@ import {
     KupEchartProps,
     KupEchartTitle,
     KupEchartTypes,
+    KupEchartXAxis,
+    KupEchartYAxis,
 } from './kup-echart-declarations';
 import {
     KupManager,
@@ -137,12 +135,12 @@ export class KupEchart {
      * Customization options for the x Axis.
      * @default null
      */
-    @Prop() xAxis: XAXisComponentOption = null;
+    @Prop() xAxis: KupEchartXAxis = null;
     /**
      * Customization options for the y Axis.
      * @default null
      */
-    @Prop() yAxis: YAXisComponentOption = null;
+    @Prop() yAxis: KupEchartYAxis = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

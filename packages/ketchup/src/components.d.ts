@@ -35,9 +35,8 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes, KupEchartXAxis, KupEchartYAxis } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
-import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
@@ -93,9 +92,8 @@ export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes, KupEchartXAxis, KupEchartYAxis } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
-export { XAXisComponentOption, YAXisComponentOption } from "echarts";
 export { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 export { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
@@ -2145,12 +2143,12 @@ export namespace Components {
           * Customization options for the x Axis.
           * @default null
          */
-        "xAxis": XAXisComponentOption;
+        "xAxis": KupEchartXAxis;
         /**
           * Customization options for the y Axis.
           * @default null
          */
-        "yAxis": YAXisComponentOption;
+        "yAxis": KupEchartYAxis;
     }
     interface KupEditor {
         /**
@@ -7728,12 +7726,12 @@ declare namespace LocalJSX {
           * Customization options for the x Axis.
           * @default null
          */
-        "xAxis"?: XAXisComponentOption;
+        "xAxis"?: KupEchartXAxis;
         /**
           * Customization options for the y Axis.
           * @default null
          */
-        "yAxis"?: YAXisComponentOption;
+        "yAxis"?: KupEchartYAxis;
     }
     interface KupEditor {
         /**
