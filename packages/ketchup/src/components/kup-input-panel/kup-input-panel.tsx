@@ -1903,13 +1903,6 @@ export class KupInputPanel {
                     id: this.rootElement.id,
                     details: this.#contextMenuHandler(e),
                 });
-
-                // try {
-                //     details = this.#contextMenuHandler(e);
-
-                // } catch (error) {
-                //     // nothing should happen, probably right click was fired out of cell
-                // }
             }
         };
 
