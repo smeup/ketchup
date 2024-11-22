@@ -1902,11 +1902,15 @@ export class KupInputPanel {
 
         const tapCb = (e: PointerEvent) => {
             if (e.button == 2) {
-                this.kupDataTableContextMenu.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    details: this.#contextMenuHandler(e),
-                });
+                const details = this.#contextMenuHandler(e);
+
+                if (details) {
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details,
+                    });
+                }
             }
         };
 
