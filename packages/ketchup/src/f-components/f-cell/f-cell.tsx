@@ -819,7 +819,7 @@ function setEditableCell(
                                 e,
                                 props,
                                 cellType,
-                                FCellEvents.ICON_CLICK
+                                FCellEvents.SECONDARY_ICON_CLICK
                             )
                         }
                         styling={FButtonStyling.FLAT}
@@ -1346,6 +1346,7 @@ function cellEvent(
                 event: e,
                 row: row,
                 type: cellType,
+                inputValue: cell.element?.querySelector('input')?.value || null,
             },
         });
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);

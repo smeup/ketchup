@@ -52,6 +52,7 @@ export enum FCellEvents {
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
     KEYUP = 'kup-cell-keyup',
+    SECONDARY_ICON_CLICK = 'kup-cell-secondaryiconclick',
     UPDATE = 'kup-cell-update',
 }
 /**
@@ -215,6 +216,7 @@ export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
+    inputValue?: string;
     row: KupDataRow;
     type: FCellTypes;
 }
