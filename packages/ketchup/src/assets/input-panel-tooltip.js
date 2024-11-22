@@ -1,8 +1,6 @@
 const tooltip = document.getElementById('with-tooltip');
 
 const tooltipShow = (e) => {
-    console.log(e.detail.details);
-
     const anchor = e.detail.details.anchor;
     const cell = e.detail.details.cell;
     const column = e.detail.details.column;

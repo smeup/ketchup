@@ -192,6 +192,8 @@ export class KupInputPanel {
 
     #kupManager: KupManager = kupManagerInstance();
 
+    #formRef: HTMLFormElement;
+
     #optionsAdapterMap = new Map<
         string,
         (options: any, currentValue: string) => GenericObject[]
@@ -337,61 +339,6 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
-
-    #formRef: HTMLFormElement;
-
-    #getEventDetails(path: HTMLElement[]): KupInputPanelEventHandlerDetails {
-        // why find does not work?
-        const fcell = path.find((p) => p?.classList?.contains('f-cell'));
-        const props = fcell['kup-get-cell-props']();
-        const columnName = props.column.name;
-
-        let anchor = fcell;
-        let cell: KupDataCell = this.data?.rows?.[0].cells?.[columnName];
-        let column: KupDataColumn = this.data?.columns?.find(
-            (c) => c.name == columnName
-        );
-
-        return {
-            anchor,
-            cell,
-            column,
-        };
-    }
-
-    #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {
-        const eventPath = this.#kupManager.getEventPath(
-            e.target,
-            this.rootElement
-        );
-
-        return this.#getEventDetails(eventPath);
-    }
-
-    #didLoadInteractables() {
-        this.#kupManager.interact.managedElements.add(this.#formRef);
-
-        const tapCb = (e: PointerEvent) => {
-            switch (e.button) {
-                case 0:
-                    break;
-                case 2:
-                    this.kupDataTableContextMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        details: this.#contextMenuHandler(e),
-                    });
-                    break;
-            }
-        };
-
-        this.#kupManager.interact.on(
-            this.#formRef,
-            KupPointerEventTypes.TAP,
-            tapCb
-        );
-    }
-
     //#endregion
 
     //#region PRIVATE METHODS
@@ -1915,6 +1862,62 @@ export class KupInputPanel {
                   },
                   cell: id,
               });
+    }
+
+    #getEventDetails(path: HTMLElement[]): KupInputPanelEventHandlerDetails {
+        const fcell = path.find((p) => p.classList?.contains('f-cell'));
+        if (fcell == null) {
+            return;
+        }
+
+        const props = fcell['kup-get-cell-props']();
+        const columnName = props.column.name;
+
+        let anchor = fcell;
+        let cell = this.data.rows[0].cells[columnName];
+        let column = this.data.columns.find((c) => c.name == columnName);
+
+        return {
+            anchor,
+            cell,
+            column,
+        };
+    }
+
+    #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {
+        const eventPath = this.#kupManager.getEventPath(
+            e.target,
+            this.rootElement
+        );
+
+        return this.#getEventDetails(eventPath);
+    }
+
+    #didLoadInteractables() {
+        this.#kupManager.interact.managedElements.add(this.#formRef);
+
+        const tapCb = (e: PointerEvent) => {
+            if (e.button == 2) {
+                this.kupDataTableContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
+
+                // try {
+                //     details = this.#contextMenuHandler(e);
+
+                // } catch (error) {
+                //     // nothing should happen, probably right click was fired out of cell
+                // }
+            }
+        };
+
+        this.#kupManager.interact.on(
+            this.#formRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
     }
 
     //#endregion
