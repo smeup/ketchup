@@ -165,6 +165,7 @@ export interface KupInputPanelEventHandlerDetails {
     anchor: HTMLElement;
     cell: KupDataCell;
     column: KupDataColumn;
+    originalEvent: PointerEvent;
 }
 
 export interface KupInputPanelClickEventPayload extends KupEventPayload {

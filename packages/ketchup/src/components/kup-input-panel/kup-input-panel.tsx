@@ -1864,7 +1864,10 @@ export class KupInputPanel {
               });
     }
 
-    #getEventDetails(path: HTMLElement[]): KupInputPanelEventHandlerDetails {
+    #getEventDetails(
+        path: HTMLElement[],
+        originalEvent: PointerEvent
+    ): KupInputPanelEventHandlerDetails {
         const fcell = path.find((p) => p.classList?.contains('f-cell'));
         if (fcell == null) {
             return;
@@ -1881,6 +1884,7 @@ export class KupInputPanel {
             anchor,
             cell,
             column,
+            originalEvent,
         };
     }
 
@@ -1890,7 +1894,7 @@ export class KupInputPanel {
             this.rootElement
         );
 
-        return this.#getEventDetails(eventPath);
+        return this.#getEventDetails(eventPath, e);
     }
 
     #didLoadInteractables() {
