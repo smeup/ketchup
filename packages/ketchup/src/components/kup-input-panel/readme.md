@@ -7,17 +7,18 @@
 
 ## Properties
 
-| Property                   | Attribute              | Description                                                            | Type                                                                                                           | Default |
-| -------------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
-| `checkValidObjCallback`    | --                     | Sets the callback for valid the object when cell checkObject is true   | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>`   | `null`  |
-| `checkValidValueCallback`  | --                     | Sets the callback for valid the object when cell checkObject is true   | `(currentState: KupInputPanelSubmitValue, cellId: string) => void`                                             | `null`  |
-| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                           | `null`  |
-| `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                       | `''`    |
-| `dashboardMode`            | `dashboard-mode`       | Sets verical layout if dashboardMode is true                           | `boolean`                                                                                                      | `false` |
-| `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                                            | `null`  |
-| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                      | `false` |
-| `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                  | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>` | `null`  |
-| `submitCb`                 | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown`                                                                          | `null`  |
+| Property                   | Attribute              | Description                                                            | Type                                                                                                           | Default     |
+| -------------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------- |
+| `buttonPosition`           | `button-position`      | Select the position of the buttons related to the input panel          | `"BOTTOM" \| "CENTER" \| "LEFT" \| "RIGHT" \| "TOP"`                                                           | `undefined` |
+| `checkValidObjCallback`    | --                     | Sets the callback for valid the object when cell checkObject is true   | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>`   | `null`      |
+| `checkValidValueCallback`  | --                     | Sets the callback for valid the object when cell checkObject is true   | `(currentState: KupInputPanelSubmitValue, cellId: string) => void`                                             | `null`      |
+| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                           | `null`      |
+| `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                       | `''`        |
+| `dashboardMode`            | `dashboard-mode`       | Sets verical layout if dashboardMode is true                           | `boolean`                                                                                                      | `false`     |
+| `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                                            | `null`      |
+| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                      | `false`     |
+| `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                  | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>` | `null`      |
+| `submitCb`                 | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown`                                                                          | `null`      |
 
 
 ## Events

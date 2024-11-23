@@ -619,7 +619,7 @@ export namespace Components {
         "showSpinner": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -2797,6 +2797,11 @@ export namespace Components {
         "store": KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Select the position of the buttons related to the input panel
+          * @default "BOTTOM"
+         */
+        "buttonPosition": 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
         /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null
@@ -6441,7 +6446,7 @@ declare namespace LocalJSX {
         "showSpinner"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -8245,6 +8250,11 @@ declare namespace LocalJSX {
         "store"?: KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Select the position of the buttons related to the input panel
+          * @default "BOTTOM"
+         */
+        "buttonPosition"?: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
         /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null

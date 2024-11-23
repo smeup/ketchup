@@ -159,4 +159,5 @@ export enum KupInputPanelProps {
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
     optionsHandler = 'Sets the callback function to recieve options',
+    buttonPosition = 'Manage the position of the buttons related to the input panel content. It is an enumeration',
 }
