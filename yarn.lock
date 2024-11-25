@@ -3102,6 +3102,7 @@ __metadata:
     react: ^18
     react-dom: ^18
     rimraf: ^6
+    typescript: ^5
   languageName: unknown
   linkType: soft
 

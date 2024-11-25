@@ -27,7 +27,8 @@
     },
     "devDependencies": {
         "@stencil/core": "^4",
-        "rimraf": "^6"
+        "rimraf": "^6",
+        "typescript": "^5"
     },
     "installConfig": {
         "hoistingLimits": "workspaces"
