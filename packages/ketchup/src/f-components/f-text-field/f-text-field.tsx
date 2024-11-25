@@ -5,7 +5,6 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupComponentSizing } from '../../types/GenericTypes';
 
 const dom: KupDom = document.documentElement as KupDom;
 
