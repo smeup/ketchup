@@ -391,7 +391,7 @@ export class KupInputPanel {
                             ? layout.sections
                                   .map((sec) => sec.dim || 'auto')
                                   .join(' ')
-                            : `repeat(${layout.sections.length}, 1fr)`;
+                            : `repeat(${inputPanelCell.cells.length}, 1fr)`;
                     } else {
                         if (this.dashboardMode) {
                             styleObj.gridTemplateRows = hasDim
@@ -671,7 +671,6 @@ export class KupInputPanel {
                         : '';
             }
         }
-
         const sectionContent = (
             <div class={classObj} style={styleObj}>
                 {content}
@@ -1977,7 +1976,6 @@ export class KupInputPanel {
 
     render() {
         const isEmptyData = Boolean(!this.inputPanelCells.length);
-
         const inputPanelContent: VNode[] = isEmptyData
             ? [
                   <p>
