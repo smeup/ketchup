@@ -26,6 +26,7 @@ export interface FTextFieldProps extends FComponent {
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    letterCase?: TextFieldLetterCase;
     lightMode?: boolean;
     name?: string;
     placeholder?: string;
@@ -50,4 +51,10 @@ export interface FTextFieldProps extends FComponent {
     onClearIconClick?: (event: MouseEvent) => void;
     onMinusClick?: (event: MouseEvent) => void;
     onPlusClick?: (event: MouseEvent) => void;
+}
+
+export enum TextFieldLetterCase {
+    UPPERCASE = 'uppercase',
+    LOWERCASE = 'lowercase',
+    NOCASE = '',
 }

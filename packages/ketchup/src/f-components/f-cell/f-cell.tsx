@@ -35,6 +35,8 @@ import {
     CHIAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
+    isForceLowercase,
+    isForceUppercase,
     RADAdapter,
 } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
@@ -65,6 +67,7 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { TextFieldLetterCase } from '../f-text-field/f-text-field-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -840,6 +843,11 @@ function setEditableCell(
                 cellType === FCellTypes.NUMBER && cell.value
                     ? dom.ketchup.math.numberifySafe(cell.value).toString()
                     : cell.value;
+            const letterCase = isForceLowercase(cell)
+                ? TextFieldLetterCase.LOWERCASE
+                : isForceUppercase(cell)
+                ? TextFieldLetterCase.UPPERCASE
+                : TextFieldLetterCase.NOCASE;
             if (cell.shape === FCellShapes.INPUT_FIELD) {
                 return (
                     <input
@@ -866,6 +874,7 @@ function setEditableCell(
                                 ? column.icon
                                 : null
                         }
+                        letterCase={letterCase}
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
@@ -1288,6 +1297,11 @@ function cellEvent(
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
         let value = getValueFromEventTarget(e, cellType);
+        if (isForceUppercase(cell)) {
+            value = value?.toUpperCase();
+        } else if (isForceLowercase(cell)) {
+            value = value?.toLowerCase();
+        }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:

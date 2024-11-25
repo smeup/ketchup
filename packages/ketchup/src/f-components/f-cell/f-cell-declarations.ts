@@ -30,6 +30,7 @@ export interface FCellProps extends FComponent {
     setSizes?: boolean;
     shape?: FCellShapes;
     cellActionIcon?: CellActionProps;
+    inputSettings?: InputSettingsProps;
 }
 
 export interface FCellOptionsProps extends FCellProps {
@@ -217,4 +218,9 @@ export interface FCellEventPayload extends KupEventPayload {
     event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
     row: KupDataRow;
     type: FCellTypes;
+}
+
+export interface InputSettingsProps {
+    forceUppercase?: boolean;
+    forceLowercase?: boolean;
 }
