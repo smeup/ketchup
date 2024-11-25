@@ -46,7 +46,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -104,7 +104,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -619,7 +619,7 @@ export namespace Components {
         "showSpinner": boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
         /**
@@ -5430,6 +5430,7 @@ declare global {
     };
     interface HTMLKupInputPanelElementEventMap {
         "kup-input-panel-ready": KupEventPayload;
+        "kup-inputpanel-contextmenu": KupInputPanelClickEventPayload;
     }
     interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6441,7 +6442,7 @@ declare namespace LocalJSX {
         "showSpinner"?: boolean;
         /**
           * Sets the type of the button
-          * @default KupComponentSizing.MEDIUM
+          * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
         /**
@@ -8285,6 +8286,10 @@ declare namespace LocalJSX {
           * When component load is complete
          */
         "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
+        /**
+          * Generic right click event on input panel.
+         */
+        "onKup-inputpanel-contextmenu"?: (event: KupInputPanelCustomEvent<KupInputPanelClickEventPayload>) => void;
         /**
           * Sets the callback function on loading options via FUN
           * @default null
