@@ -84,7 +84,6 @@ import {
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
-import { KupTypographyList } from '../kup-typography-list/kup-typography-list';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -122,6 +121,12 @@ export class KupInputPanel {
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
+
+    /**
+     * Select the position of the buttons related to the input panel
+     * @default "BOTTOM"
+     */
+    @Prop() buttonPosition: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
 
     /**
      * Sets the callback function on submit form
@@ -402,10 +407,21 @@ export class KupInputPanel {
             }
         }
 
+        const inputPanelClass = {
+            'input-panel-form': true,
+            'input-panel-form--inline': this.buttonPosition == 'RIGHT',
+        };
+
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
+            'input-panel--inline': this.buttonPosition == 'RIGHT',
+        };
+
+        const commandsClass = {
+            'input-panel__commands': true,
+            [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
         // We create a form for each row in data
@@ -413,7 +429,7 @@ export class KupInputPanel {
             <form
                 name={this.rootElement.id}
                 id={this.rootElement.id}
-                class={{ 'input-panel-form': true }}
+                class={inputPanelClass}
                 ref={(el: HTMLFormElement) => (this.#formRef = el)}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
@@ -431,7 +447,7 @@ export class KupInputPanel {
                 <div class={classObj} style={styleObj}>
                     {rowContent}
                 </div>
-                <div class="input-panel__commands">
+                <div class={commandsClass}>
                     <FButton
                         buttonType="submit"
                         label={this.#kupManager.language.translate(
@@ -590,7 +606,7 @@ export class KupInputPanel {
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
-                  this.#renderSection(inputPanelCell, section)
+                  this.#renderSection(inputPanelCell, section, false)
               );
     }
 
@@ -607,11 +623,13 @@ export class KupInputPanel {
         cells: InputPanelCells,
         section: KupInputPanelLayoutSection,
         customLabelRender: boolean = false,
-        styleObj: GenericObject = {}
+        styleObj: GenericObject = {},
+        layout?: KupInputPanelLayout
     ) {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
+            'input-panel__section-inline': layout?.horizontal,
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';

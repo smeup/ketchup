@@ -29,6 +29,7 @@
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
+  --kup_input_panel_padding--inline: var(--kup-input-panel-padding--inline, 0);
 
   .input-panel {
     background: var(--kup_input_panel_background_color);
@@ -39,11 +40,21 @@
     padding: var(--kup_input_panel_padding);
     position: relative;
     gap: 1rem;
-    // width: var(--kup-fcell_width);
 
     &__commands {
       display: flex;
       gap: 2rem;
+      &.input-panel__commands--right {
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+    }
+
+    &--inline {
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: var(--kup_input_panel_padding--inline);
     }
 
     &--column {
@@ -69,6 +80,11 @@
 
     &__horizontal-section {
       display: inline-grid;
+    }
+
+    &__section-inline {
+      display: inline-block;
+      width: max-content;
     }
 
     .f-cell .f-checkbox .checkbox .checkbox__native-control {
@@ -120,5 +136,9 @@
         height: unset !important;
       }
     }
+  }
+  .input-panel-form--inline {
+    display: flex;
+    align-items: end;
   }
 }
