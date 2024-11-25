@@ -22,9 +22,10 @@
 
 ## Events
 
-| Event                   | Description                     | Type                           |
-| ----------------------- | ------------------------------- | ------------------------------ |
-| `kup-input-panel-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
+| Event                        | Description                               | Type                                          |
+| ---------------------------- | ----------------------------------------- | --------------------------------------------- |
+| `kup-input-panel-ready`      | When component load is complete           | `CustomEvent<KupEventPayload>`                |
+| `kup-inputpanel-contextmenu` | Generic right click event on input panel. | `CustomEvent<KupInputPanelClickEventPayload>` |
 
 
 ## Methods
