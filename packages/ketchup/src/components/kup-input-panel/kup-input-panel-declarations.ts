@@ -1,4 +1,4 @@
-import { GenericObject } from '../../components';
+import { GenericObject, KupEventPayload } from '../../components';
 import {
     KupDataCell,
     KupDataColumn,
@@ -159,4 +159,15 @@ export enum KupInputPanelProps {
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
     optionsHandler = 'Sets the callback function to recieve options',
+}
+
+export interface KupInputPanelEventHandlerDetails {
+    anchor: HTMLElement;
+    cell: KupDataCell;
+    column: KupDataColumn;
+    originalEvent: PointerEvent;
+}
+
+export interface KupInputPanelClickEventPayload extends KupEventPayload {
+    details: KupInputPanelEventHandlerDetails;
 }
