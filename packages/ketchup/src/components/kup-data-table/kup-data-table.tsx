@@ -4124,7 +4124,7 @@ export class KupDataTable {
 
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns) 
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             colSpan += 1;
         }
@@ -4349,8 +4349,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns) 
-            
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4541,7 +4540,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns) 
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4677,7 +4676,7 @@ export class KupDataTable {
         let actionsCell = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns) 
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4700,7 +4699,6 @@ export class KupDataTable {
                     }
                 />
             );
-       
         }
 
         const footerCells = this.getVisibleColumns().map(
@@ -5203,7 +5201,7 @@ export class KupDataTable {
                                         });
                                     }
                                 );
-                            
+
                             actionsOnRow.push(imageProp);
                         });
                     } else {
