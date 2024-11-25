@@ -2796,6 +2796,11 @@ export namespace Components {
     }
     interface KupInputPanel {
         /**
+          * Select the position of the buttons related to the input panel
+          * @default "BOTTOM"
+         */
+        "buttonPosition": 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+        /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null
          */
@@ -8244,6 +8249,11 @@ declare namespace LocalJSX {
         "store"?: KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Select the position of the buttons related to the input panel
+          * @default "BOTTOM"
+         */
+        "buttonPosition"?: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
         /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null
