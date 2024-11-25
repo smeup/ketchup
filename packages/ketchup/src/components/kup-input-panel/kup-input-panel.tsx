@@ -582,13 +582,7 @@ export class KupInputPanel {
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
-                  this.#renderSection(
-                      inputPanelCell,
-                      section,
-                      false,
-                      {},
-                      layout
-                  )
+                  this.#renderSection(inputPanelCell, section, false)
               );
     }
 
@@ -611,7 +605,7 @@ export class KupInputPanel {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
-            'input-panel__section-inline': layout.horizontal,
+            'input-panel__section-inline': layout?.horizontal,
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
