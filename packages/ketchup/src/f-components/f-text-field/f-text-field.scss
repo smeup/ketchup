@@ -178,17 +178,6 @@
       align-items: center;
       padding: var(--kup_textfield_medium_padding);
 
-      &.mdc-text-field--uppercase {
-        input {
-          text-transform: uppercase !important;
-        }
-      }
-      &.mdc-text-field--lowercase {
-        input {
-          text-transform: lowercase !important;
-        }
-      }
-
       input {
         @include kup-body-compact-01;
         text-align: var(--kup_textfield_text_align);

@@ -67,7 +67,6 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
-import { TextFieldLetterCase } from '../f-text-field/f-text-field-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -122,6 +121,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [props.density]:
             props.density && cellType !== FCellTypes.BAR ? true : false,
         [cssClasses]: cssClasses ? true : false,
+        'c-input-uppercase': isForceUppercase(cell),
+        'c-input-lowercase': isForceLowercase(cell),
     };
     let content: unknown = valueToDisplay;
     if (!cell.data) {
@@ -843,11 +844,6 @@ function setEditableCell(
                 cellType === FCellTypes.NUMBER && cell.value
                     ? dom.ketchup.math.numberifySafe(cell.value).toString()
                     : cell.value;
-            const letterCase = isForceLowercase(cell)
-                ? TextFieldLetterCase.LOWERCASE
-                : isForceUppercase(cell)
-                ? TextFieldLetterCase.UPPERCASE
-                : TextFieldLetterCase.NOCASE;
             if (cell.shape === FCellShapes.INPUT_FIELD) {
                 return (
                     <input
@@ -874,7 +870,6 @@ function setEditableCell(
                                 ? column.icon
                                 : null
                         }
-                        letterCase={letterCase}
                         value={value}
                         onChange={onChange}
                         onInput={onInput}

@@ -1,7 +1,4 @@
-import {
-    TextFieldLetterCase,
-    type FTextFieldProps,
-} from './f-text-field-declarations';
+import { type FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -176,10 +173,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
-        'mdc-text-field--uppercase':
-            props.letterCase === TextFieldLetterCase.UPPERCASE,
-        'mdc-text-field--lowercase':
-            props.letterCase === TextFieldLetterCase.LOWERCASE,
         ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
