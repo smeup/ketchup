@@ -528,6 +528,18 @@
     }
   }
 
+  &.c-input-uppercase .f-cell__content {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  &.c-input-lowercase .f-cell__content {
+    input {
+      text-transform: lowercase;
+    }
+  }
+
   &.dense {
     --kup-textfield-fullwidth-height: 28px;
     --kup-textfield-fullwidth-padding: 0px;

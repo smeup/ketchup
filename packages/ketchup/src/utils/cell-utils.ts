@@ -306,3 +306,19 @@ export const submitPositionAdapter = (position: KupCellElementsPosition) => {
 
     return buttonPosition ?? 'row';
 };
+
+export const isForceLowercase = (cell: KupDataCell): boolean => {
+    return (
+        cell.inputSettings &&
+        cell.inputSettings.forceLowercase &&
+        cell.inputSettings.forceLowercase === true
+    );
+};
+
+export const isForceUppercase = (cell: KupDataCell): boolean => {
+    return (
+        cell.inputSettings &&
+        cell.inputSettings.forceUppercase &&
+        cell.inputSettings.forceUppercase === true
+    );
+};
