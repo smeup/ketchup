@@ -59,7 +59,7 @@
         "vanilla-picker": "2.12.3"
     },
     "devDependencies": {
-        "@stencil/core": "^4",
+        "@stencil/core": "4.20.0",
         "@stencil/react-output-target": "^0.7",
         "@stencil/sass": "^3",
         "jest": "^29.7.0",
