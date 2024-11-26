@@ -176,6 +176,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
+        '': props.hasTooltip,
     };
 
     let value = props.value;

@@ -5,11 +5,13 @@ const tooltipShow = (e) => {
     const cell = e.detail.details.cell;
     const column = e.detail.details.column;
 
-    kupManager.tooltip.show(anchor, {
-        data: {
-            text: [`Tooltip: ${column.name}`],
-        },
-    });
+    if (cell.tooltip) {
+        kupManager.tooltip.show(anchor, {
+            data: {
+                text: [`Tooltip: ${column.name}`],
+            },
+        });
+    }
 };
 
 tooltip.addEventListener('kup-inputpanel-contextmenu', tooltipShow);
@@ -42,6 +44,7 @@ const tooltipData = {
                 NAM: {
                     value: 'Giovanni',
                     obj: { t: '', p: '', k: '' },
+                    tooltip: false,
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
@@ -49,12 +52,14 @@ const tooltipData = {
                 INP1: {
                     value: '',
                     obj: { t: 'D8', p: '', k: '' },
+                    tooltip: true,
                     editable: true,
                     mandatory: true,
                 },
                 INP2: {
                     value: '',
                     obj: { t: 'NR', p: '' },
+                    tooltip: true,
                     editable: false,
                     mandatory: true,
                 },

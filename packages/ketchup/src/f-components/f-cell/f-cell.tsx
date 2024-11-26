@@ -881,6 +881,7 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
+                        hasTooltip={true}
                     />
                 );
             }
