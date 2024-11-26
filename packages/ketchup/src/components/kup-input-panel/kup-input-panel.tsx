@@ -901,8 +901,12 @@ export class KupInputPanel {
             length = field.absoluteLength;
         }
 
+        if (!field.absoluteHeight) {
+            field.absoluteHeight = 1;
+        }
+
         const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(1)}px`;
+        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
         const top = `${getAbsoluteTop(field.absoluteRow)}px`;
         const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
 

@@ -102,6 +102,7 @@ export interface KupInputPanelLayoutField {
     absoluteColumn?: number;
     absoluteRow?: number;
     absoluteLength?: number;
+    absoluteHeight?: number;
 }
 
 export type DataAdapterFn = (
