@@ -104,11 +104,23 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     /**
+     * Select the position of the buttons related to the input panel
+     * @default "BOTTOM"
+     */
+    @Prop() buttonPosition: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
+
+    /**
+     * Sets verical layout if dashboardMode is true
+     * @default false
+     */
+    @Prop() dashboardMode: boolean = false;
 
     /**
      * Actual data of the form.
@@ -123,10 +135,16 @@ export class KupInputPanel {
     @Prop() hiddenSubmitButton: boolean = false;
 
     /**
-     * Select the position of the buttons related to the input panel
-     * @default "BOTTOM"
+     * Dispositions of the whole input panel elements
+     * @default COLUMNS
      */
-    @Prop() buttonPosition: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+    @Prop() inputPanelPosition:
+        | 'COLUMNS'
+        | 'INLINE'
+        | 'STRETCHED'
+        | 'UPINLINE'
+        | 'UPCOLUMNS'
+        | 'WATERMARK';
 
     /**
      * Sets the callback function on submit form
@@ -159,11 +177,6 @@ export class KupInputPanel {
     @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
     //#endregion
 
-    /**
-     * Sets verical layout if dashboardMode is true
-     * @default false
-     */
-    @Prop() dashboardMode: boolean = false;
     //#endregion
 
     //#region STATES
@@ -385,7 +398,9 @@ export class KupInputPanel {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
                     styleObj.display = 'grid';
-
+                    if (this.inputPanelPosition == 'INLINE') {
+                        styleObj.display = '';
+                    }
                     if (layout.horizontal) {
                         styleObj.gridTemplateColumns = hasDim
                             ? layout.sections
@@ -416,7 +431,7 @@ export class KupInputPanel {
             'input-panel': true,
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
-            'input-panel--inline': this.buttonPosition == 'RIGHT',
+            'input-panel--inline': this.inputPanelPosition == 'INLINE',
         };
 
         const commandsClass = {
@@ -623,14 +638,15 @@ export class KupInputPanel {
         cells: InputPanelCells,
         section: KupInputPanelLayoutSection,
         customLabelRender: boolean = false,
-        styleObj: GenericObject = {},
-        layout?: KupInputPanelLayout
+        styleObj: GenericObject = {}
     ) {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
-            'input-panel__section-inline': layout?.horizontal,
+            'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
         };
+
+        console.log(classObj);
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
 

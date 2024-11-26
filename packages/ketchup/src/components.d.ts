@@ -2845,6 +2845,16 @@ export namespace Components {
          */
         "hiddenSubmitButton": boolean;
         /**
+          * Dispositions of the whole input panel elements
+          * @default COLUMNS
+         */
+        "inputPanelPosition": | 'COLUMNS'
+        | 'INLINE'
+        | 'STRETCHED'
+        | 'UPINLINE'
+        | 'UPCOLUMNS'
+        | 'WATERMARK';
+        /**
           * Sets the callback function on loading options via FUN
           * @default null
          */
@@ -8292,6 +8302,16 @@ declare namespace LocalJSX {
           * @default false
          */
         "hiddenSubmitButton"?: boolean;
+        /**
+          * Dispositions of the whole input panel elements
+          * @default COLUMNS
+         */
+        "inputPanelPosition"?: | 'COLUMNS'
+        | 'INLINE'
+        | 'STRETCHED'
+        | 'UPINLINE'
+        | 'UPCOLUMNS'
+        | 'WATERMARK';
         /**
           * When component load is complete
          */
