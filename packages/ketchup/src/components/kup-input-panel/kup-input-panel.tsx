@@ -391,7 +391,7 @@ export class KupInputPanel {
                             ? layout.sections
                                   .map((sec) => sec.dim || 'auto')
                                   .join(' ')
-                            : `repeat(${layout.sections.length}, 1fr)`;
+                            : `repeat(${inputPanelCell.cells.length}, 1fr)`;
                     } else {
                         if (this.dashboardMode) {
                             styleObj.gridTemplateRows = hasDim
@@ -671,12 +671,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-
-        const sectionContent = (
+        const sectionContent = content[0] ? (
             <div class={classObj} style={styleObj}>
                 {content}
             </div>
-        );
+        ) : null;
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
@@ -1977,7 +1976,6 @@ export class KupInputPanel {
 
     render() {
         const isEmptyData = Boolean(!this.inputPanelCells.length);
-
         const inputPanelContent: VNode[] = isEmptyData
             ? [
                   <p>
