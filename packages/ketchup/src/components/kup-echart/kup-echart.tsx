@@ -413,6 +413,10 @@ export class KupEchart {
     }
 
     #radarChart() {
+        const castArrayToNumber = (strEl: unknown) =>
+            typeof strEl === 'string'
+                ? Number(strEl.replace(',', ''))
+                : Number(strEl);
         const x = this.#createX();
         const y = this.#createY();
         const data: { name: string; value: number[] }[] = [],
@@ -426,17 +430,19 @@ export class KupEchart {
         for (const key in y) {
             transposedData.push({
                 name: key,
-                value: y[key],
+                value: y[key].map(castArrayToNumber),
             });
             for (const values in y[key]) {
-                data[values].value.push(y[key][values]);
+                data[values].value.push(castArrayToNumber(y[key][values]));
             }
         }
         for (let index = 0; index < data.length; index++) {
             const dataEl = data[index];
             const key = dataEl.name;
             const foundEl = transposedIndicator.find((d) => d.name === key);
-            const max = Math.floor(Math.max(...dataEl.value) * 1.05);
+            /* Handle the case where array contains strings instead of numbers */
+            const castedValueArray = dataEl.value.map(castArrayToNumber);
+            const max = Math.floor(Math.max(...castedValueArray) * 1.05);
             if (!foundEl) {
                 transposedIndicator.push({
                     name: key,
@@ -471,14 +477,17 @@ export class KupEchart {
     }
 
     #bubbleChart() {
-        const y = this.#createY(),
+        const x = this.#createX(),
+            y = this.#createY(),
             data = [],
             temp = [],
             legend = {},
             series = [];
         let year = [];
 
-        const content = this.data.columns.map((data) => data.title);
+        const content = this.data.columns
+            .map((data) => data.name)
+            .filter((name) => name != this.axis);
 
         // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
 
@@ -511,7 +520,7 @@ export class KupEchart {
 
         data.forEach((el, i) => {
             series.push({
-                name: year[i],
+                name: year[i] ?? x[i],
                 data: el,
                 type: 'scatter',
                 symbolSize: function (data) {
@@ -572,7 +581,7 @@ export class KupEchart {
     #sankeyChart() {
         const links: GenericObject[] = [],
             x = this.#createX(),
-            y = this.#createYForSankey(),
+            y = this.#createYWithColumnTitle(),
             // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
             yKeys = [
                 this.data.columns[0].title,
@@ -630,13 +639,13 @@ export class KupEchart {
 
     #candleChart() {
         const x = this.#createX();
-        const y = this.#createY(),
+        const y = this.#createYWithColumnTitle(),
             answer = [],
             itemStyle = {
-                color: 'red',
-                borderColor: 'red',
-                color0: 'green',
-                borderColor0: 'green',
+                color: 'green',
+                borderColor: 'green',
+                color0: 'red',
+                borderColor0: 'red',
             };
 
         let caseInsensitiveObj = new Proxy(y, {
@@ -656,12 +665,12 @@ export class KupEchart {
             },
         });
 
-        for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
+        for (let i = 0; i < caseInsensitiveObj['open'].length; i++) {
             answer.push([
                 parseInt(caseInsensitiveObj['close'][i]),
-                parseInt(caseInsensitiveObj['Open'][i]),
-                parseInt(caseInsensitiveObj['Low'][i]),
-                parseInt(caseInsensitiveObj['High'][i]),
+                parseInt(caseInsensitiveObj['open'][i]),
+                parseInt(caseInsensitiveObj['low'][i]),
+                parseInt(caseInsensitiveObj['high'][i]),
             ]);
         }
         let legend = {};
@@ -690,7 +699,7 @@ export class KupEchart {
     }
 
     #calendarChart() {
-        const y = this.#createY();
+        const y = this.#createYWithColumnTitle();
 
         let caseInsensitiveObj = new Proxy(y, {
             get: function (target, prop: any) {
@@ -709,14 +718,19 @@ export class KupEchart {
             },
         });
 
-        const date = caseInsensitiveObj['Date'],
+        const date = caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'],
+            value = caseInsensitiveObj['Value'] ?? caseInsensitiveObj['Valore'],
             answer = [],
             keys = Object.keys(y),
             year = new Date(date[0]).getFullYear(),
             arrayLength = date.length;
 
         date.forEach((element, i) => {
-            answer.push([element, caseInsensitiveObj['Value'][i]]);
+            const castedValue =
+                typeof value[i] === 'string'
+                    ? Number(value[i].replace(',', ''))
+                    : Number(value[i]);
+            answer.push([element, castedValue]);
         });
         return {
             tooltip: {
@@ -804,20 +818,15 @@ export class KupEchart {
             for (const row of this.data.rows) {
                 for (const key of Object.keys(row.cells)) {
                     if (key != this.axis) {
-                        if (this.series.includes(key)) {
-                            const cell = row.cells[key];
-                            const value = cell.value;
-                            const column = getColumnByName(
-                                this.data.columns,
-                                key
-                            );
-                            if (column) {
-                                const title = column.title;
-                                if (!y[title]) {
-                                    y[title] = [];
-                                }
-                                y[title].push(value);
+                        const cell = row.cells[key];
+                        const value = cell.value;
+                        const column = getColumnByName(this.data.columns, key);
+                        if (column) {
+                            const name = column.name;
+                            if (!y[name]) {
+                                y[name] = [];
                             }
+                            y[name].push(value);
                         }
                     }
                 }
@@ -830,11 +839,11 @@ export class KupEchart {
                         const value = cell.value;
                         const column = getColumnByName(this.data.columns, key);
                         if (column) {
-                            const title = column.title;
-                            if (!y[title]) {
-                                y[title] = [];
+                            const name = column.name;
+                            if (!y[name]) {
+                                y[name] = [];
                             }
-                            y[title].push(value);
+                            y[name].push(value);
                         }
                     }
                 }
@@ -843,7 +852,8 @@ export class KupEchart {
         return y;
     }
 
-    #createYForSankey() {
+    #createYWithColumnTitle() {
+        /* Use column.title instead of column.name in some graph forms */
         const y = {};
 
         for (const row of this.data.rows) {
@@ -871,7 +881,7 @@ export class KupEchart {
             return y;
         }
         for (const row of this.data.rows) {
-            const title = row.cells[this.axis]?.value ?? '[noy found]';
+            const title = row.cells[this.axis]?.value ?? '[not found]';
             for (const key of Object.keys(row.cells)) {
                 if (
                     !this.series ||
@@ -1222,7 +1232,7 @@ export class KupEchart {
             }
             let values: ValueDisplayedValue[] = null;
             const column = this.data.columns.find(
-                (col: KupDataColumn) => col.title === key
+                (col: KupDataColumn) => col.name === key
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.#kupManager.objects.isNumber(column.obj)) {
@@ -1300,7 +1310,7 @@ export class KupEchart {
                     }
 
                     const column = this.data.columns.find(
-                        (col: KupDataColumn) => col.title === param.seriesName
+                        (col: KupDataColumn) => col.name === param.seriesName
                     ).name;
                     const filters: KupDataFindCellFilters = {
                         columns: [column],
