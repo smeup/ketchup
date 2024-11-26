@@ -45,7 +45,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, kupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -102,7 +102,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, kupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -2799,7 +2799,7 @@ export namespace Components {
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
          */
-        "buttonPosition": 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+        "buttonPosition": kupInputPanelButtonsPositions;
         /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null
@@ -2842,6 +2842,11 @@ export namespace Components {
           * @default false
          */
         "hiddenSubmitButton": boolean;
+        /**
+          * Dispositions of the whole input panel elements
+          * @default COLUMNS
+         */
+        "inputPanelPosition": KupInputPanelPosition;
         /**
           * Sets the callback function on loading options via FUN
           * @default null
@@ -8253,7 +8258,7 @@ declare namespace LocalJSX {
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
          */
-        "buttonPosition"?: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+        "buttonPosition"?: kupInputPanelButtonsPositions;
         /**
           * Sets the callback for valid the object when cell checkObject is true
           * @default null
@@ -8290,6 +8295,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "hiddenSubmitButton"?: boolean;
+        /**
+          * Dispositions of the whole input panel elements
+          * @default COLUMNS
+         */
+        "inputPanelPosition"?: KupInputPanelPosition;
         /**
           * When component load is complete
          */

@@ -63,6 +63,7 @@ import {
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
+    kupInputPanelButtonsPositions,
     KupInputPanelCell,
     KupInputPanelClickEventPayload,
     KupInputPanelColumn,
@@ -72,6 +73,7 @@ import {
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
+    KupInputPanelPosition,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
@@ -104,11 +106,24 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     /**
+     * Select the position of the buttons related to the input panel
+     * @default "BOTTOM"
+     */
+    @Prop() buttonPosition: kupInputPanelButtonsPositions =
+        kupInputPanelButtonsPositions.BOTTOM;
+
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
+
+    /**
+     * Sets verical layout if dashboardMode is true
+     * @default false
+     */
+    @Prop() dashboardMode: boolean = false;
 
     /**
      * Actual data of the form.
@@ -123,10 +138,11 @@ export class KupInputPanel {
     @Prop() hiddenSubmitButton: boolean = false;
 
     /**
-     * Select the position of the buttons related to the input panel
-     * @default "BOTTOM"
+     * Dispositions of the whole input panel elements
+     * @default COLUMNS
      */
-    @Prop() buttonPosition: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+    @Prop() inputPanelPosition: KupInputPanelPosition =
+        KupInputPanelPosition.COLUMNS;
 
     /**
      * Sets the callback function on submit form
@@ -159,11 +175,6 @@ export class KupInputPanel {
     @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
     //#endregion
 
-    /**
-     * Sets verical layout if dashboardMode is true
-     * @default false
-     */
-    @Prop() dashboardMode: boolean = false;
     //#endregion
 
     //#region STATES
@@ -362,7 +373,6 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
-
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
 
@@ -385,7 +395,9 @@ export class KupInputPanel {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
                     styleObj.display = 'grid';
-
+                    if (this.inputPanelPosition == 'INLINE') {
+                        styleObj.display = '';
+                    }
                     if (layout.horizontal) {
                         styleObj.gridTemplateColumns = hasDim
                             ? layout.sections
@@ -409,14 +421,16 @@ export class KupInputPanel {
 
         const inputPanelClass = {
             'input-panel-form': true,
-            'input-panel-form--inline': this.buttonPosition == 'RIGHT',
+            'input-panel-form--inline':
+                this.buttonPosition == kupInputPanelButtonsPositions.RIGHT,
         };
 
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
-            'input-panel--inline': this.buttonPosition == 'RIGHT',
+            'input-panel--inline':
+                this.inputPanelPosition == KupInputPanelPosition.INLINE,
         };
 
         const commandsClass = {
@@ -602,7 +616,6 @@ export class KupInputPanel {
         layout: KupInputPanelLayout
     ) {
         const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
-
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
@@ -623,13 +636,12 @@ export class KupInputPanel {
         cells: InputPanelCells,
         section: KupInputPanelLayoutSection,
         customLabelRender: boolean = false,
-        styleObj: GenericObject = {},
-        layout?: KupInputPanelLayout
+        styleObj: GenericObject = {}
     ) {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
-            'input-panel__section-inline': layout?.horizontal,
+            'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
@@ -671,11 +683,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-        const sectionContent = content[0] ? (
+        const sectionContent = (
             <div class={classObj} style={styleObj}>
-                {content}
+                {content.filter(Boolean)}
             </div>
-        ) : null;
+        );
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
@@ -886,8 +898,12 @@ export class KupInputPanel {
             length = field.absoluteLength;
         }
 
+        if (!field.absoluteHeight) {
+            field.absoluteHeight = 1;
+        }
+
         const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(1)}px`;
+        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
         const top = `${getAbsoluteTop(field.absoluteRow)}px`;
         const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
 
