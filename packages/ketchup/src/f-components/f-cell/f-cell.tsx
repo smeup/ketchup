@@ -35,6 +35,8 @@ import {
     CHIAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
+    isForceLowercase,
+    isForceUppercase,
     RADAdapter,
 } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
@@ -119,6 +121,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [props.density]:
             props.density && cellType !== FCellTypes.BAR ? true : false,
         [cssClasses]: cssClasses ? true : false,
+        'c-input-uppercase': isForceUppercase(cell),
+        'c-input-lowercase': isForceLowercase(cell),
     };
     let content: unknown = valueToDisplay;
     if (!cell.data) {
@@ -1288,6 +1292,11 @@ function cellEvent(
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
         let value = getValueFromEventTarget(e, cellType);
+        if (isForceUppercase(cell)) {
+            value = value?.toUpperCase();
+        } else if (isForceLowercase(cell)) {
+            value = value?.toLowerCase();
+        }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:
