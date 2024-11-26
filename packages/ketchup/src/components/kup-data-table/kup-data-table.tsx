@@ -6083,9 +6083,12 @@ export class KupDataTable {
         };
 
         const addConfirmButton = () => {
-            this.#kupManager.keysBinding.register('enter', () =>
+            this.#kupManager.keysBinding.register('enter', () => {
+                const bc = this.rootElement.shadowRoot.activeElement as HTMLInputElement;
+                bc.blur();
                 this.#handleUpdateClick()
-            );
+        
+        });
             commandButtons.push(
                 <kup-button
                     styling={styling}
