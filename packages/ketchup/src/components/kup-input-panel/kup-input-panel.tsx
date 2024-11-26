@@ -373,7 +373,6 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
-
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
 
@@ -617,7 +616,6 @@ export class KupInputPanel {
         layout: KupInputPanelLayout
     ) {
         const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
-
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
@@ -685,11 +683,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-        const sectionContent = content[0] ? (
+        const sectionContent = (
             <div class={classObj} style={styleObj}>
-                {content}
+                {content.filter(Boolean)}
             </div>
-        ) : null;
+        );
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
