@@ -160,6 +160,7 @@ export enum KupInputPanelProps {
     submitCb = 'Sets the callback function on submit form',
     optionsHandler = 'Sets the callback function to recieve options',
     buttonPosition = 'Manage the position of the buttons related to the input panel content. It is an enumeration',
+    inputPanelPosition = 'Manage the global layout of the input panel fields. The default is COLUMNS.',
 }
 
 export interface KupInputPanelEventHandlerDetails {
