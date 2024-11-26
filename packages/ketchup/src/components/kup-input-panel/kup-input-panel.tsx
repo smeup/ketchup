@@ -63,6 +63,7 @@ import {
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
+    kupInputPanelButtonsPositions,
     KupInputPanelCell,
     KupInputPanelClickEventPayload,
     KupInputPanelColumn,
@@ -72,6 +73,7 @@ import {
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
+    KupInputPanelPosition,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
@@ -107,7 +109,8 @@ export class KupInputPanel {
      * Select the position of the buttons related to the input panel
      * @default "BOTTOM"
      */
-    @Prop() buttonPosition: 'CENTER' | 'LEFT' | 'BOTTOM' | 'RIGHT' | 'TOP';
+    @Prop() buttonPosition: kupInputPanelButtonsPositions =
+        kupInputPanelButtonsPositions.BOTTOM;
 
     /**
      * Custom style of the component.
@@ -138,13 +141,8 @@ export class KupInputPanel {
      * Dispositions of the whole input panel elements
      * @default COLUMNS
      */
-    @Prop() inputPanelPosition:
-        | 'COLUMNS'
-        | 'INLINE'
-        | 'STRETCHED'
-        | 'UPINLINE'
-        | 'UPCOLUMNS'
-        | 'WATERMARK';
+    @Prop() inputPanelPosition: KupInputPanelPosition =
+        KupInputPanelPosition.COLUMNS;
 
     /**
      * Sets the callback function on submit form
@@ -424,14 +422,16 @@ export class KupInputPanel {
 
         const inputPanelClass = {
             'input-panel-form': true,
-            'input-panel-form--inline': this.buttonPosition == 'RIGHT',
+            'input-panel-form--inline':
+                this.buttonPosition == kupInputPanelButtonsPositions.RIGHT,
         };
 
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
-            'input-panel--inline': this.inputPanelPosition == 'INLINE',
+            'input-panel--inline':
+                this.inputPanelPosition == KupInputPanelPosition.INLINE,
         };
 
         const commandsClass = {
@@ -645,8 +645,6 @@ export class KupInputPanel {
             'input-panel__horizontal-section': section.horizontal,
             'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
         };
-
-        console.log(classObj);
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
 

@@ -172,3 +172,20 @@ export interface KupInputPanelEventHandlerDetails {
 export interface KupInputPanelClickEventPayload extends KupEventPayload {
     details: KupInputPanelEventHandlerDetails;
 }
+
+export enum KupInputPanelPosition {
+    COLUMNS = 'COLUMNS',
+    INLINE = 'INLINE',
+    STRETCHED = 'STRETCHED',
+    UPINLINE = 'UPINLINE',
+    UPCOLUMNS = 'UPCOLUMNS',
+    WATERMARK = 'WATERMARK',
+}
+
+export enum kupInputPanelButtonsPositions {
+    CENTER = 'CENTER',
+    LEFT = 'LEFT',
+    BOTTOM = 'BOTTOM',
+    RIGHT = 'RIGHT',
+    TOP = 'TOP',
+}
