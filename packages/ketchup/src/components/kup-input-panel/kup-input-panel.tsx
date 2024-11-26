@@ -373,7 +373,6 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
-        console.log('cells', inputPanelCell);
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
 
