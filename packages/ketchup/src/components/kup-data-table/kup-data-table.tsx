@@ -954,6 +954,10 @@ export class KupDataTable {
      * contains the id greater value in #originalDataLoaded
      */
     #originalDataLoadedMaxId: number;
+    /**
+     * contains the id greater value in #originalDataLoaded
+     */
+    #insertedRowIds: string[] = [];
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -3582,6 +3586,22 @@ export class KupDataTable {
         }
     }
 
+    #setCellEditability(column: KupDataColumn, row: KupDataTableRow): boolean {
+        if (!this.#insertedRowIds.includes(row.id)) {
+            return column.useAs
+                ? column.useAs === 'Dec' || column.useAs === 'Key'
+                    ? false
+                    : true
+                : column.isEditable;
+        } else {
+            return column.useAs
+                ? column.useAs === 'Dec'
+                    ? false
+                    : true
+                : column.isEditable;
+        }
+    }
+
     //==== Fixed columns and rows methods ====
     #composeFixedCellStyleAndClass(
         columnCssIndex: number,
@@ -5263,8 +5283,8 @@ export class KupDataTable {
                         indend.push(<span class="indent" />);
                     }
                 }
-
                 const cell = row.cells[name] ? row.cells[name] : null;
+                cell.isEditable = this.#setCellEditability(currentColumn, row);
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -6072,6 +6092,8 @@ export class KupDataTable {
             newRow.id = (
                 this.#originalDataLoadedMaxId + ++this.#insertCount
             ).toString();
+
+            this.#insertedRowIds.push(newRow.id);
             this.insertNewRow(newRow, true);
         };
 
@@ -6084,11 +6106,11 @@ export class KupDataTable {
 
         const addConfirmButton = () => {
             this.#kupManager.keysBinding.register('enter', () => {
-                const bc = this.rootElement.shadowRoot.activeElement as HTMLInputElement;
+                const bc = this.rootElement.shadowRoot
+                    .activeElement as HTMLInputElement;
                 bc.blur();
-                this.#handleUpdateClick()
-        
-        });
+                this.#handleUpdateClick();
+            });
             commandButtons.push(
                 <kup-button
                     styling={styling}
