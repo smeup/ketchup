@@ -344,8 +344,8 @@ export enum KupThemeIconValues {
     SEARCH = '--kup-search-icon',
 }
 export enum KupThemeFonts {
-    IBM_PLEX_MONO = 'IbmPlexMono-Regular',
-    IBM_PLEX_SANS = 'IbmPlexSans-Regular',
+    IBM_PLEX_MONO = 'IBMPlexMono-Regular',
+    IBM_PLEX_SANS = 'IBMPlexSans-Regular',
 }
 export const KupThemeFontFamilyMap: Record<KupThemeFonts, string> = {
     [KupThemeFonts.IBM_PLEX_MONO]: 'IBM Plex Mono',

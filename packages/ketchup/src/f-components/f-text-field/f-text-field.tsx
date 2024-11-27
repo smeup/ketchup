@@ -67,6 +67,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
 
+    if (props.maxLength >= 256) {
+        props.textArea = true;
+    }
+
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
             <div class="mdc-text-field__label-container">
