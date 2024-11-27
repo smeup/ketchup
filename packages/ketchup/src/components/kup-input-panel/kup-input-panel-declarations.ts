@@ -184,7 +184,7 @@ export enum KupInputPanelPosition {
     WATERMARK = 'WATERMARK',
 }
 
-export enum kupInputPanelButtonsPositions {
+export enum KupInputPanelButtonsPositions {
     CENTER = 'CENTER',
     LEFT = 'LEFT',
     BOTTOM = 'BOTTOM',

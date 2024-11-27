@@ -3586,18 +3586,26 @@ export class KupDataTable {
         }
     }
 
-    #setCellEditability(column: KupDataColumn, row: KupDataTableRow): boolean {
+    #setCellEditability(
+        column: KupDataColumn,
+        row: KupDataTableRow,
+        cell: KupDataTableCell
+    ): boolean {
         if (!this.#insertedRowIds.includes(row.id)) {
             return column.useAs
                 ? column.useAs === 'Dec' || column.useAs === 'Key'
                     ? false
                     : true
+                : cell.isEditable
+                ? cell.isEditable
                 : column.isEditable;
         } else {
             return column.useAs
                 ? column.useAs === 'Dec'
                     ? false
                     : true
+                : cell.isEditable
+                ? cell.isEditable
                 : column.isEditable;
         }
     }
@@ -5284,7 +5292,11 @@ export class KupDataTable {
                     }
                 }
                 const cell = row.cells[name] ? row.cells[name] : null;
-                cell.isEditable = this.#setCellEditability(currentColumn, row);
+                cell.isEditable = this.#setCellEditability(
+                    currentColumn,
+                    row,
+                    cell
+                );
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
