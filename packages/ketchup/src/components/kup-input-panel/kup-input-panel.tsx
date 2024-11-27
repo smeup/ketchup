@@ -63,7 +63,7 @@ import {
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
-    kupInputPanelButtonsPositions,
+    KupInputPanelButtonsPositions,
     KupInputPanelCell,
     KupInputPanelClickEventPayload,
     KupInputPanelColumn,
@@ -109,8 +109,8 @@ export class KupInputPanel {
      * Select the position of the buttons related to the input panel
      * @default "BOTTOM"
      */
-    @Prop() buttonPosition: kupInputPanelButtonsPositions =
-        kupInputPanelButtonsPositions.BOTTOM;
+    @Prop() buttonPosition: KupInputPanelButtonsPositions =
+        KupInputPanelButtonsPositions.BOTTOM;
 
     /**
      * Custom style of the component.
@@ -422,7 +422,7 @@ export class KupInputPanel {
         const inputPanelClass = {
             'input-panel-form': true,
             'input-panel-form--inline':
-                this.buttonPosition == kupInputPanelButtonsPositions.RIGHT,
+                this.buttonPosition == KupInputPanelButtonsPositions.RIGHT,
         };
 
         const classObj = {
