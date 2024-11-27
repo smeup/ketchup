@@ -27,6 +27,7 @@ export interface FButtonProps extends FComponent {
     showSpinner?: boolean;
     toggable?: boolean;
     trailingIcon?: boolean;
+    invisible?: boolean;
 }
 /**
  * Styling options for the f-button component.

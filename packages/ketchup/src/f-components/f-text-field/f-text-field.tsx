@@ -1,11 +1,10 @@
-import type { FTextFieldProps } from './f-text-field-declarations';
+import { type FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupComponentSizing } from '../../types/GenericTypes';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -67,6 +66,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let iconEl: HTMLElement;
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
+
+    if (props.maxLength >= 256) {
+        props.textArea = true;
+    }
 
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (

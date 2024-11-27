@@ -16,6 +16,7 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
+    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -49,6 +50,7 @@ import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
+    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -61,13 +63,17 @@ import {
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
     InputPanelOptionsHandler,
+    KupInputPanelButtonsPositions,
     KupInputPanelCell,
+    KupInputPanelClickEventPayload,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelEventHandlerDetails,
     KupInputPanelLayout,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
+    KupInputPanelPosition,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
@@ -80,7 +86,7 @@ import {
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
-import { KupTypographyList } from '../kup-typography-list/kup-typography-list';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -100,11 +106,24 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     /**
+     * Select the position of the buttons related to the input panel
+     * @default "BOTTOM"
+     */
+    @Prop() buttonPosition: KupInputPanelButtonsPositions =
+        KupInputPanelButtonsPositions.BOTTOM;
+
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
+
+    /**
+     * Sets verical layout if dashboardMode is true
+     * @default false
+     */
+    @Prop() dashboardMode: boolean = false;
 
     /**
      * Actual data of the form.
@@ -117,6 +136,13 @@ export class KupInputPanel {
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
+
+    /**
+     * Dispositions of the whole input panel elements
+     * @default COLUMNS
+     */
+    @Prop() inputPanelPosition: KupInputPanelPosition =
+        KupInputPanelPosition.COLUMNS;
 
     /**
      * Sets the callback function on submit form
@@ -149,11 +175,6 @@ export class KupInputPanel {
     @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
     //#endregion
 
-    /**
-     * Sets verical layout if dashboardMode is true
-     * @default false
-     */
-    @Prop() dashboardMode: boolean = false;
     //#endregion
 
     //#region STATES
@@ -186,6 +207,8 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+
+    #formRef: HTMLFormElement;
 
     #optionsAdapterMap = new Map<
         string,
@@ -269,7 +292,9 @@ export class KupInputPanel {
             });
             this.#keysShortcut = [];
         }
-        this.#mapCells(this.data);
+        if (this.data) {
+            this.#mapCells(this.data);
+        }
     }
     //#endregion
 
@@ -319,6 +344,17 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupReady: EventEmitter<KupEventPayload>;
+
+    /**
+     * Generic right click event on input panel.
+     */
+    @Event({
+        eventName: 'kup-inputpanel-contextmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -337,7 +373,6 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
-
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
 
@@ -360,13 +395,15 @@ export class KupInputPanel {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
                     styleObj.display = 'grid';
-
+                    if (this.inputPanelPosition == 'INLINE') {
+                        styleObj.display = '';
+                    }
                     if (layout.horizontal) {
                         styleObj.gridTemplateColumns = hasDim
                             ? layout.sections
                                   .map((sec) => sec.dim || 'auto')
                                   .join(' ')
-                            : `repeat(${layout.sections.length}, 1fr)`;
+                            : `repeat(${inputPanelCell.cells.length}, 1fr)`;
                     } else {
                         if (this.dashboardMode) {
                             styleObj.gridTemplateRows = hasDim
@@ -382,10 +419,23 @@ export class KupInputPanel {
             }
         }
 
+        const inputPanelClass = {
+            'input-panel-form': true,
+            'input-panel-form--inline':
+                this.buttonPosition == KupInputPanelButtonsPositions.RIGHT,
+        };
+
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
+            'input-panel--inline':
+                this.inputPanelPosition == KupInputPanelPosition.INLINE,
+        };
+
+        const commandsClass = {
+            'input-panel__commands': true,
+            [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
         // We create a form for each row in data
@@ -393,7 +443,8 @@ export class KupInputPanel {
             <form
                 name={this.rootElement.id}
                 id={this.rootElement.id}
-                class={{ 'input-panel-form': true }}
+                class={inputPanelClass}
+                ref={(el: HTMLFormElement) => (this.#formRef = el)}
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
                     this.submitCb({
@@ -403,20 +454,22 @@ export class KupInputPanel {
                         },
                     });
                 }}
+                onContextMenu={(e: MouseEvent) => {
+                    e.preventDefault();
+                }}
             >
                 <div class={classObj} style={styleObj}>
                     {rowContent}
                 </div>
-                <div class="input-panel__commands">
-                    {!this.hiddenSubmitButton ? (
-                        <FButton
-                            buttonType="submit"
-                            label={this.#kupManager.language.translate(
-                                KupLanguageGeneric.CONFIRM
-                            )}
-                            wrapperClass="form__submit"
-                        ></FButton>
-                    ) : null}
+                <div class={commandsClass}>
+                    <FButton
+                        buttonType="submit"
+                        label={this.#kupManager.language.translate(
+                            KupLanguageGeneric.CONFIRM
+                        )}
+                        wrapperClass="form__submit"
+                        invisible={this.hiddenSubmitButton}
+                    ></FButton>
                     {this.inputPanelCommands}
                 </div>
             </form>
@@ -563,11 +616,10 @@ export class KupInputPanel {
         layout: KupInputPanelLayout
     ) {
         const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
-
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
-                  this.#renderSection(inputPanelCell, section)
+                  this.#renderSection(inputPanelCell, section, false)
               );
     }
 
@@ -589,6 +641,7 @@ export class KupInputPanel {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
+            'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
@@ -630,10 +683,9 @@ export class KupInputPanel {
                         : '';
             }
         }
-
         const sectionContent = (
             <div class={classObj} style={styleObj}>
-                {content}
+                {content.filter(Boolean)}
             </div>
         );
 
@@ -846,8 +898,12 @@ export class KupInputPanel {
             length = field.absoluteLength;
         }
 
+        if (!field.absoluteHeight) {
+            field.absoluteHeight = 1;
+        }
+
         const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(1)}px`;
+        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
         const top = `${getAbsoluteTop(field.absoluteRow)}px`;
         const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
 
@@ -1841,6 +1897,63 @@ export class KupInputPanel {
               });
     }
 
+    #getEventDetails(
+        path: HTMLElement[],
+        originalEvent: PointerEvent
+    ): KupInputPanelEventHandlerDetails {
+        const fcell = path.find((p) => p.classList?.contains('f-cell'));
+        if (fcell == null) {
+            return;
+        }
+
+        const props = fcell['kup-get-cell-props']();
+        const columnName = props.column.name;
+
+        let anchor = fcell;
+        let cell = this.data.rows[0].cells[columnName];
+        let column = this.data.columns.find((c) => c.name == columnName);
+
+        return {
+            anchor,
+            cell,
+            column,
+            originalEvent,
+        };
+    }
+
+    #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {
+        const eventPath = this.#kupManager.getEventPath(
+            e.target,
+            this.rootElement
+        );
+
+        return this.#getEventDetails(eventPath, e);
+    }
+
+    #didLoadInteractables() {
+        this.#kupManager.interact.managedElements.add(this.#formRef);
+
+        const tapCb = (e: PointerEvent) => {
+            if (e.button == 2) {
+                const details = this.#contextMenuHandler(e);
+
+                if (details) {
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details,
+                    });
+                }
+            }
+        };
+
+        this.#kupManager.interact.on(
+            this.#formRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -1856,6 +1969,7 @@ export class KupInputPanel {
     }
 
     componentDidLoad() {
+        this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
     }
@@ -1878,7 +1992,6 @@ export class KupInputPanel {
 
     render() {
         const isEmptyData = Boolean(!this.inputPanelCells.length);
-
         const inputPanelContent: VNode[] = isEmptyData
             ? [
                   <p>

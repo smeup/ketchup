@@ -1,6 +1,7 @@
 import {
     FCellInfo,
     FCellShapes,
+    InputSettingsProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { GenericMap, GenericObject } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
@@ -39,6 +40,7 @@ export interface KupDataColumn {
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
     tooltip?: boolean;
+    useAs?: string;
 }
 export interface KupDataColumnChild {
     name: string;
@@ -103,6 +105,7 @@ export interface KupDataCell {
     style?: GenericMap;
     styleContent?: GenericMap;
     title?: string;
+    inputSettings?: InputSettingsProps;
 }
 
 export interface KupDataCellOptions extends KupDataCell {

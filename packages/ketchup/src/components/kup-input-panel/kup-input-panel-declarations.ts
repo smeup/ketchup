@@ -1,4 +1,4 @@
-import { GenericObject } from '../../components';
+import { GenericObject, KupEventPayload } from '../../components';
 import {
     KupDataCell,
     KupDataColumn,
@@ -102,6 +102,7 @@ export interface KupInputPanelLayoutField {
     absoluteColumn?: number;
     absoluteRow?: number;
     absoluteLength?: number;
+    absoluteHeight?: number;
 }
 
 export type DataAdapterFn = (
@@ -159,4 +160,34 @@ export enum KupInputPanelProps {
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
     optionsHandler = 'Sets the callback function to recieve options',
+    buttonPosition = 'Manage the position of the buttons related to the input panel content. It is an enumeration',
+    inputPanelPosition = 'Manage the global layout of the input panel fields. The default is COLUMNS.',
+}
+
+export interface KupInputPanelEventHandlerDetails {
+    anchor: HTMLElement;
+    cell: KupDataCell;
+    column: KupDataColumn;
+    originalEvent: PointerEvent;
+}
+
+export interface KupInputPanelClickEventPayload extends KupEventPayload {
+    details: KupInputPanelEventHandlerDetails;
+}
+
+export enum KupInputPanelPosition {
+    COLUMNS = 'COLUMNS',
+    INLINE = 'INLINE',
+    STRETCHED = 'STRETCHED',
+    UPINLINE = 'UPINLINE',
+    UPCOLUMNS = 'UPCOLUMNS',
+    WATERMARK = 'WATERMARK',
+}
+
+export enum KupInputPanelButtonsPositions {
+    CENTER = 'CENTER',
+    LEFT = 'LEFT',
+    BOTTOM = 'BOTTOM',
+    RIGHT = 'RIGHT',
+    TOP = 'TOP',
 }

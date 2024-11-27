@@ -1,6 +1,9 @@
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
-import type { FButtonProps } from '../f-button/f-button-declarations';
+import {
+    FButtonStyling,
+    type FButtonProps,
+} from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
@@ -27,11 +30,13 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { FunctionalComponent, h, VNode } from '@stencil/core';
+import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
 import {
     CHIAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
+    isForceLowercase,
+    isForceUppercase,
     RADAdapter,
 } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
@@ -116,6 +121,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [props.density]:
             props.density && cellType !== FCellTypes.BAR ? true : false,
         [cssClasses]: cssClasses ? true : false,
+        'c-input-uppercase': isForceUppercase(cell),
+        'c-input-lowercase': isForceLowercase(cell),
     };
     let content: unknown = valueToDisplay;
     if (!cell.data) {
@@ -795,14 +802,34 @@ function setEditableCell(
             );
         case FCellTypes.OBJECT:
             return (
-                <FTextField
-                    icon={'table'}
-                    {...cell.data}
-                    disabled={false}
-                    onIconClick={(e) =>
-                        cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)
-                    }
-                ></FTextField>
+                <Fragment>
+                    <FTextField
+                        icon={'table'}
+                        {...cell.data}
+                        disabled={false}
+                        onIconClick={(e) =>
+                            cellEvent(
+                                e,
+                                props,
+                                cellType,
+                                FCellEvents.ICON_CLICK
+                            )
+                        }
+                    ></FTextField>
+                    <FButton
+                        icon="menu"
+                        onClick={(e) =>
+                            cellEvent(
+                                e,
+                                props,
+                                cellType,
+                                FCellEvents.ICON_CLICK
+                            )
+                        }
+                        styling={FButtonStyling.FLAT}
+                        wrapperClass="obj-field-extra-btn"
+                    ></FButton>
+                </Fragment>
             );
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
@@ -1265,6 +1292,11 @@ function cellEvent(
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
         let value = getValueFromEventTarget(e, cellType);
+        if (isForceUppercase(cell)) {
+            value = value?.toUpperCase();
+        } else if (isForceLowercase(cell)) {
+            value = value?.toLowerCase();
+        }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:

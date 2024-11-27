@@ -173,11 +173,6 @@
     padding: 0px;
   }
 
-  .f-checkbox .checkbox .checkbox__native-control {
-    height: 18px;
-    width: 18px;
-  }
-
   kup-checkbox,
   kup-image {
     display: flex;
@@ -198,6 +193,10 @@
 
   kup-progress-bar {
     display: block;
+  }
+
+  .obj-field-extra-btn {
+    align-self: end;
   }
 
   .input-field {
@@ -525,6 +524,18 @@
 
   &.c-lowercase .f-cell__content {
     * {
+      text-transform: lowercase;
+    }
+  }
+
+  &.c-input-uppercase .f-cell__content {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  &.c-input-lowercase .f-cell__content {
+    input {
       text-transform: lowercase;
     }
   }
