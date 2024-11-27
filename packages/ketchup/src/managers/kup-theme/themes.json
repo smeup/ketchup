@@ -109,7 +109,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "octaneGrey": {
         "cssVariables": {
@@ -226,7 +226,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "darkOctane": {
         "cssVariables": {
@@ -347,7 +347,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "darkOctaneGray": {
         "cssVariables": {
@@ -468,7 +468,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "bubbles": {
         "cssVariables": {
@@ -586,7 +586,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "cobalt": {
         "cssVariables": {
@@ -709,7 +709,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "dark": {
         "cssVariables": {
@@ -832,7 +832,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "flamingo": {
         "cssVariables": {
@@ -955,7 +955,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "graphite": {
         "cssVariables": {
@@ -1209,7 +1209,7 @@
             "--kup-key-icon": "key",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "obsidian": {
         "cssVariables": {
@@ -1338,7 +1338,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "ocean": {
         "cssVariables": {
@@ -1458,7 +1458,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "print": {
         "cssVariables": {
@@ -1719,7 +1719,7 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "red": {
         "cssVariables": {
@@ -1849,7 +1849,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "sapphire": {
         "cssVariables": {
@@ -1981,7 +1981,7 @@
         "customStyles": {
             "KUP-DATA-TABLE": "#kup-component th { --kup_datatable_th_border: none; font-weight: normal; }"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "silver": {
         "cssVariables": {
@@ -2108,7 +2108,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     },
     "teal": {
         "cssVariables": {
@@ -2359,6 +2359,6 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": ["IBMPlexMono-Regular", "IBMPlexSans-Regular"]
     }
 }
