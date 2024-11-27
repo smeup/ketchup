@@ -5,6 +5,6 @@ import { FTextFieldProps } from '../f-text-field/f-text-field-declarations';
  */
 export interface FAutocompleteProps extends FTextFieldProps {
     options: { label: string; value: string }[];
-    optionsVisible: boolean;
     minCharsForAutocomplete?: number;
+    onOptionClick: (value: string) => void;
 }
