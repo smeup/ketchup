@@ -282,10 +282,6 @@
       &.mdc-text-field--outlined {
         border: 1px solid var(--kup_textfield_border_color);
 
-        &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
-          border: 1px solid var(--kup_textfield_primary_color);
-        }
-
         &.mdc-text-field--with-leading-icon
           label:not(.mdc-floating-label--float-above) {
           left: 20px;
