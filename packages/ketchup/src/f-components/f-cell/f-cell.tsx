@@ -67,6 +67,7 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { C } from '@fullcalendar/core/internal-common';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1406,7 +1407,7 @@ function isFullWidth(props: FCellProps) {
     );
 }
 
-function setHasTooltip(cell: KupDataCell) {
+function determineIfCellHasTooltip(cell: KupDataCell): boolean {
     const tooltip = cell.tooltip;
     const obj = cell.obj;
     let hasTooltip: boolean;
@@ -1417,6 +1418,12 @@ function setHasTooltip(cell: KupDataCell) {
     } else {
         hasTooltip = obj != undefined && !tooltip;
     }
+
+    return tooltip;
+}
+
+function setHasTooltip(cell: KupDataCell) {
+    const hasTooltip = determineIfCellHasTooltip(cell);
 
     // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
     if (cell.data?.data) {
