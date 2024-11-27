@@ -19,20 +19,20 @@ tooltip.addEventListener('kup-inputpanel-contextmenu', tooltipShow);
 const tooltipData = {
     columns: [
         {
-            name: 'NAM',
+            name: 'COL1',
             title: 'Name',
             visible: true,
         },
         {
             editable: false,
-            name: 'INP1',
+            name: 'COL2',
             title: 'Field1',
             visible: true,
             isEditable: false,
         },
         {
             editable: false,
-            name: 'INP2',
+            name: 'COL3',
             title: 'Field2',
             visible: true,
             isEditable: false,
@@ -41,7 +41,7 @@ const tooltipData = {
     rows: [
         {
             cells: {
-                NAM: {
+                COL1: {
                     value: 'Giovanni',
                     obj: { t: '', p: '', k: '' },
                     tooltip: false,
@@ -49,14 +49,14 @@ const tooltipData = {
                     mandatory: true,
                     shape: 'ITX',
                 },
-                INP1: {
+                COL2: {
                     value: '',
                     obj: { t: 'D8', p: '', k: '' },
                     tooltip: true,
                     editable: true,
                     mandatory: true,
                 },
-                INP2: {
+                COL3: {
                     value: '',
                     obj: { t: 'NR', p: '' },
                     tooltip: true,
@@ -71,13 +71,13 @@ const tooltipData = {
                     {
                         content: [
                             {
-                                id: 'NAM',
+                                id: 'COL1',
                             },
                             {
-                                id: 'INP1',
+                                id: 'COL2',
                             },
                             {
-                                id: 'INP2',
+                                id: 'COL3',
                             },
                         ],
                         sections: [],
