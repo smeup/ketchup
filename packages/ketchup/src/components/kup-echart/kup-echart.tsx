@@ -942,6 +942,20 @@ export class KupEchart {
     }
 
     #setTitle() {
+        function convertColorString(input: string): string {
+            const match = input.match(/^R(\d{3})G(\d{3})B(\d{3})$/);
+
+            if (!match) {
+                return 'black';
+            }
+
+            const [_, r, g, b] = match;
+            return `rgb(${parseInt(r, 10)}, ${parseInt(g, 10)}, ${parseInt(
+                b,
+                10
+            )})`;
+        }
+
         return {
             text: this.chartTitle ? this.chartTitle.value : undefined,
             [this.chartTitle && this.chartTitle.position
@@ -950,7 +964,7 @@ export class KupEchart {
             textStyle: {
                 color:
                     this.chartTitle && this.chartTitle.color
-                        ? this.chartTitle.color
+                        ? convertColorString(this.chartTitle.color)
                         : 'black',
                 fontFamily: this.#themeFont,
                 fontSize:
