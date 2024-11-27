@@ -483,56 +483,70 @@ export class KupEchart {
             temp = [],
             legend = {},
             series = [];
-        let year = [];
+        let groups = [];
+        const defaultPointSize = '1000000000';
+        let usingDefaultSize = false;
 
         const content = this.data.columns
             .map((data) => data.name)
             .filter((name) => name != this.axis);
 
-        // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
-
-        if (content && content.length > 0) {
-            // content[0] but could be any number inside square brackets, because each row will have the same amount of cells (== number of columns)
+        // Populate temp array with data points
+        if (content.length > 0) {
             for (let i = 0; i < y[content[0]].length; i++) {
-                const arr = [];
+                const rowData: any[] = [];
                 for (let j = 0; j < content.length; j++) {
-                    arr.push(y[content[j]][i]);
-                    // last value always be a year
+                    rowData.push(y[content[j]][i]);
+
+                    if (j === content.length - 2 && x[i]) {
+                        usingDefaultSize = true;
+                        rowData.push(defaultPointSize); // Default size
+                        rowData.push(x[i]); // Label
+                    }
+
                     if (j === content.length - 1) {
-                        year.push(y[content[j]][i]);
+                        groups.push(y[content[j]][i]); // Collect groups
                     }
                 }
-                temp.push(arr);
+                temp.push(rowData);
             }
         }
 
-        year = [...new Set(year)];
+        groups = [...new Set(groups)];
 
-        year.forEach((e, i) => {
+        groups.forEach((e, i) => {
             let k = [];
             temp.forEach((data) => {
-                if (data.includes(e)) k.push(data);
+                if (data.includes(e) && data.lastIndexOf(e) === data.length - 1)
+                    k.push(data);
             });
             data.push(k);
 
             legend[e] = i;
         });
 
-        data.forEach((el, i) => {
+        // Organize data and legend by group
+        groups.forEach((groupValue, index) => {
+            const filteredData = temp.filter(
+                (row) =>
+                    row.includes(groupValue) &&
+                    row.lastIndexOf(groupValue) === row.length - 1
+            );
+            data.push(filteredData);
+            legend[groupValue] = index;
+        });
+
+        data.forEach((dataPoints, index) => {
             series.push({
-                name: year[i] ?? x[i],
-                data: el,
+                name: groups[index],
+                data: dataPoints,
                 type: 'scatter',
-                symbolSize: function (data) {
-                    return Math.sqrt(data[2]) / 5e2;
-                },
+                symbolSize: (point: any) => Math.sqrt(point[2]) / 500,
                 emphasis: {
                     focus: 'series',
                     label: {
                         show: true,
-                        formatter: function (param: any) {
-                            return param.data[3];
-                        },
+                        formatter: (param: any) => param.data[3],
                         position: 'top',
                     },
                 },
@@ -546,31 +560,30 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (value: unknown) => {
-                    const name = (value as GenericObject).data;
-                    const data = content.map((e, i) => {
-                        return `<li>  ${e}: ${name[i]} </li>`;
-                    });
-                    let showContent = '';
-                    data.forEach((r) => {
-                        showContent += r;
-                    });
+                    const rowData = (value as GenericObject).data;
 
-                    return `<ul>${showContent}</ul> `;
+                    //Generates tooltip content hiding size's label if usingDefaultSize
+                    const tooltipContent = content
+                        .map((key, index) => {
+                            if (usingDefaultSize && index === 2) return '';
+                            const columnTitle = this.data.columns.find(
+                                (col) => col.name === key
+                            ).title;
+                            return `<li>${columnTitle}: ${rowData[index]}</li>`;
+                        })
+                        .join('');
+
+                    // Add label
+                    const label = `<b>${rowData[rowData.length - 2]}</b>`;
+
+                    return `<ul>${label}${tooltipContent}</ul>`;
                 },
             },
             xAxis: {
-                splitLine: {
-                    lineStyle: {
-                        type: 'dashed',
-                    },
-                },
+                splitLine: { lineStyle: { type: 'dashed' } },
             },
             yAxis: {
-                splitLine: {
-                    lineStyle: {
-                        type: 'dashed',
-                    },
-                },
+                splitLine: { lineStyle: { type: 'dashed' } },
                 scale: true,
             },
             color: this.#setColors(content.length),
