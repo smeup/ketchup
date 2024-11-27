@@ -5,6 +5,10 @@ import { GenericObject, KupTagNames } from '../../types/GenericTypes';
  */
 export const masterCustomStyle = 'MASTER';
 /**
+ * Components using the FAutocomplete functional component.
+ */
+export const fAutocompleteUsers = [KupTagNames.CELL];
+/**
  * Components using the FButton functional component.
  */
 export const fButtonUsers = [

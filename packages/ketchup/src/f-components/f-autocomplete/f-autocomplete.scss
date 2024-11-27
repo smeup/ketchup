@@ -1,0 +1,51 @@
+#kup-component {
+  --kup_autocomplete_item_height: var(--kup-textfield-medium-height, 40px);
+  --kup_autocomplete_medium_padding: var(
+    --kup-textfield-medium-padding,
+    0 var(--kup-space-05)
+  );
+  --kup_autocomplete_background_color: var(
+    --kup-textfield-background-color,
+    var(--kup-layer-1)
+  );
+  --kup_autocomplete_background_color_hover: var(
+    --kup-textfield-background-color-hover,
+    var(--kup-layer-1-hover)
+  );
+
+  .f-autocomplete {
+    position: relative;
+
+    &-list {
+      width: 100%;
+      height: 0;
+      max-height: calc(var(--kup_autocomplete_item_height) * 4);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: height 0.2s, opacity 0.2s;
+      overflow: hidden;
+
+      &--visible {
+        height: auto;
+        opacity: 1;
+        overflow: hidden auto;
+      }
+    }
+
+    &-list-item {
+      min-height: var(--kup_autocomplete_item_height);
+      display: flex;
+      align-items: center;
+      background-color: var(--kup_autocomplete_background_color);
+      padding: var(--kup_autocomplete_medium_padding);
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--kup_autocomplete_background_color_hover);
+      }
+    }
+  }
+}

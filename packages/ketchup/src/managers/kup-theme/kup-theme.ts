@@ -8,6 +8,7 @@ import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
 import * as applicationCSS from './kup-theme-application.css';
 import * as componentCSS from './kup-theme-component.css';
+import * as fAutocompleteCSS from '../../f-components/f-autocomplete/f-autocomplete.css';
 import * as fButtonCSS from '../../f-components/f-button/f-button.css';
 import * as fCellCSS from '../../f-components/f-cell/f-cell.css';
 import * as fCheckboxCSS from '../../f-components/f-checkbox/f-checkbox.css';
@@ -23,6 +24,7 @@ import * as FTypographyCSS from '../../f-components/f-typography/f-typography.cs
 import * as rippleCSS from './mdc-ripple.css';
 import {
     editorUsers,
+    fAutocompleteUsers,
     fButtonUsers,
     fCellUsers,
     fCheckboxUsers,
@@ -266,6 +268,9 @@ export class KupTheme {
             completeStyle += ' ' + comp.customStyle;
         }
         if (tagName) {
+            if (fAutocompleteUsers.includes(tagName)) {
+                completeStyle += fAutocompleteCSS['default'];
+            }
             if (fButtonUsers.includes(tagName)) {
                 completeStyle += fButtonCSS['default'];
             }
