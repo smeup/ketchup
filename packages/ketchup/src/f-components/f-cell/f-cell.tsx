@@ -128,6 +128,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (!cell.data) {
         setDefaults(cellType, cell);
     }
+    // must be called after set defaults
+    setHasTooltip(cell);
     if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
@@ -881,7 +883,6 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
-                        hasTooltip={true}
                     />
                 );
             }
@@ -1403,4 +1404,28 @@ function isFullWidth(props: FCellProps) {
     return fullWidthFieldsComps.includes(
         (props.component as KupComponent)?.rootElement.tagName as KupTagNames
     );
+}
+
+function setHasTooltip(cell: KupDataCell) {
+    const tooltip = cell.tooltip;
+    const obj = cell.obj;
+    let hasTooltip: boolean;
+
+    if (tooltip != undefined) {
+        // when tooltip is present it always prevails
+        hasTooltip = tooltip;
+    } else {
+        hasTooltip = obj != undefined && !tooltip;
+    }
+
+    // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
+    if (cell.data?.data) {
+        cell.data.data['kup-text-field'].hasTooltip = hasTooltip;
+        cell.data.hasTooltip = hasTooltip;
+    }
+
+    // this will set prop if data is passed directly into f-text-field
+    if (cell.data) {
+        cell.data.hasTooltip = hasTooltip;
+    }
 }
