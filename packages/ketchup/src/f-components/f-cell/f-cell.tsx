@@ -1416,10 +1416,10 @@ function determineIfCellHasTooltip(cell: KupDataCell): boolean {
         // when tooltip is present it always prevails
         hasTooltip = tooltip;
     } else {
-        hasTooltip = obj != undefined && !tooltip;
+        hasTooltip = obj != undefined;
     }
 
-    return tooltip;
+    return hasTooltip;
 }
 
 function setHasTooltip(cell: KupDataCell) {

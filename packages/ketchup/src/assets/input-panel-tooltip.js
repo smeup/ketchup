@@ -71,8 +71,8 @@ const tooltipData = {
                     mandatory: true,
                 },
                 COL3: {
-                    value: 'Number',
-                    obj: { t: 'NR', p: '' },
+                    value: '15',
+                    obj: { t: 'NR', p: '', k: '' },
                     tooltip: true,
                     editable: false,
                     mandatory: true,
@@ -80,7 +80,7 @@ const tooltipData = {
                 COL4: {
                     value: 'ACP',
                     shape: 'ACP',
-                    obj: { t: 'NR', p: '' },
+                    obj: { t: 'NR', p: '', k: '' },
                     tooltip: true,
                     editable: false,
                     mandatory: true,
@@ -88,8 +88,7 @@ const tooltipData = {
                 COL5: {
                     value: 'CMB',
                     shape: 'CMB',
-                    obj: { t: 'NR', p: '' },
-                    tooltip: true,
+                    obj: { t: 'NR', p: '', k: '' },
                     editable: false,
                     mandatory: true,
                 },
