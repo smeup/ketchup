@@ -37,12 +37,26 @@ const tooltipData = {
             visible: true,
             isEditable: false,
         },
+        {
+            editable: false,
+            name: 'COL4',
+            title: 'Field4',
+            visible: true,
+            isEditable: false,
+        },
+        {
+            editable: false,
+            name: 'COL5',
+            title: 'Field5',
+            visible: true,
+            isEditable: false,
+        },
     ],
     rows: [
         {
             cells: {
                 COL1: {
-                    value: 'Giovanni',
+                    value: 'Plain',
                     obj: { t: '', p: '', k: '' },
                     tooltip: false,
                     editable: true,
@@ -50,14 +64,30 @@ const tooltipData = {
                     shape: 'ITX',
                 },
                 COL2: {
-                    value: '',
+                    value: 'Date',
                     obj: { t: 'D8', p: '', k: '' },
                     tooltip: true,
                     editable: true,
                     mandatory: true,
                 },
                 COL3: {
-                    value: '',
+                    value: 'Number',
+                    obj: { t: 'NR', p: '' },
+                    tooltip: true,
+                    editable: false,
+                    mandatory: true,
+                },
+                COL4: {
+                    value: 'ACP',
+                    shape: 'ACP',
+                    obj: { t: 'NR', p: '' },
+                    tooltip: true,
+                    editable: false,
+                    mandatory: true,
+                },
+                COL5: {
+                    value: 'CMB',
+                    shape: 'CMB',
                     obj: { t: 'NR', p: '' },
                     tooltip: true,
                     editable: false,
@@ -78,6 +108,21 @@ const tooltipData = {
                             },
                             {
                                 id: 'COL3',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: true,
+                        gridCols: 3,
+                        gridRows: 1,
+                        gap: 2,
+                    },
+                    {
+                        content: [
+                            {
+                                id: 'COL4',
+                            },
+                            {
+                                id: 'COL5',
                             },
                         ],
                         sections: [],
