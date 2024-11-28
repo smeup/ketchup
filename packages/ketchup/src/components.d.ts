@@ -1774,7 +1774,7 @@ export namespace Components {
          */
         "transpose": boolean;
         /**
-          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * When set to true, editable cells will be rendered using input components and an update button will appear below the matrix
           * @default false
          */
         "updatableData": boolean;
@@ -7445,7 +7445,7 @@ declare namespace LocalJSX {
          */
         "transpose"?: boolean;
         /**
-          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * When set to true, editable cells will be rendered using input components and an update button will appear below the matrix
           * @default false
          */
         "updatableData"?: boolean;
