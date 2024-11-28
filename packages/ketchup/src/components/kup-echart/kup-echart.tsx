@@ -484,6 +484,8 @@ export class KupEchart {
             legend = {},
             series = [];
         let groups = [];
+
+        // Handle cases where data.columns don't include one col for size
         const defaultPointSize = '1000000000';
         let usingDefaultSize = false;
 
@@ -494,7 +496,7 @@ export class KupEchart {
         // Populate temp array with data points
         if (content.length > 0) {
             for (let i = 0; i < y[content[0]].length; i++) {
-                const rowData: any[] = [];
+                const rowData: string[] = [];
                 for (let j = 0; j < content.length; j++) {
                     rowData.push(y[content[j]][i]);
 
@@ -942,20 +944,6 @@ export class KupEchart {
     }
 
     #setTitle() {
-        function convertColorString(input: string): string {
-            const match = input.match(/^R(\d{3})G(\d{3})B(\d{3})$/);
-
-            if (!match) {
-                return 'black';
-            }
-
-            const [_, r, g, b] = match;
-            return `rgb(${parseInt(r, 10)}, ${parseInt(g, 10)}, ${parseInt(
-                b,
-                10
-            )})`;
-        }
-
         return {
             text: this.chartTitle ? this.chartTitle.value : undefined,
             [this.chartTitle && this.chartTitle.position
@@ -964,7 +952,9 @@ export class KupEchart {
             textStyle: {
                 color:
                     this.chartTitle && this.chartTitle.color
-                        ? convertColorString(this.chartTitle.color)
+                        ? this.#kupManager.theme.colorCheck(
+                              this.chartTitle.color
+                          ).rgbColor
                         : 'black',
                 fontFamily: this.#themeFont,
                 fontSize:
