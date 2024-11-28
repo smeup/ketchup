@@ -67,7 +67,6 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
-import { C } from '@fullcalendar/core/internal-common';
 
 const dom: KupDom = document.documentElement as KupDom;
 
