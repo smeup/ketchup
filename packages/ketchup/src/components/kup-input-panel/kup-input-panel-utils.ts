@@ -1,4 +1,4 @@
-export const CHAR_WIDTH = 12;
+export const CHAR_WIDTH = 10;
 export const ROW_HEIGHT = 22;
 
 export const getAbsoluteWidth = (length: number) => {

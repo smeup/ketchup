@@ -3,6 +3,7 @@ import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
+import { InputPanelKeyCommands } from '../../components/kup-input-panel/kup-input-panel-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -382,6 +383,17 @@ export class KupObjects {
             !obj ||
             obj === null ||
             (Object.keys(obj).length === 0 && obj.constructor === Object)
+        );
+    }
+    /**
+     * Check whether the object is a J1;KEY;(valid keyboard shortcut)
+     * @param {GenericObject} object - Object to check.
+     * @returns {boolean} True if the object is a J1;KEY with a valid shortcut as K.
+     */
+    isJ1Key(obj: GenericObject): boolean {
+        if (!obj) return false;
+        return (
+            'J1' === obj.t && 'KEY' === obj.p && InputPanelKeyCommands[obj.k]
         );
     }
 }

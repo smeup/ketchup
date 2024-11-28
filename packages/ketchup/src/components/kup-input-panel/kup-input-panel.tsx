@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -62,6 +63,7 @@ import {
     InputPanelCells,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
+    InputPanelKeyCommands,
     InputPanelOptionsHandler,
     KupInputPanelButtonsPositions,
     KupInputPanelCell,
@@ -87,6 +89,7 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -355,6 +358,15 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-focus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<KupEventPayload>;
+
     //#endregion
 
     //#region PRIVATE METHODS
@@ -909,15 +921,16 @@ export class KupInputPanel {
 
         const styleObj = {
             position: 'absolute',
-            width,
-            'min-width': width,
-            'max-width': width,
+            //width,
+            //'min-width': width,
+            //'max-width': width,
             height,
             'min-height': height,
             'max-height': height,
             top,
             left,
             overflow: 'auto',
+            'white-space': 'nowrap',
         };
 
         fieldCell.cell.data = {
@@ -1687,6 +1700,14 @@ export class KupInputPanel {
     }
 
     #commandAdapter(cell: KupDataCell): KupDataCell {
+        if (
+            cell.data &&
+            !cell.data.keyShortcut &&
+            this.#kupManager.objects.isJ1Key(cell.obj ? cell.obj : {})
+        ) {
+            cell.data.keyShortcut = InputPanelKeyCommands[cell.obj.k];
+        }
+
         const buttonCell = {
             ...cell,
             data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),
@@ -2005,7 +2026,7 @@ export class KupInputPanel {
               );
 
         return (
-            <Host>
+            <Host tabindex="0">
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
