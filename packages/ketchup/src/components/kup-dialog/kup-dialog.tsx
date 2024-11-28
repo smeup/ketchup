@@ -157,10 +157,10 @@ export class KupDialog {
             }
         }
         this.#recalcSafeguard = 0;
-        const left = window.innerWidth / 2 - rect.width / 2;
-        const top = window.innerHeight / 2 - rect.height / 2 + window.scrollY;
-        this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
-        this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
+        this.rootElement.style.left = '0';
+        this.rootElement.style.bottom = '0';
+        this.rootElement.style.right = '0';
+        this.rootElement.style.top = '0';
         this.rootElement.removeAttribute('fade-in');
     }
     /**
