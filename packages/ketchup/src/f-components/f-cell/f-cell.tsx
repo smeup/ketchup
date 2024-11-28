@@ -872,7 +872,11 @@ function setEditableCell(
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
-                        size={+props.column.size}
+                        size={
+                            parseInt(props.column.size)
+                                ? parseInt(props.column.size)
+                                : null
+                        }
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
