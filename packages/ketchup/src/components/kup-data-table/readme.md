@@ -228,6 +228,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTab
 
 
 
+### `getLastFocusedRow() => Promise<KupDataTableRow>`
+
+This method is used to retrieve last focused row or the first if there's no row focused
+
+#### Returns
+
+Type: `Promise<KupDataTableRow>`
+
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
