@@ -1407,27 +1407,18 @@ function isFullWidth(props: FCellProps) {
     );
 }
 
-function determineIfCellHasTooltip(cell: KupDataCell): boolean {
-    const tooltip = cell.tooltip;
-    const obj = cell.obj;
-    let hasTooltip: boolean;
-
-    if (tooltip != undefined) {
-        // when tooltip is present it always prevails
-        hasTooltip = tooltip;
-    } else {
-        hasTooltip = obj != undefined;
-    }
-
-    return hasTooltip;
-}
-
 function setHasTooltip(cell: KupDataCell) {
-    const hasTooltip = determineIfCellHasTooltip(cell);
+    const hasTooltip = cell.tooltip ?? false;
 
     // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
     if (cell.data?.data) {
-        cell.data.data['kup-text-field'].hasTooltip = hasTooltip;
+        cell.data.data = {
+            ...cell.data.data,
+            'kup-text-field': {
+                ...cell.data.data['kup-text-field'],
+                hasTooltip: hasTooltip,
+            },
+        };
         cell.data.hasTooltip = hasTooltip;
     }
 
