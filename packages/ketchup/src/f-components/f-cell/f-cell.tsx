@@ -856,6 +856,7 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                console.log('props', props.column);
                 return (
                     <FTextField
                         inputType={type}
@@ -872,11 +873,6 @@ function setEditableCell(
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
-                        size={
-                            parseInt(props.column.size)
-                                ? parseInt(props.column.size)
-                                : null
-                        }
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
