@@ -856,6 +856,7 @@ export class KupDataTable {
     decorateAndInitForUpdTable() {
         if (this.data['type'] === 'SmeupDataTable') {
             decorateDataTable(this.data);
+            this.#lastFocusedRow = this.data.rows[0];
         }
         if (this.updatableData) {
             this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
@@ -1009,6 +1010,7 @@ export class KupDataTable {
     #columnDropCardAnchor: HTMLElement = null;
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
+    #lastFocusedRow: KupDataTableRow = null;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
@@ -1699,6 +1701,13 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
+    }
+    /**
+     * This method is used to retrieve last focused row or the first if there's no row focused
+     */
+    @Method()
+    async getLastFocusedRow(): Promise<KupDataTableRow> {
+        return this.#lastFocusedRow;
     }
 
     #closeDropCard() {
@@ -3336,6 +3345,7 @@ export class KupDataTable {
                 this.#onRowClick(details.row, details.td, true);
                 return details;
             }
+            this.#lastFocusedRow = details.row;
         }
         return details;
     }

@@ -1551,6 +1551,10 @@ export namespace Components {
         "getCards": () => Promise<any>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>;
         /**
+          * This method is used to retrieve last focused row or the first if there's no row focused
+         */
+        "getLastFocusedRow": () => Promise<KupDataTableRow>;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
