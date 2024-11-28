@@ -208,6 +208,22 @@ export const FCell: FunctionalComponent<FCellProps> = (
         infoEl = <FImage {...fProps} />;
     }
 
+    const _tag = content?.['$tag$'];
+    const _class = content['$attrs$']?.class;
+
+    if (!_tag && !_class) {
+        classObj['top-right-indicator'] = props.cell.tooltip;
+    } else {
+        if (
+            _class != 'f-text-field' &&
+            !['kup-date-picker', 'kup-autocomplete', 'kup-combobox'].includes(
+                _tag
+            )
+        ) {
+            classObj['top-right-indicator'] = props.cell.tooltip;
+        }
+    }
+
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
