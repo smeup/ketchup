@@ -856,7 +856,6 @@ function setEditableCell(
                     ></input>
                 );
             } else {
-                console.log('props', props.column);
                 return (
                     <FTextField
                         inputType={type}
