@@ -165,7 +165,7 @@ export default {
                   k: '...',
                 },
                 value:
-                  'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                  'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
               },
               style: {
                 obj: {
@@ -230,7 +230,7 @@ export default {
                   k: '...',
                 },
                 value:
-                  'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                  'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
               },
               style: {
                 obj: {
