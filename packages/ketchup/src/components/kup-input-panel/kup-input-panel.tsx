@@ -442,10 +442,9 @@ export class KupInputPanel {
             [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
-        // We create a form for each row in data
         const props: FTypographyProps = {
-            value: layout.sections[0]?.title,
-            type: FTypographyType.LABEL,
+            value: layout?.sections[0]?.title,
+            type: FTypographyType.HEADING1,
         };
 
         return (
