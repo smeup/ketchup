@@ -40,7 +40,10 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
+import {
+    FTypographyProps,
+    FTypographyType,
+} from '../../f-components/f-typography/f-typography-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -387,6 +390,7 @@ export class KupInputPanel {
         const layout = inputPanelCell.row.layout;
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
+        const styleTypographyObj: GenericObject = {};
 
         let rowContent: VNode[];
 
@@ -451,40 +455,50 @@ export class KupInputPanel {
         };
 
         // We create a form for each row in data
+        const props: FTypographyProps = {
+            value: layout.sections[0]?.title,
+            type: FTypographyType.LABEL,
+        };
+
         return (
-            <form
-                name={this.rootElement.id}
-                id={this.rootElement.id}
-                class={inputPanelClass}
-                ref={(el: HTMLFormElement) => (this.#formRef = el)}
-                onSubmit={(e: SubmitEvent) => {
-                    e.preventDefault();
-                    this.submitCb({
-                        value: {
-                            before: { ...this.#originalData },
-                            after: this.#reverseMapCells(),
-                        },
-                    });
-                }}
-                onContextMenu={(e: MouseEvent) => {
-                    e.preventDefault();
-                }}
-            >
-                <div class={classObj} style={styleObj}>
-                    {rowContent}
-                </div>
-                <div class={commandsClass}>
-                    <FButton
-                        buttonType="submit"
-                        label={this.#kupManager.language.translate(
-                            KupLanguageGeneric.CONFIRM
-                        )}
-                        wrapperClass="form__submit"
-                        invisible={this.hiddenSubmitButton}
-                    ></FButton>
-                    {this.inputPanelCommands}
-                </div>
-            </form>
+            <div>
+                <form
+                    name={this.rootElement.id}
+                    id={this.rootElement.id}
+                    class={inputPanelClass}
+                    ref={(el: HTMLFormElement) => (this.#formRef = el)}
+                    onSubmit={(e: SubmitEvent) => {
+                        e.preventDefault();
+                        this.submitCb({
+                            value: {
+                                before: { ...this.#originalData },
+                                after: this.#reverseMapCells(),
+                            },
+                        });
+                    }}
+                    onContextMenu={(e: MouseEvent) => {
+                        e.preventDefault();
+                    }}
+                >
+                    <div class="input-panel__typography">
+                        <FTypography {...props} />
+                    </div>
+                    <div class={classObj} style={styleObj}>
+                        {rowContent}
+                    </div>
+                    <div class={commandsClass}>
+                        <FButton
+                            buttonType="submit"
+                            label={this.#kupManager.language.translate(
+                                KupLanguageGeneric.CONFIRM
+                            )}
+                            wrapperClass="form__submit"
+                            invisible={this.hiddenSubmitButton}
+                        ></FButton>
+                        {this.inputPanelCommands}
+                    </div>
+                </form>
+            </div>
         );
     }
 
@@ -628,6 +642,7 @@ export class KupInputPanel {
         layout: KupInputPanelLayout
     ) {
         const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
+
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
