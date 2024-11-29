@@ -448,8 +448,6 @@ export class KupInputPanel {
             type: FTypographyType.LABEL,
         };
 
-        styleTypographyObj.padding = '1rem 2rem';
-
         return (
             <div>
                 <form
@@ -470,7 +468,7 @@ export class KupInputPanel {
                         e.preventDefault();
                     }}
                 >
-                    <div style={styleTypographyObj}>
+                    <div class="input-panel__typography">
                         <FTypography {...props} />
                     </div>
                     <div class={classObj} style={styleObj}>
