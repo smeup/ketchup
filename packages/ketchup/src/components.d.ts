@@ -50,6 +50,7 @@ import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+import { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload } from "./components/kup-object-field/kup-object-field-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -108,6 +109,7 @@ export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+export { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload } from "./components/kup-object-field/kup-object-field-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -3149,6 +3151,9 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
+    interface KupObjectField {
+        "data": {};
+    }
     interface KupPdf {
         /**
           * Used to retrieve component's props values.
@@ -4742,6 +4747,10 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNumericPickerElement;
 }
+export interface KupObjectFieldCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupObjectFieldElement;
+}
 export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPdfElement;
@@ -5545,6 +5554,24 @@ declare global {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
+    interface HTMLKupObjectFieldElementEventMap {
+        "kup-object-field-search": KupObjectFieldSearchPayload;
+        "kup-object-field-open-search-menu": KupObjectFieldOpenSearchMenuPayload;
+    }
+    interface HTMLKupObjectFieldElement extends Components.KupObjectField, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupObjectFieldElementEventMap>(type: K, listener: (this: HTMLKupObjectFieldElement, ev: KupObjectFieldCustomEvent<HTMLKupObjectFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupObjectFieldElementEventMap>(type: K, listener: (this: HTMLKupObjectFieldElement, ev: KupObjectFieldCustomEvent<HTMLKupObjectFieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupObjectFieldElement: {
+        prototype: HTMLKupObjectFieldElement;
+        new (): HTMLKupObjectFieldElement;
+    };
     interface HTMLKupPdfElementEventMap {
         "kup-pdf-ready": KupEventPayload;
     }
@@ -5980,6 +6007,7 @@ declare global {
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
+        "kup-object-field": HTMLKupObjectFieldElement;
         "kup-pdf": HTMLKupPdfElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
@@ -8514,6 +8542,17 @@ declare namespace LocalJSX {
         "onKup-numericpicker-itemclick"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
         "onKup-numericpicker-textfieldsubmit"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
     }
+    interface KupObjectField {
+        "data"?: {};
+        /**
+          * Triggered when the button is clicked.
+         */
+        "onKup-object-field-open-search-menu"?: (event: KupObjectFieldCustomEvent<KupObjectFieldOpenSearchMenuPayload>) => void;
+        /**
+          * Triggered when the button loses focus.
+         */
+        "onKup-object-field-search"?: (event: KupObjectFieldCustomEvent<KupObjectFieldSearchPayload>) => void;
+    }
     interface KupPdf {
         /**
           * Triggered when the component is ready.
@@ -9839,6 +9878,7 @@ declare namespace LocalJSX {
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
+        "kup-object-field": KupObjectField;
         "kup-pdf": KupPdf;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
@@ -9917,6 +9957,7 @@ declare module "@stencil/core" {
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
+            "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
             "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
