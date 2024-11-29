@@ -239,6 +239,10 @@ export class KupInputPanel {
         ],
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
+        [
+            FCellTypes.TABLE,
+            ['kup-datatable-click', 'kup-datatable-rowselected'],
+        ],
     ]);
 
     #eventBlurNames = new Map<FCellShapes, string>([
