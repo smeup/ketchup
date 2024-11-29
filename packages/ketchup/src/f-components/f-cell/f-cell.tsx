@@ -1378,7 +1378,9 @@ function getValueFromEventTarget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
-    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
+    const isInputEvent = !!(
+        (e.target as HTMLElement).tagName === 'INPUT' || 'TEXTAREA'
+    );
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
