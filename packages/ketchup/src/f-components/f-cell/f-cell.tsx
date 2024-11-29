@@ -209,16 +209,21 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
 
     const _tag = content?.['$tag$'];
-    const _class = content['$attrs$']?.class;
+    const _class = content?.['$attrs$']?.class;
 
     if (!_tag && !_class) {
         classObj['top-right-indicator'] = props.cell.tooltip;
     } else {
         if (
             _class != 'f-text-field' &&
-            !['kup-date-picker', 'kup-autocomplete', 'kup-combobox'].includes(
-                _tag
-            )
+            ![
+                'kup-autocomplete',
+                'kup-color-picker',
+                'kup-combobox',
+                'kup-date-picker',
+                'kup-numeric-picker',
+                'kup-time-picker',
+            ].includes(_tag)
         ) {
             classObj['top-right-indicator'] = props.cell.tooltip;
         }
