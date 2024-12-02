@@ -6,7 +6,7 @@
     "types": "dist/components.d.ts",
     "keywords": [
         "smeup",
-        "KetchUP showcase",
+        "KetchUP React Components",
         "pwa",
         "custom elements",
         "components"
@@ -21,7 +21,7 @@
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
     "dependencies": {
-        "@sme.up/ketchup": "11.0.0-SNAPSHOT",
+        "@sme.up/ketchup": "^11.0.0-SNAPSHOT",
         "@stencil/react-output-target": "^0.7",
         "react": "^18",
         "react-dom": "^18"

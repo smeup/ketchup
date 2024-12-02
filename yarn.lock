@@ -3096,7 +3096,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
   dependencies:
-    "@sme.up/ketchup": 11.0.0-SNAPSHOT
+    "@sme.up/ketchup": ^11.0.0-SNAPSHOT
     "@stencil/core": ^4
     "@stencil/react-output-target": ^0.7
     react: ^18
@@ -3153,7 +3153,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sme.up/ketchup@11.0.0-SNAPSHOT, @sme.up/ketchup@^11.0.0-SNAPSHOT, @sme.up/ketchup@workspace:packages/ketchup":
+"@sme.up/ketchup@^11.0.0-SNAPSHOT, @sme.up/ketchup@workspace:packages/ketchup":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup@workspace:packages/ketchup"
   dependencies:
@@ -5596,9 +5596,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001684
-  resolution: "caniuse-lite@npm:1.0.30001684"
-  checksum: 5ee7aca9c29067d2e4c88cd05cbc062599d86389cd99e26e4d4bf84de8fad3f9ed2be9d3d909dfb65f50e77a17192175cb132eca7f0988ab0f3e8c4aa0dccd38
+  version: 1.0.30001685
+  resolution: "caniuse-lite@npm:1.0.30001685"
+  checksum: 5926f672d985b43b62825e971a12881c33ca1989d1b26fe3c0daf5a834b63c2470f7dd78b883fbd334b4b69c6a56e9893e14b58b86028a3de7a452a1ea6a58e4
   languageName: node
   linkType: hard
 
@@ -7459,8 +7459,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-vue@npm:^9.14.1":
-  version: 9.31.0
-  resolution: "eslint-plugin-vue@npm:9.31.0"
+  version: 9.32.0
+  resolution: "eslint-plugin-vue@npm:9.32.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.4.0
     globals: ^13.24.0
@@ -7472,7 +7472,7 @@ __metadata:
     xml-name-validator: ^4.0.0
   peerDependencies:
     eslint: ^6.2.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 83888b1c2c2784d24bb2f5e4bc11073cc04b0cd35abfa0e3b1a7479e04d38f60e8f3c3956801a54927882ceef1b9ffa7f4c61c1e0fd225ad6dd2fe8b43abf2ac
+  checksum: 14320cdb5f8c9f7cb23cad4595c1fd22f61c0b68ef1b7bd9071060d9f5bd32277ad7d022a7bf49fcb4c302d32a60045dbe1e734461edde6af160e0ade2a06410
   languageName: node
   linkType: hard
 
@@ -8331,7 +8331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-intrinsic@npm:^1.1.3, get-intrinsic@npm:^1.2.1, get-intrinsic@npm:^1.2.3, get-intrinsic@npm:^1.2.4":
+"get-intrinsic@npm:^1.2.1, get-intrinsic@npm:^1.2.3, get-intrinsic@npm:^1.2.4":
   version: 1.2.4
   resolution: "get-intrinsic@npm:1.2.4"
   dependencies:
@@ -8627,12 +8627,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gopd@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "gopd@npm:1.0.1"
+"gopd@npm:^1.0.1, gopd@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "gopd@npm:1.1.0"
   dependencies:
-    get-intrinsic: ^1.1.3
-  checksum: a5ccfb8806e0917a94e0b3de2af2ea4979c1da920bc381667c260e00e7cafdbe844e2cb9c5bcfef4e5412e8bf73bab837285bc35c7ba73aaaf0134d4583393a6
+    get-intrinsic: ^1.2.4
+  checksum: ed09ffe54ef841e9de35a56f9d249495c1149dc611f05a242c476cc538f13b2228ac1ee3970f9bfca2cadd6f9785efe854419eeef6050e7de3f02fbee9292ad4
   languageName: node
   linkType: hard
 
@@ -8722,9 +8722,11 @@ __metadata:
   linkType: hard
 
 "has-proto@npm:^1.0.1, has-proto@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "has-proto@npm:1.0.3"
-  checksum: fe7c3d50b33f50f3933a04413ed1f69441d21d2d2944f81036276d30635cad9279f6b43bc8f32036c31ebdfcf6e731150f46c1907ad90c669ffe9b066c3ba5c4
+  version: 1.1.0
+  resolution: "has-proto@npm:1.1.0"
+  dependencies:
+    call-bind: ^1.0.7
+  checksum: 0335b8acd01a0de9bb6f7f89c4ef4f1512b48cec25f1c23e847a68d65afb8c579f168907e79969b01dc7025d707b48c71d481bca140579a40d735b071b2cc1bc
   languageName: node
   linkType: hard
 
@@ -9360,12 +9362,12 @@ __metadata:
   linkType: hard
 
 "is-boolean-object@npm:^1.1.0":
-  version: 1.1.2
-  resolution: "is-boolean-object@npm:1.1.2"
+  version: 1.2.0
+  resolution: "is-boolean-object@npm:1.2.0"
   dependencies:
-    call-bind: ^1.0.2
-    has-tostringtag: ^1.0.0
-  checksum: c03b23dbaacadc18940defb12c1c0e3aaece7553ef58b162a0f6bba0c2a7e1551b59f365b91e00d2dbac0522392d576ef322628cb1d036a0fe51eb466db67222
+    call-bind: ^1.0.7
+    has-tostringtag: ^1.0.2
+  checksum: cebc780cc3881dfb0c6c933e308f6a8eccf07ef92a7ea533fb2ee4fb7d704473b476f0b345fea4f2f45fe70937ef568a2f450eb6000d08b99350d87280927ff8
   languageName: node
   linkType: hard
 
@@ -9534,11 +9536,12 @@ __metadata:
   linkType: hard
 
 "is-number-object@npm:^1.0.4":
-  version: 1.0.7
-  resolution: "is-number-object@npm:1.0.7"
+  version: 1.1.0
+  resolution: "is-number-object@npm:1.1.0"
   dependencies:
-    has-tostringtag: ^1.0.0
-  checksum: d1e8d01bb0a7134c74649c4e62da0c6118a0bfc6771ea3c560914d52a627873e6920dd0fd0ebc0e12ad2ff4687eac4c308f7e80320b973b2c8a2c8f97a7524f7
+    call-bind: ^1.0.7
+    has-tostringtag: ^1.0.2
+  checksum: 965f91493e5c02a44bb9c5d8dd4ae40da20bd9bd1cff9cd92e2f2e66a486935a0a01f8a4744eab033c450888f01a4ec3226e1c75bbcff973ce12d06ed79eb17b
   languageName: node
   linkType: hard
 
@@ -9601,12 +9604,14 @@ __metadata:
   linkType: hard
 
 "is-regex@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "is-regex@npm:1.1.4"
+  version: 1.2.0
+  resolution: "is-regex@npm:1.2.0"
   dependencies:
-    call-bind: ^1.0.2
-    has-tostringtag: ^1.0.0
-  checksum: 362399b33535bc8f386d96c45c9feb04cf7f8b41c182f54174c1a45c9abbbe5e31290bbad09a458583ff6bf3b2048672cdb1881b13289569a7c548370856a652
+    call-bind: ^1.0.7
+    gopd: ^1.1.0
+    has-tostringtag: ^1.0.2
+    hasown: ^2.0.2
+  checksum: dd2693d71866850d1276815204a2629d28dc1d24bd56b734e57a39f56b777cd87030d57552e7093d91a2ac331d99af9dba49a0a641fa4e4435d40e944d4dde12
   languageName: node
   linkType: hard
 
@@ -9664,11 +9669,12 @@ __metadata:
   linkType: hard
 
 "is-string@npm:^1.0.5, is-string@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "is-string@npm:1.0.7"
+  version: 1.1.0
+  resolution: "is-string@npm:1.1.0"
   dependencies:
-    has-tostringtag: ^1.0.0
-  checksum: 323b3d04622f78d45077cf89aab783b2f49d24dc641aa89b5ad1a72114cfeff2585efc8c12ef42466dff32bde93d839ad321b26884cf75e5a7892a938b089989
+    call-bind: ^1.0.7
+    has-tostringtag: ^1.0.2
+  checksum: 1e330e9fe0984cdf37371f704f9babf9b56d50b1e9d2e6c19b8b78443be3e9771c33309b4aadde9ba2a8870769374538681e01f54113a335dd393c80a72e7d11
   languageName: node
   linkType: hard
 
