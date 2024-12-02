@@ -442,10 +442,9 @@ export class KupInputPanel {
             [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
-        // We create a form for each row in data
         const props: FTypographyProps = {
-            value: layout.sections[0]?.title,
-            type: FTypographyType.LABEL,
+            value: layout?.sections[0]?.title,
+            type: FTypographyType.HEADING1,
         };
 
         return (
@@ -917,21 +916,29 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
-        const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
-        const top = `${getAbsoluteTop(field.absoluteRow)}px`;
-        const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
+        const absoluteWidth = getAbsoluteWidth(length);
+        const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
+        const absoluteTop = getAbsoluteTop(field.absoluteRow);
+        const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {
             position: 'absolute',
-            width,
-            'min-width': width,
-            'max-width': width,
-            height,
-            'min-height': height,
-            'max-height': height,
-            top,
-            left,
+            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'min-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'max-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            top:
+                absoluteTop !== null
+                    ? `${getAbsoluteTop(field.absoluteRow)}px`
+                    : null,
+            left:
+                absoluteLeft !== null
+                    ? `${getAbsoluteLeft(field.absoluteColumn)}px`
+                    : null,
             overflow: 'auto',
         };
 
