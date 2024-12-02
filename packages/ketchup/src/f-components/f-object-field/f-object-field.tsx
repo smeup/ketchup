@@ -2,7 +2,7 @@
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
 
-import { Fragment, FunctionalComponent, h } from '@stencil/core';
+import { FunctionalComponent, h } from '@stencil/core';
 import { FObjectFieldProps } from './f-object-field-declations';
 import { FTextField } from '../f-text-field/f-text-field';
 import { FButton } from '../f-button/f-button';
@@ -12,7 +12,7 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
     props: FObjectFieldProps
 ) => {
     return (
-        <Fragment>
+        <div ref={(el) => (props.element = el)}>
             <FTextField
                 icon={'search'}
                 trailingIcon={true}
@@ -26,17 +26,17 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
             ></FTextField>
             <FButton
                 icon={'menu'}
-                onClick={props.onOpenMenu}
+                onClick={(e) => onOpenMenuHandler(e, props)}
                 styling={FButtonStyling.FLAT}
                 wrapperClass="obj-field-extra-btn"
             ></FButton>
-            {props.menuData && props.menuVisible ? (
-                <kup-toolbar
-                    data={props.menuData}
-                    onKup-toolbar-click={props.onSelectedMenuItem}
-                ></kup-toolbar>
-            ) : undefined}
-        </Fragment>
+
+            <kup-toolbar
+                style={{ display: props.menuVisible ? 'block' : 'none' }}
+                data={props.menuData}
+                onKup-toolbar-click={props.onSelectedMenuItem}
+            ></kup-toolbar>
+        </div>
     );
 };
 
@@ -46,4 +46,22 @@ function onKeyDownHandler(event: UIEvent, props: FObjectFieldProps) {
         event.stopPropagation();
         props.onSearch(event);
     }
+}
+
+function onOpenMenuHandler(event: UIEvent, props: FObjectFieldProps) {
+    const button = props.element?.querySelector('button');
+    const toolbar = props.element?.querySelector('kup-toolbar');
+    const coords = getCoords(button);
+    toolbar.style.top = `${coords.top}px`;
+    toolbar.style.left = `${coords.left}px`;
+    toolbar.style.position = `absolute`;
+    props.onOpenMenu(event);
+}
+
+function getCoords(element: HTMLElement): { top: number; left: number } {
+    const rect = element.getBoundingClientRect();
+    return {
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+    };
 }

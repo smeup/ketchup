@@ -10,6 +10,7 @@ export interface FObjectFieldProps extends FComponent {
     keyCodeSearch?: string;
     menuData?: KupToolbarTreeNode[];
     menuVisible?: boolean;
+    element?: HTMLElement;
     onSearch?: (event: UIEvent) => void;
     onOpenMenu?: (event: UIEvent) => void;
     onSelectedMenuItem?: (
