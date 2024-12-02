@@ -6211,8 +6211,9 @@ export class KupDataTable {
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
-        this.#kupManager.keysBinding.unregister('enter');
-
+        if (this.updatableData) {
+            this.#kupManager.keysBinding.unregister('enter');
+        }
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
             rows = (
