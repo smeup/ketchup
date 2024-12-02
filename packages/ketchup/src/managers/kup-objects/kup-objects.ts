@@ -386,14 +386,12 @@ export class KupObjects {
         );
     }
     /**
-     * Check whether the object is a J1;KEY;(valid keyboard shortcut)
+     * Check whether the object is a J1;KEY
      * @param {GenericObject} object - Object to check.
-     * @returns {boolean} True if the object is a J1;KEY with a valid shortcut as K.
+     * @returns {boolean} True if the object is a J1;KEY
      */
     isJ1Key(obj: GenericObject): boolean {
         if (!obj) return false;
-        return (
-            'J1' === obj.t && 'KEY' === obj.p && InputPanelKeyCommands[obj.k]
-        );
+        return 'J1' === obj.t && 'KEY' === obj.p;
     }
 }
