@@ -63,11 +63,11 @@
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
           "data": {
-            "resource": "https://via.placeholder.com/128?text=CF",
+            "resource": "https://placehold.co/128?text=CF",
             "sizeX": "64px",
             "sizeY": "64px"
           },
-          "value": "https://via.placeholder.com/128?text=CF"
+          "value": "https://placehold.co/128?text=CF"
         }
       }
     }

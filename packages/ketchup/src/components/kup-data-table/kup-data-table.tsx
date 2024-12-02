@@ -864,6 +864,8 @@ export class KupDataTable {
                 ? SelectionMode.MULTIPLE_CHECKBOX
                 : this.selection;
 
+            this.#insertedRowIds = [];
+
             this.#originalDataLoadedMaxId =
                 this.#originalDataLoaded.rows?.length > 0
                     ? Math.max(

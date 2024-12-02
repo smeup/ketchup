@@ -104,20 +104,20 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
+            "k": "M(J1;URL;https://placehold.co/64?text=img)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "M(J1;URL;https://via.placeholder.com/64?text=img)"
+          "value": "M(J1;URL;https://placehold.co/64?text=img)"
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=img"
+            "icon": "https://placehold.co/64?text=img"
           },
-          "value": "https://via.placeholder.com/64?text=img",
+          "value": "https://placehold.co/64?text=img",
           "obj": {
-            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
+            "k": "M(J1;URL;https://placehold.co/64?text=img)",
             "p": "BTN",
             "t": "J4"
           },
@@ -258,10 +258,10 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF",
+            "icon": "https://placehold.co/64?text=CF",
             "label": "Action"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
@@ -404,10 +404,10 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF",
+            "icon": "https://placehold.co/64?text=CF",
             "tooltip": "Action"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
@@ -549,9 +549,9 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF"
+            "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
@@ -913,9 +913,9 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF"
+            "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA)",
             "p": "BTN",
@@ -1058,10 +1058,10 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF",
+            "icon": "https://placehold.co/64?text=CF",
             "label": "Action"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
@@ -1204,10 +1204,10 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF",
+            "icon": "https://placehold.co/64?text=CF",
             "tooltip": "Action"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
@@ -1349,9 +1349,9 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=CF"
+            "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://via.placeholder.com/64?text=CF",
+          "value": "https://placehold.co/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
@@ -1421,10 +1421,10 @@
         },
         "BTN": {
           "data": {
-            "icon": "https://via.placeholder.com/64?text=SC",
+            "icon": "https://placehold.co/64?text=SC",
             "label": "Run action"
           },
-          "value": "https://via.placeholder.com/64?text=SC",
+          "value": "https://placehold.co/64?text=SC",
           "obj": {
             "k": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
