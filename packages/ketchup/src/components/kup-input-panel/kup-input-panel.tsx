@@ -239,10 +239,6 @@ export class KupInputPanel {
         ],
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
-        [
-            FCellTypes.TABLE,
-            ['kup-datatable-click', 'kup-datatable-rowselected'],
-        ],
     ]);
 
     #eventBlurNames = new Map<FCellShapes, string>([
@@ -365,15 +361,6 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
-
-    @Event({
-        eventName: 'kup-inputpanel-focus',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupFocus: EventEmitter<KupEventPayload>;
-
     //#endregion
 
     //#region PRIVATE METHODS
@@ -2045,7 +2032,7 @@ export class KupInputPanel {
               );
 
         return (
-            <Host tabindex="0">
+            <Host>
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

@@ -192,38 +192,36 @@ export enum KupInputPanelButtonsPositions {
     TOP = 'TOP',
 }
 
-export const InputPanelKeyCommands = (() => {
-    const forwardMap = {
-        F1: '*F01',
-        F2: '*F02',
-        F3: '*F03',
-        F4: '*F04',
-        F5: '*F05',
-        F6: '*F06',
-        F7: '*F07',
-        F8: '*F08',
-        F9: '*F09',
-        F10: '*F10',
-        F11: '*F11',
-        F12: '*F12',
-        F13: '*F13',
-        F14: '*F14',
-        F15: '*F15',
-        F16: '*F16',
-        F17: '*F17',
-        F18: '*F18',
-        F19: '*F19',
-        F20: '*F20',
-        F21: '*F21',
-        F22: '*F22',
-        F23: '*F23',
-        F24: '*F24',
-        Enter: '*ENT',
-    } as const;
+interface InputPanelCommand {
+    [key: string]: string;
+}
 
-    const reverseMap = Object.fromEntries(
-        Object.entries(forwardMap).map(([key, value]) => [value, key])
-    );
-
-    return { ...forwardMap, ...reverseMap };
-})();
+export const InputPanelKeyCommands: InputPanelCommand = {
+    F1: '*F01',
+    F2: '*F02',
+    F3: '*F03',
+    F4: '*F04',
+    F5: '*F05',
+    F6: '*F06',
+    F7: '*F07',
+    F8: '*F08',
+    F9: '*F09',
+    F10: '*F10',
+    F11: '*F11',
+    F12: '*F12',
+    F13: '*F13',
+    F14: '*F14',
+    F15: '*F15',
+    F16: '*F16',
+    F17: '*F17',
+    F18: '*F18',
+    F19: '*F19',
+    F20: '*F20',
+    F21: '*F21',
+    F22: '*F22',
+    F23: '*F23',
+    F24: '*F24',
+    Enter: '*ENT',
+    PageDown: '*PDN',
+    PageUp: '*PUP',
+};
