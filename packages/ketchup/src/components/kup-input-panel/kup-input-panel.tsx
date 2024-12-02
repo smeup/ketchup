@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -17,7 +16,6 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
-    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -47,14 +45,12 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
-    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -927,16 +923,15 @@ export class KupInputPanel {
 
         const styleObj = {
             position: 'absolute',
-            //width,
-            //'min-width': width,
-            //'max-width': width,
+            width,
+            'min-width': width,
+            'max-width': width,
             height,
             'min-height': height,
             'max-height': height,
             top,
             left,
             overflow: 'auto',
-            'white-space': 'nowrap',
         };
 
         fieldCell.cell.data = {
