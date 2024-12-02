@@ -846,7 +846,7 @@ function setEditableCell(
                                 e,
                                 props,
                                 cellType,
-                                FCellEvents.ICON_CLICK
+                                FCellEvents.SECONDARY_ICON_CLICK
                             )
                         }
                         styling={FButtonStyling.FLAT}
@@ -860,8 +860,10 @@ function setEditableCell(
         case FCellTypes.STRING:
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
-            const onInput = (e: InputEvent) =>
+            const onInput = (e: InputEvent) => {
                 cellEvent(e, props, cellType, FCellEvents.INPUT);
+                cellEvent(e, props, cellType, FCellEvents.UPDATE);
+            };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
             const value =
                 cellType === FCellTypes.NUMBER && cell.value
@@ -893,6 +895,8 @@ function setEditableCell(
                                 ? column.icon
                                 : null
                         }
+                        decimals={props.column.decimals}
+                        integers={props.column.integers}
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
@@ -1378,6 +1382,7 @@ function cellEvent(
                 event: e,
                 row: row,
                 type: cellType,
+                inputValue: cell.element?.querySelector('input')?.value || null,
             },
         });
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
@@ -1399,7 +1404,9 @@ function getValueFromEventTarget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
-    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
+    const isInputEvent = !!(
+        (e.target as HTMLElement).tagName === 'INPUT' || 'TEXTAREA'
+    );
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;

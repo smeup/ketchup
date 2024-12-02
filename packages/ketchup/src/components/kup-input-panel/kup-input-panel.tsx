@@ -16,7 +16,6 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
-    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -39,18 +38,19 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
+import {
+    FTypographyProps,
+    FTypographyType,
+} from '../../f-components/f-typography/f-typography-declarations';
 import {
     GenericObject,
     KupComponent,
-    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
-    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -62,6 +62,7 @@ import {
     InputPanelCells,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
+    InputPanelKeyCommands,
     InputPanelOptionsHandler,
     KupInputPanelButtonsPositions,
     KupInputPanelCell,
@@ -87,6 +88,7 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -375,6 +377,7 @@ export class KupInputPanel {
         const layout = inputPanelCell.row.layout;
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
+        const styleTypographyObj: GenericObject = {};
 
         let rowContent: VNode[];
 
@@ -438,41 +441,50 @@ export class KupInputPanel {
             [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
-        // We create a form for each row in data
+        const props: FTypographyProps = {
+            value: layout?.sections[0]?.title,
+            type: FTypographyType.HEADING1,
+        };
+
         return (
-            <form
-                name={this.rootElement.id}
-                id={this.rootElement.id}
-                class={inputPanelClass}
-                ref={(el: HTMLFormElement) => (this.#formRef = el)}
-                onSubmit={(e: SubmitEvent) => {
-                    e.preventDefault();
-                    this.submitCb({
-                        value: {
-                            before: { ...this.#originalData },
-                            after: this.#reverseMapCells(),
-                        },
-                    });
-                }}
-                onContextMenu={(e: MouseEvent) => {
-                    e.preventDefault();
-                }}
-            >
-                <div class={classObj} style={styleObj}>
-                    {rowContent}
-                </div>
-                <div class={commandsClass}>
-                    <FButton
-                        buttonType="submit"
-                        label={this.#kupManager.language.translate(
-                            KupLanguageGeneric.CONFIRM
-                        )}
-                        wrapperClass="form__submit"
-                        invisible={this.hiddenSubmitButton}
-                    ></FButton>
-                    {this.inputPanelCommands}
-                </div>
-            </form>
+            <div>
+                <form
+                    name={this.rootElement.id}
+                    id={this.rootElement.id}
+                    class={inputPanelClass}
+                    ref={(el: HTMLFormElement) => (this.#formRef = el)}
+                    onSubmit={(e: SubmitEvent) => {
+                        e.preventDefault();
+                        this.submitCb({
+                            value: {
+                                before: { ...this.#originalData },
+                                after: this.#reverseMapCells(),
+                            },
+                        });
+                    }}
+                    onContextMenu={(e: MouseEvent) => {
+                        e.preventDefault();
+                    }}
+                >
+                    <div class="input-panel__typography">
+                        <FTypography {...props} />
+                    </div>
+                    <div class={classObj} style={styleObj}>
+                        {rowContent}
+                    </div>
+                    <div class={commandsClass}>
+                        <FButton
+                            buttonType="submit"
+                            label={this.#kupManager.language.translate(
+                                KupLanguageGeneric.CONFIRM
+                            )}
+                            wrapperClass="form__submit"
+                            invisible={this.hiddenSubmitButton}
+                        ></FButton>
+                        {this.inputPanelCommands}
+                    </div>
+                </form>
+            </div>
         );
     }
 
@@ -616,6 +628,7 @@ export class KupInputPanel {
         layout: KupInputPanelLayout
     ) {
         const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
+
         return sectionRender
             ? sectionRender(inputPanelCell, layout.sections)
             : layout.sections.map((section) =>
@@ -902,21 +915,29 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
-        const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
-        const top = `${getAbsoluteTop(field.absoluteRow)}px`;
-        const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
+        const absoluteWidth = getAbsoluteWidth(length);
+        const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
+        const absoluteTop = getAbsoluteTop(field.absoluteRow);
+        const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {
             position: 'absolute',
-            width,
-            'min-width': width,
-            'max-width': width,
-            height,
-            'min-height': height,
-            'max-height': height,
-            top,
-            left,
+            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'min-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'max-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            top:
+                absoluteTop !== null
+                    ? `${getAbsoluteTop(field.absoluteRow)}px`
+                    : null,
+            left:
+                absoluteLeft !== null
+                    ? `${getAbsoluteLeft(field.absoluteColumn)}px`
+                    : null,
             overflow: 'auto',
         };
 
@@ -1687,6 +1708,14 @@ export class KupInputPanel {
     }
 
     #commandAdapter(cell: KupDataCell): KupDataCell {
+        if (
+            cell.data &&
+            !cell.data.keyShortcut &&
+            this.#kupManager.objects.isJ1Key(cell.obj ? cell.obj : {})
+        ) {
+            cell.data.keyShortcut = InputPanelKeyCommands[cell.obj.k];
+        }
+
         const buttonCell = {
             ...cell,
             data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),

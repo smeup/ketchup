@@ -768,11 +768,11 @@ export class KupDataTable {
     @Prop({ mutable: true }) transpose: boolean = false;
 
     /**
-     * When set to true, editable cells will be rendered using input components,
-     * and update button will appair below the matrix
+     * When set to true, editable cells will be rendered using input components
+     * and an update button will appear below the matrix
      * @default false
      */
-    @Prop({ mutable: true }) updatableData: boolean = false;
+    @Prop({ mutable: true, reflect: true }) updatableData: boolean = false;
 
     //-------- State --------
 
@@ -856,12 +856,15 @@ export class KupDataTable {
     decorateAndInitForUpdTable() {
         if (this.data['type'] === 'SmeupDataTable') {
             decorateDataTable(this.data);
+            this.#lastFocusedRow = this.data.rows[0];
         }
         if (this.updatableData) {
             this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
             this.selection = this.data.setup?.operations?.delete
                 ? SelectionMode.MULTIPLE_CHECKBOX
                 : this.selection;
+
+            this.#insertedRowIds = [];
 
             this.#originalDataLoadedMaxId =
                 this.#originalDataLoaded.rows?.length > 0
@@ -1009,6 +1012,7 @@ export class KupDataTable {
     #columnDropCardAnchor: HTMLElement = null;
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
+    #lastFocusedRow: KupDataTableRow = null;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
@@ -1699,6 +1703,13 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
+    }
+    /**
+     * This method is used to retrieve last focused row or the first if there's no row focused
+     */
+    @Method()
+    async getLastFocusedRow(): Promise<KupDataTableRow> {
+        return this.#lastFocusedRow;
     }
 
     #closeDropCard() {
@@ -3336,6 +3347,7 @@ export class KupDataTable {
                 this.#onRowClick(details.row, details.td, true);
                 return details;
             }
+            this.#lastFocusedRow = details.row;
         }
         return details;
     }
@@ -6199,8 +6211,9 @@ export class KupDataTable {
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
-        this.#kupManager.keysBinding.unregister('enter');
-
+        if (this.updatableData) {
+            this.#kupManager.keysBinding.unregister('enter');
+        }
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
             rows = (

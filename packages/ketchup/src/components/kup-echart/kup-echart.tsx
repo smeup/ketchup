@@ -12,11 +12,7 @@ import {
 } from '@stencil/core';
 import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
-import {
-    VisualMapComponentOption,
-    XAXisComponentOption,
-    YAXisComponentOption,
-} from 'echarts';
+import { VisualMapComponentOption } from 'echarts';
 import {
     KupEchartClickEventPayload,
     KupEchartLegendPlacement,
@@ -24,6 +20,8 @@ import {
     KupEchartProps,
     KupEchartTitle,
     KupEchartTypes,
+    KupEchartXAxis,
+    KupEchartYAxis,
 } from './kup-echart-declarations';
 import {
     KupManager,
@@ -137,12 +135,12 @@ export class KupEchart {
      * Customization options for the x Axis.
      * @default null
      */
-    @Prop() xAxis: XAXisComponentOption = null;
+    @Prop() xAxis: KupEchartXAxis = null;
     /**
      * Customization options for the y Axis.
      * @default null
      */
-    @Prop() yAxis: YAXisComponentOption = null;
+    @Prop() yAxis: KupEchartYAxis = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -413,6 +411,10 @@ export class KupEchart {
     }
 
     #radarChart() {
+        const castArrayToNumber = (strEl: unknown) =>
+            typeof strEl === 'string'
+                ? Number(strEl.replace(',', ''))
+                : Number(strEl);
         const x = this.#createX();
         const y = this.#createY();
         const data: { name: string; value: number[] }[] = [],
@@ -426,17 +428,19 @@ export class KupEchart {
         for (const key in y) {
             transposedData.push({
                 name: key,
-                value: y[key],
+                value: y[key].map(castArrayToNumber),
             });
             for (const values in y[key]) {
-                data[values].value.push(y[key][values]);
+                data[values].value.push(castArrayToNumber(y[key][values]));
             }
         }
         for (let index = 0; index < data.length; index++) {
             const dataEl = data[index];
             const key = dataEl.name;
             const foundEl = transposedIndicator.find((d) => d.name === key);
-            const max = Math.floor(Math.max(...dataEl.value) * 1.05);
+            /* Handle the case where array contains strings instead of numbers */
+            const castedValueArray = dataEl.value.map(castArrayToNumber);
+            const max = Math.floor(Math.max(...castedValueArray) * 1.05);
             if (!foundEl) {
                 transposedIndicator.push({
                     name: key,
@@ -471,59 +475,78 @@ export class KupEchart {
     }
 
     #bubbleChart() {
-        const y = this.#createY(),
+        const x = this.#createX(),
+            y = this.#createY(),
             data = [],
             temp = [],
             legend = {},
             series = [];
-        let year = [];
+        let groups = [];
 
-        const content = this.data.columns.map((data) => data.title);
+        // Handle cases where data.columns don't include one col for size
+        const defaultPointSize = '1000000000';
+        let usingDefaultSize = false;
 
-        // if empty because no series were specified, should set content for each column (so, no series means all columns displayed?)
+        const content = this.data.columns
+            .map((data) => data.name)
+            .filter((name) => name != this.axis);
 
-        if (content && content.length > 0) {
-            // content[0] but could be any number inside square brackets, because each row will have the same amount of cells (== number of columns)
+        // Populate temp array with data points
+        if (content.length > 0) {
             for (let i = 0; i < y[content[0]].length; i++) {
-                const arr = [];
+                const rowData: string[] = [];
                 for (let j = 0; j < content.length; j++) {
-                    arr.push(y[content[j]][i]);
-                    // last value always be a year
+                    rowData.push(y[content[j]][i]);
+
+                    if (j === content.length - 2 && x[i]) {
+                        usingDefaultSize = true;
+                        rowData.push(defaultPointSize); // Default size
+                        rowData.push(x[i]); // Label
+                    }
+
                     if (j === content.length - 1) {
-                        year.push(y[content[j]][i]);
+                        groups.push(y[content[j]][i]); // Collect groups
                     }
                 }
-                temp.push(arr);
+                temp.push(rowData);
             }
         }
 
-        year = [...new Set(year)];
+        groups = [...new Set(groups)];
 
-        year.forEach((e, i) => {
+        groups.forEach((e, i) => {
             let k = [];
             temp.forEach((data) => {
-                if (data.includes(e)) k.push(data);
+                if (data.includes(e) && data.lastIndexOf(e) === data.length - 1)
+                    k.push(data);
             });
             data.push(k);
 
             legend[e] = i;
         });
 
-        data.forEach((el, i) => {
+        // Organize data and legend by group
+        groups.forEach((groupValue, index) => {
+            const filteredData = temp.filter(
+                (row) =>
+                    row.includes(groupValue) &&
+                    row.lastIndexOf(groupValue) === row.length - 1
+            );
+            data.push(filteredData);
+            legend[groupValue] = index;
+        });
+
+        data.forEach((dataPoints, index) => {
             series.push({
-                name: year[i],
-                data: el,
+                name: groups[index],
+                data: dataPoints,
                 type: 'scatter',
-                symbolSize: function (data) {
-                    return Math.sqrt(data[2]) / 5e2;
-                },
+                symbolSize: (point: any) => Math.sqrt(point[2]) / 500,
                 emphasis: {
                     focus: 'series',
                     label: {
                         show: true,
-                        formatter: function (param: any) {
-                            return param.data[3];
-                        },
+                        formatter: (param: any) => param.data[3],
                         position: 'top',
                     },
                 },
@@ -537,31 +560,30 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (value: unknown) => {
-                    const name = (value as GenericObject).data;
-                    const data = content.map((e, i) => {
-                        return `<li>  ${e}: ${name[i]} </li>`;
-                    });
-                    let showContent = '';
-                    data.forEach((r) => {
-                        showContent += r;
-                    });
+                    const rowData = (value as GenericObject).data;
 
-                    return `<ul>${showContent}</ul> `;
+                    //Generates tooltip content hiding size's label if usingDefaultSize
+                    const tooltipContent = content
+                        .map((key, index) => {
+                            if (usingDefaultSize && index === 2) return '';
+                            const columnTitle = this.data.columns.find(
+                                (col) => col.name === key
+                            ).title;
+                            return `<li>${columnTitle}: ${rowData[index]}</li>`;
+                        })
+                        .join('');
+
+                    // Add label
+                    const label = `<b>${rowData[rowData.length - 2]}</b>`;
+
+                    return `<ul>${label}${tooltipContent}</ul>`;
                 },
             },
             xAxis: {
-                splitLine: {
-                    lineStyle: {
-                        type: 'dashed',
-                    },
-                },
+                splitLine: { lineStyle: { type: 'dashed' } },
             },
             yAxis: {
-                splitLine: {
-                    lineStyle: {
-                        type: 'dashed',
-                    },
-                },
+                splitLine: { lineStyle: { type: 'dashed' } },
                 scale: true,
             },
             color: this.#setColors(content.length),
@@ -572,7 +594,7 @@ export class KupEchart {
     #sankeyChart() {
         const links: GenericObject[] = [],
             x = this.#createX(),
-            y = this.#createY(),
+            y = this.#createYWithColumnTitle(),
             // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
             yKeys = [
                 this.data.columns[0].title,
@@ -630,13 +652,13 @@ export class KupEchart {
 
     #candleChart() {
         const x = this.#createX();
-        const y = this.#createY(),
+        const y = this.#createYWithColumnTitle(),
             answer = [],
             itemStyle = {
-                color: 'red',
-                borderColor: 'red',
-                color0: 'green',
-                borderColor0: 'green',
+                color: 'green',
+                borderColor: 'green',
+                color0: 'red',
+                borderColor0: 'red',
             };
 
         let caseInsensitiveObj = new Proxy(y, {
@@ -656,12 +678,12 @@ export class KupEchart {
             },
         });
 
-        for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
+        for (let i = 0; i < caseInsensitiveObj['open'].length; i++) {
             answer.push([
                 parseInt(caseInsensitiveObj['close'][i]),
-                parseInt(caseInsensitiveObj['Open'][i]),
-                parseInt(caseInsensitiveObj['Low'][i]),
-                parseInt(caseInsensitiveObj['High'][i]),
+                parseInt(caseInsensitiveObj['open'][i]),
+                parseInt(caseInsensitiveObj['low'][i]),
+                parseInt(caseInsensitiveObj['high'][i]),
             ]);
         }
         let legend = {};
@@ -690,7 +712,7 @@ export class KupEchart {
     }
 
     #calendarChart() {
-        const y = this.#createY();
+        const y = this.#createYWithColumnTitle();
 
         let caseInsensitiveObj = new Proxy(y, {
             get: function (target, prop: any) {
@@ -709,14 +731,19 @@ export class KupEchart {
             },
         });
 
-        const date = caseInsensitiveObj['Date'],
+        const date = caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'],
+            value = caseInsensitiveObj['Value'] ?? caseInsensitiveObj['Valore'],
             answer = [],
             keys = Object.keys(y),
             year = new Date(date[0]).getFullYear(),
             arrayLength = date.length;
 
         date.forEach((element, i) => {
-            answer.push([element, caseInsensitiveObj['Value'][i]]);
+            const castedValue =
+                typeof value[i] === 'string'
+                    ? Number(value[i].replace(',', ''))
+                    : Number(value[i]);
+            answer.push([element, castedValue]);
         });
         return {
             tooltip: {
@@ -804,20 +831,15 @@ export class KupEchart {
             for (const row of this.data.rows) {
                 for (const key of Object.keys(row.cells)) {
                     if (key != this.axis) {
-                        if (this.series.includes(key)) {
-                            const cell = row.cells[key];
-                            const value = cell.value;
-                            const column = getColumnByName(
-                                this.data.columns,
-                                key
-                            );
-                            if (column) {
-                                const title = column.title;
-                                if (!y[title]) {
-                                    y[title] = [];
-                                }
-                                y[title].push(value);
+                        const cell = row.cells[key];
+                        const value = cell.value;
+                        const column = getColumnByName(this.data.columns, key);
+                        if (column) {
+                            const name = column.name;
+                            if (!y[name]) {
+                                y[name] = [];
                             }
+                            y[name].push(value);
                         }
                     }
                 }
@@ -830,16 +852,38 @@ export class KupEchart {
                         const value = cell.value;
                         const column = getColumnByName(this.data.columns, key);
                         if (column) {
-                            const title = column.title;
-                            if (!y[title]) {
-                                y[title] = [];
+                            const name = column.name;
+                            if (!y[name]) {
+                                y[name] = [];
                             }
-                            y[title].push(value);
+                            y[name].push(value);
                         }
                     }
                 }
             }
         }
+        return y;
+    }
+
+    #createYWithColumnTitle() {
+        /* Use column.title instead of column.name in some graph forms */
+        const y = {};
+
+        for (const row of this.data.rows) {
+            for (const key of Object.keys(row.cells)) {
+                const cell = row.cells[key];
+                const value = cell.value;
+                const column = getColumnByName(this.data.columns, key);
+                if (column) {
+                    const title = column.title;
+                    if (!y[title]) {
+                        y[title] = [];
+                    }
+                    y[title].push(value);
+                }
+            }
+        }
+
         return y;
     }
 
@@ -850,7 +894,7 @@ export class KupEchart {
             return y;
         }
         for (const row of this.data.rows) {
-            const title = row.cells[this.axis]?.value ?? '[noy found]';
+            const title = row.cells[this.axis]?.value ?? '[not found]';
             for (const key of Object.keys(row.cells)) {
                 if (
                     !this.series ||
@@ -906,7 +950,9 @@ export class KupEchart {
             textStyle: {
                 color:
                     this.chartTitle && this.chartTitle.color
-                        ? this.chartTitle.color
+                        ? this.#kupManager.theme.colorCheck(
+                              this.chartTitle.color
+                          ).rgbColor
                         : 'black',
                 fontFamily: this.#themeFont,
                 fontSize:
@@ -1201,7 +1247,7 @@ export class KupEchart {
             }
             let values: ValueDisplayedValue[] = null;
             const column = this.data.columns.find(
-                (col: KupDataColumn) => col.title === key
+                (col: KupDataColumn) => col.name === key
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.#kupManager.objects.isNumber(column.obj)) {
@@ -1279,7 +1325,7 @@ export class KupEchart {
                     }
 
                     const column = this.data.columns.find(
-                        (col: KupDataColumn) => col.title === param.seriesName
+                        (col: KupDataColumn) => col.name === param.seriesName
                     ).name;
                     const filters: KupDataFindCellFilters = {
                         columns: [column],
@@ -1645,7 +1691,9 @@ export class KupEchart {
                     const seriesIndex = indexes[index];
                     const column = this.#kupManager.data.column.find(
                         this.data,
-                        { name: this.series[seriesIndex] }
+                        {
+                            name: this.series[seriesIndex],
+                        }
                     )[0];
                     const newName = column.name + '_' + index;
                     this.#kupManager.data.column.new(

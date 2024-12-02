@@ -37,6 +37,8 @@ export const config: Config = {
         },
         collectCoverageFrom: ['src/**/*.ts'],
         browserHeadless: 'new',
+        setupFilesAfterEnv: ['<rootDir>/tests/resources/setup/setup.js'],
+        verbose: true,
         //browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
     },
     outputTargets: [
@@ -118,17 +120,14 @@ export const config: Config = {
             ],
             serviceWorker: null, // disable service workers
         },
-        reactOutputTarget({
-            componentCorePackage: '@sme.up/ketchup',
-            proxiesFile: '../ketchup-react/src/index.ts',
-            includeDefineCustomElements: true,
-        }),
+        reactOutputTarget({ outDir: '../ketchup-react' }),
         {
             type: 'dist',
             esmLoaderPath: './loader',
         },
         {
             type: 'dist-custom-elements',
+            externalRuntime: false,
         },
     ],
     extras: {
