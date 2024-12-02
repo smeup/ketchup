@@ -55,7 +55,7 @@
         "interactjs": "1.10.12",
         "jquery": "^3.7.0",
         "numeral": "2.0.6",
-        "pdfjs-dist": "3.11.174",
+        "pdfjs-dist": "4.2.67",
         "vanilla-picker": "2.12.3"
     },
     "devDependencies": {
