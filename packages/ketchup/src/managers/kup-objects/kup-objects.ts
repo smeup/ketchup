@@ -3,7 +3,6 @@ import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
-import { InputPanelKeyCommands } from '../../components/kup-input-panel/kup-input-panel-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
