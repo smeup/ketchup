@@ -14,7 +14,8 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
     return (
         <Fragment>
             <FTextField
-                icon={'table'}
+                icon={'search'}
+                trailingIcon={true}
                 {...props.dataSet}
                 disabled={false}
                 onIconClick={props.onSearch}
@@ -24,13 +25,16 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
                 }}
             ></FTextField>
             <FButton
-                icon="menu"
-                onClick={props.onOpenSearchMenu}
+                icon={'menu'}
+                onClick={props.onOpenMenu}
                 styling={FButtonStyling.FLAT}
                 wrapperClass="obj-field-extra-btn"
             ></FButton>
-            {props.searchMenuData ? (
-                <kup-toolbar data={props.searchMenuData}></kup-toolbar>
+            {props.menuData && props.menuVisible ? (
+                <kup-toolbar
+                    data={props.menuData}
+                    onKup-toolbar-click={props.onSelectedMenuItem}
+                ></kup-toolbar>
             ) : undefined}
         </Fragment>
     );

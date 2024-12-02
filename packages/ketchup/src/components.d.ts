@@ -50,7 +50,7 @@ import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload } from "./components/kup-object-field/kup-object-field-declarations";
+import { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload, KupObjectFieldSelectedMenuItem } from "./components/kup-object-field/kup-object-field-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -109,7 +109,7 @@ export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload } from "./components/kup-object-field/kup-object-field-declarations";
+export { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload, KupObjectFieldSelectedMenuItem } from "./components/kup-object-field/kup-object-field-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -5557,6 +5557,7 @@ declare global {
     interface HTMLKupObjectFieldElementEventMap {
         "kup-object-field-search": KupObjectFieldSearchPayload;
         "kup-object-field-open-search-menu": KupObjectFieldOpenSearchMenuPayload;
+        "kup-object-field-selected-menu-item": KupObjectFieldSelectedMenuItem;
     }
     interface HTMLKupObjectFieldElement extends Components.KupObjectField, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupObjectFieldElementEventMap>(type: K, listener: (this: HTMLKupObjectFieldElement, ev: KupObjectFieldCustomEvent<HTMLKupObjectFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -8545,13 +8546,17 @@ declare namespace LocalJSX {
     interface KupObjectField {
         "data"?: {};
         /**
-          * Triggered when the button is clicked.
+          * Triggered when the user clicks on the hamburger button.
          */
         "onKup-object-field-open-search-menu"?: (event: KupObjectFieldCustomEvent<KupObjectFieldOpenSearchMenuPayload>) => void;
         /**
-          * Triggered when the button loses focus.
+          * Triggered when the user clicks on the search icon.
          */
         "onKup-object-field-search"?: (event: KupObjectFieldCustomEvent<KupObjectFieldSearchPayload>) => void;
+        /**
+          * Triggered when the user chooses an item on search menu
+         */
+        "onKup-object-field-selected-menu-item"?: (event: KupObjectFieldCustomEvent<KupObjectFieldSelectedMenuItem>) => void;
     }
     interface KupPdf {
         /**

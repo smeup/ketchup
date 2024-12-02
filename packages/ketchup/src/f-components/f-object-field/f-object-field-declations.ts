@@ -1,11 +1,19 @@
 import { ChangeEvent } from 'react';
 import { FComponent } from '../../types/GenericTypes';
-import { KupToolbarTreeNode } from '../../components';
+import {
+    KupToolbarClickEventPayload,
+    KupToolbarCustomEvent,
+    KupToolbarTreeNode,
+} from '../../components';
 
 export interface FObjectFieldProps extends FComponent {
     keyCodeSearch?: string;
-    searchMenuData?: KupToolbarTreeNode[];
+    menuData?: KupToolbarTreeNode[];
+    menuVisible?: boolean;
     onSearch?: (event: UIEvent) => void;
-    onOpenSearchMenu?: (event: UIEvent) => void;
+    onOpenMenu?: (event: UIEvent) => void;
+    onSelectedMenuItem?: (
+        event: KupToolbarCustomEvent<KupToolbarClickEventPayload>
+    ) => void;
     onInput?: (event: UIEvent) => void;
 }

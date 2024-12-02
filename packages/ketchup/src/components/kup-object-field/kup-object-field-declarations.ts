@@ -1,4 +1,5 @@
 import { KupEventPayload } from '../../types/GenericTypes';
+import { KupToolbarClickEventPayload } from '../kup-toolbar/kup-toolbar-declarations';
 
 /**
  * Props of the kup-object-field component.
@@ -14,8 +15,16 @@ export interface KupObjectFieldSearchPayload extends KupEventPayload {
 }
 
 /**
- * Event emitted when the user click on the hamburger menu
+ * Event emitted when the user click on hamburger menu
  */
 export interface KupObjectFieldOpenSearchMenuPayload extends KupEventPayload {
+    inputValue: string;
+}
+
+/**
+ * Event emitted when the user selects an item on hamburger menu
+ */
+export interface KupObjectFieldSelectedMenuItem
+    extends KupToolbarClickEventPayload {
     inputValue: string;
 }

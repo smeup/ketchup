@@ -7,6 +7,8 @@ import {
     Event,
     EventEmitter,
     Prop,
+    Method,
+    forceUpdate,
 } from '@stencil/core';
 import {
     KupManager,
@@ -19,7 +21,10 @@ import { FObjectField } from '../../f-components/f-object-field/f-object-field';
 import {
     KupObjectFieldOpenSearchMenuPayload,
     KupObjectFieldSearchPayload,
+    KupObjectFieldSelectedMenuItem,
 } from './kup-object-field-declarations';
+import { KupToolbarClickEventPayload } from '../kup-toolbar/kup-toolbar-declarations';
+import { KupToolbarCustomEvent } from '../../components';
 
 @Component({
     tag: 'kup-object-field',
@@ -42,6 +47,11 @@ export class KupObjectField {
      */
     @State() inputValue: string = '';
 
+    /**
+     * Set visibility of search menu items
+     */
+    @State() menuVisible: boolean = false;
+
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
@@ -55,14 +65,14 @@ export class KupObjectField {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when the button loses focus.
+     * Triggered when the user clicks on the search icon.
      */
     @Event({
         eventName: 'kup-object-field-search',
@@ -81,7 +91,7 @@ export class KupObjectField {
     }
 
     /**
-     * Triggered when the button is clicked.
+     * Triggered when the user clicks on the hamburger button.
      */
     @Event({
         eventName: 'kup-object-field-open-search-menu',
@@ -99,26 +109,94 @@ export class KupObjectField {
         });
     }
 
+    /**
+     * Triggered when the user chooses an item on search menu
+     */
+    @Event({
+        eventName: 'kup-object-field-selected-menu-item',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSelectedMenu: EventEmitter<KupObjectFieldSelectedMenuItem>;
+
+    onKupSelectedMenuItem(payload: KupToolbarClickEventPayload) {
+        this.kupSelectedMenu.emit({
+            comp: this,
+            id: this.rootElement.id,
+            inputValue: this.inputValue,
+            selected: payload.selected,
+            index: payload.index,
+        });
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+    #onDocumentClickHandler = () => {
+        this.menuVisible = false;
+    };
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
+    }
+
+    componentDidLoad() {
+        this.#kupManager.debug.logLoad(this, true);
+    }
+
+    componentWillRender() {
+        this.#kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.#kupManager.debug.logRender(this, true);
+    }
+
     render() {
+        const menuData = this.data?.['menu-data']?.data;
         const props: FObjectFieldProps = {
+            menuData: menuData ?? [],
+            menuVisible: this.menuVisible && menuData,
             onInput: (event: UIEvent) => {
                 this.inputValue = (
                     event.currentTarget as HTMLInputElement
                 ).value;
             },
-            onOpenSearchMenu: () => {
+            onOpenMenu: () => {
+                this.menuVisible = true;
                 this.onKupOpenSearch();
             },
             onSearch: () => {
                 this.onKupSearch();
             },
-            searchMenuData: this.data?.['search-menu-data'] ?? [],
+            onSelectedMenuItem: (
+                event: KupToolbarCustomEvent<KupToolbarClickEventPayload>
+            ) => {
+                this.menuVisible = false;
+                this.onKupSelectedMenuItem(event.detail);
+            },
         };
+
+        if (this.menuVisible) {
+            addEventListener('click', this.#onDocumentClickHandler);
+        } else {
+            removeEventListener('click', this.#onDocumentClickHandler);
+        }
 
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
@@ -127,5 +205,9 @@ export class KupObjectField {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.#kupManager.theme.unregister(this);
     }
 }

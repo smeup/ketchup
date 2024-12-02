@@ -23,6 +23,7 @@ export const fButtonUsers = [
     KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
     KupTagNames.TOOLBAR,
+    KupTagNames.OBJECT_FIELD,
 ];
 /**
  * Components using the FCell functional component.
@@ -184,6 +185,7 @@ export const fTextFieldUsers = [
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
     KupTagNames.TOOLBAR,
+    KupTagNames.OBJECT_FIELD,
 ];
 /**
  * Components using the MDC ripple effect.
@@ -195,6 +197,12 @@ export const rippleUsers = [
     KupTagNames.TAB_BAR,
     KupTagNames.TREE,
 ];
+
+/**
+ * Components using the FObjectField functional component.
+ */
+export const fObjectFieldUsers = [KupTagNames.OBJECT_FIELD];
+
 /**
  * Components using the Editor component.
  */
