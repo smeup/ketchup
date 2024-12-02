@@ -18,7 +18,6 @@ import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';

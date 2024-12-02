@@ -823,7 +823,7 @@ function setEditableCell(
                                 e,
                                 props,
                                 cellType,
-                                FCellEvents.ICON_CLICK
+                                FCellEvents.SECONDARY_ICON_CLICK
                             )
                         }
                         styling={FButtonStyling.FLAT}
@@ -1357,6 +1357,7 @@ function cellEvent(
                 event: e,
                 row: row,
                 type: cellType,
+                inputValue: cell.element?.querySelector('input')?.value || null,
             },
         });
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
@@ -1378,7 +1379,9 @@ function getValueFromEventTarget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
-    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
+    const isInputEvent = !!(
+        (e.target as HTMLElement).tagName === 'INPUT' || 'TEXTAREA'
+    );
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;

@@ -178,7 +178,7 @@ export class KupToolbar {
             };
 
             return (
-                <>
+                <Fragment>
                     {cellProps.cell.shape ? (
                         <FCell {...cellProps} />
                     ) : (
@@ -207,7 +207,7 @@ export class KupToolbar {
                             </div>
                         </div>
                     )}
-                </>
+                </Fragment>
             );
         } else {
             return (
