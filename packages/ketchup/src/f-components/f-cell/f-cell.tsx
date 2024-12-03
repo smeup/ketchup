@@ -565,7 +565,7 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -645,7 +645,7 @@ function setEditableCell(
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
@@ -664,7 +664,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.DATE:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
@@ -789,7 +789,7 @@ function setEditableCell(
                 ></FSwitch>
             );
         case FCellTypes.TIME:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
@@ -805,6 +805,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.OBJECT:
+            configureTooltipForTextFieldBasedComponents(cell);
             return (
                 <Fragment>
                     <FTextField
@@ -836,11 +837,11 @@ function setEditableCell(
                 </Fragment>
             );
         case FCellTypes.NUMBER:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
         case FCellTypes.STRING:
-            configureTooltip(cell);
+            configureTooltipForTextFieldBasedComponents(cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
@@ -906,6 +907,7 @@ function setCell(
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
+    configureTooltipForTableCell(cell, classObj);
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
@@ -980,7 +982,6 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         default:
-            configureTooltipForTableCell(cell, classObj);
             return <div class="f-cell__text">{content}</div>;
     }
 }
@@ -1418,7 +1419,7 @@ function isFullWidth(props: FCellProps) {
     );
 }
 
-function configureTooltip(cell: KupDataCell) {
+function configureTooltipForTextFieldBasedComponents(cell: KupDataCell) {
     const hasTooltip = cell.tooltip ?? false;
 
     // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
@@ -1443,5 +1444,5 @@ function configureTooltipForTableCell(
     cell: KupDataCell,
     classObj: Record<string, boolean>
 ) {
-    classObj['top-right-indicator'] = cell.tooltip;
+    classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip;
 }
