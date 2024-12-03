@@ -89,9 +89,9 @@ export class KupTimePicker {
     @Prop() initialValue: string = '';
     /**
      * Manage seconds.
-     * @default false
+     * @default true
      */
-    @Prop() manageSeconds: boolean = false;
+    @Prop() manageSeconds: boolean = true;
     /**
      * Minutes step.
      * @default 10

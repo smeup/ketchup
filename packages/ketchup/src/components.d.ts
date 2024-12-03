@@ -4242,7 +4242,7 @@ export namespace Components {
         "initialValue": string;
         /**
           * Manage seconds.
-          * @default false
+          * @default true
          */
         "manageSeconds": boolean;
         /**
@@ -9511,7 +9511,7 @@ declare namespace LocalJSX {
         "initialValue"?: string;
         /**
           * Manage seconds.
-          * @default false
+          * @default true
          */
         "manageSeconds"?: boolean;
         "onKup-timepicker-blur"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
