@@ -43,6 +43,7 @@ export interface FObjectFieldEventHandlers {
 }
 
 export interface FObjectFieldEventPayload {
+    cell: KupDataCell;
     children: FObjectFieldStateChildren;
     inputValue: string;
     originalEvent: Event;
