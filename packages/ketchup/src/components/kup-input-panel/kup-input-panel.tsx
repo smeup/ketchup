@@ -16,7 +16,6 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
-    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -46,14 +45,12 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
-    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -65,6 +62,7 @@ import {
     InputPanelCells,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
+    InputPanelKeyCommands,
     InputPanelOptionsHandler,
     KupInputPanelButtonsPositions,
     KupInputPanelCell,
@@ -90,6 +88,7 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -1717,6 +1716,14 @@ export class KupInputPanel {
     }
 
     #commandAdapter(cell: KupDataCell): KupDataCell {
+        if (
+            cell.data &&
+            !cell.data.keyShortcut &&
+            this.#kupManager.objects.isJ1Key(cell.obj ? cell.obj : {})
+        ) {
+            cell.data.keyShortcut = InputPanelKeyCommands[cell.obj.k];
+        }
+
         const buttonCell = {
             ...cell,
             data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),

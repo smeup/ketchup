@@ -784,11 +784,11 @@ export class KupDataTable {
     @Prop({ mutable: true }) transpose: boolean = false;
 
     /**
-     * When set to true, editable cells will be rendered using input components,
-     * and update button will appair below the matrix
+     * When set to true, editable cells will be rendered using input components
+     * and an update button will appear below the matrix
      * @default false
      */
-    @Prop({ mutable: true }) updatableData: boolean = false;
+    @Prop({ mutable: true, reflect: true }) updatableData: boolean = false;
 
     //-------- State --------
 
@@ -6227,8 +6227,9 @@ export class KupDataTable {
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
-        this.#kupManager.keysBinding.unregister('enter');
-
+        if (this.updatableData) {
+            this.#kupManager.keysBinding.unregister('enter');
+        }
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
             rows = (
