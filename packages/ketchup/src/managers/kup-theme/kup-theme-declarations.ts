@@ -21,9 +21,9 @@ export const fButtonUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.IMAGE_LIST,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.SNACKBAR,
     KupTagNames.TOOLBAR,
-    KupTagNames.OBJECT_FIELD,
 ];
 /**
  * Components using the FCell functional component.
@@ -93,6 +93,7 @@ export const fImageUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.RADIO,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
@@ -180,12 +181,12 @@ export const fTextFieldUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.NUMERIC_PICKER,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.PLANNER,
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
     KupTagNames.TOOLBAR,
-    KupTagNames.OBJECT_FIELD,
 ];
 /**
  * Components using the MDC ripple effect.

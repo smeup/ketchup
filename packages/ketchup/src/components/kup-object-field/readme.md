@@ -5,23 +5,102 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property      | Attribute      | Description                    | Type                 | Default |
+| ------------- | -------------- | ------------------------------ | -------------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`             | `''`    |
+| `data`        | --             |                                | `KupObjectFieldData` | `{}`    |
+| `value`       | `value`        |                                | `string`             | `''`    |
+
+
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+List of props as object, each key will be a prop.
+
+### `getValue() => Promise<string>`
+
+Retrieves the component's value.
+
+#### Returns
+
+Type: `Promise<string>`
+
+Value of the component.
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
+
+Sets the component's value.
+
+#### Parameters
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| `value` | `string` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+Value to set.
+
+
 ## Dependencies
 
 ### Depends on
 
-- [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-object-field --> kup-badge
+  kup-object-field --> kup-toolbar
   kup-object-field --> kup-card
   kup-object-field --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
+  kup-object-field --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -62,6 +141,9 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
@@ -156,22 +238,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

@@ -49,7 +49,7 @@ import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload, KupObjectFieldSelectedMenuItem } from "./components/kup-object-field/kup-object-field-declarations";
+import { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -107,7 +107,7 @@ export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupObjectFieldOpenSearchMenuPayload, KupObjectFieldSearchPayload, KupObjectFieldSelectedMenuItem } from "./components/kup-object-field/kup-object-field-declarations";
+export { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -3150,7 +3150,34 @@ export namespace Components {
         "setValue": (value: string) => Promise<void>;
     }
     interface KupObjectField {
-        "data": {};
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        "data": KupObjectFieldData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
+        "getValue": () => Promise<string>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @returns Value to set.
+         */
+        "setValue": (value: string) => Promise<void>;
+        "value": string;
     }
     interface KupPdf {
         /**
@@ -4745,10 +4772,6 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNumericPickerElement;
 }
-export interface KupObjectFieldCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupObjectFieldElement;
-}
 export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPdfElement;
@@ -5552,20 +5575,7 @@ declare global {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
-    interface HTMLKupObjectFieldElementEventMap {
-        "kup-object-field-search": KupObjectFieldSearchPayload;
-        "kup-object-field-open-search-menu": KupObjectFieldOpenSearchMenuPayload;
-        "kup-object-field-selected-menu-item": KupObjectFieldSelectedMenuItem;
-    }
     interface HTMLKupObjectFieldElement extends Components.KupObjectField, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupObjectFieldElementEventMap>(type: K, listener: (this: HTMLKupObjectFieldElement, ev: KupObjectFieldCustomEvent<HTMLKupObjectFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupObjectFieldElementEventMap>(type: K, listener: (this: HTMLKupObjectFieldElement, ev: KupObjectFieldCustomEvent<HTMLKupObjectFieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupObjectFieldElement: {
         prototype: HTMLKupObjectFieldElement;
@@ -8542,19 +8552,14 @@ declare namespace LocalJSX {
         "onKup-numericpicker-textfieldsubmit"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
     }
     interface KupObjectField {
-        "data"?: {};
         /**
-          * Triggered when the user clicks on the hamburger button.
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
          */
-        "onKup-object-field-open-search-menu"?: (event: KupObjectFieldCustomEvent<KupObjectFieldOpenSearchMenuPayload>) => void;
-        /**
-          * Triggered when the user clicks on the search icon.
-         */
-        "onKup-object-field-search"?: (event: KupObjectFieldCustomEvent<KupObjectFieldSearchPayload>) => void;
-        /**
-          * Triggered when the user chooses an item on search menu
-         */
-        "onKup-object-field-selected-menu-item"?: (event: KupObjectFieldCustomEvent<KupObjectFieldSelectedMenuItem>) => void;
+        "customStyle"?: string;
+        "data"?: KupObjectFieldData;
+        "value"?: string;
     }
     interface KupPdf {
         /**

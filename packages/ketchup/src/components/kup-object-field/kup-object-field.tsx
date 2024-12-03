@@ -1,30 +1,23 @@
 import {
     Component,
+    Element,
+    forceUpdate,
     h,
     Host,
-    State,
-    Element,
-    Event,
-    EventEmitter,
-    Prop,
     Method,
-    forceUpdate,
+    Prop,
+    State,
 } from '@stencil/core';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../managers/kup-manager/kup-manager';
-import { FObjectFieldProps } from '../../f-components/f-object-field/f-object-field-declations';
-import { KupComponent } from '../../types/GenericTypes';
-import { componentWrapperId } from '../../variables/GenericVariables';
 import { FObjectField } from '../../f-components/f-object-field/f-object-field';
+import { FObjectFieldProps } from '../../f-components/f-object-field/f-object-field-declations';
+import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { getProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import {
-    KupObjectFieldOpenSearchMenuPayload,
-    KupObjectFieldSearchPayload,
-    KupObjectFieldSelectedMenuItem,
+    KupObjectFieldData,
+    KupObjectFieldProps,
 } from './kup-object-field-declarations';
-import { KupToolbarClickEventPayload } from '../kup-toolbar/kup-toolbar-declarations';
-import { KupToolbarCustomEvent } from '../../components';
 
 @Component({
     tag: 'kup-object-field',
@@ -47,16 +40,18 @@ export class KupObjectField {
      */
     @State() inputValue: string = '';
 
-    /**
-     * Set visibility of search menu items
-     */
-    @State() menuVisible: boolean = false;
-
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
-    @Prop() data: {};
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://smeup.github.io/ketchup/#/customization
+     */
+    @Prop() customStyle = '';
+    @Prop() data: KupObjectFieldData = {};
+    @Prop() value = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -65,81 +60,44 @@ export class KupObjectField {
     /**
      * Instance of the KupManager class.
      */
-    #kupManager: KupManager = kupManagerInstance();
-
-    /*-------------------------------------------------*/
-    /*                   E v e n t s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * Triggered when the user clicks on the search icon.
-     */
-    @Event({
-        eventName: 'kup-object-field-search',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupSearch: EventEmitter<KupObjectFieldSearchPayload>;
-
-    onKupSearch() {
-        this.kupSearch.emit({
-            comp: this,
-            id: this.rootElement.id,
-            inputValue: this.inputValue,
-        });
-    }
-
-    /**
-     * Triggered when the user clicks on the hamburger button.
-     */
-    @Event({
-        eventName: 'kup-object-field-open-search-menu',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupOpenSearch: EventEmitter<KupObjectFieldOpenSearchMenuPayload>;
-
-    onKupOpenSearch() {
-        this.kupOpenSearch.emit({
-            comp: this,
-            id: this.rootElement.id,
-            inputValue: this.inputValue,
-        });
-    }
-
-    /**
-     * Triggered when the user chooses an item on search menu
-     */
-    @Event({
-        eventName: 'kup-object-field-selected-menu-item',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupSelectedMenu: EventEmitter<KupObjectFieldSelectedMenuItem>;
-
-    onKupSelectedMenuItem(payload: KupToolbarClickEventPayload) {
-        this.kupSelectedMenu.emit({
-            comp: this,
-            id: this.rootElement.id,
-            inputValue: this.inputValue,
-            selected: payload.selected,
-            index: payload.index,
-        });
-    }
+    #kupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-    #onDocumentClickHandler = () => {
-        this.menuVisible = false;
-    };
+    /**
+     * Retrieves the component's value.
+     * @returns {string} Value of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.inputValue;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupObjectFieldProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the component's value.
+     * @returns {string} Value to set.
+     */
+    @Method()
+    async setValue(value: string): Promise<void> {
+        this.inputValue = value;
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -148,6 +106,9 @@ export class KupObjectField {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        if (this.value) {
+            this.inputValue = this.value;
+        }
     }
 
     componentDidLoad() {
@@ -163,35 +124,10 @@ export class KupObjectField {
     }
 
     render() {
-        const menuData = this.data?.['menu-data']?.data;
         const props: FObjectFieldProps = {
-            menuData: menuData ?? [],
-            menuVisible: this.menuVisible && menuData,
-            onInput: (event: UIEvent) => {
-                this.inputValue = (
-                    event.currentTarget as HTMLInputElement
-                ).value;
-            },
-            onOpenMenu: () => {
-                this.menuVisible = true;
-                this.onKupOpenSearch();
-            },
-            onSearch: () => {
-                this.onKupSearch();
-            },
-            onSelectedMenuItem: (
-                event: KupToolbarCustomEvent<KupToolbarClickEventPayload>
-            ) => {
-                this.menuVisible = false;
-                this.onKupSelectedMenuItem(event.detail);
-            },
+            data: this.data ?? {},
+            inputValue: this.inputValue,
         };
-
-        if (this.menuVisible) {
-            addEventListener('click', this.#onDocumentClickHandler);
-        } else {
-            removeEventListener('click', this.#onDocumentClickHandler);
-        }
 
         return (
             <Host>

@@ -69,6 +69,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-object-field](../kup-object-field)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-typography](../kup-typography)
 
@@ -261,6 +262,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-object-field --> kup-toolbar
   kup-typography --> kup-toolbar
   style kup-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
