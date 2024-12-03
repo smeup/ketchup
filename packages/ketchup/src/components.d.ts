@@ -256,6 +256,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * No tooltip shown if set to false.
+          * @default false
+         */
+        "hasTooltip": boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -6106,6 +6111,11 @@ declare namespace LocalJSX {
           * @default '''
          */
         "error"?: string;
+        /**
+          * No tooltip shown if set to false.
+          * @default false
+         */
+        "hasTooltip"?: boolean;
         /**
           * When set, the text-field will show this icon.
           * @default null

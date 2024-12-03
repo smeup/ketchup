@@ -16,6 +16,7 @@ export enum KupAutocompleteProps {
     selectMode = 'Sets how to return the selected item value. Suported values: "code", "description", "both".',
     serverHandledFilter = 'When true, the items filter is managed server side, otherwise items filter is done client side.',
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
+    hasTooltip = 'Displays tooltip indicator',
 }
 /**
  * The available display modes for the autocomplete component.

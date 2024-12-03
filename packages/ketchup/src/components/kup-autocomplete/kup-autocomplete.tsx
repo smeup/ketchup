@@ -164,6 +164,11 @@ export class KupAutocomplete {
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * No tooltip shown if set to false.
+     * @default false
+     */
+    @Prop() hasTooltip: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -597,6 +602,7 @@ export class KupAutocomplete {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            hasTooltip: this.hasTooltip,
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
