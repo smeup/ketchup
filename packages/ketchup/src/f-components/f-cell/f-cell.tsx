@@ -128,8 +128,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (!cell.data) {
         setDefaults(cellType, cell);
     }
-    // must be called after set defaults
-    setHasTooltip(cell);
     if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
@@ -206,27 +204,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
             wrapperClass: 'cell-info',
         };
         infoEl = <FImage {...fProps} />;
-    }
-
-    const _tag = content?.['$tag$'];
-    const _class = content?.['$attrs$']?.class;
-
-    if (!_tag && !_class) {
-        classObj['top-right-indicator'] = props.cell.tooltip;
-    } else {
-        if (
-            _class != 'f-text-field' &&
-            ![
-                'kup-autocomplete',
-                'kup-color-picker',
-                'kup-combobox',
-                'kup-date-picker',
-                'kup-numeric-picker',
-                'kup-time-picker',
-            ].includes(_tag)
-        ) {
-            classObj['top-right-indicator'] = props.cell.tooltip;
-        }
     }
 
     return (
@@ -588,6 +565,7 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
+            configureTooltip(cell);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -1434,7 +1412,7 @@ function isFullWidth(props: FCellProps) {
     );
 }
 
-function setHasTooltip(cell: KupDataCell) {
+function configureTooltip(cell: KupDataCell) {
     const hasTooltip = cell.tooltip ?? false;
 
     // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
