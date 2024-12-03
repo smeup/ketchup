@@ -171,6 +171,7 @@ Type: `Promise<void>`
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](.)
 - [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
@@ -206,13 +207,13 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-toolbar --> kup-card
   kup-button --> kup-card
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
   kup-tab-bar --> kup-card
-  kup-toolbar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
   kup-activity-timeline --> kup-card

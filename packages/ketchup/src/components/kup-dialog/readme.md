@@ -188,13 +188,13 @@ graph TD;
   kup-chart --> kup-dialog
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-dialog
   kup-button --> kup-dialog
   kup-checkbox --> kup-dialog
   kup-data-table --> kup-dialog
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
   kup-tab-bar --> kup-dialog
-  kup-toolbar --> kup-dialog
   kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog

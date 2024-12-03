@@ -51,7 +51,6 @@ export class KupObjectField {
      */
     @Prop() customStyle = '';
     @Prop() data: KupObjectFieldData = {};
-    @Prop() value = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -106,9 +105,6 @@ export class KupObjectField {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
-        if (this.value) {
-            this.inputValue = this.value;
-        }
     }
 
     componentDidLoad() {

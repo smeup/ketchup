@@ -3177,7 +3177,6 @@ export namespace Components {
           * @returns Value to set.
          */
         "setValue": (value: string) => Promise<void>;
-        "value": string;
     }
     interface KupPdf {
         /**
@@ -8559,7 +8558,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         "data"?: KupObjectFieldData;
-        "value"?: string;
     }
     interface KupPdf {
         /**

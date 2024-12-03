@@ -488,6 +488,7 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
 ```mermaid
@@ -515,6 +516,7 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-toolbar
   kup-card --> kup-data-table
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
@@ -577,16 +579,6 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
-  kup-button --> kup-card
-  kup-button --> kup-dialog
-  kup-button --> kup-badge
-  kup-checkbox --> kup-card
-  kup-checkbox --> kup-dialog
-  kup-checkbox --> kup-badge
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-toolbar --> kup-card
   kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
@@ -603,6 +595,17 @@ graph TD;
   kup-toolbar --> kup-chart
   kup-toolbar --> kup-gauge
   kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
+  kup-button --> kup-card
+  kup-button --> kup-dialog
+  kup-button --> kup-badge
+  kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -620,6 +623,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
@@ -638,6 +642,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-form --> kup-toolbar
   kup-input-panel --> kup-data-table
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

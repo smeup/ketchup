@@ -202,7 +202,15 @@ export const rippleUsers = [
 /**
  * Components using the FObjectField functional component.
  */
-export const fObjectFieldUsers = [KupTagNames.OBJECT_FIELD];
+export const fObjectFieldUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
+    KupTagNames.OBJECT_FIELD,
+    KupTagNames.TREE,
+];
 
 /**
  * Components using the Editor component.

@@ -21,6 +21,9 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
 ) => {
     return (
         <div
+            class={`f-object-field ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
             ref={async (el) => {
                 if (el) {
                     props.root = el;

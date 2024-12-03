@@ -67,6 +67,7 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { FObjectField } from '../f-object-field/f-object-field';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -801,36 +802,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.OBJECT:
-            return (
-                <Fragment>
-                    <FTextField
-                        icon={'table'}
-                        {...cell.data}
-                        disabled={false}
-                        onIconClick={(e) =>
-                            cellEvent(
-                                e,
-                                props,
-                                cellType,
-                                FCellEvents.ICON_CLICK
-                            )
-                        }
-                    ></FTextField>
-                    <FButton
-                        icon="menu"
-                        onClick={(e) =>
-                            cellEvent(
-                                e,
-                                props,
-                                cellType,
-                                FCellEvents.SECONDARY_ICON_CLICK
-                            )
-                        }
-                        styling={FButtonStyling.FLAT}
-                        wrapperClass="obj-field-extra-btn"
-                    ></FButton>
-                </Fragment>
-            );
+            return <FObjectField inputValue={cell.value}></FObjectField>;
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
