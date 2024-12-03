@@ -76,6 +76,13 @@ const tooltipData = (hasTooltip) => {
                 visible: true,
                 isEditable: false,
             },
+            {
+                editable: false,
+                name: 'COL12',
+                title: 'Field12',
+                visible: true,
+                isEditable: false,
+            },
         ],
         rows: [
             {
@@ -245,6 +252,13 @@ const tooltipData = (hasTooltip) => {
                         mandatory: true,
                         tooltip: hasTooltip,
                     },
+                    COL12: {
+                        value: 'Button',
+                        shape: 'BTN',
+                        editable: true,
+                        mandatory: true,
+                        tooltip: hasTooltip,
+                    },
                 },
                 layout: {
                     type: 'SmeupDataLayout',
@@ -311,6 +325,9 @@ const tooltipData = (hasTooltip) => {
                                 },
                                 {
                                     id: 'COL11',
+                                },
+                                {
+                                    id: 'COL12',
                                 },
                             ],
                             sections: [],
