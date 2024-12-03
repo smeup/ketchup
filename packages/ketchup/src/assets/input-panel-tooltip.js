@@ -1,3 +1,4 @@
+// with tooltip
 const tooltip = document.getElementById('with-tooltip');
 
 const tooltipShow = (e) => {
@@ -58,6 +59,13 @@ const tooltipData = {
             visible: true,
             isEditable: false,
         },
+        {
+            editable: false,
+            name: 'COL7',
+            title: 'Field7',
+            visible: true,
+            isEditable: false,
+        },
     ],
     rows: [
         {
@@ -68,7 +76,7 @@ const tooltipData = {
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
-                    tooltip: false,
+                    tooltip: true,
                 },
                 COL2: {
                     value: 'Date',
@@ -164,6 +172,7 @@ const tooltipData = {
                     },
                     editable: true,
                     mandatory: true,
+                    tooltip: true,
                 },
                 COL6: {
                     shape: 'RAD',
@@ -188,6 +197,15 @@ const tooltipData = {
                     },
                     editable: true,
                     mandatory: true,
+                    tooltip: true,
+                },
+                COL7: {
+                    value: 'Time',
+                    shape: 'TIM',
+                    obj: { t: 'I12', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    tooltip: true,
                 },
             },
             layout: {
@@ -222,6 +240,18 @@ const tooltipData = {
                             },
                             {
                                 id: 'COL6',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: true,
+                        gridCols: 3,
+                        gridRows: 1,
+                        gap: 2,
+                    },
+                    {
+                        content: [
+                            {
+                                id: 'COL7',
                             },
                         ],
                         sections: [],

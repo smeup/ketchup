@@ -645,6 +645,7 @@ function setEditableCell(
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
+            configureTooltip(cell);
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
@@ -663,6 +664,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.DATE:
+            configureTooltip(cell);
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
@@ -787,6 +789,7 @@ function setEditableCell(
                 ></FSwitch>
             );
         case FCellTypes.TIME:
+            configureTooltip(cell);
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
@@ -833,9 +836,11 @@ function setEditableCell(
                 </Fragment>
             );
         case FCellTypes.NUMBER:
+            configureTooltip(cell);
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
         case FCellTypes.STRING:
+            configureTooltip(cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
@@ -975,6 +980,7 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         default:
+            configureTooltipForTableCell(cell, classObj);
             return <div class="f-cell__text">{content}</div>;
     }
 }
@@ -1431,4 +1437,11 @@ function configureTooltip(cell: KupDataCell) {
     if (cell.data) {
         cell.data.hasTooltip = hasTooltip;
     }
+}
+
+function configureTooltipForTableCell(
+    cell: KupDataCell,
+    classObj: Record<string, boolean>
+) {
+    classObj['top-right-indicator'] = cell.tooltip;
 }
