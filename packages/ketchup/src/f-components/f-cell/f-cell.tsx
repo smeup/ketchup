@@ -909,7 +909,7 @@ function setCell(
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
-    configureTooltipForTableCell(cell, classObj);
+    configureTooltipForReadOnlyCell(cell, classObj);
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
@@ -1456,11 +1456,11 @@ function configureTooltipForMulti(cell: KupDataCell): KupDataCell {
 }
 
 /**
- * Append class to classObj in order to show tooltip indicator in a data table cell scenario
+ * Append class to classObj in order to show tooltip indicator in a read only cell
  * @param cell
  * @param classObj
  */
-function configureTooltipForTableCell(
+function configureTooltipForReadOnlyCell(
     cell: KupDataCell,
     classObj: Record<string, boolean>
 ) {
