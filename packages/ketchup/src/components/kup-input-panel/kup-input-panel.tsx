@@ -175,6 +175,12 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() checkValidValueCallback?: InputPanelCheckValidValueCallback = null;
+
+    /**
+     * Sets whether the first input should receive focus.
+     * @default false
+     */
+    @Prop() autoFocus?: boolean = false;
     //#endregion
 
     //#endregion
@@ -1983,6 +1989,36 @@ export class KupInputPanel {
         );
     }
 
+    #setFocusOnFirstInput(root:ShadowRoot){
+        
+        const form = root.querySelector('form');
+        const firstCellContent = form?.querySelector<HTMLElement>('.f-cell__content');
+    
+        if (!form || !firstCellContent) return;
+    
+        const firstInput = this.#findFirstInput(firstCellContent);
+        if (firstInput) {
+            setTimeout(() => firstInput.focus(), 300);
+        }
+    }
+
+    #findFirstInput(element: HTMLElement | ShadowRoot): HTMLInputElement | null {
+        const directInput = element.querySelector<HTMLInputElement>('input');
+        if (directInput) return directInput;
+    
+        const shadowElements = element instanceof HTMLElement
+            ? element.querySelectorAll<HTMLElement>('*')
+            : [];
+        for (const elem of Array.from(shadowElements)) {
+            if (elem.shadowRoot) {
+                const shadowInput = elem.shadowRoot.querySelector('input');
+                if (shadowInput) return shadowInput;
+            }
+        }
+    
+        return null;
+    }
+    
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2000,7 +2036,7 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
-        this.#kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);        
     }
 
     componentWillRender() {
@@ -2010,12 +2046,17 @@ export class KupInputPanel {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
+            if(this.autoFocus){
+                this.#setFocusOnFirstInput(root)
+            }
             const fs: NodeListOf<HTMLElement> =
                 root.querySelectorAll('.f-text-field');
+                
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
         }
+        
         this.#kupManager.debug.logRender(this, true);
     }
 
