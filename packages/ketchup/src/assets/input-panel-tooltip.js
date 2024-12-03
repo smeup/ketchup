@@ -62,6 +62,13 @@ const tooltipData = (hasTooltip) => {
                 visible: true,
                 isEditable: false,
             },
+            {
+                editable: false,
+                name: 'COL10',
+                title: 'Field10',
+                visible: true,
+                isEditable: false,
+            },
         ],
         rows: [
             {
@@ -218,6 +225,13 @@ const tooltipData = (hasTooltip) => {
                         mandatory: true,
                         tooltip: hasTooltip,
                     },
+                    COL10: {
+                        value: 'Chip',
+                        shape: 'CHI',
+                        editable: true,
+                        mandatory: true,
+                        tooltip: hasTooltip,
+                    },
                 },
                 layout: {
                     type: 'SmeupDataLayout',
@@ -269,6 +283,18 @@ const tooltipData = (hasTooltip) => {
                                 },
                                 {
                                     id: 'COL9',
+                                },
+                            ],
+                            sections: [],
+                            horizontal: true,
+                            gridCols: 3,
+                            gridRows: 1,
+                            gap: 2,
+                        },
+                        {
+                            content: [
+                                {
+                                    id: 'COL10',
                                 },
                             ],
                             sections: [],
