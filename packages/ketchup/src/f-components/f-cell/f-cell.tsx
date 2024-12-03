@@ -565,7 +565,7 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -645,7 +645,7 @@ function setEditableCell(
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
@@ -664,7 +664,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.DATE:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
@@ -711,6 +711,7 @@ function setEditableCell(
                         showDropDownIcon={false}
                         {...cell.slotData}
                         error={cell.data.error}
+                        {...configureTooltipForMulti(cell).data}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -745,6 +746,7 @@ function setEditableCell(
                         }
                         {...cell.slotData}
                         error={cell.data.error}
+                        {...configureTooltipForMulti(cell).data}
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -789,7 +791,7 @@ function setEditableCell(
                 ></FSwitch>
             );
         case FCellTypes.TIME:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
@@ -805,7 +807,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.OBJECT:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextField(cell);
             return (
                 <Fragment>
                     <FTextField
@@ -837,11 +839,11 @@ function setEditableCell(
                 </Fragment>
             );
         case FCellTypes.NUMBER:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextField(cell);
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
         case FCellTypes.STRING:
-            configureTooltipForTextFieldBasedComponents(cell);
+            configureTooltipForTextField(cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
@@ -1419,27 +1421,45 @@ function isFullWidth(props: FCellProps) {
     );
 }
 
-function configureTooltipForTextFieldBasedComponents(cell: KupDataCell) {
-    const hasTooltip = cell.tooltip ?? false;
+/**
+ * This will set prop if data is passed directly into f-text-field (no shapes)
+ */
+function configureTooltipForTextField(cell: KupDataCell) {
+    if (cell.data) {
+        cell.data.hasTooltip = cell.tooltip ?? false;
+    }
+}
 
-    // this will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
+/**
+ * This will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
+ * @param cell
+ */
+function configureTooltipForTextFieldBasedShapes(cell: KupDataCell) {
     if (cell.data?.data) {
         cell.data.data = {
             ...cell.data.data,
             'kup-text-field': {
                 ...cell.data.data['kup-text-field'],
-                hasTooltip: hasTooltip,
+                hasTooltip: cell.tooltip ?? false,
             },
         };
-        cell.data.hasTooltip = hasTooltip;
-    }
-
-    // this will set prop if data is passed directly into f-text-field
-    if (cell.data) {
-        cell.data.hasTooltip = hasTooltip;
     }
 }
 
+/**
+ * This configures tooltip for multi ACP and multi CMB
+ */
+function configureTooltipForMulti(cell: KupDataCell): KupDataCell {
+    const fakeCell = { data: { data: {} }, tooltip: cell.tooltip };
+    configureTooltipForTextFieldBasedShapes(fakeCell);
+    return fakeCell;
+}
+
+/**
+ * Append class to classObj in order to show tooltip indicator in a data table cell scenario
+ * @param cell
+ * @param classObj
+ */
 function configureTooltipForTableCell(
     cell: KupDataCell,
     classObj: Record<string, boolean>
