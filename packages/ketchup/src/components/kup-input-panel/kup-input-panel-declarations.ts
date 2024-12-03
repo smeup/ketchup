@@ -192,3 +192,37 @@ export enum KupInputPanelButtonsPositions {
     RIGHT = 'RIGHT',
     TOP = 'TOP',
 }
+
+interface InputPanelCommand {
+    [key: string]: string;
+}
+
+export const InputPanelKeyCommands: InputPanelCommand = {
+    '*F01': 'F1',
+    '*F02': 'F2',
+    '*F03': 'F3',
+    '*F04': 'F4',
+    '*F05': 'F5',
+    '*F06': 'F6',
+    '*F07': 'F7',
+    '*F08': 'F8',
+    '*F09': 'F9',
+    '*F10': 'F10',
+    '*F11': 'F11',
+    '*F12': 'F12',
+    '*F13': 'F13',
+    '*F14': 'F14',
+    '*F15': 'F15',
+    '*F16': 'F16',
+    '*F17': 'F17',
+    '*F18': 'F18',
+    '*F19': 'F19',
+    '*F20': 'F20',
+    '*F21': 'F21',
+    '*F22': 'F22',
+    '*F23': 'F23',
+    '*F24': 'F24',
+    '*ENT': 'Enter',
+    '*PDN': 'PageDown',
+    '*PUP': 'PageUp',
+};

@@ -127,6 +127,7 @@
 
     &--absolute {
       justify-content: flex-end;
+      padding: var(--kup-space-02);
 
       .input-panel-label {
         justify-content: start;
@@ -143,6 +144,5 @@
     gap: 1rem;
   }
   .input-panel__typography {
-    padding: 1rem 2rem;
   }
 }

@@ -16,7 +16,6 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
-    KupDataColumn,
     KupDataTableDataset,
     KupDataTableRow,
     KupDropdownButtonEventPayload,
@@ -46,14 +45,12 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
-    getColumnByName,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -65,6 +62,7 @@ import {
     InputPanelCells,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
+    InputPanelKeyCommands,
     InputPanelOptionsHandler,
     KupInputPanelButtonsPositions,
     KupInputPanelCell,
@@ -90,6 +88,7 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -448,10 +447,9 @@ export class KupInputPanel {
             [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
-        // We create a form for each row in data
         const props: FTypographyProps = {
             value: layout?.sections[0]?.title,
-            type: FTypographyType.LABEL,
+            type: FTypographyType.HEADING1,
         };
 
         return (
@@ -923,21 +921,29 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
-        const width = `${getAbsoluteWidth(length)}px`;
-        const height = `${getAbsoluteHeight(field.absoluteHeight)}px`;
-        const top = `${getAbsoluteTop(field.absoluteRow)}px`;
-        const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
+        const absoluteWidth = getAbsoluteWidth(length);
+        const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
+        const absoluteTop = getAbsoluteTop(field.absoluteRow);
+        const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {
             position: 'absolute',
-            width,
-            'min-width': width,
-            'max-width': width,
-            height,
-            'min-height': height,
-            'max-height': height,
-            top,
-            left,
+            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'min-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            'max-height':
+                absoluteHeight !== null ? `${absoluteHeight}px` : null,
+            top:
+                absoluteTop !== null
+                    ? `${getAbsoluteTop(field.absoluteRow)}px`
+                    : null,
+            left:
+                absoluteLeft !== null
+                    ? `${getAbsoluteLeft(field.absoluteColumn)}px`
+                    : null,
             overflow: 'auto',
         };
 
@@ -1708,6 +1714,14 @@ export class KupInputPanel {
     }
 
     #commandAdapter(cell: KupDataCell): KupDataCell {
+        if (
+            cell.data &&
+            !cell.data.keyShortcut &&
+            this.#kupManager.objects.isJ1Key(cell.obj ? cell.obj : {})
+        ) {
+            cell.data.keyShortcut = InputPanelKeyCommands[cell.obj.k];
+        }
+
         const buttonCell = {
             ...cell,
             data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),
