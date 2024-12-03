@@ -1,4 +1,5 @@
 import {
+    KupDataCell,
     KupObjectFieldData,
     KupToolbarItemClickEventPayload,
 } from '../../components';
@@ -6,7 +7,7 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import { FComponent } from '../../types/GenericTypes';
 
 export interface FObjectFieldProps extends FComponent {
-    keyCodeSearch?: string;
+    cell?: KupDataCell;
     data?: KupObjectFieldData;
     inputValue: string;
     root?: HTMLDivElement;

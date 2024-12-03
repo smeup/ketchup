@@ -802,7 +802,12 @@ function setEditableCell(
                 />
             );
         case FCellTypes.OBJECT:
-            return <FObjectField inputValue={cell.value}></FObjectField>;
+            return (
+                <FObjectField
+                    cell={cell}
+                    inputValue={cell.value}
+                ></FObjectField>
+            );
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
