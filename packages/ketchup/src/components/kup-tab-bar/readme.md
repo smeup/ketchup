@@ -132,6 +132,7 @@ graph TD;
   kup-toolbar --> kup-chart
   kup-toolbar --> kup-gauge
   kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-card --> kup-tab-bar
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
@@ -223,6 +224,7 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
@@ -241,6 +243,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-form --> kup-toolbar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -258,6 +261,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   kup-input-panel --> kup-tab-bar
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
