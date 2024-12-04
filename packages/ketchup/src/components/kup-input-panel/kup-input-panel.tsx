@@ -1284,6 +1284,8 @@ export class KupInputPanel {
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
+        this.#setCellErrorIfValueIsPresent(currentValue, cell);
+
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
@@ -1809,6 +1811,13 @@ export class KupInputPanel {
                 id
             );
         }
+    }
+
+    #setCellErrorIfValueIsPresent(
+        currentValue: string,
+        cell: KupInputPanelCell
+    ) {
+        cell.data.error = currentValue ? cell.data?.error : '';
     }
 
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
