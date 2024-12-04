@@ -181,7 +181,12 @@ export class KupInputPanel {
      * @default false
      */
     @Prop() autoFocus?: boolean = false;
-    //#endregion
+
+    /**
+     * Sets the auto skip between input text fields with max length
+     * @default false
+     */
+    @Prop() autoSkip?: boolean = false;
 
     //#endregion
 
@@ -1375,6 +1380,7 @@ export class KupInputPanel {
         };
     }
 
+    #inputMaxLengthFields: ({ id: string } & KupInputPanelCell)[] = [];
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
@@ -1382,6 +1388,10 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
+        if (cell.data?.maxLength && (cell.editable || cell.isEditable)) {
+            this.#inputMaxLengthFields.push({ ...cell, id });
+        }
+
         if (
             cell.inputSettings?.checkObject ||
             cell.inputSettings?.checkValueOnExit ||
@@ -2037,9 +2047,40 @@ export class KupInputPanel {
     }
 
     componentDidLoad() {
+        console.log('Did laod call');
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
+        this.getProps().then((props) => console.log('Props', props));
+
+        if (this.#formRef) {
+            // autoSkip
+            console.log('Inputs', this.#inputMaxLengthFields);
+
+            const inputsDiv: NodeListOf<HTMLElement> =
+                this.#formRef.querySelectorAll('.f-text-field');
+            console.log('Inputs div', inputsDiv);
+
+            inputsDiv.forEach((input, index) => {
+                input.addEventListener('input', (event) => {
+                    const inputElement = event.target;
+                    if (
+                        inputElement &&
+                        inputElement instanceof HTMLInputElement
+                    ) {
+                        console.log('Input element', inputElement);
+                        console.log('Input max length', inputElement.maxLength);
+                        console.log(
+                            `Input actual length ${input.id}`,
+                            inputElement.value?.length
+                        );
+
+                        // next focus
+                        inputsDiv[index + 1]?.querySelector('input')?.focus();
+                    }
+                });
+            });
+        }
     }
 
     componentWillRender() {
@@ -2047,6 +2088,7 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
+        // autoFocus
         if (this.#formRef) {
             if (this.autoFocus) {
                 this.#setFocusOnFirstInput();

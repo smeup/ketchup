@@ -2800,6 +2800,16 @@ export namespace Components {
     }
     interface KupInputPanel {
         /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Sets the auto skip between input text fields with max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
+        /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
          */
@@ -8258,6 +8268,16 @@ declare namespace LocalJSX {
         "store"?: KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Sets the auto skip between input text fields with max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
