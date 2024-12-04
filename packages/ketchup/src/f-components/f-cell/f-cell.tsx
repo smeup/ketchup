@@ -566,6 +566,7 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
+            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -581,6 +582,7 @@ function setEditableCell(
                     onkup-autocomplete-iconclick={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -645,6 +647,7 @@ function setEditableCell(
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
+            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
@@ -660,9 +663,11 @@ function setEditableCell(
                     onkup-combobox-iconclick={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.DATE:
+            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
@@ -675,6 +680,7 @@ function setEditableCell(
                     onkup-datepicker-input={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -709,6 +715,8 @@ function setEditableCell(
                         showDropDownIcon={false}
                         {...cell.slotData}
                         error={cell.data.error}
+                        hasTooltip={cell.tooltip ?? false}
+                        // {...configureTooltipForMulti(cell).data}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -743,6 +751,8 @@ function setEditableCell(
                         }
                         {...cell.slotData}
                         error={cell.data.error}
+                        hasTooltip={cell.tooltip ?? false}
+                        // {...configureTooltipForMulti(cell).data}
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -787,6 +797,7 @@ function setEditableCell(
                 ></FSwitch>
             );
         case FCellTypes.TIME:
+            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
@@ -799,6 +810,7 @@ function setEditableCell(
                     onkup-timepicker-input={(
                         e: CustomEvent<KupTimePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.OBJECT:
@@ -1410,4 +1422,29 @@ function isFullWidth(props: FCellProps) {
     return fullWidthFieldsComps.includes(
         (props.component as KupComponent)?.rootElement.tagName as KupTagNames
     );
+}
+
+/**
+ * This will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
+ * @param cell
+ */
+function configureTooltipForTextFieldBasedShapes(cell: KupDataCell) {
+    if (cell.data?.data) {
+        cell.data.data = {
+            ...cell.data.data,
+            'kup-text-field': {
+                ...cell.data.data['kup-text-field'],
+                hasTooltip: cell.tooltip ?? false,
+            },
+        };
+    }
+}
+
+/**
+ * This configures tooltip for multi ACP and multi CMB
+ */
+function configureTooltipForMulti(cell: KupDataCell): KupDataCell {
+    const fakeCell = { data: { data: {} }, tooltip: cell.tooltip };
+    // configureTooltipForTextFieldBasedShapes(fakeCell);
+    return fakeCell;
 }

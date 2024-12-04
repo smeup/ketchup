@@ -114,6 +114,11 @@ export class KupDatePicker {
      * @default '''
      */
     @Prop() error: string = '';
+    /**
+     * When true displays tooltip indicator.
+     * @default false
+     */
+    @Prop() hasTooltip: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -536,6 +541,7 @@ export class KupDatePicker {
             outlined: this.outlined,
             showIcon: this.showIcon,
             error: this.error,
+            hasTooltip: this.hasTooltip,
         };
         if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';

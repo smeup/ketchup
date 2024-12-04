@@ -165,7 +165,7 @@ export class KupAutocomplete {
      */
     @Prop() trailingIcon: boolean = false;
     /**
-     * No tooltip shown if set to false.
+     * When true displays tooltip indicator.
      * @default false
      */
     @Prop() hasTooltip: boolean = false;

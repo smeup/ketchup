@@ -17,6 +17,7 @@ export enum KupComboboxProps {
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
     label = 'When set, its content will be shown as a label.',
     leadingLabel = 'When set to true, the label will be on the left of the component.',
+    hasTooltip = 'When true displays tooltip indicator',
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {

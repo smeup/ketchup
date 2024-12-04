@@ -256,7 +256,7 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * No tooltip shown if set to false.
+          * When true displays tooltip indicator.
           * @default false
          */
         "hasTooltip": boolean;
@@ -1313,6 +1313,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip": boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -1826,6 +1831,11 @@ export namespace Components {
           * @returns Value of the component.
          */
         "getValue": () => Promise<string>;
+        /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip": boolean;
         /**
           * Sets the initial value of the component
           * @default ""
@@ -4241,6 +4251,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip": boolean;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -6112,7 +6127,7 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
-          * No tooltip shown if set to false.
+          * When true displays tooltip indicator.
           * @default false
          */
         "hasTooltip"?: boolean;
@@ -7045,6 +7060,11 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip"?: boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -7491,6 +7511,11 @@ declare namespace LocalJSX {
           * @default 1
          */
         "firstDayIndex"?: number;
+        /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip"?: boolean;
         /**
           * Sets the initial value of the component
           * @default ""
@@ -9514,6 +9539,11 @@ declare namespace LocalJSX {
           * @default '''
          */
         "error"?: string;
+        /**
+          * When true displays tooltip indicator.
+          * @default false
+         */
+        "hasTooltip"?: boolean;
         /**
           * Sets the initial value of the component.
           * @default ""

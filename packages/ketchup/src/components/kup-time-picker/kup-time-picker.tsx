@@ -102,6 +102,11 @@ export class KupTimePicker {
      * @default '''
      */
     @Prop() error: string = '';
+    /**
+     * When true displays tooltip indicator.
+     * @default false
+     */
+    @Prop() hasTooltip: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -520,6 +525,7 @@ export class KupTimePicker {
         const textfieldData: FTextFieldProps = {
             error: this.error,
             ...this.data['kup-text-field'],
+            hasTooltip: this.hasTooltip,
         };
         if (!textfieldData.icon) {
             textfieldData.icon = 'access_time';
@@ -543,6 +549,7 @@ export class KupTimePicker {
                 onIconClick={() => this.onKupIconClick()}
                 onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}
+                hasTooltip={this.hasTooltip}
             >
                 {this.prepTimePicker()}
             </FTextField>
