@@ -567,7 +567,6 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
-            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -648,7 +647,6 @@ function setEditableCell(
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
-            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
@@ -668,7 +666,6 @@ function setEditableCell(
                 />
             );
         case FCellTypes.DATE:
-            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
@@ -717,7 +714,6 @@ function setEditableCell(
                         {...cell.slotData}
                         error={cell.data.error}
                         hasTooltip={cell.tooltip ?? false}
-                        // {...configureTooltipForMulti(cell).data}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -753,7 +749,6 @@ function setEditableCell(
                         {...cell.slotData}
                         error={cell.data.error}
                         hasTooltip={cell.tooltip ?? false}
-                        // {...configureTooltipForMulti(cell).data}
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -798,7 +793,6 @@ function setEditableCell(
                 ></FSwitch>
             );
         case FCellTypes.TIME:
-            // configureTooltipForTextFieldBasedShapes(cell);
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
@@ -1423,29 +1417,4 @@ function isFullWidth(props: FCellProps) {
     return fullWidthFieldsComps.includes(
         (props.component as KupComponent)?.rootElement.tagName as KupTagNames
     );
-}
-
-/**
- * This will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
- * @param cell
- */
-function configureTooltipForTextFieldBasedShapes(cell: KupDataCell) {
-    if (cell.data?.data) {
-        cell.data.data = {
-            ...cell.data.data,
-            'kup-text-field': {
-                ...cell.data.data['kup-text-field'],
-                hasTooltip: cell.tooltip ?? false,
-            },
-        };
-    }
-}
-
-/**
- * This configures tooltip for multi ACP and multi CMB
- */
-function configureTooltipForMulti(cell: KupDataCell): KupDataCell {
-    const fakeCell = { data: { data: {} }, tooltip: cell.tooltip };
-    // configureTooltipForTextFieldBasedShapes(fakeCell);
-    return fakeCell;
 }
