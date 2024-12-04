@@ -1990,11 +1990,10 @@ export class KupInputPanel {
         );
     }
 
-    #setFocusOnFirstInput(root: ShadowRoot) {
-        const form = root.querySelector('form');
+    #setFocusOnFirstInput() {
+        const form = this.#formRef;
         const firstCellContent =
             form?.querySelector<HTMLElement>('.f-cell__content');
-
         if (!form || !firstCellContent) return;
 
         const firstInput = this.#findFirstInput(firstCellContent);
@@ -2048,13 +2047,12 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
+        if (this.#formRef) {
             if (this.autoFocus) {
-                this.#setFocusOnFirstInput(root);
+                this.#setFocusOnFirstInput();
             }
             const fs: NodeListOf<HTMLElement> =
-                root.querySelectorAll('.f-text-field');
+                this.#formRef.querySelectorAll('.f-text-field');
 
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
