@@ -111,6 +111,8 @@ export class KupData {
                         return FCellTypes.CHECKBOX;
                     case FCellShapes.KNOB:
                         return FCellTypes.KNOB;
+                    case FCellShapes.MEMO:
+                        return FCellTypes.MEMO;
                     case FCellShapes.MULTI_AUTOCOMPLETE:
                         return FCellTypes.MULTI_AUTOCOMPLETE;
                     case FCellShapes.MULTI_COMBOBOX:

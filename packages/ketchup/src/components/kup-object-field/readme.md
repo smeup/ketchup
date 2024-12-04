@@ -1,22 +1,16 @@
-# kup-nav-bar
+# kup-object-field
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                       | Type                                                  | Default                     |
-| ------------- | -------------- | --------------------------------- | ----------------------------------------------------- | --------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.    | `string`                                              | `''`                        |
-| `styling`     | `styling`      | Defines the style of the nav bar. | `KupNavBarStyling.SHORT \| KupNavBarStyling.STANDARD` | `KupNavBarStyling.STANDARD` |
-
-
-## Events
-
-| Event               | Description                             | Type                           |
-| ------------------- | --------------------------------------- | ------------------------------ |
-| `kup-navbar-ready`  | Triggered when the component is ready.  | `CustomEvent<KupEventPayload>` |
-| `kup-navbar-resize` | Triggered when the component is resize. | `CustomEvent<KupEventPayload>` |
+| Property      | Attribute      | Description                    | Type                 | Default |
+| ------------- | -------------- | ------------------------------ | -------------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`             | `''`    |
+| `data`        | --             |                                | `KupObjectFieldData` | `{}`    |
 
 
 ## Methods
@@ -37,6 +31,16 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
+### `getValue() => Promise<string>`
+
+Retrieves the component's value.
+
+#### Returns
+
+Type: `Promise<string>`
+
+Value of the component.
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -47,59 +51,56 @@ Type: `Promise<void>`
 
 
 
-### `resizeCallback() => Promise<void>`
+### `setValue(value: string) => Promise<void>`
 
-This method is invoked by KupManager whenever the component changes size.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `setProps(props: GenericObject) => Promise<void>`
-
-Sets the props to the component.
+Sets the component's value.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
-| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| `value` | `string` |             |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
-## CSS Custom Properties
-
-| Name                               | Description                                        |
-| ---------------------------------- | -------------------------------------------------- |
-| `--kup-navbar-box-shadow`          | Box shadow of the component.                       |
-| `--kup-navbar-padding`             | Padding of the component.                          |
-| `--kup-navbar-position`            | CSS positioning of the component.                  |
-| `--kup-navbar-short-border-radius` | Border radius of the component when in short mode. |
-| `--kup-navbar-short-box-shadow`    | Box shadow of the component when in short mode.    |
-| `--kup-navbar-short-width`         | Width of the component when in short mode.         |
-| `--kup-navbar-transition`          | Transition time of the component.                  |
-| `--kup-navbar-width`               | Width of the component.                            |
+Value to set.
 
 
 ## Dependencies
 
 ### Depends on
 
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-nav-bar --> kup-card
-  kup-nav-bar --> kup-dialog
+  kup-object-field --> kup-toolbar
+  kup-object-field --> kup-card
+  kup-object-field --> kup-dialog
+  kup-object-field --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -187,23 +188,6 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
-  kup-toolbar --> kup-toolbar
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -275,7 +259,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
-  style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-object-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

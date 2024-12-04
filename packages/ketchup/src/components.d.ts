@@ -49,6 +49,7 @@ import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+import { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -106,6 +107,7 @@ export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPan
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+export { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -3162,6 +3164,35 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
+    interface KupObjectField {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        "data": KupObjectFieldData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
+        "getValue": () => Promise<string>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @returns Value to set.
+         */
+        "setValue": (value: string) => Promise<void>;
+    }
     interface KupPdf {
         /**
           * Used to retrieve component's props values.
@@ -4262,7 +4293,7 @@ export namespace Components {
         "initialValue": string;
         /**
           * Manage seconds.
-          * @default false
+          * @default true
          */
         "manageSeconds": boolean;
         /**
@@ -5563,6 +5594,12 @@ declare global {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
+    interface HTMLKupObjectFieldElement extends Components.KupObjectField, HTMLStencilElement {
+    }
+    var HTMLKupObjectFieldElement: {
+        prototype: HTMLKupObjectFieldElement;
+        new (): HTMLKupObjectFieldElement;
+    };
     interface HTMLKupPdfElementEventMap {
         "kup-pdf-ready": KupEventPayload;
     }
@@ -5998,6 +6035,7 @@ declare global {
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
+        "kup-object-field": HTMLKupObjectFieldElement;
         "kup-pdf": HTMLKupPdfElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
@@ -8547,6 +8585,15 @@ declare namespace LocalJSX {
         "onKup-numericpicker-itemclick"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
         "onKup-numericpicker-textfieldsubmit"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
     }
+    interface KupObjectField {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        "data"?: KupObjectFieldData;
+    }
     interface KupPdf {
         /**
           * Triggered when the component is ready.
@@ -9551,7 +9598,7 @@ declare namespace LocalJSX {
         "initialValue"?: string;
         /**
           * Manage seconds.
-          * @default false
+          * @default true
          */
         "manageSeconds"?: boolean;
         "onKup-timepicker-blur"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
@@ -9877,6 +9924,7 @@ declare namespace LocalJSX {
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
+        "kup-object-field": KupObjectField;
         "kup-pdf": KupPdf;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
@@ -9955,6 +10003,7 @@ declare module "@stencil/core" {
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
+            "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
             "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;

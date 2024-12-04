@@ -199,6 +199,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-time-picker
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -213,7 +214,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-time-picker
   kup-tree --> kup-time-picker
   kup-box --> kup-time-picker
   kup-cell --> kup-time-picker
