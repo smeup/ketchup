@@ -834,6 +834,7 @@ function setEditableCell(
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
+        case FCellTypes.MEMO:
         case FCellTypes.STRING:
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
@@ -860,6 +861,12 @@ function setEditableCell(
             } else {
                 return (
                     <FTextField
+                        textArea={
+                            (cell.shape
+                                ? cell.shape === FCellShapes.MEMO
+                                : false) ||
+                            (cellType ? cellType === FCellTypes.MEMO : false)
+                        }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
                         {...cell.data}
@@ -1390,6 +1397,10 @@ function getValueFromEventTarget(
 
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
+    }
+
+    if (cellType === FCellTypes.DATE && isInputEvent) {
+        value = e.detail?.value;
     }
 
     if (cellType === FCellTypes.NUMBER && isInputEvent) {

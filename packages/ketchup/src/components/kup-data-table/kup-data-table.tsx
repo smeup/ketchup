@@ -863,7 +863,9 @@ export class KupDataTable {
 
     @Watch('data')
     identifyAndInitRows() {
-        identify(this.getRows());
+        if (this.data.rows.filter((r) => r.id == undefined).length) {
+            identify(this.getRows());
+        }
         this.expandGroupsHandler();
         this.#resetSelectedRows();
     }
