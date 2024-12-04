@@ -1380,7 +1380,6 @@ export class KupInputPanel {
         };
     }
 
-    #inputMaxLengthFields: ({ id: string } & KupInputPanelCell)[] = [];
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
@@ -1388,10 +1387,6 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.data?.maxLength && (cell.editable || cell.isEditable)) {
-            this.#inputMaxLengthFields.push({ ...cell, id });
-        }
-
         if (
             cell.inputSettings?.checkObject ||
             cell.inputSettings?.checkValueOnExit ||
@@ -2055,28 +2050,36 @@ export class KupInputPanel {
 
         if (this.#formRef) {
             // autoSkip
-            console.log('Inputs', this.#inputMaxLengthFields);
+            const inputs: NodeListOf<HTMLElement> =
+                this.#formRef.querySelectorAll(
+                    'input.mdc-text-field__input[maxlength]'
+                );
 
-            const inputsDiv: NodeListOf<HTMLElement> =
-                this.#formRef.querySelectorAll('.f-text-field');
-            console.log('Inputs div', inputsDiv);
+            console.log('Inputs', inputs);
 
-            inputsDiv.forEach((input, index) => {
+            inputs.forEach((input, index) => {
                 input.addEventListener('input', (event) => {
                     const inputElement = event.target;
                     if (
                         inputElement &&
                         inputElement instanceof HTMLInputElement
                     ) {
-                        console.log('Input element', inputElement);
                         console.log('Input max length', inputElement.maxLength);
                         console.log(
-                            `Input actual length ${input.id}`,
+                            `Input actual length`,
                             inputElement.value?.length
                         );
+                        const inputMaxLength = inputElement.maxLength;
+                        const inputValueLength = inputElement.value?.length;
 
                         // next focus
-                        inputsDiv[index + 1]?.querySelector('input')?.focus();
+                        if (
+                            inputMaxLength >= 0 &&
+                            inputValueLength >= inputMaxLength
+                        ) {
+                            console.log('Max reached');
+                            inputs[index + 1]?.focus();
+                        }
                     }
                 });
             });
