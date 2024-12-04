@@ -582,7 +582,6 @@ function setEditableCell(
                     onkup-autocomplete-iconclick={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
-                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -662,7 +661,6 @@ function setEditableCell(
                     onkup-combobox-iconclick={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
-                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.DATE:
@@ -678,7 +676,6 @@ function setEditableCell(
                     onkup-datepicker-input={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
-                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -805,7 +802,6 @@ function setEditableCell(
                     onkup-timepicker-input={(
                         e: CustomEvent<KupTimePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
-                    hasTooltip={cell.tooltip ?? false}
                 />
             );
         case FCellTypes.OBJECT:
