@@ -153,6 +153,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         if (props.setSizes) {
             setCellSize(cellType, subcomponentProps, cell, props);
         }
+        classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip ?? false;
         content = setCell(
             cellType,
             subcomponentProps,
