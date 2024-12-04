@@ -152,6 +152,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
         if (props.setSizes) {
             setCellSize(cellType, subcomponentProps, cell, props);
         }
+
+        // sets indicator for cells that do not use f-text-field (read only)
+        classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip ?? false;
+
         content = setCell(
             cellType,
             subcomponentProps,
@@ -807,7 +811,6 @@ function setEditableCell(
                 />
             );
         case FCellTypes.OBJECT:
-            configureTooltipForTextField(cell);
             return (
                 <Fragment>
                     <FTextField
@@ -822,6 +825,7 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
+                        hasTooltip={cell.tooltip ?? false}
                     ></FTextField>
                     <FButton
                         icon="menu"
@@ -839,11 +843,9 @@ function setEditableCell(
                 </Fragment>
             );
         case FCellTypes.NUMBER:
-            configureTooltipForTextField(cell);
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
         case FCellTypes.STRING:
-            configureTooltipForTextField(cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
@@ -894,6 +896,7 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
+                        hasTooltip={cell.tooltip ?? false}
                     />
                 );
             }
@@ -909,7 +912,6 @@ function setCell(
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
-    configureTooltipForReadOnlyCell(cell, classObj);
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
@@ -1101,6 +1103,7 @@ function setKupCell(
                     icon={'table'}
                     {...subcomponentProps}
                     disabled={true}
+                    hasTooltip={cell.tooltip ?? false}
                 ></FTextField>
             );
     }
@@ -1422,15 +1425,6 @@ function isFullWidth(props: FCellProps) {
 }
 
 /**
- * This will set prop if data is passed directly into f-text-field (no shapes)
- */
-function configureTooltipForTextField(cell: KupDataCell) {
-    if (cell.data) {
-        cell.data.hasTooltip = cell.tooltip ?? false;
-    }
-}
-
-/**
  * This will set prop when f-text-field is wrapped by another component (like a kup-date-picker)
  * @param cell
  */
@@ -1453,16 +1447,4 @@ function configureTooltipForMulti(cell: KupDataCell): KupDataCell {
     const fakeCell = { data: { data: {} }, tooltip: cell.tooltip };
     configureTooltipForTextFieldBasedShapes(fakeCell);
     return fakeCell;
-}
-
-/**
- * Append class to classObj in order to show tooltip indicator in a read only cell
- * @param cell
- * @param classObj
- */
-function configureTooltipForReadOnlyCell(
-    cell: KupDataCell,
-    classObj: Record<string, boolean>
-) {
-    classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip;
 }
