@@ -36,6 +36,7 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
                 trailingIcon={true}
                 disabled={false}
                 {...props.data?.['kup-text-field']}
+                value={props.inputValue}
                 onIconClick={handlers.icon.bind(props)}
                 onInput={handlers.input.bind(props)}
                 onKeyDown={handlers.keydown.bind(props)}
