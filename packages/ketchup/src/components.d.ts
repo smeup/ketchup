@@ -1750,6 +1750,10 @@ export namespace Components {
          */
         "showLoadMore": boolean;
         /**
+          * Set the paginator visibility
+         */
+        "showPaginator": boolean;
+        /**
           * Defines the current sorting options.
          */
         "sort": Array<SortObject>;
@@ -7456,6 +7460,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore"?: boolean;
+        /**
+          * Set the paginator visibility
+         */
+        "showPaginator"?: boolean;
         /**
           * Defines the current sorting options.
          */

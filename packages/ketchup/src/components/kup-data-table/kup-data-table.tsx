@@ -214,6 +214,7 @@ export class KupDataTable {
                 this.showGroups = state.showGroups;
                 this.showHeader = state.showHeader;
                 this.showLoadMore = state.showLoadMore;
+                this.showPaginator = state.showPaginator;
                 this.sortEnabled = state.sortEnabled;
                 this.sort = [...state.sort];
                 this.pageSelected = state.pageSelected;
@@ -405,6 +406,15 @@ export class KupDataTable {
                 )
             ) {
                 this.state.showLoadMore = this.showLoadMore;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.showPaginator,
+                    this.showPaginator
+                )
+            ) {
+                this.state.showPaginator = this.showPaginator;
                 somethingChanged = true;
             }
             if (
@@ -737,6 +747,12 @@ export class KupDataTable {
      * If set to true, displays the button to load more records.
      */
     @Prop() showLoadMore: boolean = false;
+
+    /**
+     * Set the paginator visibility
+     */
+    @Prop() showPaginator: boolean = true;
+
     /**
      * Defines the current sorting options.
      */
@@ -6255,9 +6271,10 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            (!this.lazyLoadRows && this.#rowsLength > this.rowsPerPage) ||
-            this.showCustomization ||
-            this.showLoadMore
+            this.showPaginator &&
+            ((!this.lazyLoadRows && this.#rowsLength > this.rowsPerPage) ||
+                this.showCustomization ||
+                this.showLoadMore)
         ) {
             if (
                 PaginatorPos.TOP === this.paginatorPos ||
