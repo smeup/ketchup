@@ -1125,14 +1125,14 @@ export function getDiffData(
     includesAlsoEmptyRows: boolean = false
 ): KupDataDataset {
     const diffDataTable = {
-        columns: modifiedData.columns,
+        columns: modifiedData.columns.filter((col) => col.visible),
         rows: [],
     };
 
     for (const modifiedRow of modifiedData.rows) {
         const newRow = { cells: {}, id: modifiedRow.id };
 
-        for (const column of modifiedData.columns) {
+        for (const column of diffDataTable.columns) {
             const cellKey = column.name;
             const modifiedCell = modifiedRow.cells[cellKey];
 
@@ -1143,7 +1143,10 @@ export function getDiffData(
                 ? originalRow.cells[cellKey]
                 : null;
 
-            if (!originalCell || modifiedCell.value !== originalCell.value) {
+            if (
+                (!originalCell && !!modifiedCell.value) ||
+                (originalCell && modifiedCell.value !== originalCell.value)
+            ) {
                 newRow.cells[cellKey] = modifiedCell;
             }
         }
