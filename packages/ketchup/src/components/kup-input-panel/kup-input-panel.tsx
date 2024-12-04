@@ -1025,8 +1025,9 @@ export class KupInputPanel {
                         '\\$1'
                     )}]`
                 );
-
-                el?.setValue(cell.value);
+                if (cell.value) {
+                    el?.setValue(cell.value);
+                }
             })
         );
 
@@ -1451,7 +1452,7 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
-            initialValue: currentValue,
+            initialValue: currentValue ?? '',
         };
     }
 
@@ -2053,7 +2054,6 @@ export class KupInputPanel {
             }
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');
-
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }

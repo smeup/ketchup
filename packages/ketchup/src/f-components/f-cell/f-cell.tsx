@@ -1399,6 +1399,10 @@ function getValueFromEventTarget(
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
     }
 
+    if (cellType === FCellTypes.DATE && isInputEvent) {
+        value = e.detail?.value;
+    }
+
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
         value = dom.ketchup.math.formattedStringToNumberString(value, '');
     }
