@@ -929,7 +929,16 @@ export class KupEchart {
         }
         const data: string[] = [];
         for (let key in y) {
-            data.push(key);
+            if (this.series.includes(key)) {
+                const columnTitle = this.data.columns.find(
+                    (col) => col.name === key
+                )?.title;
+                if (columnTitle) {
+                    data.push(columnTitle);
+                }
+            } else {
+                data.push(key);
+            }
         }
         return {
             data: data,
@@ -1190,9 +1199,8 @@ export class KupEchart {
         const data = [];
         for (let key in y) {
             let sum: number = 0;
-            // First elem in array is usually a string
-            for (let j = 1; j < y[key].length; j++) {
-                sum = sum + parseFloat(y[key][j]);
+            for (let j = 0; j < y[key].length; j++) {
+                sum = sum + (parseFloat(y[key][j]) || 0);
             }
             data.push({
                 name: key,
@@ -1474,7 +1482,9 @@ export class KupEchart {
             case KupEchartTypes.LINE:
             default:
                 series.push({
-                    data: values,
+                    data: values.map((value) =>
+                        this.#kupManager.math.numberifySafe(value)
+                    ),
                     label: {
                         show: this.showMarks,
                     },
@@ -1513,25 +1523,55 @@ export class KupEchart {
         const series: echarts.SeriesOption[] = [];
         const color = this.#setColors(Object.keys(y).length);
         for (const key in y) {
-            const values: string[] = y[key];
-            let type: KupEchartTypes;
-            if (this.types[i]) {
-                type = this.types[i];
-            } else {
-                type = KupEchartTypes.LINE;
+            if (this.series.includes(key)) {
+                const values: string[] = y[key];
+                let type: KupEchartTypes;
+                if (this.types[i]) {
+                    type = this.types[i];
+                } else {
+                    type = KupEchartTypes.LINE;
+                }
+                this.#addSeries(type, series, values, key, color[i]);
+                i++;
             }
-            this.#addSeries(type, series, values, key, color[i]);
-            i++;
         }
         const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
+
+        /* 
+        col.name is used in operations for unicity,
+        but name in series object should match with values in legend
+        */
+        const renamedSeries = series.map((s) => ({
+            ...s,
+            name: this.data.columns.find((col) => col.name === s.name).title,
+        }));
         return {
             color,
             legend: this.#setLegend(y),
-            series: series,
+            series: renamedSeries,
             title: this.#setTitle(),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'axis',
+                formatter: (value: unknown) => {
+                    const rowData = (value as GenericObject[]).pop();
+
+                    const tooltipContent = Object.keys(y)
+                        .filter((key) => key && this.series.includes(key))
+                        .map((key) => {
+                            const columnTitle = this.data.columns.find(
+                                (col) => col.name === key
+                            ).title;
+                            return `<li>${columnTitle}: <b>${
+                                y[key][rowData.dataIndex]
+                            }</b></li>`;
+                        })
+                        .join('');
+
+                    const axisLabel = rowData.axisValueLabel ?? '';
+
+                    return `<b>${axisLabel}</b><ul>${tooltipContent}</ul>`;
+                },
             },
             xAxis: {
                 ...this.#setAxisColors(),

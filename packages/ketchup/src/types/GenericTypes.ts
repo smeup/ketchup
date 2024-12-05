@@ -111,6 +111,7 @@ export enum KupTagNames {
     TIME_PICKER = 'KUP-TIME-PICKER',
     TOOLTIP = 'KUP-TOOLTIP',
     TREE = 'KUP-TREE',
+    OBJECT_FIELD = 'KUP-OBJECT-FIELD',
 }
 
 /**

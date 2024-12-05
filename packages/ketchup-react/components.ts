@@ -52,6 +52,7 @@ import { KupList as KupListElement, defineCustomElement as defineKupList } from 
 import { KupMagicBox as KupMagicBoxElement, defineCustomElement as defineKupMagicBox } from "@sme.up/ketchup/dist/components/kup-magic-box.js";
 import { KupNavBar as KupNavBarElement, defineCustomElement as defineKupNavBar } from "@sme.up/ketchup/dist/components/kup-nav-bar.js";
 import { KupNumericPicker as KupNumericPickerElement, defineCustomElement as defineKupNumericPicker } from "@sme.up/ketchup/dist/components/kup-numeric-picker.js";
+import { KupObjectField as KupObjectFieldElement, defineCustomElement as defineKupObjectField } from "@sme.up/ketchup/dist/components/kup-object-field.js";
 import { KupPdf as KupPdfElement, defineCustomElement as defineKupPdf } from "@sme.up/ketchup/dist/components/kup-pdf.js";
 import { KupPhotoFrame as KupPhotoFrameElement, defineCustomElement as defineKupPhotoFrame } from "@sme.up/ketchup/dist/components/kup-photo-frame.js";
 import { KupPlannerRenderer as KupPlannerRendererElement, defineCustomElement as defineKupPlannerRenderer } from "@sme.up/ketchup/dist/components/kup-planner-renderer.js";
@@ -836,6 +837,17 @@ export const KupNumericPicker: StencilReactComponent<KupNumericPickerElement, Ku
         onKupNumericpickerCleariconclick: 'kup-numericpicker-cleariconclick'
     } as KupNumericPickerEvents,
     defineCustomElement: defineKupNumericPicker
+});
+
+type KupObjectFieldEvents = NonNullable<unknown>;
+
+export const KupObjectField: StencilReactComponent<KupObjectFieldElement, KupObjectFieldEvents> = /*@__PURE__*/ createComponent<KupObjectFieldElement, KupObjectFieldEvents>({
+    tagName: 'kup-object-field',
+    elementClass: KupObjectFieldElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {} as KupObjectFieldEvents,
+    defineCustomElement: defineKupObjectField
 });
 
 type KupPdfEvents = { onKupPdfReady: EventName<KupPdfCustomEvent<KupEventPayload>> };
