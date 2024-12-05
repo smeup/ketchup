@@ -123,6 +123,11 @@
       height: 100%;
       align-items: center;
       justify-content: center;
+
+      &--legacy-look {
+        font-family: monospace;
+        font-size: 12px;
+      }
     }
 
     &--absolute {

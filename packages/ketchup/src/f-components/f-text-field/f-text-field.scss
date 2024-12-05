@@ -495,6 +495,8 @@
         --kup_image_width: 16px;
         width: 16px;
       }
+<<<<<<< Updated upstream
+=======
 
       &.top-right-indicator {
         position: relative;
@@ -511,6 +513,14 @@
           top: 0;
         }
       }
+
+      &.mdc-text-field--legacy-look {
+        .mdc-text-field__input {
+          font-family: monospace;
+          font-size: 12px;
+        }
+      }
+>>>>>>> Stashed changes
     }
 
     .mdc-error-icon,

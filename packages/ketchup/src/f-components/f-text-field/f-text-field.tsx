@@ -180,7 +180,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
+<<<<<<< Updated upstream
+=======
         'top-right-indicator': props.showMarker,
+        'mdc-text-field--legacy-look': props.legacyLook,
+>>>>>>> Stashed changes
     };
 
     let value = props.value;
