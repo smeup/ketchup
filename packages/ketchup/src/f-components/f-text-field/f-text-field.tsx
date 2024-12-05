@@ -420,19 +420,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled) {
-        if (props.error || props.alert) {
-            return (
-                <div class="mdc-text-field-helper-line">
-                    {props.error ? (
-                        <span class="mdc-error-message">{props.error}</span>
-                    ) : props.alert ? (
-                        <span class="mdc-alert-message">{props.alert}</span>
-                    ) : undefined}
-                </div>
-            );
-        }
-
+    if (props.helperEnabled && (props.error || props.alert)) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
@@ -445,6 +433,16 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
                 </div>
             );
         }
+
+        return (
+            <div class="mdc-text-field-helper-line">
+                {props.error ? (
+                    <span class="mdc-error-message">{props.error}</span>
+                ) : props.alert ? (
+                    <span class="mdc-alert-message">{props.alert}</span>
+                ) : undefined}
+            </div>
+        );
     }
 }
 
