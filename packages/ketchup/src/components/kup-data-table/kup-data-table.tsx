@@ -3621,23 +3621,29 @@ export class KupDataTable {
         row: KupDataTableRow,
         cell: KupDataTableCell
     ): boolean {
-        if (!this.#insertedRowIds.includes(row.id)) {
-            return column.useAs
-                ? column.useAs === 'Dec' || column.useAs === 'Key'
-                    ? false
-                    : true
-                : cell.isEditable
-                ? cell.isEditable
-                : column.isEditable;
-        } else {
-            return column.useAs
-                ? column.useAs === 'Dec'
-                    ? false
-                    : true
-                : cell.isEditable
-                ? cell.isEditable
-                : column.isEditable;
+        if (column.useAs) {
+            if (
+                this.#insertedRowIds.includes(row.id) &&
+                column.useAs === 'Dec'
+            ) {
+                return false;
+            } else if (
+                !this.#insertedRowIds.includes(row.id) &&
+                (column.useAs === 'Dec' || column.useAs === 'Key')
+            ) {
+                return false;
+            }
         }
+
+        if (cell.isEditable !== null && cell.isEditable !== undefined) {
+            return cell.isEditable;
+        }
+
+        if (column.isEditable !== null && column.isEditable !== undefined) {
+            return column.isEditable;
+        }
+
+        return false;
     }
 
     //==== Fixed columns and rows methods ====
