@@ -2826,6 +2826,11 @@ export namespace Components {
          */
         "autoFocus"?: boolean;
         /**
+          * Sets the auto skip between input text fields when the value reaches the max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
+        /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
          */
@@ -8349,6 +8354,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "autoFocus"?: boolean;
+        /**
+          * Sets the auto skip between input text fields when the value reaches the max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"

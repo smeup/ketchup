@@ -820,6 +820,7 @@ function setEditableCell(
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
+                cell.data?.onInput?.(e); // call onInput handler if it is set as prop
                 cellEvent(e, props, cellType, FCellEvents.INPUT);
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             };
