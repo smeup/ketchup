@@ -26,6 +26,7 @@ export interface FTextFieldProps extends FComponent {
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    legacyLook?: boolean;
     lightMode?: boolean;
     name?: string;
     placeholder?: string;

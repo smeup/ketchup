@@ -618,9 +618,18 @@ export class KupInputPanel {
         );
     }
 
-    #renderLabel(cell: KupDataCell, cellId: string) {
+    #renderLabel(
+        cell: KupDataCell,
+        cellId: string,
+        isAbsoluteLayout?: boolean
+    ) {
         return (
-            <span class="input-panel-label" id={cellId}>
+            <span
+                class={`input-panel-label${
+                    isAbsoluteLayout ? ' input-panel-label--legacy-look' : ''
+                }`}
+                id={cellId}
+            >
                 {cell.value}
             </span>
         );
@@ -964,6 +973,7 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
+            legacyLook: true,
             helperEnabled: false,
         };
 
