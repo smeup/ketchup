@@ -506,10 +506,10 @@ export class KupInputPanel {
             return;
         }
 
-        if (!row.layout?.absolute) {
+        if (row.layout?.absolute) {
             cell.data = {
                 ...cell.data,
-                helperEnabled: true,
+                helperEnabled: false,
             };
         }
 
