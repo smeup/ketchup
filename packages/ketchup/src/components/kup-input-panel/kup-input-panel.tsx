@@ -506,13 +506,6 @@ export class KupInputPanel {
             return;
         }
 
-        if (row.layout?.absolute) {
-            cell.data = {
-                ...cell.data,
-                helperEnabled: false,
-            };
-        }
-
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
@@ -968,6 +961,7 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
+            helperEnabled: false,
         };
 
         return (
