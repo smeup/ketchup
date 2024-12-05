@@ -28,7 +28,7 @@
         "build:fcomponents-scss": "node scripts/fcomponentsSassParse.js",
         "build:setup": "rimraf dist && npm run build:fcomponents-scss",
         "buildnodocs": "npm run build:setup && stencil build",
-        "build": "npm run build:setup && stencil build",
+        "build": "npm run build:setup && stencil build --docs",
         "start": "npm run build:setup && stencil build --dev --watch --serve",
         "start--es5": "npm run build:setup && stencil build --dev --watch --serve --es5",
         "test:spec": "rimraf target && npm run build:setup && stencil test --spec",
