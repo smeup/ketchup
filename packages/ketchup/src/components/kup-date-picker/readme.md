@@ -15,6 +15,7 @@
 | `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                       |
 | `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                    |
 | `showIcon`                  | `show-icon`                     | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                     |
+| `showMarker`                | `show-marker`                   | When true shows a small marker on the component.                                              | `boolean`                                                                                                                                               | `false`                    |
 | `showPreviousNextMonthDays` | `show-previous-next-month-days` | Sets show previous/next month days in calendar                                                | `boolean`                                                                                                                                               | `true`                     |
 | `sizing`                    | `sizing`                        | Sets the sizing of the textfield of the datepicker                                            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
 
@@ -184,6 +185,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-date-picker
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -198,7 +200,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-date-picker
   kup-tree --> kup-date-picker
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker

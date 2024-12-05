@@ -543,6 +543,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showPaginator ',
+          description: 'Set the paginator visibility.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject',
@@ -625,6 +632,7 @@ function createComp() {
   comp.showGrid = 'Row';
   comp.showCustomization = true;
   comp.showHeader = true;
+  comp.showPaginator = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
   return comp;

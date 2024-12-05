@@ -67,6 +67,7 @@ import {
     DataAdapterFn,
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { FObjectField } from '../f-object-field/f-object-field';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -129,6 +130,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         setDefaults(cellType, cell);
     }
     if (isEditable && editableTypes.includes(cellType)) {
+        cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
@@ -152,6 +154,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         if (props.setSizes) {
             setCellSize(cellType, subcomponentProps, cell, props);
         }
+        classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip ?? false;
         content = setCell(
             cellType,
             subcomponentProps,
@@ -708,6 +711,7 @@ function setEditableCell(
                         showDropDownIcon={false}
                         {...cell.slotData}
                         error={cell.data.error}
+                        showMarker={cell.tooltip ?? false}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -742,6 +746,7 @@ function setEditableCell(
                         }
                         {...cell.slotData}
                         error={cell.data.error}
+                        showMarker={cell.tooltip ?? false}
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -802,34 +807,10 @@ function setEditableCell(
             );
         case FCellTypes.OBJECT:
             return (
-                <Fragment>
-                    <FTextField
-                        icon={'table'}
-                        {...cell.data}
-                        disabled={false}
-                        onIconClick={(e) =>
-                            cellEvent(
-                                e,
-                                props,
-                                cellType,
-                                FCellEvents.ICON_CLICK
-                            )
-                        }
-                    ></FTextField>
-                    <FButton
-                        icon="menu"
-                        onClick={(e) =>
-                            cellEvent(
-                                e,
-                                props,
-                                cellType,
-                                FCellEvents.SECONDARY_ICON_CLICK
-                            )
-                        }
-                        styling={FButtonStyling.FLAT}
-                        wrapperClass="obj-field-extra-btn"
-                    ></FButton>
-                </Fragment>
+                <FObjectField
+                    cell={cell}
+                    inputValue={cell.value}
+                ></FObjectField>
             );
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
@@ -1398,6 +1379,10 @@ function getValueFromEventTarget(
 
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
+    }
+
+    if (cellType === FCellTypes.DATE && isInputEvent) {
+        value = e.detail?.value;
     }
 
     if (cellType === FCellTypes.NUMBER && isInputEvent) {

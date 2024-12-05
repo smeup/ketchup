@@ -265,8 +265,11 @@ export class KupInputPanel {
     ]);
     #cellCustomRender: Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string) => any
-    > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
+        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+    > = new Map<
+        FCellShapes,
+        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+    >([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
@@ -511,7 +514,7 @@ export class KupInputPanel {
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name);
+            return customRender(cell, column.name, row.layout?.absolute);
         }
 
         const cellProps: FCellProps = {
@@ -599,7 +602,11 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(cell: KupDataCell, cellId: string) {
+    #renderDataTable(
+        cell: KupDataCell,
+        cellId: string,
+        isAbsoluteLayout: boolean = false
+    ) {
         return (
             <kup-data-table
                 id={cellId}
@@ -607,6 +614,7 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
+                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -1030,8 +1038,9 @@ export class KupInputPanel {
                         '\\$1'
                     )}]`
                 );
-
-                el?.setValue(cell.value);
+                if (cell.value) {
+                    el?.setValue(cell.value);
+                }
             })
         );
 
@@ -1288,6 +1297,8 @@ export class KupInputPanel {
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
+        this.#setCellErrorIfValueIsPresent(currentValue, cell);
+
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
@@ -1472,7 +1483,7 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
-            initialValue: currentValue,
+            initialValue: currentValue ?? '',
         };
     }
 
@@ -1831,6 +1842,13 @@ export class KupInputPanel {
         }
     }
 
+    #setCellErrorIfValueIsPresent(
+        currentValue: string,
+        cell: KupInputPanelCell
+    ) {
+        cell.data.error = currentValue ? cell.data?.error : '';
+    }
+
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
         const evName = this.#eventBlurNames.get(cell.shape);
         if (!evName) {
@@ -2109,6 +2127,9 @@ export class KupInputPanel {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
+        if (this.#formRef && this.autoFocus){
+            this.#setFocusOnFirstInput();
+        }
     }
 
     componentWillRender() {
@@ -2118,12 +2139,8 @@ export class KupInputPanel {
     componentDidRender() {
         // autoFocus
         if (this.#formRef) {
-            if (this.autoFocus) {
-                this.#setFocusOnFirstInput();
-            }
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');
-
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }

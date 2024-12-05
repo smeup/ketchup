@@ -170,6 +170,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-button-list
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -184,7 +185,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-button-list
   kup-tree --> kup-button-list
   kup-box --> kup-button-list
   kup-cell --> kup-button-list

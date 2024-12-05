@@ -188,6 +188,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-color-picker
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -202,7 +203,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-color-picker
   kup-tree --> kup-color-picker
   kup-box --> kup-color-picker
   kup-cell --> kup-color-picker

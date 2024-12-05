@@ -25,6 +25,7 @@
 | `selectMode`              | `select-mode`               | Sets how to return the selected item value. Suported values: "code", "description", "both".                                              | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
 | `serverHandledFilter`     | `server-handled-filter`     | When true, the items filter is managed server side, otherwise items filter is done client side.                                          | `boolean`                                                                                                                                               | `false`                        |
 | `showDropDownIcon`        | `show-drop-down-icon`       | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                               | `true`                         |
+| `showMarker`              | `show-marker`               | When true shows a small marker on the component.                                                                                         | `boolean`                                                                                                                                               | `false`                        |
 | `sizing`                  | `sizing`                    | Sets the type of the button                                                                                                              | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL`     |
 | `trailingIcon`            | `trailing-icon`             | When set, the icon will be shown after the text.                                                                                         | `boolean`                                                                                                                                               | `false`                        |
 
@@ -209,6 +210,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-autocomplete
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -223,7 +225,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-autocomplete
   kup-tree --> kup-autocomplete
   kup-box --> kup-autocomplete
   kup-cell --> kup-autocomplete
