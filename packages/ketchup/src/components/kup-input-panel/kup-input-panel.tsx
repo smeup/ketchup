@@ -506,6 +506,13 @@ export class KupInputPanel {
             return;
         }
 
+        if (!row.layout?.absolute) {
+            cell.data = {
+                ...cell.data,
+                helperEnabled: true,
+            };
+        }
+
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
