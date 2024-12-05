@@ -183,7 +183,7 @@ export class KupInputPanel {
     @Prop() autoFocus?: boolean = false;
 
     /**
-     * Sets the auto skip between input text fields with max length
+     * Sets the auto skip between input text fields when the value reaches the max length
      * @default false
      */
     @Prop() autoSkip?: boolean = false;
@@ -2127,7 +2127,7 @@ export class KupInputPanel {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
-        if (this.#formRef && this.autoFocus){
+        if (this.#formRef && this.autoFocus) {
             this.#setFocusOnFirstInput();
         }
     }
