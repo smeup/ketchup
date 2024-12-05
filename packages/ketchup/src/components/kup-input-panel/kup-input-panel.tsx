@@ -2058,6 +2058,9 @@ export class KupInputPanel {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
+        if (this.#formRef && this.autoFocus){
+            this.#setFocusOnFirstInput();
+        }
     }
 
     componentWillRender() {
@@ -2066,9 +2069,6 @@ export class KupInputPanel {
 
     componentDidRender() {
         if (this.#formRef) {
-            if (this.autoFocus) {
-                this.#setFocusOnFirstInput();
-            }
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');
             for (let index = 0; index < fs.length; index++) {
