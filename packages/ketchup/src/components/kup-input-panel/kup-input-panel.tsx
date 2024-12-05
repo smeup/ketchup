@@ -1401,61 +1401,7 @@ export class KupInputPanel {
             cell.data?.maxLength
         ) {
             data.onInput = (event: InputEvent) => {
-                const currentInputElement = event.target;
-                if (
-                    !currentInputElement ||
-                    !(currentInputElement instanceof HTMLInputElement)
-                ) {
-                    return;
-                }
-
-                if (
-                    currentInputElement.value?.length >=
-                    currentInputElement.maxLength
-                ) {
-                    console.log('Max reached');
-                    const inputElements = Array.from(
-                        this.#formRef.querySelectorAll<HTMLElement>(
-                            '.f-text-field'
-                        )
-                    ).reduce<{ id: string; element: HTMLInputElement }[]>(
-                        (result, divElement) => {
-                            const inputElement =
-                                divElement.querySelector('input');
-                            if (!inputElement) {
-                                return result;
-                            }
-
-                            result.push({
-                                id: divElement?.id || '',
-                                element: inputElement,
-                            });
-                            return result;
-                        },
-                        []
-                    );
-                    console.log('Input elements', inputElements);
-                    if (inputElements.length <= 0) {
-                        return;
-                    }
-
-                    const currentInputElementIndex = inputElements.findIndex(
-                        (element) => element.id === id
-                    );
-                    console.log('Target index', currentInputElementIndex);
-                    if (
-                        currentInputElementIndex < 0 ||
-                        currentInputElementIndex === inputElements.length - 1
-                    ) {
-                        console.log('Last input reached');
-                        return;
-                    }
-
-                    const nextInputElement =
-                        inputElements[currentInputElementIndex + 1];
-                    console.log('Next input element', nextInputElement);
-                    nextInputElement.element.focus();
-                }
+                this.#setAutoSkip(id, event);
             };
         }
 
@@ -2097,7 +2043,53 @@ export class KupInputPanel {
         return null;
     }
 
-    #setAutoSkip() {}
+    #setAutoSkip(inputId: string, event: InputEvent): void {
+        const currentHTMLInputElement = event?.target;
+        if (
+            !currentHTMLInputElement ||
+            !(currentHTMLInputElement instanceof HTMLInputElement)
+        ) {
+            return;
+        }
+
+        const { maxLength, value } = currentHTMLInputElement;
+        if (!maxLength || maxLength < 0 || value?.length < maxLength) {
+            return;
+        }
+
+        const inputElements = Array.from(
+            this.#formRef.querySelectorAll<HTMLElement>('.f-text-field')
+        ).reduce<{ id: string; HTMLInputElement: HTMLInputElement }[]>(
+            (result, divElement) => {
+                const inputElement = divElement.querySelector('input');
+                if (!inputElement) {
+                    return result;
+                }
+
+                result.push({
+                    id: divElement?.id || '',
+                    HTMLInputElement: inputElement,
+                });
+                return result;
+            },
+            []
+        );
+        if (!inputElements.length) {
+            return;
+        }
+
+        const currentInputElementIndex = inputElements.findIndex(
+            (element) => element.id === inputId
+        );
+        if (
+            currentInputElementIndex < 0 ||
+            currentInputElementIndex === inputElements.length - 1
+        ) {
+            return;
+        }
+
+        inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
+    }
 
     //#endregion
 
@@ -2114,11 +2106,9 @@ export class KupInputPanel {
     }
 
     componentDidLoad() {
-        console.log('Did laod call');
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
-        this.getProps().then((props) => console.log('Props', props));
     }
 
     componentWillRender() {
