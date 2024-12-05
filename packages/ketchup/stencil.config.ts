@@ -3,7 +3,7 @@ import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
-    sourceMap: true,
+    sourceMap: false,
     namespace: 'ketchup',
     testing: {
         reporters: [
@@ -128,11 +128,13 @@ export const config: Config = {
         {
             type: 'dist-custom-elements',
             externalRuntime: false,
+            includeGlobalScripts: false,
         },
     ],
     extras: {
         enableImportInjection: true,
     },
+    excludeUnusedDependencies: true,
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],
