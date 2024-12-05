@@ -511,6 +511,13 @@
           top: 0;
         }
       }
+
+      &.mdc-text-field--legacy-look {
+        .mdc-text-field__input {
+          font-family: monospace;
+          font-size: 12px;
+        }
+      }
     }
 
     .mdc-error-icon,
