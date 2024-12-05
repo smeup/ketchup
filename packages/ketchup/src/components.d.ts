@@ -1909,6 +1909,16 @@ export namespace Components {
          */
         "header": KupDialogHeader;
         /**
+          * The max width of the dialog, defaults to 90dvw.
+          * @default "auto"
+         */
+        "maxSizeX": string;
+        /**
+          * The max height of the card, defaults to 90dvh.
+          * @default "auto"
+         */
+        "maxSizeY": string;
+        /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
          */
@@ -7619,6 +7629,16 @@ declare namespace LocalJSX {
           * @default "{ icons: { close: true } }"
          */
         "header"?: KupDialogHeader;
+        /**
+          * The max width of the dialog, defaults to 90dvw.
+          * @default "auto"
+         */
+        "maxSizeX"?: string;
+        /**
+          * The max height of the card, defaults to 90dvh.
+          * @default "auto"
+         */
+        "maxSizeY"?: string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
