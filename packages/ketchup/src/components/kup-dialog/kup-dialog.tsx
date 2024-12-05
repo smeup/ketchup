@@ -73,7 +73,7 @@ export class KupDialog {
      */
     @Prop() sizeX = 'auto';
     /**
-     * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+     * The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
      * @default "auto"
      */
     @Prop() sizeY = 'auto';
@@ -83,7 +83,7 @@ export class KupDialog {
      */
     @Prop() maxSizeX = '90dvw';
     /**
-     * The max height of the card, defaults to 90dvh.
+     * The max height of the dialog, defaults to 90dvh.
      * @default "auto"
      */
     @Prop() maxSizeY = '90dvh';
