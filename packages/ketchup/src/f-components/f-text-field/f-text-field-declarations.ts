@@ -40,6 +40,7 @@ export interface FTextFieldProps extends FComponent {
     trailingIcon?: boolean;
     trailingLabel?: boolean;
     value?: string;
+    showMarker?: boolean;
     onBlur?: (event: FocusEvent) => void;
     onClick?: (event: MouseEvent) => void;
     onChange?: (event: UIEvent) => void;
