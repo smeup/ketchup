@@ -961,6 +961,7 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
+            helperEnabled: false,
         };
 
         return (
