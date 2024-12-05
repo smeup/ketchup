@@ -115,10 +115,10 @@ export class KupDatePicker {
      */
     @Prop() error: string = '';
     /**
-     * When true displays tooltip indicator.
+     * When true shows a small marker on the component.
      * @default false
      */
-    @Prop() hasTooltip: boolean = false;
+    @Prop() showMarker: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -541,7 +541,7 @@ export class KupDatePicker {
             outlined: this.outlined,
             showIcon: this.showIcon,
             error: this.error,
-            hasTooltip: this.hasTooltip,
+            showMarker: this.showMarker,
         };
         if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';

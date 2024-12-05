@@ -12,7 +12,7 @@ export enum KupTimePickerProps {
     initialValue = 'Sets the initial value of the component',
     manageSeconds = 'Manage seconds',
     timeMinutesStep = 'Minutes step',
-    hasTooltip = 'When true displays tooltip indicator',
+    showMarker = 'When true shows a small marker on the component',
 }
 
 export interface KupTimePickerEventPayload extends KupEventPayload {

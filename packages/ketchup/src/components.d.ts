@@ -258,11 +258,6 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip": boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -335,6 +330,11 @@ export namespace Components {
           * @default true
          */
         "showDropDownIcon": boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
@@ -1315,11 +1315,6 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip": boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -1378,6 +1373,11 @@ export namespace Components {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon": boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
@@ -1834,11 +1834,6 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip": boolean;
-        /**
           * Sets the initial value of the component
           * @default ""
          */
@@ -1866,6 +1861,11 @@ export namespace Components {
           * @default true
          */
         "showIcon": boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Sets show previous/next month days in calendar
           * @default true
@@ -2816,6 +2816,11 @@ export namespace Components {
         "store": KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
@@ -4282,11 +4287,6 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip": boolean;
-        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -4313,6 +4313,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Minutes step.
           * @default 10
@@ -6165,11 +6170,6 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip"?: boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -6231,6 +6231,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
@@ -7098,11 +7103,6 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip"?: boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -7150,6 +7150,11 @@ declare namespace LocalJSX {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
@@ -7550,11 +7555,6 @@ declare namespace LocalJSX {
          */
         "firstDayIndex"?: number;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip"?: boolean;
-        /**
           * Sets the initial value of the component
           * @default ""
          */
@@ -7578,6 +7578,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "showIcon"?: boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Sets show previous/next month days in calendar
           * @default true
@@ -8331,6 +8336,11 @@ declare namespace LocalJSX {
         "store"?: KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
@@ -9587,11 +9597,6 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
-          * When true displays tooltip indicator.
-          * @default false
-         */
-        "hasTooltip"?: boolean;
-        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -9610,6 +9615,11 @@ declare namespace LocalJSX {
         "onKup-timepicker-input"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
         "onKup-timepicker-itemclick"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
         "onKup-timepicker-textfieldsubmit"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Minutes step.
           * @default 10
