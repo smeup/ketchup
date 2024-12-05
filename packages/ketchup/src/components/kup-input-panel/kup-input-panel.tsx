@@ -1387,19 +1387,89 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
+        const data: {
+            label: string;
+            onBlur?: () => void;
+            onInput?: (event: InputEvent) => void;
+        } = {
+            label: fieldLabel,
+        };
+
+        if (
+            this.autoSkip &&
+            (cell.isEditable || cell.editable) &&
+            cell.data?.maxLength
+        ) {
+            data.onInput = (event: InputEvent) => {
+                const currentInputElement = event.target;
+                if (
+                    !currentInputElement ||
+                    !(currentInputElement instanceof HTMLInputElement)
+                ) {
+                    return;
+                }
+
+                if (
+                    currentInputElement.value?.length >=
+                    currentInputElement.maxLength
+                ) {
+                    console.log('Max reached');
+                    const inputElements = Array.from(
+                        this.#formRef.querySelectorAll<HTMLElement>(
+                            '.f-text-field'
+                        )
+                    ).reduce<{ id: string; element: HTMLInputElement }[]>(
+                        (result, divElement) => {
+                            const inputElement =
+                                divElement.querySelector('input');
+                            if (!inputElement) {
+                                return result;
+                            }
+
+                            result.push({
+                                id: divElement?.id || '',
+                                element: inputElement,
+                            });
+                            return result;
+                        },
+                        []
+                    );
+                    console.log('Input elements', inputElements);
+                    if (inputElements.length <= 0) {
+                        return;
+                    }
+
+                    const currentInputElementIndex = inputElements.findIndex(
+                        (element) => element.id === id
+                    );
+                    console.log('Target index', currentInputElementIndex);
+                    if (
+                        currentInputElementIndex < 0 ||
+                        currentInputElementIndex === inputElements.length - 1
+                    ) {
+                        console.log('Last input reached');
+                        return;
+                    }
+
+                    const nextInputElement =
+                        inputElements[currentInputElementIndex + 1];
+                    console.log('Next input element', nextInputElement);
+                    nextInputElement.element.focus();
+                }
+            };
+        }
+
         if (
             cell.inputSettings?.checkObject ||
             cell.inputSettings?.checkValueOnExit ||
             cell.mandatory
         ) {
-            return {
-                label: fieldLabel,
-                onBlur: () => {
-                    this.#checkOnBlurProp(cell, id);
-                },
+            data.onBlur = () => {
+                this.#checkOnBlurProp(cell, id);
             };
         }
-        return { label: fieldLabel };
+
+        return data;
     }
 
     #RADAdapter(
@@ -2027,6 +2097,8 @@ export class KupInputPanel {
         return null;
     }
 
+    #setAutoSkip() {}
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2047,43 +2119,6 @@ export class KupInputPanel {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
         this.getProps().then((props) => console.log('Props', props));
-
-        if (this.#formRef) {
-            // autoSkip
-            const inputs: NodeListOf<HTMLElement> =
-                this.#formRef.querySelectorAll(
-                    'input.mdc-text-field__input[maxlength]'
-                );
-
-            console.log('Inputs', inputs);
-
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', (event) => {
-                    const inputElement = event.target;
-                    if (
-                        inputElement &&
-                        inputElement instanceof HTMLInputElement
-                    ) {
-                        console.log('Input max length', inputElement.maxLength);
-                        console.log(
-                            `Input actual length`,
-                            inputElement.value?.length
-                        );
-                        const inputMaxLength = inputElement.maxLength;
-                        const inputValueLength = inputElement.value?.length;
-
-                        // next focus
-                        if (
-                            inputMaxLength >= 0 &&
-                            inputValueLength >= inputMaxLength
-                        ) {
-                            console.log('Max reached');
-                            inputs[index + 1]?.focus();
-                        }
-                    }
-                });
-            });
-        }
     }
 
     componentWillRender() {
