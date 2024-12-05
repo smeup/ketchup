@@ -1,4 +1,5 @@
 import { GenericObject, KupEventPayload } from '../../components';
+import { FCellTypes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -225,4 +226,17 @@ export const InputPanelKeyCommands: InputPanelCommand = {
     '*ENT': 'Enter',
     '*PDN': 'PageDown',
     '*PUP': 'PageUp',
+};
+
+export type InputPanelCellTypeDefault = Partial<{
+    [key in FCellTypes]: GenericObject;
+}>;
+
+export const InputPanelCellTypesDefaults: InputPanelCellTypeDefault = {
+    [FCellTypes.TABLE]: {
+        setup: {
+            globalFilter: false,
+            showPaginator: false,
+        },
+    },
 };

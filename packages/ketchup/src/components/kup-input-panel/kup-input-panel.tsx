@@ -60,6 +60,7 @@ import {
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
+    InputPanelCellTypesDefaults,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
     InputPanelKeyCommands,
@@ -1177,6 +1178,8 @@ export class KupInputPanel {
 
         const adapter = dataAdapterMap.get(cellType);
 
+        this.#applyDefaultCellSetup(cell, cellType);
+
         return adapter
             ? adapter(options, fieldLabel, currentValue, cell, col.name)
             : null;
@@ -2029,6 +2032,16 @@ export class KupInputPanel {
         }
 
         return null;
+    }
+
+    #applyDefaultCellSetup(cell: KupInputPanelCell, cellType: FCellTypes) {
+        const defaults = InputPanelCellTypesDefaults[cellType];
+        if (defaults) {
+            cell.data = {
+                ...defaults.setup,
+                ...cell.data,
+            };
+        }
     }
 
     //#endregion
