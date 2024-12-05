@@ -4318,7 +4318,7 @@ export class KupDataTable {
         if (!evName) {
             return;
         }
-        const handler = async (e: CustomEvent<KupAutocompleteEventPayload>) => {
+        const handler = async () => {
             this.kupCellCheck.emit({
                 comp: this,
                 id: this.rootElement.id,
