@@ -4287,6 +4287,9 @@ export class KupDataTable {
     }
 
     #applyLineBreaks(content: string) {
+        if (!content) {
+            return '';
+        }
         // We add a break line before every chunk
         return content
             .split(this.lineBreakCharacter)
