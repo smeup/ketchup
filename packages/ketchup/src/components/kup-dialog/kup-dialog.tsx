@@ -73,10 +73,20 @@ export class KupDialog {
      */
     @Prop() sizeX = 'auto';
     /**
-     * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+     * The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
      * @default "auto"
      */
     @Prop() sizeY = 'auto';
+    /**
+     * The max width of the dialog, defaults to 90dvw.
+     * @default "auto"
+     */
+    @Prop() maxSizeX = '90dvw';
+    /**
+     * The max height of the dialog, defaults to 90dvh.
+     * @default "auto"
+     */
+    @Prop() maxSizeY = '90dvh';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -227,6 +237,8 @@ export class KupDialog {
         const style = {
             '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
             '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
+            '--kup_dialog_max_width': this.maxSizeX ? this.maxSizeX : '90dvw',
+            '--kup_dialog_max_height': this.maxSizeY ? this.maxSizeY : '90dvh',
         };
 
         const headerSlot = this.rootElement.querySelector('[slot="header"]');

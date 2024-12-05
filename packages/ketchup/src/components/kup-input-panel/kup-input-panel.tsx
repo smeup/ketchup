@@ -181,7 +181,12 @@ export class KupInputPanel {
      * @default false
      */
     @Prop() autoFocus?: boolean = false;
-    //#endregion
+
+    /**
+     * Sets the auto skip between input text fields when the value reaches the max length
+     * @default false
+     */
+    @Prop() autoSkip?: boolean = false;
 
     //#endregion
 
@@ -971,6 +976,7 @@ export class KupInputPanel {
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
             legacyLook: true,
+            helperEnabled: false,
         };
 
         return (
@@ -1403,19 +1409,35 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
+        const data: {
+            label: string;
+            onBlur?: () => void;
+            onInput?: (event: InputEvent) => void;
+        } = {
+            label: fieldLabel,
+        };
+
+        if (
+            this.autoSkip &&
+            (cell.isEditable || cell.editable) &&
+            cell.data?.maxLength
+        ) {
+            data.onInput = (event: InputEvent) => {
+                this.#setAutoSkip(id, event);
+            };
+        }
+
         if (
             cell.inputSettings?.checkObject ||
             cell.inputSettings?.checkValueOnExit ||
             cell.mandatory
         ) {
-            return {
-                label: fieldLabel,
-                onBlur: () => {
-                    this.#checkOnBlurProp(cell, id);
-                },
+            data.onBlur = () => {
+                this.#checkOnBlurProp(cell, id);
             };
         }
-        return { label: fieldLabel };
+
+        return data;
     }
 
     #RADAdapter(
@@ -2050,6 +2072,54 @@ export class KupInputPanel {
         return null;
     }
 
+    #setAutoSkip(inputId: string, event: InputEvent): void {
+        const currentHTMLInputElement = event?.target;
+        if (
+            !currentHTMLInputElement ||
+            !(currentHTMLInputElement instanceof HTMLInputElement)
+        ) {
+            return;
+        }
+
+        const { maxLength, value } = currentHTMLInputElement;
+        if (!maxLength || maxLength < 0 || value?.length < maxLength) {
+            return;
+        }
+
+        const inputElements = Array.from(
+            this.#formRef.querySelectorAll<HTMLElement>('.f-text-field')
+        ).reduce<{ id: string; HTMLInputElement: HTMLInputElement }[]>(
+            (result, divElement) => {
+                const inputElement = divElement.querySelector('input');
+                if (!inputElement) {
+                    return result;
+                }
+
+                result.push({
+                    id: divElement?.id || '',
+                    HTMLInputElement: inputElement,
+                });
+                return result;
+            },
+            []
+        );
+        if (!inputElements.length) {
+            return;
+        }
+
+        const currentInputElementIndex = inputElements.findIndex(
+            (element) => element.id === inputId
+        );
+        if (
+            currentInputElementIndex < 0 ||
+            currentInputElementIndex === inputElements.length - 1
+        ) {
+            return;
+        }
+
+        inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2078,6 +2148,7 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
+        // autoFocus
         if (this.#formRef) {
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');

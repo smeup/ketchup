@@ -1909,6 +1909,16 @@ export namespace Components {
          */
         "header": KupDialogHeader;
         /**
+          * The max width of the dialog, defaults to 90dvw.
+          * @default "auto"
+         */
+        "maxSizeX": string;
+        /**
+          * The max height of the card, defaults to 90dvh.
+          * @default "auto"
+         */
+        "maxSizeY": string;
+        /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
          */
@@ -2825,6 +2835,11 @@ export namespace Components {
           * @default false
          */
         "autoFocus"?: boolean;
+        /**
+          * Sets the auto skip between input text fields when the value reaches the max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
@@ -7620,6 +7635,16 @@ declare namespace LocalJSX {
          */
         "header"?: KupDialogHeader;
         /**
+          * The max width of the dialog, defaults to 90dvw.
+          * @default "auto"
+         */
+        "maxSizeX"?: string;
+        /**
+          * The max height of the card, defaults to 90dvh.
+          * @default "auto"
+         */
+        "maxSizeY"?: string;
+        /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
          */
@@ -8349,6 +8374,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "autoFocus"?: boolean;
+        /**
+          * Sets the auto skip between input text fields when the value reaches the max length
+          * @default false
+         */
+        "autoSkip"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
