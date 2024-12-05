@@ -107,6 +107,7 @@ export interface KupDataCell {
     styleContent?: GenericMap;
     title?: string;
     inputSettings?: InputSettingsProps;
+    tooltip?: boolean;
 }
 
 export interface KupDataCellOptions extends KupDataCell {
