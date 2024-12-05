@@ -260,11 +260,8 @@ export class KupInputPanel {
     ]);
     #cellCustomRender: Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
-    > = new Map<
-        FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
-    >([
+        (cell: KupDataCell, cellId: string) => any
+    > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
@@ -509,7 +506,7 @@ export class KupInputPanel {
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name, row.layout?.absolute);
+            return customRender(cell, column.name);
         }
 
         const cellProps: FCellProps = {
@@ -597,11 +594,7 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(
-        cell: KupDataCell,
-        cellId: string,
-        isAbsoluteLayout: boolean = false
-    ) {
+    #renderDataTable(cell: KupDataCell, cellId: string) {
         return (
             <kup-data-table
                 id={cellId}
@@ -609,15 +602,19 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
-                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );
     }
 
-    #renderLabel(cell: KupDataCell, cellId: string) {
+    #renderLabel(cell: KupDataCell, cellId: string, isAbsoluteLayout: boolean) {
         return (
-            <span class="input-panel-label" id={cellId}>
+            <span
+                class={`input-panel-label${
+                    isAbsoluteLayout ? ' input-panel-label--legacy-look' : ''
+                }`}
+                id={cellId}
+            >
                 {cell.value}
             </span>
         );
@@ -961,6 +958,7 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
+            legacyLook: true,
         };
 
         return (
@@ -1033,9 +1031,8 @@ export class KupInputPanel {
                         '\\$1'
                     )}]`
                 );
-                if (cell.value) {
-                    el?.setValue(cell.value);
-                }
+
+                el?.setValue(cell.value);
             })
         );
 
@@ -1292,8 +1289,6 @@ export class KupInputPanel {
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
-        this.#setCellErrorIfValueIsPresent(currentValue, cell);
-
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
@@ -1462,7 +1457,7 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
-            initialValue: currentValue ?? '',
+            initialValue: currentValue,
         };
     }
 
@@ -1498,7 +1493,7 @@ export class KupInputPanel {
     #TimeAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        currentValue: string,
+        _currentValue: string,
         cell: KupInputPanelCell,
         id: string
     ) {
@@ -1515,7 +1510,6 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
-            initialValue: currentValue,
         };
     }
 
@@ -1821,13 +1815,6 @@ export class KupInputPanel {
         }
     }
 
-    #setCellErrorIfValueIsPresent(
-        currentValue: string,
-        cell: KupInputPanelCell
-    ) {
-        cell.data.error = currentValue ? cell.data?.error : '';
-    }
-
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
         const evName = this.#eventBlurNames.get(cell.shape);
         if (!evName) {
@@ -2008,38 +1995,36 @@ export class KupInputPanel {
         );
     }
 
-    #setFocusOnFirstInput() {
-        const form = this.#formRef;
-        const firstCellContent =
-            form?.querySelector<HTMLElement>('.f-cell__content');
+    #setFocusOnFirstInput(root:ShadowRoot){
+        
+        const form = root.querySelector('form');
+        const firstCellContent = form?.querySelector<HTMLElement>('.f-cell__content');
+    
         if (!form || !firstCellContent) return;
-
+    
         const firstInput = this.#findFirstInput(firstCellContent);
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 300);
         }
     }
 
-    #findFirstInput(
-        element: HTMLElement | ShadowRoot
-    ): HTMLInputElement | null {
+    #findFirstInput(element: HTMLElement | ShadowRoot): HTMLInputElement | null {
         const directInput = element.querySelector<HTMLInputElement>('input');
         if (directInput) return directInput;
-
-        const shadowElements =
-            element instanceof HTMLElement
-                ? element.querySelectorAll<HTMLElement>('*')
-                : [];
+    
+        const shadowElements = element instanceof HTMLElement
+            ? element.querySelectorAll<HTMLElement>('*')
+            : [];
         for (const elem of Array.from(shadowElements)) {
             if (elem.shadowRoot) {
                 const shadowInput = elem.shadowRoot.querySelector('input');
                 if (shadowInput) return shadowInput;
             }
         }
-
+    
         return null;
     }
-
+    
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2057,10 +2042,14 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
+<<<<<<< Updated upstream
+        this.#kupManager.debug.logLoad(this, true);        
+=======
         this.#kupManager.debug.logLoad(this, true);
-        if (this.#formRef && this.autoFocus){
+        if (this.#formRef && this.autoFocus) {
             this.#setFocusOnFirstInput();
         }
+>>>>>>> Stashed changes
     }
 
     componentWillRender() {
@@ -2068,14 +2057,19 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
-        if (this.#formRef) {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            if(this.autoFocus){
+                this.#setFocusOnFirstInput(root)
+            }
             const fs: NodeListOf<HTMLElement> =
-                this.#formRef.querySelectorAll('.f-text-field');
+                root.querySelectorAll('.f-text-field');
+                
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
         }
-
+        
         this.#kupManager.debug.logRender(this, true);
     }
 

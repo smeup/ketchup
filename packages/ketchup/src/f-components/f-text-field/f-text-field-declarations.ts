@@ -26,6 +26,7 @@ export interface FTextFieldProps extends FComponent {
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    legacyLook?: boolean;
     lightMode?: boolean;
     name?: string;
     placeholder?: string;
@@ -40,7 +41,6 @@ export interface FTextFieldProps extends FComponent {
     trailingIcon?: boolean;
     trailingLabel?: boolean;
     value?: string;
-    showMarker?: boolean;
     onBlur?: (event: FocusEvent) => void;
     onClick?: (event: MouseEvent) => void;
     onChange?: (event: UIEvent) => void;
