@@ -1034,10 +1034,10 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name.replace(
+                    `${componentQuery}[id='${column.name.replace(
                         /\//g,
                         '\\$1'
-                    )}]`
+                    )}']`
                 );
                 if (cell.value) {
                     el?.setValue(cell.value);
