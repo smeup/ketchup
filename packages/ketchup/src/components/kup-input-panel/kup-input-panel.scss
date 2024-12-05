@@ -30,6 +30,10 @@
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
   --kup_input_panel_padding--inline: var(--kup-input-panel-padding--inline, 0);
+  --kup_input_panel_absolute_max_height: var(
+    --kup-input-panel-absolute-max-height,
+    500px
+  );
 
   .input-panel {
     background: var(--kup_input_panel_background_color);
@@ -128,6 +132,7 @@
     &--absolute {
       justify-content: flex-end;
       padding: var(--kup-space-02);
+      max-height: var(--kup_input_panel_absolute_max_height);
 
       .input-panel-label {
         justify-content: start;
