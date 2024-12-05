@@ -331,6 +331,11 @@ export namespace Components {
          */
         "showDropDownIcon": boolean;
         /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -1369,6 +1374,11 @@ export namespace Components {
          */
         "showDropDownIcon": boolean;
         /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -1750,6 +1760,10 @@ export namespace Components {
          */
         "showLoadMore": boolean;
         /**
+          * Set the paginator visibility
+         */
+        "showPaginator": boolean;
+        /**
           * Defines the current sorting options.
          */
         "sort": Array<SortObject>;
@@ -1851,6 +1865,11 @@ export namespace Components {
           * @default true
          */
         "showIcon": boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Sets show previous/next month days in calendar
           * @default true
@@ -2801,6 +2820,11 @@ export namespace Components {
         "store": KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
@@ -4293,6 +4317,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker": boolean;
         /**
           * Minutes step.
           * @default 10
@@ -6207,6 +6236,11 @@ declare namespace LocalJSX {
          */
         "showDropDownIcon"?: boolean;
         /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -7121,6 +7155,11 @@ declare namespace LocalJSX {
          */
         "showDropDownIcon"?: boolean;
         /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -7457,6 +7496,10 @@ declare namespace LocalJSX {
          */
         "showLoadMore"?: boolean;
         /**
+          * Set the paginator visibility
+         */
+        "showPaginator"?: boolean;
+        /**
           * Defines the current sorting options.
          */
         "sort"?: Array<SortObject>;
@@ -7543,6 +7586,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "showIcon"?: boolean;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Sets show previous/next month days in calendar
           * @default true
@@ -8296,6 +8344,11 @@ declare namespace LocalJSX {
         "store"?: KupStore;
     }
     interface KupInputPanel {
+        /**
+          * Sets whether the first input should receive focus.
+          * @default false
+         */
+        "autoFocus"?: boolean;
         /**
           * Select the position of the buttons related to the input panel
           * @default "BOTTOM"
@@ -9570,6 +9623,11 @@ declare namespace LocalJSX {
         "onKup-timepicker-input"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
         "onKup-timepicker-itemclick"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
         "onKup-timepicker-textfieldsubmit"?: (event: KupTimePickerCustomEvent<KupTimePickerEventPayload>) => void;
+        /**
+          * When true shows a small marker on the component.
+          * @default false
+         */
+        "showMarker"?: boolean;
         /**
           * Minutes step.
           * @default 10

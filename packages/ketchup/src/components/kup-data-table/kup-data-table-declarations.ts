@@ -66,6 +66,7 @@ export enum KupDataTableProps {
     showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
     showLoadMore = 'If set to true, displays the button to load more records.',
+    showPaginator = 'Set the paginator visibility',
     sort = 'Defines the current sorting options.',
     stateId = '',
     store = '',

@@ -13,7 +13,8 @@
 | `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
 | `error`           | `error`             | Set error message                                               | `string`  | `''`    |
 | `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
-| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `false` |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `true`  |
+| `showMarker`      | `show-marker`       | When true shows a small marker on the component.                | `boolean` | `false` |
 | `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
 
 

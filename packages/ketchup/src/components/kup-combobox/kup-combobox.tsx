@@ -139,6 +139,11 @@ export class KupCombobox {
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -572,6 +577,7 @@ export class KupCombobox {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            showMarker: this.showMarker,
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');

@@ -260,8 +260,11 @@ export class KupInputPanel {
     ]);
     #cellCustomRender: Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string) => any
-    > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
+        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+    > = new Map<
+        FCellShapes,
+        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+    >([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
@@ -506,7 +509,7 @@ export class KupInputPanel {
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name);
+            return customRender(cell, column.name, row.layout?.absolute);
         }
 
         const cellProps: FCellProps = {
@@ -594,7 +597,11 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(cell: KupDataCell, cellId: string) {
+    #renderDataTable(
+        cell: KupDataCell,
+        cellId: string,
+        isAbsoluteLayout: boolean = false
+    ) {
         return (
             <kup-data-table
                 id={cellId}
@@ -602,6 +609,7 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
+                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -1284,6 +1292,8 @@ export class KupInputPanel {
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
+        this.#setCellErrorIfValueIsPresent(currentValue, cell);
+
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
@@ -1809,6 +1819,13 @@ export class KupInputPanel {
                 id
             );
         }
+    }
+
+    #setCellErrorIfValueIsPresent(
+        currentValue: string,
+        cell: KupInputPanelCell
+    ) {
+        cell.data.error = currentValue ? cell.data?.error : '';
     }
 
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {

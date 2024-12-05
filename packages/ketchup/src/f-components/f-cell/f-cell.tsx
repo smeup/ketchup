@@ -130,6 +130,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         setDefaults(cellType, cell);
     }
     if (isEditable && editableTypes.includes(cellType)) {
+        cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
@@ -153,6 +154,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         if (props.setSizes) {
             setCellSize(cellType, subcomponentProps, cell, props);
         }
+        classObj[FCellClasses.INDICATOR_TOPRIGHT] = cell.tooltip ?? false;
         content = setCell(
             cellType,
             subcomponentProps,
@@ -709,6 +711,7 @@ function setEditableCell(
                         showDropDownIcon={false}
                         {...cell.slotData}
                         error={cell.data.error}
+                        showMarker={cell.tooltip ?? false}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -743,6 +746,7 @@ function setEditableCell(
                         }
                         {...cell.slotData}
                         error={cell.data.error}
+                        showMarker={cell.tooltip ?? false}
                     ></kup-combobox>
                 </kup-chip>
             );
