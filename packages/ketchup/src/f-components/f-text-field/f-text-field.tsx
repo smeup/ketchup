@@ -177,6 +177,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
+        'mdc-text-field--legacy-look': props.legacyLook,
         ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
