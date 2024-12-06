@@ -511,10 +511,12 @@ export class KupInputPanel {
             return;
         }
 
+        cell.data.legacyLook = row.layout?.absolute;
+
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name, row.layout?.absolute);
+            return customRender(cell, column.name);
         }
 
         const cellProps: FCellProps = {
@@ -602,11 +604,7 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(
-        cell: KupDataCell,
-        cellId: string,
-        isAbsoluteLayout: boolean = false
-    ) {
+    #renderDataTable(cell: KupDataCell, cellId: string) {
         return (
             <kup-data-table
                 id={cellId}
@@ -614,7 +612,6 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
-                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );

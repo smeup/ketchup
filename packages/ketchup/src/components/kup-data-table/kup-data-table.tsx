@@ -5343,6 +5343,10 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.data = {
+                    ...cell.data,
+                    legacyLook: this.legacyLook,
+                };
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
                         cell,
