@@ -4294,10 +4294,41 @@ export class KupDataTable {
         });
     };
 
-    #checkOnBlurProp = (cell?: KupDataCell) => {
+    #checkOnBlurProp = (cell: KupDataCell, rowId: string, colName: string) => {
         cell.data = {
             ...cell.data,
             onBlur: () => {
+                if (
+                    this.#originalDataLoaded.rows.find((r) => r.id == rowId)
+                        ?.cells[colName]?.value !== cell.value
+                ) {
+                    this.kupCellCheck.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        originalData: this.#originalDataLoaded,
+                        updatedData: getDiffData(
+                            this.#originalDataLoaded,
+                            this.data,
+                            true
+                        ),
+                        cell: cell,
+                    });
+                }
+            },
+        };
+    };
+
+    #checkOnBlurEvent = (cell: KupDataCell, rowId: string, colName: string) => {
+        const evName = this.#eventBlurNames.get(cell.shape);
+        if (!evName) {
+            return;
+        }
+        const handler = async () => {
+            if (
+                this.#originalDataLoaded.rows.find((r) => r.id == rowId)?.cells[
+                    colName
+                ]?.value !== cell.value
+            ) {
                 this.kupCellCheck.emit({
                     comp: this,
                     id: this.rootElement.id,
@@ -4309,34 +4340,14 @@ export class KupDataTable {
                     ),
                     cell: cell,
                 });
-            },
-        };
-    };
-
-    #checkOnBlurEvent = (cell?: KupDataCell) => {
-        const evName = this.#eventBlurNames.get(cell.shape);
-        if (!evName) {
-            return;
-        }
-        const handler = async () => {
-            this.kupCellCheck.emit({
-                comp: this,
-                id: this.rootElement.id,
-                originalData: this.#originalDataLoaded,
-                updatedData: getDiffData(
-                    this.#originalDataLoaded,
-                    this.data,
-                    true
-                ),
-                cell: cell,
-            });
+            }
         };
         this.rootElement.addEventListener(evName, handler);
     };
 
     #checkOnBlurByCellType = (
         fCellType: FCellTypes
-    ): ((cell: KupDataCell) => void) => {
+    ): ((cell: KupDataCell, rowId: string, colName: string) => void) => {
         const cbByCellType = new Map<FCellTypes, (cell: KupDataCell) => void>([
             [FCellTypes.AUTOCOMPLETE, this.#checkOnBlurEvent.bind(this)],
             [FCellTypes.CHIP, this.#checkOnBlurEvent.bind(this)],
@@ -5469,7 +5480,11 @@ export class KupDataTable {
                     cell.inputSettings?.checkValueOnExit &&
                     this.#checkOnBlurByCellType(cellType)
                 ) {
-                    this.#checkOnBlurByCellType(cellType)(cell);
+                    this.#checkOnBlurByCellType(cellType)(
+                        cell,
+                        row.id,
+                        currentColumn.name
+                    );
                 }
 
                 const jsxCell = <FCell {...fcell}></FCell>;
@@ -6257,7 +6272,7 @@ export class KupDataTable {
             this.#kupManager.keysBinding.register('enter', () => {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
-                bc.blur();
+                bc?.blur();
                 this.#handleUpdateClick();
             });
             commandButtons.push(
