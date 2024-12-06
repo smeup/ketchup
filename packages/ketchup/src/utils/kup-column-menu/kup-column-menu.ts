@@ -854,34 +854,36 @@ export class KupColumnMenu {
                     default:
                         window.clearTimeout(comp.columnFilterTimeout);
                         comp.columnFilterTimeout = window.setTimeout(() => {
-                            if (dataStorage['isInterval'] == true) {
-                                this.intervalChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column'],
-                                    dataStorage['intervalIndex'],
-                                    !isClickEvent,
-                                    dataStorage['suffix']
-                                );
-                            } else {
-                                this.textfieldChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (isClickEvent) {
-                                this.saveTextualFilters(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (card.data?.checkbox) {
-                                card.data.checkbox = this.prepCheckbox(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                                card.refresh();
+                            if (dataStorage) {
+                                if (dataStorage['isInterval'] == true) {
+                                    this.intervalChange(
+                                        comp,
+                                        compEvent.detail.value,
+                                        dataStorage['column'],
+                                        dataStorage['intervalIndex'],
+                                        !isClickEvent,
+                                        dataStorage['suffix']
+                                    );
+                                } else {
+                                    this.textfieldChange(
+                                        comp,
+                                        compEvent.detail.value,
+                                        dataStorage['column']
+                                    );
+                                }
+                                if (isClickEvent) {
+                                    this.saveTextualFilters(
+                                        comp,
+                                        dataStorage['column']
+                                    );
+                                }
+                                if (card.data?.checkbox) {
+                                    card.data.checkbox = this.prepCheckbox(
+                                        comp,
+                                        dataStorage['column']
+                                    );
+                                    card.refresh();
+                                }
                             }
                         }, 300);
                         break;
