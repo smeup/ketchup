@@ -228,4 +228,5 @@ export interface FCellEventPayload extends KupEventPayload {
 export interface InputSettingsProps {
     forceUppercase?: boolean;
     forceLowercase?: boolean;
+    checkValueOnExit?: boolean;
 }
