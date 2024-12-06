@@ -84,6 +84,7 @@ import {
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
+    getInpComponentAbsoluteHeight,
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -402,12 +403,9 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
-                const maxAbsoluteRow = Math.max(
-                    ...layout.sections.flatMap((sec) =>
-                        sec.content.map((cont) => cont.absoluteRow || 0)
-                    )
-                );
-                styleObj.height = `${maxAbsoluteRow * ROW_HEIGHT}px`;
+                styleObj.height = `${
+                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT
+                }px`;
             } else {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
@@ -1041,10 +1039,10 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name.replace(
+                    `${componentQuery}[id='${column.name.replace(
                         /\//g,
                         '\\$1'
-                    )}]`
+                    )}']`
                 );
                 if (cell.value) {
                     el?.setValue(cell.value);
