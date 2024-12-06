@@ -2038,36 +2038,62 @@ export class KupInputPanel {
         );
     }
 
-    #setFocusOnFirstInput() {
-        const form = this.#formRef;
-        const firstCellContent =
-            form?.querySelector<HTMLElement>('.f-cell__content');
-        if (!form || !firstCellContent) return;
+    #setFocusOnInputElement() {
+        if (!this.#formRef) return;
 
-        const firstInput = this.#findFirstInput(firstCellContent);
-        if (firstInput) {
-            setTimeout(() => firstInput.focus(), 300);
+        const F_CELL_CONTENT_SELECTOR = '.f-cell__content';
+        const MS_TO_FOCUS = 300;
+
+        // set focus on first input error
+        const fCellContents = Array.from(
+            this.#formRef.querySelectorAll<HTMLElement>(F_CELL_CONTENT_SELECTOR)
+        );
+        for (const fCellContent of fCellContents) {
+            const inputError = this.#findFirstInput(fCellContent, true);
+            if (inputError) {
+                setTimeout(() => inputError.focus(), MS_TO_FOCUS);
+                return;
+            }
+        }
+
+        // set focus on first input of the first cellContent
+        if (!this.autoFocus) return;
+        const input = this.#findFirstInput(
+            this.#formRef.querySelector<HTMLElement>(F_CELL_CONTENT_SELECTOR)
+        );
+        if (input) {
+            setTimeout(() => input.focus(), MS_TO_FOCUS);
         }
     }
 
     #findFirstInput(
-        element: HTMLElement | ShadowRoot
-    ): HTMLInputElement | null {
-        const directInput = element.querySelector<HTMLInputElement>('input');
-        if (directInput) return directInput;
+        element: HTMLElement,
+        withError: boolean = false
+    ): HTMLInputElement {
+        if (!element || !(element instanceof HTMLElement)) return;
 
-        const shadowElements =
-            element instanceof HTMLElement
-                ? element.querySelectorAll<HTMLElement>('*')
-                : [];
-        for (const elem of Array.from(shadowElements)) {
-            if (elem.shadowRoot) {
-                const shadowInput = elem.shadowRoot.querySelector('input');
+        const INPUT_SELECTOR = '.mdc-text-field__input';
+        const ERROR_SELECTOR = '.mdc-text-field--error';
+        const selector = withError
+            ? `${ERROR_SELECTOR} ${INPUT_SELECTOR}`
+            : INPUT_SELECTOR;
+
+        const input = element.querySelector<HTMLInputElement>(selector);
+        if (input) return input;
+
+        // find inner shadow inputs
+        const innerElements = Array.from(
+            element.querySelectorAll<HTMLElement>('*')
+        );
+        for (const element of innerElements) {
+            if (element.shadowRoot) {
+                const shadowInput =
+                    element.shadowRoot.querySelector<HTMLInputElement>(
+                        selector
+                    );
                 if (shadowInput) return shadowInput;
             }
         }
-
-        return null;
     }
 
     #setAutoSkip(inputId: string, event: InputEvent): void {
@@ -2085,7 +2111,7 @@ export class KupInputPanel {
         }
 
         const inputElements = Array.from(
-            this.#formRef.querySelectorAll<HTMLElement>('.f-text-field')
+            this.#formRef?.querySelectorAll<HTMLElement>('.f-text-field')
         ).reduce<{ id: string; HTMLInputElement: HTMLInputElement }[]>(
             (result, divElement) => {
                 const inputElement = divElement.querySelector('input');
@@ -2135,10 +2161,8 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
+        this.#setFocusOnInputElement();
         this.#kupManager.debug.logLoad(this, true);
-        if (this.#formRef && this.autoFocus) {
-            this.#setFocusOnFirstInput();
-        }
     }
 
     componentWillRender() {
@@ -2146,7 +2170,6 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
-        // autoFocus
         if (this.#formRef) {
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');
