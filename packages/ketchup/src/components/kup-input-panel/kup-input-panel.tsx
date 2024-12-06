@@ -2041,12 +2041,11 @@ export class KupInputPanel {
     #setFocusOnInputElement() {
         if (!this.#formRef) return;
 
-        const F_CELL_CONTENT_SELECTOR = '.f-cell__content';
         const MS_TO_FOCUS = 300;
 
         // set focus on first input error
         const fCellContents = Array.from(
-            this.#formRef.querySelectorAll<HTMLElement>(F_CELL_CONTENT_SELECTOR)
+            this.#formRef.querySelectorAll<HTMLElement>('.f-cell__content')
         );
         for (const fCellContent of fCellContents) {
             const inputError = this.#findFirstInput(fCellContent, true);
@@ -2057,10 +2056,8 @@ export class KupInputPanel {
         }
 
         // set focus on first input of the first cellContent
-        if (!this.autoFocus) return;
-        const input = this.#findFirstInput(
-            this.#formRef.querySelector<HTMLElement>(F_CELL_CONTENT_SELECTOR)
-        );
+        if (!this.autoFocus || fCellContents.length === 0) return;
+        const input = this.#findFirstInput(fCellContents[0]);
         if (input) {
             setTimeout(() => input.focus(), MS_TO_FOCUS);
         }
@@ -2086,13 +2083,10 @@ export class KupInputPanel {
             element.querySelectorAll<HTMLElement>('*')
         );
         for (const element of innerElements) {
-            if (element.shadowRoot) {
-                const shadowInput =
-                    element.shadowRoot.querySelector<HTMLInputElement>(
-                        selector
-                    );
-                if (shadowInput) return shadowInput;
-            }
+            if (!element.shadowRoot) continue;
+            const shadowInput =
+                element.shadowRoot.querySelector<HTMLInputElement>(selector);
+            if (shadowInput) return shadowInput;
         }
     }
 
