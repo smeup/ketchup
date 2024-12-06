@@ -2079,11 +2079,10 @@ export class KupInputPanel {
         if (input) return input;
 
         // find inner shadow inputs
-        const innerElements = Array.from(
+        const shadowRootElements = Array.from(
             element.querySelectorAll<HTMLElement>('*')
-        );
-        for (const element of innerElements) {
-            if (!element.shadowRoot) continue;
+        ).filter((innerElemnent) => innerElemnent.shadowRoot);
+        for (const element of shadowRootElements) {
             const shadowInput =
                 element.shadowRoot.querySelector<HTMLInputElement>(selector);
             if (shadowInput) return shadowInput;
