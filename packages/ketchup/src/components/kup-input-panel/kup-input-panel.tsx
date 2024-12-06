@@ -509,12 +509,10 @@ export class KupInputPanel {
             return;
         }
 
-        cell.data.legacyLook = row.layout?.absolute;
-
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name);
+            return customRender(cell, column.name, row.layout?.absolute);
         }
 
         const cellProps: FCellProps = {
@@ -966,7 +964,6 @@ export class KupInputPanel {
 
         fieldCell.cell.data = {
             ...fieldCell.cell.data,
-            sizing: 'extra-small',
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
