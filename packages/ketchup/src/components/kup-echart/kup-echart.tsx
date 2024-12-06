@@ -927,19 +927,33 @@ export class KupEchart {
         if (this.legend === KupEchartLegendPlacement.HIDDEN) {
             return null;
         }
-        const data: string[] = [];
-        for (let key in y) {
+        const data = Object.keys(y).flatMap((key) => {
             if (this.series.includes(key)) {
                 const columnTitle = this.data.columns.find(
                     (col) => col.name === key
                 )?.title;
-                if (columnTitle) {
-                    data.push(columnTitle);
-                }
+                return columnTitle ? [columnTitle] : [];
             } else {
-                data.push(key);
+                return [key];
             }
+        });
+
+        let padding: number[] = [40, 0, 40, 0]; // Default padding
+        switch (this.legend) {
+            case KupEchartLegendPlacement.TOP:
+                padding = [20, 0, 40, 0];
+                break;
+            case KupEchartLegendPlacement.BOTTOM:
+                padding = [40, 0, 20, 0];
+                break;
+            case KupEchartLegendPlacement.LEFT:
+                padding = [40, 40, 5, 0];
+                break;
+            case KupEchartLegendPlacement.RIGHT:
+                padding = [40, 0, 5, 40];
+                break;
         }
+
         return {
             data: data,
             [this.legend]: 0,
@@ -947,6 +961,10 @@ export class KupEchart {
                 color: this.#themeText,
                 fontFamily: this.#themeFont,
             },
+            type: 'scroll',
+            pageButtonItemGap: 3,
+            pageButtonPosition: 'end',
+            padding: padding,
         } as echarts.LegendComponentOption;
     }
 
@@ -957,6 +975,8 @@ export class KupEchart {
                 ? this.chartTitle.position
                 : 'left']: 0,
             textStyle: {
+                width: this.rootElement.clientWidth - 5,
+                overflow: 'break',
                 color:
                     this.chartTitle && this.chartTitle.color
                         ? this.#kupManager.theme.colorCheck(

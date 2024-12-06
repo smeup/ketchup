@@ -849,9 +849,9 @@ export class KupColumnMenu {
             case 'kup-timepicker-input':
             case 'kup-timepicker-itemclick':
                 switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
-                        break;
-                    default:
+                    case KupColumnMenuIds.TEXTFIELD_FILTER:
+                    case KupColumnMenuIds.TEXTFIELD_FROM:
+                    case KupColumnMenuIds.TEXTFIELD_TO:
                         window.clearTimeout(comp.columnFilterTimeout);
                         comp.columnFilterTimeout = window.setTimeout(() => {
                             if (dataStorage['isInterval'] == true) {
