@@ -5,15 +5,17 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                | Type                  | Default                          |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------ | --------------------- | -------------------------------- |
-| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                        | `KupDialogAutoCenter` | `{ onReady: true }`              |
-| `customStyle` | `custom-style` | Custom style of the component.                                                             | `string`              | `''`                             |
-| `header`      | --             | Header options.                                                                            | `KupDialogHeader`     | `{ icons: { close: true } }`     |
-| `modal`       | --             | Set of options to display the dialog as a modal.                                           | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
-| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                               | `boolean`             | `true`                           |
-| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.). | `string`              | `'auto'`                         |
-| `sizeY`       | `size-y`       | The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).  | `string`              | `'auto'`                         |
+| Property      | Attribute      | Description                                                                                 | Type                  | Default                          |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------------------- |
+| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                         | `KupDialogAutoCenter` | `{ onReady: true }`              |
+| `customStyle` | `custom-style` | Custom style of the component.                                                              | `string`              | `''`                             |
+| `header`      | --             | Header options.                                                                             | `KupDialogHeader`     | `{ icons: { close: true } }`     |
+| `maxSizeX`    | `max-size-x`   | The max width of the dialog, defaults to 90dvw.                                             | `string`              | `'90dvw'`                        |
+| `maxSizeY`    | `max-size-y`   | The max height of the dialog, defaults to 90dvh.                                            | `string`              | `'90dvh'`                        |
+| `modal`       | --             | Set of options to display the dialog as a modal.                                            | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
+| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                                | `boolean`             | `true`                           |
+| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).  | `string`              | `'auto'`                         |
+| `sizeY`       | `size-y`       | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string`              | `'auto'`                         |
 
 
 ## Events

@@ -177,6 +177,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
+        'mdc-text-field--legacy-look': props.legacyLook,
         ...(!props.textArea && {
             [`mdc-text-field--${props.sizing || 'small'}`]: true,
         }),
@@ -421,17 +422,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.error || props.alert) {
-        return (
-            <div class="mdc-text-field-helper-line">
-                {props.error ? (
-                    <span class="mdc-error-message">{props.error}</span>
-                ) : props.alert ? (
-                    <span class="mdc-alert-message">{props.alert}</span>
-                ) : undefined}
-            </div>
-        );
-    } else if (props.helperEnabled !== false) {
+    if (props.helperEnabled !== false && (props.error || props.alert)) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
@@ -444,6 +435,16 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
                 </div>
             );
         }
+
+        return (
+            <div class="mdc-text-field-helper-line">
+                {props.error ? (
+                    <span class="mdc-error-message">{props.error}</span>
+                ) : props.alert ? (
+                    <span class="mdc-alert-message">{props.alert}</span>
+                ) : undefined}
+            </div>
+        );
     }
 }
 

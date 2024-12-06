@@ -84,6 +84,7 @@ import {
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
+    getInpComponentAbsoluteHeight,
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -181,7 +182,12 @@ export class KupInputPanel {
      * @default false
      */
     @Prop() autoFocus?: boolean = false;
-    //#endregion
+
+    /**
+     * Sets the auto skip between input text fields when the value reaches the max length
+     * @default false
+     */
+    @Prop() autoSkip?: boolean = false;
 
     //#endregion
 
@@ -397,12 +403,9 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
-                const maxAbsoluteRow = Math.max(
-                    ...layout.sections.flatMap((sec) =>
-                        sec.content.map((cont) => cont.absoluteRow || 0)
-                    )
-                );
-                styleObj.height = `${maxAbsoluteRow * ROW_HEIGHT}px`;
+                styleObj.height = `${
+                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT
+                }px`;
             } else {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
@@ -615,9 +618,18 @@ export class KupInputPanel {
         );
     }
 
-    #renderLabel(cell: KupDataCell, cellId: string) {
+    #renderLabel(
+        cell: KupDataCell,
+        cellId: string,
+        isAbsoluteLayout?: boolean
+    ) {
         return (
-            <span class="input-panel-label" id={cellId}>
+            <span
+                class={`input-panel-label${
+                    isAbsoluteLayout ? ' input-panel-label--legacy-look' : ''
+                }`}
+                id={cellId}
+            >
                 {cell.value}
             </span>
         );
@@ -961,6 +973,8 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
+            legacyLook: true,
+            helperEnabled: false,
         };
 
         return (
@@ -1028,10 +1042,10 @@ export class KupInputPanel {
                 }
 
                 const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name.replace(
+                    `${componentQuery}[id='${column.name.replace(
                         /\//g,
                         '\\$1'
-                    )}]`
+                    )}']`
                 );
                 if (cell.value) {
                     el?.setValue(cell.value);
@@ -1393,19 +1407,35 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
+        const data: {
+            label: string;
+            onBlur?: () => void;
+            onInput?: (event: InputEvent) => void;
+        } = {
+            label: fieldLabel,
+        };
+
+        if (
+            this.autoSkip &&
+            (cell.isEditable || cell.editable) &&
+            cell.data?.maxLength
+        ) {
+            data.onInput = (event: InputEvent) => {
+                this.#setAutoSkip(id, event);
+            };
+        }
+
         if (
             cell.inputSettings?.checkObject ||
             cell.inputSettings?.checkValueOnExit ||
             cell.mandatory
         ) {
-            return {
-                label: fieldLabel,
-                onBlur: () => {
-                    this.#checkOnBlurProp(cell, id);
-                },
+            data.onBlur = () => {
+                this.#checkOnBlurProp(cell, id);
             };
         }
-        return { label: fieldLabel };
+
+        return data;
     }
 
     #RADAdapter(
@@ -2040,6 +2070,54 @@ export class KupInputPanel {
         return null;
     }
 
+    #setAutoSkip(inputId: string, event: InputEvent): void {
+        const currentHTMLInputElement = event?.target;
+        if (
+            !currentHTMLInputElement ||
+            !(currentHTMLInputElement instanceof HTMLInputElement)
+        ) {
+            return;
+        }
+
+        const { maxLength, value } = currentHTMLInputElement;
+        if (!maxLength || maxLength < 0 || value?.length < maxLength) {
+            return;
+        }
+
+        const inputElements = Array.from(
+            this.#formRef.querySelectorAll<HTMLElement>('.f-text-field')
+        ).reduce<{ id: string; HTMLInputElement: HTMLInputElement }[]>(
+            (result, divElement) => {
+                const inputElement = divElement.querySelector('input');
+                if (!inputElement) {
+                    return result;
+                }
+
+                result.push({
+                    id: divElement?.id || '',
+                    HTMLInputElement: inputElement,
+                });
+                return result;
+            },
+            []
+        );
+        if (!inputElements.length) {
+            return;
+        }
+
+        const currentInputElementIndex = inputElements.findIndex(
+            (element) => element.id === inputId
+        );
+        if (
+            currentInputElementIndex < 0 ||
+            currentInputElementIndex === inputElements.length - 1
+        ) {
+            return;
+        }
+
+        inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2058,7 +2136,7 @@ export class KupInputPanel {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
-        if (this.#formRef && this.autoFocus){
+        if (this.#formRef && this.autoFocus) {
             this.#setFocusOnFirstInput();
         }
     }
@@ -2068,6 +2146,7 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
+        // autoFocus
         if (this.#formRef) {
             const fs: NodeListOf<HTMLElement> =
                 this.#formRef.querySelectorAll('.f-text-field');

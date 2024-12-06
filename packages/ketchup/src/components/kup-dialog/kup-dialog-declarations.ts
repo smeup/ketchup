@@ -10,6 +10,8 @@ export enum KupDialogProps {
     resizable = 'Sets whether the dialog is resizable or not.',
     sizeX = 'The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).',
+    maxSizeY = 'The max height of the dialog, defaults to 90dvh.',
+    maxSizeX = 'The max width of the dialog, defaults to 90dvw.',
 }
 
 export interface KupDialogAutoCenter {

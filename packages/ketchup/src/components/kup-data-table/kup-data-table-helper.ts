@@ -1168,32 +1168,30 @@ export function decorateDataTable(data: KupDataTableDataset) {
             const options = cell['options'];
             cell.isEditable = cell.isEditable ?? cell['editable'];
 
-            if (options) {
-                const shapeAdapters = {
-                    [FCellShapes.AUTOCOMPLETE]: () =>
-                        CMBandACPAdapter(value, '', options),
-                    [FCellShapes.COMBOBOX]: () =>
-                        CMBandACPAdapter(value, '', options),
-                    [FCellShapes.RADIO]: () => RADAdapter(value, options),
-                    [FCellShapes.CHECKBOX]: () => CHKAdapter(value, options),
-                    [FCellShapes.CHIP]: () => CHIAdapter(value),
-                    [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
-                };
+            const shapeAdapters = {
+                [FCellShapes.AUTOCOMPLETE]: () =>
+                    CMBandACPAdapter(value, '', options),
+                [FCellShapes.COMBOBOX]: () =>
+                    CMBandACPAdapter(value, '', options),
+                [FCellShapes.RADIO]: () => RADAdapter(value, options),
+                [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
+                [FCellShapes.CHIP]: () => CHIAdapter(value),
+                [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
+            };
 
-                const adapterFunction = shapeAdapters[cell.shape];
+            const adapterFunction = shapeAdapters[cell.shape];
 
-                if (adapterFunction) {
-                    cell.data = adapterFunction();
-                } else {
-                    if (cell.shape) {
-                        dom.ketchup.debug.logMessage(
-                            'kup-data',
-                            `Shape specified ${
-                                cell.shape
-                            } in cell ${JSON.stringify(cell)} unsupported`,
-                            KupDebugCategory.WARNING
-                        );
-                    }
+            if (adapterFunction) {
+                cell.data = adapterFunction();
+            } else {
+                if (cell.shape) {
+                    dom.ketchup.debug.logMessage(
+                        'kup-data',
+                        `Shape specified ${cell.shape} in cell ${JSON.stringify(
+                            cell
+                        )} unsupported`,
+                        KupDebugCategory.WARNING
+                    );
                 }
             }
         });
