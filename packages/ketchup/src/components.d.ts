@@ -1914,7 +1914,7 @@ export namespace Components {
          */
         "maxSizeX": string;
         /**
-          * The max height of the card, defaults to 90dvh.
+          * The max height of the dialog, defaults to 90dvh.
           * @default "auto"
          */
         "maxSizeY": string;
@@ -1947,7 +1947,7 @@ export namespace Components {
          */
         "sizeX": string;
         /**
-          * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+          * The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
           * @default "auto"
          */
         "sizeY": string;
@@ -7640,7 +7640,7 @@ declare namespace LocalJSX {
          */
         "maxSizeX"?: string;
         /**
-          * The max height of the card, defaults to 90dvh.
+          * The max height of the dialog, defaults to 90dvh.
           * @default "auto"
          */
         "maxSizeY"?: string;
@@ -7662,7 +7662,7 @@ declare namespace LocalJSX {
          */
         "sizeX"?: string;
         /**
-          * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+          * The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
           * @default "auto"
          */
         "sizeY"?: string;
