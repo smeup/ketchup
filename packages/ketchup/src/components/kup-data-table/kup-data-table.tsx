@@ -6159,7 +6159,7 @@ export class KupDataTable {
             this.#kupManager.keysBinding.register('enter', () => {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
-                bc.blur();
+                bc?.blur();
                 this.#handleUpdateClick();
             });
             commandButtons.push(
