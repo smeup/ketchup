@@ -30,7 +30,6 @@ import {
     fieldColumn,
     KupDataTableCell,
     KupDataTableRow,
-    KupDataTableRowCells,
     VoCodVerRowEnum,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -177,23 +176,39 @@ export class KupData {
         /**
          * Get rows COD_VER in the same columns order
          * @param {KupDataTableRow} row single row.
-         * @returns { { name: string; value: KupDataTableCell }[]} row codvers
+         * @returns { { id: string, column: KupDataColumn; cell: KupDataTableCell }[]} row codvers
          */
         getRowCodVers: (
             columns: KupDataColumn[],
             row: KupDataTableRow
-        ): { name: string; value: KupDataTableCell }[] => {
-            const rowCodVers = columns
-                .filter((col) => this.column.isCodVer(col))
-                .reduce((result, col) => {
-                    const rowCell = row.cells[col.name];
-                    if (!rowCell) return result;
-                    result.push({ name: col.name, value: { ...rowCell } });
+        ): {
+            id: string;
+            column: KupDataColumn;
+            cell: KupDataTableCell;
+        }[] => {
+            return columns
+                .filter(
+                    (col) =>
+                        this.column.isCodVer(col) && this.column.isVisible(col)
+                )
+                .reduce<
+                    {
+                        id: string;
+                        column: KupDataColumn;
+                        cell: KupDataTableCell;
+                    }[]
+                >((result, col) => {
+                    const cell = row.cells[col.name];
+                    if (!cell) return result;
+                    result.push({
+                        id: col.name,
+                        column: col,
+                        cell,
+                    });
                     return result;
                 }, []);
-
-            return rowCodVers;
         },
+
         /**
          * Build f-cell with its properties
          * @param { KupDatatablecell} cell
@@ -316,15 +331,21 @@ export class KupData {
             return false;
         },
         /**
+         * Check column visibility
+         * @param {KupDataColumn} column column.
+         * @returns { boolean }
+         */
+        isVisible(column: KupDataColumn): boolean {
+            return !('visible' in column) || column.visible;
+        },
+        /**
          *  Check if almost one column has COD_VER
          * @param { KupDataColumn[] } columns single column.
          * @returns { boolean } if COD_VER founded or not.
          */
         hasCodVer: (columns: KupDataColumn[]) => {
             return columns.some(
-                (col) =>
-                    this.column.isCodVer(col) &&
-                    (!('visible' in col) || col.visible)
+                (col) => this.column.isCodVer(col) && this.column.isVisible(col)
             );
         },
     };
@@ -458,24 +479,14 @@ export class KupData {
             columns: KupDataColumn[],
             commands: KupCommand[]
         ): KupDataRowAction[] => {
-            console.log('Colums', columns);
-            console.log('Row', row);
-
             const actions: KupDataRowAction[] = [];
+
             const rowCodVers = this.cell.getRowCodVers(columns, row);
-            console.log('Row Cod_vers', rowCodVers);
             rowCodVers.forEach((codVer) => {
                 let hasCommands = false;
-
-                const currentColumn = this.column
-                    .find(columns, {
-                        name: codVer.name,
-                    })
-                    .pop();
-
                 if (commands) {
                     const commandsFiltered = commands.filter(
-                        (command) => command.obj.k === codVer.value.obj.k
+                        (command) => command.obj.k === codVer.cell.obj.k
                     );
                     hasCommands = commandsFiltered.length > 0;
                     commandsFiltered.forEach((commandFilter) => {
@@ -485,41 +496,31 @@ export class KupData {
                                 command.text === commandFilter.text &&
                                 command.obj.k === commandFilter.obj.k
                         );
-                        if (
-                            !('visible' in currentColumn) ||
-                            currentColumn.visible
-                        ) {
-                            actions.push({
-                                icon: commandFilter.icon,
-                                text: commandFilter.text,
-                                obj: commandFilter.obj,
-                                cell: codVer.value,
-                                index: index,
-                                type: DropDownAction.COMMAND,
-                                column: currentColumn,
-                            });
-                        }
+                        actions.push({
+                            icon: commandFilter.icon,
+                            text: commandFilter.text,
+                            obj: commandFilter.obj,
+                            cell: codVer.cell,
+                            index: index,
+                            type: DropDownAction.COMMAND,
+                            column: codVer.column,
+                        });
                     });
                 }
 
                 if (!hasCommands) {
-                    if (
-                        !('visible' in currentColumn) ||
-                        currentColumn.visible
-                    ) {
-                        actions.push({
-                            icon:
-                                codVer.value.icon ||
-                                codVer.value.data?.resource ||
-                                codVer.value.data?.icon ||
-                                '',
-                            text: '',
-                            obj: codVer.value.obj,
-                            cell: codVer.value,
-                            type: DropDownAction.CODVER,
-                            column: currentColumn,
-                        });
-                    }
+                    actions.push({
+                        icon:
+                            codVer.cell.icon ||
+                            codVer.cell.data?.resource ||
+                            codVer.cell.data?.icon ||
+                            '',
+                        text: '',
+                        obj: codVer.cell.obj,
+                        cell: codVer.cell,
+                        type: DropDownAction.CODVER,
+                        column: codVer.column,
+                    });
                 }
             });
 
