@@ -175,34 +175,24 @@ export class KupData {
             }
         },
         /**
-         * Given some cells, it creates an object with name of column
-         * and value
-         * @param {KupDataTableRowCells} cells  group of cells .
-         * @returns { { name: string; value: KupDataTableCell }[]} object with name of the column and cell.
-         */
-        formatCells(
-            cells: KupDataTableRowCells
-        ): { name: string; value: KupDataTableCell }[] {
-            return Object.entries(cells).map(([key, value]) => ({
-                name: key,
-                value: value,
-            }));
-        },
-        /**
-         * Get COD_VER cells
+         * Get rows COD_VER in the same columns order
          * @param {KupDataTableRow} row single row.
-         * @returns { { name: string; value: KupDataTableCell }[]} cells founded
+         * @returns { { name: string; value: KupDataTableCell }[]} row codvers
          */
-        getCodVer: (
+        getRowCodVers: (
+            columns: KupDataColumn[],
             row: KupDataTableRow
         ): { name: string; value: KupDataTableCell }[] => {
-            const formattedCells = this.cell.formatCells(row.cells);
+            const rowCodVers = columns
+                .filter((col) => this.column.isCodVer(col))
+                .reduce((result, col) => {
+                    const rowCell = row.cells[col.name];
+                    if (!rowCell) return result;
+                    result.push({ name: col.name, value: { ...rowCell } });
+                    return result;
+                }, []);
 
-            return formattedCells.filter(
-                (cell) =>
-                    cell.value.obj.p === VoCodVerRowEnum.P &&
-                    cell.value.obj.t === VoCodVerRowEnum.T
-            );
+            return rowCodVers;
         },
         /**
          * Build f-cell with its properties
@@ -468,11 +458,13 @@ export class KupData {
             columns: KupDataColumn[],
             commands: KupCommand[]
         ): KupDataRowAction[] => {
+            console.log('Colums', columns);
+            console.log('Row', row);
+
             const actions: KupDataRowAction[] = [];
-
-            const cellsCodVer = this.cell.getCodVer(row);
-
-            cellsCodVer.forEach((codVer) => {
+            const rowCodVers = this.cell.getRowCodVers(columns, row);
+            console.log('Row Cod_vers', rowCodVers);
+            rowCodVers.forEach((codVer) => {
                 let hasCommands = false;
 
                 const currentColumn = this.column
