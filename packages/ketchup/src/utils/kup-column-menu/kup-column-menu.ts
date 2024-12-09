@@ -592,14 +592,14 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_FROM,
-                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
                     ),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
+            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
             initialValue: initialValueFrom,
             manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
@@ -613,12 +613,12 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_TO,
-                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_TO,
+            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
             initialValue: initialValueTo,
             manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
@@ -682,14 +682,14 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_FROM,
-                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
                     ),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
+            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
             initialValue: initialValueFrom,
         });
         props.push({
@@ -703,12 +703,12 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_TO,
-                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_TO,
+            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
             initialValue: initialValueTo,
         });
 
@@ -849,9 +849,9 @@ export class KupColumnMenu {
             case 'kup-timepicker-input':
             case 'kup-timepicker-itemclick':
                 switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
-                        break;
-                    default:
+                    case KupColumnMenuIds.TEXTFIELD_FILTER:
+                    case KupColumnMenuIds.TEXTFIELD_FROM:
+                    case KupColumnMenuIds.TEXTFIELD_TO:
                         window.clearTimeout(comp.columnFilterTimeout);
                         comp.columnFilterTimeout = window.setTimeout(() => {
                             if (dataStorage['isInterval'] == true) {

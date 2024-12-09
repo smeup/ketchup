@@ -350,3 +350,9 @@ export interface KupDatatableUpdatePayload extends KupEventPayload {
     updatedData: KupDataTableDataset;
     command?: KupDataCell;
 }
+
+export interface KupDatatableCellCheckPayload extends KupEventPayload {
+    originalData: KupDataTableDataset;
+    updatedData: KupDataTableDataset;
+    cell?: KupDataCell;
+}
