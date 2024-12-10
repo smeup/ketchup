@@ -1798,6 +1798,10 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns": string[];
     }
     interface KupDatePicker {
         /**
@@ -7555,6 +7559,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "updatableData"?: boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns"?: string[];
     }
     interface KupDatePicker {
         /**
