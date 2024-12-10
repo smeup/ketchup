@@ -4267,6 +4267,10 @@ export namespace Components {
           * @default false
          */
         "trailingLabel": boolean;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupTimePicker {
         /**
