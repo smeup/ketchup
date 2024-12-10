@@ -285,8 +285,18 @@ describe('kup data getCodVerRows', () => {
     it('should filter cells with VO;CODVER from row', () => {
         const expectedResult = [
             {
-                name: 'X$CFG',
-                value: {
+                id: 'X$CFG',
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                },
+                cell: {
                     isEditable: false,
                     obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                     value: '',
