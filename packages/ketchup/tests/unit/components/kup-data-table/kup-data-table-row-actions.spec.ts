@@ -295,6 +295,9 @@ describe('kup data getCodVerRows', () => {
                         p: 'COD_VER',
                         t: 'VO',
                     },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
                 },
                 cell: {
                     isEditable: false,
