@@ -63,6 +63,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../kup-chip/kup-chip-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -229,27 +230,26 @@ export class KupCalendar {
                 });
             },
             eventDidMount: (info) => {
-                if (this.iconCol) {
-                    const row: KupDataRow = info.event.extendedProps.row;
-                    const cell = row.cells[this.iconCol];
-                    if (cell && cell.value) {
-                        const wrapper = document.createElement('div');
-                        wrapper.classList.add('icon-wrapper');
+                // if (this.iconCol) {
+                //     const row: KupDataRow = info.event.extendedProps.row;
+                //     const cell = row.cells[this.iconCol];
+                //     if (cell && cell.value) {
+                //         const wrapper = document.createElement('div');
+                //         wrapper.classList.add('icon-wrapper');
+                //         cell.value.split(';').forEach((icon) => {
+                //             const span = document.createElement('span');
+                //             span.className = 'custom-icon';
+                //             const path: string = getAssetPath(
+                //                 `./assets/svg/${icon}.svg`
+                //             );
+                //             span.style.mask = `url('${path}') no-repeat center`;
+                //             span.style.webkitMask = `url('${path}') no-repeat center`;
+                //             wrapper.appendChild(span);
+                //         });
 
-                        cell.value.split(';').forEach((icon) => {
-                            const span = document.createElement('span');
-                            span.className = 'custom-icon';
-                            const path: string = getAssetPath(
-                                `./assets/svg/${icon}.svg`
-                            );
-                            span.style.mask = `url('${path}') no-repeat center`;
-                            span.style.webkitMask = `url('${path}') no-repeat center`;
-                            wrapper.appendChild(span);
-                        });
-
-                        info.el.appendChild(wrapper);
-                    }
-                }
+                //         info.el.appendChild(wrapper);
+                //     }
+                // }
 
                 if (this.imageCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
@@ -451,28 +451,60 @@ export class KupCalendar {
                         KupDatesFormats.ISO_TIME
                     );
 
-                    startDate = startDate.hour(dayjsStart.hour());
-                    startDate = startDate.minute(dayjsStart.minute());
-                    startDate = startDate.second(dayjsStart.second());
+                    if (dayjsStart && dayjsEnd) {
+                        startDate = startDate.hour(dayjsStart.hour());
+                        startDate = startDate.minute(dayjsStart.minute());
+                        startDate = startDate.second(dayjsStart.second());
 
-                    endDate = endDate.hour(dayjsEnd.hour());
-                    endDate = endDate.minute(dayjsEnd.minute());
-                    endDate = endDate.second(dayjsEnd.second());
+                        endDate = endDate.hour(dayjsEnd.hour());
+                        endDate = endDate.minute(dayjsEnd.minute());
+                        endDate = endDate.second(dayjsEnd.second());
+                    } else {
+                        this.kupManager.debug.logMessage(
+                            this,
+
+                            `error while converting hour range: [${
+                                dayjsStart
+                                    ? `start hour: ${dayjsStart}`
+                                    : `invalid start hour: ${startCell.value}`
+                            }, ${
+                                dayjsEnd
+                                    ? `end hour: ${dayjsEnd}`
+                                    : `invalid end hour: ${endCell.value}`
+                            }]`,
+                            KupDebugCategory.WARNING
+                        );
+                    }
                 }
             }
 
-            const el: EventInput = {
-                allDay: isHourRange ? false : true,
-                editable: this.editableEvents,
-                end: endDate.toISOString(),
-                extendedProps: {
-                    row,
-                },
-                start: startDate.toISOString(),
-                title: row.cells[this.descrCol].value,
-            };
-
-            return el;
+            if (endDate && startDate) {
+                const el: EventInput = {
+                    allDay: isHourRange ? false : true,
+                    editable: this.editableEvents,
+                    end: endDate.toISOString(),
+                    extendedProps: {
+                        row,
+                    },
+                    start: startDate.toISOString(),
+                    title: row.cells[this.descrCol].value,
+                };
+                return el;
+            } else {
+                this.kupManager.debug.logMessage(
+                    this,
+                    `error while converting dates: [${
+                        startDate
+                            ? `start date: ${startDate}`
+                            : `invalid start date: ${cell.value}`
+                    }. ${
+                        endDate
+                            ? `end date: ${endDate}`
+                            : `invalid end date: ${cell.value}`
+                    }]`,
+                    KupDebugCategory.WARNING
+                );
+            }
         });
     }
 
