@@ -325,12 +325,8 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object.
      */
     toDayjs(input: dayjs.ConfigType, format?: string): dayjs.Dayjs | null {
-        try {
-            const dayJsResult = format ? dayjs(input, format) : dayjs(input);
-            return dayJsResult.isValid() ? dayJsResult : null;
-        } catch (e) {
-            console.log('Error while converting date in dayJs', e);
-        }
+        const dayJsResult = format ? dayjs(input, format) : dayjs(input);
+        return dayJsResult.isValid() ? dayJsResult : null;
     }
 
     /**
