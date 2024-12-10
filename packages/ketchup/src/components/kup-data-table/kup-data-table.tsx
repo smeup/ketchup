@@ -732,7 +732,7 @@ export class KupDataTable {
     /**
      * When set to true enables the column filters.
      */
-    @Prop() showFilters: boolean = false;
+    @Prop() showFilters: boolean = true;
     /**
      * When set to true shows the footer.
      */
