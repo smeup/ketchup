@@ -63,6 +63,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../kup-chip/kup-chip-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -235,7 +236,6 @@ export class KupCalendar {
                 //     if (cell && cell.value) {
                 //         const wrapper = document.createElement('div');
                 //         wrapper.classList.add('icon-wrapper');
-
                 //         cell.value.split(';').forEach((icon) => {
                 //             const span = document.createElement('span');
                 //             span.className = 'custom-icon';
@@ -459,6 +459,21 @@ export class KupCalendar {
                         endDate = endDate.hour(dayjsEnd.hour());
                         endDate = endDate.minute(dayjsEnd.minute());
                         endDate = endDate.second(dayjsEnd.second());
+                    } else {
+                        this.kupManager.debug.logMessage(
+                            this,
+
+                            `error while converting hour range: [${
+                                dayjsStart
+                                    ? `start hour: ${dayjsStart}`
+                                    : `invalid start hour: ${startCell.value}`
+                            }, ${
+                                dayjsEnd
+                                    ? `end hour: ${dayjsEnd}`
+                                    : `invalid end hour: ${endCell.value}`
+                            }]`,
+                            KupDebugCategory.WARNING
+                        );
                     }
                 }
             }
@@ -475,6 +490,20 @@ export class KupCalendar {
                     title: row.cells[this.descrCol].value,
                 };
                 return el;
+            } else {
+                this.kupManager.debug.logMessage(
+                    this,
+                    `error while converting dates: [${
+                        startDate
+                            ? `start date: ${startDate}`
+                            : `invalid start date: ${cell.value}`
+                    }. ${
+                        endDate
+                            ? `end date: ${endDate}`
+                            : `invalid end date: ${cell.value}`
+                    }]`,
+                    KupDebugCategory.WARNING
+                );
             }
         });
     }
