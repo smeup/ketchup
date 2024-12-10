@@ -1265,7 +1265,6 @@ export class KupEchart {
                     type: 'pie',
                     data: data,
                     radius: '60%',
-                    stillShowZeroSum: false,
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
