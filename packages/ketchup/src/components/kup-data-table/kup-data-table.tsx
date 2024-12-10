@@ -789,6 +789,10 @@ export class KupDataTable {
      * Transposes the data of the data table
      */
     @Prop({ mutable: true }) transpose: boolean = false;
+    /**
+     * List of the visible columns
+     */
+    @Prop({ mutable: true }) visibleColumns: string[];
 
     /**
      * When set to true, editable cells will be rendered using input components
@@ -3452,17 +3456,27 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(
-            (col) =>
-                !this.#kupManager.data.column.isCodVer(col) &&
-                (!('visible' in col) || col.visible)
-        );
+        // Starting columns filter
+        let resultVisibleColumns = this.getColumns().filter((col) => {
+            const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
+            console.log(isNotCodVer, col);
+            if (this.visibleColumns) {
+                return this.visibleColumns.includes(col.name) && isNotCodVer;
+            }
+            return isNotCodVer && (!('visible' in col) || col.visible);
+        });
 
-        // check grouping
+        // order based on `visibleColumns`
+        if (this.visibleColumns) {
+            resultVisibleColumns = resultVisibleColumns.sort(
+                (a, b) =>
+                    this.visibleColumns.indexOf(a.name) -
+                    this.visibleColumns.indexOf(b.name)
+            );
+        }
+        // Check grouping e filter based on group visibility
         if (this.#isGrouping()) {
-            // filtering column based on group visibility
-            return visibleColumns.filter((column) => {
-                // check if in group
+            resultVisibleColumns = resultVisibleColumns.filter((column) => {
                 let group = null;
                 for (let currentGroup of this.groups) {
                     if (currentGroup.column === column.name) {
@@ -3470,19 +3484,13 @@ export class KupDataTable {
                         break;
                     }
                 }
-
                 if (group) {
-                    // return true if
-                    // 1) group obj has not the 'visible' property or
-                    // 2) group has 'visible' property and it is true
                     return !group.hasOwnProperty('visible') || group.visible;
                 }
-
-                // not in group -> visible
-                return true;
+                return true; // Not in a group -> visible
             });
         }
-        return visibleColumns;
+        return resultVisibleColumns;
     }
 
     getGroupByName(column: string): GroupObject {
