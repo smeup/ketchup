@@ -779,7 +779,9 @@ export class KupColumnMenu {
             case 'kup-datepicker-textfieldsubmit':
             case 'kup-timepicker-textfieldsubmit':
                 switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
+                    case KupColumnMenuIds.TEXTFIELD_FILTER:
+                    case KupColumnMenuIds.TEXTFIELD_FROM:
+                    case KupColumnMenuIds.TEXTFIELD_TO:
                         break;
                     default:
                         this.saveTextualFilters(comp, dataStorage['column']);
