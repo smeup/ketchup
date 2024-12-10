@@ -3458,10 +3458,9 @@ export class KupDataTable {
     getVisibleColumns(): Array<KupDataColumn> {
         // Starting columns filter
         let resultVisibleColumns = this.getColumns().filter((col) => {
-            const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
-            console.log(isNotCodVer, col);
+            const isNotCodVer = this.#kupManager.data.column.isCodVer(col);
             if (this.visibleColumns) {
-                return this.visibleColumns.includes(col.name) && isNotCodVer;
+                return isNotCodVer && this.visibleColumns.includes(col.name);
             }
             return isNotCodVer && (!('visible' in col) || col.visible);
         });
