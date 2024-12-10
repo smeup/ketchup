@@ -285,8 +285,21 @@ describe('kup data getCodVerRows', () => {
     it('should filter cells with VO;CODVER from row', () => {
         const expectedResult = [
             {
-                name: 'X$CFG',
-                value: {
+                id: 'X$CFG',
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                },
+                cell: {
                     isEditable: false,
                     obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                     value: '',
@@ -294,13 +307,17 @@ describe('kup data getCodVerRows', () => {
                 },
             },
         ];
-        const result = dom.ketchup.data.cell.getCodVer(mockedRows[0]);
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            mockedColumns,
+            mockedRows[0]
+        );
 
         expect(result).toEqual(expectedResult);
     });
 
     it('should return an empy array where no VO;CODVER found', () => {
-        const result = dom.ketchup.data.cell.getCodVer(
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            sampleKupDataDatasetNoCodVer.columns,
             sampleKupDataDatasetNoCodVer.rows[0]
         );
 
