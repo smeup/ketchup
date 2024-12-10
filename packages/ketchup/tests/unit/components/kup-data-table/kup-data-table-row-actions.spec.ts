@@ -294,13 +294,17 @@ describe('kup data getCodVerRows', () => {
                 },
             },
         ];
-        const result = dom.ketchup.data.cell.getCodVer(mockedRows[0]);
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            mockedColumns,
+            mockedRows[0]
+        );
 
         expect(result).toEqual(expectedResult);
     });
 
     it('should return an empy array where no VO;CODVER found', () => {
-        const result = dom.ketchup.data.cell.getCodVer(
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            sampleKupDataDatasetNoCodVer.columns,
             sampleKupDataDatasetNoCodVer.rows[0]
         );
 
