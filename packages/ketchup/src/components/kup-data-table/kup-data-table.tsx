@@ -3460,7 +3460,7 @@ export class KupDataTable {
         let resultVisibleColumns = this.getColumns().filter((col) => {
             const isNotCodVer = this.#kupManager.data.column.isCodVer(col);
             if (this.visibleColumns) {
-                return isNotCodVer && this.visibleColumns.includes(col.name);
+                return this.visibleColumns.includes(col.name);
             }
             return isNotCodVer && (!('visible' in col) || col.visible);
         });
@@ -3475,7 +3475,7 @@ export class KupDataTable {
         }
         // Check grouping e filter based on group visibility
         if (this.#isGrouping()) {
-            resultVisibleColumns = resultVisibleColumns.filter((column) => {
+            return resultVisibleColumns.filter((column) => {
                 let group = null;
                 for (let currentGroup of this.groups) {
                     if (currentGroup.column === column.name) {
