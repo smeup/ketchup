@@ -3468,8 +3468,6 @@ export class KupDataTable {
             }
         });
 
-        console.log(resultVisibleColumns);
-
         // order based on `visibleColumns`
         if (this.visibleColumns) {
             resultVisibleColumns = resultVisibleColumns.sort(
