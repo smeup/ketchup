@@ -145,9 +145,9 @@ export default {
         {
           prop: 'displayMode',
           description:
-            'Sets how to show the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
-          default: 'description',
+          default: 'DescOnly',
           try: 'field',
         },
         {
@@ -192,9 +192,9 @@ export default {
         {
           prop: 'selectMode',
           description:
-            'Sets how to return the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
-          default: 'description',
+          default: 'DescOnly',
           try: 'field',
         },
         {
