@@ -3461,7 +3461,7 @@ export class KupDataTable {
             const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
 
             if (this.visibleColumns) {
-                // Se visibleColumns è definito, includi solo le colonne specificate
+                // if visible columns is specified, include only those columns
                 return this.visibleColumns.includes(col.name);
             } else {
                 return isNotCodVer && (!('visible' in col) || col.visible);
