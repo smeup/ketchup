@@ -230,26 +230,28 @@ export class KupCalendar {
                 });
             },
             eventDidMount: (info) => {
-                // if (this.iconCol) {
-                //     const row: KupDataRow = info.event.extendedProps.row;
-                //     const cell = row.cells[this.iconCol];
-                //     if (cell && cell.value) {
-                //         const wrapper = document.createElement('div');
-                //         wrapper.classList.add('icon-wrapper');
-                //         cell.value.split(';').forEach((icon) => {
-                //             const span = document.createElement('span');
-                //             span.className = 'custom-icon';
-                //             const path: string = getAssetPath(
-                //                 `./assets/svg/${icon}.svg`
-                //             );
-                //             span.style.mask = `url('${path}') no-repeat center`;
-                //             span.style.webkitMask = `url('${path}') no-repeat center`;
-                //             wrapper.appendChild(span);
-                //         });
+                if (this.iconCol) {
+                    const row: KupDataRow = info.event.extendedProps.row;
+                    const cell = row.cells[this.iconCol];
+                    if (cell?.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('icon-wrapper');
+                        cell.value.split(';').forEach((icon) => {
+                            if (icon) {
+                                const span = document.createElement('span');
+                                span.className = 'custom-icon';
+                                const path: string = getAssetPath(
+                                    `./assets/svg/${icon}.svg`
+                                );
+                                span.style.mask = `url('${path}') no-repeat center`;
+                                span.style.webkitMask = `url('${path}') no-repeat center`;
+                                wrapper.appendChild(span);
+                            }
+                        });
 
-                //         info.el.appendChild(wrapper);
-                //     }
-                // }
+                        info.el.appendChild(wrapper);
+                    }
+                }
 
                 if (this.imageCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
