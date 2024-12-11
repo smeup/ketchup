@@ -1013,6 +1013,7 @@ export class KupEchart {
 
     #setTooltip() {
         return {
+            appendTo: 'body',
             backgroundColor: this.#themeBackground,
             textStyle: {
                 color: this.#themeText,
@@ -1265,6 +1266,9 @@ export class KupEchart {
                     type: 'pie',
                     data: data,
                     radius: '60%',
+                    label: {
+                        show: false,
+                    },
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
@@ -1627,6 +1631,7 @@ export class KupEchart {
                 type: isHorizontal ? 'category' : 'value',
                 ...this.yAxis,
             },
+            grid: { containLabel: true },
         } as echarts.EChartsOption;
     }
 
