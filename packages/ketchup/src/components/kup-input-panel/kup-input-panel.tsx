@@ -943,9 +943,6 @@ export class KupInputPanel {
 
         const styleObj = {
             position: 'absolute',
-            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
             height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
             'min-height':
                 absoluteHeight !== null ? `${absoluteHeight}px` : null,
@@ -960,6 +957,13 @@ export class KupInputPanel {
                     ? `${getAbsoluteLeft(field.absoluteColumn)}px`
                     : null,
             overflow: 'auto',
+            ...(fieldCell.cell.shape === FCellShapes.DATE && {
+                width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
+                'min-width':
+                    absoluteWidth !== null ? `${absoluteWidth}px` : null,
+                'max-width':
+                    absoluteWidth !== null ? `${absoluteWidth}px` : null,
+            }),
         };
 
         fieldCell.cell.data = {

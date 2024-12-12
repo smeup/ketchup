@@ -119,6 +119,11 @@ export class KupDatePicker {
      * @default false
      */
     @Prop() showMarker: boolean = false;
+    /**
+     * When enabled, font will be set to monospace and sizing will be extra-small .
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -540,6 +545,7 @@ export class KupDatePicker {
             sizing: this.sizing,
             outlined: this.outlined,
             showIcon: this.showIcon,
+            legacyLook: this.legacyLook,
             error: this.error,
             showMarker: this.showMarker,
         };

@@ -179,10 +179,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--alert': Boolean(props.alert),
         'mdc-text-field--legacy-look mdc-text-field--extra-small':
             props.legacyLook,
-        ...(!props.textArea &&
-            !props.legacyLook && {
-                [`mdc-text-field--${props.sizing || 'small'}`]: true,
-            }),
+        [`mdc-text-field--${props.sizing || 'small'}`]:
+            !props.textArea && !props.legacyLook,
         'top-right-indicator': props.showMarker,
     };
 
