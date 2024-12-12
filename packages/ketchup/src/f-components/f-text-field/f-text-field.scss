@@ -214,10 +214,6 @@
         --kup_textfield_border_color: var(--kup-border-disabled);
         --kup_textfield_background_color: var(--kup-layer-0);
         pointer-events: none;
-        .#{$kup-icon},
-        button {
-          pointer-events: none;
-        }
       }
 
       &.mdc-text-field--extra-small {
