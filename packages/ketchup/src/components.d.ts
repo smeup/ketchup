@@ -1798,6 +1798,10 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns": string[];
     }
     interface KupDatePicker {
         /**
@@ -4267,6 +4271,10 @@ export namespace Components {
           * @default false
          */
         "trailingLabel": boolean;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupTimePicker {
         /**
@@ -7551,6 +7559,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "updatableData"?: boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns"?: string[];
     }
     interface KupDatePicker {
         /**

@@ -938,7 +938,11 @@ export class KupEchart {
             }
         });
 
-        let padding: number[] = [40, 0, 40, 0]; // Default padding
+        let padding: number[] = [40, 0, 0, 0]; // Default padding
+        let orientation: 'horizontal' | 'vertical' = 'horizontal'; // Default orient
+        const currentContainerWidth = this.rootElement.clientWidth;
+        const minContainerWidth = 400;
+
         switch (this.legend) {
             case KupEchartLegendPlacement.TOP:
                 padding = [20, 0, 40, 0];
@@ -948,24 +952,39 @@ export class KupEchart {
                 break;
             case KupEchartLegendPlacement.LEFT:
                 padding = [40, 40, 5, 0];
+                orientation = 'vertical';
                 break;
             case KupEchartLegendPlacement.RIGHT:
                 padding = [40, 0, 5, 40];
+                orientation = 'vertical';
                 break;
         }
 
-        return {
+        const legendConfig = {
             data: data,
             [this.legend]: 0,
             textStyle: {
                 color: this.#themeText,
                 fontFamily: this.#themeFont,
             },
+            orient: orientation,
+            padding: padding,
             type: 'scroll',
             pageButtonItemGap: 3,
             pageButtonPosition: 'end',
-            padding: padding,
         } as echarts.LegendComponentOption;
+
+        // Move legend when container is too small
+        if (currentContainerWidth < minContainerWidth) {
+            return {
+                ...legendConfig,
+                bottom: 0,
+                orient: 'horizontal',
+                padding: [50, 0, 0, 0],
+            };
+        }
+
+        return legendConfig;
     }
 
     #setTitle() {
@@ -994,6 +1013,7 @@ export class KupEchart {
 
     #setTooltip() {
         return {
+            appendTo: 'body',
             backgroundColor: this.#themeBackground,
             textStyle: {
                 color: this.#themeText,
@@ -1222,10 +1242,12 @@ export class KupEchart {
             for (let j = 0; j < y[key].length; j++) {
                 sum = sum + (parseFloat(y[key][j]) || 0);
             }
-            data.push({
-                name: key,
-                value: sum,
-            });
+            if (sum !== 0) {
+                data.push({
+                    name: key,
+                    value: sum,
+                });
+            }
         }
         return {
             color: this.#setColors(Object.keys(y).length),
@@ -1243,6 +1265,10 @@ export class KupEchart {
                     })[0].title,
                     type: 'pie',
                     data: data,
+                    radius: '60%',
+                    label: {
+                        show: false,
+                    },
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
@@ -1605,6 +1631,7 @@ export class KupEchart {
                 type: isHorizontal ? 'category' : 'value',
                 ...this.yAxis,
             },
+            grid: { containLabel: true },
         } as echarts.EChartsOption;
     }
 
