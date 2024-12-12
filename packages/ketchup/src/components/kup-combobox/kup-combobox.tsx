@@ -120,7 +120,7 @@ export class KupCombobox {
      * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
      * @default false
      */
-    @Prop() readOnly: boolean = false;
+    @Prop() readOnly: boolean = true;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -144,10 +144,6 @@ export class KupCombobox {
      * @default false
      */
     @Prop() showMarker: boolean = false;
-
-    /*-------------------------------------------------*/
-    /*       I n t e r n a l   V a r i a b l e s       */
-    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
