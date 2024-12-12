@@ -31,7 +31,6 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 
@@ -81,6 +80,13 @@ export class KupList {
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * Show filter for filter elements in list
+     * @default ''
+     */
+    @Prop() showfilter: boolean = false;
+
     /**
      * Keeps string for filtering elements when filter mode is active
      * @default ''
