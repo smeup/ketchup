@@ -1329,7 +1329,7 @@ export namespace Components {
          */
         "isClearable": boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect": boolean;
         /**
@@ -1347,11 +1347,6 @@ export namespace Components {
           * @default false
          */
         "readOnly": boolean;
-        /**
-          * Sets the component in read only state making not editable but you can select items inside of it.
-          * @default true
-         */
-        "readOnlySelectable": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -3055,15 +3050,15 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showFilter": boolean;
+        /**
           * Displays the icons associated to each row when set to true.
           * @default false
          */
         "showIcons": boolean;
-        /**
-          * Show filter for filter elements in list
-          * @default ''
-         */
-        "showfilter": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
           * @default false
@@ -7155,7 +7150,7 @@ declare namespace LocalJSX {
          */
         "isClearable"?: boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect"?: boolean;
         /**
@@ -7180,11 +7175,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "readOnly"?: boolean;
-        /**
-          * Sets the component in read only state making not editable but you can select items inside of it.
-          * @default true
-         */
-        "readOnlySelectable"?: boolean;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -8561,15 +8551,15 @@ declare namespace LocalJSX {
          */
         "selectable"?: boolean;
         /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showFilter"?: boolean;
+        /**
           * Displays the icons associated to each row when set to true.
           * @default false
          */
         "showIcons"?: boolean;
-        /**
-          * Show filter for filter elements in list
-          * @default ''
-         */
-        "showfilter"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
           * @default false

@@ -219,10 +219,9 @@
           pointer-events: none;
         }
       }
-      &.mdc-text-field--read-only-selectable {
+      &.mdc-text-field--read-only-is-select {
         pointer-events: none;
       }
-
       &.mdc-text-field--extra-small {
         height: var(--kup_textfield_extrasmall_height) !important;
         padding: var(--kup_textfield_extrasmall_padding);

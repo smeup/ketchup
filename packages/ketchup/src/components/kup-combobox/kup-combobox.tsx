@@ -103,9 +103,9 @@ export class KupCombobox {
      */
     @Prop() isClearable: boolean = false;
     /**
-     * Lets the combobox behave as a select element.
+     * Lets the combobox behave as a select element, making the textfield readable only but interactable.
      */
-    @Prop({ reflect: true }) isSelect: boolean = false;
+    @Prop({ reflect: true }) isSelect: boolean = true;
     /**
      * When set, its content will be shown as a label.
      * @default null
@@ -122,11 +122,6 @@ export class KupCombobox {
      */
     @Prop() readOnly: boolean = false;
 
-    /**
-     * Sets the component in read only state making not editable but you can select items inside of it.
-     * @default true
-     */
-    @Prop() readOnlySelectable: boolean = true;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -574,7 +569,7 @@ export class KupCombobox {
             label: this.label,
             leadingLabel: this.leadingLabel,
             readOnly: this.readOnly,
-            readOnlySelectable: this.readOnlySelectable,
+            isSelect: this.isSelect,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true

@@ -33,7 +33,7 @@ export interface FTextFieldProps extends FComponent {
     outlined?: boolean;
     quantityButtons?: boolean;
     readOnly?: boolean;
-    readOnlySelectable?: boolean;
+    isSelect?: boolean;
     shaped?: boolean;
     size?: number;
     sizing?: KupComponentSizing;
