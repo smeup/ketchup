@@ -1348,6 +1348,11 @@ export namespace Components {
          */
         "readOnly": boolean;
         /**
+          * Sets the component in read only state making not editable but you can select items inside of it.
+          * @default true
+         */
+        "readOnlySelectable": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -3054,6 +3059,11 @@ export namespace Components {
           * @default false
          */
         "showIcons": boolean;
+        /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showfilter": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
           * @default false
@@ -7171,6 +7181,11 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
+          * Sets the component in read only state making not editable but you can select items inside of it.
+          * @default true
+         */
+        "readOnlySelectable"?: boolean;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
@@ -8550,6 +8565,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "showIcons"?: boolean;
+        /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showfilter"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
           * @default false
