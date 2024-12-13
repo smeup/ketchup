@@ -1414,13 +1414,10 @@ export class KupBox {
 
         const sectionStyle: any = section.style || {};
         if (section.dim && parent) {
-            sectionStyle.flex = `0 0 ${section.dim}`;
             sectionStyle.overflow = 'hidden';
 
             if (parent.horizontal) {
                 sectionStyle.maxWidth = section.dim;
-            } else {
-                sectionStyle.maxHeight = section.dim;
             }
         }
 
