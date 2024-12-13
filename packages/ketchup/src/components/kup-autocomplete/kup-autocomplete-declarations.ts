@@ -18,14 +18,6 @@ export enum KupAutocompleteProps {
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
     showMarker = 'When true shows a small marker on the component',
 }
-/**
- * The available display modes for the autocomplete component.
- */
-export enum KupAutocompleteDisplayMode {
-    CODE = 'CodeOnly',
-    DESCRIPTION = 'DescOnly',
-    DESCRIPTION_AND_CODE = 'Both',
-}
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {
     value: string;
