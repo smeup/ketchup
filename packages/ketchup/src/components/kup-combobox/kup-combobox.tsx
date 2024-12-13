@@ -121,6 +121,12 @@ export class KupCombobox {
      * @default false
      */
     @Prop() readOnly: boolean = false;
+
+    /**
+     * Sets the component in read only state making not editable but you can select items inside of it.
+     * @default true
+     */
+    @Prop() readOnlySelectable: boolean = true;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -565,6 +571,7 @@ export class KupCombobox {
             label: this.label,
             leadingLabel: this.leadingLabel,
             readOnly: this.readOnly,
+            readOnlySelectable: this.readOnlySelectable,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
