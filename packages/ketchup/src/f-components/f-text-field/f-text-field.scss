@@ -220,8 +220,6 @@
         }
       }
       &.mdc-text-field--read-only-selectable {
-        --kup_textfield_border_color: var(--kup-border-disabled);
-        --kup_textfield_background_color: var(--kup-layer-0);
         pointer-events: none;
       }
 
