@@ -7,6 +7,8 @@
           :axis.prop="axis"
           :data.prop="singleData"
           :types.prop="types"
+          :series.prop="singleSerie"
+          :legend.prop="legend"
         />
       </div>
     </div>
@@ -18,6 +20,8 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types"
+          :series.prop="baseSeries"
+          :legend.prop="legend"
         />
       </div>
     </div>
@@ -30,6 +34,8 @@
           :data.prop="baseData"
           :types.prop="types"
           stacked
+          :series.prop="baseSeries"
+          :legend.prop="legend"
         />
       </div>
     </div>
@@ -43,9 +49,12 @@ export default {
   data() {
     return {
       axis: 'Col1',
+      legend: 'top',
       baseData,
       singleData,
       types: ['Bar', 'Bar', 'Bar'],
+      baseSeries: ['Col2', 'Col3', 'Col4'],
+      singleSerie: ['Col4'],
     };
   },
 };

@@ -6,6 +6,7 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types"
+          :series.prop="baseSeries"
           @kup-echart-click="onBarChartClick"
         />
       </div>
@@ -18,6 +19,7 @@
           :data.prop="baseData"
           :types.prop="types1"
           legend="hidden"
+          :series.prop="baseSeries"
           @kup-echart-click="onPieChartClick()"
         />
       </div>
@@ -33,6 +35,7 @@ export default {
     return {
       axis: 'Col1',
       baseData,
+      baseSeries: ['Col2', 'Col3', 'Col4'],
       types: ['Line'],
       types1: ['Pie'],
       cnt: 0,

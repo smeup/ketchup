@@ -20,7 +20,7 @@ export default {
       axis: 'COL1',
       types: ['Radar'],
       data: radarData,
-      legend: 'top',
+      legend: 'right',
       series: ['COL2', 'COL3'],
     };
   },
