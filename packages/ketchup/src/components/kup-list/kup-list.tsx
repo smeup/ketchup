@@ -87,7 +87,7 @@ export class KupList {
      * Show filter for filter elements in list
      * @default ''
      */
-    @Prop() showfilter: boolean = false;
+    @Prop() showFilter: boolean = false;
 
     /**
      * Keeps string for filtering elements when filter mode is active
@@ -717,7 +717,7 @@ export class KupList {
                     )}
                 </style>
                 <div id="kup-component" class={wrapperClass}>
-                    {this.showfilter ? this.#createFilterComponent() : null}
+                    {this.showFilter ? this.#createFilterComponent() : null}
                     <ul
                         class={componentClass}
                         role={roleAttr}
