@@ -509,6 +509,7 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
+                showfilter={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }

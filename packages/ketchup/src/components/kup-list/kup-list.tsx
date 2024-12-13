@@ -33,6 +33,8 @@ import {
 import { FImage } from '../../f-components/f-image/f-image';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -141,7 +143,7 @@ export class KupList {
      * Instance of the KupManager class.
      */
     #kupManager: KupManager = kupManagerInstance();
-
+    #globalFilterTimeout: number;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
 
@@ -599,6 +601,36 @@ export class KupList {
         );
     }
 
+    #createFilterComponent() {
+        return (
+            <div id="global-filter">
+                <kup-text-field
+                    fullWidth={true}
+                    label={this.#kupManager.language.translate(
+                        KupLanguageSearch.SEARCH
+                    )}
+                    icon={KupThemeIconValues.SEARCH}
+                    initialValue={this.filter}
+                    onkup-textfield-input={(event) => {
+                        window.clearTimeout(this.filter);
+                        this.#globalFilterTimeout = window.setTimeout(
+                            () => this.onFilterValueChange(event),
+                            600
+                        );
+                    }}
+                ></kup-text-field>
+            </div>
+        );
+    }
+
+    onFilterValueChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.filter = value;
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -685,6 +717,7 @@ export class KupList {
                     )}
                 </style>
                 <div id="kup-component" class={wrapperClass}>
+                    {this.showfilter ? this.#createFilterComponent() : null}
                     <ul
                         class={componentClass}
                         role={roleAttr}
