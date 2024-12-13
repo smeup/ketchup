@@ -5344,7 +5344,9 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.data.columns,
+                            this.visibleColumns // To be fixed
+                                ? this.getVisibleColumns()
+                                : this.data.columns,
                             this.rowActions,
                             this.commands ?? []
                         );
