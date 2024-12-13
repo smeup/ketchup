@@ -68,6 +68,7 @@ import {
     KupInputPanelCell,
 } from '../../components/kup-input-panel/kup-input-panel-declarations';
 import { FObjectField } from '../f-object-field/f-object-field';
+import { KupTextFieldEventPayload } from '../../components';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -583,6 +584,9 @@ function setEditableCell(
                     onkup-autocomplete-iconclick={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                    onKup-autocomplete-blur={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -603,6 +607,9 @@ function setEditableCell(
                             cellEvent(e, props, cellType, FCellEvents.UPDATE)
                         }
                         type="checkbox"
+                        onBlur={(e: FocusEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.BLUR)
+                        }
                     ></input>
                 );
             } else {
@@ -611,6 +618,9 @@ function setEditableCell(
                         {...cell.data}
                         onChange={(e: InputEvent) =>
                             cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                        }
+                        onBlur={(e: FocusEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.BLUR)
                         }
                     />
                 );
@@ -630,6 +640,9 @@ function setEditableCell(
                         slot="field"
                         {...cell.slotData}
                         error={cell.data.error}
+                        onKup-textfield-blur={(
+                            e: CustomEvent<KupTextFieldEventPayload>
+                        ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                     ></kup-text-field>
                 </kup-chip>
             );
@@ -662,6 +675,9 @@ function setEditableCell(
                     onkup-combobox-iconclick={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                    onKup-combobox-blur={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                 />
             );
         case FCellTypes.DATE:
@@ -677,6 +693,9 @@ function setEditableCell(
                     onkup-datepicker-input={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    onKup-datepicker-blur={(
+                        e: CustomEvent<KupDatePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                 />
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -695,6 +714,9 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
                         selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        onKup-autocomplete-blur={(
+                            e: CustomEvent<KupAutocompleteEventPayload>
+                        ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                         onkup-autocomplete-input={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
@@ -731,6 +753,9 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
                         selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        onKup-combobox-blur={(
+                            e: CustomEvent<KupComboboxEventPayload>
+                        ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                         onkup-combobox-input={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
@@ -767,6 +792,9 @@ function setEditableCell(
                         }
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
                     }}
+                    onBlur={(e: FocusEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.BLUR)
+                    }
                 ></FRadio>
             );
         case FCellTypes.RATING:
@@ -788,6 +816,9 @@ function setEditableCell(
                     onChange={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.UPDATE)
                     }
+                    onBlur={(e: FocusEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.BLUR)
+                    }
                 ></FSwitch>
             );
         case FCellTypes.TIME:
@@ -803,6 +834,9 @@ function setEditableCell(
                     onkup-timepicker-input={(
                         e: CustomEvent<KupTimePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    onKup-timepicker-blur={(
+                        e: CustomEvent<KupTimePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
                 />
             );
         case FCellTypes.OBJECT:
@@ -873,6 +907,9 @@ function setEditableCell(
                                 cellType,
                                 FCellEvents.ICON_CLICK
                             )
+                        }
+                        onBlur={(e: FocusEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.BLUR)
                         }
                     />
                 );
@@ -1274,7 +1311,7 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
 }
 
 function cellEvent(
-    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
+    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent | FocusEvent,
     props: FCellProps,
     cellType: FCellTypes,
     cellEventName: FCellEvents
@@ -1367,7 +1404,7 @@ function cellEvent(
 }
 
 function getValueFromEventTarget(
-    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
+    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent | FocusEvent,
     cellType: FCellTypes
 ): string {
     const isInputEvent = !!(
