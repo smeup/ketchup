@@ -180,7 +180,6 @@ import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
-import { KupAutocompleteEventPayload } from '../kup-autocomplete/kup-autocomplete-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-data-table',
@@ -1059,6 +1058,7 @@ export class KupDataTable {
         [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
         [FCellShapes.TIME, 'kup-timepicker-blur'],
     ]);
+    #rootListeners: { event: string; handler: (e) => void }[] = [];
 
     /**
      * When component unload is complete
@@ -4353,6 +4353,7 @@ export class KupDataTable {
             }
         };
         this.rootElement.addEventListener(evName, handler);
+        this.#rootListeners.push({ event: evName, handler });
     };
 
     #checkOnBlurByCellType = (
@@ -6354,6 +6355,12 @@ export class KupDataTable {
     }
 
     render() {
+        if (this.#rootListeners.length) {
+            this.#rootListeners.map(({ event, handler }) => {
+                this.rootElement.removeEventListener(event, handler);
+            });
+            this.#rootListeners = [];
+        }
         this.#thRefs = [];
         this.#rowsRefs = [];
         this.#renderedRows = [];
