@@ -1847,6 +1847,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook": boolean;
+        /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
          */
@@ -7596,6 +7601,11 @@ declare namespace LocalJSX {
           * @default ""
          */
         "initialValue"?: string;
+        /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook"?: boolean;
         "onKup-datepicker-blur"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-change"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-cleariconclick"?: (event: KupDatePickerCustomEvent<KupEventPayload>) => void;
