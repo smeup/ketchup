@@ -434,7 +434,7 @@ export class KupCalendar {
             getColumnByName(this.getColumns(), this.startCol) &&
             getColumnByName(this.getColumns(), this.endCol);
 
-        const rows = this.getRows().map((row) => {
+        return this.getRows().map((row) => {
             const cell = row.cells[this.dateCol];
             if (cell) {
                 let startDate = this.kupManager.dates.toDayjs(cell.value);
@@ -508,15 +508,8 @@ export class KupCalendar {
                         KupDebugCategory.WARNING
                     );
                 }
-            } else {
-                this.kupManager.debug.logMessage(
-                    this,
-                    'Cell has not been evaluated',
-                    KupDebugCategory.WARNING
-                );
             }
         });
-        return rows;
     }
 
     private onPrev() {
