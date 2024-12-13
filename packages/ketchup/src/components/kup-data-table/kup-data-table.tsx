@@ -180,7 +180,7 @@ import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
-import { KupAutocompleteEventPayload } from '../kup-autocomplete/kup-autocomplete-declarations';
+
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-data-table',
@@ -5450,6 +5450,10 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.data = {
+                    ...cell.data,
+                    legacyLook: this.legacyLook,
+                };
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
                         cell,
