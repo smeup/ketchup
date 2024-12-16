@@ -243,22 +243,26 @@ export class KupCombobox {
             } else {
                 this.#openList();
             }
-        }
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
 
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
-
-        if (this.isSelect) {
             this.kupIconClick.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
+            });
+        } else {
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
             });
         }
     }
