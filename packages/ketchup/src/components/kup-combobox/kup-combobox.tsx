@@ -105,7 +105,7 @@ export class KupCombobox {
     /**
      * Lets the combobox behave as a select element, making the textfield readable only but interactable.
      */
-    @Prop({ reflect: true }) isSelect: boolean = true;
+    @Prop() isSelect: boolean = true;
     /**
      * When set, its content will be shown as a label.
      * @default null
@@ -237,7 +237,7 @@ export class KupCombobox {
     }
 
     onKupClick() {
-        if (this.isSelect == true) {
+        if (this.isSelect) {
             if (this.#textfieldWrapper.classList.contains('toggled')) {
                 this.#closeList();
             } else {
@@ -251,6 +251,16 @@ export class KupCombobox {
             value: this.value,
             inputValue: this.#textfieldEl.value,
         });
+
+        if (this.isSelect) {
+            this.kupIconClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                open: this.#textfieldWrapper.classList.contains('toggled'),
+            });
+        }
     }
 
     onKupFocus() {

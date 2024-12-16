@@ -243,6 +243,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         maxlength={props.maxLength}
                         size={props.size}
                         value={value}
+                        readOnly={props.isSelect}
                         onBlur={(e: FocusEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {
