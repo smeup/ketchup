@@ -19,6 +19,7 @@ const STATE = new WeakMap<HTMLDivElement, FObjectFieldState>();
 export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
     props: FObjectFieldProps
 ) => {
+    debugger;
     return (
         <div
             class={`f-object-field ${
@@ -35,7 +36,7 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
                 icon={'search'}
                 trailingIcon={true}
                 disabled={false}
-                {...props.data?.['kup-text-field']}
+                {...props.cell?.data}
                 value={props.inputValue}
                 onIconClick={handlers.icon.bind(props)}
                 onInput={handlers.input.bind(props)}
@@ -43,14 +44,12 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
             ></FTextField>
             <FButton
                 icon={'menu'}
-                {...props.data?.['kup-button']}
                 onClick={handlers.button.bind(props)}
                 sizing={KupComponentSizing.SMALL}
                 styling={FButtonStyling.FLAT}
                 wrapperClass="obj-field-extra-btn"
             ></FButton>
             <kup-toolbar
-                {...props.data?.['kup-toolbar']}
                 onKup-toolbar-click={handlers.toolbar.bind(props)}
             ></kup-toolbar>
         </div>
