@@ -1407,6 +1407,7 @@ export class KupInputPanel {
             onInput?: (event: InputEvent) => void;
         } = {
             label: fieldLabel,
+            ...cell.data,
         };
 
         if (
