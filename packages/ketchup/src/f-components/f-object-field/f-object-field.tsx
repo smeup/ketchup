@@ -1,4 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
+import { KupDataCell } from '../../components';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { KupComponentSizing } from '../../types/GenericTypes';
@@ -12,14 +13,13 @@ import {
     FObjectFieldProps,
     FObjectFieldState,
     FObjectFieldStateChildren,
-} from './f-object-field-declations';
+} from './f-object-field-declarations';
 
-const STATE = new WeakMap<HTMLDivElement, FObjectFieldState>();
+const STATE = new WeakMap<KupDataCell, FObjectFieldState>();
 
 export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
     props: FObjectFieldProps
 ) => {
-    debugger;
     return (
         <div
             class={`f-object-field ${
@@ -38,6 +38,7 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
                 disabled={false}
                 {...props.cell?.data}
                 value={props.inputValue}
+                onChange={props.onChange}
                 onIconClick={handlers.icon.bind(props)}
                 onInput={handlers.input.bind(props)}
                 onKeyDown={handlers.keydown.bind(props)}
@@ -57,9 +58,9 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
 };
 
 function openList(props: FObjectFieldProps) {
-    const { root } = props;
+    const { cell } = props;
 
-    const state = STATE.get(root);
+    const state = STATE.get(cell);
     const { isListOpened, clickCb } = state;
     const { button, toolbar } = getChildren(state);
 
@@ -89,9 +90,9 @@ function openList(props: FObjectFieldProps) {
 }
 
 function closeList(props: FObjectFieldProps) {
-    const { root } = props;
+    const { cell } = props;
 
-    const state = STATE.get(root);
+    const state = STATE.get(cell);
     const { clickCb } = state;
     const { toolbar } = getChildren(state);
 
@@ -105,9 +106,9 @@ function closeList(props: FObjectFieldProps) {
 }
 
 function toggleList(props: FObjectFieldProps) {
-    const { root } = props;
+    const { cell } = props;
 
-    const state = STATE.get(root);
+    const state = STATE.get(cell);
     const { isListOpened } = state;
 
     if (isListOpened) {
@@ -131,18 +132,20 @@ const getChildren = (state: FObjectFieldState): FObjectFieldStateChildren => {
 };
 
 const setState = (props: FObjectFieldProps) => {
-    const { root } = props;
+    const { cell, root } = props;
 
-    const state = STATE.get(root);
+    const state = STATE.get(cell);
 
     if (!state) {
-        STATE.set(root, {
+        STATE.set(cell, {
             children: {},
             clickCb: { cb: closeList.bind(closeList, props) },
             inputValue: props.inputValue,
             isListOpened: false,
             root,
         });
+    } else {
+        STATE.set(cell, { ...state, root, children: getChildren(state) });
     }
 };
 
@@ -153,7 +156,7 @@ const emitter = (
 ) => {
     const { cell, root } = props;
 
-    const { children, inputValue } = STATE.get(root);
+    const { children, inputValue } = STATE.get(cell);
 
     const e = new CustomEvent<FObjectFieldEventPayload>(name, {
         bubbles: true,
@@ -173,9 +176,9 @@ const handlers: FObjectFieldEventHandlers = {
         emitter(this, 'kup-objectfield-searchpayload', e);
     },
     input: function (e) {
-        const { root } = this;
+        const { cell } = this;
 
-        const state = STATE.get(root);
+        const state = STATE.get(cell);
 
         state.inputValue = (e.target as HTMLInputElement).value;
     },

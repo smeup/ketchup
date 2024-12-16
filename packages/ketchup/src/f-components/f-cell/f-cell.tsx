@@ -1,22 +1,55 @@
-import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
-import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
-import {
-    FButtonStyling,
-    type FButtonProps,
-} from '../f-button/f-button-declarations';
-import type { KupChart } from '../../components/kup-chart/kup-chart';
-import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
+import type { KupChart } from '../../components/kup-chart/kup-chart';
+import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
+import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
-import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
+import {
+    DataAdapterFn,
+    KupInputPanelCell,
+} from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
-import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
+import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
+import {
+    CellOptions,
+    KupDataCell,
+    KupDataCellOptions,
+    KupDataColumn,
+    KupDataNode,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
     GenericObject,
     KupComponent,
     KupTagNames,
 } from '../../types/GenericTypes';
+import {
+    CMBandACPAdapter,
+    getCellValueForDisplay,
+    isForceLowercase,
+    isForceUppercase,
+    RADAdapter,
+} from '../../utils/cell-utils';
+import { FButton } from '../f-button/f-button';
+import { type FButtonProps } from '../f-button/f-button-declarations';
+import { FCheckbox } from '../f-checkbox/f-checkbox';
+import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
+import { FChip } from '../f-chip/f-chip';
+import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
+import { FImage } from '../f-image/f-image';
+import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
+import { FObjectField } from '../f-object-field/f-object-field';
+import { FProgressBar } from '../f-progress-bar/f-progress-bar';
+import { FRadio } from '../f-radio/f-radio';
+import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
+import { FRating } from '../f-rating/f-rating';
+import { FSwitch } from '../f-switch/f-switch';
+import { FTextField } from '../f-text-field/f-text-field';
 import {
     autoCenterComps,
     editableTypes,
@@ -30,44 +63,6 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
-import {
-    CHIAdapter,
-    CMBandACPAdapter,
-    getCellValueForDisplay,
-    isForceLowercase,
-    isForceUppercase,
-    RADAdapter,
-} from '../../utils/cell-utils';
-import { FCheckbox } from '../f-checkbox/f-checkbox';
-import { FTextField } from '../f-text-field/f-text-field';
-import { FImage } from '../f-image/f-image';
-import { FChip } from '../f-chip/f-chip';
-import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
-import {
-    CellOptions,
-    KupDataCell,
-    KupDataCellOptions,
-    KupDataColumn,
-    KupDataNode,
-    KupDataRow,
-} from '../../managers/kup-data/kup-data-declarations';
-import { FSwitch } from '../f-switch/f-switch';
-import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
-import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
-import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
-import { FButton } from '../f-button/f-button';
-import { FProgressBar } from '../f-progress-bar/f-progress-bar';
-import { FRadio } from '../f-radio/f-radio';
-import { FRating } from '../f-rating/f-rating';
-import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import {
-    DataAdapterFn,
-    KupInputPanelCell,
-} from '../../components/kup-input-panel/kup-input-panel-declarations';
-import { FObjectField } from '../f-object-field/f-object-field';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -808,6 +803,9 @@ function setEditableCell(
                 <FObjectField
                     cell={cell}
                     inputValue={cell.value}
+                    onChange={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                    }
                 ></FObjectField>
             );
         case FCellTypes.NUMBER:
