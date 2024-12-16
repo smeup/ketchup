@@ -218,6 +218,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             disabled={props.disabled}
                             maxlength={props.maxLength}
                             value={value}
+                            autoComplete={props.autocomplete ?? 'off'}
                             onBlur={props.onBlur}
                             onClick={props.onClick}
                             onChange={props.onChange}
@@ -242,6 +243,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         maxlength={props.maxLength}
                         size={props.size}
                         value={value}
+                        autoComplete={props.autocomplete ?? 'off'}
                         onBlur={(e: FocusEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {
