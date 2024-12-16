@@ -1631,7 +1631,7 @@ export class KupInputPanel {
 
     async #onBlurHandler(e: CustomEvent<FCellEventPayload>) {
         const {
-            detail: { column, cell, row, inputValue },
+            detail: { column, cell, inputValue },
         } = e;
 
         const currCell = this.#getCell(column.name);
@@ -1649,7 +1649,7 @@ export class KupInputPanel {
                       )
             );
 
-            if (!inputValue) {
+            if (!cell.value) {
                 return;
             }
         } else {
@@ -1657,7 +1657,7 @@ export class KupInputPanel {
         }
 
         // Valid object check
-        if (cell.inputSettings?.checkObject && inputValue) {
+        if (cell.inputSettings?.checkObject) {
             const { valid } = await this.checkValidObjCallback({
                 obj: cell.obj,
                 currentState: this.#reverseMapCells(),
