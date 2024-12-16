@@ -6,7 +6,8 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types"
-          legend="hidden"
+          :series.prop="baseSeries"
+          legend="top"
       /></div>
     </div>
   </div>
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       axis: 'Col1',
+      baseSeries: ['Col2', 'Col3', 'Col4'],
       types: ['Pie'],
       baseData,
     };
