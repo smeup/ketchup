@@ -1595,10 +1595,16 @@ export class KupInputPanel {
 
             return {
                 data: {
-                    columns: data.columns.map((col) => ({
-                        ...col,
-                        obj: data.rows[0].cells[col.name].obj,
-                    })),
+                    columns: data.columns.map((col) => {
+                        if (data.rows.length > 0) {
+                            data.rows[0].cells[col.name].obj;
+                            return {
+                                ...col,
+                                obj: data.rows[0].cells[col.name].obj,
+                            };
+                        }
+                        return col;
+                    }),
                     rows: data.rows.map((row) => ({
                         ...row,
                         cells: Object.keys(row.cells).reduce((cell, key) => {
