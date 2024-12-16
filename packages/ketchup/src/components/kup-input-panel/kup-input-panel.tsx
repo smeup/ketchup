@@ -1798,10 +1798,8 @@ export class KupInputPanel {
             this.#setCellError(
                 id,
                 currCell.value
-                    ? // If it's not empty remove the error message
-                      cell.data?.error || null
-                    : // else set the error message
-                      this.#kupManager.language.translate(
+                    ? cell.data?.error || null
+                    : this.#kupManager.language.translate(
                           KupLanguageGeneric.REQUIRED_VALUE
                       )
             );
@@ -1862,10 +1860,8 @@ export class KupInputPanel {
                 this.#setCellError(
                     id,
                     currCell.value
-                        ? // If it's not empty remove the error message
-                          cell.data?.error || null
-                        : // else set the error message
-                          this.#kupManager.language.translate(
+                        ? cell.data?.error || null
+                        : this.#kupManager.language.translate(
                               KupLanguageGeneric.REQUIRED_VALUE
                           )
                 );
