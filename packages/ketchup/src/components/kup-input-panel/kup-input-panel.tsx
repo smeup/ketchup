@@ -1810,7 +1810,7 @@ export class KupInputPanel {
                 return;
             }
         } else {
-            this.#setCellError(id, null);
+            this.#setCellError(id, cell.data?.error || null);
         }
 
         // Valid object check
@@ -1821,7 +1821,7 @@ export class KupInputPanel {
                 fun: cell.fun,
             });
             if (valid) {
-                this.#setCellError(id, null);
+                this.#setCellError(id, cell.data?.error || null);
             } else {
                 this.#setCellError(
                     id,
@@ -1874,7 +1874,7 @@ export class KupInputPanel {
                     return;
                 }
             } else {
-                this.#setCellError(id, null);
+                this.#setCellError(id, cell.data?.error || null);
             }
 
             // Valid object check
@@ -1888,10 +1888,8 @@ export class KupInputPanel {
                 this.#setCellError(
                     id,
                     valid
-                        ? // If it's not empty remove the error message
-                          null
-                        : // else set the error message
-                          this.#kupManager.language.translate(
+                        ? cell.data?.error || null
+                        : this.#kupManager.language.translate(
                               KupLanguageGeneric.INVALID_VALUE
                           )
                 );
