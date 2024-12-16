@@ -1799,7 +1799,7 @@ export class KupInputPanel {
                 id,
                 currCell.value
                     ? // If it's not empty remove the error message
-                      null
+                      cell.data?.error || null
                     : // else set the error message
                       this.#kupManager.language.translate(
                           KupLanguageGeneric.REQUIRED_VALUE
@@ -1863,7 +1863,7 @@ export class KupInputPanel {
                     id,
                     currCell.value
                         ? // If it's not empty remove the error message
-                          null
+                          cell.data?.error || null
                         : // else set the error message
                           this.#kupManager.language.translate(
                               KupLanguageGeneric.REQUIRED_VALUE
