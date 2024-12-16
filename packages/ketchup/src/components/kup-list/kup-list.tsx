@@ -603,7 +603,7 @@ export class KupList {
 
     #createFilterComponent() {
         return (
-            <div id="global-filter">
+            <div id="global-filter" class="filter">
                 <kup-text-field
                     fullWidth={true}
                     label={this.#kupManager.language.translate(
@@ -672,6 +672,8 @@ export class KupList {
         this.#listItems = [];
         let componentClass: string = 'list';
         let wrapperClass = undefined;
+        let filterClass = 'filter';
+        let listScrollClass = this.showFilter ? 'scroll-list' : null;
 
         if (this.isMenu) {
             wrapperClass = 'kup-menu';
@@ -717,16 +719,24 @@ export class KupList {
                     )}
                 </style>
                 <div id="kup-component" class={wrapperClass}>
-                    {this.showFilter ? this.#createFilterComponent() : null}
-                    <ul
-                        class={componentClass}
-                        role={roleAttr}
-                        aria-multiselectable={ariaMultiSelectable}
-                    >
-                        {this.data
-                            .filter((item) => this.#itemCompliant(item))
-                            .map((item) => this.#renderListItem(item, index++))}
-                    </ul>
+                    {this.showFilter ? (
+                        <div class={filterClass}>
+                            {this.#createFilterComponent()}
+                        </div>
+                    ) : null}
+                    <div class={listScrollClass}>
+                        <ul
+                            class={componentClass}
+                            role={roleAttr}
+                            aria-multiselectable={ariaMultiSelectable}
+                        >
+                            {this.data
+                                .filter((item) => this.#itemCompliant(item))
+                                .map((item) =>
+                                    this.#renderListItem(item, index++)
+                                )}
+                        </ul>
+                    </div>
                 </div>
             </Host>
         );
