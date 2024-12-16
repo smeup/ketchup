@@ -1058,7 +1058,6 @@ export class KupDataTable {
         [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
         [FCellShapes.TIME, 'kup-timepicker-blur'],
     ]);
-    #rootListeners: { event: string; handler: (e) => void }[] = [];
 
     /**
      * When component unload is complete
@@ -6321,12 +6320,6 @@ export class KupDataTable {
     }
 
     render() {
-        if (this.#rootListeners.length) {
-            this.#rootListeners.map(({ event, handler }) => {
-                this.rootElement.removeEventListener(event, handler);
-            });
-            this.#rootListeners = [];
-        }
         this.#thRefs = [];
         this.#rowsRefs = [];
         this.#renderedRows = [];
