@@ -5323,7 +5323,9 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.data.columns,
+                            this.visibleColumns // To be fixed
+                                ? this.getVisibleColumns()
+                                : this.data.columns,
                             this.rowActions,
                             this.commands ?? []
                         );
@@ -5427,6 +5429,10 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.data = {
+                    ...cell.data,
+                    legacyLook: this.legacyLook,
+                };
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
                         cell,

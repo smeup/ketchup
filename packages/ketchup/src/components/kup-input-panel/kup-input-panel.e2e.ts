@@ -1689,7 +1689,7 @@ describe('kup-input-panel', () => {
                             mandatory: true,
                             shape: 'CMB',
                             data: {
-                                displayMode: 'description',
+                                displayMode: 'DescOnly',
                                 showDropDownIcon: true,
                             },
                         },

@@ -591,11 +591,7 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(
-        cell: KupDataCell,
-        cellId: string,
-        isAbsoluteLayout: boolean = false
-    ) {
+    #renderDataTable(cell: KupDataCell, cellId: string) {
         return (
             <kup-data-table
                 id={cellId}
@@ -603,7 +599,6 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
-                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -947,7 +942,6 @@ export class KupInputPanel {
 
         fieldCell.cell.data = {
             ...fieldCell.cell.data,
-            sizing: 'extra-small',
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
@@ -1329,6 +1323,7 @@ export class KupInputPanel {
             onInput?: (event: InputEvent) => void;
         } = {
             label: fieldLabel,
+            ...cell.data,
         };
 
         if (
