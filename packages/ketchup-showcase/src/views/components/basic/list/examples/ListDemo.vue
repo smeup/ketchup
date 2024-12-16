@@ -119,9 +119,9 @@ export default {
         {
           prop: 'displayMode',
           description:
-            'Selects how the items must display their label and how they can be filtered for. Supported values: "description", "code", "both".',
+            'Selects how the items must display their label and how they can be filtered for. Supported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
-          default: 'description',
+          default: 'DescOnly',
           try: 'field',
         },
         {

@@ -268,7 +268,7 @@
         "serverHandledFilter": true,
         "minimumChars": 3,
         "showClearIcon": true,
-        "displayMode": "description"
+        "displayMode": "DescOnly"
       }
     },
     "department": {

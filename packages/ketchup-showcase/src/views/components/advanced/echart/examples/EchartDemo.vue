@@ -180,6 +180,7 @@ function createComp() {
   comp.id = 'demo-component';
   comp.legend = 'bottom';
   comp.types = ['Line'];
+  comp.series = ['Col2', 'Col3', 'Col4'];
   return comp;
 }
 </script>
