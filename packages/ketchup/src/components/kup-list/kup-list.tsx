@@ -368,7 +368,9 @@ export class KupList {
             item.selected = false;
         }
         if (!item.id) {
-            item.id = item.value;
+            if (item.id != '') {
+                item.id = item.value;
+            }
         }
 
         let nestedList: VNode = null;
@@ -393,8 +395,10 @@ export class KupList {
         ) {
             imageTag = this.#getIconTag(item.icon, item.placeholderIcon);
         }
+        const correctedDisplayMode =
+            item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.displayMode;
         let primaryTextTag = [
-            getIdOfItemByDisplayMode(item, this.displayMode, ' - '),
+            getIdOfItemByDisplayMode(item, correctedDisplayMode, ' - '),
         ];
 
         let secTextTag = [];
