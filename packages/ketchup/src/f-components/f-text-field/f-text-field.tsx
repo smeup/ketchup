@@ -1,4 +1,4 @@
-import type { FTextFieldProps } from './f-text-field-declarations';
+import { type FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -67,14 +67,18 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
 
+    if (props.maxLength >= 256) {
+        props.textArea = true;
+    }
+
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
             <div class="mdc-text-field__label-container">
                 <label class="mdc-label" htmlFor="kup-input">
                     {props.label}
                 </label>
-                {props.maxLength ? (
-                    <div class="mdc-text-field-character-counter">
+                {props.maxLength && props.showCounter ? (
+                    <div class="mdc-text-field__label-character-counter">
                         {props.value.length} / {props.maxLength}
                     </div>
                 ) : undefined}
@@ -173,7 +177,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
-        [`mdc-text-field--${props.sizing}`]: props.sizing ? true : false,
+        'mdc-text-field--legacy-look mdc-text-field--extra-small':
+            props.legacyLook,
+        [`mdc-text-field--${props.sizing || 'small'}`]:
+            !props.textArea && !props.legacyLook,
+        'top-right-indicator': props.showMarker,
     };
 
     let value = props.value;
@@ -414,17 +422,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.error || props.alert) {
-        return (
-            <div class="mdc-text-field-helper-line">
-                {props.error ? (
-                    <span class="mdc-error-message">{props.error}</span>
-                ) : props.alert ? (
-                    <span class="mdc-alert-message">{props.alert}</span>
-                ) : undefined}
-            </div>
-        );
-    } else if (props.helperEnabled !== false) {
+    if (props.helperEnabled !== false && (props.error || props.alert)) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
@@ -437,6 +435,16 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
                 </div>
             );
         }
+
+        return (
+            <div class="mdc-text-field-helper-line">
+                {props.error ? (
+                    <span class="mdc-error-message">{props.error}</span>
+                ) : props.alert ? (
+                    <span class="mdc-alert-message">{props.alert}</span>
+                ) : undefined}
+            </div>
+        );
     }
 }
 

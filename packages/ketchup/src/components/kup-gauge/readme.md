@@ -164,6 +164,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -236,6 +237,7 @@ graph TD;
   kup-chart --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-gauge
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -246,7 +248,7 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-gauge
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

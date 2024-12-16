@@ -6,6 +6,7 @@ import {
     DropDownAction,
     KupDataCell,
     KupDataColumn,
+    KupDataCommand,
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -65,6 +66,7 @@ export enum KupDataTableProps {
     showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
     showLoadMore = 'If set to true, displays the button to load more records.',
+    showPaginator = 'Set the paginator visibility',
     sort = 'Defines the current sorting options.',
     stateId = '',
     store = '',
@@ -80,13 +82,11 @@ export interface KupDataTableDataset {
     columns?: KupDataColumn[];
     rows?: KupDataTableRow[];
     setup?: {
-        commands?: [
-            {
-                cells: {
-                    [key: string]: KupDataCell;
-                };
-            }
-        ];
+        operations?: {
+            insert: boolean;
+            delete: boolean;
+        };
+        commands?: Array<KupDataCommand>;
     };
 }
 
@@ -349,4 +349,10 @@ export interface KupDatatableUpdatePayload extends KupEventPayload {
     originalData: KupDataTableDataset;
     updatedData: KupDataTableDataset;
     command?: KupDataCell;
+}
+
+export interface KupDatatableCellCheckPayload extends KupEventPayload {
+    originalData: KupDataTableDataset;
+    updatedData: KupDataTableDataset;
+    cell?: KupDataCell;
 }

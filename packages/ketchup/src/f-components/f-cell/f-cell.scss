@@ -1,4 +1,5 @@
 .f-cell {
+  --kup_fcell_width: var(--kup-fcell-width, 100%);
   --kup_cell_background: var(--kup-cell-background);
   --kup_cell_font_family: var(--kup-cell-font-family);
   --kup_cell_font_family_monospace: var(
@@ -27,10 +28,10 @@
   font-family: var(--kup_cell_font_family);
   font-size: var(--kup_cell_font_size);
   min-height: 100%;
-  width: 100%;
+  width: var(--kup_fcell_width);
   word-break: break-all;
   word-wrap: break-word;
-
+  max-width: 100%;
   &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
     max-height: 100%;
   }
@@ -172,11 +173,6 @@
     padding: 0px;
   }
 
-  .f-checkbox .checkbox .checkbox__native-control {
-    height: 18px;
-    width: 18px;
-  }
-
   kup-checkbox,
   kup-image {
     display: flex;
@@ -197,6 +193,10 @@
 
   kup-progress-bar {
     display: block;
+  }
+
+  .obj-field-extra-btn {
+    align-self: end;
   }
 
   .input-field {
@@ -524,6 +524,18 @@
 
   &.c-lowercase .f-cell__content {
     * {
+      text-transform: lowercase;
+    }
+  }
+
+  &.c-input-uppercase .f-cell__content {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  &.c-input-lowercase .f-cell__content {
+    input {
       text-transform: lowercase;
     }
   }

@@ -5,15 +5,17 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                | Type                  | Default                          |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------ | --------------------- | -------------------------------- |
-| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                        | `KupDialogAutoCenter` | `{ onReady: true }`              |
-| `customStyle` | `custom-style` | Custom style of the component.                                                             | `string`              | `''`                             |
-| `header`      | --             | Header options.                                                                            | `KupDialogHeader`     | `{ icons: { close: true } }`     |
-| `modal`       | --             | Set of options to display the dialog as a modal.                                           | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
-| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                               | `boolean`             | `true`                           |
-| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.). | `string`              | `'auto'`                         |
-| `sizeY`       | `size-y`       | The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).  | `string`              | `'auto'`                         |
+| Property      | Attribute      | Description                                                                                 | Type                  | Default                          |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------------------- |
+| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                         | `KupDialogAutoCenter` | `{ onReady: true }`              |
+| `customStyle` | `custom-style` | Custom style of the component.                                                              | `string`              | `''`                             |
+| `header`      | --             | Header options.                                                                             | `KupDialogHeader`     | `{ icons: { close: true } }`     |
+| `maxSizeX`    | `max-size-x`   | The max width of the dialog, defaults to 90dvw.                                             | `string`              | `'90dvw'`                        |
+| `maxSizeY`    | `max-size-y`   | The max height of the dialog, defaults to 90dvh.                                            | `string`              | `'90dvh'`                        |
+| `modal`       | --             | Set of options to display the dialog as a modal.                                            | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
+| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                                | `boolean`             | `true`                           |
+| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).  | `string`              | `'auto'`                         |
+| `sizeY`       | `size-y`       | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string`              | `'auto'`                         |
 
 
 ## Events
@@ -138,6 +140,7 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
@@ -152,7 +155,9 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
+ - [kup-txt](../kup-txt)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
 
@@ -185,6 +190,7 @@ graph TD;
   kup-chart --> kup-dialog
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-dialog
   kup-button --> kup-dialog
   kup-checkbox --> kup-dialog
   kup-data-table --> kup-dialog
@@ -212,12 +218,14 @@ graph TD;
   kup-magic-box --> kup-dialog
   kup-nav-bar --> kup-dialog
   kup-numeric-picker --> kup-dialog
+  kup-object-field --> kup-dialog
   kup-pdf --> kup-dialog
   kup-photo-frame --> kup-dialog
   kup-planner --> kup-dialog
   kup-probe --> kup-dialog
   kup-qlik --> kup-dialog
   kup-snackbar --> kup-dialog
+  kup-txt --> kup-dialog
   kup-typography --> kup-dialog
   kup-typography-list --> kup-dialog
   style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px

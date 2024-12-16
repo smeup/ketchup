@@ -96,9 +96,9 @@ export class KupDatePicker {
     @Prop() outlined: boolean = false;
     /**
      * Sets the sizing of the textfield of the datepicker
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * Sets the sizing of the textfield of the datepicker
      * @default true
@@ -109,6 +109,21 @@ export class KupDatePicker {
      * @default true
      */
     @Prop() showPreviousNextMonthDays: boolean = true;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
+    /**
+     * When enabled, font will be set to monospace and sizing will be extra-small .
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -530,6 +545,9 @@ export class KupDatePicker {
             sizing: this.sizing,
             outlined: this.outlined,
             showIcon: this.showIcon,
+            legacyLook: this.legacyLook,
+            error: this.error,
+            showMarker: this.showMarker,
         };
         if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';

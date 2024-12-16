@@ -39,6 +39,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         'kup-neutral': props.neutral,
         'kup-black-mode': props.blackMode,
         [props.wrapperClass]: !!props.wrapperClass,
+        'button--invisible': props.invisible ? true : false,
     };
     return (
         <div
@@ -93,7 +94,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--no-label': !props.label || props.label === ' ' ? true : false,
         'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
-        [`button--${props.sizing}`]: props.sizing ? true : false,
+        [`button--${props.sizing || 'small'}`]: true,
         [`button--${props.contentAlign}`]: props.contentAlign ? true : false,
     };
 

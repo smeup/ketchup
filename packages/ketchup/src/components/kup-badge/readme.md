@@ -112,12 +112,14 @@ Type: `Promise<void>`
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-object-field](../kup-object-field)
  - [kup-planner](../kup-planner)
  - [kup-radio](../kup-radio)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
  - [kup-typography](../kup-typography)
 
@@ -155,6 +157,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-button --> kup-badge
   kup-checkbox --> kup-badge
   kup-data-table --> kup-badge
@@ -174,6 +177,7 @@ graph TD;
   kup-input-panel --> kup-badge
   kup-magic-box --> kup-badge
   kup-numeric-picker --> kup-badge
+  kup-object-field --> kup-badge
   kup-planner --> kup-badge
   kup-snackbar --> kup-badge
   kup-typography --> kup-badge

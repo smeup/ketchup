@@ -89,14 +89,24 @@ export class KupTimePicker {
     @Prop() initialValue: string = '';
     /**
      * Manage seconds.
-     * @default false
+     * @default true
      */
-    @Prop() manageSeconds: boolean = false;
+    @Prop() manageSeconds: boolean = true;
     /**
      * Minutes step.
      * @default 10
      */
     @Prop() timeMinutesStep: number = 10;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -513,7 +523,9 @@ export class KupTimePicker {
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
         const textfieldData: FTextFieldProps = {
+            error: this.error,
             ...this.data['kup-text-field'],
+            showMarker: this.showMarker,
         };
         if (!textfieldData.icon) {
             textfieldData.icon = 'access_time';
@@ -529,6 +541,7 @@ export class KupTimePicker {
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
+                onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClick={() => this.onKupClick()}
                 onFocus={() => this.onKupFocus()}
@@ -536,6 +549,7 @@ export class KupTimePicker {
                 onIconClick={() => this.onKupIconClick()}
                 onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}
+                showMarker={this.showMarker}
             >
                 {this.prepTimePicker()}
             </FTextField>

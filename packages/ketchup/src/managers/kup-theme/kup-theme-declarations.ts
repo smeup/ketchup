@@ -21,7 +21,9 @@ export const fButtonUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.IMAGE_LIST,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.SNACKBAR,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FCell functional component.
@@ -34,6 +36,7 @@ export const fCellUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FCheckbox functional component.
@@ -48,6 +51,7 @@ export const fCheckboxUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FChip functional component.
@@ -61,6 +65,7 @@ export const fChipUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FImage functional component.
@@ -88,10 +93,12 @@ export const fImageUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.RADIO,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
     KupTagNames.TEXT_FIELD,
+    KupTagNames.TOOLBAR,
     KupTagNames.TYPOGRAPHY,
     KupTagNames.TYPOGRAPHY_LIST,
     KupTagNames.TREE,
@@ -110,6 +117,7 @@ export const fProgressBarUsers = [
     KupTagNames.FORM,
     KupTagNames.PROGRESS_BAR,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FRadio functional component.
@@ -122,6 +130,7 @@ export const fRadioUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.RADIO,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FRating functional component.
@@ -133,6 +142,7 @@ export const fRatingUsers = [
     KupTagNames.FORM,
     KupTagNames.RATING,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FSwitch functional component.
@@ -145,6 +155,7 @@ export const fSwitchUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.SWITCH,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 
 /**
@@ -153,6 +164,7 @@ export const fSwitchUsers = [
 export const fTypographyUsers = [
     KupTagNames.TYPOGRAPHY,
     KupTagNames.TYPOGRAPHY_LIST,
+    KupTagNames.INPUT_PANEL,
 ];
 /**
  * Components using the FTextField functional component.
@@ -169,10 +181,12 @@ export const fTextFieldUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.NUMERIC_PICKER,
+    KupTagNames.OBJECT_FIELD,
     KupTagNames.PLANNER,
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the MDC ripple effect.
@@ -184,6 +198,20 @@ export const rippleUsers = [
     KupTagNames.TAB_BAR,
     KupTagNames.TREE,
 ];
+
+/**
+ * Components using the FObjectField functional component.
+ */
+export const fObjectFieldUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
+    KupTagNames.OBJECT_FIELD,
+    KupTagNames.TREE,
+];
+
 /**
  * Components using the Editor component.
  */
@@ -201,7 +229,7 @@ export interface KupThemeElement {
     cssVariables: KupThemeCSSVariables;
     icons: KupThemeIcons;
     customStyles?: GenericObject;
-    imports?: string[];
+    fonts?: KupThemeFonts[];
 }
 /**
  * All CSS variables managed by KupTheme.
@@ -332,3 +360,11 @@ export enum KupThemeIconValues {
     KEY = '--kup-key-icon',
     SEARCH = '--kup-search-icon',
 }
+export enum KupThemeFonts {
+    IBM_PLEX_MONO = 'IBMPlexMono-Regular',
+    IBM_PLEX_SANS = 'IBMPlexSans-Regular',
+}
+export const KupThemeFontFamilyMap: Record<KupThemeFonts, string> = {
+    [KupThemeFonts.IBM_PLEX_MONO]: 'IBM Plex Mono',
+    [KupThemeFonts.IBM_PLEX_SANS]: 'IBM Plex Sans',
+};

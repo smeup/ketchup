@@ -30,6 +30,7 @@ export interface FCellProps extends FComponent {
     setSizes?: boolean;
     shape?: FCellShapes;
     cellActionIcon?: CellActionProps;
+    inputSettings?: InputSettingsProps;
 }
 
 export interface FCellOptionsProps extends FCellProps {
@@ -52,6 +53,7 @@ export enum FCellEvents {
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
     KEYUP = 'kup-cell-keyup',
+    SECONDARY_ICON_CLICK = 'kup-cell-secondaryiconclick',
     UPDATE = 'kup-cell-update',
 }
 /**
@@ -130,6 +132,7 @@ export enum FCellShapes {
     INPUT_FIELD = 'INF',
     KNOB = 'KNB',
     LABEL = 'LBL',
+    MEMO = 'MEM',
     MULTI_AUTOCOMPLETE = 'AML',
     MULTI_COMBOBOX = 'CML',
     OBJECT = 'OBJ',
@@ -164,6 +167,7 @@ export enum FCellTypes {
     LINK = 'link',
     MULTI_AUTOCOMPLETE = 'multi-autocomplete',
     MULTI_COMBOBOX = 'multi-combobox',
+    MEMO = 'memo',
     NUMBER = 'number',
     OBJECT = 'object',
     PROGRESS_BAR = 'progress-bar',
@@ -182,6 +186,7 @@ export const editableTypes = [
     FCellTypes.COMBOBOX,
     FCellTypes.DATE,
     FCellTypes.LINK,
+    FCellTypes.MEMO,
     FCellTypes.MULTI_AUTOCOMPLETE,
     FCellTypes.MULTI_COMBOBOX,
     FCellTypes.NUMBER,
@@ -215,6 +220,13 @@ export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
+    inputValue?: string;
     row: KupDataRow;
     type: FCellTypes;
+}
+
+export interface InputSettingsProps {
+    forceUppercase?: boolean;
+    forceLowercase?: boolean;
+    checkValueOnExit?: boolean;
 }

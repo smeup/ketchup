@@ -1336,5 +1336,65 @@ export const cellClassesDataTable = {
         },
       },
     },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-input-uppercase',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Only text in <input> tags is transformed to uppercase',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'uppercase',
+          cssClass: 'c-input-uppercase',
+          editable: true,
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-input-lowercase',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Only text in <input> tags is transformed to lowercase',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'LOWERCASE',
+          cssClass: 'c-input-lowercase',
+          editable: true,
+        },
+      },
+    },
   ],
 };

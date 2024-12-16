@@ -18,7 +18,7 @@
 | `initialValue`    | `initial-value`    | Sets the initial value of the component.                                                                             | `string`                                                                                                                                                | `''`                           |
 | `label`           | `label`            | Defaults at null. When set, the button will show this text.                                                          | `string`                                                                                                                                                | `null`                         |
 | `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                                   | `string`                                                                                                                                                | `null`                         |
-| `selectMode`      | `select-mode`      | Sets how to return the selected item value. Suported values: "code", "description", "both".                          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
+| `selectMode`      | `select-mode`      | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".                         | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
 | `sizing`          | `sizing`           | Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL`     |
 | `styling`         | `styling`          | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.        | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                             | `FButtonStyling.RAISED`        |
 | `trailingIcon`    | `trailing-icon`    | Defaults at null. When set, the icon will be shown after the text.                                                   | `boolean`                                                                                                                                               | `false`                        |
@@ -112,6 +112,8 @@ Type: `Promise<void>`
 
  - [kup-button-list](../kup-button-list)
  - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
+ - [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
@@ -182,34 +184,30 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-spinner
-  kup-data-table --> kup-form
-  kup-data-table --> kup-image
-  kup-data-table --> kup-dialog
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-dropdown-button
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
@@ -228,7 +226,8 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
-  kup-tab-bar --> kup-list
+  kup-form --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
@@ -249,6 +248,8 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
+  kup-input-panel --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

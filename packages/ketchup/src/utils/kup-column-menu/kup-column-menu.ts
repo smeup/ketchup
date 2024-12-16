@@ -1,40 +1,12 @@
 import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
-import type { GenericObject } from '../../types/GenericTypes';
+import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import type {
-    KupDom,
-    KupManagerClickCb,
-} from '../../managers/kup-manager/kup-manager-declarations';
-import type { KupTree } from '../../components/kup-tree/kup-tree';
-import {
-    KupDynamicPositionElement,
-    KupDynamicPositionPlacement,
-} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GroupObject } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { KupTextFieldEventPayload } from '../../components/kup-text-field/kup-text-field-declarations';
-import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
-import { FiltersColumnMenu } from '../filters/filters-column-menu';
-import {
-    FilterInterval,
-    GenericFilter,
-    ValueDisplayedValue,
-} from '../filters/filters-declarations';
-import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
-import { FiltersRows } from '../filters/filters-rows';
-import { Filters } from '../filters/filters';
-import {
-    KupLanguageColumn,
-    KupLanguageSearch,
-    KupLanguageGrouping,
-    KupLanguageCheckbox,
-    KupLanguageGeneric,
-    KupLanguageRow,
-    KupLanguageTotals,
-} from '../../managers/kup-language/kup-language-declarations';
 import { KupTabBarNode } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
+import type { KupTextFieldEventPayload } from '../../components/kup-text-field/kup-text-field-declarations';
+import type { KupTree } from '../../components/kup-tree/kup-tree';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
-import { KupColumnMenuIds } from './kup-column-menu-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     FChipsProps,
     FChipType,
@@ -43,8 +15,36 @@ import {
     KupDataColumn,
     KupDataNewColumnTypes,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import {
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupLanguageCheckbox,
+    KupLanguageColumn,
+    KupLanguageGeneric,
+    KupLanguageGrouping,
+    KupLanguageRow,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../managers/kup-language/kup-language-declarations';
+import type {
+    KupDom,
+    KupManagerClickCb,
+} from '../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
+import { Filters } from '../filters/filters';
+import { FiltersColumnMenu } from '../filters/filters-column-menu';
+import {
+    FilterInterval,
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../filters/filters-declarations';
+import { FiltersRows } from '../filters/filters-rows';
+import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -592,14 +592,14 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_FROM,
-                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
                     ),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
+            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
             initialValue: initialValueFrom,
             manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
@@ -613,12 +613,12 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_TO,
-                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_TO,
+            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
             initialValue: initialValueTo,
             manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
@@ -682,14 +682,14 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_FROM,
-                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
                     ),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
+            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
             initialValue: initialValueFrom,
         });
         props.push({
@@ -703,12 +703,12 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: KupColumnMenuIds.TEXTFIELD_TO,
-                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
+            id: KupColumnMenuIds.TEXTFIELD_TO,
+            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
             initialValue: initialValueTo,
         });
 
@@ -731,6 +731,121 @@ export class KupColumnMenu {
         const isClickEvent: boolean = compEventType
             .toLowerCase()
             .endsWith('click');
+
+        switch (compID) {
+            //#region Formula handlers
+            case KupColumnMenuIds.TEXTFIELD_FORMULA:
+                if (compEvent.type === 'kup-textfield-change') {
+                    const valueString = (
+                        compEvent as CustomEvent<KupTextFieldEventPayload>
+                    ).detail.value;
+                    const parts = valueString.split(';');
+                    const hasDescription = parts.length >= 2;
+                    const description = hasDescription ? parts[0].trim() : '';
+                    const value = hasDescription
+                        ? (parts[1].trim() as KupLanguageTotals)
+                        : valueString;
+                    (comp as KupDataTable)
+                        .newColumn(KupDataNewColumnTypes.MATH, {
+                            operation: value,
+                            newColumn: hasDescription
+                                ? { name: description, title: description }
+                                : undefined,
+                        })
+                        .then((res) => {
+                            if (
+                                typeof res === 'string' ||
+                                res instanceof String
+                            ) {
+                                const textField = (
+                                    compEvent as CustomEvent<KupTextFieldEventPayload>
+                                ).detail.comp as KupTextField;
+                                textField.rootElement.classList.add(
+                                    'kup-danger'
+                                );
+                                textField.helper = res as string;
+                            } else {
+                                this.close(card);
+                            }
+                        });
+                }
+                break;
+            //#endregion
+
+            //#region Filters handlers
+            case KupColumnMenuIds.TEXTFIELD_FILTER:
+            case KupColumnMenuIds.TEXTFIELD_FROM:
+            case KupColumnMenuIds.TEXTFIELD_TO:
+                switch (compEvent.type) {
+                    case 'kup-textfield-submit':
+                    case 'kup-datepicker-textfieldsubmit':
+                    case 'kup-timepicker-textfieldsubmit':
+                        this.saveTextualFilters(comp, dataStorage['column']);
+                        this.close(card);
+                        break;
+                    case 'kup-textfield-cleariconclick':
+                    case 'kup-datepicker-cleariconclick':
+                    case 'kup-timepicker-cleariconclick':
+                        if (dataStorage['isInterval'] == true) {
+                            this.intervalChange(
+                                comp,
+                                null,
+                                dataStorage['column'],
+                                dataStorage['intervalIndex'],
+                                false
+                            );
+                        } else {
+                            this.textfieldChange(
+                                comp,
+                                null,
+                                dataStorage['column']
+                            );
+                        }
+                        this.saveTextualFilters(comp, dataStorage['column']);
+                        break;
+                    case 'kup-datepicker-input':
+                    case 'kup-datepicker-itemclick':
+                    case 'kup-textfield-input':
+                    case 'kup-timepicker-input':
+                    case 'kup-timepicker-itemclick':
+                        window.clearTimeout(comp.columnFilterTimeout);
+                        comp.columnFilterTimeout = window.setTimeout(() => {
+                            if (dataStorage['isInterval'] == true) {
+                                this.intervalChange(
+                                    comp,
+                                    compEvent.detail.value,
+                                    dataStorage['column'],
+                                    dataStorage['intervalIndex'],
+                                    !isClickEvent,
+                                    dataStorage['suffix']
+                                );
+                            } else {
+                                this.textfieldChange(
+                                    comp,
+                                    compEvent.detail.value,
+                                    dataStorage['column']
+                                );
+                            }
+                            if (isClickEvent) {
+                                this.saveTextualFilters(
+                                    comp,
+                                    dataStorage['column']
+                                );
+                            }
+                            if (card.data?.checkbox) {
+                                card.data.checkbox = this.prepCheckbox(
+                                    comp,
+                                    dataStorage['column']
+                                );
+                                card.refresh();
+                            }
+                        }, 300);
+                        break;
+                }
+            //#endregion
+        }
+
+        //#region  Other handlers
         switch (compEvent.type) {
             case 'kup-button-click':
                 switch (compID) {
@@ -775,119 +890,8 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kup-textfield-submit':
-            case 'kup-datepicker-textfieldsubmit':
-            case 'kup-timepicker-textfieldsubmit':
-                switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
-                        break;
-                    default:
-                        this.saveTextualFilters(comp, dataStorage['column']);
-                        this.close(card);
-                        break;
-                }
-                break;
-            case 'kup-textfield-cleariconclick':
-            case 'kup-datepicker-cleariconclick':
-            case 'kup-timepicker-cleariconclick':
-                if (dataStorage['isInterval'] == true) {
-                    this.intervalChange(
-                        comp,
-                        null,
-                        dataStorage['column'],
-                        dataStorage['intervalIndex'],
-                        false
-                    );
-                } else {
-                    this.textfieldChange(comp, null, dataStorage['column']);
-                }
-                this.saveTextualFilters(comp, dataStorage['column']);
-                break;
-            case 'kup-textfield-change':
-                switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
-                        const valueString = (
-                            compEvent as CustomEvent<KupTextFieldEventPayload>
-                        ).detail.value;
-                        const parts = valueString.split(';');
-                        const hasDescription = parts.length >= 2;
-                        const description = hasDescription
-                            ? parts[0].trim()
-                            : '';
-                        const value = hasDescription
-                            ? (parts[1].trim() as KupLanguageTotals)
-                            : valueString;
-                        (comp as KupDataTable)
-                            .newColumn(KupDataNewColumnTypes.MATH, {
-                                operation: value,
-                                newColumn: hasDescription
-                                    ? { name: description, title: description }
-                                    : undefined,
-                            })
-                            .then((res) => {
-                                if (
-                                    typeof res === 'string' ||
-                                    res instanceof String
-                                ) {
-                                    const textField = (
-                                        compEvent as CustomEvent<KupTextFieldEventPayload>
-                                    ).detail.comp as KupTextField;
-                                    textField.rootElement.classList.add(
-                                        'kup-danger'
-                                    );
-                                    textField.helper = res as string;
-                                } else {
-                                    this.close(card);
-                                }
-                            });
-                        break;
-                }
-                break;
-            case 'kup-textfield-input':
-            case 'kup-datepicker-input':
-            case 'kup-datepicker-itemclick':
-            case 'kup-timepicker-input':
-            case 'kup-timepicker-itemclick':
-                switch (compID) {
-                    case KupColumnMenuIds.TEXTFIELD_FORMULA:
-                        break;
-                    default:
-                        window.clearTimeout(comp.columnFilterTimeout);
-                        comp.columnFilterTimeout = window.setTimeout(() => {
-                            if (dataStorage['isInterval'] == true) {
-                                this.intervalChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column'],
-                                    dataStorage['intervalIndex'],
-                                    !isClickEvent,
-                                    dataStorage['suffix']
-                                );
-                            } else {
-                                this.textfieldChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (isClickEvent) {
-                                this.saveTextualFilters(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (card.data?.checkbox) {
-                                card.data.checkbox = this.prepCheckbox(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                                card.refresh();
-                            }
-                        }, 300);
-                        break;
-                }
-                break;
         }
+        //#endregion
         if (
             card.data?.checkbox &&
             !dataStorage?.['isInterval'] &&

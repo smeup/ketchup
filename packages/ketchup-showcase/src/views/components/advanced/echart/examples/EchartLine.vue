@@ -7,6 +7,7 @@
           :axis.prop="axis"
           :data.prop="singleData"
           :types.prop="types"
+          :series.prop="singleSerie"
         />
       </div>
     </div>
@@ -18,6 +19,7 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types"
+          :series.prop="baseSeries"
         />
       </div>
     </div>
@@ -34,6 +36,8 @@ export default {
       types: ['Line'],
       baseData,
       singleData,
+      baseSeries: ['Col2', 'Col3', 'Col4'],
+      singleSerie: ['Col4'],
     };
   },
 };

@@ -1,5 +1,7 @@
-const CHAR_WIDTH = 12;
-const ROW_HEIGHT = 22;
+import { KupInputPanelLayout } from './kup-input-panel-declarations';
+
+export const CHAR_WIDTH = 12;
+export const ROW_HEIGHT = 22;
 
 export const getAbsoluteWidth = (length: number) => {
     if (length == 0) {
@@ -39,4 +41,20 @@ export const getAbsoluteLeft = (col: number) => {
     }
 
     return col * CHAR_WIDTH;
+};
+
+export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
+    let inpRowHeight = 0;
+    layout.sections.forEach((section) => {
+        section.content.forEach((layoutField) => {
+            if (layoutField.absoluteRow > inpRowHeight) {
+                inpRowHeight =
+                    layoutField.absoluteRow +
+                    (layoutField.absoluteHeight > 1
+                        ? layoutField.absoluteHeight
+                        : 0);
+            }
+        });
+    });
+    return inpRowHeight;
 };

@@ -5,14 +5,15 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type              | Default     |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`        |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`      |
-| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false`     |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false`     |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `true`      |
-| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`   | `undefined` |
+| Property      | Attribute      | Description                                                     | Type                                                  | Default                 |
+| ------------- | -------------- | --------------------------------------------------------------- | ----------------------------------------------------- | ----------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                              | `''`                    |
+| `data`        | --             | List of elements.                                               | `KupTabBarNode[]`                                     | `null`                  |
+| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`                                             | `false`                 |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                 |
+| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
+| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`                                       | `undefined`             |
+| `variant`     | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
 
 
 ## Events
@@ -103,7 +104,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-list](../kup-list)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -111,10 +112,32 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
+  kup-card --> kup-tab-bar
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -123,11 +146,6 @@ graph TD;
   kup-radio --> kup-card
   kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-card --> kup-tab-bar
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-autocomplete --> kup-dialog
-  kup-autocomplete --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -193,6 +211,7 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-dropdown-button
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-chip
@@ -205,6 +224,7 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
@@ -223,6 +243,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-form --> kup-toolbar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -240,6 +261,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   kup-input-panel --> kup-tab-bar
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```

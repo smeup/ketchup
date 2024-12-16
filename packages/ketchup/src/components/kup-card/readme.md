@@ -134,6 +134,7 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
@@ -148,7 +149,9 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
+ - [kup-txt](../kup-txt)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
 
@@ -168,6 +171,7 @@ Type: `Promise<void>`
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](.)
 - [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
@@ -203,6 +207,7 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-toolbar --> kup-card
   kup-button --> kup-card
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
@@ -230,12 +235,14 @@ graph TD;
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card
   kup-numeric-picker --> kup-card
+  kup-object-field --> kup-card
   kup-pdf --> kup-card
   kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card
   kup-qlik --> kup-card
   kup-snackbar --> kup-card
+  kup-txt --> kup-card
   kup-typography --> kup-card
   kup-typography-list --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px

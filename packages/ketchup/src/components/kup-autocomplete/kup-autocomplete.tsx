@@ -89,7 +89,7 @@ export class KupAutocomplete {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
@@ -139,7 +139,7 @@ export class KupAutocomplete {
      */
     @Prop() readOnly: boolean = false;
     /**
-     * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
@@ -154,10 +154,15 @@ export class KupAutocomplete {
      */
     @Prop() showDropDownIcon: boolean = true;
     /**
-     * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * When true shows a small marker on the component.
+     * @default false
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() showMarker: boolean = false;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.SMALL
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * When set, the icon will be shown after the text.
      * @default false
@@ -602,6 +607,7 @@ export class KupAutocomplete {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            showMarker: this.showMarker,
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');

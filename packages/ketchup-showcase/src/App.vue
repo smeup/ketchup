@@ -426,6 +426,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'toolbar',
+                  },
+                },
+                icon: 'app',
+                value: 'Toolbar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'tree',
                   },
                 },
@@ -760,6 +770,16 @@ export default {
                 },
                 icon: 'access_time',
                 value: 'Time picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'txt',
+                  },
+                },
+                icon: 'TXT',
+                value: 'TXT',
                 visible: true,
               },
             ],

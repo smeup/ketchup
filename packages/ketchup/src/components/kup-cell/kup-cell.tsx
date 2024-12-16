@@ -18,13 +18,12 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupCellProps,
-    KupCellSubmitButtonPosition,
+    KupCellElementsPosition,
     KupCellSubmitClickEventPayload,
 } from './kup-cell-declarations';
 import {
     FCellOptionsProps,
     FCellPadding,
-    FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDragDataTransferCallback,
@@ -37,8 +36,9 @@ import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
 import { FButton } from '../../f-components/f-button/f-button';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { submitPositionAdapter } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-cell',
@@ -84,8 +84,8 @@ export class KupCell {
     /**
      * Submit button position, default is right
      */
-    @Prop() submitPosition: KupCellSubmitButtonPosition =
-        KupCellSubmitButtonPosition.right;
+    @Prop() submitPosition: KupCellElementsPosition =
+        KupCellElementsPosition.right;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -208,19 +208,11 @@ export class KupCell {
     }
 
     private generateColumn(): KupDataColumn {
-        const colname: string =
-            this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + ';' + this.data.obj.p
-                : 'KUPCELL';
-        const coltitle: string =
-            this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + ';' + this.data.obj.p
-                : this.#kupManager.language.translate(
-                      KupLanguageGeneric.EMPTY_OBJECT
-                  );
+        const name = 'KUPCELL';
+        const title = undefined;
         return {
-            name: colname,
-            title: coltitle,
+            name,
+            title,
         };
     }
 
@@ -288,14 +280,16 @@ export class KupCell {
                         this.showSubmit
                             ? {
                                   display: 'flex',
-                                  'flex-direction': this.submitPosition,
+                                  'flex-direction': submitPositionAdapter(
+                                      this.submitPosition
+                                  ),
                                   'align-items': 'center',
                                   gap: '0.5rem',
                               }
                             : {}
                     }
                 >
-                    <FCellOptions {...props} />
+                    <FCell {...props} />
                     {this.showSubmit ? (
                         <FButton
                             buttonType="submit"

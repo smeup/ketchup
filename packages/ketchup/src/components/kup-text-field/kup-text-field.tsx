@@ -40,7 +40,7 @@ export class KupTextField {
     /**
      * References the root HTML element of the component (<kup-text-field>).
      */
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLKupTextFieldElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -126,7 +126,7 @@ export class KupTextField {
      * Hides the character counter.
      * @default false
      */
-    @Prop() hiddenCounter: boolean = false;
+    @Prop() showCounter: boolean = false;
     /**
      * When set, the text-field will show this icon.
      * @default null
@@ -221,9 +221,9 @@ export class KupTextField {
     @Prop() size: number = null;
     /**
      * Sets the sizing of the textfield
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * The HTML step of the input element. It has effect only with number input type.
      * @default null
@@ -258,6 +258,8 @@ export class KupTextField {
      */
     private kupManager: KupManager = kupManagerInstance();
 
+    private readyPromise: Promise<void>;
+    private readyResolve: () => void;
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
@@ -507,7 +509,17 @@ export class KupTextField {
      */
     @Method()
     async setFocus(): Promise<void> {
-        this.inputEl.focus();
+        await this.waitForReady();
+
+        if (this.inputEl) {
+            this.inputEl.focus();
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                'Input element is not available yet.',
+                KupDebugCategory.WARNING
+            );
+        }
     }
     /**
      * Sets the props to the component.
@@ -536,6 +548,13 @@ export class KupTextField {
                 );
             }
         }
+    }
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.readyPromise;
     }
 
     /*-------------------------------------------------*/
@@ -568,6 +587,12 @@ export class KupTextField {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
+    connectedCallback() {
+        this.readyPromise = new Promise((resolve) => {
+            this.readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
@@ -596,6 +621,11 @@ export class KupTextField {
             }
         }
         this.kupManager.debug.logRender(this, true);
+
+        if (this.inputEl && this.readyResolve) {
+            this.readyResolve();
+            this.readyResolve = null;
+        }
     }
 
     render() {
@@ -617,7 +647,7 @@ export class KupTextField {
             helperIcon: this.helperIcon,
             helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
-            hiddenCounter: this.hiddenCounter,
+            showCounter: this.showCounter,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
@@ -681,7 +711,7 @@ export class KupTextField {
             <Host>
                 <style>
                     {this.kupManager.theme.setKupStyle(
-                        this.rootElement as KupComponent
+                        this.rootElement as unknown as KupComponent
                     )}
                 </style>
                 <div id={componentWrapperId}>

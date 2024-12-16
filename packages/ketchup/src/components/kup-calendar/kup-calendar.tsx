@@ -38,6 +38,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupCalendarColumnsProp,
     KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
@@ -62,6 +63,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../kup-chip/kup-chip-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -94,6 +96,20 @@ export class KupCalendar {
      * @default null
      */
     @Prop() data: KupCalendarData = null;
+    /**
+     * Sets which columns of the data property will be used to render each
+     * characteristic of an event in the calendar.
+     * @default {KupCalendarOptions: ""}
+     */
+    @Prop() calendarColumns: KupCalendarColumnsProp = {
+        [KupCalendarOptions.DATE]: '',
+        [KupCalendarOptions.DESCR]: '',
+        [KupCalendarOptions.END]: '',
+        [KupCalendarOptions.ICON]: '',
+        [KupCalendarOptions.IMAGE]: '',
+        [KupCalendarOptions.START]: '',
+        [KupCalendarOptions.STYLE]: '',
+    };
     /**
      * When disabled, the navigation toolbar won't be displayed.
      * @default false
@@ -186,35 +202,16 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
-        for (
-            let index = 0;
-            this.data && this.data.columns && index < this.data.columns.length;
-            index++
-        ) {
-            const column = this.data.columns[index];
-            switch (column.calendarOption) {
-                case KupCalendarOptions.DATE:
-                    this.dateCol = column.name;
-                    break;
-                case KupCalendarOptions.DESCR:
-                    this.descrCol = column.name;
-                    break;
-                case KupCalendarOptions.END:
-                    this.endCol = column.name;
-                    break;
-                case KupCalendarOptions.ICON:
-                    this.iconCol = column.name;
-                    break;
-                case KupCalendarOptions.IMAGE:
-                    this.imageCol = column.name;
-                    break;
-                case KupCalendarOptions.START:
-                    this.startCol = column.name;
-                    break;
-                case KupCalendarOptions.STYLE:
-                    this.styleCol = column.name;
-                    break;
-            }
+
+        if (this.data?.columns) {
+            this.data.columns.forEach((column) => {
+                for (const key in this.calendarColumns) {
+                    if (this.calendarColumns[key] === column.name) {
+                        this[`${key}Col`] = column.name;
+                        break;
+                    }
+                }
+            });
         }
         this.calendar = new Calendar(this.calendarContainer, {
             dateClick: ({ date }) => {
@@ -236,19 +233,20 @@ export class KupCalendar {
                 if (this.iconCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
-                    if (cell && cell.value) {
+                    if (cell?.value) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('icon-wrapper');
-
                         cell.value.split(';').forEach((icon) => {
-                            const span = document.createElement('span');
-                            span.className = 'custom-icon';
-                            const path: string = getAssetPath(
-                                `./assets/svg/${icon}.svg`
-                            );
-                            span.style.mask = `url('${path}') no-repeat center`;
-                            span.style.webkitMask = `url('${path}') no-repeat center`;
-                            wrapper.appendChild(span);
+                            if (icon) {
+                                const span = document.createElement('span');
+                                span.className = 'custom-icon';
+                                const path: string = getAssetPath(
+                                    `./assets/svg/${icon}.svg`
+                                );
+                                span.style.mask = `url('${path}') no-repeat center`;
+                                span.style.webkitMask = `url('${path}') no-repeat center`;
+                                wrapper.appendChild(span);
+                            }
                         });
 
                         info.el.appendChild(wrapper);
@@ -438,45 +436,79 @@ export class KupCalendar {
 
         return this.getRows().map((row) => {
             const cell = row.cells[this.dateCol];
-            let startDate = this.kupManager.dates.toDayjs(cell.value);
-            let endDate = this.kupManager.dates.toDayjs(cell.value);
+            if (cell) {
+                let startDate = this.kupManager.dates.toDayjs(cell.value);
+                let endDate = this.kupManager.dates.toDayjs(cell.value);
 
-            if (isHourRange) {
-                const startCell = row.cells[this.startCol];
-                const endCell = row.cells[this.endCol];
+                if (isHourRange) {
+                    const startCell = row.cells[this.startCol];
+                    const endCell = row.cells[this.endCol];
 
-                if (startCell && endCell) {
-                    const dayjsStart = this.kupManager.dates.toDayjs(
-                        startCell.value,
-                        KupDatesFormats.ISO_TIME
+                    if (startCell && endCell) {
+                        const dayjsStart = this.kupManager.dates.toDayjs(
+                            startCell.value,
+                            KupDatesFormats.ISO_TIME
+                        );
+                        const dayjsEnd = this.kupManager.dates.toDayjs(
+                            endCell.value,
+                            KupDatesFormats.ISO_TIME
+                        );
+
+                        if (dayjsStart && dayjsEnd) {
+                            startDate = startDate.hour(dayjsStart.hour());
+                            startDate = startDate.minute(dayjsStart.minute());
+                            startDate = startDate.second(dayjsStart.second());
+
+                            endDate = endDate.hour(dayjsEnd.hour());
+                            endDate = endDate.minute(dayjsEnd.minute());
+                            endDate = endDate.second(dayjsEnd.second());
+                        } else {
+                            this.kupManager.debug.logMessage(
+                                this,
+
+                                `error while converting hour range: [${
+                                    dayjsStart
+                                        ? `start hour: ${dayjsStart}`
+                                        : `invalid start hour: ${startCell.value}`
+                                }, ${
+                                    dayjsEnd
+                                        ? `end hour: ${dayjsEnd}`
+                                        : `invalid end hour: ${endCell.value}`
+                                }]`,
+                                KupDebugCategory.WARNING
+                            );
+                        }
+                    }
+                }
+
+                if (endDate && startDate) {
+                    const el: EventInput = {
+                        allDay: isHourRange ? false : true,
+                        editable: this.editableEvents,
+                        end: endDate.toISOString(),
+                        extendedProps: {
+                            row,
+                        },
+                        start: startDate.toISOString(),
+                        title: row.cells[this.descrCol].value,
+                    };
+                    return el;
+                } else {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        `error while converting dates: [${
+                            startDate
+                                ? `start date: ${startDate}`
+                                : `invalid start date: ${cell.value}`
+                        }. ${
+                            endDate
+                                ? `end date: ${endDate}`
+                                : `invalid end date: ${cell.value}`
+                        }]`,
+                        KupDebugCategory.WARNING
                     );
-                    const dayjsEnd = this.kupManager.dates.toDayjs(
-                        endCell.value,
-                        KupDatesFormats.ISO_TIME
-                    );
-
-                    startDate = startDate.hour(dayjsStart.hour());
-                    startDate = startDate.minute(dayjsStart.minute());
-                    startDate = startDate.second(dayjsStart.second());
-
-                    endDate = endDate.hour(dayjsEnd.hour());
-                    endDate = endDate.minute(dayjsEnd.minute());
-                    endDate = endDate.second(dayjsEnd.second());
                 }
             }
-
-            const el: EventInput = {
-                allDay: isHourRange ? false : true,
-                editable: this.editableEvents,
-                end: endDate.toISOString(),
-                extendedProps: {
-                    row,
-                },
-                start: startDate.toISOString(),
-                title: row.cells[this.descrCol].value,
-            };
-
-            return el;
         });
     }
 

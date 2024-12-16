@@ -181,6 +181,11 @@ const basicRoutes = [
     component: () =>
       import(`@/views/components/basic/timepicker/TimePicker.vue`),
   },
+  {
+    path: `/txt`,
+    name: 'txt',
+    component: () => import(`@/views/components/basic/txt/Txt.vue`),
+  },
 ];
 
 const advancedRoutes = [
@@ -261,6 +266,11 @@ const advancedRoutes = [
     name: 'inputpanel',
     component: () =>
       import(`@/views/components/advanced/inputpanel/InputPanel.vue`),
+  },
+  {
+    path: `/toolbar`,
+    name: 'Toolbar',
+    component: () => import(`@/views/components/advanced/toolbar/Toolbar.vue`),
   },
   {
     path: `/tree`,

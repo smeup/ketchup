@@ -5,17 +5,19 @@
 
 ## Properties
 
-| Property                    | Attribute                       | Description                                                                                   | Type                                                                                                                                                    | Default                     |
-| --------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `customStyle`               | `custom-style`                  | Custom style of the component.                                                                | `string`                                                                                                                                                | `''`                        |
-| `data`                      | --                              | Props of the sub-components.                                                                  | `Object`                                                                                                                                                | `null`                      |
-| `disabled`                  | `disabled`                      | Defaults at false. When set to true, the component is disabled.                               | `boolean`                                                                                                                                               | `false`                     |
-| `firstDayIndex`             | `first-day-index`               | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                         |
-| `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                        |
-| `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                     |
-| `showIcon`                  | `show-icon`                     | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                      |
-| `showPreviousNextMonthDays` | `show-previous-next-month-days` | Sets show previous/next month days in calendar                                                | `boolean`                                                                                                                                               | `true`                      |
-| `sizing`                    | `sizing`                        | Sets the sizing of the textfield of the datepicker                                            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
+| Property                    | Attribute                       | Description                                                                                   | Type                                                                                                                                                    | Default                    |
+| --------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `customStyle`               | `custom-style`                  | Custom style of the component.                                                                | `string`                                                                                                                                                | `''`                       |
+| `data`                      | --                              | Props of the sub-components.                                                                  | `Object`                                                                                                                                                | `null`                     |
+| `disabled`                  | `disabled`                      | Defaults at false. When set to true, the component is disabled.                               | `boolean`                                                                                                                                               | `false`                    |
+| `error`                     | `error`                         | Set error message                                                                             | `string`                                                                                                                                                | `''`                       |
+| `firstDayIndex`             | `first-day-index`               | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                        |
+| `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                       |
+| `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                    |
+| `showIcon`                  | `show-icon`                     | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                     |
+| `showMarker`                | `show-marker`                   | When true shows a small marker on the component.                                              | `boolean`                                                                                                                                               | `false`                    |
+| `showPreviousNextMonthDays` | `show-previous-next-month-days` | Sets show previous/next month days in calendar                                                | `boolean`                                                                                                                                               | `true`                     |
+| `sizing`                    | `sizing`                        | Sets the sizing of the textfield of the datepicker                                            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
 
 
 ## Events
@@ -109,6 +111,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -182,6 +185,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-date-picker
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -192,7 +196,7 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-date-picker
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

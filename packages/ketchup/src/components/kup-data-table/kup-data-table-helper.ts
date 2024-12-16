@@ -1125,14 +1125,14 @@ export function getDiffData(
     includesAlsoEmptyRows: boolean = false
 ): KupDataDataset {
     const diffDataTable = {
-        columns: modifiedData.columns,
+        columns: modifiedData.columns.filter((col) => col.visible),
         rows: [],
     };
 
     for (const modifiedRow of modifiedData.rows) {
         const newRow = { cells: {}, id: modifiedRow.id };
 
-        for (const column of modifiedData.columns) {
+        for (const column of diffDataTable.columns) {
             const cellKey = column.name;
             const modifiedCell = modifiedRow.cells[cellKey];
 
@@ -1143,7 +1143,10 @@ export function getDiffData(
                 ? originalRow.cells[cellKey]
                 : null;
 
-            if (!originalCell || modifiedCell.value !== originalCell.value) {
+            if (
+                (!originalCell && !!modifiedCell.value) ||
+                (originalCell && modifiedCell.value !== originalCell.value)
+            ) {
                 newRow.cells[cellKey] = modifiedCell;
             }
         }
@@ -1165,32 +1168,30 @@ export function decorateDataTable(data: KupDataTableDataset) {
             const options = cell['options'];
             cell.isEditable = cell.isEditable ?? cell['editable'];
 
-            if (options) {
-                const shapeAdapters = {
-                    [FCellShapes.AUTOCOMPLETE]: () =>
-                        CMBandACPAdapter(value, '', options),
-                    [FCellShapes.COMBOBOX]: () =>
-                        CMBandACPAdapter(value, '', options),
-                    [FCellShapes.RADIO]: () => RADAdapter(value, options),
-                    [FCellShapes.CHECKBOX]: () => CHKAdapter(value, options),
-                    [FCellShapes.CHIP]: () => CHIAdapter(value),
-                    [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
-                };
+            const shapeAdapters = {
+                [FCellShapes.AUTOCOMPLETE]: () =>
+                    CMBandACPAdapter(value, '', options),
+                [FCellShapes.COMBOBOX]: () =>
+                    CMBandACPAdapter(value, '', options),
+                [FCellShapes.RADIO]: () => RADAdapter(value, options),
+                [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
+                [FCellShapes.CHIP]: () => CHIAdapter(value),
+                [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
+            };
 
-                const adapterFunction = shapeAdapters[cell.shape];
+            const adapterFunction = shapeAdapters[cell.shape];
 
-                if (adapterFunction) {
-                    cell.data = adapterFunction();
-                } else {
-                    if (cell.shape) {
-                        dom.ketchup.debug.logMessage(
-                            'kup-data',
-                            `Shape specified ${
-                                cell.shape
-                            } in cell ${JSON.stringify(cell)} unsupported`,
-                            KupDebugCategory.WARNING
-                        );
-                    }
+            if (adapterFunction) {
+                cell.data = adapterFunction();
+            } else {
+                if (cell.shape) {
+                    dom.ketchup.debug.logMessage(
+                        'kup-data',
+                        `Shape specified ${cell.shape} in cell ${JSON.stringify(
+                            cell
+                        )} unsupported`,
+                        KupDebugCategory.WARNING
+                    );
                 }
             }
         });

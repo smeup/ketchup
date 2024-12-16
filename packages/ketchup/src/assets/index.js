@@ -243,6 +243,10 @@ components.data = [
         id: 'time-picker.html',
     },
     {
+        value: 'Toolbar',
+        id: 'toolbar.html',
+    },
+    {
         value: 'Typography',
         id: 'typography.html',
     },
@@ -261,6 +265,10 @@ components.data = [
     {
         value: 'Tree',
         id: 'tree.html',
+    },
+    {
+        value: 'TXT',
+        id: 'txt.html',
     },
 ];
 // Setting up performance pages

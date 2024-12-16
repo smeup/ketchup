@@ -268,7 +268,7 @@
         "serverHandledFilter": true,
         "minimumChars": 3,
         "showClearIcon": true,
-        "displayMode": "description"
+        "displayMode": "DescOnly"
       }
     },
     "department": {
@@ -424,7 +424,7 @@
         "config": {
           "showtext": true,
           "flat": false,
-          "imageSrc": "https://via.placeholder.com/64?text=A3"
+          "imageSrc": "https://placehold.co/64?text=A3"
         },
         "obj": {
           "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",

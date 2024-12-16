@@ -151,9 +151,9 @@ export default {
         {
           prop: 'displayMode',
           description:
-            'Sets how to show the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
-          default: 'description',
+          default: 'DescOnly',
           try: 'field',
         },
         {
@@ -181,9 +181,9 @@ export default {
         {
           prop: 'selectMode',
           description:
-            'Sets how to return the selected item value. Supported values: "code", "description", "both".',
+            'Sets how to return the selected item value. Supported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
-          default: 'code',
+          default: 'CodeOnly',
           try: 'field',
         },
         {
@@ -232,7 +232,7 @@ function createComp() {
           id: 'CODE_3',
         },
       ],
-      displayMode: 'both',
+      displayMode: 'Both',
       selectable: true,
     },
     'kup-text-field': {

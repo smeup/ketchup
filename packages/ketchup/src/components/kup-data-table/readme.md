@@ -77,13 +77,14 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `selection`                 | `selection`                    | Set the type of the rows selection.                                                                                                                                                                                                         | `SelectionMode.MULTIPLE \| SelectionMode.MULTIPLE_CHECKBOX \| SelectionMode.NONE \| SelectionMode.SINGLE` | `SelectionMode.SINGLE`               |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                                        | `boolean`                                                                                                 | `true`                               |
 | `showDeleteButton`          | `show-delete-button`           | Enables the delete row button.                                                                                                                                                                                                              | `boolean`                                                                                                 | `false`                              |
-| `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                                | `boolean`                                                                                                 | `false`                              |
+| `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                                | `boolean`                                                                                                 | `true`                               |
 | `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                                          | `boolean`                                                                                                 | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                                        | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                                      | `ShowGrid.ROW`                       |
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                               | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                                      | `boolean`                                                                                                 | `true`                               |
 | `showHistoryButton`         | `show-history-button`          | Enables the history button.                                                                                                                                                                                                                 | `boolean`                                                                                                 | `false`                              |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                                   | `boolean`                                                                                                 | `false`                              |
+| `showPaginator`             | `show-paginator`               | Set the paginator visibility                                                                                                                                                                                                                | `boolean`                                                                                                 | `true`                               |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                                        | `SortObject[]`                                                                                            | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns by clicking on the column header.                                                                                                                                                       | `boolean`                                                                                                 | `true`                               |
 | `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event                                                                                                    | `boolean`                                                                                                 | `true`                               |
@@ -93,7 +94,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                                | `string`                                                                                                  | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options                                                                                                                                                                                                          | `TotalsMap`                                                                                               | `undefined`                          |
 | `transpose`                 | `transpose`                    | Transposes the data of the data table                                                                                                                                                                                                       | `boolean`                                                                                                 | `false`                              |
-| `updatableData`             | `updatable-data`               | When set to true, editable cells will be rendered using input components, and update button will appair below the matrix                                                                                                                    | `boolean`                                                                                                 | `false`                              |
+| `updatableData`             | `updatable-data`               | When set to true, editable cells will be rendered using input components and an update button will appear below the matrix                                                                                                                  | `boolean`                                                                                                 | `false`                              |
+| `visibleColumns`            | --                             | List of the visible columns                                                                                                                                                                                                                 | `string[]`                                                                                                | `undefined`                          |
 
 
 ## Events
@@ -102,6 +104,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `kup-datatable-cell-action-icon-click` | Event fired when the cell action icon is pressed                                                                                                               | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-cell-actions-menu`      | Generic right click event on a cell in data table.                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-check`                  |                                                                                                                                                                | `CustomEvent<KupDatatableCellCheckPayload>`               |
 | `kup-datatable-click`                  | Generic click event on data table.                                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-columnmenu`             | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                                                                          | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
 | `kup-datatable-columnmove`             | Event fired when columns are moved (sorted).                                                                                                                   | `CustomEvent<KupDatatableColumnMoveEventPayload>`         |
@@ -228,6 +231,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTab
 
 
 
+### `getLastFocusedRow() => Promise<KupDataTableRow>`
+
+This method is used to retrieve last focused row or the first if there's no row focused
+
+#### Returns
+
+Type: `Promise<KupDataTableRow>`
+
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
@@ -270,15 +283,16 @@ Type: `Promise<void>`
 
 
 
-### `insertNewRow(row: KupDataTableRow) => Promise<void>`
+### `insertNewRow(row: KupDataTableRow, unshift?: boolean) => Promise<void>`
 
 Adds a new row to the list data
 
 #### Parameters
 
-| Name  | Type              | Description |
-| ----- | ----------------- | ----------- |
-| `row` | `KupDataTableRow` | new row     |
+| Name      | Type              | Description |
+| --------- | ----------------- | ----------- |
+| `row`     | `KupDataTableRow` | new row     |
+| `unshift` | `boolean`         |             |
 
 #### Returns
 
@@ -464,6 +478,7 @@ Type: `Promise<void>`
 - [kup-dialog](../kup-dialog)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
+- [kup-dropdown-button](../kup-dropdown-button)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -476,6 +491,7 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
 ```mermaid
@@ -490,6 +506,7 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-dropdown-button
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-chip
@@ -502,6 +519,7 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-toolbar
   kup-card --> kup-data-table
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
@@ -564,13 +582,30 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
@@ -591,6 +626,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
@@ -609,6 +645,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-form --> kup-toolbar
   kup-input-panel --> kup-data-table
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

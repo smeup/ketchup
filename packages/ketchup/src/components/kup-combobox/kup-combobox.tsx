@@ -80,7 +80,7 @@ export class KupCombobox {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -122,7 +122,7 @@ export class KupCombobox {
      */
     @Prop() readOnly: boolean = false;
     /**
-     * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
@@ -131,14 +131,19 @@ export class KupCombobox {
     @Prop() showDropDownIcon: boolean = true;
     /**
      * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * When set, the icon will be shown after the text.
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -572,6 +577,7 @@ export class KupCombobox {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            showMarker: this.showMarker,
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');

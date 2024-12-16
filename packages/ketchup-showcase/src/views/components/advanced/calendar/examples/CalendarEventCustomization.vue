@@ -2,8 +2,15 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        In order to customize the calendar's events, you need to set up some
-        specific columns in the <span class="code-word">data</span> prop.<br />
+        In order to customize the calendar's events, you need to define which
+        columns of the <span class="code-word">data</span> prop are going to be
+        used to customize each of the event characteristics.<br />
+        This is done using the
+        <span class="code-word">calendarColumns</span> prop.<br />
+
+        The calendarColumns prop receives an object where the keys are the names
+        of each characteristic of an event and the values are the names of the
+        columns that will be used from the data prop for that characteristic.<br />
         The most common columns are:<br /><br />
         - <span class="code-word">date</span>, which is the date of the
         event;<br />
@@ -125,7 +132,7 @@ export default {
                   k: '...',
                 },
                 value:
-                  'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                  'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
               },
               style: {
                 obj: {
@@ -190,7 +197,7 @@ export default {
                   k: '...',
                 },
                 value:
-                  'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                  'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
               },
               style: {
                 obj: {
@@ -207,6 +214,13 @@ export default {
             },
           },
         ],
+      },
+      calendarColumns: {
+        date: 'date',
+        descr: 'descr',
+        icon: 'icon',
+        image: 'image',
+        style: 'style',
       },
     };
   },

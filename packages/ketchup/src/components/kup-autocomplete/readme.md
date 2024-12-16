@@ -12,7 +12,7 @@
 | `customStyle`             | `custom-style`              | Custom style of the component.                                                                                                           | `string`                                                                                                                                                | `''`                           |
 | `data`                    | --                          | Props of the sub-components.                                                                                                             | `Object`                                                                                                                                                | `undefined`                    |
 | `disabled`                | `disabled`                  | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean`                                                                                                                                               | `false`                        |
-| `displayMode`             | `display-mode`              | Sets how to show the selected item value. Suported values: "code", "description", "both".                                                | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.DESCRIPTION` |
+| `displayMode`             | `display-mode`              | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".                                               | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.DESCRIPTION` |
 | `error`                   | `error`                     | Set error message                                                                                                                        | `string`                                                                                                                                                | `''`                           |
 | `icon`                    | `icon`                      | When set, the text-field will show this icon.                                                                                            | `string`                                                                                                                                                | `null`                         |
 | `initialValue`            | `initial-value`             | Sets the initial value of the component.                                                                                                 | `string`                                                                                                                                                | `''`                           |
@@ -22,10 +22,11 @@
 | `leadingLabel`            | `leading-label`             | When set to true, the label will be on the left of the component.                                                                        | `boolean`                                                                                                                                               | `false`                        |
 | `minimumChars`            | `minimum-chars`             | The minimum number of chars to trigger the autocomplete                                                                                  | `number`                                                                                                                                                | `3`                            |
 | `readOnly`                | `read-only`                 | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean`                                                                                                                                               | `false`                        |
-| `selectMode`              | `select-mode`               | Sets how to return the selected item value. Suported values: "code", "description", "both".                                              | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
+| `selectMode`              | `select-mode`               | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".                                             | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
 | `serverHandledFilter`     | `server-handled-filter`     | When true, the items filter is managed server side, otherwise items filter is done client side.                                          | `boolean`                                                                                                                                               | `false`                        |
 | `showDropDownIcon`        | `show-drop-down-icon`       | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                               | `true`                         |
-| `sizing`                  | `sizing`                    | Sets the type of the button                                                                                                              | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM`    |
+| `showMarker`              | `show-marker`               | When true shows a small marker on the component.                                                                                         | `boolean`                                                                                                                                               | `false`                        |
+| `sizing`                  | `sizing`                    | Sets the type of the button                                                                                                              | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL`     |
 | `trailingIcon`            | `trailing-icon`             | When set, the icon will be shown after the text.                                                                                         | `boolean`                                                                                                                                               | `false`                        |
 | `watermark`               | `watermark`                 | Set custom placeholder for text field                                                                                                    | `string`                                                                                                                                                | `'Type code or description'`   |
 
@@ -135,6 +136,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -209,6 +211,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-autocomplete
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -219,7 +222,7 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-autocomplete
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

@@ -240,7 +240,7 @@
         "minimumChars": 2,
         "showClearIcon": true,
         "showDropdownIcon": true,
-        "displayMode": "description_and_code"
+        "displayMode": "Both"
       }
     },
     "department": {
@@ -353,7 +353,7 @@
         "config": {
           "showtext": true,
           "flat": false,
-          "imageSrc": "https://via.placeholder.com/64?text=A3"
+          "imageSrc": "https://placehold.co/64?text=A3"
         },
         "obj": {
           "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
