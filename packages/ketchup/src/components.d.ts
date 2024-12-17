@@ -1329,7 +1329,7 @@ export namespace Components {
          */
         "isClearable": boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect": boolean;
         /**
@@ -3054,6 +3054,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showFilter": boolean;
         /**
           * Displays the icons associated to each row when set to true.
           * @default false
@@ -7150,7 +7155,7 @@ declare namespace LocalJSX {
          */
         "isClearable"?: boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect"?: boolean;
         /**
@@ -8555,6 +8560,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "selectable"?: boolean;
+        /**
+          * Show filter for filter elements in list
+          * @default ''
+         */
+        "showFilter"?: boolean;
         /**
           * Displays the icons associated to each row when set to true.
           * @default false
