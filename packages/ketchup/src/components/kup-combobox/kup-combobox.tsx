@@ -103,9 +103,9 @@ export class KupCombobox {
      */
     @Prop() isClearable: boolean = false;
     /**
-     * Lets the combobox behave as a select element.
+     * Lets the combobox behave as a select element, making the textfield readable only but interactable.
      */
-    @Prop({ reflect: true }) isSelect: boolean = false;
+    @Prop({ reflect: true }) isSelect: boolean = true;
     /**
      * When set, its content will be shown as a label.
      * @default null
@@ -121,6 +121,7 @@ export class KupCombobox {
      * @default false
      */
     @Prop() readOnly: boolean = false;
+
     /**
      * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      */
@@ -144,10 +145,6 @@ export class KupCombobox {
      * @default false
      */
     @Prop() showMarker: boolean = false;
-
-    /*-------------------------------------------------*/
-    /*       I n t e r n a l   V a r i a b l e s       */
-    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
@@ -240,20 +237,34 @@ export class KupCombobox {
     }
 
     onKupClick() {
-        if (this.isSelect == true) {
+        if (this.isSelect) {
             if (this.#textfieldWrapper.classList.contains('toggled')) {
                 this.#closeList();
             } else {
                 this.#openList();
             }
-        }
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
 
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+            this.kupIconClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                open: this.#textfieldWrapper.classList.contains('toggled'),
+            });
+        } else {
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupFocus() {
@@ -507,6 +518,9 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
+                showFilter={
+                    this.data['kup-list']?.data?.length >= 10 ? true : false
+                }
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
@@ -569,6 +583,7 @@ export class KupCombobox {
             label: this.label,
             leadingLabel: this.leadingLabel,
             readOnly: this.readOnly,
+            isSelect: this.isSelect,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
