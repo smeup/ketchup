@@ -125,7 +125,7 @@ export enum FCellShapes {
     CHIP = 'CHI',
     COLOR_PICKER = 'CLP',
     COMBOBOX = 'CMB',
-    DATE = 'DAT',
+    DATE = 'CAL',
     EDITOR = 'EDT',
     GAUGE = 'GAU',
     IMAGE = 'IMG',
