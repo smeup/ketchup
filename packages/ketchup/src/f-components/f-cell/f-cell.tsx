@@ -1,9 +1,6 @@
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
-import {
-    FButtonStyling,
-    type FButtonProps,
-} from '../f-button/f-button-declarations';
+import { type FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
@@ -30,9 +27,8 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
-    CHIAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     isForceLowercase,
@@ -571,6 +567,7 @@ function setEditableCell(
                 <kup-autocomplete
                     key={column.name + props.row.id}
                     initialValue={cell.value}
+                    initialValueDecode={cell.decode}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-autocomplete-change={(
@@ -662,6 +659,7 @@ function setEditableCell(
                 <kup-combobox
                     key={column.name + props.row.id}
                     initialValue={cell.value}
+                    initialValueDecode={cell.decode}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-combobox-change={(
