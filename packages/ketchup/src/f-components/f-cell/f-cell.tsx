@@ -111,9 +111,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         ? column?.cssClass
         : '';
 
-    if ((props.component as KupDataTable).legacyLook) {
-        cssClasses += ' monospace c-pre';
-    }
     const classObj: Record<string, boolean> = {
         'f-cell': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
@@ -124,6 +121,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [cssClasses]: cssClasses ? true : false,
         'c-input-uppercase': isForceUppercase(cell),
         'c-input-lowercase': isForceLowercase(cell),
+        'monospace c-pre': cell.data?.legacyLook,
     };
     let content: unknown = valueToDisplay;
     if (!cell.data) {

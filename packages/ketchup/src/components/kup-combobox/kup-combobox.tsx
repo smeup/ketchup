@@ -80,7 +80,7 @@ export class KupCombobox {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -123,7 +123,7 @@ export class KupCombobox {
     @Prop() readOnly: boolean = false;
 
     /**
-     * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**

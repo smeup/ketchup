@@ -1583,6 +1583,20 @@ export class KupEchart {
         }
         const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
 
+        const axisLabelFormatter = function (value) {
+            const numberValue =
+                typeof value === 'string' ? Number(value) : value;
+
+            // Formats number to browser locale
+            if (typeof numberValue === 'number' && !isNaN(numberValue)) {
+                return new Intl.NumberFormat(navigator.language).format(
+                    numberValue
+                );
+            }
+
+            return value;
+        };
+
         /* 
         col.name is used in operations for unicity,
         but name in series object should match with values in legend
@@ -1591,6 +1605,7 @@ export class KupEchart {
             ...s,
             name: this.data.columns.find((col) => col.name === s.name).title,
         }));
+
         return {
             color,
             legend: this.#setLegend(y),
@@ -1598,37 +1613,27 @@ export class KupEchart {
             title: this.#setTitle(),
             tooltip: {
                 ...this.#setTooltip(),
-                trigger: 'axis',
-                formatter: (value: unknown) => {
-                    const rowData = (value as GenericObject[]).pop();
-
-                    const tooltipContent = Object.keys(y)
-                        .filter((key) => key && this.series.includes(key))
-                        .map((key) => {
-                            const columnTitle = this.data.columns.find(
-                                (col) => col.name === key
-                            ).title;
-                            return `<li>${columnTitle}: <b>${
-                                y[key][rowData.dataIndex]
-                            }</b></li>`;
-                        })
-                        .join('');
-
-                    const axisLabel = rowData.axisValueLabel ?? '';
-
-                    return `<b>${axisLabel}</b><ul>${tooltipContent}</ul>`;
+                trigger: 'item',
+                formatter: (params: GenericObject) => {
+                    return `<b>${params.name}</b><br/>${params.seriesName}: <b>${params.value}</b>`;
                 },
             },
             xAxis: {
                 ...this.#setAxisColors(),
                 data: isHorizontal ? undefined : x,
                 type: isHorizontal ? 'value' : 'category',
+                axisLabel: {
+                    formatter: axisLabelFormatter,
+                },
                 ...this.xAxis,
             },
             yAxis: {
                 ...this.#setAxisColors(),
                 data: isHorizontal ? x : undefined,
                 type: isHorizontal ? 'category' : 'value',
+                axisLabel: {
+                    formatter: axisLabelFormatter,
+                },
                 ...this.yAxis,
             },
             grid: { containLabel: true },

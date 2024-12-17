@@ -436,76 +436,78 @@ export class KupCalendar {
 
         return this.getRows().map((row) => {
             const cell = row.cells[this.dateCol];
-            let startDate = this.kupManager.dates.toDayjs(cell.value);
-            let endDate = this.kupManager.dates.toDayjs(cell.value);
+            if (cell) {
+                let startDate = this.kupManager.dates.toDayjs(cell.value);
+                let endDate = this.kupManager.dates.toDayjs(cell.value);
 
-            if (isHourRange) {
-                const startCell = row.cells[this.startCol];
-                const endCell = row.cells[this.endCol];
+                if (isHourRange) {
+                    const startCell = row.cells[this.startCol];
+                    const endCell = row.cells[this.endCol];
 
-                if (startCell && endCell) {
-                    const dayjsStart = this.kupManager.dates.toDayjs(
-                        startCell.value,
-                        KupDatesFormats.ISO_TIME
-                    );
-                    const dayjsEnd = this.kupManager.dates.toDayjs(
-                        endCell.value,
-                        KupDatesFormats.ISO_TIME
-                    );
-
-                    if (dayjsStart && dayjsEnd) {
-                        startDate = startDate.hour(dayjsStart.hour());
-                        startDate = startDate.minute(dayjsStart.minute());
-                        startDate = startDate.second(dayjsStart.second());
-
-                        endDate = endDate.hour(dayjsEnd.hour());
-                        endDate = endDate.minute(dayjsEnd.minute());
-                        endDate = endDate.second(dayjsEnd.second());
-                    } else {
-                        this.kupManager.debug.logMessage(
-                            this,
-
-                            `error while converting hour range: [${
-                                dayjsStart
-                                    ? `start hour: ${dayjsStart}`
-                                    : `invalid start hour: ${startCell.value}`
-                            }, ${
-                                dayjsEnd
-                                    ? `end hour: ${dayjsEnd}`
-                                    : `invalid end hour: ${endCell.value}`
-                            }]`,
-                            KupDebugCategory.WARNING
+                    if (startCell && endCell) {
+                        const dayjsStart = this.kupManager.dates.toDayjs(
+                            startCell.value,
+                            KupDatesFormats.ISO_TIME
                         );
+                        const dayjsEnd = this.kupManager.dates.toDayjs(
+                            endCell.value,
+                            KupDatesFormats.ISO_TIME
+                        );
+
+                        if (dayjsStart && dayjsEnd) {
+                            startDate = startDate.hour(dayjsStart.hour());
+                            startDate = startDate.minute(dayjsStart.minute());
+                            startDate = startDate.second(dayjsStart.second());
+
+                            endDate = endDate.hour(dayjsEnd.hour());
+                            endDate = endDate.minute(dayjsEnd.minute());
+                            endDate = endDate.second(dayjsEnd.second());
+                        } else {
+                            this.kupManager.debug.logMessage(
+                                this,
+
+                                `error while converting hour range: [${
+                                    dayjsStart
+                                        ? `start hour: ${dayjsStart}`
+                                        : `invalid start hour: ${startCell.value}`
+                                }, ${
+                                    dayjsEnd
+                                        ? `end hour: ${dayjsEnd}`
+                                        : `invalid end hour: ${endCell.value}`
+                                }]`,
+                                KupDebugCategory.WARNING
+                            );
+                        }
                     }
                 }
-            }
 
-            if (endDate && startDate) {
-                const el: EventInput = {
-                    allDay: isHourRange ? false : true,
-                    editable: this.editableEvents,
-                    end: endDate.toISOString(),
-                    extendedProps: {
-                        row,
-                    },
-                    start: startDate.toISOString(),
-                    title: row.cells[this.descrCol].value,
-                };
-                return el;
-            } else {
-                this.kupManager.debug.logMessage(
-                    this,
-                    `error while converting dates: [${
-                        startDate
-                            ? `start date: ${startDate}`
-                            : `invalid start date: ${cell.value}`
-                    }. ${
-                        endDate
-                            ? `end date: ${endDate}`
-                            : `invalid end date: ${cell.value}`
-                    }]`,
-                    KupDebugCategory.WARNING
-                );
+                if (endDate && startDate) {
+                    const el: EventInput = {
+                        allDay: isHourRange ? false : true,
+                        editable: this.editableEvents,
+                        end: endDate.toISOString(),
+                        extendedProps: {
+                            row,
+                        },
+                        start: startDate.toISOString(),
+                        title: row.cells[this.descrCol].value,
+                    };
+                    return el;
+                } else {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        `error while converting dates: [${
+                            startDate
+                                ? `start date: ${startDate}`
+                                : `invalid start date: ${cell.value}`
+                        }. ${
+                            endDate
+                                ? `end date: ${endDate}`
+                                : `invalid end date: ${cell.value}`
+                        }]`,
+                        KupDebugCategory.WARNING
+                    );
+                }
             }
         });
     }

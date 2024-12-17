@@ -240,7 +240,7 @@
         "minimumChars": 2,
         "showClearIcon": true,
         "showDropdownIcon": true,
-        "displayMode": "description_and_code"
+        "displayMode": "Both"
       }
     },
     "department": {

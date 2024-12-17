@@ -42,9 +42,9 @@ export interface ValueDisplayedValue extends vdv {
 }
 
 export enum ItemsDisplayMode {
-    CODE = 'code',
-    DESCRIPTION = 'description',
-    DESCRIPTION_AND_CODE = 'both',
+    CODE = 'CodeOnly',
+    DESCRIPTION = 'DescOnly',
+    DESCRIPTION_AND_CODE = 'Both',
 }
 export interface KupListEventPayload extends KupEventPayload {
     selected: KupListNode;

@@ -237,7 +237,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -302,7 +302,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
@@ -1295,7 +1295,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -1352,7 +1352,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -1847,6 +1847,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook": boolean;
+        /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
          */
@@ -2058,7 +2063,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
@@ -6193,7 +6198,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -6250,7 +6255,7 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
@@ -7127,7 +7132,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
@@ -7176,7 +7181,7 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -7601,6 +7606,11 @@ declare namespace LocalJSX {
           * @default ""
          */
         "initialValue"?: string;
+        /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook"?: boolean;
         "onKup-datepicker-blur"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-change"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-cleariconclick"?: (event: KupDatePickerCustomEvent<KupEventPayload>) => void;
@@ -7774,7 +7784,7 @@ declare namespace LocalJSX {
          */
         "placeholderIcon"?: string;
         /**
-          * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;

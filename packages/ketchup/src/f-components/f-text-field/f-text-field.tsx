@@ -178,10 +178,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
         'mdc-text-field--error': Boolean(props.error),
         'mdc-text-field--alert': Boolean(props.alert),
-        'mdc-text-field--legacy-look': props.legacyLook,
-        ...(!props.textArea && {
-            [`mdc-text-field--${props.sizing || 'small'}`]: true,
-        }),
+        'mdc-text-field--legacy-look mdc-text-field--extra-small':
+            props.legacyLook,
+        [`mdc-text-field--${props.sizing || 'small'}`]:
+            !props.textArea && !props.legacyLook,
         'top-right-indicator': props.showMarker,
     };
 
@@ -219,6 +219,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             disabled={props.disabled}
                             maxlength={props.maxLength}
                             value={value}
+                            autoComplete={props.autocomplete ?? 'off'}
                             onBlur={props.onBlur}
                             onClick={props.onClick}
                             onChange={props.onChange}
@@ -244,6 +245,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         size={props.size}
                         value={value}
                         readOnly={props.isSelect}
+                        autoComplete={props.autocomplete ?? 'off'}
                         onBlur={(e: FocusEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {

@@ -600,11 +600,7 @@ export class KupInputPanel {
         );
     }
 
-    #renderDataTable(
-        cell: KupDataCell,
-        cellId: string,
-        isAbsoluteLayout: boolean = false
-    ) {
+    #renderDataTable(cell: KupDataCell, cellId: string) {
         return (
             <kup-data-table
                 id={cellId}
@@ -612,7 +608,6 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
-                legacyLook={isAbsoluteLayout}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -969,7 +964,6 @@ export class KupInputPanel {
 
         fieldCell.cell.data = {
             ...fieldCell.cell.data,
-            sizing: 'extra-small',
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
@@ -1306,8 +1300,6 @@ export class KupInputPanel {
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
-        this.#setCellErrorIfValueIsPresent(currentValue, cell);
-
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
@@ -1413,6 +1405,7 @@ export class KupInputPanel {
             onInput?: (event: InputEvent) => void;
         } = {
             label: fieldLabel,
+            ...cell.data,
         };
 
         if (
@@ -1805,10 +1798,8 @@ export class KupInputPanel {
             this.#setCellError(
                 id,
                 currCell.value
-                    ? // If it's not empty remove the error message
-                      null
-                    : // else set the error message
-                      this.#kupManager.language.translate(
+                    ? cell.data?.error || null
+                    : this.#kupManager.language.translate(
                           KupLanguageGeneric.REQUIRED_VALUE
                       )
             );
@@ -1817,7 +1808,7 @@ export class KupInputPanel {
                 return;
             }
         } else {
-            this.#setCellError(id, null);
+            this.#setCellError(id, cell.data?.error || null);
         }
 
         // Valid object check
@@ -1828,7 +1819,7 @@ export class KupInputPanel {
                 fun: cell.fun,
             });
             if (valid) {
-                this.#setCellError(id, null);
+                this.#setCellError(id, cell.data?.error || null);
             } else {
                 this.#setCellError(
                     id,
@@ -1851,13 +1842,6 @@ export class KupInputPanel {
         }
     }
 
-    #setCellErrorIfValueIsPresent(
-        currentValue: string,
-        cell: KupInputPanelCell
-    ) {
-        cell.data.error = currentValue ? cell.data?.error : '';
-    }
-
     #checkOnBlurEvent(cell: KupInputPanelCell, id: string) {
         const evName = this.#eventBlurNames.get(cell.shape);
         if (!evName) {
@@ -1876,10 +1860,8 @@ export class KupInputPanel {
                 this.#setCellError(
                     id,
                     currCell.value
-                        ? // If it's not empty remove the error message
-                          null
-                        : // else set the error message
-                          this.#kupManager.language.translate(
+                        ? cell.data?.error || null
+                        : this.#kupManager.language.translate(
                               KupLanguageGeneric.REQUIRED_VALUE
                           )
                 );
@@ -1888,7 +1870,7 @@ export class KupInputPanel {
                     return;
                 }
             } else {
-                this.#setCellError(id, null);
+                this.#setCellError(id, cell.data?.error || null);
             }
 
             // Valid object check
@@ -1902,10 +1884,8 @@ export class KupInputPanel {
                 this.#setCellError(
                     id,
                     valid
-                        ? // If it's not empty remove the error message
-                          null
-                        : // else set the error message
-                          this.#kupManager.language.translate(
+                        ? cell.data?.error || null
+                        : this.#kupManager.language.translate(
                               KupLanguageGeneric.INVALID_VALUE
                           )
                 );
