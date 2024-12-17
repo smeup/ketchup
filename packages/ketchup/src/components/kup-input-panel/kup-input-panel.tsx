@@ -1597,10 +1597,10 @@ export class KupInputPanel {
                 data: {
                     columns: data.columns.map((col) => {
                         if (data.rows.length > 0) {
-                            data.rows[0].cells[col.name].obj;
+                            const obj = data.rows[0].cells[col.name].obj;
                             return {
                                 ...col,
-                                obj: data.rows[0].cells[col.name].obj,
+                                obj: { t: obj.t, p: obj.p },
                             };
                         }
                         return col;
