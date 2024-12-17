@@ -26,7 +26,10 @@ import {
     KupListEventPayload,
     ValueDisplayedValue,
 } from '../kup-list/kup-list-declarations';
-import { consistencyCheck } from '../kup-list/kup-list-helper';
+import {
+    consistencyCheck,
+    getIdOfItemByDisplayMode,
+} from '../kup-list/kup-list-helper';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
@@ -97,6 +100,10 @@ export class KupCombobox {
      * Sets the initial value of the component
      */
     @Prop() initialValue: string = '';
+    /**
+     * Sets the initial value decode of the component
+     */
+    @Prop() initialValueDecode: string = '';
     /**
      * Enables a clear trailing icon.
      * @default false
@@ -226,7 +233,7 @@ export class KupCombobox {
     }
 
     onKupChange(value: string) {
-        let ret = this.#consistencyCheck(value, true);
+        let ret = this.#consistencyCheck(value, undefined, true);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
@@ -277,7 +284,11 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        let ret = this.#consistencyCheck(this.#textfieldEl.value, false);
+        let ret = this.#consistencyCheck(
+            this.#textfieldEl.value,
+            undefined,
+            false
+        );
         this.#openList();
         this.kupInput.emit({
             comp: this,
@@ -324,7 +335,7 @@ export class KupCombobox {
 
     @Watch('initialValue')
     initialValueChange(newValue: string) {
-        this.setValue(newValue);
+        this.setValue(newValue, undefined);
     }
 
     /*-------------------------------------------------*/
@@ -425,8 +436,8 @@ export class KupCombobox {
      * @param {string} value - Value to be set.
      */
     @Method()
-    async setValue(value: string) {
-        this.#consistencyCheck(value, true);
+    async setValue(value: string, valueDecode?: string) {
+        this.#consistencyCheck(value, valueDecode, true);
     }
 
     /*-------------------------------------------------*/
@@ -484,7 +495,11 @@ export class KupCombobox {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(idIn: string, setValue: boolean): ValueDisplayedValue {
+    #consistencyCheck(
+        idIn: string,
+        idInDecode: string,
+        setValue: boolean
+    ): ValueDisplayedValue {
         let ret = consistencyCheck(
             idIn,
             this.data['kup-list'],
@@ -503,7 +518,15 @@ export class KupCombobox {
             }
         } else {
             this.value = idIn;
-            this.displayedValue = idIn;
+            if (setValue) {
+                this.displayedValue = getIdOfItemByDisplayMode(
+                    { id: idIn, value: idInDecode ?? idIn },
+                    this.displayMode,
+                    ' - '
+                );
+            } else {
+                this.displayedValue = idIn;
+            }
             if (this.#listEl != null) {
                 this.#listEl.filter = ret.value;
             }
@@ -546,7 +569,7 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, true);
+        this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 

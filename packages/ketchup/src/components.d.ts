@@ -268,6 +268,10 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode": string;
+        /**
           * Input event emission delay in milliseconds.
           * @default 300
          */
@@ -324,7 +328,7 @@ export namespace Components {
           * Sets the value of the component.
           * @param value - Value of the component.
          */
-        "setValue": (value: string) => Promise<void>;
+        "setValue": (value: string, valueDecode?: string) => Promise<void>;
         /**
           * When true shows the drop-down icon, for open list.
           * @default true
@@ -1324,6 +1328,10 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode": string;
+        /**
           * Enables a clear trailing icon.
           * @default false
          */
@@ -1368,7 +1376,7 @@ export namespace Components {
           * Sets the component's value.
           * @param value - Value to be set.
          */
-        "setValue": (value: string) => Promise<void>;
+        "setValue": (value: string, valueDecode?: string) => Promise<void>;
         /**
           * When true shows the drop-down icon, for open list.
          */
@@ -3056,7 +3064,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Show filter for filter elements in list
-          * @default ''
+          * @default false
          */
         "showFilter": boolean;
         /**
@@ -6221,6 +6229,10 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode"?: string;
+        /**
           * Input event emission delay in milliseconds.
           * @default 300
          */
@@ -7152,6 +7164,10 @@ declare namespace LocalJSX {
           * Sets the initial value of the component
          */
         "initialValue"?: string;
+        /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode"?: string;
         /**
           * Enables a clear trailing icon.
           * @default false
@@ -8568,7 +8584,7 @@ declare namespace LocalJSX {
         "selectable"?: boolean;
         /**
           * Show filter for filter elements in list
-          * @default ''
+          * @default false
          */
         "showFilter"?: boolean;
         /**
