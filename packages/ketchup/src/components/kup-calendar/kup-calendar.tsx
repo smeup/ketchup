@@ -372,7 +372,8 @@ export class KupCalendar {
     private changeView(view: KupCalendarViewTypes) {
         this.viewType = view;
         this.calendar.changeView(view);
-        this.emitNavEvent();
+        // TODO: implementation of separate event management for the changeview
+        // this.emitNavEvent();
     }
 
     private getColumns(): KupDataColumn[] {
