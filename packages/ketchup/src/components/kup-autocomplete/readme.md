@@ -16,6 +16,7 @@
 | `error`                   | `error`                     | Set error message                                                                                                                        | `string`                                                                                                                                                | `''`                           |
 | `icon`                    | `icon`                      | When set, the text-field will show this icon.                                                                                            | `string`                                                                                                                                                | `null`                         |
 | `initialValue`            | `initial-value`             | Sets the initial value of the component.                                                                                                 | `string`                                                                                                                                                | `''`                           |
+| `initialValueDecode`      | `initial-value-decode`      | Sets the initial value decode of the component                                                                                           | `string`                                                                                                                                                | `''`                           |
 | `inputDelay`              | `input-delay`               | Input event emission delay in milliseconds.                                                                                              | `number`                                                                                                                                                | `300`                          |
 | `isClearable`             | `is-clearable`              | Enables a clear trailing icon.                                                                                                           | `boolean`                                                                                                                                               | `false`                        |
 | `label`                   | `label`                     | When set, its content will be shown as a label.                                                                                          | `string`                                                                                                                                                | `null`                         |
@@ -108,15 +109,16 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `setValue(value: string, valueDecode?: string) => Promise<void>`
 
 Sets the value of the component.
 
 #### Parameters
 
-| Name    | Type     | Description               |
-| ------- | -------- | ------------------------- |
-| `value` | `string` | - Value of the component. |
+| Name          | Type     | Description               |
+| ------------- | -------- | ------------------------- |
+| `value`       | `string` | - Value of the component. |
+| `valueDecode` | `string` |                           |
 
 #### Returns
 
@@ -155,6 +157,7 @@ graph TD;
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
+  kup-list --> kup-text-field
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge

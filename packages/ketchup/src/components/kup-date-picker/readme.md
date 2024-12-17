@@ -13,6 +13,7 @@
 | `error`                     | `error`                         | Set error message                                                                             | `string`                                                                                                                                                | `''`                       |
 | `firstDayIndex`             | `first-day-index`               | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                        |
 | `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                       |
+| `legacyLook`                | `legacy-look`                   | When enabled, font will be set to monospace and sizing will be extra-small .                  | `boolean`                                                                                                                                               | `false`                    |
 | `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                    |
 | `showIcon`                  | `show-icon`                     | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                     |
 | `showMarker`                | `show-marker`                   | When true shows a small marker on the component.                                              | `boolean`                                                                                                                                               | `false`                    |
@@ -133,6 +134,7 @@ graph TD;
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
+  kup-list --> kup-text-field
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
@@ -145,12 +147,12 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-chip --> kup-card
-  kup-chip --> kup-dialog
-  kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
   kup-text-field --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-dialog
+  kup-chip --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge

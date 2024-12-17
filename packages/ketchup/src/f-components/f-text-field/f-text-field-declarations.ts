@@ -33,6 +33,7 @@ export interface FTextFieldProps extends FComponent {
     outlined?: boolean;
     quantityButtons?: boolean;
     readOnly?: boolean;
+    isSelect?: boolean;
     shaped?: boolean;
     size?: number;
     sizing?: KupComponentSizing;
@@ -42,6 +43,7 @@ export interface FTextFieldProps extends FComponent {
     trailingLabel?: boolean;
     value?: string;
     showMarker?: boolean;
+    autocomplete?: string;
     onBlur?: (event: FocusEvent) => void;
     onClick?: (event: MouseEvent) => void;
     onChange?: (event: UIEvent) => void;

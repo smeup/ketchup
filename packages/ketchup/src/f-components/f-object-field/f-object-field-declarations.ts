@@ -5,11 +5,13 @@ import {
 } from '../../components';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { FComponent } from '../../types/GenericTypes';
+import { FTextFieldProps } from '../f-text-field/f-text-field-declarations';
 
 export interface FObjectFieldProps extends FComponent {
     cell?: KupDataCell;
     data?: KupObjectFieldData;
     inputValue: string;
+    onChange: FTextFieldProps['onChange'];
     root?: HTMLDivElement;
 }
 

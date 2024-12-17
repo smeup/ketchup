@@ -219,7 +219,13 @@
           pointer-events: none;
         }
       }
-
+      &.mdc-text-field--read-only-is-select {
+        .mdc-text-field__input,
+        .#{$kup-icon},
+        button {
+          cursor: pointer;
+        }
+      }
       &.mdc-text-field--extra-small {
         height: var(--kup_textfield_extrasmall_height) !important;
         padding: var(--kup_textfield_extrasmall_padding);

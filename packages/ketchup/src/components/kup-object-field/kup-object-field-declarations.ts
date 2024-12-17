@@ -9,8 +9,4 @@ export enum KupObjectFieldProps {
     data = 'Actual data of the component.',
 }
 
-export interface KupObjectFieldData {
-    'kup-button'?: GenericObject;
-    'kup-text-field'?: GenericObject;
-    'kup-toolbar'?: GenericObject;
-}
+export interface KupObjectFieldData extends GenericObject {} // changed temporarily(?) to remove extra assignments besides textfield

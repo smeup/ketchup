@@ -17,6 +17,7 @@
 | `menuVisible`        | `menu-visible`        | Sets the status of the menu, when false it's hidden otherwise it's visible.      | `boolean`                                                                                        | `false`                        |
 | `roleType`           | `role-type`           | Defines the type of selection. Values accepted: listbox, radiogroup or group.    | `KupListRole.GROUP \| KupListRole.LISTBOX \| KupListRole.RADIOGROUP`                             | `KupListRole.LISTBOX`          |
 | `selectable`         | `selectable`          | Defines whether items are selectable or not.                                     | `boolean`                                                                                        | `true`                         |
+| `showFilter`         | `show-filter`         | Show filter for filter elements in list                                          | `boolean`                                                                                        | `false`                        |
 | `showIcons`          | `show-icons`          | Displays the icons associated to each row when set to true.                      | `boolean`                                                                                        | `false`                        |
 | `twoLine`            | `two-line`            | The list elements descriptions will be arranged in two lines.                    | `boolean`                                                                                        | `false`                        |
 
@@ -158,6 +159,7 @@ Type: `Promise<void>`
 
 - [kup-list](.)
 - [kup-radio](../kup-radio)
+- [kup-text-field](../kup-text-field)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
