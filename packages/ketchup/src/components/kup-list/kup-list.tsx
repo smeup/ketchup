@@ -403,10 +403,12 @@ export class KupList {
         ) {
             imageTag = this.#getIconTag(item.icon, item.placeholderIcon);
         }
-        const correctedDisplayMode =
-            item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.displayMode;
         let primaryTextTag = [
-            getIdOfItemByDisplayMode(item, correctedDisplayMode, ' - '),
+            getIdOfItemByDisplayMode(
+                item,
+                item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.displayMode,
+                ' - '
+            ),
         ];
 
         let secTextTag = [];

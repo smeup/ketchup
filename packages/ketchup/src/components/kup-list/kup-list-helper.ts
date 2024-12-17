@@ -56,13 +56,7 @@ export function consistencyCheck(
         trueValue = selected.id;
     } else {
         id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
-        const correctedDisplayMode =
-            id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode;
-        displayedValue = getIdOfItemByDisplayMode(
-            selected,
-            correctedDisplayMode,
-            ' - '
-        );
+        displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
         trueValue = getIdOfItemByDisplayMode(
             selected,
             ItemsDisplayMode.CODE,
@@ -148,11 +142,9 @@ export function getItemByDisplayMode(
         let found: boolean = false;
         let item: KupListNode = null;
         for (let i = 0; i < listData['data'].length; i++) {
-            const correctedDisplayMode =
-                id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode;
             let displayedValue = getIdOfItemByDisplayMode(
                 listData['data'][i],
-                correctedDisplayMode,
+                displayMode,
                 ' - '
             );
             if (setSelected == true) {
