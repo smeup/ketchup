@@ -105,7 +105,7 @@ export class KupCombobox {
     /**
      * Lets the combobox behave as a select element, making the textfield readable only but interactable.
      */
-    @Prop() isSelect: boolean = true;
+    @Prop({ reflect: true }) isSelect: boolean = true;
     /**
      * When set, its content will be shown as a label.
      * @default null
