@@ -16,7 +16,9 @@ export function getIdOfItemByDisplayMode(
         return item.value;
     }
     if (mode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
-        return item.id + separator + item.value;
+        if (item.id || item.value) {
+            return item.id + separator + item.value;
+        }
     }
     return item.id;
 }

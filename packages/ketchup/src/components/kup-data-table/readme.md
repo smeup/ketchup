@@ -104,6 +104,9 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `kup-datatable-cell-action-icon-click` | Event fired when the cell action icon is pressed                                                                                                               | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-cell-actions-menu`      | Generic right click event on a cell in data table.                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-cell-click`             |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
+| `kup-datatable-cell-iconclick`         |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
+| `kup-datatable-cell-input`             |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
 | `kup-datatable-check`                  |                                                                                                                                                                | `CustomEvent<KupDatatableCellCheckPayload>`               |
 | `kup-datatable-click`                  | Generic click event on data table.                                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-columnmenu`             | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                                                                          | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
@@ -527,6 +530,7 @@ graph TD;
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
+  kup-list --> kup-text-field
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
@@ -539,12 +543,12 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-chip --> kup-card
-  kup-chip --> kup-dialog
-  kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
   kup-text-field --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-dialog
+  kup-chip --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge

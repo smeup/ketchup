@@ -21,7 +21,7 @@ import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/
 import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
-import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
+import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -79,7 +79,7 @@ export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/
 export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
-export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
+export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -268,6 +268,10 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode": string;
+        /**
           * Input event emission delay in milliseconds.
           * @default 300
          */
@@ -324,7 +328,7 @@ export namespace Components {
           * Sets the value of the component.
           * @param value - Value of the component.
          */
-        "setValue": (value: string) => Promise<void>;
+        "setValue": (value: string, valueDecode?: string) => Promise<void>;
         /**
           * When true shows the drop-down icon, for open list.
           * @default true
@@ -1324,12 +1328,16 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode": string;
+        /**
           * Enables a clear trailing icon.
           * @default false
          */
         "isClearable": boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect": boolean;
         /**
@@ -1368,7 +1376,7 @@ export namespace Components {
           * Sets the component's value.
           * @param value - Value to be set.
          */
-        "setValue": (value: string) => Promise<void>;
+        "setValue": (value: string, valueDecode?: string) => Promise<void>;
         /**
           * When true shows the drop-down icon, for open list.
          */
@@ -1846,6 +1854,11 @@ export namespace Components {
           * @default ""
          */
         "initialValue": string;
+        /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook": boolean;
         /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
@@ -3049,6 +3062,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Show filter for filter elements in list
+          * @default false
+         */
+        "showFilter": boolean;
         /**
           * Displays the icons associated to each row when set to true.
           * @default false
@@ -5246,6 +5264,9 @@ declare global {
         "kup-datatable-cell-action-icon-click": KupDatatableClickEventPayload;
         "kup-datatable-update": KupDatatableUpdatePayload;
         "kup-datatable-check": KupDatatableCellCheckPayload;
+        "kup-datatable-cell-click": FCellEventPayload;
+        "kup-datatable-cell-iconclick": FCellEventPayload;
+        "kup-datatable-cell-input": FCellEventPayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6208,6 +6229,10 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode"?: string;
+        /**
           * Input event emission delay in milliseconds.
           * @default 300
          */
@@ -7140,12 +7165,16 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         /**
+          * Sets the initial value decode of the component
+         */
+        "initialValueDecode"?: string;
+        /**
           * Enables a clear trailing icon.
           * @default false
          */
         "isClearable"?: boolean;
         /**
-          * Lets the combobox behave as a select element.
+          * Lets the combobox behave as a select element, making the textfield readable only but interactable.
          */
         "isSelect"?: boolean;
         /**
@@ -7385,6 +7414,9 @@ declare namespace LocalJSX {
           * Generic right click event on a cell in data table.
          */
         "onKup-datatable-cell-actions-menu"?: (event: KupDataTableCustomEvent<KupDatatableClickEventPayload>) => void;
+        "onKup-datatable-cell-click"?: (event: KupDataTableCustomEvent<FCellEventPayload>) => void;
+        "onKup-datatable-cell-iconclick"?: (event: KupDataTableCustomEvent<FCellEventPayload>) => void;
+        "onKup-datatable-cell-input"?: (event: KupDataTableCustomEvent<FCellEventPayload>) => void;
         "onKup-datatable-check"?: (event: KupDataTableCustomEvent<KupDatatableCellCheckPayload>) => void;
         /**
           * Generic click event on data table.
@@ -7596,6 +7628,11 @@ declare namespace LocalJSX {
           * @default ""
          */
         "initialValue"?: string;
+        /**
+          * When enabled, font will be set to monospace and sizing will be extra-small .
+          * @default false
+         */
+        "legacyLook"?: boolean;
         "onKup-datepicker-blur"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-change"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-cleariconclick"?: (event: KupDatePickerCustomEvent<KupEventPayload>) => void;
@@ -8545,6 +8582,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "selectable"?: boolean;
+        /**
+          * Show filter for filter elements in list
+          * @default false
+         */
+        "showFilter"?: boolean;
         /**
           * Displays the icons associated to each row when set to true.
           * @default false

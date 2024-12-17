@@ -181,7 +181,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 
-const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -1265,6 +1264,30 @@ export class KupDataTable {
         bubbles: true,
     })
     kupCellCheck: EventEmitter<KupDatatableCellCheckPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-cell-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellClick: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-cell-iconclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellIconClick: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-cell-input',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellInput: EventEmitter<FCellEventPayload>;
 
     /**
      * Closes any opened column menu.
@@ -4304,75 +4327,30 @@ export class KupDataTable {
         });
     };
 
-    #checkOnBlurProp = (cell: KupDataCell, rowId: string, colName: string) => {
-        cell.data = {
-            ...cell.data,
-            onBlur: () => {
-                if (
-                    this.#originalDataLoaded.rows.find((r) => r.id == rowId)
-                        ?.cells[colName]?.value !== cell.value
-                ) {
-                    this.kupCellCheck.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        originalData: this.#originalDataLoaded,
-                        updatedData: getDiffData(
-                            this.#originalDataLoaded,
-                            this.data,
-                            true
-                        ),
-                        cell: cell,
-                    });
-                }
-            },
-        };
-    };
-
-    #checkOnBlurEvent = (cell: KupDataCell, rowId: string, colName: string) => {
-        const evName = this.#eventBlurNames.get(cell.shape);
-        if (!evName) {
-            return;
+    #onBlurHandler({
+        detail: { cell, column, row },
+    }: CustomEvent<FCellEventPayload>) {
+        if (
+            this.updatableData &&
+            cell.isEditable &&
+            cell.inputSettings?.checkValueOnExit &&
+            this.#originalDataLoaded.rows.find((r) => r.id == row.id)?.cells[
+                column.name
+            ]?.value !== cell.value
+        ) {
+            this.kupCellCheck.emit({
+                comp: this,
+                id: this.rootElement.id,
+                originalData: this.#originalDataLoaded,
+                updatedData: getDiffData(
+                    this.#originalDataLoaded,
+                    this.data,
+                    true
+                ),
+                cell: cell,
+            });
         }
-        const handler = async () => {
-            if (
-                this.#originalDataLoaded.rows.find((r) => r.id == rowId)?.cells[
-                    colName
-                ]?.value !== cell.value
-            ) {
-                this.kupCellCheck.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    originalData: this.#originalDataLoaded,
-                    updatedData: getDiffData(
-                        this.#originalDataLoaded,
-                        this.data,
-                        true
-                    ),
-                    cell: cell,
-                });
-            }
-        };
-        this.rootElement.addEventListener(evName, handler);
-    };
-
-    #checkOnBlurByCellType = (
-        fCellType: FCellTypes
-    ): ((cell: KupDataCell, rowId: string, colName: string) => void) => {
-        const cbByCellType = new Map<FCellTypes, (cell: KupDataCell) => void>([
-            [FCellTypes.AUTOCOMPLETE, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.CHIP, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.DATE, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.MULTI_AUTOCOMPLETE, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.MULTI_COMBOBOX, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.TIME, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.COMBOBOX, this.#checkOnBlurEvent.bind(this)],
-            [FCellTypes.STRING, this.#checkOnBlurProp.bind(this)],
-            [FCellTypes.RADIO, this.#checkOnBlurProp.bind(this)],
-            [FCellTypes.NUMBER, this.#checkOnBlurProp.bind(this)],
-            [FCellTypes.OBJECT, this.#checkOnBlurProp.bind(this)],
-        ]);
-        return cbByCellType.get(fCellType);
-    };
+    }
 
     @Method() async defaultSortingFunction(
         columns: KupDataColumn[],
@@ -5485,24 +5463,6 @@ export class KupDataTable {
                         : null,
                 };
 
-                const cellType = dom.ketchup.data.cell.getType(
-                    cell,
-                    cell.shape
-                );
-
-                if (
-                    this.updatableData &&
-                    cell.isEditable &&
-                    cell.inputSettings?.checkValueOnExit &&
-                    this.#checkOnBlurByCellType(cellType)
-                ) {
-                    this.#checkOnBlurByCellType(cellType)(
-                        cell,
-                        row.id,
-                        currentColumn.name
-                    );
-                }
-
                 const jsxCell = <FCell {...fcell}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
@@ -6563,8 +6523,18 @@ export class KupDataTable {
 
         const compCreated = (
             <Host
-                onKup-cell-input={autoselectOnAction}
+                onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
+                    autoselectOnAction(e);
+                    this.kupDataTableCellInput.emit(e.detail);
+                }}
                 onKup-cell-update={autoselectOnAction}
+                onKup-cell-blur={this.#onBlurHandler}
+                onKup-cell-click={(e: CustomEvent<FCellEventPayload>) => {
+                    this.kupDataTableCellClick.emit(e.detail);
+                }}
+                onKup-cell-iconclick={(e: CustomEvent<FCellEventPayload>) => {
+                    this.kupDataTableCellIconClick.emit(e.detail);
+                }}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(

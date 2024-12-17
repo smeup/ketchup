@@ -166,6 +166,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field': true,
         'mdc-text-field--disabled': props.disabled,
         'mdc-text-field--read-only': props.readOnly,
+        'mdc-text-field--read-only-is-select': props.isSelect,
         'mdc-text-field--filled': !props.fullWidth && !isOutlined,
         'mdc-text-field--no-label': !props.label,
         'mdc-text-field--fullwidth': props.fullWidth,
@@ -218,6 +219,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             disabled={props.disabled}
                             maxlength={props.maxLength}
                             value={value}
+                            autoComplete={props.autocomplete ?? 'off'}
                             onBlur={props.onBlur}
                             onClick={props.onClick}
                             onChange={props.onChange}
@@ -242,6 +244,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         maxlength={props.maxLength}
                         size={props.size}
                         value={value}
+                        readOnly={props.isSelect}
+                        autoComplete={props.autocomplete ?? 'off'}
                         onBlur={(e: FocusEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {

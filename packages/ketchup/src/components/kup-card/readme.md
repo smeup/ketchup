@@ -193,8 +193,8 @@ graph TD;
   kup-radio --> kup-card
   kup-dialog --> kup-card
   kup-badge --> kup-card
-  kup-chip --> kup-card
   kup-text-field --> kup-card
+  kup-chip --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card

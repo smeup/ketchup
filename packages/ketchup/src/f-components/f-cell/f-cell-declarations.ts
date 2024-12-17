@@ -49,6 +49,7 @@ export interface FCellInfo {
  * Supported cell events.
  */
 export enum FCellEvents {
+    BLUR = 'kup-cell-blur',
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
@@ -124,7 +125,7 @@ export enum FCellShapes {
     CHIP = 'CHI',
     COLOR_PICKER = 'CLP',
     COMBOBOX = 'CMB',
-    DATE = 'DAT',
+    DATE = 'CAL',
     EDITOR = 'EDT',
     GAUGE = 'GAU',
     IMAGE = 'IMG',
@@ -219,7 +220,7 @@ export const kupTypes = [
 export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
-    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
+    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent | FocusEvent;
     inputValue?: string;
     row: KupDataRow;
     type: FCellTypes;
@@ -228,5 +229,6 @@ export interface FCellEventPayload extends KupEventPayload {
 export interface InputSettingsProps {
     forceUppercase?: boolean;
     forceLowercase?: boolean;
+    checkObject?: boolean;
     checkValueOnExit?: boolean;
 }

@@ -11,6 +11,7 @@ export enum KupComboboxProps {
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     displayMode = 'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
     initialValue = 'Sets the initial value of the component',
+    initialValueDecode = 'Sets the initial value decode of the component',
     isClearable = 'Enables a clear trailing icon.',
     isSelect = 'Lets the combobox behave as a select element.',
     selectMode = 'Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "both".',
