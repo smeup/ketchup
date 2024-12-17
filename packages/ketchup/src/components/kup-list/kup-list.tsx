@@ -85,7 +85,7 @@ export class KupList {
 
     /**
      * Show filter for filter elements in list
-     * @default ''
+     * @default false
      */
     @Prop() showFilter: boolean = false;
 
@@ -673,7 +673,7 @@ export class KupList {
         let componentClass: string = 'list';
         let wrapperClass = undefined;
         let filterClass = 'filter';
-        let listScrollClass = this.showFilter ? 'scroll-list' : null;
+        let listScrollClass = 'scroll-list';
 
         if (this.isMenu) {
             wrapperClass = 'kup-menu';
