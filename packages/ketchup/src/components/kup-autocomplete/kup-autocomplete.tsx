@@ -305,16 +305,18 @@ export class KupAutocomplete {
             undefined,
             false
         );
-        this.#openList(false);
-        if (this.#textfieldEl.value.length >= this.minimumChars) {
-            this.kupInput.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                node: ret.node,
-            });
-        }
+        setTimeout(() => {
+            this.#openList(false);
+            if (this.#textfieldEl.value.length >= this.minimumChars) {
+                this.kupInput.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    node: ret.node,
+                });
+            }
+        }, 400);
     }
 
     onKupIconClick() {

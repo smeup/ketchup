@@ -26,7 +26,9 @@
 
             <kup-autocomplete id="forceSelection"></kup-autocomplete>
 
-            <kup-autocomplete id="minimumChars"></kup-autocomplete>
+            <kup-autocomplete id="minimumCharsTwo"></kup-autocomplete>
+
+            <kup-autocomplete id="minimumCharsFour"></kup-autocomplete>
 
             <kup-autocomplete id="onlyShowCode"></kup-autocomplete>
 
@@ -80,17 +82,29 @@
                     ac.initialValue = 'txt1';
                     ac.selectMode = 'code';
 
-                    const minimumCharsTest =
-                        document.getElementById('minimumChars');
-                    minimumCharsTest.data = {
+                    const minimumCharsTestTwo =
+                        document.getElementById('minimumCharsTwo');
+                    minimumCharsTestTwo.data = {
                         'kup-text-field': {
-                            label: 'Minimum Characters Test',
+                            label: 'Minimum Characters Test: 2',
                         },
                         'kup-list': {
                             data,
                         },
                     };
-                    minimumCharsTest.minimumChars = 2;
+                    minimumCharsTestTwo.minimumChars = 2;
+
+                    const minimumCharsTestFive =
+                        document.getElementById('minimumCharsFour');
+                    minimumCharsTestFive.data = {
+                        'kup-text-field': {
+                            label: 'Minimum Characters Test: 4',
+                        },
+                        'kup-list': {
+                            data,
+                        },
+                    };
+                    minimumCharsTestFive.minimumChars = 4;
 
                     const onlyShowCodeTest =
                         document.getElementById('onlyShowCode');
