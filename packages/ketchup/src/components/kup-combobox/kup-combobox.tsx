@@ -339,6 +339,11 @@ export class KupCombobox {
         this.setValue(newValue, undefined);
     }
 
+    @Watch('initialValueDecode')
+    initialValueDecodeChange(newValue: string) {
+        this.setValue(this.initialValue, newValue);
+    }
+
     /*-------------------------------------------------*/
     /*                L i s t e n e r s                */
     /*-------------------------------------------------*/
