@@ -9,7 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { FObjectField } from '../../f-components/f-object-field/f-object-field';
-import { FObjectFieldProps } from '../../f-components/f-object-field/f-object-field-declations';
+import { FObjectFieldProps } from '../../f-components/f-object-field/f-object-field-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps } from '../../utils/utils';
@@ -123,6 +123,7 @@ export class KupObjectField {
         const props: FObjectFieldProps = {
             data: this.data ?? {},
             inputValue: this.inputValue,
+            onChange: null,
         };
 
         return (
