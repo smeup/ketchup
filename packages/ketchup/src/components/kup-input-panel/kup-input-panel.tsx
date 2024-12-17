@@ -1190,7 +1190,7 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
             return {
-                ...this.#CMBandACPAdapter(cell.options, col.title, null, cell),
+                ...this.#CMBandACPAdapter(cell.options, col.title, null),
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
@@ -1256,12 +1256,9 @@ export class KupInputPanel {
     #CMBandACPAdapter(
         rawOptions: GenericObject,
         fieldLabel: string,
-        currentValue: string,
-        cell: KupInputPanelCell
+        currentValue: string
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
-        this.#setCellErrorIfValueIsPresent(currentValue, cell);
 
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
@@ -1622,16 +1619,9 @@ export class KupInputPanel {
         });
     }
 
-    #setCellErrorIfValueIsPresent(
-        currentValue: string,
-        cell: KupInputPanelCell
-    ) {
-        cell.data.error = currentValue ? cell.data?.error : '';
-    }
-
     async #onBlurHandler(e: CustomEvent<FCellEventPayload>) {
         const {
-            detail: { column, cell, inputValue },
+            detail: { column, cell },
         } = e;
 
         const currCell = this.#getCell(column.name);
@@ -1641,10 +1631,8 @@ export class KupInputPanel {
             this.#setCellError(
                 column.name,
                 currCell.value
-                    ? // If it's not empty remove the error message
-                      null
-                    : // else set the error message
-                      this.#kupManager.language.translate(
+                    ? cell.data?.error || null
+                    : this.#kupManager.language.translate(
                           KupLanguageGeneric.REQUIRED_VALUE
                       )
             );
@@ -1653,7 +1641,7 @@ export class KupInputPanel {
                 return;
             }
         } else {
-            this.#setCellError(column.name, null);
+            this.#setCellError(column.name, cell.data?.error || null);
         }
 
         // Valid object check
@@ -1664,18 +1652,15 @@ export class KupInputPanel {
                 fun: (cell as KupInputPanelCell).fun,
             });
 
-            this.#setCellError(
-                column.name,
-                valid
-                    ? // If it's not empty remove the error message
-                      null
-                    : // else set the error message
-                      this.#kupManager.language.translate(
-                          KupLanguageGeneric.INVALID_VALUE
-                      )
-            );
-            if (!valid) {
-                return;
+            if (valid) {
+                this.#setCellError(column.name, cell.data?.error || null);
+            } else {
+                this.#setCellError(
+                    column.name,
+                    this.#kupManager.language.translate(
+                        KupLanguageGeneric.INVALID_VALUE
+                    )
+                );
             }
         }
 
