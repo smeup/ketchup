@@ -1417,6 +1417,7 @@ export class KupBox {
             sectionStyle.overflow = 'hidden';
 
             if (parent.horizontal) {
+                sectionStyle.flex = `0 0 ${section.dim}`;
                 sectionStyle.maxWidth = section.dim;
             }
         }
