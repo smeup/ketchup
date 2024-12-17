@@ -1625,13 +1625,14 @@ export class KupInputPanel {
         } = e;
 
         const currCell = this.#getCell(column.name);
+        const originalCell = this.#originalData.rows[0].cells[column.name];
 
         // Required cell check
         if ((cell as KupInputPanelCell).mandatory) {
             this.#setCellError(
                 column.name,
                 currCell.value
-                    ? cell.data?.error || null
+                    ? originalCell.data?.error || null
                     : this.#kupManager.language.translate(
                           KupLanguageGeneric.REQUIRED_VALUE
                       )
@@ -1641,7 +1642,7 @@ export class KupInputPanel {
                 return;
             }
         } else {
-            this.#setCellError(column.name, cell.data?.error || null);
+            this.#setCellError(column.name, originalCell.data?.error || null);
         }
 
         // Valid object check
@@ -1653,7 +1654,10 @@ export class KupInputPanel {
             });
 
             if (valid) {
-                this.#setCellError(column.name, cell.data?.error || null);
+                this.#setCellError(
+                    column.name,
+                    originalCell.data?.error || null
+                );
             } else {
                 this.#setCellError(
                     column.name,
@@ -1661,6 +1665,7 @@ export class KupInputPanel {
                         KupLanguageGeneric.INVALID_VALUE
                     )
                 );
+                return;
             }
         }
 
@@ -1931,13 +1936,13 @@ export class KupInputPanel {
 
         return (
             <Host
-                onKup-cell-blur={this.#onBlurHandler}
+                onKup-cell-blur={this.#onBlurHandler.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
                 }}
-                onKup-autocomplete-input={this.#getOptionHandler}
-                onKup-autocomplete-iconclick={this.#getOptionHandler}
-                onKup-combobox-iconclick={this.#getOptionHandler}
+                onKup-autocomplete-input={this.#getOptionHandler.bind(this)}
+                onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
+                onKup-combobox-iconclick={this.#getOptionHandler.bind(this)}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
