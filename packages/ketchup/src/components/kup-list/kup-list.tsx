@@ -31,9 +31,10 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -81,6 +82,13 @@ export class KupList {
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * Show filter for filter elements in list
+     * @default false
+     */
+    @Prop() showFilter: boolean = false;
+
     /**
      * Keeps string for filtering elements when filter mode is active
      * @default ''
@@ -135,7 +143,7 @@ export class KupList {
      * Instance of the KupManager class.
      */
     #kupManager: KupManager = kupManagerInstance();
-
+    #globalFilterTimeout: number;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
 
@@ -597,6 +605,36 @@ export class KupList {
         );
     }
 
+    #createFilterComponent() {
+        return (
+            <div id="global-filter" class="filter">
+                <kup-text-field
+                    fullWidth={true}
+                    label={this.#kupManager.language.translate(
+                        KupLanguageSearch.SEARCH
+                    )}
+                    icon={KupThemeIconValues.SEARCH}
+                    initialValue={this.filter}
+                    onkup-textfield-input={(event) => {
+                        window.clearTimeout(this.filter);
+                        this.#globalFilterTimeout = window.setTimeout(
+                            () => this.onFilterValueChange(event),
+                            600
+                        );
+                    }}
+                ></kup-text-field>
+            </div>
+        );
+    }
+
+    onFilterValueChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.filter = value;
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -638,6 +676,8 @@ export class KupList {
         this.#listItems = [];
         let componentClass: string = 'list';
         let wrapperClass = undefined;
+        let filterClass = 'filter';
+        let listScrollClass = 'scroll-list';
 
         if (this.isMenu) {
             wrapperClass = 'kup-menu';
@@ -683,15 +723,24 @@ export class KupList {
                     )}
                 </style>
                 <div id="kup-component" class={wrapperClass}>
-                    <ul
-                        class={componentClass}
-                        role={roleAttr}
-                        aria-multiselectable={ariaMultiSelectable}
-                    >
-                        {this.data
-                            .filter((item) => this.#itemCompliant(item))
-                            .map((item) => this.#renderListItem(item, index++))}
-                    </ul>
+                    {this.showFilter ? (
+                        <div class={filterClass}>
+                            {this.#createFilterComponent()}
+                        </div>
+                    ) : null}
+                    <div class={listScrollClass}>
+                        <ul
+                            class={componentClass}
+                            role={roleAttr}
+                            aria-multiselectable={ariaMultiSelectable}
+                        >
+                            {this.data
+                                .filter((item) => this.#itemCompliant(item))
+                                .map((item) =>
+                                    this.#renderListItem(item, index++)
+                                )}
+                        </ul>
+                    </div>
                 </div>
             </Host>
         );
