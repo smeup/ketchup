@@ -121,6 +121,11 @@ export class KupCalendar {
      */
     @Prop() editableEvents: boolean = true;
     /**
+     * When true, it will show the changeView
+     * @default false
+     */
+    @Prop() enableChangeView = false;
+    /**
      * Type of the view.
      * @default KupCalendarViewTypes.MONTH
      */
@@ -367,7 +372,8 @@ export class KupCalendar {
     private changeView(view: KupCalendarViewTypes) {
         this.viewType = view;
         this.calendar.changeView(view);
-        this.emitNavEvent();
+        // TODO: implementation of separate event management for the changeview
+        // this.emitNavEvent();
     }
 
     private getColumns(): KupDataColumn[] {
@@ -626,11 +632,11 @@ export class KupCalendar {
                                 this.navTitle = el;
                             }}
                         ></div>
-                        {!this.hideNavigation ? (
-                            <div class="navigation__right">
+                        <div class="navigation__right">
+                            {this.enableChangeView ? (
                                 <FChip {...this.setChipProps()}></FChip>
-                            </div>
-                        ) : null}
+                            ) : null}
+                        </div>
                     </div>
                     <div
                         class="calendar"

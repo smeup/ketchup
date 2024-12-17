@@ -91,6 +91,7 @@ export interface KupCommand {
  */
 export interface KupDataCell {
     value?: string;
+    decode?: string;
     cardID?: number;
     cssClass?: string;
     data?: GenericObject;

@@ -947,6 +947,10 @@ export class KupInputPanel {
                 '.mdc-text-field {height: unset !important;}',
             legacyLook: true,
             helperEnabled: false,
+            ...(fieldCell.cell.shape === FCellShapes.TABLE && {
+                rowsPerPage: fieldCell.cell.data.data.rows.length,
+                showPaginator: false,
+            }),
         };
 
         return (
@@ -1432,10 +1436,19 @@ export class KupInputPanel {
 
             return {
                 data: {
-                    columns: data.columns.map((col) => ({
-                        ...col,
-                        obj: data.rows[0].cells[col.name].obj,
-                    })),
+                    columns: data.columns.map((col) => {
+                        if (data.rows.length > 0) {
+                            const cellObj = data.rows[0].cells[col.name]?.obj;
+                            if (!col.obj && cellObj) {
+                                return {
+                                    ...col,
+                                    obj: { t: cellObj.t, p: cellObj.p },
+                                };
+                            }
+                            return col;
+                        }
+                        return col;
+                    }),
                     rows: data.rows.map((row) => ({
                         ...row,
                         cells: Object.keys(row.cells).reduce((cell, key) => {
