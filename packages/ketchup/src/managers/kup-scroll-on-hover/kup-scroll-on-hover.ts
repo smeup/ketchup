@@ -32,7 +32,7 @@ export class KupScrollOnHover {
     constructor(delay?: number, step?: number) {
         this.delay = delay ? delay : 500;
         this.managedElements = new Set();
-        this.step = step ? step : 50;
+        this.step = step ? step : 10;
         this.#mouseleaveEvent = (event: MouseEvent) =>
             this.stop(event.target as KupScrollOnHoverElement);
         this.#mousemoveEvent = (event: MouseEvent) => this.start(event);
