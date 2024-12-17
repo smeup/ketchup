@@ -56,7 +56,11 @@ export function consistencyCheck(
         trueValue = selected.id;
     } else {
         id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
-        displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
+        displayedValue = getIdOfItemByDisplayMode(
+            selected,
+            id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
+            ' - '
+        );
         trueValue = getIdOfItemByDisplayMode(
             selected,
             ItemsDisplayMode.CODE,
@@ -144,7 +148,7 @@ export function getItemByDisplayMode(
         for (let i = 0; i < listData['data'].length; i++) {
             let displayedValue = getIdOfItemByDisplayMode(
                 listData['data'][i],
-                displayMode,
+                id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
                 ' - '
             );
             if (setSelected == true) {
