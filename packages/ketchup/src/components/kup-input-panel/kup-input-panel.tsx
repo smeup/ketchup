@@ -1596,11 +1596,11 @@ export class KupInputPanel {
                 data: {
                     columns: data.columns.map((col) => {
                         if (data.rows.length > 0) {
-                            const obj = data.rows[0].cells[col.name]?.obj;
-                            if (obj) {
+                            const cellObj = data.rows[0].cells[col.name]?.obj;
+                            if (!col.obj && cellObj) {
                                 return {
                                     ...col,
-                                    obj: { t: obj.t, p: obj.p },
+                                    obj: { t: cellObj.t, p: cellObj.p },
                                 };
                             }
                             return col;
