@@ -256,20 +256,21 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 
                                 const valueFromTarget =
                                     e.target as HTMLInputElement;
+                                if (valueFromTarget.value) {
+                                    let formattedValue = formatValue(
+                                        valueFromTarget.value,
+                                        options,
+                                        true
+                                    );
+                                    formattedValue = Number(
+                                        formattedValue
+                                    ).toLocaleString('en-US', {
+                                        minimumFractionDigits: options.decimal,
+                                    });
 
-                                let formattedValue = formatValue(
-                                    valueFromTarget.value,
-                                    options,
-                                    true
-                                );
-                                formattedValue = Number(
-                                    formattedValue
-                                ).toLocaleString('en-US', {
-                                    minimumFractionDigits: options.decimal,
-                                });
-
-                                valueFromTarget.value = formattedValue;
-                                props.value = formattedValue;
+                                    valueFromTarget.value = formattedValue;
+                                    props.value = formattedValue;
+                                }
                             }
                             if (props.onBlur) {
                                 props.onBlur(e);
@@ -484,9 +485,7 @@ const formatValue = (
     options: NumericFieldFormatOptions,
     inputIsLocalized: boolean
 ): string => {
-    const formatedValue = Number(value).toLocaleString('en-US', {
-        minimumFractionDigits: options.decimal,
-    });
+    const formatedValue = value;
     if (!formatedValue) {
         return formatedValue;
     }
