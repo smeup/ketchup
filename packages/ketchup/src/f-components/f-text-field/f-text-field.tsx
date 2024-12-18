@@ -460,7 +460,7 @@ const getTotalIntegers = (
     integers: number = 0,
     decimals: number = 0
 ): number => {
-    return integers - decimals;
+    return integers > decimals ? integers - decimals : integers;
 };
 
 const formatValue = (
