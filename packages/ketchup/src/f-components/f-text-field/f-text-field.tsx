@@ -253,13 +253,20 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         props.decimals
                                     ),
                                 };
+
                                 const valueFromTarget =
                                     e.target as HTMLInputElement;
-                                const formattedValue = formatValue(
+
+                                let formattedValue = formatValue(
                                     valueFromTarget.value,
                                     options,
                                     true
                                 );
+                                formattedValue = Number(
+                                    formattedValue
+                                ).toLocaleString('en-US', {
+                                    minimumFractionDigits: options.decimal,
+                                });
 
                                 valueFromTarget.value = formattedValue;
                                 props.value = formattedValue;
@@ -477,8 +484,9 @@ const formatValue = (
     options: NumericFieldFormatOptions,
     inputIsLocalized: boolean
 ): string => {
-    let formatedValue = value;
-
+    const formatedValue = Number(value).toLocaleString('en-US', {
+        minimumFractionDigits: options.decimal,
+    });
     if (!formatedValue) {
         return formatedValue;
     }
