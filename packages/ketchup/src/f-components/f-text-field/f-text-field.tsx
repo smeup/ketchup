@@ -67,6 +67,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
 
+    if (props.inputType === 'number') {
+        props.maxLength += getNonNumericValuesLength(props.value);
+        props.size += getNonNumericValuesLength(props.value);
+    }
+
     if (props.maxLength >= 256) {
         props.textArea = true;
     }
@@ -350,7 +355,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             ) {
                                 return;
                             }
-
                             const options: NumericFieldFormatOptions = {
                                 allowNegative: props.allowNegative ?? true,
                                 decimal: props.decimals,
@@ -360,19 +364,21 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     props.decimals
                                 ),
                             };
-                            console.log(props);
 
                             const component = e.target as HTMLInputElement;
-                            const value = component.value;
-                            const beginVal = value.substring(
+                            const valueFromTarget = component.value;
+                            const beginVal = valueFromTarget.substring(
                                 0,
                                 component.selectionStart
                             );
-                            const endVal = value.substring(
+                            const endVal = valueFromTarget.substring(
                                 component.selectionEnd,
-                                component.selectionEnd + value.length - 1
+                                component.selectionEnd +
+                                    valueFromTarget.length -
+                                    1
                             );
                             const val = beginVal + e.key + endVal;
+
                             if (
                                 !dom.ketchup.math.matchNumericValueWithOptions(
                                     val,
@@ -452,6 +458,11 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
             </div>
         );
     }
+}
+
+function getNonNumericValuesLength(value: string) {
+    const matchCharacters = value.match(/[^0-9]/g);
+    return matchCharacters ? matchCharacters.length : 0;
 }
 
 const getTotalIntegers = (
