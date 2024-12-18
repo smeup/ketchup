@@ -1749,17 +1749,21 @@ export class KupInputPanel {
             return;
         }
 
+        const currState = this.#reverseMapCells();
+
         const props = fcell['kup-get-cell-props']();
         const columnName = props.column.name;
 
-        let anchor = fcell;
-        let cell = this.data.rows[0].cells[columnName];
-        let column = this.data.columns.find((c) => c.name == columnName);
+        const anchor = fcell;
+        const cell = currState.rows[0].cells[columnName];
+        const column = currState.columns.find((c) => c.name == columnName);
+        const row = currState.rows[0];
 
         return {
             anchor,
             cell,
             column,
+            row,
             originalEvent,
         };
     }

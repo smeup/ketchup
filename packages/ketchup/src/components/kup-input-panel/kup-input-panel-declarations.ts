@@ -3,6 +3,7 @@ import {
     KupDataCell,
     KupDataColumn,
     KupDataCommand,
+    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
@@ -170,6 +171,7 @@ export interface KupInputPanelEventHandlerDetails {
     anchor: HTMLElement;
     cell: KupDataCell;
     column: KupDataColumn;
+    row: KupDataRow;
     originalEvent: PointerEvent;
 }
 
