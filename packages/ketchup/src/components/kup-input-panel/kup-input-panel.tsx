@@ -373,7 +373,11 @@ export class KupInputPanel {
     #getCell(id: string) {
         return this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
             if (!cell) {
-                return cells.find(({ column }) => column.name === id).cell;
+                const f = cells.find(({ column }) => column.name === id);
+                if (f) {
+                    return f.cell;
+                }
+                // else throw error or not? it could be a cellId corresponding to a TBL's cell contained in host INP cell!
             }
             return cell;
         }, null);
@@ -1639,6 +1643,10 @@ export class KupInputPanel {
 
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
+
+        if (!currCell) {
+            return;
+        }
 
         // Required cell check
         if ((cell as KupInputPanelCell).mandatory) {
