@@ -243,7 +243,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     allowNegative: props.allowNegative ?? true,
                                     decimal: props.decimals,
                                     group: props.group,
-                                    integer: props.integers,
+                                    integer: getTotalIntegers(
+                                        props.integers,
+                                        props.decimals
+                                    ),
                                 };
                                 const valueFromTarget =
                                     e.target as HTMLInputElement;
@@ -266,7 +269,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     allowNegative: props.allowNegative ?? true,
                                     decimal: props.decimals,
                                     group: props.group,
-                                    integer: props.integers,
+                                    integer: getTotalIntegers(
+                                        props.integers,
+                                        props.decimals
+                                    ),
                                 };
                                 if (
                                     props.min !== undefined &&
@@ -352,7 +358,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                 allowNegative: props.allowNegative ?? true,
                                 decimal: props.decimals,
                                 group: props.group,
-                                integer: props.integers,
+                                integer: getTotalIntegers(
+                                    props.integers,
+                                    props.decimals
+                                ),
                             };
                             let component = e.target as HTMLInputElement;
                             let value = component.value;
@@ -447,11 +456,18 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
     }
 }
 
-const formatValue = function (
+const getTotalIntegers = (
+    integers: number = 0,
+    decimals: number = 0
+): number => {
+    return integers - decimals;
+};
+
+const formatValue = (
     value: string,
     options: NumericFieldFormatOptions,
     inputIsLocalized: boolean
-): string {
+): string => {
     let formatedValue = value;
 
     if (!formatedValue) {
