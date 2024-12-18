@@ -343,14 +343,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         onInput={props.onInput}
                         onKeyDown={props.onKeyDown}
                         onKeyPress={(e: KeyboardEvent) => {
-                            if (!persManageForNumberFormat) {
-                                return;
-                            }
-                            if (e.ctrlKey) {
-                                return;
-                            }
-
-                            if (e.key.length > 1) {
+                            if (
+                                !persManageForNumberFormat ||
+                                e.ctrlKey ||
+                                e.key.length > 1
+                            ) {
                                 return;
                             }
 
@@ -363,18 +360,19 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     props.decimals
                                 ),
                             };
-                            let component = e.target as HTMLInputElement;
-                            let value = component.value;
+                            console.log(props);
 
-                            let beginVal = value.substring(
+                            const component = e.target as HTMLInputElement;
+                            const value = component.value;
+                            const beginVal = value.substring(
                                 0,
                                 component.selectionStart
                             );
-                            let endVal = value.substring(
+                            const endVal = value.substring(
                                 component.selectionEnd,
                                 component.selectionEnd + value.length - 1
                             );
-                            let val = beginVal + e.key + endVal;
+                            const val = beginVal + e.key + endVal;
                             if (
                                 !dom.ketchup.math.matchNumericValueWithOptions(
                                     val,
