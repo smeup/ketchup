@@ -197,15 +197,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         inputType = 'text';
         persManageForNumberFormat = true;
     }
-    if (props.inputType === 'number') {
-        const options: NumericFieldFormatOptions = {
-            allowNegative: props.allowNegative ?? true,
-            decimal: props.decimals,
-            group: props.group,
-            integer: props.integers,
-        };
-        value = formatValue(value, options, false);
-    }
 
     return (
         <div class={classContainerObj}>
@@ -254,12 +245,16 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     group: props.group,
                                     integer: props.integers,
                                 };
-                                (e.target as HTMLInputElement).value =
-                                    formatValue(
-                                        (e.target as HTMLInputElement).value,
-                                        options,
-                                        true
-                                    );
+                                const valueFromTarget =
+                                    e.target as HTMLInputElement;
+                                const formattedValue = formatValue(
+                                    valueFromTarget.value,
+                                    options,
+                                    true
+                                );
+
+                                valueFromTarget.value = formattedValue;
+                                props.value = formattedValue;
                             }
                             if (props.onBlur) {
                                 props.onBlur(e);
