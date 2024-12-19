@@ -371,16 +371,21 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #getCell(id: string) {
-        return this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
-            if (!cell) {
-                const f = cells.find(({ column }) => column.name === id);
-                if (f) {
-                    return f.cell;
+        return this.inputPanelCells.reduce<KupDataCell | null>(
+            (cell, { cells }) => {
+                if (!cell) {
+                    const foundCell = cells.find(
+                        ({ column }) => column.name === id
+                    );
+                    if (foundCell) {
+                        return foundCell.cell;
+                    }
+                    return null;
                 }
-                // else throw error or not? it could be a cellId corresponding to a TBL's cell contained in host INP cell!
-            }
-            return cell;
-        }, null);
+                return cell;
+            },
+            null
+        );
     }
 
     #renderRow(inputPanelCell: InputPanelCells) {
@@ -1645,6 +1650,7 @@ export class KupInputPanel {
         const originalCell = this.#originalData.rows[0].cells[column.name];
 
         if (!currCell) {
+            // that means INP received a blur event was emitted, probably, by a TBL shape's cell applied to an INP cell
             return;
         }
 
