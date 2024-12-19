@@ -202,7 +202,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'watermark',
+          prop: 'placeholder',
           description: 'Set custom placeholder for text field.',
           type: 'string',
           default: 'Type code or description',
@@ -243,7 +243,7 @@ function createComp() {
   comp.initialValue = 'First item';
   comp.minimumChars = '3';
   comp.selectMode = 'description';
-  comp.watermark = 'Type description';
+  comp.placeholder = 'Type description';
   return comp;
 }
 </script>
