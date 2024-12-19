@@ -1873,6 +1873,7 @@ export class KupEchart {
     }
 
     disconnectedCallback() {
+        this.#chartEl.dispose();
         this.#kupManager.theme.unregister(this);
         this.#kupManager.resize.unobserve(this.rootElement);
     }
