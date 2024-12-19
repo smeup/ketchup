@@ -1183,16 +1183,6 @@ export function decorateDataTable(data: KupDataTableDataset) {
 
             if (adapterFunction) {
                 cell.data = adapterFunction();
-            } else {
-                if (cell.shape) {
-                    dom.ketchup.debug.logMessage(
-                        'kup-data',
-                        `Shape specified ${cell.shape} in cell ${JSON.stringify(
-                            cell
-                        )} unsupported`,
-                        KupDebugCategory.WARNING
-                    );
-                }
             }
         });
     });
