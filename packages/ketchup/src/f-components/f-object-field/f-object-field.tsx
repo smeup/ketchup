@@ -77,7 +77,7 @@ function openList(props: FObjectFieldProps) {
             button,
             0,
             KupDynamicPositionPlacement.AUTO,
-            true
+            false
         );
     }
 
