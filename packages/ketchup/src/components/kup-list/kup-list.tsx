@@ -621,7 +621,7 @@ export class KupList {
                         window.clearTimeout(this.filter);
                         this.#globalFilterTimeout = window.setTimeout(
                             () => this.onFilterValueChange(event),
-                            600
+                            400
                         );
                     }}
                 ></kup-text-field>

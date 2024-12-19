@@ -32,7 +32,7 @@
 
             <kup-autocomplete id="onlyShowCode"></kup-autocomplete>
 
-            <kup-autocomplete id="customWatermark"></kup-autocomplete>
+            <kup-autocomplete id="customPlaceholder"></kup-autocomplete>
 
             <script>
                 const data = [
@@ -118,17 +118,17 @@
                     };
                     onlyShowCodeTest.displayMode = 'code';
 
-                    const customWatermarkTest =
-                        document.getElementById('customWatermark');
-                    customWatermarkTest.data = {
+                    const customPlaceholderTest =
+                        document.getElementById('customPlaceholder');
+                    customPlaceholderTest.data = {
                         'kup-text-field': {
-                            label: 'Custom Watermark',
+                            label: 'Custom Placeholder',
                         },
                         'kup-list': {
                             data,
                         },
                     };
-                    customWatermarkTest.watermark = 'Test';
+                    customPlaceholderTest.placeholder = 'Test';
                 };
             </script>
         </div>
