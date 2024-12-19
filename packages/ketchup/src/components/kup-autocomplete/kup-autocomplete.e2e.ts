@@ -89,12 +89,12 @@ describe('kup-autocomplete', () => {
         });
     });
 
-    it('render with custom watermark', async () => {
+    it('render with custom placeholder', async () => {
         const { page, input } = await setupTest(
-            '<kup-autocomplete watermark="Enter text here"></kup-autocomplete>'
+            '<kup-autocomplete placeholder="Enter text here"></kup-autocomplete>'
         );
 
-        const watermark = await input.getAttribute('placeholder');
-        expect(watermark).toBe('Enter text here');
+        const placeholder = await input.getAttribute('placeholder');
+        expect(placeholder).toBe('Enter text here');
     });
 });

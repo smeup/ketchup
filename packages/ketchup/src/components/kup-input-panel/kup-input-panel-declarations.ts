@@ -185,7 +185,7 @@ export enum KupInputPanelPosition {
     STRETCHED = 'STRETCHED',
     UPINLINE = 'UPINLINE',
     UPCOLUMNS = 'UPCOLUMNS',
-    WATERMARK = 'WATERMARK',
+    PLACEHOLDER = 'PLACEHOLDER',
 }
 
 export enum KupInputPanelButtonsPositions {

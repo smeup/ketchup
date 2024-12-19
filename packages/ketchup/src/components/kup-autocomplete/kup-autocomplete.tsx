@@ -176,10 +176,10 @@ export class KupAutocomplete {
      */
     @Prop() trailingIcon: boolean = false;
     /**
-     * Set custom placeholder for text field
+     * Set custom placeholder / watermark for text field
      * @default "Type code or description"
      */
-    @Prop() watermark: string = 'Type code or description';
+    @Prop() placeholder: string = 'Type code or description';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -622,7 +622,7 @@ export class KupAutocomplete {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
-            placeholder: this.watermark,
+            placeholder: this.placeholder,
             readOnly: this.readOnly,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
@@ -655,7 +655,7 @@ export class KupAutocomplete {
                         {...props}
                         icon={
                             this.showDropDownIcon
-                                ? KupThemeIconValues.DROPDOWN
+                                ? KupThemeIconValues.SEARCH
                                 : null
                         }
                         trailingIcon={true}
