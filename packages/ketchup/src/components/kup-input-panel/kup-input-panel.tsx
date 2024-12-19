@@ -371,12 +371,21 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #getCell(id: string) {
-        return this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
-            if (!cell) {
-                return cells.find(({ column }) => column.name === id).cell;
-            }
-            return cell;
-        }, null);
+        return this.inputPanelCells.reduce<KupDataCell | null>(
+            (cell, { cells }) => {
+                if (!cell) {
+                    const foundCell = cells.find(
+                        ({ column }) => column.name === id
+                    );
+                    if (foundCell) {
+                        return foundCell.cell;
+                    }
+                    return null;
+                }
+                return cell;
+            },
+            null
+        );
     }
 
     #renderRow(inputPanelCell: InputPanelCells) {
@@ -1639,6 +1648,11 @@ export class KupInputPanel {
 
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
+
+        if (!currCell) {
+            // that means INP received a blur event was emitted, probably, by a TBL shape's cell applied to an INP cell
+            return;
+        }
 
         // Required cell check
         if ((cell as KupInputPanelCell).mandatory) {
