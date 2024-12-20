@@ -475,16 +475,7 @@ export class KupInputPanel {
                         });
                     }}
                     onContextMenu={(e: MouseEvent) => {
-                        const path = this.#kupManager.getEventPath(
-                            e.target,
-                            this.rootElement
-                        );
-
-                        const fcell = path.find((p) =>
-                            p.classList?.contains('f-cell')
-                        );
-
-                        if (fcell != null) {
+                        if (this.#findTraversedFCell(e) != null) {
                             e.preventDefault();
                         }
                     }}
@@ -1765,11 +1756,17 @@ export class KupInputPanel {
               });
     }
 
+    #findTraversedFCell(e: MouseEvent): HTMLElement | null {
+        const path = this.#kupManager.getEventPath(e.target, this.rootElement);
+        const fcell = path.find((p) => p.classList?.contains('f-cell'));
+        return fcell;
+    }
+
     #getEventDetails(
-        path: HTMLElement[],
         originalEvent: PointerEvent
     ): KupInputPanelEventHandlerDetails {
-        const fcell = path.find((p) => p.classList?.contains('f-cell'));
+        const fcell = this.#findTraversedFCell(originalEvent);
+
         if (fcell == null) {
             return;
         }
@@ -1793,22 +1790,13 @@ export class KupInputPanel {
         };
     }
 
-    #contextMenuHandler(e: PointerEvent): KupInputPanelEventHandlerDetails {
-        const eventPath = this.#kupManager.getEventPath(
-            e.target,
-            this.rootElement
-        );
-
-        return this.#getEventDetails(eventPath, e);
-    }
-
     #didLoadInteractables() {
         // this could seems like a duplication because this.#kupManager.interact.on already does it but removing this causes an error on righ-clicking a TBL cell with tooltip when set as shape of an input panel cell
         this.#kupManager.interact.managedElements.add(this.#formRef);
 
         const tapCb = (e: PointerEvent) => {
             if (e.button == 2) {
-                const details = this.#contextMenuHandler(e);
+                const details = this.#getEventDetails(e);
 
                 if (details) {
                     this.kupDataTableContextMenu.emit({
