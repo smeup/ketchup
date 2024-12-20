@@ -59,6 +59,7 @@
       overflow-x: auto;
       white-space: nowrap;
       padding: var(--kup_input_panel_padding--inline);
+      display: inline-flex;
     }
 
     &--column {

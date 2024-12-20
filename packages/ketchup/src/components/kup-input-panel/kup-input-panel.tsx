@@ -410,7 +410,12 @@ export class KupInputPanel {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
                     styleObj.display = 'grid';
-                    if (this.inputPanelPosition == 'INLINE') {
+                    if (
+                        this.inputPanelPosition ===
+                            KupInputPanelPosition.INLINE ||
+                        this.inputPanelPosition ===
+                            KupInputPanelPosition.UPINLINE
+                    ) {
                         styleObj.display = '';
                     }
                     if (layout.horizontal) {
@@ -445,7 +450,8 @@ export class KupInputPanel {
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
             'input-panel--inline':
-                this.inputPanelPosition == KupInputPanelPosition.INLINE,
+                this.inputPanelPosition === KupInputPanelPosition.INLINE ||
+                this.inputPanelPosition === KupInputPanelPosition.UPINLINE,
         };
 
         const commandsClass = {
@@ -675,7 +681,9 @@ export class KupInputPanel {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
-            'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
+            'input-panel__section-inline':
+                this.inputPanelPosition === KupInputPanelPosition.INLINE ||
+                this.inputPanelPosition === KupInputPanelPosition.UPINLINE,
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
