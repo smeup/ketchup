@@ -66,6 +66,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let iconEl: HTMLElement;
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
+    let value = props.value;
 
     if (props.inputType === 'number') {
         props.maxLength = getMaximumNumbersLength(
@@ -73,6 +74,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             props.decimals
         );
         props.size = getMaximumNumbersLength(props.precision, props.decimals);
+
+        if (isNaN(Number(props.value))) {
+            value = '0';
+        }
     }
 
     if (props.maxLength >= 256) {
@@ -193,12 +198,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'top-right-indicator': props.showMarker,
     };
 
-    let value = props.value;
-
-    if (props.inputType === 'number' && isNaN(Number(props.value))) {
-        value = '0';
-    }
-
     let inputType = props.quantityButtons
         ? 'number'
         : props.inputType ?? 'text';
@@ -210,6 +209,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         inputType = 'text';
         persManageForNumberFormat = true;
     }
+
+    console.log(props.value);
 
     return (
         <div class={classContainerObj}>
