@@ -194,6 +194,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     };
 
     let value = props.value;
+
+    if (props.inputType === 'number' && isNaN(Number(props.value))) {
+        value = '0';
+    }
+
     let inputType = props.quantityButtons
         ? 'number'
         : props.inputType ?? 'text';
@@ -260,16 +265,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                 const valueFromTarget =
                                     e.target as HTMLInputElement;
                                 if (valueFromTarget.value) {
-                                    let formattedValue = formatValue(
+                                    const formattedValue = formatValue(
                                         valueFromTarget.value,
                                         options,
                                         true
                                     );
-                                    formattedValue = Number(
-                                        formattedValue
-                                    ).toLocaleString('en-US', {
-                                        minimumFractionDigits: options.decimal,
-                                    });
 
                                     valueFromTarget.value = formattedValue;
                                     props.value = formattedValue;
@@ -493,10 +493,18 @@ const formatValue = (
     if (formatedValue == '-') {
         return '';
     }
+    const localeString = Number(
+        dom.ketchup.math.format(
+            formatedValue,
+            dom.ketchup.math.createFormatPattern(
+                options.group,
+                options.decimal
+            ),
+            inputIsLocalized
+        )
+    ).toLocaleString('en-US', {
+        minimumFractionDigits: options.decimal,
+    });
 
-    return dom.ketchup.math.format(
-        formatedValue,
-        dom.ketchup.math.createFormatPattern(options.group, options.decimal),
-        inputIsLocalized
-    );
+    return localeString ? localeString : '0';
 };
