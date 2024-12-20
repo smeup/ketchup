@@ -251,7 +251,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     allowNegative: props.allowNegative ?? true,
                                     decimal: props.decimals,
                                     group: props.group,
-                                    integer: getTotalIntegers(
+                                    integer: getIntegers(
                                         props.precision,
                                         props.decimals
                                     ),
@@ -285,7 +285,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     allowNegative: props.allowNegative ?? true,
                                     decimal: props.decimals,
                                     group: props.group,
-                                    integer: getTotalIntegers(
+                                    integer: getIntegers(
                                         props.precision,
                                         props.decimals
                                     ),
@@ -370,7 +370,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                 allowNegative: props.allowNegative ?? true,
                                 decimal: props.decimals,
                                 group: props.group,
-                                integer: getTotalIntegers(
+                                integer: getIntegers(
                                     props.precision,
                                     props.decimals
                                 ),
@@ -476,10 +476,7 @@ function getMaximumNumbersLength(precision: number, decimals: number) {
     return integers + decimals + 1;
 }
 
-const getTotalIntegers = (
-    integers: number = 0,
-    decimals: number = 0
-): number => {
+const getIntegers = (integers: number = 0, decimals: number = 0): number => {
     return integers > decimals ? integers - decimals : integers;
 };
 
