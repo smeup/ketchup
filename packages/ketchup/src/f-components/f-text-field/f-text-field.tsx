@@ -272,7 +272,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     const formattedValue = formatValue(
                                         valueFromTarget.value,
                                         options,
-                                        true
+                                        true,
+                                        navigator.language
                                     );
 
                                     valueFromTarget.value = formattedValue;
@@ -306,7 +307,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         formatValue(
                                             props.min.toString(),
                                             options,
-                                            true
+                                            true,
+                                            navigator.language
                                         );
                                 } else if (
                                     props.max !== undefined &&
@@ -320,7 +322,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         formatValue(
                                             props.max.toString(),
                                             options,
-                                            true
+                                            true,
+                                            navigator.language
                                         );
                                 } else {
                                     (e.target as HTMLInputElement).value =
@@ -328,7 +331,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                             (e.target as HTMLInputElement)
                                                 .value,
                                             options,
-                                            true
+                                            true,
+                                            navigator.language
                                         );
                                 }
                             } else {
@@ -480,7 +484,7 @@ function getMaximumNumbersLength(
     precision: number,
     decimals: number
 ) {
-    const formattedValue = Number(value).toLocaleString('en-US', {
+    const formattedValue = Number(value).toLocaleString(navigator.language, {
         minimumFractionDigits: decimals,
     });
     let commas = 0;
@@ -502,7 +506,8 @@ const getIntegers = (integers: number = 0, decimals: number = 0): number => {
 const formatValue = (
     value: string,
     options: NumericFieldFormatOptions,
-    inputIsLocalized: boolean
+    inputIsLocalized: boolean,
+    browserLocale: string
 ): string => {
     const formatedValue = value;
     if (!formatedValue) {
@@ -521,7 +526,7 @@ const formatValue = (
             ),
             inputIsLocalized
         )
-    ).toLocaleString('en-US', {
+    ).toLocaleString(browserLocale, {
         minimumFractionDigits: options.decimal,
     });
 
