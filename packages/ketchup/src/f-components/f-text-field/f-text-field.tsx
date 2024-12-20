@@ -69,15 +69,20 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let value = props.value;
 
     if (props.inputType === 'number') {
-        props.maxLength = getMaximumNumbersLength(
-            props.precision,
-            props.decimals
-        );
-        props.size = getMaximumNumbersLength(props.precision, props.decimals);
-
         if (isNaN(Number(props.value))) {
             value = '0';
         }
+
+        props.maxLength = getMaximumNumbersLength(
+            value,
+            props.precision,
+            props.decimals
+        );
+        props.size = getMaximumNumbersLength(
+            value,
+            props.precision,
+            props.decimals
+        );
     }
 
     if (props.maxLength >= 256) {
@@ -470,9 +475,24 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
     }
 }
 
-function getMaximumNumbersLength(precision: number, decimals: number) {
+function getMaximumNumbersLength(
+    value: string,
+    precision: number,
+    decimals: number
+) {
+    const formattedValue = Number(value).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+    });
+    let commas = 0;
+
+    if (formattedValue) {
+        const commmasMatches = formattedValue.match(/(?<=\d),(?=\d)/g);
+        commas = commmasMatches ? commmasMatches.length : 0;
+    }
+
     const integers = precision - decimals;
-    return integers + decimals + 1;
+
+    return integers + decimals + commas + 1;
 }
 
 const getIntegers = (integers: number = 0, decimals: number = 0): number => {

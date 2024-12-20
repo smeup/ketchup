@@ -873,6 +873,7 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                // console.log(props);
                 return (
                     <FTextField
                         textArea={
