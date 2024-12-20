@@ -68,8 +68,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let plusEl: HTMLElement;
 
     if (props.inputType === 'number') {
-        props.maxLength += getNonNumericValuesLength(props.value);
-        props.size += getNonNumericValuesLength(props.value);
+        props.maxLength = getMaximumNumbersLength(
+            props.precision,
+            props.decimals
+        );
+        props.size = getMaximumNumbersLength(props.precision, props.decimals);
     }
 
     if (props.maxLength >= 256) {
@@ -468,9 +471,9 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
     }
 }
 
-function getNonNumericValuesLength(value: string) {
-    const matchCharacters = value.match(/[^0-9]/g);
-    return matchCharacters ? matchCharacters.length : 0;
+function getMaximumNumbersLength(precision: number, decimals: number) {
+    const integers = precision - decimals;
+    return integers + decimals + 1;
 }
 
 const getTotalIntegers = (
