@@ -297,6 +297,11 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
+          * Set custom placeholder / watermark for text field
+          * @default "Type code or description"
+         */
+        "placeholder": string;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -349,11 +354,6 @@ export namespace Components {
           * @default false
          */
         "trailingIcon": boolean;
-        /**
-          * Set custom placeholder for text field
-          * @default "Type code or description"
-         */
-        "watermark": string;
     }
     interface KupBadge {
         /**
@@ -6275,6 +6275,11 @@ declare namespace LocalJSX {
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         /**
+          * Set custom placeholder / watermark for text field
+          * @default "Type code or description"
+         */
+        "placeholder"?: string;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -6309,11 +6314,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingIcon"?: boolean;
-        /**
-          * Set custom placeholder for text field
-          * @default "Type code or description"
-         */
-        "watermark"?: string;
     }
     interface KupBadge {
         /**

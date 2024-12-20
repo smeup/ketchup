@@ -475,7 +475,18 @@ export class KupInputPanel {
                         });
                     }}
                     onContextMenu={(e: MouseEvent) => {
-                        e.preventDefault();
+                        const path = this.#kupManager.getEventPath(
+                            e.target,
+                            this.rootElement
+                        );
+
+                        const fcell = path.find((p) =>
+                            p.classList?.contains('f-cell')
+                        );
+
+                        if (fcell != null) {
+                            e.preventDefault();
+                        }
                     }}
                 >
                     <div class="input-panel__typography">
@@ -1792,6 +1803,7 @@ export class KupInputPanel {
     }
 
     #didLoadInteractables() {
+        // this could seems like a duplication because this.#kupManager.interact.on already does it but removing this causes an error on righ-clicking a TBL cell with tooltip when set as shape of an input panel cell
         this.#kupManager.interact.managedElements.add(this.#formRef);
 
         const tapCb = (e: PointerEvent) => {
