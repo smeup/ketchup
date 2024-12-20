@@ -249,7 +249,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     decimal: props.decimals,
                                     group: props.group,
                                     integer: getTotalIntegers(
-                                        props.integers,
+                                        props.precision,
                                         props.decimals
                                     ),
                                 };
@@ -283,7 +283,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                     decimal: props.decimals,
                                     group: props.group,
                                     integer: getTotalIntegers(
-                                        props.integers,
+                                        props.precision,
                                         props.decimals
                                     ),
                                 };
@@ -368,7 +368,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                 decimal: props.decimals,
                                 group: props.group,
                                 integer: getTotalIntegers(
-                                    props.integers,
+                                    props.precision,
                                     props.decimals
                                 ),
                             };
