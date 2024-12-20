@@ -210,8 +210,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         persManageForNumberFormat = true;
     }
 
-    console.log(props.value);
-
     return (
         <div class={classContainerObj}>
             {!props.fullWidth ? labelEl : undefined}
