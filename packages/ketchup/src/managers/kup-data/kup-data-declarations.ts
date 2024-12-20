@@ -22,7 +22,7 @@ export interface KupDataColumn {
     children?: KupDataColumnChild[];
     cssClass?: string;
     decimals?: number;
-    precision?: number;
+    integers?: number;
     formula?: string;
     hideValuesRepetitions?: boolean;
     icon?: string;
