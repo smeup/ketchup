@@ -3478,14 +3478,23 @@ export class KupDataTable {
         return details;
     }
 
-    getVisibleColumns(): Array<KupDataColumn> {
+    getVisibleColumns({includeCodVer = false} = {}): Array<KupDataColumn> {
+        if (includeCodVer) {
+            return this.getColumns().filter((col) => {
+                if (this.visibleColumns) {
+                    return this.visibleColumns.includes(col.name);
+                } else {
+                    return !('visible' in col) || col.visible;
+                }
+            });
+        }
         // Starting columns filter
         let resultVisibleColumns = this.getColumns().filter((col) => {
             const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
 
             if (this.visibleColumns) {
                 // if visible columns is specified, include only those columns
-                return this.visibleColumns.includes(col.name);
+                return isNotCodVer && this.visibleColumns.includes(col.name);
             } else {
                 return isNotCodVer && (!('visible' in col) || col.visible);
             }
@@ -5322,9 +5331,7 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.visibleColumns // To be fixed
-                                ? this.getVisibleColumns()
-                                : this.data.columns,
+                            this.getVisibleColumns({includeCodVer:true}),
                             this.rowActions,
                             this.commands ?? []
                         );
