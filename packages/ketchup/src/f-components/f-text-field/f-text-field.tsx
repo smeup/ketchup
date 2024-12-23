@@ -67,7 +67,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
     let value = props.value;
-
+    console.log('value at start', value);
     if (props.inputType === 'number') {
         if (isNaN(Number(props.value))) {
             value = '0';
@@ -254,36 +254,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         value={value}
                         readOnly={props.isSelect}
                         autoComplete={props.autocomplete ?? 'off'}
-                        onBlur={(e: FocusEvent) => {
-                            if (persManageForNumberFormat) {
-                                const options: NumericFieldFormatOptions = {
-                                    allowNegative: props.allowNegative ?? true,
-                                    decimal: props.decimals,
-                                    group: props.group,
-                                    integer: getIntegers(
-                                        props.precision,
-                                        props.decimals
-                                    ),
-                                };
-
-                                const valueFromTarget =
-                                    e.target as HTMLInputElement;
-                                if (valueFromTarget.value) {
-                                    const formattedValue = formatValue(
-                                        valueFromTarget.value,
-                                        options,
-                                        true,
-                                        navigator.language
-                                    );
-
-                                    valueFromTarget.value = formattedValue;
-                                    props.value = formattedValue;
-                                }
-                            }
-                            if (props.onBlur) {
-                                props.onBlur(e);
-                            }
-                        }}
+                        onBlur={props.onBlur}
                         onChange={(e: InputEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {
