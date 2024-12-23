@@ -449,6 +449,10 @@ export class KupMath {
 
     /**
      * Gets the maximum number size that can be inserted in textfield, counting commas when numbers are more than 4 and a point for decimals
+     * @param {value} string value with commas, numbers and point for decimals
+     * @param {precision} number total numbers without commas and point for decimals
+     * @param {options} NumericFieldFormatOptions options with additional info
+     * @returns {number} maximum size of charactes that can fit in field
      */
     getMaximumNumbersSize(
         value: string,
@@ -468,9 +472,7 @@ export class KupMath {
             commas = commmasMatches ? commmasMatches.length : 0;
         }
 
-        const integers = precision - options.decimal;
-
-        return integers + options.decimal + commas + 1;
+        return precision + commas + 1;
     }
 
     /**
