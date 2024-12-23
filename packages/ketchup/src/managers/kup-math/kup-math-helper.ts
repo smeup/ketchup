@@ -1,3 +1,4 @@
+import Mexp from 'math-expression-evaluator';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 
@@ -24,10 +25,10 @@ export function customFormula(
     }
     formula = formula.replace(/[\[\]']+/g, '');
     try {
-        const result = Function(
-            '"use strict"; return (' + formula + ')'
-        )() as number;
-        return result;
+        const mexp = new Mexp();
+        const lexedFormula = mexp.lex(formula);
+        const postFixedFormula = mexp.toPostfix(lexedFormula);
+        return mexp.postfixEval(postFixedFormula);
     } catch (e) {
         dom.ketchup.debug.logMessage(
             'kup-data',
