@@ -78,7 +78,7 @@ export class KupDropdownButton {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
@@ -108,7 +108,7 @@ export class KupDropdownButton {
      */
     @Prop() placeholderIcon: string = null;
     /**
-     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
