@@ -654,7 +654,7 @@ export class KupTextField {
                 : false,
             inputMode: this.inputMode,
             inputType: this.inputType,
-            integers: this.integers,
+            precision: this.integers,
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
