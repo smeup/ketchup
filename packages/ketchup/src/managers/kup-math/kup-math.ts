@@ -448,6 +448,32 @@ export class KupMath {
     }
 
     /**
+     * Gets the maximum number size that can be inserted in textfield, counting commas when numbers are more than 4 and a point for decimals
+     */
+    getMaximumNumbersSize(
+        value: string,
+        precision: number,
+        options: NumericFieldFormatOptions
+    ) {
+        const formattedValue = Number(value).toLocaleString(
+            navigator.language,
+            {
+                minimumFractionDigits: options.decimal,
+            }
+        );
+        let commas = 0;
+
+        if (formattedValue) {
+            const commmasMatches = formattedValue.match(/(?<=\d),(?=\d)/g);
+            commas = commmasMatches ? commmasMatches.length : 0;
+        }
+
+        const integers = precision - options.decimal;
+
+        return integers + options.decimal + commas + 1;
+    }
+
+    /**
      * Gets the number as string, formatted by actual browser locale, with suffix by type
      * @param {string} input number as string, formatted by locale US, decimal separator . (like java decimal numbers)
      * @param {number} decimals number of significant decimal digits for output

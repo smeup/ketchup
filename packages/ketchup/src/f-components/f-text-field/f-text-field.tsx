@@ -5,8 +5,11 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
+import { KupMath } from '../../managers/kup-math/kup-math';
+import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupMath: KupMath = kupManagerInstance().math;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -67,22 +70,28 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
     let value = props.value;
-    console.log('value at start', value);
     if (props.inputType === 'number') {
         if (isNaN(Number(props.value))) {
             value = '0';
         }
 
-        props.maxLength = getMaximumNumbersLength(
+        props.maxLength = kupMath.getMaximumNumbersSize(
             value,
             props.precision,
-            props.decimals
+            {
+                allowNegative: props.allowNegative ?? true,
+                decimal: props.decimals,
+                group: props.group,
+                integer: getIntegers(props.precision, props.decimals),
+            } as NumericFieldFormatOptions
         );
-        props.size = getMaximumNumbersLength(
-            value,
-            props.precision,
-            props.decimals
-        );
+
+        props.size = kupMath.getMaximumNumbersSize(value, props.precision, {
+            allowNegative: props.allowNegative ?? true,
+            decimal: props.decimals,
+            group: props.group,
+            integer: getIntegers(props.precision, props.decimals),
+        } as NumericFieldFormatOptions);
     }
 
     if (props.maxLength >= 256) {
@@ -448,26 +457,6 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
             </div>
         );
     }
-}
-
-function getMaximumNumbersLength(
-    value: string,
-    precision: number,
-    decimals: number
-) {
-    const formattedValue = Number(value).toLocaleString(navigator.language, {
-        minimumFractionDigits: decimals,
-    });
-    let commas = 0;
-
-    if (formattedValue) {
-        const commmasMatches = formattedValue.match(/(?<=\d),(?=\d)/g);
-        commas = commmasMatches ? commmasMatches.length : 0;
-    }
-
-    const integers = precision - decimals;
-
-    return integers + decimals + commas + 1;
 }
 
 const getIntegers = (integers: number = 0, decimals: number = 0): number => {
