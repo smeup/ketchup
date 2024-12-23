@@ -838,6 +838,8 @@ function setEditableCell(
             return (
                 <FObjectField
                     cell={cell}
+                    column={props.column}
+                    row={props.row}
                     inputValue={cell.value}
                     onChange={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.UPDATE)

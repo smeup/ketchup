@@ -18,7 +18,7 @@
 | `svgWidth`                 | `svg-width`               |             | `number`                   | `undefined` |
 | `taskListScrollNumber`     | `task-list-scroll-number` |             | `number`                   | `undefined` |
 | `taskListScrollWidth`      | `task-list-scroll-width`  |             | `number`                   | `undefined` |
-| `taskListTrueRef`          | --                        |             | `HTMLKupTaskListElement`   | `undefined` |
+| `taskListTrueRef`          | `task-list-true-ref`      |             | `HTMLKupTaskListElement`   | `undefined` |
 | `taskListWidth`            | `task-list-width`         |             | `number`                   | `undefined` |
 
 
