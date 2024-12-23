@@ -92,7 +92,7 @@ export class KupAutocomplete {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
@@ -146,7 +146,7 @@ export class KupAutocomplete {
      */
     @Prop() readOnly: boolean = false;
     /**
-     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
