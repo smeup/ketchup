@@ -707,8 +707,8 @@ function setEditableCell(
                     <kup-autocomplete
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
-                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -746,8 +746,8 @@ function setEditableCell(
                     <kup-combobox
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
-                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
