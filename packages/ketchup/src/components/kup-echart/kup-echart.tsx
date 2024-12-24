@@ -730,13 +730,24 @@ export class KupEchart {
                 return undefined;
             },
         });
-        const date = caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'] ?? [],
-            value = caseInsensitiveObj['Value'] ?? caseInsensitiveObj['Valore'] ?? [],
+        const date =
+                caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'] ?? [],
+            value =
+                caseInsensitiveObj['Value'] ??
+                caseInsensitiveObj['Valore'] ??
+                [],
             answer = [],
             keys = Object.keys(y ?? {}),
-            year = date?.[0] ? new Date(date?.[0]).getFullYear() : new Date().getFullYear(),
+            year = date?.[0]
+                ? new Date(date?.[0]).getFullYear()
+                : new Date().getFullYear(),
             arrayLength = date?.length;
 
+        if (!date.length && !value.length) {
+            console.warn(
+                'Warning: Invalid data structure detected for the calendar. Please check the incoming data.'
+            );
+        }
         date?.forEach((element, i) => {
             const castedValue =
                 typeof value?.[i] === 'string'
