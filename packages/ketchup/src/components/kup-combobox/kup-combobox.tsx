@@ -223,7 +223,7 @@ export class KupCombobox {
     })
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
-    onKupBlur() {
+    emitKupComboboxBlur() {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
@@ -232,15 +232,65 @@ export class KupCombobox {
         });
     }
 
-    onKupChange(value: string) {
-        let ret = this.#consistencyCheck(value, undefined, true);
-        this.kupChange.emit({
+    emitKupComboboxChange(ret) {
+        if (ret && ret.node) {
+            this.kupChange.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                node: ret.node,
+            });
+        }
+    }
+
+    emitKupComboboxClick() {
+        this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
             inputValue: this.#textfieldEl.value,
-            node: ret.node,
         });
+    }
+
+    emitKupComboboxIconClick() {
+        this.kupIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            open: this.#textfieldWrapper.classList.contains('toggled'),
+        });
+    }
+
+    emitKupComboboxFocus() {
+        this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+        });
+    }
+
+    emitKupComboboxInput(ret) {
+        if (ret && ret.node) {
+            this.kupInput.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                node: ret.node,
+            });
+        }
+    }
+
+    onKupBlur() {
+        this.emitKupComboboxBlur();
+    }
+
+    onKupChange(value: string) {
+        let ret = this.#consistencyCheck(value, undefined, true);
+        this.emitKupComboboxChange(ret);
     }
 
     onKupClick() {
@@ -250,37 +300,15 @@ export class KupCombobox {
             } else {
                 this.#openList();
             }
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
-
-            this.kupIconClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                open: this.#textfieldWrapper.classList.contains('toggled'),
-            });
+            this.emitKupComboboxClick();
+            this.emitKupComboboxIconClick();
         } else {
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+            this.emitKupComboboxClick();
         }
     }
 
     onKupFocus() {
-        this.kupFocus.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        this.emitKupComboboxFocus();
     }
 
     onKupInput() {
@@ -290,13 +318,7 @@ export class KupCombobox {
             false
         );
         this.#openList();
-        this.kupInput.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            node: ret.node,
-        });
+        this.emitKupComboboxInput(ret);
     }
 
     onKupIconClick() {
@@ -305,13 +327,7 @@ export class KupCombobox {
         } else {
             this.#openList();
         }
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            open: this.#textfieldWrapper.classList.contains('toggled'),
-        });
+        this.emitKupComboboxIconClick();
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
@@ -381,13 +397,13 @@ export class KupCombobox {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupClick();
                     this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupClick();
                     this.#listEl.focusPrevious();
                     break;
             }
