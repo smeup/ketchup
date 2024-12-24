@@ -237,7 +237,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -311,7 +311,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
@@ -1309,7 +1309,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -1370,7 +1370,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -2037,7 +2037,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -2081,7 +2081,7 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
@@ -6219,7 +6219,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -6285,7 +6285,7 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
@@ -7167,7 +7167,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
@@ -7220,7 +7220,7 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -7776,7 +7776,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -7826,7 +7826,7 @@ declare namespace LocalJSX {
          */
         "placeholderIcon"?: string;
         /**
-          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+          * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
