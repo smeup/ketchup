@@ -5,11 +5,8 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupMath } from '../../managers/kup-math/kup-math';
-import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupMath: KupMath = kupManagerInstance().math;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -69,30 +66,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let iconEl: HTMLElement;
     let minusEl: HTMLElement;
     let plusEl: HTMLElement;
-    let value = props.value;
-    if (props.inputType === 'number') {
-        if (isNaN(Number(props.value))) {
-            value = '0';
-        }
-
-        props.maxLength = kupMath.getMaximumNumbersSize(
-            value,
-            props.precision,
-            {
-                allowNegative: props.allowNegative ?? true,
-                decimal: props.decimals,
-                group: props.group,
-                integer: getIntegers(props.precision, props.decimals),
-            } as NumericFieldFormatOptions
-        );
-
-        props.size = kupMath.getMaximumNumbersSize(value, props.precision, {
-            allowNegative: props.allowNegative ?? true,
-            decimal: props.decimals,
-            group: props.group,
-            integer: getIntegers(props.precision, props.decimals),
-        } as NumericFieldFormatOptions);
-    }
 
     if (props.maxLength >= 256) {
         props.textArea = true;
@@ -212,6 +185,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'top-right-indicator': props.showMarker,
     };
 
+    let value = props.value;
     let inputType = props.quantityButtons
         ? 'number'
         : props.inputType ?? 'text';
@@ -222,6 +196,15 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     ) {
         inputType = 'text';
         persManageForNumberFormat = true;
+    }
+    if (props.inputType === 'number') {
+        const options: NumericFieldFormatOptions = {
+            allowNegative: props.allowNegative ?? true,
+            decimal: props.decimals,
+            group: props.group,
+            integer: props.integers,
+        };
+        value = formatValue(value, options, false);
     }
 
     return (
@@ -263,17 +246,32 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         value={value}
                         readOnly={props.isSelect}
                         autoComplete={props.autocomplete ?? 'off'}
-                        onBlur={props.onBlur}
+                        onBlur={(e: FocusEvent) => {
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group,
+                                    integer: props.integers,
+                                };
+                                (e.target as HTMLInputElement).value =
+                                    formatValue(
+                                        (e.target as HTMLInputElement).value,
+                                        options,
+                                        true
+                                    );
+                            }
+                            if (props.onBlur) {
+                                props.onBlur(e);
+                            }
+                        }}
                         onChange={(e: InputEvent) => {
                             if (persManageForNumberFormat) {
                                 const options: NumericFieldFormatOptions = {
                                     allowNegative: props.allowNegative ?? true,
                                     decimal: props.decimals,
                                     group: props.group,
-                                    integer: getIntegers(
-                                        props.precision,
-                                        props.decimals
-                                    ),
+                                    integer: props.integers,
                                 };
                                 if (
                                     props.min !== undefined &&
@@ -287,8 +285,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         formatValue(
                                             props.min.toString(),
                                             options,
-                                            true,
-                                            navigator.language
+                                            true
                                         );
                                 } else if (
                                     props.max !== undefined &&
@@ -302,8 +299,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         formatValue(
                                             props.max.toString(),
                                             options,
-                                            true,
-                                            navigator.language
+                                            true
                                         );
                                 } else {
                                     (e.target as HTMLInputElement).value =
@@ -311,8 +307,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                             (e.target as HTMLInputElement)
                                                 .value,
                                             options,
-                                            true,
-                                            navigator.language
+                                            true
                                         );
                                 }
                             } else {
@@ -347,37 +342,35 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         onInput={props.onInput}
                         onKeyDown={props.onKeyDown}
                         onKeyPress={(e: KeyboardEvent) => {
-                            if (
-                                !persManageForNumberFormat ||
-                                e.ctrlKey ||
-                                e.key.length > 1
-                            ) {
+                            if (!persManageForNumberFormat) {
                                 return;
                             }
+                            if (e.ctrlKey) {
+                                return;
+                            }
+
+                            if (e.key.length > 1) {
+                                return;
+                            }
+
                             const options: NumericFieldFormatOptions = {
                                 allowNegative: props.allowNegative ?? true,
                                 decimal: props.decimals,
                                 group: props.group,
-                                integer: getIntegers(
-                                    props.precision,
-                                    props.decimals
-                                ),
+                                integer: props.integers,
                             };
+                            let component = e.target as HTMLInputElement;
+                            let value = component.value;
 
-                            const component = e.target as HTMLInputElement;
-                            const valueFromTarget = component.value;
-                            const beginVal = valueFromTarget.substring(
+                            let beginVal = value.substring(
                                 0,
                                 component.selectionStart
                             );
-                            const endVal = valueFromTarget.substring(
+                            let endVal = value.substring(
                                 component.selectionEnd,
-                                component.selectionEnd +
-                                    valueFromTarget.length -
-                                    1
+                                component.selectionEnd + value.length - 1
                             );
-                            const val = beginVal + e.key + endVal;
-
+                            let val = beginVal + e.key + endVal;
                             if (
                                 !dom.ketchup.math.matchNumericValueWithOptions(
                                     val,
@@ -459,17 +452,13 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
     }
 }
 
-const getIntegers = (integers: number = 0, decimals: number = 0): number => {
-    return integers > decimals ? integers - decimals : integers;
-};
-
-const formatValue = (
+const formatValue = function (
     value: string,
     options: NumericFieldFormatOptions,
-    inputIsLocalized: boolean,
-    browserLocale: string
-): string => {
-    const formatedValue = value;
+    inputIsLocalized: boolean
+): string {
+    let formatedValue = value;
+
     if (!formatedValue) {
         return formatedValue;
     }
@@ -477,18 +466,10 @@ const formatValue = (
     if (formatedValue == '-') {
         return '';
     }
-    const localeString = Number(
-        dom.ketchup.math.format(
-            formatedValue,
-            dom.ketchup.math.createFormatPattern(
-                options.group,
-                options.decimal
-            ),
-            inputIsLocalized
-        )
-    ).toLocaleString(browserLocale, {
-        minimumFractionDigits: options.decimal,
-    });
 
-    return localeString ? localeString : '0';
+    return dom.ketchup.math.format(
+        formatedValue,
+        dom.ketchup.math.createFormatPattern(options.group, options.decimal),
+        inputIsLocalized
+    );
 };

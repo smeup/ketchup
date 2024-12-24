@@ -896,7 +896,7 @@ function setEditableCell(
                                 : null
                         }
                         decimals={props.column.decimals}
-                        precision={props.column.integers}
+                        integers={props.column.integers}
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
