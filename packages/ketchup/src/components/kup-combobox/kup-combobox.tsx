@@ -162,6 +162,7 @@ export class KupCombobox {
     #textfieldWrapper: HTMLElement = undefined;
     #textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     #clickCb: KupManagerClickCb = null;
+    #componentTriggered: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -249,28 +250,36 @@ export class KupCombobox {
                 this.#closeList();
             } else {
                 this.#openList();
-            }
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+                if (this.#componentTriggered == false) {
+                    this.#componentTriggered = true;
+                    this.kupClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        value: this.value,
+                        inputValue: this.#textfieldEl.value,
+                    });
 
-            this.kupIconClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                open: this.#textfieldWrapper.classList.contains('toggled'),
-            });
+                    this.kupIconClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        value: this.value,
+                        inputValue: this.#textfieldEl.value,
+                        open: this.#textfieldWrapper.classList.contains(
+                            'toggled'
+                        ),
+                    });
+                }
+            }
         } else {
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+            if (this.#componentTriggered == false) {
+                this.#componentTriggered = true;
+                this.kupClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                });
+            }
         }
     }
 
@@ -304,14 +313,17 @@ export class KupCombobox {
             this.#closeList();
         } else {
             this.#openList();
+            if (this.#componentTriggered == false) {
+                this.#componentTriggered = true;
+                this.kupIconClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    open: this.#textfieldWrapper.classList.contains('toggled'),
+                });
+            }
         }
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            open: this.#textfieldWrapper.classList.contains('toggled'),
-        });
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
