@@ -1167,7 +1167,6 @@ export function decorateDataTable(data: KupDataTableDataset) {
             const value = cell.value;
             const options = cell['options'];
             cell.isEditable = cell.isEditable ?? cell['editable'];
-
             const shapeAdapters = {
                 [FCellShapes.AUTOCOMPLETE]: () =>
                     CMBandACPAdapter(value, '', options),
@@ -1182,7 +1181,7 @@ export function decorateDataTable(data: KupDataTableDataset) {
             const adapterFunction = shapeAdapters[cell.shape];
 
             if (adapterFunction) {
-                cell.data = adapterFunction();
+                cell.data = { ...adapterFunction(), ...cell.data };
             }
         });
     });

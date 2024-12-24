@@ -3478,7 +3478,7 @@ export class KupDataTable {
         return details;
     }
 
-    getVisibleColumns({includeCodVer = false} = {}): Array<KupDataColumn> {
+    getVisibleColumns({ includeCodVer = false } = {}): Array<KupDataColumn> {
         if (includeCodVer) {
             return this.getColumns().filter((col) => {
                 if (this.visibleColumns) {
@@ -5331,7 +5331,7 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.getVisibleColumns({includeCodVer:true}),
+                            this.getVisibleColumns({ includeCodVer: true }),
                             this.rowActions,
                             this.commands ?? []
                         );
