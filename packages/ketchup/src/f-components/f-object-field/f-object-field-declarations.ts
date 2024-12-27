@@ -1,18 +1,22 @@
+import { KupObjectFieldData } from '../../components/kup-object-field/kup-object-field-declarations';
+import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
 import {
     KupDataCell,
-    KupObjectFieldData,
-    KupToolbarItemClickEventPayload,
-} from '../../components';
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { FComponent } from '../../types/GenericTypes';
 import { FTextFieldProps } from '../f-text-field/f-text-field-declarations';
 
 export interface FObjectFieldProps extends FComponent {
     cell?: KupDataCell;
+    column?: KupDataColumn;
     data?: KupObjectFieldData;
     inputValue: string;
     onChange: FTextFieldProps['onChange'];
     root?: HTMLDivElement;
+    row?: KupDataRow;
 }
 
 export interface FObjectFieldState {
@@ -47,6 +51,8 @@ export interface FObjectFieldEventHandlers {
 export interface FObjectFieldEventPayload {
     cell: KupDataCell;
     children: FObjectFieldStateChildren;
+    column: KupDataColumn;
     inputValue: string;
     originalEvent: Event;
+    row: KupDataRow;
 }

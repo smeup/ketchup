@@ -154,7 +154,7 @@ const emitter = (
     name: FObjectFieldEvents,
     originalEvent: Event
 ) => {
-    const { cell, root } = props;
+    const { cell, column, row, root } = props;
 
     const { children, inputValue } = STATE.get(cell);
 
@@ -162,7 +162,7 @@ const emitter = (
         bubbles: true,
         cancelable: true,
         composed: true,
-        detail: { cell, children, inputValue, originalEvent },
+        detail: { cell, children, column, inputValue, originalEvent, row },
     });
     root.dispatchEvent(e);
 };

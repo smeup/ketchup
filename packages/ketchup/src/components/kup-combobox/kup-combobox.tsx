@@ -162,6 +162,7 @@ export class KupCombobox {
     #textfieldWrapper: HTMLElement = undefined;
     #textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     #clickCb: KupManagerClickCb = null;
+    #componentTriggered: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -264,23 +265,12 @@ export class KupCombobox {
     }
 
     emitKupComboboxFocus() {
-        this.kupFocus.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        this.emitKupComboboxFocus();
     }
 
     emitKupComboboxInput(ret) {
         if (ret && ret.node) {
-            this.kupInput.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                node: ret.node,
-            });
+            this.emitKupComboboxInput(ret);
         }
     }
 
@@ -299,11 +289,18 @@ export class KupCombobox {
                 this.#closeList();
             } else {
                 this.#openList();
+                if (this.#componentTriggered == false) {
+                    this.#componentTriggered = true;
+                    this.emitKupComboboxClick();
+
+                    this.emitKupComboboxIconClick();
+                }
             }
-            this.emitKupComboboxClick();
-            this.emitKupComboboxIconClick();
         } else {
-            this.emitKupComboboxClick();
+            if (this.#componentTriggered == false) {
+                this.#componentTriggered = true;
+                this.emitKupComboboxClick();
+            }
         }
     }
 
@@ -326,8 +323,11 @@ export class KupCombobox {
             this.#closeList();
         } else {
             this.#openList();
+            if (this.#componentTriggered == false) {
+                this.#componentTriggered = true;
+                this.emitKupComboboxIconClick();
+            }
         }
-        this.emitKupComboboxIconClick();
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {

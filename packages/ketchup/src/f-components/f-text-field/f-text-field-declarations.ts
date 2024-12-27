@@ -19,7 +19,7 @@ export interface FTextFieldProps extends FComponent {
     icon?: string;
     inputMode?: string;
     inputType?: string;
-    precision?: number;
+    integers?: number;
     max?: number;
     maxLength?: number;
     min?: number;
