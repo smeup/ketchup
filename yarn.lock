@@ -3128,6 +3128,7 @@ __metadata:
     "@types/react-dom": ^18
     eslint: 8.46.0
     lerna: ^8
+    math-expression-evaluator: ^2.0.6
     typescript: ^5
     workbox-build: 7.3.0
   languageName: unknown
@@ -11221,6 +11222,13 @@ __metadata:
   version: 4.3.0
   resolution: "map-obj@npm:4.3.0"
   checksum: fbc554934d1a27a1910e842bc87b177b1a556609dd803747c85ece420692380827c6ae94a95cce4407c054fa0964be3bf8226f7f2cb2e9eeee432c7c1985684e
+  languageName: node
+  linkType: hard
+
+"math-expression-evaluator@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "math-expression-evaluator@npm:2.0.6"
+  checksum: 2dd518a149f09b77fc553e08f3993e3d787035f5d10de290ca2f8655a6512df75afa83b2696cfdd2aeafffa4359caa55b5aa27a93f924f3f7b12db553f937cd3
   languageName: node
   linkType: hard
 
