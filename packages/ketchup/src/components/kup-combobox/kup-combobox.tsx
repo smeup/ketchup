@@ -393,13 +393,13 @@ export class KupCombobox {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupClick();
                     this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupClick();
                     this.#listEl.focusPrevious();
                     break;
             }
