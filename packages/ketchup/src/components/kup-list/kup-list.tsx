@@ -229,7 +229,7 @@ export class KupList {
      */
     @Method()
     async focusNext(): Promise<void> {
-        if (this.#listItems.length !== 0) {
+        if (this.#listItems.length > 0) {
             if (
                 isNaN(this.focused) ||
                 this.focused === null ||
@@ -257,7 +257,7 @@ export class KupList {
      */
     @Method()
     async focusPrevious(): Promise<void> {
-        if (this.#listItems.length !== 0) {
+        if (this.#listItems.length > 0) {
             if (
                 isNaN(this.focused) ||
                 this.focused === null ||

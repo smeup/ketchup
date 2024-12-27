@@ -224,7 +224,7 @@ export class KupCombobox {
     })
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
-    emitKupComboboxBlur() {
+    onKupBlur() {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
@@ -233,54 +233,15 @@ export class KupCombobox {
         });
     }
 
-    emitKupComboboxChange(ret) {
-        if (ret && ret.node) {
-            this.kupChange.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                node: ret.node,
-            });
-        }
-    }
-
-    emitKupComboboxClick() {
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
-    }
-
-    emitKupComboboxIconClick() {
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            open: this.#textfieldWrapper.classList.contains('toggled'),
-        });
-    }
-
-    emitKupComboboxFocus() {
-        this.emitKupComboboxFocus();
-    }
-
-    emitKupComboboxInput(ret) {
-        if (ret && ret.node) {
-            this.emitKupComboboxInput(ret);
-        }
-    }
-
-    onKupBlur() {
-        this.emitKupComboboxBlur();
-    }
-
     onKupChange(value: string) {
         let ret = this.#consistencyCheck(value, undefined, true);
-        this.emitKupComboboxChange(ret);
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            node: ret.node,
+        });
     }
 
     onKupClick() {
@@ -291,21 +252,44 @@ export class KupCombobox {
                 this.#openList();
                 if (this.#componentTriggered == false) {
                     this.#componentTriggered = true;
-                    this.emitKupComboboxClick();
+                    this.kupClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        value: this.value,
+                        inputValue: this.#textfieldEl.value,
+                    });
 
-                    this.emitKupComboboxIconClick();
+                    this.kupIconClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        value: this.value,
+                        inputValue: this.#textfieldEl.value,
+                        open: this.#textfieldWrapper.classList.contains(
+                            'toggled'
+                        ),
+                    });
                 }
             }
         } else {
             if (this.#componentTriggered == false) {
                 this.#componentTriggered = true;
-                this.emitKupComboboxClick();
+                this.kupClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                });
             }
         }
     }
 
     onKupFocus() {
-        this.emitKupComboboxFocus();
+        this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+        });
     }
 
     onKupInput() {
@@ -315,7 +299,13 @@ export class KupCombobox {
             false
         );
         this.#openList();
-        this.emitKupComboboxInput(ret);
+        this.kupInput.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            node: ret.node,
+        });
     }
 
     onKupIconClick() {
@@ -325,7 +315,13 @@ export class KupCombobox {
             this.#openList();
             if (this.#componentTriggered == false) {
                 this.#componentTriggered = true;
-                this.emitKupComboboxIconClick();
+                this.kupIconClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    open: this.#textfieldWrapper.classList.contains('toggled'),
+                });
             }
         }
     }
