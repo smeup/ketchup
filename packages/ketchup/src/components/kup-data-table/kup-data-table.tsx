@@ -1470,6 +1470,14 @@ export class KupDataTable {
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
+        if (this.visibleColumns?.length) {
+            const index = this.visibleColumns.findIndex(
+                (c) => c === column.name
+            );
+            if (index) {
+                this.visibleColumns.splice(index, 1);
+            }
+        }
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
