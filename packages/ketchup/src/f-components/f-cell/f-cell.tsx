@@ -856,7 +856,12 @@ function setEditableCell(
             const onInput = (e: InputEvent) => {
                 cell.data?.onInput?.(e); // call onInput handler if it is set as prop
                 cellEvent(e, props, cellType, FCellEvents.INPUT);
-                cellEvent(e, props, cellType, FCellEvents.UPDATE);
+            };
+            const onKeyDown = (e: KeyboardEvent) => {
+                cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
+                if (e.key === 'Enter') {
+                    cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                }
             };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
             const value =
@@ -869,6 +874,7 @@ function setEditableCell(
                         class={'input-field'}
                         onChange={onChange}
                         onInput={onInput}
+                        onKeyDown={onKeyDown}
                         type={type}
                         value={value}
                         maxLength={column.cellData?.maxLength ?? -1}
@@ -886,6 +892,11 @@ function setEditableCell(
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
                         {...cell.data}
+                        maxLength={
+                            cellType == FCellTypes.NUMBER
+                                ? -1
+                                : cell.data.maxLength
+                        }
                         icon={
                             cell.data && cell.data.icon
                                 ? cell.data.icon
@@ -900,6 +911,7 @@ function setEditableCell(
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
+                        onKeyDown={onKeyDown}
                         onIconClick={(e: MouseEvent) =>
                             cellEvent(
                                 e,

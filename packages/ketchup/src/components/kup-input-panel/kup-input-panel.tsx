@@ -613,7 +613,6 @@ export class KupInputPanel {
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
-                showFooter={true}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -967,6 +966,7 @@ export class KupInputPanel {
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
                 showPaginator: false,
+                showFooter: false,
             }),
         };
 

@@ -5202,9 +5202,9 @@ declare global {
         new (): HTMLKupColorPickerElement;
     };
     interface HTMLKupComboboxElementEventMap {
+        "kup-combobox-click": KupComboboxEventPayload;
         "kup-combobox-blur": KupComboboxEventPayload;
         "kup-combobox-change": KupComboboxEventPayload;
-        "kup-combobox-click": KupComboboxEventPayload;
         "kup-combobox-focus": KupComboboxEventPayload;
         "kup-combobox-input": KupComboboxEventPayload;
         "kup-combobox-iconclick": KupComboboxIconClickEventPayload;
