@@ -30,6 +30,7 @@ import {
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
+    adaptContentToDisplayMode,
     CMBandACPAdapter,
     getCellValueForDisplay,
     isForceLowercase,
@@ -202,7 +203,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         };
         infoEl = <FImage {...fProps} />;
     }
-
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -1000,7 +1000,13 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         default:
-            return <div class="f-cell__text">{content}</div>;
+            return (
+                <div class="f-cell__text">
+                    {cell.data.displayMode
+                        ? adaptContentToDisplayMode(cell, content, '-')
+                        : content}
+                </div>
+            );
     }
 }
 
