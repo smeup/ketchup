@@ -893,7 +893,11 @@ function setEditableCell(
                         fullWidth={isFullWidth(props) ? true : false}
                         {...cell.data}
                         maxLength={
-                            cellType == FCellTypes.NUMBER
+                            (cellType == FCellTypes.NUMBER &&
+                                ((props.column.decimals &&
+                                    props.column.decimals > 0) ||
+                                    props.column.group)) ||
+                            (props.column.integers && props.column.integers > 0)
                                 ? -1
                                 : cell.data.maxLength
                         }
