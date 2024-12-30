@@ -343,9 +343,9 @@ export const KupColorPicker: StencilReactComponent<KupColorPickerElement, KupCol
 });
 
 type KupComboboxEvents = {
+    onKupComboboxClick: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
     onKupComboboxBlur: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
     onKupComboboxChange: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxClick: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
     onKupComboboxFocus: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
     onKupComboboxInput: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
     onKupComboboxIconclick: EventName<KupComboboxCustomEvent<KupComboboxIconClickEventPayload>>,
@@ -358,9 +358,9 @@ export const KupCombobox: StencilReactComponent<KupComboboxElement, KupComboboxE
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
+        onKupComboboxClick: 'kup-combobox-click',
         onKupComboboxBlur: 'kup-combobox-blur',
         onKupComboboxChange: 'kup-combobox-change',
-        onKupComboboxClick: 'kup-combobox-click',
         onKupComboboxFocus: 'kup-combobox-focus',
         onKupComboboxInput: 'kup-combobox-input',
         onKupComboboxIconclick: 'kup-combobox-iconclick',
