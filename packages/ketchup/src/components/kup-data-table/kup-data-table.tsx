@@ -4316,6 +4316,19 @@ export class KupDataTable {
                 sortedColIndex
             );
         }
+
+        // Rearrange visibleColumns to match the new sort order
+        if (this.visibleColumns) {
+            const sIdx = this.visibleColumns.findIndex(
+                (c) => c === sortedColumn.name
+            );
+            const rIdx = this.visibleColumns.findIndex(
+                (c) => c === receivingColumn.name
+            );
+
+            const sortedName = this.visibleColumns.splice(sIdx, 1)[0];
+            this.visibleColumns.splice(rIdx, 0, sortedName);
+        }
     }
 
     /**
