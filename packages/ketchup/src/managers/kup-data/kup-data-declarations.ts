@@ -23,6 +23,7 @@ export interface KupDataColumn {
     cssClass?: string;
     decimals?: number;
     integers?: number;
+    group?: boolean;
     formula?: string;
     hideValuesRepetitions?: boolean;
     icon?: string;
