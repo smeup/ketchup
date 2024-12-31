@@ -8,6 +8,7 @@ import {
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 import { GenericObject } from '../components';
 import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
+import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -322,3 +323,34 @@ export const isForceUppercase = (cell: KupDataCell): boolean => {
         cell.inputSettings.forceUppercase === true
     );
 };
+
+export function adaptContentToDisplayMode(
+    cell: KupDataCell,
+    content: unknown,
+    separator: string
+) {
+    if (!cell?.decode || !cell?.obj?.k) {
+        return content ?? '';
+    }
+
+    const { k: code } = cell.obj;
+    const desc = cell.decode;
+    const displayMode = cell.data?.displayMode;
+
+    const format = (a: string, b: string, sep: string = separator) =>
+        a && b ? `${a} ${sep} ${b}` : '';
+
+    switch (displayMode) {
+        case ItemsDisplayMode.CODE:
+            return code || '';
+        case ItemsDisplayMode.DESCRIPTION:
+            return desc || '';
+        case ItemsDisplayMode.CODE_AND_DESC:
+        case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+            return format(code, desc);
+        case ItemsDisplayMode.DESC_AND_CODE:
+            return format(desc, code);
+        default:
+            return content ?? code ?? '';
+    }
+}
