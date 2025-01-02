@@ -1644,8 +1644,39 @@ export class KupInputPanel {
             this.#reverseMapCells(),
             detail.id
         ).then((options) => {
-            cell.data.data['kup-list'].data =
-                this.#optionsTreeComboAdapter(options, cell.value) ?? [];
+            const visibleColumns :string[] = options?.columns
+                .filter((col) => col.visible)
+                .map((col) => col.name);
+
+            const filteredRows = options?.rows.map((row) => {
+                const { cells } = row;
+                const filteredCells = visibleColumns.reduce(
+                    (acc, columnName) => {
+                        if (row.cells.hasOwnProperty(columnName)) {
+                            acc[columnName] = cells[columnName];
+                        }
+                        return acc;
+                    },
+                    {}
+                );
+
+                return {
+                    ...row,
+                    cells: filteredCells,
+                };
+            });
+
+            const visibleColumnsOptions = { ...options, rows: filteredRows };
+
+            if (cell.data && cell.data.data && cell.data.data['kup-list']) {
+                cell.data.data['kup-list'].data =
+                    this.#optionsTreeComboAdapter(
+                        visibleColumnsOptions,
+                        cell.value
+                    ) ?? [];
+            } else {
+                console.warn('"kup-list" not found');
+            }
             detail.comp.refresh();
         });
     }
