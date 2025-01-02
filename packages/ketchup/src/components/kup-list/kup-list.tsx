@@ -607,7 +607,6 @@ export class KupList {
     }
 
     #listenKeydown = (e: KeyboardEvent) => {
-        console.log('KeyDownList', e);
         if (this.keyboardNavigation) {
             switch (e.key) {
                 case 'ArrowDown':
