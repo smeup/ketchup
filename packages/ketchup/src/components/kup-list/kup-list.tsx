@@ -222,11 +222,7 @@ export class KupList {
             if (this.focused > this.#listItems.length - 1) {
                 this.focused = 0;
             }
-            if (this.#listItems[this.focused]) {
-                this.#listItems[this.focused].focus();
-            } else if (this.#listItems[0]) {
-                this.#listItems.at(0).focus();
-            }
+            this.#listItems[this.focused].focus();
         }
     }
     /**
@@ -610,6 +606,29 @@ export class KupList {
         );
     }
 
+    #listenKeydown = (e: KeyboardEvent) => {
+        console.log('KeyDownList', e);
+        if (this.keyboardNavigation) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.#handleSelection(this.focused);
+                    break;
+            }
+        }
+    };
+
     onFilterValueChange({ detail }) {
         let value = '';
         if (detail && detail.value) {
@@ -653,17 +672,6 @@ export class KupList {
             }, 0);
         }
         this.#kupManager.debug.logRender(this, true);
-        if (this.keyboardNavigation) {
-            this.#kupManager.keysBinding.register('ArrowDown', () => {
-                this.focusNext();
-            });
-            this.#kupManager.keysBinding.register('ArrowUp', () => {
-                this.focusPrevious();
-            });
-            this.#kupManager.keysBinding.register('Enter', () => {
-                this.#handleSelection(this.focused);
-            });
-        }
     }
 
     render() {
@@ -716,7 +724,11 @@ export class KupList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id="kup-component" class={wrapperClass}>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onKeyDown={this.#listenKeydown}
+                >
                     {this.showFilter ? (
                         <div class={filterClass}>
                             {this.#createFilterComponent()}
@@ -742,10 +754,5 @@ export class KupList {
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
-        if (this.keyboardNavigation) {
-            this.#kupManager.keysBinding.unregister('ArrowDown');
-            this.#kupManager.keysBinding.unregister('ArrowUp');
-            this.#kupManager.keysBinding.unregister('Enter');
-        }
     }
 }
