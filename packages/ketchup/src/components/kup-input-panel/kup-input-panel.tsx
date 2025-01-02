@@ -967,6 +967,7 @@ export class KupInputPanel {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
                 showPaginator: false,
                 showFooter: false,
+                tableHeight: `${absoluteHeight}px`,
             }),
         };
 
