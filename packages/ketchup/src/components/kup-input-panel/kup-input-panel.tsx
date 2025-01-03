@@ -90,7 +90,10 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCommand,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -1610,9 +1613,9 @@ export class KupInputPanel {
             const [id, value] = Object.keys(cells);
 
             return {
-                id: cells[id]?.value,
-                value: cells[value]?.value || cells[id]?.value,
-                selected: currentValue === cells[id]?.value,
+                id: cells[id].value,
+                value: cells[value].value || cells[id].value,
+                selected: currentValue === cells[id].value,
             };
         });
     }
@@ -1644,11 +1647,12 @@ export class KupInputPanel {
             this.#reverseMapCells(),
             detail.id
         ).then((options) => {
-            const visibleColumns: string[] = options?.columns
-                ?.filter((col) => col?.visible || !('visible' in col))
-                .map((col) => col.name) || [];
+            const visibleColumns: string[] =
+                options?.columns
+                    ?.filter((col) => col?.visible || !('visible' in col))
+                    .map((col) => col.name) || [];
 
-            const filteredRows = options?.rows?.map((row) => {
+            const filteredRows: KupDataRow[] = options?.rows?.map((row) => {
                 const { cells } = row;
                 const filteredCells = visibleColumns.reduce(
                     (acc, columnName) => {
@@ -1670,11 +1674,12 @@ export class KupInputPanel {
 
             const kupListData = cell.data?.data?.['kup-list'];
             if (kupListData) {
-                kupListData.data =
-                    this.#optionsTreeComboAdapter(
-                        visibleColumnsOptions,
-                        cell.value
-                    ) ?? [];
+                kupListData.data = filteredRows?.length
+                    ? this.#optionsTreeComboAdapter(
+                          visibleColumnsOptions,
+                          cell.value
+                      ) ?? []
+                    : [];
             } else {
                 console.warn('"kup-list" not found');
             }
