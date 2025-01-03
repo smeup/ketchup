@@ -134,7 +134,7 @@ export class KupImageList {
     @Prop() rows: number = null;
 
     /**
-     * An array of integers containing the path to a selected child.\
+     * An array of integers containing the path to a selected child.
      */
     @Prop() selectedNode: TreeNodePath = [];
     @Prop() stateId: string = '';
