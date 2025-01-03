@@ -1681,7 +1681,11 @@ export class KupInputPanel {
                       ) ?? []
                     : [];
             } else {
-                console.warn('"kup-list" not found');
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'getAutocompleteEventCallback() - "kup-list" not found in cell.data.data',
+                    KupDebugCategory.WARNING
+                );
             }
             detail.comp.refresh();
         });

@@ -2840,7 +2840,7 @@ export namespace Components {
          */
         "rows": number;
         /**
-          * An array of integers containing the path to a selected child.\
+          * An array of integers containing the path to a selected child.
          */
         "selectedNode": TreeNodePath;
         /**
@@ -8428,7 +8428,7 @@ declare namespace LocalJSX {
          */
         "rows"?: number;
         /**
-          * An array of integers containing the path to a selected child.\
+          * An array of integers containing the path to a selected child.
          */
         "selectedNode"?: TreeNodePath;
         /**
