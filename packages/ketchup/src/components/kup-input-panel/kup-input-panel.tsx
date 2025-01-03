@@ -90,7 +90,10 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCommand,
+    KupDataDataset,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -607,6 +610,15 @@ export class KupInputPanel {
     }
 
     #renderDataTable(cell: KupDataCell, cellId: string) {
+        // (cell.data.data as KupDataDataset).rows?.forEach((r) => {
+        //     Object.values(r.cells).forEach((cell) => {
+        //         if (cell.obj?.t === 'D8') {
+        //             cell.shape = FCellShapes.DATE;
+        //         }
+        //     });
+        // });
+
+        console.log('#renderDataTable', cell.data);
         return (
             <kup-data-table
                 id={cellId}
@@ -1644,7 +1656,7 @@ export class KupInputPanel {
             this.#reverseMapCells(),
             detail.id
         ).then((options) => {
-            const visibleColumns :string[] = options?.columns
+            const visibleColumns: string[] = options?.columns
                 .filter((col) => col.visible)
                 .map((col) => col.name);
 
