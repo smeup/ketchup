@@ -194,33 +194,6 @@ export class KupList {
     }
 
     /*-------------------------------------------------*/
-    /*                L i s t e n e r s                */
-    /*-------------------------------------------------*/
-
-    @Listen('keydown')
-    listenKeydown(e: KeyboardEvent) {
-        if (this.keyboardNavigation) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusPrevious();
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.#handleSelection(this.focused);
-                    break;
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -633,6 +606,28 @@ export class KupList {
         );
     }
 
+    #listenKeydown = (e: KeyboardEvent) => {
+        if (this.keyboardNavigation) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.#handleSelection(this.focused);
+                    break;
+            }
+        }
+    };
+
     onFilterValueChange({ detail }) {
         let value = '';
         if (detail && detail.value) {
@@ -728,7 +723,11 @@ export class KupList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id="kup-component" class={wrapperClass}>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onKeyDown={this.#listenKeydown}
+                >
                     {this.showFilter ? (
                         <div class={filterClass}>
                             {this.#createFilterComponent()}
