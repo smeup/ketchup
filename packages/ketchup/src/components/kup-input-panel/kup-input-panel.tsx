@@ -626,13 +626,28 @@ export class KupInputPanel {
         cellId: string,
         isAbsoluteLayout?: boolean
     ) {
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        const baseClass = 'input-panel-label';
+        const additionalClass = isAbsoluteLayout
+            ? ' input-panel-label--legacy-look'
+            : '';
+        const numberClass =
+            cellType === FCellTypes.NUMBER ? ' input-panel-label-number' : '';
+
+        if (cellType === FCellTypes.NUMBER) {
+            return (
+                <span
+                    class={`${baseClass}${additionalClass}${numberClass}`}
+                    id={cellId}
+                >
+                    {cell.value}
+                </span>
+            );
+        }
+
         return (
-            <span
-                class={`input-panel-label${
-                    isAbsoluteLayout ? ' input-panel-label--legacy-look' : ''
-                }`}
-                id={cellId}
-            >
+            <span class={`${baseClass}${additionalClass}`} id={cellId}>
                 {cell.value}
             </span>
         );
