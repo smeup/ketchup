@@ -140,17 +140,19 @@ function createImage(props: FImageProps): HTMLImageElement {
             }}
             onError={(e) => {
                 const img = e.currentTarget as HTMLImageElement;
-                const placeholder = img.parentElement.querySelector(
-                    '.f-image__placeholder'
-                );
-                const iconWrapper =
-                    img.parentElement.querySelector('.iconWrapper');
-                if (placeholder) {
-                    placeholder.classList.remove(HIDDEN_CLASS);
-                    img.classList.add(HIDDEN_CLASS);
-                }
-                if (iconWrapper) {
-                    iconWrapper.classList.remove(HIDDEN_CLASS);
+                if (img && img.parentElement) {
+                    const placeholder = img.parentElement.querySelector(
+                        '.f-image__placeholder'
+                    );
+                    const iconWrapper =
+                        img.parentElement.querySelector('.iconWrapper');
+                    if (placeholder) {
+                        placeholder.classList.remove(HIDDEN_CLASS);
+                        img.classList.add(HIDDEN_CLASS);
+                    }
+                    if (iconWrapper) {
+                        iconWrapper.classList.remove(HIDDEN_CLASS);
+                    }
                 }
             }}
             src={props.resource}
