@@ -65,7 +65,8 @@ export const FImage: FunctionalComponent<FImageProps> = (
                 ? createIcon(
                       props.placeholderResource,
                       props.color,
-                      'f-image__placeholder ' + HIDDEN_CLASS
+                      'f-image__placeholder',
+                      true
                   )
                 : undefined}
             {el}
@@ -81,7 +82,8 @@ export const FImage: FunctionalComponent<FImageProps> = (
 function createIcon(
     icon: string,
     color: string,
-    iconClass = 'f-image__icon'
+    iconClass = 'f-image__icon',
+    hidden: boolean = false
 ): HTMLDivElement {
     const classObj: GenericObject = {
         [iconClass]: true,
@@ -101,7 +103,7 @@ function createIcon(
         style.webkitMask = `url('${path}') no-repeat center`;
     }
     return (
-        <div class="iconWrapper">
+        <div class={`iconWrapper ${hidden ? HIDDEN_CLASS : ''}`}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
@@ -140,17 +142,19 @@ function createImage(props: FImageProps): HTMLImageElement {
             }}
             onError={(e) => {
                 const img = e.currentTarget as HTMLImageElement;
-                const placeholder = img.parentElement.querySelector(
-                    '.f-image__placeholder'
-                );
-                const iconWrapper =
-                    img.parentElement.querySelector('.iconWrapper');
-                if (placeholder) {
-                    placeholder.classList.remove(HIDDEN_CLASS);
-                    img.classList.add(HIDDEN_CLASS);
-                }
-                if (iconWrapper) {
-                    iconWrapper.classList.remove(HIDDEN_CLASS);
+                if (img && img.parentElement) {
+                    const placeholder = img.parentElement.querySelector(
+                        '.f-image__placeholder'
+                    );
+                    const iconWrapper =
+                        img.parentElement.querySelector('.iconWrapper');
+                    if (placeholder) {
+                        placeholder.classList.remove(HIDDEN_CLASS);
+                        img.classList.add(HIDDEN_CLASS);
+                    }
+                    if (iconWrapper) {
+                        iconWrapper.classList.remove(HIDDEN_CLASS);
+                    }
                 }
             }}
             src={props.resource}
