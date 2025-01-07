@@ -268,6 +268,8 @@ export class KupMath {
             if (decFmt != '.') {
                 input = input.replace(getRegExpFromString(decFmt, 'g'), '.');
             }
+
+            input = Number(input);
         }
         let n = NaN;
 
