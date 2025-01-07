@@ -691,6 +691,9 @@ function setEditableCell(
                     onKup-datepicker-blur={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onkup-datepicker-textfieldsubmit={(
+                        e: CustomEvent<KupDatePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 />
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
