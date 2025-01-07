@@ -217,6 +217,14 @@
     }
   }
 
+  .checkbox--legacy-look {
+    padding: 0;
+    .checkbox__native-control {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
   .checkbox__error-message,
   .checkbox__alert-message {
     padding: 0 var(--kup_checkbox_padding);
