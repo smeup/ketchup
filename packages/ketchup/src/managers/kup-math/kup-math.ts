@@ -463,7 +463,6 @@ export class KupMath {
         type: string,
         decSeparator?: string
     ): string {
-        console.log('number string to form', input);
         let value = this.numberToFormattedString(
             this.numberifySafe(input),
             decimals,
