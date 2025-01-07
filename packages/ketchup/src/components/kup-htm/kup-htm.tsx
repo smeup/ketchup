@@ -98,6 +98,17 @@ export class KupHTM {
     }
 
     /*-------------------------------------------------*/
+    /*          P r i v a t e    M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #isObjectCompatibleWithHTM(object: KupObj): boolean {
+        return (
+            this.#kupManager.objects.isLink(object) ||
+            this.#kupManager.objects.isJ1Pathfile(object)
+        );
+    }
+
+    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -121,17 +132,6 @@ export class KupHTM {
 
     componentDidRender() {
         this.#kupManager.debug.logRender(this, true);
-    }
-
-    /*-------------------------------------------------*/
-    /*          P r i v a t e    M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    #isObjectCompatibleWithHTM(object: KupObj): boolean {
-        return (
-            this.#kupManager.objects.isLink(object) ||
-            this.#kupManager.objects.isJ1Pathfile(object)
-        );
     }
 
     render() {
