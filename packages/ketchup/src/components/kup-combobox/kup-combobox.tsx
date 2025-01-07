@@ -83,7 +83,7 @@ export class KupCombobox {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -130,7 +130,7 @@ export class KupCombobox {
     @Prop() readOnly: boolean = false;
 
     /**
-     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
@@ -162,10 +162,19 @@ export class KupCombobox {
     #textfieldWrapper: HTMLElement = undefined;
     #textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     #clickCb: KupManagerClickCb = null;
+    #componentTriggered: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-combobox-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupComboboxEventPayload>;
 
     @Event({
         eventName: 'kup-combobox-blur',
@@ -182,14 +191,6 @@ export class KupCombobox {
         bubbles: true,
     })
     kupChange: EventEmitter<KupComboboxEventPayload>;
-
-    @Event({
-        eventName: 'kup-combobox-click',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<KupComboboxEventPayload>;
 
     @Event({
         eventName: 'kup-combobox-focus',
@@ -244,19 +245,13 @@ export class KupCombobox {
     }
 
     onKupClick() {
-        if (this.isSelect) {
-            if (this.#textfieldWrapper.classList.contains('toggled')) {
-                this.#closeList();
-            } else {
-                this.#openList();
-            }
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+        this.onKupIconClick();
+    }
 
+    onKupIconClick() {
+        if (this.#textfieldWrapper.classList.contains('toggled')) {
+            this.#closeList();
+        } else {
             this.kupIconClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -264,13 +259,7 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
-        } else {
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+            this.#openList();
         }
     }
 
@@ -296,21 +285,6 @@ export class KupCombobox {
             value: this.value,
             inputValue: this.#textfieldEl.value,
             node: ret.node,
-        });
-    }
-
-    onKupIconClick() {
-        if (this.#textfieldWrapper.classList.contains('toggled')) {
-            this.#closeList();
-        } else {
-            this.#openList();
-        }
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            open: this.#textfieldWrapper.classList.contains('toggled'),
         });
     }
 
@@ -381,13 +355,13 @@ export class KupCombobox {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupIconClick();
                     this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupIconClick();
                     this.#listEl.focusPrevious();
                     break;
             }
@@ -654,7 +628,7 @@ export class KupCombobox {
                         }
                         value={this.displayedValue}
                         onBlur={() => this.onKupBlur()}
-                        onClick={() => this.onKupClick()}
+                        onClick={() => this.onKupIconClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChange(e.target.value)
                         }

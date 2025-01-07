@@ -36,6 +36,7 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { SortObject } from '../kup-data-table/kup-data-table-declarations';
 import { sortRows } from '../kup-data-table/kup-data-table-helper';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-activity-timeline',
@@ -301,6 +302,16 @@ export class KupActivityTimeline {
     }
 
     render() {
+        const emptyData = Boolean(!this.data?.columns || !this.data?.rows);
+        if (emptyData) {
+            this.#kupManager.debug.logMessage(
+                this,
+                'Empty data.',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
+
         this.timeline = this.#toTimeline(this.data);
         return (
             <Host>

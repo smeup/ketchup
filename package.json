@@ -27,6 +27,9 @@
         "typescript": "^5",
         "workbox-build": "7.3.0"
     },
+    "dependencies": {
+        "math-expression-evaluator": "^2.0.6"
+    },
     "scripts": {
         "lerna": "lerna",
         "k:build": "lerna run build --scope @sme.up/ketchup --stream && lerna run build --scope @sme.up/ketchup-react --stream",

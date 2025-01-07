@@ -90,7 +90,10 @@ import {
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupDataCommand } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCommand,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -410,7 +413,12 @@ export class KupInputPanel {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
                     styleObj.display = 'grid';
-                    if (this.inputPanelPosition == 'INLINE') {
+                    if (
+                        this.inputPanelPosition ===
+                            KupInputPanelPosition.INLINE ||
+                        this.inputPanelPosition ===
+                            KupInputPanelPosition.UPINLINE
+                    ) {
                         styleObj.display = '';
                     }
                     if (layout.horizontal) {
@@ -445,7 +453,8 @@ export class KupInputPanel {
             'input-panel--column': !horizontal,
             'input-panel--absolute': layout?.absolute,
             'input-panel--inline':
-                this.inputPanelPosition == KupInputPanelPosition.INLINE,
+                this.inputPanelPosition === KupInputPanelPosition.INLINE ||
+                this.inputPanelPosition === KupInputPanelPosition.UPINLINE,
         };
 
         const commandsClass = {
@@ -609,7 +618,6 @@ export class KupInputPanel {
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
-                showFooter={true}
                 {...cell.data}
             ></kup-data-table>
         );
@@ -677,7 +685,9 @@ export class KupInputPanel {
         const classObj = {
             'input-panel__section': !section.horizontal,
             'input-panel__horizontal-section': section.horizontal,
-            'input-panel__section-inline': this.inputPanelPosition == 'INLINE',
+            'input-panel__section-inline':
+                this.inputPanelPosition === KupInputPanelPosition.INLINE ||
+                this.inputPanelPosition === KupInputPanelPosition.UPINLINE,
         };
 
         styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
@@ -961,6 +971,8 @@ export class KupInputPanel {
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
                 showPaginator: false,
+                showFooter: false,
+                tableHeight: `${absoluteHeight}px`,
             }),
         };
 
@@ -1604,7 +1616,7 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: cells[value]?.value || cells[id].value,
+                value: cells[value].value || cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
@@ -1637,8 +1649,46 @@ export class KupInputPanel {
             this.#reverseMapCells(),
             detail.id
         ).then((options) => {
-            cell.data.data['kup-list'].data =
-                this.#optionsTreeComboAdapter(options, cell.value) ?? [];
+            const visibleColumns: string[] =
+                options?.columns
+                    ?.filter((col) => col?.visible || !('visible' in col))
+                    .map((col) => col.name) || [];
+
+            const filteredRows: KupDataRow[] = options?.rows?.map((row) => {
+                const { cells } = row;
+                const filteredCells = visibleColumns.reduce(
+                    (acc, columnName) => {
+                        if (row.cells.hasOwnProperty(columnName)) {
+                            acc[columnName] = cells[columnName];
+                        }
+                        return acc;
+                    },
+                    {}
+                );
+
+                return {
+                    ...row,
+                    cells: filteredCells,
+                };
+            });
+
+            const visibleColumnsOptions = { ...options, rows: filteredRows };
+
+            const kupListData = cell.data?.data?.['kup-list'];
+            if (kupListData) {
+                kupListData.data = filteredRows?.length
+                    ? this.#optionsTreeComboAdapter(
+                          visibleColumnsOptions,
+                          cell.value
+                      ) ?? []
+                    : [];
+            } else {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'getAutocompleteEventCallback() - "kup-list" not found in cell.data.data',
+                    KupDebugCategory.WARNING
+                );
+            }
             detail.comp.refresh();
         });
     }

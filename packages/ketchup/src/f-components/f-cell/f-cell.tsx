@@ -30,6 +30,7 @@ import {
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
+    adaptContentToDisplayMode,
     CMBandACPAdapter,
     getCellValueForDisplay,
     isForceLowercase,
@@ -202,7 +203,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         };
         infoEl = <FImage {...fProps} />;
     }
-
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -707,8 +707,8 @@ function setEditableCell(
                     <kup-autocomplete
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
-                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -746,8 +746,8 @@ function setEditableCell(
                     <kup-combobox
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
-                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -838,6 +838,8 @@ function setEditableCell(
             return (
                 <FObjectField
                     cell={cell}
+                    column={props.column}
+                    row={props.row}
                     inputValue={cell.value}
                     onChange={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.UPDATE)
@@ -854,7 +856,12 @@ function setEditableCell(
             const onInput = (e: InputEvent) => {
                 cell.data?.onInput?.(e); // call onInput handler if it is set as prop
                 cellEvent(e, props, cellType, FCellEvents.INPUT);
-                cellEvent(e, props, cellType, FCellEvents.UPDATE);
+            };
+            const onKeyDown = (e: KeyboardEvent) => {
+                cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
+                if (e.key === 'Enter') {
+                    cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                }
             };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
             const value =
@@ -867,6 +874,7 @@ function setEditableCell(
                         class={'input-field'}
                         onChange={onChange}
                         onInput={onInput}
+                        onKeyDown={onKeyDown}
                         type={type}
                         value={value}
                         maxLength={column.cellData?.maxLength ?? -1}
@@ -884,6 +892,15 @@ function setEditableCell(
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
                         {...cell.data}
+                        maxLength={
+                            (cellType == FCellTypes.NUMBER &&
+                                ((props.column.decimals &&
+                                    props.column.decimals > 0) ||
+                                    props.column.group)) ||
+                            (props.column.integers && props.column.integers > 0)
+                                ? -1
+                                : cell.data.maxLength
+                        }
                         icon={
                             cell.data && cell.data.icon
                                 ? cell.data.icon
@@ -895,9 +912,11 @@ function setEditableCell(
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
+                        group={props.column.group}
                         value={value}
                         onChange={onChange}
                         onInput={onInput}
+                        onKeyDown={onKeyDown}
                         onIconClick={(e: MouseEvent) =>
                             cellEvent(
                                 e,
@@ -998,7 +1017,13 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         default:
-            return <div class="f-cell__text">{content}</div>;
+            return (
+                <div class="f-cell__text">
+                    {cell.data.displayMode
+                        ? adaptContentToDisplayMode(cell, content, '-')
+                        : content}
+                </div>
+            );
     }
 }
 

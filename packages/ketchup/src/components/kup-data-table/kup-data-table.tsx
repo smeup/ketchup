@@ -1470,6 +1470,14 @@ export class KupDataTable {
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
+        if (this.visibleColumns?.length) {
+            const index = this.visibleColumns.findIndex(
+                (c) => c === column.name
+            );
+            if (index) {
+                this.visibleColumns.splice(index, 1);
+            }
+        }
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -3478,7 +3486,7 @@ export class KupDataTable {
         return details;
     }
 
-    getVisibleColumns({includeCodVer = false} = {}): Array<KupDataColumn> {
+    getVisibleColumns({ includeCodVer = false } = {}): Array<KupDataColumn> {
         if (includeCodVer) {
             return this.getColumns().filter((col) => {
                 if (this.visibleColumns) {
@@ -4307,6 +4315,19 @@ export class KupDataTable {
                 receivingColIndex,
                 sortedColIndex
             );
+        }
+
+        // Rearrange visibleColumns to match the new sort order
+        if (this.visibleColumns) {
+            const sIdx = this.visibleColumns.findIndex(
+                (c) => c === sortedColumn.name
+            );
+            const rIdx = this.visibleColumns.findIndex(
+                (c) => c === receivingColumn.name
+            );
+
+            const sortedName = this.visibleColumns.splice(sIdx, 1)[0];
+            this.visibleColumns.splice(rIdx, 0, sortedName);
         }
     }
 
@@ -5331,7 +5352,7 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.getVisibleColumns({includeCodVer:true}),
+                            this.getVisibleColumns({ includeCodVer: true }),
                             this.rowActions,
                             this.commands ?? []
                         );

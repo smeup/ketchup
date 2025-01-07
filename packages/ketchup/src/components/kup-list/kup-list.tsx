@@ -194,33 +194,6 @@ export class KupList {
     }
 
     /*-------------------------------------------------*/
-    /*                L i s t e n e r s                */
-    /*-------------------------------------------------*/
-
-    @Listen('keydown')
-    listenKeydown(e: KeyboardEvent) {
-        if (this.keyboardNavigation) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusPrevious();
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.#handleSelection(this.focused);
-                    break;
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -229,52 +202,56 @@ export class KupList {
      */
     @Method()
     async focusNext(): Promise<void> {
-        if (
-            isNaN(this.focused) ||
-            this.focused === null ||
-            this.focused === undefined
-        ) {
-            if (this.selected.length === 1) {
-                const selectedItem: KupListNode = this.data.find(
-                    (x: KupListNode) => x.id === this.selected[0]
-                );
-                this.focused = this.data.indexOf(selectedItem) + 1;
+        if (this.#listItems.length > 0) {
+            if (
+                isNaN(this.focused) ||
+                this.focused === null ||
+                this.focused === undefined
+            ) {
+                if (this.selected.length === 1) {
+                    const selectedItem: KupListNode = this.data.find(
+                        (x: KupListNode) => x.id === this.selected[0]
+                    );
+                    this.focused = this.data.indexOf(selectedItem) + 1;
+                } else {
+                    this.focused = 0;
+                }
             } else {
+                this.focused++;
+            }
+            if (this.focused > this.#listItems.length - 1) {
                 this.focused = 0;
             }
-        } else {
-            this.focused++;
+            this.#listItems[this.focused].focus();
         }
-        if (this.focused > this.#listItems.length - 1) {
-            this.focused = 0;
-        }
-        this.#listItems[this.focused].focus();
     }
     /**
      * Focuses the previous element of the list.
      */
     @Method()
     async focusPrevious(): Promise<void> {
-        if (
-            isNaN(this.focused) ||
-            this.focused === null ||
-            this.focused === undefined
-        ) {
-            if (this.selected.length === 1) {
-                const selectedItem: KupListNode = this.data.find(
-                    (x: KupListNode) => x.id === this.selected[0]
-                );
-                this.focused = this.data.indexOf(selectedItem) - 1;
+        if (this.#listItems.length > 0) {
+            if (
+                isNaN(this.focused) ||
+                this.focused === null ||
+                this.focused === undefined
+            ) {
+                if (this.selected.length === 1) {
+                    const selectedItem: KupListNode = this.data.find(
+                        (x: KupListNode) => x.id === this.selected[0]
+                    );
+                    this.focused = this.data.indexOf(selectedItem) - 1;
+                } else {
+                    this.focused = 0;
+                }
             } else {
-                this.focused = 0;
+                this.focused--;
             }
-        } else {
-            this.focused--;
+            if (this.focused < 0) {
+                this.focused = this.#listItems.length - 1;
+            }
+            this.#listItems[this.focused].focus();
         }
-        if (this.focused < 0) {
-            this.focused = this.#listItems.length - 1;
-        }
-        this.#listItems[this.focused].focus();
     }
     /**
      * Used to retrieve component's props values.
@@ -629,6 +606,28 @@ export class KupList {
         );
     }
 
+    #listenKeydown = (e: KeyboardEvent) => {
+        if (this.keyboardNavigation) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.#handleSelection(this.focused);
+                    break;
+            }
+        }
+    };
+
     onFilterValueChange({ detail }) {
         let value = '';
         if (detail && detail.value) {
@@ -724,7 +723,11 @@ export class KupList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id="kup-component" class={wrapperClass}>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onKeyDown={this.#listenKeydown}
+                >
                     {this.showFilter ? (
                         <div class={filterClass}>
                             {this.#createFilterComponent()}

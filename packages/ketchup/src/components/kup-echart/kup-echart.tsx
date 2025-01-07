@@ -730,19 +730,29 @@ export class KupEchart {
                 return undefined;
             },
         });
-
-        const date = caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'],
-            value = caseInsensitiveObj['Value'] ?? caseInsensitiveObj['Valore'],
+        const date =
+                caseInsensitiveObj['Date'] ?? caseInsensitiveObj['Data'] ?? [],
+            value =
+                caseInsensitiveObj['Value'] ??
+                caseInsensitiveObj['Valore'] ??
+                [],
             answer = [],
-            keys = Object.keys(y),
-            year = new Date(date[0]).getFullYear(),
-            arrayLength = date.length;
+            keys = Object.keys(y ?? {}),
+            year = date?.[0]
+                ? new Date(date?.[0]).getFullYear()
+                : new Date().getFullYear(),
+            arrayLength = date?.length;
 
-        date.forEach((element, i) => {
+        if (!date.length && !value.length) {
+            console.warn(
+                'Warning: Invalid data structure detected for the calendar. Please check the incoming data.'
+            );
+        }
+        date?.forEach((element, i) => {
             const castedValue =
-                typeof value[i] === 'string'
-                    ? Number(value[i].replace(',', ''))
-                    : Number(value[i]);
+                typeof value?.[i] === 'string'
+                    ? Number(value?.[i].replace(',', ''))
+                    : Number(value?.[i]);
             answer.push([element, castedValue]);
         });
         return {
@@ -750,9 +760,9 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (value: unknown) => {
-                    const name = (value as GenericObject).data;
+                    const name = (value as GenericObject).data || [];
                     const data = keys.map((e, i) => {
-                        return `<li>  ${e}: ${name[i]} </li>`;
+                        return `<li>  ${e}: ${name[i] ?? '-'} </li>`;
                     });
                     let showContent = '';
                     data.forEach((r) => {
