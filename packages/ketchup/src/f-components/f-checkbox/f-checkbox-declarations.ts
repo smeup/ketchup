@@ -10,6 +10,7 @@ export interface FCheckboxProps extends FComponent {
     indeterminate?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    legacyLook?: boolean;
     onClick?: (event: MouseEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     onFocus?: (event: FocusEvent) => void;

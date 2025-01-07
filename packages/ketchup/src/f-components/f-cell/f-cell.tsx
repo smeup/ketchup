@@ -592,7 +592,8 @@ function setEditableCell(
                 return (
                     <input
                         checked={
-                            cell.value === 'on' || cell.value === '1'
+                            cell.value.toLowerCase() === 'on' ||
+                            cell.value === '1'
                                 ? true
                                 : false
                         }
@@ -1361,7 +1362,7 @@ function cellEvent(
                 break;
             case FCellTypes.CHECKBOX:
             case FCellTypes.SWITCH:
-                value = value === 'on' ? '0' : '1';
+                value = value.toLowerCase() === 'on' ? '0' : '1';
                 if (cell.data) {
                     (cell.data as FCheckboxProps).checked =
                         value === '0' ? false : true;
