@@ -268,6 +268,8 @@ export class KupMath {
             if (decFmt != '.') {
                 input = input.replace(getRegExpFromString(decFmt, 'g'), '.');
             }
+
+            input = Number(input);
         }
         let n = NaN;
 
@@ -461,6 +463,7 @@ export class KupMath {
         type: string,
         decSeparator?: string
     ): string {
+        console.log('number string to form', input);
         let value = this.numberToFormattedString(
             this.numberifySafe(input),
             decimals,
