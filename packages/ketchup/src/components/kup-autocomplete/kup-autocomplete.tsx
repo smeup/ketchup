@@ -278,6 +278,7 @@ export class KupAutocomplete {
                 node: ret.node,
             });
         }
+        this.#closeList();
     }
 
     onKupClick() {
@@ -515,43 +516,41 @@ export class KupAutocomplete {
     #consistencyCheck(
         idIn: string,
         idInDecode: string,
-        setValue: boolean
+        eventShouldSetValue: boolean
     ): ValueDisplayedValue {
         if (!this.#doConsistencyCheck) {
             return;
         }
-        this.#doConsistencyCheck = false;
-        const ret = consistencyCheck(
-            idIn,
-            this.data['kup-list'],
-            this.#listEl,
-            this.selectMode,
-            this.displayMode
-        );
-        if (ret.exists || this.allowInconsistentValues) {
-            if (setValue) {
-                this.value = ret.value;
-                this.displayedValue = ret.displayedValue;
-            }
-            if (this.#listEl != null && !this.serverHandledFilter) {
-                this.#listEl.filter = ret.value;
-            }
-        } else {
-            if (setValue) {
-                this.displayedValue = getIdOfItemByDisplayMode(
-                    { id: idIn, value: idInDecode ?? idIn },
+        if (idIn && idInDecode) {
+            this.displayedValue = this.displayedValue =
+                getIdOfItemByDisplayMode(
+                    { id: idIn, value: idInDecode },
                     this.displayMode,
                     ' - '
                 );
+        } else {
+            this.#doConsistencyCheck = false;
+            const ret = consistencyCheck(
+                idIn,
+                this.data['kup-list'],
+                this.#listEl,
+                this.selectMode,
+                this.displayMode
+            );
+            if (
+                (ret.exists || this.allowInconsistentValues) &&
+                eventShouldSetValue
+            ) {
+                this.value = ret.value;
+                this.displayedValue = ret.displayedValue;
             } else {
                 this.displayedValue = idIn;
             }
             if (this.#listEl != null && !this.serverHandledFilter) {
                 this.#listEl.filter = ret.value;
             }
+            return ret;
         }
-
-        return ret;
     }
 
     #prepList() {
