@@ -234,7 +234,7 @@ export class KupCombobox {
     }
 
     onKupChange(value: string) {
-        let ret = this.#consistencyCheck(value, undefined);
+        let ret = this.#consistencyCheck(value, undefined, true);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
@@ -242,6 +242,7 @@ export class KupCombobox {
             inputValue: this.#textfieldEl.value,
             node: ret.node,
         });
+        this.#closeList();
     }
 
     onKupClick() {
@@ -273,7 +274,11 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        let ret = this.#consistencyCheck(this.#textfieldEl.value, undefined);
+        let ret = this.#consistencyCheck(
+            this.#textfieldEl.value,
+            undefined,
+            false
+        );
         this.#openList();
         this.kupInput.emit({
             comp: this,
@@ -413,7 +418,7 @@ export class KupCombobox {
      */
     @Method()
     async setValue(value: string, valueDecode?: string) {
-        this.#consistencyCheck(value, valueDecode);
+        this.#consistencyCheck(value, valueDecode, true);
     }
 
     /*-------------------------------------------------*/
@@ -471,14 +476,17 @@ export class KupCombobox {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(idIn: string, idInDecode: string): ValueDisplayedValue {
+    #consistencyCheck(
+        idIn: string,
+        idInDecode: string,
+        eventShouldSetValue: boolean
+    ): ValueDisplayedValue {
         if (idIn && idInDecode) {
-            this.displayedValue = this.displayedValue =
-                getIdOfItemByDisplayMode(
-                    { id: idIn, value: idInDecode ?? idIn },
-                    this.displayMode,
-                    ' - '
-                );
+            this.displayedValue = getIdOfItemByDisplayMode(
+                { id: idIn, value: idInDecode },
+                this.displayMode,
+                ' - '
+            );
         } else {
             const ret = consistencyCheck(
                 idIn,
@@ -487,7 +495,7 @@ export class KupCombobox {
                 this.selectMode,
                 this.displayMode
             );
-            if (ret.exists) {
+            if (ret.exists && eventShouldSetValue) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
             } else {
@@ -534,7 +542,7 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, this.initialValueDecode);
+        this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 

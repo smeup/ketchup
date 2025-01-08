@@ -268,7 +268,7 @@ export class KupAutocomplete {
 
     onKupChange(value: string) {
         this.#doConsistencyCheck = true;
-        const ret = this.#consistencyCheck(value, undefined);
+        const ret = this.#consistencyCheck(value, undefined, true);
         if (ret.exists || this.allowInconsistentValues) {
             this.kupChange.emit({
                 comp: this,
@@ -278,6 +278,7 @@ export class KupAutocomplete {
                 node: ret.node,
             });
         }
+        this.#closeList();
     }
 
     onKupClick() {
@@ -300,7 +301,11 @@ export class KupAutocomplete {
 
     onKupInput() {
         this.#doConsistencyCheck = true;
-        const ret = this.#consistencyCheck(this.#textfieldEl.value, undefined);
+        const ret = this.#consistencyCheck(
+            this.#textfieldEl.value,
+            undefined,
+            false
+        );
         setTimeout(() => {
             this.#openList(false);
             if (this.#textfieldEl.value.length >= this.minimumChars) {
@@ -447,7 +452,7 @@ export class KupAutocomplete {
     @Method()
     async setValue(value: string, valueDecode?: string) {
         this.#doConsistencyCheck = true;
-        this.#consistencyCheck(value, valueDecode);
+        this.#consistencyCheck(value, valueDecode, true);
     }
 
     /*-------------------------------------------------*/
@@ -508,14 +513,18 @@ export class KupAutocomplete {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(idIn: string, idInDecode: string): ValueDisplayedValue {
+    #consistencyCheck(
+        idIn: string,
+        idInDecode: string,
+        eventShouldSetValue: boolean
+    ): ValueDisplayedValue {
         if (!this.#doConsistencyCheck) {
             return;
         }
         if (idIn && idInDecode) {
             this.displayedValue = this.displayedValue =
                 getIdOfItemByDisplayMode(
-                    { id: idIn, value: idInDecode ?? idIn },
+                    { id: idIn, value: idInDecode },
                     this.displayMode,
                     ' - '
                 );
@@ -528,7 +537,10 @@ export class KupAutocomplete {
                 this.selectMode,
                 this.displayMode
             );
-            if (ret.exists || this.allowInconsistentValues) {
+            if (
+                (ret.exists || this.allowInconsistentValues) &&
+                eventShouldSetValue
+            ) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
             } else {
@@ -573,7 +585,7 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, this.initialValueDecode);
+        this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 
