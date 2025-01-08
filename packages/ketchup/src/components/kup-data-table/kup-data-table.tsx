@@ -211,6 +211,7 @@ export class KupDataTable {
                 this.forceOneLine = state.forceOneLine;
                 this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
+                this.autoFilterOn = state.autoFilterOn;
                 this.headerIsPersistent = state.headerIsPersistent;
                 this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
@@ -331,6 +332,15 @@ export class KupDataTable {
                 )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.autoFilterOn,
+                    this.autoFilterOn
+                )
+            ) {
+                this.state.autoFilterOn = this.autoFilterOn;
                 somethingChanged = true;
             }
             if (
@@ -624,6 +634,10 @@ export class KupDataTable {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+    /**
+     * The minimum number of rows for the global filter to appear.
+     */
+    @Prop() autoFilterOn: number = 50;
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
@@ -6549,6 +6563,11 @@ export class KupDataTable {
             }
         };
 
+        const useGlobalFilter: boolean =
+            this.globalFilter ||
+            this.#rowsLength >= this.autoFilterOn ||
+            !!this.globalFilterValue;
+
         const compCreated = (
             <Host
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
@@ -6573,7 +6592,7 @@ export class KupDataTable {
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
-                        {this.globalFilter ? (
+                        {useGlobalFilter ? (
                             <div id="global-filter">
                                 <FTextField
                                     fullWidth={true}

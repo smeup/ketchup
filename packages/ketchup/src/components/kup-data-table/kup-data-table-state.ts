@@ -19,6 +19,7 @@ export class KupDataTableState implements KupState {
     forceOneLine: boolean = false;
     globalFilter = false;
     globalFilterValue = '';
+    autoFilterOn: number = 50;
     groups: Array<GroupObject> = [];
     headerIsPersistent = true;
     lazyLoadRows = false;
