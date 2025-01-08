@@ -52,6 +52,7 @@ import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
+    getCellValueForDisplay,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -91,6 +92,7 @@ import {
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import {
+    KupDataColumn,
     KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -260,10 +262,18 @@ export class KupInputPanel {
     ]);
     #cellCustomRender: Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+        (
+            cell: KupDataCell,
+            column: KupDataColumn,
+            isAbsoluteLayout?: boolean
+        ) => any
     > = new Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+        (
+            cell: KupDataCell,
+            column: KupDataColumn,
+            isAbsoluteLayout?: boolean
+        ) => any
     >([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
@@ -521,7 +531,7 @@ export class KupInputPanel {
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name, row.layout?.absolute);
+            return customRender(cell, column, row.layout?.absolute);
         }
 
         const cellProps: FCellProps = {
@@ -548,11 +558,11 @@ export class KupInputPanel {
         return <FCell {...cellProps} />;
     }
 
-    #renderButton(cell: KupDataCell, cellId: string) {
+    #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
         return (
             <FButton
                 icon={cell.icon}
-                id={cellId}
+                id={name}
                 {...cell.data}
                 wrapperClass="form__submit"
             ></FButton>
@@ -577,15 +587,14 @@ export class KupInputPanel {
         );
     }
 
-    #renderEditor(cell: KupDataCell, cellId: string) {
+    #renderEditor(cell: KupDataCell, { name }: KupDataColumn) {
         const event = 'kup-editor-save';
         const handler = (e: CustomEvent<KupEditorEventPayload>) => {
             const edtCell: KupDataCell =
                 this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
                     if (!cell) {
-                        return cells.find(
-                            ({ column }) => column.name === cellId
-                        ).cell;
+                        return cells.find(({ column }) => column.name === name)
+                            .cell;
                     }
                     return cell;
                 }, null);
@@ -602,17 +611,17 @@ export class KupInputPanel {
         return (
             <kup-editor
                 {...cell.data}
-                id={cellId}
+                id={name}
                 isReadOnly={!cell.isEditable}
                 showToolbar={true}
             ></kup-editor>
         );
     }
 
-    #renderDataTable(cell: KupDataCell, cellId: string) {
+    #renderDataTable(cell: KupDataCell, { name }: KupDataColumn) {
         return (
             <kup-data-table
-                id={cellId}
+                id={name}
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
@@ -623,7 +632,7 @@ export class KupInputPanel {
 
     #renderLabel(
         cell: KupDataCell,
-        cellId: string,
+        column: KupDataColumn,
         isAbsoluteLayout?: boolean
     ) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
@@ -639,15 +648,15 @@ export class KupInputPanel {
             return (
                 <span
                     class={`${baseClass}${additionalClass}${numberClass}`}
-                    id={cellId}
+                    id={column.name}
                 >
-                    {cell.value}
+                    {getCellValueForDisplay(column, cell)}
                 </span>
             );
         }
 
         return (
-            <span class={`${baseClass}${additionalClass}`} id={cellId}>
+            <span class={`${baseClass}${additionalClass}`} id={column.name}>
                 {cell.value}
             </span>
         );
@@ -1011,7 +1020,10 @@ export class KupInputPanel {
                     return this.#renderDropDownButton(commandObj, data);
                 } else {
                     const buttonCell = this.#commandAdapter(commandObj);
-                    return this.#renderButton(buttonCell, commandObj.value);
+                    return this.#renderButton(buttonCell, {
+                        name: commandObj.value,
+                        title: commandObj.value,
+                    });
                 }
             })
             .flat();
