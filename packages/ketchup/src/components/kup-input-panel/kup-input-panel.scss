@@ -143,6 +143,9 @@
 
       .input-panel-label {
         justify-content: start;
+        &.input-panel-label-number {
+          justify-content: end;
+        }
       }
 
       .mdc-text-field {
