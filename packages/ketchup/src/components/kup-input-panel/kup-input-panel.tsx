@@ -52,6 +52,7 @@ import {
     CHIAdapter,
     CHKAdapter,
     CMBandACPAdapter,
+    getCellValueForDisplay,
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
@@ -91,6 +92,7 @@ import {
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import {
+    KupDataColumn,
     KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -260,10 +262,18 @@ export class KupInputPanel {
     ]);
     #cellCustomRender: Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+        (
+            cell: KupDataCell,
+            column: KupDataColumn,
+            isAbsoluteLayout?: boolean
+        ) => any
     > = new Map<
         FCellShapes,
-        (cell: KupDataCell, cellId: string, isAbsoluteLayout?: boolean) => any
+        (
+            cell: KupDataCell,
+            column: KupDataColumn,
+            isAbsoluteLayout?: boolean
+        ) => any
     >([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
@@ -406,8 +416,9 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
+                // 12px is added due to the chance that the horizontal scrollbar will be rendered
                 styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT
+                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT + 12
                 }px`;
             } else {
                 if (!layout.sectionsType) {
@@ -521,7 +532,7 @@ export class KupInputPanel {
         const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
-            return customRender(cell, column.name, row.layout?.absolute);
+            return customRender(cell, column, row.layout?.absolute);
         }
 
         const cellProps: FCellProps = {
@@ -548,11 +559,11 @@ export class KupInputPanel {
         return <FCell {...cellProps} />;
     }
 
-    #renderButton(cell: KupDataCell, cellId: string) {
+    #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
         return (
             <FButton
                 icon={cell.icon}
-                id={cellId}
+                id={name}
                 {...cell.data}
                 wrapperClass="form__submit"
             ></FButton>
@@ -577,15 +588,14 @@ export class KupInputPanel {
         );
     }
 
-    #renderEditor(cell: KupDataCell, cellId: string) {
+    #renderEditor(cell: KupDataCell, { name }: KupDataColumn) {
         const event = 'kup-editor-save';
         const handler = (e: CustomEvent<KupEditorEventPayload>) => {
             const edtCell: KupDataCell =
                 this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
                     if (!cell) {
-                        return cells.find(
-                            ({ column }) => column.name === cellId
-                        ).cell;
+                        return cells.find(({ column }) => column.name === name)
+                            .cell;
                     }
                     return cell;
                 }, null);
@@ -602,17 +612,17 @@ export class KupInputPanel {
         return (
             <kup-editor
                 {...cell.data}
-                id={cellId}
+                id={name}
                 isReadOnly={!cell.isEditable}
                 showToolbar={true}
             ></kup-editor>
         );
     }
 
-    #renderDataTable(cell: KupDataCell, cellId: string) {
+    #renderDataTable(cell: KupDataCell, { name }: KupDataColumn) {
         return (
             <kup-data-table
-                id={cellId}
+                id={name}
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
@@ -623,16 +633,31 @@ export class KupInputPanel {
 
     #renderLabel(
         cell: KupDataCell,
-        cellId: string,
+        column: KupDataColumn,
         isAbsoluteLayout?: boolean
     ) {
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        const baseClass = 'input-panel-label';
+        const additionalClass = isAbsoluteLayout
+            ? ' input-panel-label--legacy-look'
+            : '';
+        const numberClass =
+            cellType === FCellTypes.NUMBER ? ' input-panel-label-number' : '';
+
+        if (cellType === FCellTypes.NUMBER) {
+            return (
+                <span
+                    class={`${baseClass}${additionalClass}${numberClass}`}
+                    id={column.name}
+                >
+                    {getCellValueForDisplay(column, cell)}
+                </span>
+            );
+        }
+
         return (
-            <span
-                class={`input-panel-label${
-                    isAbsoluteLayout ? ' input-panel-label--legacy-look' : ''
-                }`}
-                id={cellId}
-            >
+            <span class={`${baseClass}${additionalClass}`} id={column.name}>
                 {cell.value}
             </span>
         );
@@ -996,7 +1021,10 @@ export class KupInputPanel {
                     return this.#renderDropDownButton(commandObj, data);
                 } else {
                     const buttonCell = this.#commandAdapter(commandObj);
-                    return this.#renderButton(buttonCell, commandObj.value);
+                    return this.#renderButton(buttonCell, {
+                        name: commandObj.value,
+                        title: commandObj.value,
+                    });
                 }
             })
             .flat();
