@@ -234,7 +234,7 @@ export class KupCombobox {
     }
 
     onKupChange(value: string) {
-        let ret = this.#consistencyCheck(value, undefined, true);
+        let ret = this.#consistencyCheck(value, undefined);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
@@ -273,11 +273,7 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        let ret = this.#consistencyCheck(
-            this.#textfieldEl.value,
-            undefined,
-            false
-        );
+        let ret = this.#consistencyCheck(this.#textfieldEl.value, undefined);
         this.#openList();
         this.kupInput.emit({
             comp: this,
@@ -417,7 +413,7 @@ export class KupCombobox {
      */
     @Method()
     async setValue(value: string, valueDecode?: string) {
-        this.#consistencyCheck(value, valueDecode, true);
+        this.#consistencyCheck(value, valueDecode);
     }
 
     /*-------------------------------------------------*/
@@ -475,44 +471,34 @@ export class KupCombobox {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(
-        idIn: string,
-        idInDecode: string,
-        setValue: boolean
-    ): ValueDisplayedValue {
-        let ret = consistencyCheck(
-            idIn,
-            this.data['kup-list'],
-            this.#listEl,
-            this.selectMode,
-            this.displayMode
-        );
-
-        if (ret.exists) {
-            if (setValue) {
-                this.value = ret.value;
-                this.displayedValue = ret.displayedValue;
-            }
-            if (this.#listEl != null) {
-                this.#listEl.filter = ret.value;
-            }
-        } else {
-            this.value = idIn;
-            if (setValue) {
-                this.displayedValue = getIdOfItemByDisplayMode(
+    #consistencyCheck(idIn: string, idInDecode: string): ValueDisplayedValue {
+        if (idIn && idInDecode) {
+            this.displayedValue = this.displayedValue =
+                getIdOfItemByDisplayMode(
                     { id: idIn, value: idInDecode ?? idIn },
                     this.displayMode,
                     ' - '
                 );
+        } else {
+            const ret = consistencyCheck(
+                idIn,
+                this.data['kup-list'],
+                this.#listEl,
+                this.selectMode,
+                this.displayMode
+            );
+            console.log('ret', ret);
+            if (ret.exists) {
+                this.value = ret.value;
+                this.displayedValue = ret.displayedValue;
             } else {
                 this.displayedValue = idIn;
             }
             if (this.#listEl != null) {
                 this.#listEl.filter = ret.value;
             }
+            return ret;
         }
-
-        return ret;
     }
 
     #prepList() {
@@ -549,7 +535,7 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, this.initialValueDecode, true);
+        this.#consistencyCheck(this.value, this.initialValueDecode);
         this.#kupManager.debug.logLoad(this, true);
     }
 

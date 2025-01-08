@@ -9,26 +9,28 @@ export function getIdOfItemByDisplayMode(
     mode: ItemsDisplayMode,
     separator: string
 ): string {
-    if (mode == ItemsDisplayMode.CODE) {
-        return item.id;
+    const { id, value } = item;
+
+    if (!id && value) {
+        return value;
     }
-    if (mode == ItemsDisplayMode.DESCRIPTION) {
-        return item.value;
+    if (id && !value) {
+        return id;
     }
-    if (
-        mode == ItemsDisplayMode.CODE_AND_DESC ||
-        mode == ItemsDisplayMode.CODE_AND_DESC_ALIAS
-    ) {
-        if (item.id || item.value) {
-            return item.id + separator + item.value;
-        }
+
+    switch (mode) {
+        case ItemsDisplayMode.CODE:
+            return id;
+        case ItemsDisplayMode.DESCRIPTION:
+            return value;
+        case ItemsDisplayMode.CODE_AND_DESC:
+        case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+            return id && value ? id + separator + value : id || value;
+        case ItemsDisplayMode.DESC_AND_CODE:
+            return value && id ? value + separator + id : value || id;
+        default:
+            return id;
     }
-    if (mode == ItemsDisplayMode.DESC_AND_CODE) {
-        if (item.id || item.value) {
-            return item.value + separator + item.id;
-        }
-    }
-    return item.id;
 }
 
 export function consistencyCheck(
