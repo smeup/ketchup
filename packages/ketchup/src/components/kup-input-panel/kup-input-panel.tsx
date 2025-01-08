@@ -416,8 +416,9 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
+                // 12px is added due to the chance that the horizontal scrollbar will be rendered
                 styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT
+                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT + 12
                 }px`;
             } else {
                 if (!layout.sectionsType) {
