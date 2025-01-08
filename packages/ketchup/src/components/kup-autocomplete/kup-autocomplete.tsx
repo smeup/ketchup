@@ -528,7 +528,6 @@ export class KupAutocomplete {
                 this.selectMode,
                 this.displayMode
             );
-            console.log('ret', ret);
             if (ret.exists || this.allowInconsistentValues) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;

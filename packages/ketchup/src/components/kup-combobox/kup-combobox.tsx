@@ -487,7 +487,6 @@ export class KupCombobox {
                 this.selectMode,
                 this.displayMode
             );
-            console.log('ret', ret);
             if (ret.exists) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
