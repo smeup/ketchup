@@ -1,6 +1,7 @@
 import Mexp from 'math-expression-evaluator';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { getRegExpFromString } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -24,11 +25,10 @@ export function customFormula(
             );
             return NaN;
         }
-        const regex = new RegExp(
-            formulaColumnName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-            'g'
+        formula = formula.replace(
+            getRegExpFromString(formulaColumnName),
+            '(' + value.toString() + ')'
         );
-        formula = formula.replace(regex, '(' + value.toString() + ')');
     }
     formula = formula.replace(/[\[\]']+/g, '');
     // Calculate formula
