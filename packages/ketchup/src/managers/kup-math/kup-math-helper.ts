@@ -1,6 +1,7 @@
 import Mexp from 'math-expression-evaluator';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { getRegExpFromString } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -14,16 +15,23 @@ export function customFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
-    const keys = Object.keys(row);
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        let value: number = row[key];
-        if (value != null && !isNaN(value)) {
-            let re: RegExp = new RegExp(key, 'g');
-            formula = formula.replace(re, value.toString());
+    // Replace formula column references with the actual values
+    for (const [formulaColumnName, value] of Object.entries(row)) {
+        if (value == null || isNaN(value)) {
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                `Error while evaluating the following formula!(" ${formula} "): ${formulaColumnName} is null or not a number`,
+                KupDebugCategory.WARNING
+            );
+            return NaN;
         }
+        formula = formula.replace(
+            getRegExpFromString(formulaColumnName),
+            '(' + value.toString() + ')'
+        );
     }
     formula = formula.replace(/[\[\]']+/g, '');
+    // Calculate formula
     try {
         const mexp = new Mexp();
         const lexedFormula = mexp.lex(formula);
@@ -32,7 +40,7 @@ export function customFormula(
     } catch (e) {
         dom.ketchup.debug.logMessage(
             'kup-data',
-            'Error while evaluating the following formula!(' + formula + ')',
+            `Error while evaluating the following formula!(" ${formula} "): ${e.message}`,
             KupDebugCategory.WARNING
         );
         return NaN;
