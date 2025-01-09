@@ -588,7 +588,10 @@ function setEditableCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
 
-            if (cell.shape === FCellShapes.INPUT_CHECKBOX) {
+            if (
+                cell.shape === FCellShapes.INPUT_CHECKBOX ||
+                cell.data?.legacyLook
+            ) {
                 return (
                     <input
                         checked={
