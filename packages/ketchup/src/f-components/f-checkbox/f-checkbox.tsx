@@ -20,6 +20,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
             props.checked && !props.indeterminate ? true : false,
         'checkbox--disabled': props.disabled ? true : false,
         'checkbox--indeterminate': props.indeterminate ? true : false,
+        'checkbox--legacy-look': props.legacyLook ? true : false,
     };
 
     const propsFImage: FImageProps = {
