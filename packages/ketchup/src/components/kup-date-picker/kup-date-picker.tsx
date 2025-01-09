@@ -290,7 +290,7 @@ export class KupDatePicker {
     }
 
     onKupTextFieldSubmit(e: KeyboardEvent) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
             this.refreshPickerValue(
                 (e.target as HTMLInputElement).value,
                 this.kupTextFieldSubmit
