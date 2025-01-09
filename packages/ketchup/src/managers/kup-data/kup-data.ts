@@ -292,7 +292,7 @@ export class KupData {
             }
 
             const isMatchFound = commands.some((command) => {
-                return this.object.compareObjects(command.obj, cell.obj);
+                return this.object.compareObjects(command.obj, cell?.obj);
             });
 
             return isMatchFound;
@@ -345,10 +345,14 @@ export class KupData {
          * @param { KupDataColumn[] } columns single column.
          * @returns { boolean } if COD_VER founded or not.
          */
-        hasCodVer: (columns: KupDataColumn[]) => {
-            return columns.some(
-                (col) => this.column.isCodVer(col) && this.column.isVisible(col)
-            );
+        hasCodVer: (columns: KupDataColumn[]): boolean => {
+            return columns
+                ? columns.some(
+                      (col) =>
+                          this.column.isCodVer(col) &&
+                          this.column.isVisible(col)
+                  )
+                : false;
         },
     };
     node = {
@@ -564,9 +568,9 @@ export class KupData {
          */
         compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
             return (
-                firstObj.k === secondObj.k &&
-                firstObj.t === secondObj.t &&
-                firstObj.p === secondObj.p
+                firstObj?.k === secondObj?.k &&
+                firstObj?.t === secondObj?.t &&
+                firstObj?.p === secondObj?.p
             );
         },
         /** check if obj t p k proprieties are empty

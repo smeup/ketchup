@@ -3710,11 +3710,11 @@ export class KupDataTable {
             }
         }
 
-        if (cell.isEditable !== null && cell.isEditable !== undefined) {
+        if (cell?.isEditable !== null && cell?.isEditable !== undefined) {
             return cell.isEditable;
         }
 
-        if (column.isEditable !== null && column.isEditable !== undefined) {
+        if (column?.isEditable !== null && column?.isEditable !== undefined) {
             return column.isEditable;
         }
 
@@ -5443,7 +5443,10 @@ export class KupDataTable {
                         indend.push(<span class="indent" />);
                     }
                 }
-                const cell = row.cells[name] ? row.cells[name] : null;
+                const cell = row.cells[name]
+                    ? row.cells[name]
+                    : ({} as KupDataTableCell);
+
                 cell.isEditable = this.#setCellEditability(
                     currentColumn,
                     row,
