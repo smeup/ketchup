@@ -278,7 +278,6 @@ export class KupAutocomplete {
                 node: ret.node,
             });
         }
-        this.#closeList();
     }
 
     onKupClick() {
