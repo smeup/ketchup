@@ -292,7 +292,7 @@ export class KupData {
             }
 
             const isMatchFound = commands.some((command) => {
-                return this.object.compareObjects(command.obj, cell?.obj);
+                return this.object.compareObjects(command.obj, cell.obj);
             });
 
             return isMatchFound;

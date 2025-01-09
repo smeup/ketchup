@@ -3710,11 +3710,11 @@ export class KupDataTable {
             }
         }
 
-        if (cell?.isEditable !== null && cell?.isEditable !== undefined) {
+        if (cell.isEditable !== null && cell.isEditable !== undefined) {
             return cell.isEditable;
         }
 
-        if (column?.isEditable !== null && column?.isEditable !== undefined) {
+        if (column.isEditable !== null && column.isEditable !== undefined) {
             return column.isEditable;
         }
 
