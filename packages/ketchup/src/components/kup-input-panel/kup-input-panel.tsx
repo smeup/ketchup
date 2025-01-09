@@ -13,6 +13,7 @@ import {
     h,
 } from '@stencil/core';
 import {
+    FObjectFieldEventPayload,
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
@@ -375,6 +376,30 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-searchpayload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldSearchPayload: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-opensearchmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldOpenSearchMenu: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-selectedmenuitem',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -2051,6 +2076,23 @@ export class KupInputPanel {
                 onKup-autocomplete-input={this.#getOptionHandler.bind(this)}
                 onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
                 onKup-combobox-iconclick={this.#getOptionHandler.bind(this)}
+                onKup-objectfield-searchpayload={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldSearchPayload.emit(e.detail);
+                }}
+                onKup-objectfield-opensearchmenu={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldOpenSearchMenu.emit(e.detail);
+                }}
+                onKup-objectfield-selectedmenuitem={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldSelectedMenuItem.emit(
+                        e.detail
+                    );
+                }}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(

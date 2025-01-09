@@ -180,6 +180,7 @@ import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
+import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1288,6 +1289,30 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellInput: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-searchpayload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSearchPayload: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-opensearchmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldOpenSearchMenu: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-selectedmenuitem',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
 
     /**
      * Closes any opened column menu.
@@ -6562,6 +6587,21 @@ export class KupDataTable {
                 }}
                 onKup-cell-iconclick={(e: CustomEvent<FCellEventPayload>) => {
                     this.kupDataTableCellIconClick.emit(e.detail);
+                }}
+                onKup-objectfield-searchpayload={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSearchPayload.emit(e.detail);
+                }}
+                onKup-objectfield-opensearchmenu={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldOpenSearchMenu.emit(e.detail);
+                }}
+                onKup-objectfield-selectedmenuitem={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSelectedMenuItem.emit(e.detail);
                 }}
             >
                 <style>
