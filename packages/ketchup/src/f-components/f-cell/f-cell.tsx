@@ -974,7 +974,36 @@ function setCell(
                 />
             );
         case FCellTypes.EDITOR:
-            return <div innerHTML={cell.value}></div>;
+            const onChange = (e: InputEvent) =>
+                cellEvent(e, props, cellType, FCellEvents.UPDATE);
+            const onInput = (e: InputEvent) => {
+                cell.data?.onInput?.(e);
+                cellEvent(e, props, cellType, FCellEvents.INPUT);
+            };
+            const onKeyDown = (e: KeyboardEvent) => {
+                cell.data?.onKeyDown?.(e);
+                if (e.key === 'Enter') {
+                    cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                }
+            };
+            const value = cell.value;
+            return (
+                <FTextField
+                    {...cell.data}
+                    textArea={true}
+                    label={column.title}
+                    fullWidth={isFullWidth(props) ? true : false}
+                    maxLength={cell.data.maxLength}
+                    value={value}
+                    onChange={onChange}
+                    onInput={onInput}
+                    onKeyDown={onKeyDown}
+                    onBlur={(e: FocusEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.BLUR)
+                    }
+                />
+            );
+
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
