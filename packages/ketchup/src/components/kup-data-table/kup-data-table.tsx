@@ -211,7 +211,6 @@ export class KupDataTable {
                 this.forceOneLine = state.forceOneLine;
                 this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
-                this.autoFilterOn = state.autoFilterOn;
                 this.headerIsPersistent = state.headerIsPersistent;
                 this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
@@ -332,15 +331,6 @@ export class KupDataTable {
                 )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.autoFilterOn,
-                    this.autoFilterOn
-                )
-            ) {
-                this.state.autoFilterOn = this.autoFilterOn;
                 somethingChanged = true;
             }
             if (
@@ -634,10 +624,6 @@ export class KupDataTable {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-    /**
-     * The minimum number of rows for the global filter to appear.
-     */
-    @Prop() autoFilterOn: number = 50;
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
@@ -1062,6 +1048,8 @@ export class KupDataTable {
     #MESSAGE_ID: string = 'message';
     #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
     #INSERT_PREFIX = 'insert_';
+
+    #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
 
     #eventBlurNames = new Map<FCellShapes, string>([
         [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
@@ -6565,8 +6553,7 @@ export class KupDataTable {
 
         const useGlobalFilter: boolean =
             this.globalFilter ||
-            this.#rowsLength >= this.autoFilterOn ||
-            !!this.globalFilterValue;
+            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
 
         const compCreated = (
             <Host

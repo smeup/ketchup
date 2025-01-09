@@ -1469,10 +1469,6 @@ export namespace Components {
          */
         "autoFillMissingCells": boolean;
         /**
-          * The minimum number of rows for the global filter to appear.
-         */
-        "autoFilterOn": number;
-        /**
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
@@ -7294,10 +7290,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "autoFillMissingCells"?: boolean;
-        /**
-          * The minimum number of rows for the global filter to appear.
-         */
-        "autoFilterOn"?: number;
         /**
           * Sets the commands for the rows
          */
