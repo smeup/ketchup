@@ -987,20 +987,17 @@ function setCell(
                 }
             };
             const value = cell.value;
-
             return (
                 <FTextField
                     {...cell.data}
                     textArea={true}
+                    label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
                     value={value}
                     onChange={onChange}
                     onInput={onInput}
                     onKeyDown={onKeyDown}
-                    onIconClick={(e: MouseEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)
-                    }
                     onBlur={(e: FocusEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.BLUR)
                     }
