@@ -13,7 +13,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[vue]": {
-        "editor.defaultFormatter": "octref.vetur"
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -29,5 +29,5 @@
     },
     "[scss]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
+    }
 }

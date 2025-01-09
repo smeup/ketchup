@@ -1,92 +1,92 @@
 :host {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #kup-component {
-    height: 100%;
+  height: 100%;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
-    > * {
-        margin-left: 0.5em;
-    }
+  > * {
+    margin-left: 0.5em;
+  }
 }
 
 .form {
-    display: grid;
-    height: 100%;
+  display: grid;
+  height: 100%;
 }
 
 .form-dropzone {
-    padding: 1em;
-    grid-gap: 0.5em;
-    border: 1px solid var(--kup-primary-color);
-    height: auto;
+  padding: 1em;
+  grid-gap: 0.5em;
+  border: 1px solid var(--kup-primary-color);
+  height: auto;
 }
 
 .section {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 .section-header {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
-    > * {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
+    > .section-header-actions {
+      display: flex;
+      justify-content: end;
 
-        > .section-header-actions {
-            display: flex;
-            justify-content: end;
-    
-            > * {
-                margin-top: auto;
-                margin-bottom: auto;
-            }
-        }
-    }    
+      > * {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    }
+  }
 }
 
 .section-body {
-    display: grid;
+  display: grid;
 }
 
 .section-dropzone {
-    border: 1px solid var(--kup-primary-color);
+  border: 1px solid var(--kup-primary-color);
 }
 
 .section-draggable {
-    border: 1px solid var(--kup-secondary-color);
-    padding: 1em;
+  border: 1px solid var(--kup-secondary-color);
+  padding: 1em;
 }
 
 .section-placeholder {
-    background-color: rgba(var(--kup-secondary-color-rgb), 0.5);
-    min-height: 1em;
-    min-width: 1em;
+  background-color: rgba(var(--kup-secondary-color-rgb), 0.5);
+  min-height: 1em;
+  min-width: 1em;
 }
 
 .component {
-    height: fit-content;
-    padding: 1em;
-    margin: 0.5em;
+  height: fit-content;
+  padding: 1em;
+  margin: 0.5em;
 }
 
 .layout-row {
-    grid-auto-flow: column;
-    grid-template-columns: min-content;
+  grid-auto-flow: column;
+  grid-template-columns: min-content;
 }
 
 .layout-column {
-    grid-auto-flow: row;
-    grid-template-rows: min-content;
+  grid-auto-flow: row;
+  grid-template-rows: min-content;
 }

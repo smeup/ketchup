@@ -1,20 +1,20 @@
-export interface QlikServer {    
-    host: string,
-    port: string,
-    prefix: string,
-    isSecure: boolean
+export interface QlikServer {
+    host: string;
+    port: string;
+    prefix: string;
+    isSecure: boolean;
 }
 
 export interface KupQlikGrid {
-    rows:[
+    rows: [
         {
-            columns:[
+            columns: [
                 {
-                    obj: string,
-                    colDim: number
-                    size: string
+                    obj: string;
+                    colDim: number;
+                    size: string;
                 }
-            ]
+            ];
         }
-    ]    
+    ];
 }

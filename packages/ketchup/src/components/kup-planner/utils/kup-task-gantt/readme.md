@@ -1,7 +1,5 @@
 # kup-task-gantt
 
-
-
 <!-- Auto Generated Below -->
 
 

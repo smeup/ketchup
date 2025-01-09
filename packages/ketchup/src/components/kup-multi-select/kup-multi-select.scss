@@ -1,0 +1,15 @@
+/**
+* NOTE: These variables are used in the related f-component.
+*
+* @prop --kup-multi-select-font-family: Sets font family of the multi-select's label.
+* @prop --kup-multi-select-font-size: Sets font size of the multi-select's label.
+* @prop --kup-multi-select-font-weight: Sets font weight of the multi-select's label.
+* @prop --kup-multi-select-label-color: Sets text color of the multi-select's label.
+* @prop --kup-multi-select-primary-color: Sets primary color of the component.
+* @prop --kup-multi-select-primary-color-rgb: Sets primary color RGB values of the component.
+* @prop --kup-multi-select-thumb-color: Sets thumb color.
+*/
+
+:host {
+  display: block;
+}

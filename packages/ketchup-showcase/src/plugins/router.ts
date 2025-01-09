@@ -256,6 +256,12 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/form/Form.vue`),
   },
   {
+    path: `/multiselect`,
+    name: 'multiselect',
+    component: () =>
+      import(`@/views/components/advanced/multiselect/MultiSelect.vue`),
+  },
+  {
     path: `/imagelist`,
     name: 'imagelist',
     component: () =>

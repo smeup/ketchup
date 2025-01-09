@@ -39,7 +39,7 @@
 }
 
 :host(.#{$kup-class-warning}) {
---kup-accordion-primary-color: var(--kup-warning-color-50);
+  --kup-accordion-primary-color: var(--kup-warning-color-50);
   --kup-accordion-primary-color-rgb: var(--kup-warning-color-50-rgb);
   --kup-accordion-text-on-primary-color: white;
 }

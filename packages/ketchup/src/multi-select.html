@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Section-3 Component</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
+
+        <h4>Section-3 Component</h4>
+
+        <div class="section-3">
+            <!-- Filters Tab -->
+            <div class="card-view view-1 visible">
+                <div class="sub-field">
+                    <!-- Example: Datepicker Components -->
+                    <kup-text-field id="textfield-filter"></kup-text-field>
+                    <kup-text-field id="textfield-from"></kup-text-field>
+                    <kup-text-field id="textfield-to"></kup-text-field>
+                </div>
+                <div class="sub-checkbox">
+                    <!-- Example: Checkbox Components -->
+                    <kup-checkbox id="checkbox-example"></kup-checkbox>
+                </div>
+            </div>
+
+            <!-- Columns Tab -->
+            <div class="card-view view-2">
+                <div class="sub-button">
+                    <kup-button id="button-remove"></kup-button>
+                    <kup-button id="button-group"></kup-button>
+                </div>
+                <div class="sub-formula">
+                    <kup-text-field id="textfield-formula"></kup-text-field>
+                </div>
+                <div class="sub-chip">
+                    <kup-chip type="input" id="columns-list"></kup-chip>
+                    <kup-button id="button-apply"></kup-button>
+                </div>
+                <div class="sub-tree">
+                    <kup-tree class="kup-full-width" globalFilter id="extra-columns"></kup-tree>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="card-view view-3">
+                <div class="sub-autocomplete">
+                    <kup-autocomplete id="autocomplete-example"></kup-autocomplete>
+                </div>
+                <div class="sub-switch">
+                    <kup-switch id="switch-key"></kup-switch>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

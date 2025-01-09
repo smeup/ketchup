@@ -138,6 +138,7 @@ Type: `Promise<void>`
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-multi-select](../kup-multi-select)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
@@ -216,6 +217,7 @@ graph TD;
   kup-input-panel --> kup-dialog
   kup-lazy --> kup-dialog
   kup-magic-box --> kup-dialog
+  kup-multi-select --> kup-dialog
   kup-nav-bar --> kup-dialog
   kup-numeric-picker --> kup-dialog
   kup-object-field --> kup-dialog

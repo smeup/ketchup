@@ -1,7 +1,5 @@
 # kup-activity-timeline
 
-
-
 <!-- Auto Generated Below -->
 
 

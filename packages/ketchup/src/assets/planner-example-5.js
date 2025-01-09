@@ -10,11 +10,11 @@ document.addEventListener('kup-button-click', () => {
 });
 
 document.addEventListener('kup-planner-datechange', (e) => {
-    console.log(e)
+    console.log(e);
 });
 
 document.addEventListener('kup-planner-phasedrop', (e) => {
-    console.log(e)
+    console.log(e);
 });
 
 const props = {
@@ -1621,7 +1621,7 @@ const props = {
     detailHours: ['INITHHMM', 'ENDHHMM'],
     phaseHours: ['INITHHMMSS', 'ENDHHMMSS'],
     taskHours: ['INITHHMM', 'ENDHHMM'],
-    scrollableTaskList: true
+    scrollableTaskList: true,
 };
 
 if (props) {

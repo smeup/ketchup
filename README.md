@@ -54,7 +54,6 @@ Ketchup repository is a monorepo multi-package repository managed with [Lerna](h
 
 ## Showcase
 
-
 Go to [Ketchup Showcase](https://smeup.github.io/ketchup/) to see our components live.<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting started

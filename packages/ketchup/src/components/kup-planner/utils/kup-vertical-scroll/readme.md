@@ -1,7 +1,5 @@
 # kup-vertical-scroll
 
-
-
 <!-- Auto Generated Below -->
 
 

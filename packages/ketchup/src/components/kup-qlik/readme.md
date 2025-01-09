@@ -1,7 +1,5 @@
 # kup-qlik
 
-
-
 <!-- Auto Generated Below -->
 
 

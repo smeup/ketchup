@@ -28,6 +28,7 @@
         "workbox-build": "7.3.0"
     },
     "dependencies": {
+        "@sme.up/ketchup": "^11.0.0-SNAPSHOT",
         "math-expression-evaluator": "^2.0.6"
     },
     "scripts": {

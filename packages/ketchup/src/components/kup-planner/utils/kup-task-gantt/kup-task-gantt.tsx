@@ -77,7 +77,11 @@ export class TaskGantt {
     }
 
     render() {
-        const newBarProps = { ...this.barProps, gridProps: this.gridProps, phaseDragScroll: this.phaseDragScroll };
+        const newBarProps = {
+            ...this.barProps,
+            gridProps: this.gridProps,
+            phaseDragScroll: this.phaseDragScroll,
+        };
         return (
             <div
                 class="ganttVerticalContainer"

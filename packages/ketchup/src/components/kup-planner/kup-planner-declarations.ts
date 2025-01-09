@@ -143,7 +143,7 @@ export const defaultStylingOptions = {
     barProgressSelectedColor: '#A2A415',
     barBackgroundColor: '#A2A415',
     barBackgroundSelectedColor: '#A2A415',
-    barDropZoneColor: '#4d9f0240'
+    barDropZoneColor: '#4d9f0240',
 };
 
 export interface KupPlannerDatesSanitized {
@@ -408,7 +408,7 @@ export interface KupPlannerEventOption {
         originalPhaseData: KupPlannerTask,
         originalTaskData: KupPlannerTask,
         finalPhaseData: KupPlannerTask,
-        destinationData: KupPlannerTask,
+        destinationData: KupPlannerTask
     ) => void | boolean | Promise<void> | Promise<boolean>;
 }
 
@@ -503,7 +503,7 @@ export interface KupPlannerBarTask extends KupPlannerTask {
         progressColor: string;
         progressSelectedColor: string;
     };
-    ySecondary?: number 
+    ySecondary?: number;
 }
 
 export type KupPlannerTaskTypeInternal = KupPlannerTaskType | 'smalltask';
@@ -664,7 +664,7 @@ export type KupPlannerBarDisplayProps = {
     xSecondary?: number;
     widthSecondary?: number;
     showSecondaryDates: boolean;
-    ySecondary?: number
+    ySecondary?: number;
 };
 
 export type KupPlannerBarDateHandleProps = {

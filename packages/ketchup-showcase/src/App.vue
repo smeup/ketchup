@@ -396,6 +396,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'multiselect',
+                  },
+                },
+                icon: 'file-tree',
+                value: 'Multi Select',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'imagelist',
                   },
                 },

@@ -1,7 +1,5 @@
 # kup-editor
 
-
-
 <!-- Auto Generated Below -->
 
 

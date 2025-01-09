@@ -1,7 +1,5 @@
 # kup-magic-box
 
-
-
 <!-- Auto Generated Below -->
 
 

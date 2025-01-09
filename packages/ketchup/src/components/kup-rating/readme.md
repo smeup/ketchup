@@ -1,7 +1,5 @@
 # kup-rating
 
-
-
 <!-- Auto Generated Below -->
 
 

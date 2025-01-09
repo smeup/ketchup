@@ -42,7 +42,7 @@ export enum KupCalendarOptions {
  */
 export type KupCalendarColumnsProp = {
     [key in KupCalendarOptions]: string;
-}
+};
 /**
  * Dataset of the calendar.
  */

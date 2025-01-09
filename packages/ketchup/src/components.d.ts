@@ -47,6 +47,8 @@ import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
+import { KupMultiSelectEventPayload } from "./components/kup-multi-select/kup-multi-select-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -54,7 +56,6 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
-import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode, KupTabbarStyling } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload, KupToolbarTreeNode } from "./components/kup-toolbar/kup-toolbar-declarations";
@@ -105,6 +106,8 @@ export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
+export { KupMultiSelectEventPayload } from "./components/kup-multi-select/kup-multi-select-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 export { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -112,7 +115,6 @@ export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
-export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode, KupTabbarStyling } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload, KupToolbarTreeNode } from "./components/kup-toolbar/kup-toolbar-declarations";
@@ -3116,6 +3118,17 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KupMultiSelect {
+        "checked": boolean;
+        "customStyle": string;
+        "disabled": boolean;
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "label": string;
+        "leadingLabel": boolean;
+        "refresh": () => Promise<void>;
+        "setProps": (props: GenericObject) => Promise<void>;
+        "sizing": FSwitchSizing;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -4843,6 +4856,10 @@ export interface KupListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupListElement;
 }
+export interface KupMultiSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupMultiSelectElement;
+}
 export interface KupNavBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNavBarElement;
@@ -5615,6 +5632,25 @@ declare global {
         prototype: HTMLKupMagicBoxElement;
         new (): HTMLKupMagicBoxElement;
     };
+    interface HTMLKupMultiSelectElementEventMap {
+        "kup-multi-select-blur": KupMultiSelectEventPayload;
+        "kup-multi-select-change": KupMultiSelectEventPayload;
+        "kup-multi-select-focus": KupMultiSelectEventPayload;
+    }
+    interface HTMLKupMultiSelectElement extends Components.KupMultiSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupMultiSelectElementEventMap>(type: K, listener: (this: HTMLKupMultiSelectElement, ev: KupMultiSelectCustomEvent<HTMLKupMultiSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupMultiSelectElementEventMap>(type: K, listener: (this: HTMLKupMultiSelectElement, ev: KupMultiSelectCustomEvent<HTMLKupMultiSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupMultiSelectElement: {
+        prototype: HTMLKupMultiSelectElement;
+        new (): HTMLKupMultiSelectElement;
+    };
     interface HTMLKupNavBarElementEventMap {
         "kup-navbar-ready": KupEventPayload;
         "kup-navbar-resize": KupEventPayload;
@@ -6097,6 +6133,7 @@ declare global {
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
+        "kup-multi-select": HTMLKupMultiSelectElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
@@ -8631,6 +8668,17 @@ declare namespace LocalJSX {
          */
         "data"?: KupDataDataset;
     }
+    interface KupMultiSelect {
+        "checked"?: boolean;
+        "customStyle"?: string;
+        "disabled"?: boolean;
+        "label"?: string;
+        "leadingLabel"?: boolean;
+        "onKup-multi-select-blur"?: (event: KupMultiSelectCustomEvent<KupMultiSelectEventPayload>) => void;
+        "onKup-multi-select-change"?: (event: KupMultiSelectCustomEvent<KupMultiSelectEventPayload>) => void;
+        "onKup-multi-select-focus"?: (event: KupMultiSelectCustomEvent<KupMultiSelectEventPayload>) => void;
+        "sizing"?: FSwitchSizing;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -10046,6 +10094,7 @@ declare namespace LocalJSX {
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
+        "kup-multi-select": KupMultiSelect;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
@@ -10125,6 +10174,7 @@ declare module "@stencil/core" {
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
+            "kup-multi-select": LocalJSX.KupMultiSelect & JSXBase.HTMLAttributes<HTMLKupMultiSelectElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
