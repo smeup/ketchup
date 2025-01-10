@@ -252,6 +252,9 @@
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
         outline: 2px solid var(--kup_textfield_outline_color);
+        &.mdc-text-field--error {
+          outline: 2px solid var(--kup-danger-color-60);
+        }
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
