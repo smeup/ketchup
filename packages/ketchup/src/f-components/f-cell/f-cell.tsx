@@ -873,7 +873,7 @@ function setEditableCell(
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
             const value =
                 cellType === FCellTypes.NUMBER && cell.value
-                    ? dom.ketchup.math.numberifySafe(cell.value).toString()
+                    ? getCellValueForDisplay(column, cell)
                     : cell.value;
             if (cell.shape === FCellShapes.INPUT_FIELD) {
                 return (
