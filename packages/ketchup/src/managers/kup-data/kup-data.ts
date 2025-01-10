@@ -568,9 +568,9 @@ export class KupData {
          */
         compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
             return (
-                firstObj?.k === secondObj?.k &&
-                firstObj?.t === secondObj?.t &&
-                firstObj?.p === secondObj?.p
+                firstObj.k === secondObj.k &&
+                firstObj.t === secondObj.t &&
+                firstObj.p === secondObj.p
             );
         },
         /** check if obj t p k proprieties are empty
