@@ -700,6 +700,34 @@ function setEditableCell(
                     ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 />
             );
+
+        case FCellTypes.EDITOR:
+            return (
+                <FTextField
+                    {...cell.data}
+                    textArea={true}
+                    label={column.title}
+                    fullWidth={isFullWidth(props) ? true : false}
+                    maxLength={cell.data.maxLength}
+                    value={cell.value}
+                    onChange={(e: InputEvent) => {
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                    }}
+                    onKeyDown={(e: KeyboardEvent) => {
+                        cell.data?.onKeyDown?.(e);
+                        if (e.key === 'Enter') {
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                        }
+                    }}
+                    onInput={(e: InputEvent) => {
+                        cell.data?.onInput?.(e);
+                        cellEvent(e, props, cellType, FCellEvents.INPUT);
+                    }}
+                    onBlur={(e: FocusEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.BLUR)
+                    }
+                />
+            );
         case FCellTypes.MULTI_AUTOCOMPLETE:
             return (
                 <kup-chip
@@ -977,36 +1005,7 @@ function setCell(
                 />
             );
         case FCellTypes.EDITOR:
-            const onChange = (e: InputEvent) =>
-                cellEvent(e, props, cellType, FCellEvents.UPDATE);
-            const onInput = (e: InputEvent) => {
-                cell.data?.onInput?.(e);
-                cellEvent(e, props, cellType, FCellEvents.INPUT);
-            };
-            const onKeyDown = (e: KeyboardEvent) => {
-                cell.data?.onKeyDown?.(e);
-                if (e.key === 'Enter') {
-                    cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                }
-            };
-            const value = cell.value;
-            return (
-                <FTextField
-                    {...cell.data}
-                    textArea={true}
-                    label={column.title}
-                    fullWidth={isFullWidth(props) ? true : false}
-                    maxLength={cell.data.maxLength}
-                    value={value}
-                    onChange={onChange}
-                    onInput={onInput}
-                    onKeyDown={onKeyDown}
-                    onBlur={(e: FocusEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.BLUR)
-                    }
-                />
-            );
-
+            return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
