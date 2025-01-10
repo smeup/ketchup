@@ -5446,11 +5446,7 @@ export class KupDataTable {
                     }
                 }
                 const cell = row.cells[name] ? row.cells[name] : null;
-                cell.isEditable = this.#setCellEditability(
-                    currentColumn,
-                    row,
-                    cell
-                );
+
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -5458,6 +5454,11 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.isEditable = this.#setCellEditability(
+                    currentColumn,
+                    row,
+                    cell
+                );
                 cell.data = {
                     ...cell.data,
                     legacyLook: this.legacyLook,
