@@ -253,6 +253,7 @@ export class KupCombobox {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
         } else {
+            this.#openList();
             this.kupIconClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -260,7 +261,6 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
-            this.#openList();
         }
     }
 

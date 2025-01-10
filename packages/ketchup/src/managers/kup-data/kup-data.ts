@@ -345,10 +345,14 @@ export class KupData {
          * @param { KupDataColumn[] } columns single column.
          * @returns { boolean } if COD_VER founded or not.
          */
-        hasCodVer: (columns: KupDataColumn[]) => {
-            return columns.some(
-                (col) => this.column.isCodVer(col) && this.column.isVisible(col)
-            );
+        hasCodVer: (columns: KupDataColumn[]): boolean => {
+            return columns
+                ? columns.some(
+                      (col) =>
+                          this.column.isCodVer(col) &&
+                          this.column.isVisible(col)
+                  )
+                : false;
         },
     };
     node = {

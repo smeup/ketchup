@@ -1345,10 +1345,18 @@ export class KupInputPanel {
         return configCMandACP;
     }
 
-    #getOptionHandler({ detail }: CustomEvent<KupAutocompleteEventPayload>) {
+    #getOptionHandler(
+        { detail }: CustomEvent<KupAutocompleteEventPayload>,
+        checkList = false
+    ) {
         const cell = this.#getCell(detail.id) as KupInputPanelCell;
+        let triggerCallback = true;
 
-        if (cell.fun) {
+        if (checkList) {
+            triggerCallback = !detail.comp.data['kup-list'].data.length;
+        }
+
+        if (cell.fun && triggerCallback) {
             this.#getAutocompleteEventCallback(detail, cell);
         }
     }
@@ -2075,7 +2083,9 @@ export class KupInputPanel {
                 }}
                 onKup-autocomplete-input={this.#getOptionHandler.bind(this)}
                 onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
-                onKup-combobox-iconclick={this.#getOptionHandler.bind(this)}
+                onKup-combobox-iconclick={(e) =>
+                    this.#getOptionHandler(e, true)
+                }
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>
                 ) => {

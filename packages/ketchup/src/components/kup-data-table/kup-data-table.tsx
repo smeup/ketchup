@@ -1050,6 +1050,8 @@ export class KupDataTable {
     #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
     #INSERT_PREFIX = 'insert_';
 
+    #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
+
     #eventBlurNames = new Map<FCellShapes, string>([
         [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
         [FCellShapes.CHIP, 'kup-textfield-blur'],
@@ -5469,11 +5471,7 @@ export class KupDataTable {
                     }
                 }
                 const cell = row.cells[name] ? row.cells[name] : null;
-                cell.isEditable = this.#setCellEditability(
-                    currentColumn,
-                    row,
-                    cell
-                );
+
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -5481,6 +5479,11 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.isEditable = this.#setCellEditability(
+                    currentColumn,
+                    row,
+                    cell
+                );
                 cell.data = {
                     ...cell.data,
                     legacyLook: this.legacyLook,
@@ -6574,6 +6577,10 @@ export class KupDataTable {
             }
         };
 
+        const useGlobalFilter: boolean =
+            this.globalFilter ||
+            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
+
         const compCreated = (
             <Host
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
@@ -6613,7 +6620,7 @@ export class KupDataTable {
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
-                        {this.globalFilter ? (
+                        {useGlobalFilter ? (
                             <div id="global-filter">
                                 <FTextField
                                     fullWidth={true}
