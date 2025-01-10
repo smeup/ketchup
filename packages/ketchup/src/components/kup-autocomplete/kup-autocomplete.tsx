@@ -268,14 +268,26 @@ export class KupAutocomplete {
 
     onKupChange(value: string) {
         this.#doConsistencyCheck = true;
-        const ret = this.#consistencyCheck(value, undefined, true);
-        if (ret.exists || this.allowInconsistentValues) {
+        if (value) {
+            const ret = this.#consistencyCheck(value, undefined, true);
+            if (ret.exists || this.allowInconsistentValues) {
+                this.kupChange.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    node: ret.node,
+                });
+            }
+        } else {
+            this.value = '';
+            this.displayedValue = '';
             this.kupChange.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
                 inputValue: this.#textfieldEl.value,
-                node: ret.node,
+                node: { value: '' },
             });
         }
     }
