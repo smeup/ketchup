@@ -13,7 +13,10 @@ export class KupKeysBinding {
         this.#keysEvents = new Map();
         this.#pressedKeys = new Set();
         document.addEventListener('keydown', this.#checkEvent.bind(this));
-        document.addEventListener('keyup', this.#clearKey.bind(this));
+        document.addEventListener('keyup', () => {
+            this.#pressedKeys.clear();
+            this.#clearKey.bind(this);
+        });
         window.addEventListener('blur', () => {
             this.#pressedKeys.clear();
         });
@@ -46,6 +49,8 @@ export class KupKeysBinding {
     #checkEvent(keyboardEvent: KeyboardEvent) {
         const keyPressed = keyboardEvent.key.toLowerCase();
         this.#pressedKeys.add(keyPressed);
+        console.log('press key', this.#keysEvents, this.#getKeysCombination());
+
         const keyEvent = this.#keysEvents.get(this.#getKeysCombination());
         if (keyEvent && !keyEvent.isLunched) {
             keyboardEvent.preventDefault();
