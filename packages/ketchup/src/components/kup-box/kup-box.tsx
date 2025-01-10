@@ -1918,6 +1918,7 @@ export class KupBox {
         }
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
+        this.initWithPersistedState();
         this.onDataChanged();
         this.adjustPaginator();
         if (document.querySelector('.header')) {
