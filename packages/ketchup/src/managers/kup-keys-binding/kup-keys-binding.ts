@@ -49,8 +49,6 @@ export class KupKeysBinding {
     #checkEvent(keyboardEvent: KeyboardEvent) {
         const keyPressed = keyboardEvent.key.toLowerCase();
         this.#pressedKeys.add(keyPressed);
-        console.log('press key', this.#keysEvents, this.#getKeysCombination());
-
         const keyEvent = this.#keysEvents.get(this.#getKeysCombination());
         if (keyEvent && !keyEvent.isLunched) {
             keyboardEvent.preventDefault();
