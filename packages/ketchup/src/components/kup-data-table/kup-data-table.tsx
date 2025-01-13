@@ -180,6 +180,7 @@ import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
+import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1049,6 +1050,8 @@ export class KupDataTable {
     #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
     #INSERT_PREFIX = 'insert_';
 
+    #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
+
     #eventBlurNames = new Map<FCellShapes, string>([
         [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
         [FCellShapes.CHIP, 'kup-textfield-blur'],
@@ -1288,6 +1291,30 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellInput: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-searchpayload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSearchPayload: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-opensearchmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldOpenSearchMenu: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-selectedmenuitem',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
 
     /**
      * Closes any opened column menu.
@@ -5444,11 +5471,7 @@ export class KupDataTable {
                     }
                 }
                 const cell = row.cells[name] ? row.cells[name] : null;
-                cell.isEditable = this.#setCellEditability(
-                    currentColumn,
-                    row,
-                    cell
-                );
+
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -5456,6 +5479,11 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.isEditable = this.#setCellEditability(
+                    currentColumn,
+                    row,
+                    cell
+                );
                 cell.data = {
                     ...cell.data,
                     legacyLook: this.legacyLook,
@@ -6549,6 +6577,10 @@ export class KupDataTable {
             }
         };
 
+        const useGlobalFilter: boolean =
+            this.globalFilter ||
+            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
+
         const compCreated = (
             <Host
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
@@ -6563,6 +6595,21 @@ export class KupDataTable {
                 onKup-cell-iconclick={(e: CustomEvent<FCellEventPayload>) => {
                     this.kupDataTableCellIconClick.emit(e.detail);
                 }}
+                onKup-objectfield-searchpayload={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSearchPayload.emit(e.detail);
+                }}
+                onKup-objectfield-opensearchmenu={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldOpenSearchMenu.emit(e.detail);
+                }}
+                onKup-objectfield-selectedmenuitem={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSelectedMenuItem.emit(e.detail);
+                }}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
@@ -6573,7 +6620,7 @@ export class KupDataTable {
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
-                        {this.globalFilter ? (
+                        {useGlobalFilter ? (
                             <div id="global-filter">
                                 <FTextField
                                     fullWidth={true}

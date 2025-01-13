@@ -588,7 +588,10 @@ function setEditableCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
 
-            if (cell.shape === FCellShapes.INPUT_CHECKBOX) {
+            if (
+                cell.shape === FCellShapes.INPUT_CHECKBOX ||
+                cell.data?.legacyLook
+            ) {
                 return (
                     <input
                         checked={
@@ -695,6 +698,34 @@ function setEditableCell(
                     onkup-datepicker-textfieldsubmit={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                />
+            );
+
+        case FCellTypes.EDITOR:
+            return (
+                <FTextField
+                    {...cell.data}
+                    textArea={true}
+                    label={column.title}
+                    fullWidth={isFullWidth(props) ? true : false}
+                    maxLength={cell.data.maxLength}
+                    value={cell.value}
+                    onChange={(e: InputEvent) => {
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                    }}
+                    onKeyDown={(e: KeyboardEvent) => {
+                        cell.data?.onKeyDown?.(e);
+                        if (e.key === 'Enter') {
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                        }
+                    }}
+                    onInput={(e: InputEvent) => {
+                        cell.data?.onInput?.(e);
+                        cellEvent(e, props, cellType, FCellEvents.INPUT);
+                    }}
+                    onBlur={(e: FocusEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.BLUR)
+                    }
                 />
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -863,14 +894,14 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
             const value =
                 cellType === FCellTypes.NUMBER && cell.value
-                    ? dom.ketchup.math.numberifySafe(cell.value).toString()
+                    ? getCellValueForDisplay(column, cell)
                     : cell.value;
             if (cell.shape === FCellShapes.INPUT_FIELD) {
                 return (

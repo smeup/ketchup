@@ -242,6 +242,7 @@ export class KupCombobox {
             inputValue: this.#textfieldEl.value,
             node: ret.node,
         });
+        this.#closeList();
     }
 
     onKupClick() {
@@ -252,6 +253,7 @@ export class KupCombobox {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
         } else {
+            this.#openList();
             this.kupIconClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -259,7 +261,6 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
-            this.#openList();
         }
     }
 
@@ -478,41 +479,33 @@ export class KupCombobox {
     #consistencyCheck(
         idIn: string,
         idInDecode: string,
-        setValue: boolean
+        eventShouldSetValue: boolean
     ): ValueDisplayedValue {
-        let ret = consistencyCheck(
-            idIn,
-            this.data['kup-list'],
-            this.#listEl,
-            this.selectMode,
-            this.displayMode
-        );
-
-        if (ret.exists) {
-            if (setValue) {
+        if (idIn && idInDecode) {
+            this.displayedValue = getIdOfItemByDisplayMode(
+                { id: idIn, value: idInDecode },
+                this.displayMode,
+                ' - '
+            );
+        } else {
+            const ret = consistencyCheck(
+                idIn,
+                this.data['kup-list'],
+                this.#listEl,
+                this.selectMode,
+                this.displayMode
+            );
+            if (ret.exists && eventShouldSetValue) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
-            }
-            if (this.#listEl != null) {
-                this.#listEl.filter = ret.value;
-            }
-        } else {
-            this.value = idIn;
-            if (setValue) {
-                this.displayedValue = getIdOfItemByDisplayMode(
-                    { id: idIn, value: idInDecode ?? idIn },
-                    this.displayMode,
-                    ' - '
-                );
             } else {
                 this.displayedValue = idIn;
             }
             if (this.#listEl != null) {
                 this.#listEl.filter = ret.value;
             }
+            return ret;
         }
-
-        return ret;
     }
 
     #prepList() {

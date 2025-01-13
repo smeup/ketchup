@@ -146,6 +146,8 @@ export class KupList {
     #globalFilterTimeout: number;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
+    #previouslySelectedItemIndex: number;
+    #previouslySelectedItemReached: boolean;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -222,7 +224,16 @@ export class KupList {
             if (this.focused > this.#listItems.length - 1) {
                 this.focused = 0;
             }
-            this.#listItems[this.focused].focus();
+            if (
+                !this.#previouslySelectedItemReached &&
+                this.#listItems[this.#previouslySelectedItemIndex]
+            ) {
+                this.#previouslySelectedItemReached = true;
+                this.focused = this.#previouslySelectedItemIndex;
+                this.#listItems[this.#previouslySelectedItemIndex].focus();
+            } else if (this.#listItems[this.focused]) {
+                this.#listItems[this.focused].focus();
+            }
         }
     }
     /**
@@ -250,7 +261,16 @@ export class KupList {
             if (this.focused < 0) {
                 this.focused = this.#listItems.length - 1;
             }
-            this.#listItems[this.focused].focus();
+            if (
+                !this.#previouslySelectedItemReached &&
+                this.#listItems[this.#previouslySelectedItemIndex]
+            ) {
+                this.#previouslySelectedItemReached = true;
+                this.focused = this.#previouslySelectedItemIndex;
+                this.#listItems[this.#previouslySelectedItemIndex].focus();
+            } else if (this.#listItems[this.focused]) {
+                this.#listItems[this.focused].focus();
+            }
         }
     }
     /**
@@ -335,6 +355,8 @@ export class KupList {
                 item.selected = this.selected.includes(item.id);
             }
 
+            this.#previouslySelectedItemReached = false;
+            this.#previouslySelectedItemIndex = this.focused;
             this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -607,7 +629,7 @@ export class KupList {
     }
 
     #listenKeydown = (e: KeyboardEvent) => {
-        if (this.keyboardNavigation) {
+        if (this.keyboardNavigation && this.#listItems) {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();

@@ -16,11 +16,7 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import Editor, { EditorOptions } from '@toast-ui/editor';
 import {
     KupEditorEventPayload,
