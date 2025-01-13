@@ -88,6 +88,7 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
     getInpComponentAbsoluteHeight,
+    getLabelAbsoluteWidth,
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -984,7 +985,10 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
-        const absoluteWidth = getAbsoluteWidth(length);
+        const absoluteWidth =
+            fieldCell.cell.shape === FCellShapes.LABEL
+                ? getLabelAbsoluteWidth(length)
+                : getAbsoluteWidth(length);
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(field.absoluteRow);
         const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
