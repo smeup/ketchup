@@ -435,11 +435,9 @@ export class KupInputPanel {
         let rowContent: VNode[];
 
         if (!layout?.sections?.length) {
-            rowContent = inputPanelCell.cells
-                .filter(({ column }) => column.visible)
-                .map((cell) =>
-                    this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
-                );
+            rowContent = inputPanelCell.cells.map((cell) =>
+                this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
+            );
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
@@ -1068,18 +1066,20 @@ export class KupInputPanel {
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
-                  const cells = data.columns.map((column) => {
-                      const cell = structuredClone(row.cells[column.name]);
-                      const mappedCell = cell
-                          ? {
-                                ...cell,
-                                data: this.#setData(cell, column, layout),
-                                slotData: this.#slotData(cell, column),
-                                isEditable: true,
-                            }
-                          : null;
-                      return { column, cell: mappedCell };
-                  });
+                  const cells = data.columns
+                      .filter((column) => column.visible)
+                      .map((column) => {
+                          const cell = structuredClone(row.cells[column.name]);
+                          const mappedCell = cell
+                              ? {
+                                    ...cell,
+                                    data: this.#setData(cell, column, layout),
+                                    slotData: this.#slotData(cell, column),
+                                    isEditable: true,
+                                }
+                              : null;
+                          return { column, cell: mappedCell };
+                      });
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
