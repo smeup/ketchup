@@ -190,13 +190,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         ? 'number'
         : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
-    if (
-        props.inputType === 'number' &&
-        ((props.decimals && props.decimals > 0) ||
-            props.group ||
-            (props.integers && props.integers > 0))
-    ) {
+    if (props.inputType === 'number') {
         inputType = 'text';
+        props.inputMode = 'numeric';
         persManageForNumberFormat = true;
     }
     if (props.inputType === 'number') {
@@ -232,10 +228,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     </span>
                 ) : (
                     <input
+                        type={inputType}
                         inputmode={
                             props.inputMode ? props.inputMode : undefined
                         }
-                        type={inputType}
                         step={props.step}
                         min={props.min}
                         max={props.max}
