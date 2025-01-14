@@ -435,9 +435,11 @@ export class KupInputPanel {
         let rowContent: VNode[];
 
         if (!layout?.sections?.length) {
-            rowContent = inputPanelCell.cells.map((cell) =>
-                this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
-            );
+            rowContent = inputPanelCell.cells
+                .filter(({ column }) => column.visible)
+                .map((cell) =>
+                    this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
+                );
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
@@ -922,6 +924,10 @@ export class KupInputPanel {
             (cell) => cell.column.name === field.id
         );
 
+        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
+            return;
+        }
+
         const colSpan =
             +field.colSpan > 0
                 ? field.colSpan
@@ -952,10 +958,6 @@ export class KupInputPanel {
             'grid-row-end': rowEnd,
         };
 
-        if (!fieldCell || !fieldCell.cell) {
-            return;
-        }
-
         return (
             <div style={styleObj}>
                 {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
@@ -970,7 +972,8 @@ export class KupInputPanel {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
         );
-        if (!fieldCell || !fieldCell.cell) {
+
+        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
             return;
         }
 
@@ -1068,20 +1071,18 @@ export class KupInputPanel {
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
-                  const cells = data.columns
-                      .filter((column) => column.visible)
-                      .map((column) => {
-                          const cell = structuredClone(row.cells[column.name]);
-                          const mappedCell = cell
-                              ? {
-                                    ...cell,
-                                    data: this.#setData(cell, column, layout),
-                                    slotData: this.#slotData(cell, column),
-                                    isEditable: true,
-                                }
-                              : null;
-                          return { column, cell: mappedCell };
-                      });
+                  const cells = data.columns.map((column) => {
+                      const cell = structuredClone(row.cells[column.name]);
+                      const mappedCell = cell
+                          ? {
+                                ...cell,
+                                data: this.#setData(cell, column, layout),
+                                slotData: this.#slotData(cell, column),
+                                isEditable: true,
+                            }
+                          : null;
+                      return { column, cell: mappedCell };
+                  });
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
