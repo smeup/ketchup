@@ -1,10 +1,3 @@
-import numeral from 'numeral';
-import 'numeral/locales/chs';
-import 'numeral/locales/es';
-import 'numeral/locales/fr';
-import 'numeral/locales/it';
-import 'numeral/locales/pl';
-import 'numeral/locales/ru';
 import { KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -47,7 +40,6 @@ export class KupMath {
             });
         },
     };
-    numeral: typeof numeral;
 
     /**
      * Initializes KupMath.
@@ -55,25 +47,23 @@ export class KupMath {
     constructor(locale?: KupMathLocales) {
         this.locale = locale ? locale : KupMathLocales.en;
         this.managedComponents = new Set();
-        this.numeral = numeral;
-        this.numeral.locale(this.locale);
     }
     /**
-     * Sets the locale of the numeral instance. The locales available must be tied to the KupDates locales.
-     * @param {KupMathLocales} locale - Numeraljs locale string.
+     * Sets the locale. The locales available must be tied to the KupDates locales.
+     * @param {KupMathLocales} locale - locale string.
      */
     setLocale(locale: KupMathLocales): void {
         if (!Object.values(KupMathLocales).includes(locale)) {
-            locale = KupMathLocales.en;
+            // Fallback to en
             dom.ketchup.debug.logMessage(
                 'kup-math',
                 'Invalid locale (' + locale + ')! Defaulting to english.',
                 KupDebugCategory.WARNING
             );
+            locale = KupMathLocales.en;
         }
         this.locale = locale;
-        this.numeral.locale(locale);
-        this.managedComponents.forEach(function (comp) {
+        this.managedComponents.forEach((comp) => {
             if (comp.isConnected) {
                 comp.refresh();
             }
@@ -122,6 +112,36 @@ export class KupMath {
         }
         return data;
     }
+
+    parseNumberFormat(format: string): Intl.NumberFormatOptions {
+        // Example format strings: '0,0.00', '0,0', '0.000', ...
+        // This parser is simplistic; it only checks for comma group
+        // and counts how many 0's come after '.' to set decimal digits.
+        const options: Intl.NumberFormatOptions = {};
+
+        // If there's a comma in the integer part, enable grouping
+        if (format.includes(',')) {
+            options.useGrouping = true;
+        } else {
+            options.useGrouping = false;
+        }
+
+        // Count decimals from the part after '.'
+        const decimalIndex = format.indexOf('.');
+        if (decimalIndex > -1) {
+            const decimals = format.substring(decimalIndex + 1);
+            const digitCount = (decimals.match(/0/g) || []).length;
+            options.minimumFractionDigits = digitCount;
+            options.maximumFractionDigits = digitCount;
+        } else {
+            // If no dot, no decimal digits
+            options.minimumFractionDigits = 0;
+            options.maximumFractionDigits = 0;
+        }
+
+        return options;
+    }
+
     /**
      * Formats the input number with the specified format of the currently set locale.
      * @param {string | String | number} input - Input number which will be automatically "numberified".
@@ -144,7 +164,8 @@ export class KupMath {
                 format = '0,0';
             }
         }
-        return this.numeral(n).format(format);
+        const options = this.parseNumberFormat(format);
+        return new Intl.NumberFormat(this.locale, options).format(n);
     }
     /**
      * Create the pattern string for format a number
@@ -153,7 +174,7 @@ export class KupMath {
      * @returns {string} - formatter pattern
      */
     createFormatPattern(thousandPoint?: boolean, decimals?: number): string {
-        var format = '0';
+        let format = '0';
         if (thousandPoint) {
             format += ',0';
         }
@@ -174,7 +195,7 @@ export class KupMath {
         const numberWithGroupAndDecimalSeparator = 1000.1;
         return Intl.NumberFormat(this.locale)
             .formatToParts(numberWithGroupAndDecimalSeparator)
-            .find((part) => part.type === 'decimal').value;
+            .find((part) => part.type === 'decimal')?.value;
     }
 
     /**
@@ -185,7 +206,7 @@ export class KupMath {
         const numberWithGroupAndDecimalSeparator = 1000.1;
         return Intl.NumberFormat(this.locale)
             .formatToParts(numberWithGroupAndDecimalSeparator)
-            .find((part) => part.type === 'group').value;
+            .find((part) => part.type === 'group')?.value;
     }
 
     /**
@@ -271,13 +292,8 @@ export class KupMath {
 
             input = Number(input);
         }
-        let n = NaN;
-
-        const locale = this.numeral.locale();
-        this.numeral.locale(KupMathLocales.en);
-        n = this.numeral(input).value();
-        this.numeral.locale(locale);
-        if (n === null) {
+        const n = Number(input);
+        if (isNaN(n)) {
             return NaN;
         }
         return n;
@@ -444,9 +460,11 @@ export class KupMath {
         if (decimals == null || decimals == -1) {
             decimals = this.countDecimals(input);
         }
-        let nstr = this.format(input, this.createFormatPattern(true, decimals));
-        nstr = nstr + this.getNumericValueSuffix(type);
-        return nstr;
+        const formatted = this.format(
+            input,
+            this.createFormatPattern(true, decimals)
+        );
+        return formatted + this.getNumericValueSuffix(type);
     }
 
     /**
