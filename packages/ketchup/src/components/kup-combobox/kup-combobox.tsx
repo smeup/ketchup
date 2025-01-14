@@ -481,7 +481,7 @@ export class KupCombobox {
         idInDecode: string,
         eventShouldSetValue: boolean
     ): ValueDisplayedValue {
-        if (idIn && idInDecode) {
+        if (idIn != null && idInDecode != null) {
             this.displayedValue = getIdOfItemByDisplayMode(
                 { id: idIn, value: idInDecode },
                 this.displayMode,
