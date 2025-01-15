@@ -65,6 +65,7 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -899,11 +900,12 @@ function setEditableCell(
                 }
             };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
-            const value =
-                cellType === FCellTypes.NUMBER && cell.value
-                    ? getCellValueForDisplay(column, cell)
-                    : cell.value;
+
             if (cell.shape === FCellShapes.INPUT_FIELD) {
+                const value =
+                    cellType === FCellTypes.NUMBER && cell.value
+                        ? getCellValueForDisplay(column, cell)
+                        : cell.value;
                 return (
                     <input
                         class={'input-field'}
@@ -948,7 +950,7 @@ function setEditableCell(
                         decimals={props.column.decimals}
                         integers={props.column.integers}
                         group={props.column.group}
-                        value={value}
+                        value={cell.value}
                         onChange={onChange}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
@@ -981,6 +983,14 @@ function setCell(
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
+            if (content && content != '') {
+                return (
+                    <div class="f-cell__text">
+                        {adaptContentToDisplayMode(cell, content, ' - ')}
+                    </div>
+                );
+            }
+            return content;
         case FCellTypes.DATE:
         case FCellTypes.DATETIME:
         case FCellTypes.TIME:

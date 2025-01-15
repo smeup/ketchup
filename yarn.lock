@@ -3123,7 +3123,6 @@ __metadata:
     "@types/geojson": 7946.0.14
     "@types/jest": 27.0.3
     "@types/node": 18.16.0
-    "@types/numeral": 2.0.5
     "@types/react": ^18
     "@types/react-dom": ^18
     eslint: 8.46.0
@@ -3672,13 +3671,6 @@ __metadata:
   version: 2.4.4
   resolution: "@types/normalize-package-data@npm:2.4.4"
   checksum: 65dff72b543997b7be8b0265eca7ace0e34b75c3e5fee31de11179d08fa7124a7a5587265d53d0409532ecb7f7fba662c2012807963e1f9b059653ec2c83ee05
-  languageName: node
-  linkType: hard
-
-"@types/numeral@npm:2.0.5":
-  version: 2.0.5
-  resolution: "@types/numeral@npm:2.0.5"
-  checksum: 0ec9d195248da1865bae5f1939bf93d2464fd2ddc5171444266c66092efb7335031852005842ec4449e1ae5742cd9717cc3af117d6f8cd6e51f083bc08f35239
   languageName: node
   linkType: hard
 

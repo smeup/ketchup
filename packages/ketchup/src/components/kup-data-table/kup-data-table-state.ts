@@ -41,6 +41,7 @@ export class KupDataTableState implements KupState {
     showFooter: boolean = false;
     totals: TotalsMap;
     load: boolean = false;
+    visibleColumns: string[] = [];
 
     public toDebugString() {
         // TODO

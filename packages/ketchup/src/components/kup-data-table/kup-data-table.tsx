@@ -146,15 +146,11 @@ import {
     KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../managers/kup-interact/kup-interact-declarations';
-import {
-    KupDom,
-    KupManagerClickCb,
-} from '../../managers/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellEventPayload,
     FCellPadding,
     FCellShapes,
-    FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
@@ -231,6 +227,7 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = { ...state.totals };
+                this.visibleColumns = [...state.visibleColumns];
             }
         }
     }
@@ -507,6 +504,15 @@ export class KupDataTable {
                     },
                     ''
                 );
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.visibleColumns,
+                    this.visibleColumns
+                )
+            ) {
+                this.state.visibleColumns = [...this.visibleColumns];
                 somethingChanged = true;
             }
 
@@ -1498,12 +1504,9 @@ export class KupDataTable {
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
         if (this.visibleColumns?.length) {
-            const index = this.visibleColumns.findIndex(
-                (c) => c === column.name
+            this.visibleColumns = this.visibleColumns.filter(
+                (colName) => colName != column.name
             );
-            if (index) {
-                this.visibleColumns.splice(index, 1);
-            }
         }
         this.kupColumnRemove.emit({
             comp: this,
