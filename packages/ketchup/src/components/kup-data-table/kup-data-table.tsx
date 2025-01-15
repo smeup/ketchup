@@ -146,15 +146,11 @@ import {
     KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../managers/kup-interact/kup-interact-declarations';
-import {
-    KupDom,
-    KupManagerClickCb,
-} from '../../managers/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellEventPayload,
     FCellPadding,
     FCellShapes,
-    FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
