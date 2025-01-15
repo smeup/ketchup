@@ -354,6 +354,49 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             if (e.key.length > 1) {
                                 return;
                             }
+                            if (
+                                (e.key === '.' || e.key === ',') &&
+                                e.code === 'NumpadDecimal'
+                            ) {
+                                const inputElement =
+                                    e.target as HTMLInputElement;
+                                const cursorPosition =
+                                    inputElement.selectionStart ?? 0;
+
+                                // Ottieni il separatore decimale (in base alla configurazione)
+                                const decimalSeparator =
+                                    dom.ketchup.math.decimalSeparator();
+
+                                // Verifica se il valore contiene già il separatore decimale
+                                if (
+                                    inputElement.value.includes(
+                                        decimalSeparator
+                                    )
+                                ) {
+                                    // Se contiene già il separatore, non fare nulla e ritorna
+                                    e.preventDefault();
+                                    return;
+                                }
+
+                                // Inserisci il separatore decimale nel valore dell'input
+                                inputElement.value =
+                                    inputElement.value.slice(
+                                        0,
+                                        cursorPosition
+                                    ) +
+                                    decimalSeparator +
+                                    inputElement.value.slice(cursorPosition);
+
+                                // Posiziona il cursore dopo il separatore decimale
+                                inputElement.setSelectionRange(
+                                    cursorPosition + 1,
+                                    cursorPosition + 1
+                                );
+
+                                // Evita il comportamento predefinito
+                                e.preventDefault();
+                                return;
+                            }
 
                             const options: NumericFieldFormatOptions = {
                                 allowNegative: props.allowNegative ?? true,
