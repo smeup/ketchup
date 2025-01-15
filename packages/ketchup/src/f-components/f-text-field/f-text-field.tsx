@@ -190,13 +190,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         ? 'number'
         : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
-    if (
-        props.inputType === 'number' &&
-        ((props.decimals && props.decimals > 0) ||
-            props.group ||
-            (props.integers && props.integers > 0))
-    ) {
+    if (props.inputType === 'number') {
         inputType = 'text';
+        props.inputMode = 'numeric';
         persManageForNumberFormat = true;
     }
     if (props.inputType === 'number') {
@@ -206,7 +202,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             group: props.group ?? true,
             integer: (props.integers ?? 0) - (props.decimals ?? 0),
         };
-        value = formatValue(value, options, false);
+        value = formatValue(value, options, true);
     }
 
     return (
@@ -232,10 +228,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     </span>
                 ) : (
                     <input
+                        type={inputType}
                         inputmode={
                             props.inputMode ? props.inputMode : undefined
                         }
-                        type={inputType}
                         step={props.step}
                         min={props.min}
                         max={props.max}
@@ -270,75 +266,78 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             }
                         }}
                         onChange={(e: InputEvent) => {
-                            if (persManageForNumberFormat) {
-                                const options: NumericFieldFormatOptions = {
-                                    allowNegative: props.allowNegative ?? true,
-                                    decimal: props.decimals,
-                                    group: props.group ?? true,
-                                    integer:
-                                        (props.integers ?? 0) -
-                                        (props.decimals ?? 0),
-                                };
-                                if (
-                                    props.min !== undefined &&
-                                    props.min !== null &&
-                                    props.min >
-                                        parseFloat(
-                                            (e.target as HTMLInputElement).value
-                                        )
-                                ) {
-                                    (e.target as HTMLInputElement).value =
-                                        formatValue(
-                                            props.min.toString(),
-                                            options,
-                                            true
-                                        );
-                                } else if (
-                                    props.max !== undefined &&
-                                    props.max !== null &&
-                                    props.max <
-                                        parseFloat(
-                                            (e.target as HTMLInputElement).value
-                                        )
-                                ) {
-                                    (e.target as HTMLInputElement).value =
-                                        formatValue(
-                                            props.max.toString(),
-                                            options,
-                                            true
-                                        );
-                                } else {
-                                    (e.target as HTMLInputElement).value =
-                                        formatValue(
-                                            (e.target as HTMLInputElement)
-                                                .value,
-                                            options,
-                                            true
-                                        );
-                                }
-                            } else {
-                                if (
-                                    props.min !== undefined &&
-                                    props.min !== null &&
-                                    props.min >
-                                        parseFloat(
-                                            (e.target as HTMLInputElement).value
-                                        )
-                                ) {
-                                    (e.target as HTMLInputElement).value =
-                                        props.min.toString();
-                                } else if (
-                                    props.max !== undefined &&
-                                    props.max !== null &&
-                                    props.max <
-                                        parseFloat(
-                                            (e.target as HTMLInputElement).value
-                                        )
-                                ) {
-                                    (e.target as HTMLInputElement).value =
-                                        props.max.toString();
-                                }
-                            }
+                            //     if (persManageForNumberFormat) {
+                            //         const options: NumericFieldFormatOptions = {
+                            //             allowNegative: props.allowNegative ?? true,
+                            //             decimal: props.decimals,
+                            //             group: props.group ?? true,
+                            //             integer:
+                            //                 (props.integers ?? 0) -
+                            //                 (props.decimals ?? 0),
+                            //         };
+                            //         if (
+                            //             props.min !== undefined &&
+                            //             props.min !== null &&
+                            //             props.min >
+                            //                 parseFloat(
+                            //                     (e.target as HTMLInputElement).value
+                            //                 )
+                            //         ) {
+                            //             (e.target as HTMLInputElement).value =
+                            //                 formatValue(
+                            //                     props.min.toString(),
+                            //                     options,
+                            //                     true
+                            //                 );
+                            //             console.log('formatta volta TRE');
+                            //         } else if (
+                            //             props.max !== undefined &&
+                            //             props.max !== null &&
+                            //             props.max <
+                            //                 parseFloat(
+                            //                     (e.target as HTMLInputElement).value
+                            //                 )
+                            //         ) {
+                            //             (e.target as HTMLInputElement).value =
+                            //                 formatValue(
+                            //                     props.max.toString(),
+                            //                     options,
+                            //                     true
+                            //                 );
+                            //             console.log('formatta volta QUATTRO');
+                            //         } else {
+                            //             (e.target as HTMLInputElement).value =
+                            //                 formatValue(
+                            //                     (e.target as HTMLInputElement)
+                            //                         .value,
+                            //                     options,
+                            //                     true
+                            //                 );
+                            //             console.log('formatta volta CINQUE');
+                            //         }
+                            // } else {
+                            //     if (
+                            //         props.min !== undefined &&
+                            //         props.min !== null &&
+                            //         props.min >
+                            //             parseFloat(
+                            //                 (e.target as HTMLInputElement).value
+                            //             )
+                            //     ) {
+                            //         (e.target as HTMLInputElement).value =
+                            //             props.min.toString();
+                            //     } else if (
+                            //         props.max !== undefined &&
+                            //         props.max !== null &&
+                            //         props.max <
+                            //             parseFloat(
+                            //                 (e.target as HTMLInputElement).value
+                            //             )
+                            //     ) {
+                            //         (e.target as HTMLInputElement).value =
+                            //             props.max.toString();
+                            //     }
+                            // }
                             if (props.onChange) {
                                 props.onChange(e);
                             }

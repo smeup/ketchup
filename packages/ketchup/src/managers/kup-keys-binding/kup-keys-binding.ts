@@ -13,7 +13,10 @@ export class KupKeysBinding {
         this.#keysEvents = new Map();
         this.#pressedKeys = new Set();
         document.addEventListener('keydown', this.#checkEvent.bind(this));
-        document.addEventListener('keyup', this.#clearKey.bind(this));
+        document.addEventListener('keyup', () => {
+            this.#pressedKeys.clear();
+            this.#clearKey.bind(this);
+        });
         window.addEventListener('blur', () => {
             this.#pressedKeys.clear();
         });

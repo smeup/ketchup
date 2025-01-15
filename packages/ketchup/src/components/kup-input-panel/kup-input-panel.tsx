@@ -13,6 +13,7 @@ import {
     h,
 } from '@stencil/core';
 import {
+    FObjectFieldEventPayload,
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
@@ -87,6 +88,7 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
     getInpComponentAbsoluteHeight,
+    getLabelAbsoluteWidth,
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -375,6 +377,30 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-searchpayload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldSearchPayload: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-opensearchmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldOpenSearchMenu: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-objectfield-selectedmenuitem',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInputPanelObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -409,9 +435,11 @@ export class KupInputPanel {
         let rowContent: VNode[];
 
         if (!layout?.sections?.length) {
-            rowContent = inputPanelCell.cells.map((cell) =>
-                this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
-            );
+            rowContent = inputPanelCell.cells
+                .filter(({ column }) => column.visible)
+                .map((cell) =>
+                    this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
+                );
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
@@ -894,6 +922,10 @@ export class KupInputPanel {
             (cell) => cell.column.name === field.id
         );
 
+        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
+            return;
+        }
+
         const colSpan =
             +field.colSpan > 0
                 ? field.colSpan
@@ -924,10 +956,6 @@ export class KupInputPanel {
             'grid-row-end': rowEnd,
         };
 
-        if (!fieldCell || !fieldCell.cell) {
-            return;
-        }
-
         return (
             <div style={styleObj}>
                 {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
@@ -942,7 +970,8 @@ export class KupInputPanel {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
         );
-        if (!fieldCell || !fieldCell.cell) {
+
+        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
             return;
         }
 
@@ -957,7 +986,10 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
-        const absoluteWidth = getAbsoluteWidth(length);
+        const absoluteWidth =
+            fieldCell.cell.shape === FCellShapes.LABEL
+                ? getLabelAbsoluteWidth(length)
+                : getAbsoluteWidth(length);
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(field.absoluteRow);
         const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
@@ -1037,20 +1069,18 @@ export class KupInputPanel {
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
-                  const cells = data.columns
-                      .filter((column) => column.visible)
-                      .map((column) => {
-                          const cell = structuredClone(row.cells[column.name]);
-                          const mappedCell = cell
-                              ? {
-                                    ...cell,
-                                    data: this.#setData(cell, column, layout),
-                                    slotData: this.#slotData(cell, column),
-                                    isEditable: true,
-                                }
-                              : null;
-                          return { column, cell: mappedCell };
-                      });
+                  const cells = data.columns.map((column) => {
+                      const cell = structuredClone(row.cells[column.name]);
+                      const mappedCell = cell
+                          ? {
+                                ...cell,
+                                data: this.#setData(cell, column, layout),
+                                slotData: this.#slotData(cell, column),
+                                isEditable: true,
+                            }
+                          : null;
+                      return { column, cell: mappedCell };
+                  });
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
@@ -2061,6 +2091,23 @@ export class KupInputPanel {
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
                 }
+                onKup-objectfield-searchpayload={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldSearchPayload.emit(e.detail);
+                }}
+                onKup-objectfield-opensearchmenu={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldOpenSearchMenu.emit(e.detail);
+                }}
+                onKup-objectfield-selectedmenuitem={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupInputPanelObjectFieldSelectedMenuItem.emit(
+                        e.detail
+                    );
+                }}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(

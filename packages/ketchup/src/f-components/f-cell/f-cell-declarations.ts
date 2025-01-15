@@ -198,6 +198,7 @@ export const editableTypes = [
     FCellTypes.STRING,
     FCellTypes.SWITCH,
     FCellTypes.TIME,
+    FCellTypes.EDITOR,
 ];
 export const kupTypes = [
     FCellTypes.BAR,
