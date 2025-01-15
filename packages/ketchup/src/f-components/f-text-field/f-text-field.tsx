@@ -202,7 +202,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             group: props.group ?? true,
             integer: (props.integers ?? 0) - (props.decimals ?? 0),
         };
-        value = formatValue(value, options, true);
+        value = formatValue(value, options, false);
     }
 
     return (
@@ -266,78 +266,75 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             }
                         }}
                         onChange={(e: InputEvent) => {
-                            //     if (persManageForNumberFormat) {
-                            //         const options: NumericFieldFormatOptions = {
-                            //             allowNegative: props.allowNegative ?? true,
-                            //             decimal: props.decimals,
-                            //             group: props.group ?? true,
-                            //             integer:
-                            //                 (props.integers ?? 0) -
-                            //                 (props.decimals ?? 0),
-                            //         };
-                            //         if (
-                            //             props.min !== undefined &&
-                            //             props.min !== null &&
-                            //             props.min >
-                            //                 parseFloat(
-                            //                     (e.target as HTMLInputElement).value
-                            //                 )
-                            //         ) {
-                            //             (e.target as HTMLInputElement).value =
-                            //                 formatValue(
-                            //                     props.min.toString(),
-                            //                     options,
-                            //                     true
-                            //                 );
-                            //             console.log('formatta volta TRE');
-                            //         } else if (
-                            //             props.max !== undefined &&
-                            //             props.max !== null &&
-                            //             props.max <
-                            //                 parseFloat(
-                            //                     (e.target as HTMLInputElement).value
-                            //                 )
-                            //         ) {
-                            //             (e.target as HTMLInputElement).value =
-                            //                 formatValue(
-                            //                     props.max.toString(),
-                            //                     options,
-                            //                     true
-                            //                 );
-                            //             console.log('formatta volta QUATTRO');
-                            //         } else {
-                            //             (e.target as HTMLInputElement).value =
-                            //                 formatValue(
-                            //                     (e.target as HTMLInputElement)
-                            //                         .value,
-                            //                     options,
-                            //                     true
-                            //                 );
-                            //             console.log('formatta volta CINQUE');
-                            //         }
-                            // } else {
-                            //     if (
-                            //         props.min !== undefined &&
-                            //         props.min !== null &&
-                            //         props.min >
-                            //             parseFloat(
-                            //                 (e.target as HTMLInputElement).value
-                            //             )
-                            //     ) {
-                            //         (e.target as HTMLInputElement).value =
-                            //             props.min.toString();
-                            //     } else if (
-                            //         props.max !== undefined &&
-                            //         props.max !== null &&
-                            //         props.max <
-                            //             parseFloat(
-                            //                 (e.target as HTMLInputElement).value
-                            //             )
-                            //     ) {
-                            //         (e.target as HTMLInputElement).value =
-                            //             props.max.toString();
-                            //     }
-                            // }
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group ?? true,
+                                    integer:
+                                        (props.integers ?? 0) -
+                                        (props.decimals ?? 0),
+                                };
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.min.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.max.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            (e.target as HTMLInputElement)
+                                                .value,
+                                            options,
+                                            true
+                                        );
+                                }
+                            } else {
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.min.toString();
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.max.toString();
+                                }
+                            }
                             if (props.onChange) {
                                 props.onChange(e);
                             }

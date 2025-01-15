@@ -899,11 +899,12 @@ function setEditableCell(
                 }
             };
             const type = cellType === FCellTypes.NUMBER ? 'number' : null;
-            const value =
-                cellType === FCellTypes.NUMBER && cell.value
-                    ? getCellValueForDisplay(column, cell)
-                    : cell.value;
+
             if (cell.shape === FCellShapes.INPUT_FIELD) {
+                const value =
+                    cellType === FCellTypes.NUMBER && cell.value
+                        ? getCellValueForDisplay(column, cell)
+                        : cell.value;
                 return (
                     <input
                         class={'input-field'}
@@ -948,7 +949,7 @@ function setEditableCell(
                         decimals={props.column.decimals}
                         integers={props.column.integers}
                         group={props.column.group}
-                        value={value}
+                        value={cell.value}
                         onChange={onChange}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
