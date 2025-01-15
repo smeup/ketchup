@@ -3190,7 +3190,6 @@ __metadata:
     jest-html-reporter: ^3.10.2
     jest-junit: ^16.0.0
     jquery: ^3.7.0
-    numeral: 2.0.6
     pdfjs-dist: 3.11.174
     puppeteer: ^21.6.0
     rimraf: ^6
@@ -12139,13 +12138,6 @@ __metadata:
   dependencies:
     boolbase: ^1.0.0
   checksum: 5afc3dafcd1573b08877ca8e6148c52abd565f1d06b1eb08caf982e3fa289a82f2cae697ffb55b5021e146d60443f1590a5d6b944844e944714a5b549675bcd3
-  languageName: node
-  linkType: hard
-
-"numeral@npm:2.0.6":
-  version: 2.0.6
-  resolution: "numeral@npm:2.0.6"
-  checksum: 89f011116539692bf53fde380adeb0579623d00f782703c71c0062d4a8686770c404a041ff4eef454de53925a9f75bba1fa52726057b13d40473f707730b07c2
   languageName: node
   linkType: hard
 

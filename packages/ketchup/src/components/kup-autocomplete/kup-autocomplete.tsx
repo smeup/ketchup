@@ -533,12 +533,11 @@ export class KupAutocomplete {
             return;
         }
         if (idIn && idInDecode) {
-            this.displayedValue = this.displayedValue =
-                getIdOfItemByDisplayMode(
-                    { id: idIn, value: idInDecode },
-                    this.displayMode,
-                    ' - '
-                );
+            this.displayedValue = getIdOfItemByDisplayMode(
+                { id: idIn, value: idInDecode },
+                this.displayMode,
+                ' - '
+            );
         } else {
             this.#doConsistencyCheck = false;
             const ret = consistencyCheck(

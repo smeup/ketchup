@@ -11,10 +11,10 @@ export function getIdOfItemByDisplayMode(
 ): string {
     const { id, value } = item;
 
-    if (!id && value) {
+    if (id == null && value) {
         return value;
     }
-    if (id && !value) {
+    if (id && value == null) {
         return id;
     }
 
