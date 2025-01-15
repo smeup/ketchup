@@ -1,6 +1,7 @@
 import { GenericObject, KupEventPayload } from '../../components';
 import {
     KupDataCell,
+    KupDataCellOptions,
     KupDataColumn,
     KupDataCommand,
     KupDataRow,
@@ -45,17 +46,11 @@ export interface KupInputPanelRowCells {
     [key: string]: KupInputPanelCell;
 }
 
-export interface KupInputPanelCell extends KupDataCell {
-    options?: GenericObject | GenericObject[];
+export interface KupInputPanelCell extends KupDataCellOptions {
     editable?: boolean;
     mandatory?: boolean;
     inputSettings?: GenericObject;
     fun?: string;
-}
-
-export interface KupInputPanelCellOptions {
-    id: string;
-    label: string;
 }
 
 export interface KupInputPanelLayout {
