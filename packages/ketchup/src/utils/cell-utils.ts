@@ -335,7 +335,10 @@ export function adaptContentToDisplayMode(
 
     const { k: code } = cell.obj;
     const desc = cell.decode;
-    const displayMode = cell.data?.displayMode;
+    const displayMode =
+        cell.data?.displayMode != null
+            ? cell.data?.displayMode
+            : ItemsDisplayMode.DESCRIPTION;
 
     const format = (a: string, b: string, sep: string = separator) =>
         a && b ? `${a} ${sep} ${b}` : '';

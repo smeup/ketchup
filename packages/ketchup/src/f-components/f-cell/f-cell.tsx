@@ -65,6 +65,7 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -985,8 +986,11 @@ function setCell(
         case FCellTypes.DATETIME:
         case FCellTypes.TIME:
             if (content && content != '') {
-                const cellValue = getCellValueForDisplay(column, cell);
-                return <div class="f-cell__text">{cellValue}</div>;
+                return (
+                    <div class="f-cell__text">
+                        {adaptContentToDisplayMode(cell, content, ' - ')}
+                    </div>
+                );
             }
             return content;
         case FCellTypes.CHECKBOX:
