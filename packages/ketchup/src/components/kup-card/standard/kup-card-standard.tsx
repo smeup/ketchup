@@ -1390,7 +1390,6 @@ export function create15(component: KupCard): VNode {
             data: { 'kup-list': { data: [], showIcons: true } },
             dropdownOnly: true,
             icon: 'more_vert',
-            id: 'options',
             styling: FButtonStyling.ICON,
         };
         for (let index = 5; index < genericButtons.length; index++) {
@@ -1403,6 +1402,7 @@ export function create15(component: KupCard): VNode {
         return (
             <kup-dropdown-button
                 {...props}
+                id="options"
                 title={dom.ketchup.language.translate(
                     KupLanguageGeneric.OPTIONS
                 )}
