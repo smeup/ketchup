@@ -6,7 +6,6 @@ export class KupCalendarState implements KupState {
     viewType: KupCalendarViewTypes;
 
     public toDebugString() {
-        // TODO
         return JSON.stringify(this);
     }
 }
