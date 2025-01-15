@@ -2,7 +2,7 @@ import { KupState } from '../kup-state/kup-state';
 import { KupCalendarViewTypes } from './kup-calendar-declarations';
 
 export class KupCalendarState implements KupState {
-    initialDate: Date;
+    initialDate: string;
     viewType: KupCalendarViewTypes;
 
     public toDebugString() {

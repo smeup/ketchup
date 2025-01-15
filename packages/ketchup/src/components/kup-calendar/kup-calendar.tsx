@@ -86,7 +86,7 @@ export class KupCalendar {
 
     state: KupCalendarState = new KupCalendarState();
 
-    private initialDate: Date;
+    private initialDate: string; // ISO without time;
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
@@ -100,8 +100,8 @@ export class KupCalendar {
                         state
                 );
             }
-            this.initialDate = state.initialDate;
-            this.viewType = state.viewType;
+            this.initialDate = state.initialDate ?? this.initialDate;
+            this.viewType = state.viewType ?? this.viewType;
         }
     }
 
@@ -279,7 +279,19 @@ export class KupCalendar {
         }
         this.calendar = new Calendar(this.calendarContainer, {
             datesSet: (info) => {
-                this.initialDate = info.start;
+                const isoDate = info.startStr.substring(0, 10);
+                const date = new Date(isoDate);
+                if (
+                    this.viewType === KupCalendarViewTypes.MONTH &&
+                    date.getDate() > 1
+                ) {
+                    date.setMonth(date.getMonth() + 1);
+                    date.setDate(1);
+                    this.initialDate = date.toISOString().substring(0, 10);
+                } else {
+                    this.initialDate = isoDate;
+                }
+
                 this.persistState();
             },
             dateClick: ({ date }) => {
@@ -367,7 +379,6 @@ export class KupCalendar {
             },
             events: this.getEvents(),
             headerToolbar: false,
-            //initialDate: this.currentDate ? this.currentDate : new Date().toISOString().substring(0, 10),
             initialDate: this.initialDate ?? this.currentDate,
             initialView: this.viewType,
             locale: this.getLocale(),
@@ -645,11 +656,11 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.initWithPersistedState();
         this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
+        this.initWithPersistedState();
     }
 
     componentDidLoad() {
@@ -665,7 +676,6 @@ export class KupCalendar {
 
     componentDidRender() {
         this.updateCalendar();
-        this.persistState();
         this.kupManager.debug.logRender(this, true);
     }
 
