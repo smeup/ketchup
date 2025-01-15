@@ -65,6 +65,7 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -982,6 +983,14 @@ function setCell(
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
+            if (content && content != '') {
+                return (
+                    <div class="f-cell__text">
+                        {adaptContentToDisplayMode(cell, content, ' - ')}
+                    </div>
+                );
+            }
+            return content;
         case FCellTypes.DATE:
         case FCellTypes.DATETIME:
         case FCellTypes.TIME:
