@@ -982,15 +982,20 @@ function setCell(
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
         case FCellTypes.COMBOBOX:
-        case FCellTypes.DATE:
-        case FCellTypes.DATETIME:
-        case FCellTypes.TIME:
             if (content && content != '') {
                 return (
                     <div class="f-cell__text">
                         {adaptContentToDisplayMode(cell, content, ' - ')}
                     </div>
                 );
+            }
+            return content;
+        case FCellTypes.DATE:
+        case FCellTypes.DATETIME:
+        case FCellTypes.TIME:
+            if (content && content != '') {
+                const cellValue = getCellValueForDisplay(column, cell);
+                return <div class="f-cell__text">{cellValue}</div>;
             }
             return content;
         case FCellTypes.CHECKBOX:
