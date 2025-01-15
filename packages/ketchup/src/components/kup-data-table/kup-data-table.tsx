@@ -227,6 +227,7 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = { ...state.totals };
+                this.visibleColumns = [...state.visibleColumns];
             }
         }
     }
@@ -503,6 +504,15 @@ export class KupDataTable {
                     },
                     ''
                 );
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.visibleColumns,
+                    this.visibleColumns
+                )
+            ) {
+                this.state.visibleColumns = [...this.visibleColumns];
                 somethingChanged = true;
             }
 
@@ -1494,12 +1504,9 @@ export class KupDataTable {
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
         if (this.visibleColumns?.length) {
-            const index = this.visibleColumns.findIndex(
-                (c) => c === column.name
+            this.visibleColumns = this.visibleColumns.filter(
+                (colName) => colName != column.name
             );
-            if (index) {
-                this.visibleColumns.splice(index, 1);
-            }
         }
         this.kupColumnRemove.emit({
             comp: this,
