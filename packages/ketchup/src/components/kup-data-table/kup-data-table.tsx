@@ -1640,7 +1640,6 @@ export class KupDataTable {
     async openColumnMenu(column: string): Promise<void> {
         if (this.#columnMenuCard) {
             this.#closeColumnMenuCard();
-            this.closeColumnMenu();
         }
 
         this.columnMenuAnchor = column;
