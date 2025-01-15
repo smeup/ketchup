@@ -37,7 +37,10 @@ import {
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
+import {
+    KupToolbarItemClickEventPayload,
+    KupToolbarStyling,
+} from '../../components/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -96,6 +99,11 @@ export class KupTabBar {
      * @default null
      */
     @Prop() toolbarData: KupDataNode[];
+    /**
+     * toolbar styling variant
+     * @default KupToolbarStyling.STANDARD
+     */
+    @Prop() toolbarStyling: KupToolbarStyling = KupToolbarStyling.STANDARD;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -456,7 +464,12 @@ export class KupTabBar {
                                     event.currentTarget as HTMLElement
                                 );
                             }}
-                            wrapperClass="tab__iconToolbar"
+                            wrapperClass={`tab__iconToolbar ${
+                                this.toolbarStyling ===
+                                KupToolbarStyling.PRIMARY
+                                    ? 'tab__iconToolbar--primary'
+                                    : ''
+                            }`}
                         ></FImage>
                     )}
                     <span

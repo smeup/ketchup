@@ -209,6 +209,12 @@
 
     .tab__iconToolbar {
       opacity: 0;
+      &.tab__iconToolbar--primary {
+        opacity: 1;
+        .iconWrapper .f-image__icon {
+          background-color: var(--kup-info-color-70);
+        }
+      }
     }
 
     .tab-indicator {
