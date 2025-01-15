@@ -1,7 +1,7 @@
-import Mexp from 'math-expression-evaluator';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { getRegExpFromString } from '../../utils/utils';
+import { parseAndEvaluate } from './kup-formula-evaluator';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -30,13 +30,10 @@ export function customFormula(
             '(' + value.toString() + ')'
         );
     }
-    formula = formula.replace(/[\[\]']+/g, '');
+
     // Calculate formula
     try {
-        const mexp = new Mexp();
-        const lexedFormula = mexp.lex(formula);
-        const postFixedFormula = mexp.toPostfix(lexedFormula);
-        return mexp.postfixEval(postFixedFormula);
+        return parseAndEvaluate(formula);
     } catch (e) {
         dom.ketchup.debug.logMessage(
             'kup-data',
