@@ -55,7 +55,7 @@ export class KupDropdownButton {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
-    @State() id: string = '';
+    @State() value: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -258,7 +258,7 @@ export class KupDropdownButton {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.id,
+            value: this.value,
         });
     }
 
@@ -267,7 +267,7 @@ export class KupDropdownButton {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.id,
+            value: this.value,
         });
     }
 
@@ -275,7 +275,7 @@ export class KupDropdownButton {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.id,
+            value: this.value,
         });
     }
 
@@ -294,14 +294,14 @@ export class KupDropdownButton {
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.id,
+            value: this.value,
             node: e.detail.selected,
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.id,
+            value: this.value,
             node: e.detail.selected,
         });
     }
@@ -324,7 +324,7 @@ export class KupDropdownButton {
      */
     @Method()
     async getValue(): Promise<string> {
-        return this.id;
+        return this.value;
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -346,7 +346,7 @@ export class KupDropdownButton {
      */
     @Method()
     async setValue(value: string): Promise<void> {
-        this.id = value;
+        this.value = value;
     }
 
     /*-------------------------------------------------*/
@@ -423,7 +423,7 @@ export class KupDropdownButton {
             this.displayMode,
             e
         );
-        this.id = ret.value;
+        this.value = ret.value;
     }
 
     /*-------------------------------------------------*/
@@ -433,7 +433,7 @@ export class KupDropdownButton {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.id = this.initialValue;
+        this.value = this.initialValue;
         if (!this.data) {
             this.data = {
                 'kup-list': {},
@@ -442,7 +442,7 @@ export class KupDropdownButton {
     }
 
     componentDidLoad() {
-        this.consistencyCheck(undefined, this.id);
+        this.consistencyCheck(undefined, this.value);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -518,6 +518,11 @@ export class KupDropdownButton {
     }
 
     render() {
+        console.log(
+            'cacca ketchup dropdown button, render',
+            this.rootElement.id,
+            this.rootElement
+        );
         return (
             <Host>
                 <style>
