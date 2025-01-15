@@ -2084,6 +2084,7 @@ export class KupTree {
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
         this.columnMenuInstance = new KupColumnMenu();
+        this.initWithPersistedState();
         this.refreshStructureState();
     }
 

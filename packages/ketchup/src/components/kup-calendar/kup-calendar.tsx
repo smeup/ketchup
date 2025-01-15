@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -64,6 +65,9 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupStore } from '../kup-state/kup-store';
+import { KupCalendarState } from './kup-calendar-state';
+import { pseudoRandomBytes } from 'crypto';
 
 @Component({
     tag: 'kup-calendar',
@@ -75,6 +79,58 @@ export class KupCalendar {
      * References the root HTML element of the component (<kup-calendar>).
      */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    state: KupCalendarState = new KupCalendarState();
+
+    private initialDate: string; // ISO without time;
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state: KupCalendarState = this.store.getState(this.stateId);
+            if (state) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Initialize with state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        state
+                );
+            }
+            this.initialDate = state.initialDate ?? this.initialDate;
+            this.viewType = state.viewType ?? this.viewType;
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            let somethingChanged = false;
+
+            if (this.state.initialDate !== this.initialDate) {
+                this.state.initialDate = this.initialDate;
+                somethingChanged = true;
+            }
+
+            if (this.state.viewType !== this.viewType) {
+                this.state.viewType = this.viewType;
+                somethingChanged = true;
+            }
+
+            if (somethingChanged) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Persisting state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        this.state
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
+        }
+    }
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -131,6 +187,9 @@ export class KupCalendar {
      */
     @Prop({ mutable: true }) viewType: KupCalendarViewTypes =
         KupCalendarViewTypes.MONTH;
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -219,6 +278,22 @@ export class KupCalendar {
             });
         }
         this.calendar = new Calendar(this.calendarContainer, {
+            datesSet: (info) => {
+                const isoDate = info.startStr.substring(0, 10);
+                const date = new Date(isoDate);
+                if (
+                    this.viewType === KupCalendarViewTypes.MONTH &&
+                    date.getDate() > 1
+                ) {
+                    date.setMonth(date.getMonth() + 1);
+                    date.setDate(1);
+                    this.initialDate = date.toISOString().substring(0, 10);
+                } else {
+                    this.initialDate = isoDate;
+                }
+
+                this.persistState();
+            },
             dateClick: ({ date }) => {
                 this.kupCalendarDateClick.emit({
                     comp: this,
@@ -304,8 +379,7 @@ export class KupCalendar {
             },
             events: this.getEvents(),
             headerToolbar: false,
-            //initialDate: this.currentDate ? this.currentDate : new Date().toISOString().substring(0, 10),
-            initialDate: this.currentDate,
+            initialDate: this.initialDate ?? this.currentDate,
             initialView: this.viewType,
             locale: this.getLocale(),
             locales: [
@@ -440,82 +514,102 @@ export class KupCalendar {
             getColumnByName(this.getColumns(), this.startCol) &&
             getColumnByName(this.getColumns(), this.endCol);
 
-        return this.getRows().map((row) => {
-            const cell = row.cells[this.dateCol];
-            if (cell) {
-                let startDate = this.kupManager.dates.toDayjs(cell.value);
-                let endDate = this.kupManager.dates.toDayjs(cell.value);
+        let events = {};
+        try {
+            if (!this.dateCol || !this.descrCol) {
+                throw new Error(
+                    'dateCol or/and descrCol are not specified, check calendarColums props'
+                );
+            }
+            events = this.getRows().map((row) => {
+                const cell = row.cells[this.dateCol];
+                if (cell) {
+                    let startDate = this.kupManager.dates.toDayjs(cell.value);
+                    let endDate = this.kupManager.dates.toDayjs(cell.value);
 
-                if (isHourRange) {
-                    const startCell = row.cells[this.startCol];
-                    const endCell = row.cells[this.endCol];
+                    if (isHourRange) {
+                        const startCell = row.cells[this.startCol];
+                        const endCell = row.cells[this.endCol];
 
-                    if (startCell && endCell) {
-                        const dayjsStart = this.kupManager.dates.toDayjs(
-                            startCell.value,
-                            KupDatesFormats.ISO_TIME
-                        );
-                        const dayjsEnd = this.kupManager.dates.toDayjs(
-                            endCell.value,
-                            KupDatesFormats.ISO_TIME
-                        );
-
-                        if (dayjsStart && dayjsEnd) {
-                            startDate = startDate.hour(dayjsStart.hour());
-                            startDate = startDate.minute(dayjsStart.minute());
-                            startDate = startDate.second(dayjsStart.second());
-
-                            endDate = endDate.hour(dayjsEnd.hour());
-                            endDate = endDate.minute(dayjsEnd.minute());
-                            endDate = endDate.second(dayjsEnd.second());
-                        } else {
-                            this.kupManager.debug.logMessage(
-                                this,
-
-                                `error while converting hour range: [${
-                                    dayjsStart
-                                        ? `start hour: ${dayjsStart}`
-                                        : `invalid start hour: ${startCell.value}`
-                                }, ${
-                                    dayjsEnd
-                                        ? `end hour: ${dayjsEnd}`
-                                        : `invalid end hour: ${endCell.value}`
-                                }]`,
-                                KupDebugCategory.WARNING
+                        if (startCell && endCell) {
+                            const dayjsStart = this.kupManager.dates.toDayjs(
+                                startCell.value,
+                                KupDatesFormats.ISO_TIME
                             );
+                            const dayjsEnd = this.kupManager.dates.toDayjs(
+                                endCell.value,
+                                KupDatesFormats.ISO_TIME
+                            );
+
+                            if (dayjsStart && dayjsEnd) {
+                                startDate = startDate.hour(dayjsStart.hour());
+                                startDate = startDate.minute(
+                                    dayjsStart.minute()
+                                );
+                                startDate = startDate.second(
+                                    dayjsStart.second()
+                                );
+
+                                endDate = endDate.hour(dayjsEnd.hour());
+                                endDate = endDate.minute(dayjsEnd.minute());
+                                endDate = endDate.second(dayjsEnd.second());
+                            } else {
+                                this.kupManager.debug.logMessage(
+                                    this,
+
+                                    `error while converting hour range: [${
+                                        dayjsStart
+                                            ? `start hour: ${dayjsStart}`
+                                            : `invalid start hour: ${startCell.value}`
+                                    }, ${
+                                        dayjsEnd
+                                            ? `end hour: ${dayjsEnd}`
+                                            : `invalid end hour: ${endCell.value}`
+                                    }]`,
+                                    KupDebugCategory.WARNING
+                                );
+                            }
                         }
                     }
-                }
 
-                if (endDate && startDate) {
-                    const el: EventInput = {
-                        allDay: isHourRange ? false : true,
-                        editable: this.editableEvents,
-                        end: endDate.toISOString(),
-                        extendedProps: {
-                            row,
-                        },
-                        start: startDate.toISOString(),
-                        title: row.cells[this.descrCol].value,
-                    };
-                    return el;
-                } else {
-                    this.kupManager.debug.logMessage(
-                        this,
-                        `error while converting dates: [${
-                            startDate
-                                ? `start date: ${startDate}`
-                                : `invalid start date: ${cell.value}`
-                        }. ${
-                            endDate
-                                ? `end date: ${endDate}`
-                                : `invalid end date: ${cell.value}`
-                        }]`,
-                        KupDebugCategory.WARNING
-                    );
+                    if (endDate && startDate) {
+                        const el: EventInput = {
+                            allDay: isHourRange ? false : true,
+                            editable: this.editableEvents,
+                            end: endDate.toISOString(),
+                            extendedProps: {
+                                row,
+                            },
+                            start: startDate.toISOString(),
+                            title: row.cells[this.descrCol].value,
+                        };
+                        return el;
+                    } else {
+                        this.kupManager.debug.logMessage(
+                            this,
+                            `error while converting dates: [${
+                                startDate
+                                    ? `start date: ${startDate}`
+                                    : `invalid start date: ${cell.value}`
+                            }. ${
+                                endDate
+                                    ? `end date: ${endDate}`
+                                    : `invalid end date: ${cell.value}`
+                            }]`,
+                            KupDebugCategory.WARNING
+                        );
+                    }
                 }
-            }
-        });
+            });
+        } catch (error) {
+            this.kupManager.debug.logMessage(
+                this,
+                `Unable to create calendard events, caused by: ${error}`,
+                KupDebugCategory.ERROR
+            );
+        }
+
+        return events;
     }
 
     private onPrev() {
@@ -566,6 +660,7 @@ export class KupCalendar {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
+        this.initWithPersistedState();
     }
 
     componentDidLoad() {

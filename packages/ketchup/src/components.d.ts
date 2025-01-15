@@ -775,6 +775,8 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        "stateId": string;
+        "store": KupStore;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
@@ -6721,6 +6723,8 @@ declare namespace LocalJSX {
           * When the navigation change
          */
         "onKup-calendar-viewchange"?: (event: KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>) => void;
+        "stateId"?: string;
+        "store"?: KupStore;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
