@@ -136,11 +136,11 @@ export class KupBox {
                         state
                 );
                 // *** PROPS ***
-                this.sortBy = this.state.sortBy;
-                this.globalFilterValue = this.state.globalFilterValue;
-                this.selectedRowsState = this.state.selectedRowsState;
-                this.pageSelected = this.state.pageSelected;
-                this.rowsPerPage = this.state.rowsPerPage;
+                this.sortBy = state.sortBy;
+                this.globalFilterValue = state.globalFilterValue;
+                this.selectedRowsState = state.selectedRowsState;
+                this.pageSelected = state.pageSelected;
+                this.rowsPerPage = state.rowsPerPage;
                 this.loadMoreLimit = state.loadMoreLimit;
                 this.showLoadMore = state.showLoadMore;
             }
