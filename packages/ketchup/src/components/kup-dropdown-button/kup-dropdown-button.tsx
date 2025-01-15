@@ -518,11 +518,6 @@ export class KupDropdownButton {
     }
 
     render() {
-        console.log(
-            'cacca ketchup dropdown button, render',
-            this.rootElement.id,
-            this.rootElement
-        );
         return (
             <Host>
                 <style>
