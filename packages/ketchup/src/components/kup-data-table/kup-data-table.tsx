@@ -227,7 +227,9 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = { ...state.totals };
-                this.visibleColumns = [...state.visibleColumns];
+                this.visibleColumns = state.visibleColumns
+                    ? [...state.visibleColumns]
+                    : undefined;
             }
         }
     }
