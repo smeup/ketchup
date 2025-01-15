@@ -281,7 +281,7 @@ export class KupDatePicker {
         });
     }
 
-    onKupInput(e: InputEvent) {
+    async onKupInput(e: InputEvent) {
         this.refreshPickerValue(
             (e.target as HTMLInputElement).value,
             this.kupInput,
