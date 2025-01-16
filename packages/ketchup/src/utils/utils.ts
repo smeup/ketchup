@@ -92,7 +92,12 @@ export function getRegExpFromString(s: string, flags?: string): RegExp {
     return new RegExp(escapeRegExp(s), flags);
 }
 
-function escapeRegExp(s: string) {
+/**
+ * Escape a string un-escaped
+ * @param s string to escape
+ * @returns the regular expression object
+ */
+export function escapeRegExp(s: string) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
@@ -102,5 +107,5 @@ function escapeRegExp(s: string) {
  * @returns a promise which resolves after the given number of milliseconds
  */
 export function jestDelay(ms: number) {
-    return new Promise(res => setTimeout(res, ms));
+    return new Promise((res) => setTimeout(res, ms));
 }

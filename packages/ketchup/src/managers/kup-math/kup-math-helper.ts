@@ -1,6 +1,6 @@
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { getRegExpFromString } from '../../utils/utils';
+import { escapeRegExp } from '../../utils/utils';
 import { parseAndEvaluate } from './kup-formula-evaluator';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -27,7 +27,7 @@ export function customFormula(
             return NaN;
         }
         formula = formula.replace(
-            '[' + getRegExpFromString(formulaColumnName) + ']',
+            '[' + escapeRegExp(formulaColumnName) + ']',
             '(' + value.toString() + ')'
         );
     }
