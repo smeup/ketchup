@@ -1,5 +1,8 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { KupTextFieldEventPayload } from '../../components';
+import {
+    KupEditorEventPayload,
+    KupTextFieldEventPayload,
+} from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -713,12 +716,12 @@ function setEditableCell(
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
                     }}
-                    onKeyDown={(e: KeyboardEvent) => {
-                        cell.data?.onKeyDown?.(e);
-                        if (e.key === 'Enter') {
-                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                        }
-                    }}
+                    // onKeyDown={(e: KeyboardEvent) => {
+                    //     cell.data?.onKeyDown?.(e);
+                    //     if (e.key === 'Enter') {
+                    //         cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                    //     }
+                    // }}
                     onInput={(e: InputEvent) => {
                         cell.data?.onInput?.(e);
                         cellEvent(e, props, cellType, FCellEvents.INPUT);
@@ -1422,6 +1425,12 @@ function cellEvent(
                     ).detail.comp.data;
                 }
                 break;
+            case FCellTypes.EDITOR:
+                value = (e.target as HTMLInputElement).value.replace(
+                    /\n/g,
+                    '<br>'
+                );
+                break;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
@@ -1471,7 +1480,6 @@ function getValueFromEventTarget(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
-
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
     }
