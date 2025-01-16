@@ -15,23 +15,34 @@ export function customFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
-    // Replace formula column references with the actual values
-    for (const [formulaColumnName, value] of Object.entries(row)) {
-        if (value == null || isNaN(value)) {
+    // Replace formula column names with the actual values
+    Object.entries(row).forEach(([formulaColumnName, value]) => {
+        if (value == null) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `Error while evaluating the following formula!(" ${formula} "): ${formulaColumnName} is null or not a number`,
+                `${formulaColumnName} is null`,
                 KupDebugCategory.WARNING
             );
-            return NaN;
+            return;
         }
+        if (isNaN(value)) {
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                `${formulaColumnName} is not a number`,
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
+
         formula = formula.replace(
-            getRegExpFromString(formulaColumnName),
+            getRegExpFromString(formulaColumnName, 'g'),
             '(' + value.toString() + ')'
         );
-    }
+    });
+
     formula = formula.replace(/[\[\]']+/g, '');
     // Calculate formula
+    console.log('Final formula', formula);
     try {
         const mexp = new Mexp();
         const lexedFormula = mexp.lex(formula);
@@ -46,6 +57,7 @@ export function customFormula(
         return NaN;
     }
 }
+
 /**
  * Calculates a single Y point of a normal distribution.
  * @param {number} average - Average.
