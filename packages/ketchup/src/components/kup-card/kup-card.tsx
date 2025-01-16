@@ -500,6 +500,7 @@ export class KupCard {
         root.addEventListener('kup-datatable-rowselected', this.cardEvent);
         root.addEventListener('kup-datepicker-cleariconclick', this.cardEvent);
         root.addEventListener('kup-datepicker-input', this.cardEvent);
+        root.addEventListener('kup-datepicker-change', this.cardEvent);
         root.addEventListener('kup-datepicker-itemclick', this.cardEvent);
         root.addEventListener('kup-datepicker-textfieldsubmit', this.cardEvent);
         root.addEventListener('kup-dropdownbutton-itemclick', this.cardEvent);

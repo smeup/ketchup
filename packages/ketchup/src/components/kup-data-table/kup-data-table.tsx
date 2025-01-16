@@ -227,7 +227,9 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = { ...state.totals };
-                this.visibleColumns = [...state.visibleColumns];
+                this.visibleColumns = state.visibleColumns
+                    ? [...state.visibleColumns]
+                    : undefined;
             }
         }
     }
@@ -1641,39 +1643,51 @@ export class KupDataTable {
      */
     @Method()
     async openColumnMenu(column: string): Promise<void> {
-        this.columnMenuAnchor = column;
-        if (!this.#columnMenuCard) {
-            this.#columnMenuCard = document.createElement('kup-card');
-            this.#columnMenuCard.isMenu = true;
-            this.#columnMenuCard.layoutNumber = 12;
-            this.#columnMenuCard.sizeX = 'auto';
-            this.#columnMenuCard.sizeY = 'auto';
-            this.#columnMenuCard.addEventListener(
-                'kup-card-click',
-                (e: CustomEvent<KupEventPayload>) => {
-                    this.kupDataTableColumnMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        card: this.#columnMenuCard,
-                        event: e,
-                        open: this.#columnMenuCard.menuVisible,
-                    });
-                }
-            );
-            this.#columnMenuCard.addEventListener(
-                'kup-card-event',
-                (e: CustomEvent<KupCardEventPayload>) => {
-                    this.#columnMenuInstance.eventHandlers(e, this);
-                    this.kupDataTableColumnMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        card: this.#columnMenuCard,
-                        event: e,
-                        open: this.#columnMenuCard.menuVisible,
-                    });
-                }
-            );
+        if (this.#columnMenuCard) {
+            this.#closeColumnMenuCard();
         }
+
+        this.columnMenuAnchor = column;
+
+        this.#columnMenuCard = document.createElement('kup-card');
+        this.#columnMenuCard.isMenu = true;
+        this.#columnMenuCard.layoutNumber = 12;
+        this.#columnMenuCard.sizeX = 'auto';
+        this.#columnMenuCard.sizeY = 'auto';
+        this.#columnMenuCard.addEventListener(
+            'kup-card-click',
+            (e: CustomEvent<KupEventPayload>) => {
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+        this.#columnMenuCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                this.#columnMenuInstance.eventHandlers(e, this);
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.#closeColumnMenuCard();
+            },
+            el: this.#columnMenuCard,
+        };
+        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
+
         this.#columnMenuCard.setAttribute('data-column', column);
         this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
             this,
@@ -3092,6 +3106,15 @@ export class KupDataTable {
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#actionsCard.remove();
         this.#actionsCard = null;
+    }
+
+    #closeColumnMenuCard() {
+        this.#kupManager.dynamicPosition.stop(
+            this.#columnMenuCard as KupDynamicPositionElement
+        );
+        this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#columnMenuCard.remove();
+        this.#columnMenuCard = null;
     }
 
     #prepareDataForActionsCard(

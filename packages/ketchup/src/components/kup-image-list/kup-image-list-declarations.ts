@@ -33,6 +33,6 @@ export interface KupImageListEventHandlerDetails {
 }
 
 export interface KupImageListDataNode extends KupDataNode {
-    badgeData: GenericObject[];
+    badgeData?: GenericObject[];
     children?: KupImageListDataNode[];
 }
