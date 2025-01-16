@@ -42,7 +42,6 @@ export function customFormula(
 
     formula = formula.replace(/[\[\]']+/g, '');
     // Calculate formula
-    console.log('Final formula', formula);
     try {
         const mexp = new Mexp();
         const lexedFormula = mexp.lex(formula);
