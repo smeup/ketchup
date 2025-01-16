@@ -483,6 +483,10 @@
       &.button--floating,
       &.button--raised {
         --kup_button_text_color: var(--kup-gray-color-0);
+        .f-image__icon,
+        .f-image__placeholder {
+          background-color: var(--kup-gray-color-0) !important;
+        }
 
         &:hover {
           --kup_button_background_color_hover: var(--kup-gray-color-80);
