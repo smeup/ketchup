@@ -236,10 +236,12 @@ export class KupInputPanel {
         string,
         (options: any, currentValue: string) => GenericObject[]
     >([
-        ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
         ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
-        ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
         ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
+
+        //FIXME: deprecated
+        ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
+        ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
     ]);
 
     #originalData: KupInputPanelData = null;

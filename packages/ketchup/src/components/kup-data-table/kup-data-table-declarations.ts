@@ -83,8 +83,8 @@ export interface KupDataTableDataset {
     rows?: KupDataTableRow[];
     setup?: {
         operations?: {
-            insert: boolean;
-            delete: boolean;
+            insert?: boolean;
+            delete?: boolean;
         };
         commands?: Array<KupDataCommand>;
     };
