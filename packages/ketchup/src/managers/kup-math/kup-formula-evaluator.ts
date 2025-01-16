@@ -9,7 +9,7 @@ export function parseAndEvaluate(expression: string): number {
             a.split('.')[1]?.length || 0,
             b.split('.')[1]?.length || 0
         );
-
+        console.log(expression);
         // Convert to integers by removing the decimal points
         const factor = 10 ** scale;
         const intA = BigInt(Math.round(Number(a) * factor));
@@ -35,6 +35,8 @@ export function parseAndEvaluate(expression: string): number {
         }
 
         // Convert back to decimal form
+        console.log('value: ' + result);
+        console.log('result: ' + (Number(result) / factor).toFixed(scale));
         return (Number(result) / factor).toFixed(scale);
     };
 
