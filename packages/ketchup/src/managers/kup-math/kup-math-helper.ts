@@ -15,6 +15,7 @@ export function customFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
+    console.log(formula, row);
     // Replace formula column references with the actual values
     for (const [formulaColumnName, value] of Object.entries(row)) {
         if (value == null || isNaN(value)) {
@@ -26,13 +27,14 @@ export function customFormula(
             return NaN;
         }
         formula = formula.replace(
-            getRegExpFromString(formulaColumnName),
+            '[' + getRegExpFromString(formulaColumnName) + ']',
             '(' + value.toString() + ')'
         );
     }
 
     // Calculate formula
     try {
+        console.log(formula);
         return parseAndEvaluate(formula);
     } catch (e) {
         dom.ketchup.debug.logMessage(
