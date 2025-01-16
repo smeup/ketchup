@@ -667,27 +667,26 @@ export class KupDatePicker {
                         }
                         onInput={(e: InputEvent) => this.onKupInput(e)}
                     >
-                        <div id={this.rootElement.id + '_card'}>
-                            <kup-card
-                                ref={(el) => (this.pickerContainerEl = el)}
-                                data={cardData}
-                                layoutFamily={KupCardFamily.BUILT_IN}
-                                sizeX="300px"
-                                sizeY="auto"
-                                isMenu
-                                onkup-card-click={(
-                                    ev: CustomEvent<KupCardClickPayload>
-                                ) => {
-                                    if (
-                                        ev.detail.value != null &&
-                                        ev.detail.value != ''
-                                    )
-                                        this.onKupDatePickerItemClick(
-                                            ev.detail.value
-                                        );
-                                }}
-                            ></kup-card>
-                        </div>
+                        <kup-card
+                            ref={(el) => (this.pickerContainerEl = el)}
+                            data={cardData}
+                            layoutFamily={KupCardFamily.BUILT_IN}
+                            sizeX="300px"
+                            sizeY="auto"
+                            id={this.rootElement.id + '_card'}
+                            isMenu
+                            onkup-card-click={(
+                                ev: CustomEvent<KupCardClickPayload>
+                            ) => {
+                                if (
+                                    ev.detail.value != null &&
+                                    ev.detail.value != ''
+                                )
+                                    this.onKupDatePickerItemClick(
+                                        ev.detail.value
+                                    );
+                            }}
+                        ></kup-card>
                     </FTextField>
                 </div>
             </Host>
