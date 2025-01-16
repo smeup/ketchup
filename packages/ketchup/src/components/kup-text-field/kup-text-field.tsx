@@ -509,10 +509,23 @@ export class KupTextField {
      */
     @Method()
     async setFocus(): Promise<void> {
-        await this.waitForReady();
-
         if (this.inputEl) {
-            this.inputEl.focus();
+            window.setTimeout(() => this.inputEl.focus(), 100);
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                'Input element is not available yet.',
+                KupDebugCategory.WARNING
+            );
+        }
+    }
+    /**
+     * Blur the input element.
+     */
+    @Method()
+    async setBlur(): Promise<void> {
+        if (this.inputEl) {
+            window.setTimeout(() => this.inputEl.blur(), 100);
         } else {
             this.kupManager.debug.logMessage(
                 this,

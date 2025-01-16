@@ -148,6 +148,7 @@ export class KupList {
     #listItems: HTMLElement[] = [];
     #previouslySelectedItemIndex: number;
     #previouslySelectedItemReached: boolean;
+    #filterComponent: HTMLKupTextFieldElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -321,6 +322,22 @@ export class KupList {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupListProps, props);
+    }
+
+    /**
+     * Call setFocus textField's internal method to focus filter text field.
+     */
+    @Method()
+    async filterFocus(): Promise<void> {
+        this.#filterComponent?.setFocus();
+    }
+
+    /**
+     * Call setBlur textField's internal method to blur filter text field.
+     */
+    @Method()
+    async filterBlur(): Promise<void> {
+        this.#filterComponent?.setBlur();
     }
 
     /*-------------------------------------------------*/
@@ -623,6 +640,7 @@ export class KupList {
                             400
                         );
                     }}
+                    ref={(tf) => (this.#filterComponent = tf)}
                 ></kup-text-field>
             </div>
         );

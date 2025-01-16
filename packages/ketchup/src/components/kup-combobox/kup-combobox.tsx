@@ -463,6 +463,7 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
+        this.#listEl.filterFocus();
     }
 
     #closeList() {
@@ -470,6 +471,7 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
+        this.#listEl.filterBlur();
     }
 
     #isListOpened(): boolean {

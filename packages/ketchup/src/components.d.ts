@@ -3016,6 +3016,14 @@ export namespace Components {
          */
         "filter": string;
         /**
+          * Call setBlur textField's internal method to blur filter text field.
+         */
+        "filterBlur": () => Promise<void>;
+        /**
+          * Call setFocus textField's internal method to focus filter text field.
+         */
+        "filterFocus": () => Promise<void>;
+        /**
           * Focuses the next element of the list.
          */
         "focusNext": () => Promise<void>;
@@ -4257,6 +4265,10 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Blur the input element.
+         */
+        "setBlur": () => Promise<void>;
         /**
           * Focuses the input element.
          */
