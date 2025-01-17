@@ -25,7 +25,7 @@
     --kup-checkbox-text-disabled,
     var(--kup-text-disabled)
   );
-  --kup-checkbox-legacy-size: 15px;
+  --kup_checkbox_legacy_size: var(--kup-checkbox-legacy-size, 15px);
 
   @include kup-body-compact-01;
   display: flex;
@@ -220,13 +220,13 @@
 
   .checkbox--legacy-look {
     padding: 0;
-    height: var(--kup-checkbox-legacy-size);
-    width: var(--kup-checkbox-legacy-size);
+    height: var(--kup_checkbox_legacy_size);
+    width: var(--kup_checkbox_legacy_size);
 
     .checkbox__background,
     .checkbox__native-control {
-      height: var(--kup-checkbox-legacy-size);
-      width: var(--kup-checkbox-legacy-size);
+      height: var(--kup_checkbox_legacy_size);
+      width: var(--kup_checkbox_legacy_size);
     }
   }
 
