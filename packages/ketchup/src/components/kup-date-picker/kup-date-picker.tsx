@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    Fragment,
     h,
     Host,
     Listen,
@@ -667,26 +668,30 @@ export class KupDatePicker {
                         }
                         onInput={(e: InputEvent) => this.onKupInput(e)}
                     >
-                        <kup-card
-                            ref={(el) => (this.pickerContainerEl = el)}
-                            data={cardData}
-                            layoutFamily={KupCardFamily.BUILT_IN}
-                            sizeX="300px"
-                            sizeY="auto"
-                            id={this.rootElement.id + '_card'}
-                            isMenu
-                            onkup-card-click={(
-                                ev: CustomEvent<KupCardClickPayload>
-                            ) => {
-                                if (
-                                    ev.detail.value != null &&
-                                    ev.detail.value != ''
-                                )
-                                    this.onKupDatePickerItemClick(
-                                        ev.detail.value
-                                    );
-                            }}
-                        ></kup-card>
+                        {/* <div id={this.rootElement.id + '_card'}> */}
+                        <Fragment>
+                            <kup-card
+                                ref={(el) => (this.pickerContainerEl = el)}
+                                data={cardData}
+                                layoutFamily={KupCardFamily.BUILT_IN}
+                                sizeX="300px"
+                                sizeY="auto"
+                                isMenu
+                                id={this.rootElement.id + '_card'}
+                                onkup-card-click={(
+                                    ev: CustomEvent<KupCardClickPayload>
+                                ) => {
+                                    if (
+                                        ev.detail.value != null &&
+                                        ev.detail.value != ''
+                                    )
+                                        this.onKupDatePickerItemClick(
+                                            ev.detail.value
+                                        );
+                                }}
+                            ></kup-card>
+                        </Fragment>
+                        {/* </div> */}
                     </FTextField>
                 </div>
             </Host>
