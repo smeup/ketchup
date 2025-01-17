@@ -2124,6 +2124,10 @@ export class KupInputPanel {
     disconnectedCallback() {
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
+
+        this.#keysShortcut.forEach((keyEvent) => {
+            this.#kupManager.keysBinding.unregister(keyEvent);
+        });
     }
     //#endregion
 }
