@@ -20,32 +20,36 @@ export function customFormula(
         if (value == null || isNaN(value)) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `Error while evaluating the following formula!(" ${formula} "): ${formulaColumnName} is null or not a number`,
+                `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
                 KupDebugCategory.WARNING
             );
             return NaN;
         }
-        formula = formula.replace(
-            getRegExpFromString(formulaColumnName),
-            '(' + value.toString() + ')'
-        );
+
+        // Create a global RegExp to replace all occurrences of the column name
+        const regex = new RegExp(`\\[${formulaColumnName}\\]`, 'g');
+        formula = formula.replace(regex, `(${value.toString()})`);
     }
+
+    // Remove any leftover brackets (in case there are unmatched ones)
     formula = formula.replace(/[\[\]']+/g, '');
-    // Calculate formula
+
+    // Evaluate the formula
     try {
         const mexp = new Mexp();
         const lexedFormula = mexp.lex(formula);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
         return mexp.postfixEval(postFixedFormula);
-    } catch (e) {
+    } catch (error: any) {
         dom.ketchup.debug.logMessage(
             'kup-data',
-            `Error while evaluating the following formula!(" ${formula} "): ${e.message}`,
+            `Error while evaluating the formula ("${formula}"): ${error.message}`,
             KupDebugCategory.WARNING
         );
         return NaN;
     }
 }
+
 /**
  * Calculates a single Y point of a normal distribution.
  * @param {number} average - Average.
