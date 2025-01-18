@@ -4,14 +4,12 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    Fragment,
     h,
     Host,
     Listen,
     Method,
     Prop,
     State,
-    VNode,
     Watch,
 } from '@stencil/core';
 import {
@@ -668,8 +666,10 @@ export class KupDatePicker {
                         }
                         onInput={(e: InputEvent) => this.onKupInput(e)}
                     >
-                        {/* <div id={this.rootElement.id + '_card'}> */}
-                        <Fragment>
+                        <div
+                            id={this.rootElement.id + '_card'}
+                            class="kup-date-picker-card"
+                        >
                             <kup-card
                                 ref={(el) => (this.pickerContainerEl = el)}
                                 data={cardData}
@@ -677,7 +677,6 @@ export class KupDatePicker {
                                 sizeX="300px"
                                 sizeY="auto"
                                 isMenu
-                                id={this.rootElement.id + '_card'}
                                 onkup-card-click={(
                                     ev: CustomEvent<KupCardClickPayload>
                                 ) => {
@@ -690,8 +689,7 @@ export class KupDatePicker {
                                         );
                                 }}
                             ></kup-card>
-                        </Fragment>
-                        {/* </div> */}
+                        </div>
                     </FTextField>
                 </div>
             </Host>
