@@ -40,17 +40,11 @@
             };
         </script>
 
-        <h4>Section-3 Component</h4>
+        <h4>Test Component</h4>
 
         <div class="section-3">
             <!-- Filters Tab -->
             <div class="card-view view-1 visible">
-                <div class="sub-field">
-                    <!-- Example: Datepicker Components -->
-                    <kup-text-field id="textfield-filter"></kup-text-field>
-                    <kup-text-field id="textfield-from"></kup-text-field>
-                    <kup-text-field id="textfield-to"></kup-text-field>
-                </div>
                 <div class="sub-checkbox">
                     <!-- Example: Checkbox Components -->
                     <kup-checkbox id="checkbox-example"></kup-checkbox>
@@ -71,14 +65,20 @@
                     <kup-button id="button-apply"></kup-button>
                 </div>
                 <div class="sub-tree">
-                    <kup-tree class="kup-full-width" globalFilter id="extra-columns"></kup-tree>
+                    <kup-tree
+                        class="kup-full-width"
+                        globalFilter
+                        id="extra-columns"
+                    ></kup-tree>
                 </div>
             </div>
 
             <!-- Settings Tab -->
             <div class="card-view view-3">
                 <div class="sub-autocomplete">
-                    <kup-autocomplete id="autocomplete-example"></kup-autocomplete>
+                    <kup-autocomplete
+                        id="autocomplete-example"
+                    ></kup-autocomplete>
                 </div>
                 <div class="sub-switch">
                     <kup-switch id="switch-key"></kup-switch>

@@ -100,6 +100,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-multi-select](../kup-multi-select)
 
 ### Depends on
 
@@ -239,6 +240,7 @@ graph TD;
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
   kup-box --> kup-checkbox
+  kup-multi-select --> kup-checkbox
   style kup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

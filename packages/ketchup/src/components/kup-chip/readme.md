@@ -103,6 +103,7 @@ Type: `Promise<void>`
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-multi-select](../kup-multi-select)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
@@ -199,6 +200,7 @@ graph TD;
   kup-image-list --> kup-chip
   kup-input-panel --> kup-chip
   kup-magic-box --> kup-chip
+  kup-multi-select --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

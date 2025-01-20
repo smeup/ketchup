@@ -14,18 +14,28 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
+import {
+    KupMultiSelectEventPayload,
+    KupMultiSelectProps,
+} from './kup-multi-select-declarations';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import {
     FSwitchProps,
     FSwitchSizing,
 } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import {
-    KupMultiSelectEventPayload,
-    KupMultiSelectProps,
-} from './kup-multi-select-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { FChipType } from '../../f-components/f-chip/f-chip-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageColumn,
+} from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupCardCSSClasses,
+    KupCardIds,
+} from '../kup-card/kup-card-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 
 @Component({
     tag: 'kup-multi-select',
@@ -36,6 +46,9 @@ export class KupMultiSelect {
     @Element() rootElement: HTMLElement;
 
     @State() value: string = '';
+    @State() tabsValues: string[] = [];
+    @State() visibleView: number = 0;
+    @State() viewIndex: number = 0;
 
     @Prop({ mutable: true }) checked: boolean = false;
     @Prop() customStyle: string = '';
@@ -43,6 +56,21 @@ export class KupMultiSelect {
     @Prop() label: string = null;
     @Prop() leadingLabel: boolean = false;
     @Prop() sizing: FSwitchSizing = FSwitchSizing.MEDIUM;
+
+    // Other state properties for handling arrays
+    @State() textfieldArray: any[] = [];
+    @State() datepickerArray: any[] = [];
+    @State() timepickerArray: any[] = [];
+    @State() checkboxArray: any[] = [];
+    @State() autocompleteArray: any[] = [];
+    @State() switchArray: any[] = [];
+    @State() buttonArray: any[] = [];
+    @State() chipArray: any[] = [];
+    @State() treeArray: any[] = [];
+    @State() objectArray: any[] = [];
+    @State() buttonsIds: string[] = [];
+    @State() textfieldsIds: string[] = [];
+    @State() switchesIds: string[] = [];
 
     private kupManager: KupManager = kupManagerInstance();
 
@@ -139,32 +167,6 @@ export class KupMultiSelect {
     }
 
     render() {
-        let props: FSwitchProps = {
-            checked: this.checked,
-            danger: this.rootElement.classList.contains('kup-danger')
-                ? true
-                : false,
-            disabled: this.disabled,
-            info: this.rootElement.classList.contains('kup-info')
-                ? true
-                : false,
-            label: this.label,
-            leadingLabel: this.leadingLabel,
-            secondary: this.rootElement.classList.contains('kup-secondary')
-                ? true
-                : false,
-            sizing: this.sizing,
-            success: this.rootElement.classList.contains('kup-success')
-                ? true
-                : false,
-            warning: this.rootElement.classList.contains('kup-warning')
-                ? true
-                : false,
-            onBlur: () => this.onKupBlur(),
-            onChange: () => this.onKupChange(),
-            onFocus: () => this.onKupFocus(),
-        };
-
         return (
             <Host>
                 <style>
@@ -172,8 +174,211 @@ export class KupMultiSelect {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
-                    <FSwitch {...props} />
+                <div class="section-3">
+                    {this.tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
+                        <div
+                            class={`${KupCardCSSClasses.CARD_VIEW} ${
+                                KupCardCSSClasses.VIEW_PREFIX
+                            }${this.viewIndex} ${
+                                this.visibleView === this.viewIndex++
+                                    ? KupCardCSSClasses.VISIBLE
+                                    : ''
+                            }`}
+                        >
+                            <div
+                                class={`sub-field ${
+                                    this.textfieldArray.length > 0 ||
+                                    this.datepickerArray.length > 0 ||
+                                    this.timepickerArray.length > 0
+                                        ? KupCardCSSClasses.HAS_CONTENT
+                                        : ''
+                                }`}
+                            >
+                                {this.datepickerArray.length > 0
+                                    ? this.compList(
+                                          this.datepickerArray,
+                                          'datepicker'
+                                      )
+                                    : null}
+                                {this.textfieldsIds.includes(
+                                    KupColumnMenuIds.TEXTFIELD_FILTER
+                                ) ? (
+                                    <kup-text-field
+                                        {...this.textfieldArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.TEXTFIELD_FILTER
+                                        )}
+                                    />
+                                ) : null}
+                                {this.textfieldsIds.includes(
+                                    KupColumnMenuIds.TEXTFIELD_FROM
+                                ) ? (
+                                    <kup-text-field
+                                        {...this.textfieldArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.TEXTFIELD_FROM
+                                        )}
+                                    />
+                                ) : null}
+                                {this.textfieldsIds.includes(
+                                    KupColumnMenuIds.TEXTFIELD_TO
+                                ) ? (
+                                    <kup-text-field
+                                        {...this.textfieldArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.TEXTFIELD_TO
+                                        )}
+                                    />
+                                ) : null}
+                                {this.timepickerArray.length > 0
+                                    ? this.compList(
+                                          this.timepickerArray,
+                                          'timepicker'
+                                      )
+                                    : null}
+                            </div>
+                            {this.checkboxArray.length > 0 ? (
+                                <div class="sub-checkbox">
+                                    {this.compList(
+                                        this.checkboxArray,
+                                        'checkbox'
+                                    )}
+                                </div>
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {this.tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
+                        <div
+                            class={`${KupCardCSSClasses.CARD_VIEW} ${
+                                KupCardCSSClasses.VIEW_PREFIX
+                            }${this.viewIndex} ${
+                                this.visibleView === this.viewIndex++
+                                    ? KupCardCSSClasses.VISIBLE
+                                    : ''
+                            }`}
+                        >
+                            <div class="sub-button">
+                                {this.buttonsIds.includes(
+                                    KupColumnMenuIds.BUTTON_REMOVE
+                                ) ? (
+                                    <kup-button
+                                        {...this.buttonArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.BUTTON_REMOVE
+                                        )}
+                                    />
+                                ) : null}
+                                {this.buttonsIds.includes(
+                                    KupColumnMenuIds.BUTTON_GROUP
+                                ) ? (
+                                    <kup-button
+                                        {...this.buttonArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.BUTTON_GROUP
+                                        )}
+                                    />
+                                ) : null}
+                            </div>
+                            <div class="sub-formula">
+                                {this.textfieldsIds.includes(
+                                    KupColumnMenuIds.TEXTFIELD_FORMULA
+                                ) ? (
+                                    <kup-text-field
+                                        {...this.textfieldArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.TEXTFIELD_FORMULA
+                                        )}
+                                    />
+                                ) : null}
+                            </div>
+                            <div class="sub-chip">
+                                {this.chipArray[0] ? (
+                                    <kup-chip
+                                        {...this.chipArray[0]}
+                                        type={FChipType.INPUT}
+                                        id={KupCardIds.COLUMNS_LIST}
+                                    />
+                                ) : (
+                                    <kup-chip
+                                        type={FChipType.INPUT}
+                                        id={KupCardIds.COLUMNS_LIST}
+                                    />
+                                )}
+                                {this.buttonsIds.includes(
+                                    KupColumnMenuIds.BUTTON_APPLY
+                                ) ? (
+                                    <kup-button
+                                        {...this.buttonArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.BUTTON_APPLY
+                                        )}
+                                    />
+                                ) : null}
+                            </div>
+                            {this.objectArray[0] ? (
+                                <div class="sub-tree">
+                                    {this.treeArray[0] ? (
+                                        <kup-tree
+                                            class="kup-full-width"
+                                            globalFilter
+                                            {...this.treeArray[0]}
+                                            id={KupCardIds.EXTRA_COLUMNS}
+                                        />
+                                    ) : (
+                                        <div class="sub-spinner">
+                                            <kup-spinner
+                                                active={true}
+                                                dimensions="8px"
+                                                layout={2}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {this.tabsValues.includes(KupLanguageGeneric.SETTINGS) ? (
+                        <div
+                            class={`${KupCardCSSClasses.CARD_VIEW} ${
+                                KupCardCSSClasses.VIEW_PREFIX
+                            }${this.viewIndex} ${
+                                this.visibleView === this.viewIndex++
+                                    ? KupCardCSSClasses.VISIBLE
+                                    : ''
+                            }`}
+                        >
+                            <div class="sub-autocomplete">
+                                {this.autocompleteArray.length > 0
+                                    ? this.compList(
+                                          this.autocompleteArray,
+                                          'autocomplete'
+                                      )
+                                    : null}
+                            </div>
+                            <div class="sub-switch">
+                                {this.switchesIds.includes(
+                                    KupColumnMenuIds.SWITCH_KEY
+                                ) ? (
+                                    <kup-switch
+                                        {...this.switchArray.find(
+                                            (x) =>
+                                                x.id ===
+                                                KupColumnMenuIds.SWITCH_KEY
+                                        )}
+                                    />
+                                ) : null}
+                            </div>
+                        </div>
+                    ) : null}
                 </div>
             </Host>
         );
@@ -181,5 +386,22 @@ export class KupMultiSelect {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+    }
+
+    compList(array: any[], type: string) {
+        return array.map((item, index) => {
+            switch (type) {
+                case 'datepicker':
+                    return <kup-datepicker key={index} {...item} />;
+                case 'timepicker':
+                    return <kup-time-picker key={index} {...item} />;
+                case 'checkbox':
+                    return <kup-checkbox key={index} {...item} />;
+                case 'autocomplete':
+                    return <kup-autocomplete key={index} {...item} />;
+                default:
+                    return null;
+            }
+        });
     }
 }

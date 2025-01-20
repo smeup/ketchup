@@ -125,6 +125,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
+ - [kup-multi-select](../kup-multi-select)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
@@ -221,6 +222,7 @@ graph TD;
   kup-cell --> kup-time-picker
   kup-image-list --> kup-time-picker
   kup-input-panel --> kup-time-picker
+  kup-multi-select --> kup-time-picker
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

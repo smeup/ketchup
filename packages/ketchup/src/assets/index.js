@@ -175,6 +175,10 @@ components.data = [
         id: 'magic-box.html',
     },
     {
+        value: 'Multi Select',
+        id: 'multi-select.html',
+    },
+    {
         value: 'Nav bar',
         id: 'nav-bar.html',
     },

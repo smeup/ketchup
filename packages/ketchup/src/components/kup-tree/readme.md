@@ -302,6 +302,7 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-multi-select](../kup-multi-select)
 
 ### Depends on
 
@@ -479,6 +480,7 @@ graph TD;
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-magic-box --> kup-tree
+  kup-multi-select --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

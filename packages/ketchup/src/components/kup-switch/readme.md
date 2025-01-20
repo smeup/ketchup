@@ -88,6 +88,7 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-multi-select](../kup-multi-select)
 
 ### Depends on
 
@@ -225,6 +226,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
+  kup-multi-select --> kup-switch
   style kup-switch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

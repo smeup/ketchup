@@ -86,14 +86,35 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-text-field](../kup-text-field)
+- [kup-button](../kup-button)
+- [kup-chip](../kup-chip)
+- [kup-tree](../kup-tree)
+- [kup-spinner](../kup-spinner)
+- [kup-switch](../kup-switch)
+- [kup-time-picker](../kup-time-picker)
+- [kup-checkbox](../kup-checkbox)
+- [kup-autocomplete](../kup-autocomplete)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-multi-select --> kup-text-field
+  kup-multi-select --> kup-button
+  kup-multi-select --> kup-chip
+  kup-multi-select --> kup-tree
+  kup-multi-select --> kup-spinner
+  kup-multi-select --> kup-switch
+  kup-multi-select --> kup-time-picker
+  kup-multi-select --> kup-checkbox
+  kup-multi-select --> kup-autocomplete
   kup-multi-select --> kup-card
   kup-multi-select --> kup-dialog
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -139,9 +160,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-text-field --> kup-card
-  kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
