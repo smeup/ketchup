@@ -705,6 +705,11 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+            try {
+                cell.value = JSON.parse(`"${cell.value}"`);
+            } catch (e) {
+                cell.value = JSON.parse(JSON.stringify(cell.value));
+            }
             return (
                 <FTextField
                     {...cell.data}
@@ -712,7 +717,7 @@ function setEditableCell(
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
-                    value={JSON.parse(`"${cell.value}"`)}
+                    value={cell.value}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
                     }}
