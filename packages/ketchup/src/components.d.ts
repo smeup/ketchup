@@ -2358,6 +2358,34 @@ export namespace Components {
          */
         "stackedLeaves": boolean;
     }
+    interface KupFileUpload {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the input field.
+          * @default null
+         */
+        "data": any;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupForm {
         /**
           * Custom style of the component.
@@ -4817,6 +4845,10 @@ export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFamilyTreeElement;
 }
+export interface KupFileUploadCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupFileUploadElement;
+}
 export interface KupFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFormElement;
@@ -5438,6 +5470,23 @@ declare global {
     var HTMLKupFamilyTreeElement: {
         prototype: HTMLKupFamilyTreeElement;
         new (): HTMLKupFamilyTreeElement;
+    };
+    interface HTMLKupFileUploadElementEventMap {
+        "kup-file-upload-ready": KupEventPayload;
+    }
+    interface HTMLKupFileUploadElement extends Components.KupFileUpload, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupFileUploadElement: {
+        prototype: HTMLKupFileUploadElement;
+        new (): HTMLKupFileUploadElement;
     };
     interface HTMLKupFormElementEventMap {
         "kup-form-ready": KupEventPayload;
@@ -6094,6 +6143,7 @@ declare global {
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
+        "kup-file-upload": HTMLKupFileUploadElement;
         "kup-form": HTMLKupFormElement;
         "kup-gantt": HTMLKupGanttElement;
         "kup-gantt-calendar": HTMLKupGanttCalendarElement;
@@ -8051,6 +8101,23 @@ declare namespace LocalJSX {
           * @default false
          */
         "stackedLeaves"?: boolean;
+    }
+    interface KupFileUpload {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the input field.
+          * @default null
+         */
+        "data"?: any;
+        /**
+          * When component load is complete
+         */
+        "onKup-file-upload-ready"?: (event: KupFileUploadCustomEvent<KupEventPayload>) => void;
     }
     interface KupForm {
         /**
@@ -10051,6 +10118,7 @@ declare namespace LocalJSX {
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-family-tree": KupFamilyTree;
+        "kup-file-upload": KupFileUpload;
         "kup-form": KupForm;
         "kup-gantt": KupGantt;
         "kup-gantt-calendar": KupGanttCalendar;
@@ -10130,6 +10198,7 @@ declare module "@stencil/core" {
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
+            "kup-file-upload": LocalJSX.KupFileUpload & JSXBase.HTMLAttributes<HTMLKupFileUploadElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gantt": LocalJSX.KupGantt & JSXBase.HTMLAttributes<HTMLKupGanttElement>;
             "kup-gantt-calendar": LocalJSX.KupGanttCalendar & JSXBase.HTMLAttributes<HTMLKupGanttCalendarElement>;
