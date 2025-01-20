@@ -10,7 +10,6 @@ import {
     Method,
     Prop,
     State,
-    VNode,
     Watch,
 } from '@stencil/core';
 import {
@@ -667,7 +666,10 @@ export class KupDatePicker {
                         }
                         onInput={(e: InputEvent) => this.onKupInput(e)}
                     >
-                        <div id={this.rootElement.id + '_card'}>
+                        <div
+                            id={this.rootElement.id + '_card'}
+                            class="kup-date-picker-card"
+                        >
                             <kup-card
                                 ref={(el) => (this.pickerContainerEl = el)}
                                 data={cardData}
