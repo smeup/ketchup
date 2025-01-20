@@ -5259,6 +5259,16 @@ export class KupDataTable {
                     </tr>
                 );
 
+                jsxRows.push(
+                    <tr
+                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-row={row}
+                        class="group group-total"
+                    >
+                        {cells}
+                    </tr>
+                );
+
                 // if group is expanded, add children
 
                 if (this.#isGroupExpanded(row)) {
@@ -5283,16 +5293,6 @@ export class KupDataTable {
                             }
                         });
                 }
-
-                jsxRows.push(
-                    <tr
-                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
-                        data-row={row}
-                        class="group group-total"
-                    >
-                        {cells}
-                    </tr>
-                );
             } else {
                 jsxRows.push(
                     <tr
