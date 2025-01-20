@@ -712,16 +712,10 @@ function setEditableCell(
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
-                    value={cell.value}
+                    value={JSON.parse(`"${cell.value}"`)}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
                     }}
-                    // onKeyDown={(e: KeyboardEvent) => {
-                    //     cell.data?.onKeyDown?.(e);
-                    //     if (e.key === 'Enter') {
-                    //         cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                    //     }
-                    // }}
                     onInput={(e: InputEvent) => {
                         cell.data?.onInput?.(e);
                         cellEvent(e, props, cellType, FCellEvents.INPUT);
@@ -1426,10 +1420,7 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.EDITOR:
-                value = (e.target as HTMLInputElement).value.replace(
-                    /\n/g,
-                    '<br>'
-                );
+                value = JSON.stringify(value).slice(1, -1);
                 break;
         }
         if (cell.obj) {

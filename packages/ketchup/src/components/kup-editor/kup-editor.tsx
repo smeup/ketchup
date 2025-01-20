@@ -403,6 +403,7 @@ export class KupEditor {
     }
 
     createViewer() {
+        this.initialValue = JSON.parse(`"${this.initialValue}"`);
         const viewerProps: ViewerOptions = {
             el: this.editorRef,
             initialValue: this.initialValue,
