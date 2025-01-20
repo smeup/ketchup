@@ -27,7 +27,7 @@ export function customFormula(
         }
 
         // Create a global RegExp to replace all occurrences of the column name
-        const regex = new RegExp(`\\[${formulaColumnName}\\]`, 'g');
+        const regex = getRegExpFromString(`\\[${formulaColumnName}\\]`, 'g');
         formula = formula.replace(regex, `(${value.toString()})`);
     }
 
