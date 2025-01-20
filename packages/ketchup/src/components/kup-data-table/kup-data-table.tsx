@@ -6878,6 +6878,11 @@ export class KupDataTable {
         );
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.toolbar.unregister([this.rootElement]);
+        if (this.#customizeTopPanelRef)
+            this.#kupManager.dynamicPosition.unregister([
+                this.#customizeTopPanelRef,
+            ]);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'

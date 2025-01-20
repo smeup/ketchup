@@ -91,9 +91,7 @@ export class KupDynamicPosition {
                     kupDynamicPositionActiveClass
                 )
             ) {
-                requestAnimationFrame(function () {
-                    dom.ketchup.dynamicPosition.run(el);
-                });
+                dom.ketchup.dynamicPosition.run(el);
             }
         });
         mutObserver.observe(el, {
@@ -138,6 +136,8 @@ export class KupDynamicPosition {
      */
     start(el: KupDynamicPositionElement): void {
         el.classList.add(kupDynamicPositionActiveClass);
+        dom.ketchup.dynamicPosition.run(el);
+        this.addRepositionListeners(el);
     }
     /**
      * Ends the process of dynamically reposition the element.
@@ -145,6 +145,7 @@ export class KupDynamicPosition {
      */
     stop(el: KupDynamicPositionElement): void {
         el.classList.remove(kupDynamicPositionActiveClass);
+        this.removeRepositionListeners(el);
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
@@ -153,11 +154,9 @@ export class KupDynamicPosition {
     run(el: KupDynamicPositionElement): void {
         if (!el.isConnected) {
             dom.ketchup.dynamicPosition.managedElements.delete(el);
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
             return;
         }
         if (!el.classList.contains(kupDynamicPositionActiveClass)) {
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
             return;
         }
         // Reset placement
@@ -278,9 +277,57 @@ export class KupDynamicPosition {
                 el.style.left = `${left}px`;
             }
         }
-        // Testing behavior: always anchored - 2024-09-25
-        el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
+    }
+
+    reposition(el: KupDynamicPositionElement): void {
+        if (
+            el.isConnected &&
+            el.classList.contains(kupDynamicPositionActiveClass)
+        ) {
             dom.ketchup.dynamicPosition.run(el);
-        });
+        }
+    }
+
+    addRepositionListeners(el: KupDynamicPositionElement): void {
+        const repositionListener = () => this.reposition(el);
+
+        window.addEventListener('resize', repositionListener);
+        window.addEventListener('scroll', repositionListener);
+
+        if (el?.kupDynamicPosition?.anchor) {
+            let container = this.getAnchorContainer(el);
+
+            while (container && container !== document.documentElement) {
+                container.addEventListener('scroll', repositionListener);
+                container = container.parentElement;
+            }
+        }
+
+        (el as any)._resizeListener = repositionListener;
+    }
+
+    removeRepositionListeners(el: KupDynamicPositionElement): void {
+        const repositionListener = (el as any)._repositionListener;
+
+        window.removeEventListener('resize', repositionListener);
+        window.removeEventListener('scroll', repositionListener);
+
+        if (el?.kupDynamicPosition?.anchor) {
+            let container = this.getAnchorContainer(el);
+
+            while (container && container !== document.documentElement) {
+                container.removeEventListener('scroll', repositionListener);
+                container = container.parentElement;
+            }
+        }
+
+        delete (el as any)._repositionListener;
+    }
+
+    getAnchorContainer(el: KupDynamicPositionElement): HTMLElement {
+        return el.kupDynamicPosition.anchor &&
+            this.anchorIsHTMLElement(el.kupDynamicPosition.anchor)
+            ? (el.kupDynamicPosition.anchor as HTMLElement).parentElement
+            : undefined;
     }
 }
