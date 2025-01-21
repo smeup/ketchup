@@ -68,6 +68,7 @@ export interface KupManager {
         el: HTMLElement,
         options?: Partial<Options>
     ) => Promise<HTMLCanvasElement>;
+    removeDisconnectedElements: () => void;
 }
 /**
  * Interface for the KupManager utilities.

@@ -383,6 +383,29 @@ export class KupManager {
     removeClickCallback(cb: KupManagerClickCb): void {
         this.utilities.clickCallbacks.delete(cb);
     }
+
+    /**
+     * Removes elements disconnected by active DOM,
+     * use only from browser console
+     */
+    removeDisconnectedElements(): void {
+        const containers = [
+            this.dynamicPosition.managedElements,
+            this.theme.managedComponents,
+            this.language.managedComponents,
+            this.interact.managedElements,
+            this.toolbar.managedElements,
+            this.tooltip.managedElements,
+            this.dates.managedComponents,
+        ];
+        containers.forEach((e) => {
+            for (const element of e) {
+                if (!element.isConnected) {
+                    e.delete(element);
+                }
+            }
+        });
+    }
 }
 /**
  * Called by the Ketchup components to retrieve the instance of KupManager (or creating a new one when missing).

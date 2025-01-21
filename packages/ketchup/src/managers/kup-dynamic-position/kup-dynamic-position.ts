@@ -109,6 +109,7 @@ export class KupDynamicPosition {
         el: KupDynamicPositionElement,
         anchorEl: KupDynamicPositionAnchor
     ): void {
+        debugger;
         el.kupDynamicPosition.anchor = anchorEl;
     }
     /**
@@ -118,6 +119,7 @@ export class KupDynamicPosition {
     unregister(elements: KupDynamicPositionElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
+                this.removeRepositionListeners(elements[index]);
                 this.managedElements.delete(elements[index]);
             }
         }
