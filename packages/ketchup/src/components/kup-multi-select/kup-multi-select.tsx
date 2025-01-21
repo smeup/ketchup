@@ -46,9 +46,8 @@ export class KupMultiSelect {
     @Element() rootElement: HTMLElement;
 
     @State() value: string = '';
-    @State() tabsValues: string[] = [];
-    @State() visibleView: number = 0;
-    @State() viewIndex: number = 0;
+    @State() visibleView: number = 1; // Only use view 2
+    @State() viewIndex: number = 1; // Only use view 2
 
     @Prop({ mutable: true }) checked: boolean = false;
     @Prop() customStyle: string = '';
@@ -175,210 +174,99 @@ export class KupMultiSelect {
                     )}
                 </style>
                 <div class="section-3">
-                    {this.tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
-                        <div
-                            class={`${KupCardCSSClasses.CARD_VIEW} ${
-                                KupCardCSSClasses.VIEW_PREFIX
-                            }${this.viewIndex} ${
-                                this.visibleView === this.viewIndex++
-                                    ? KupCardCSSClasses.VISIBLE
-                                    : ''
-                            }`}
-                        >
-                            <div
-                                class={`sub-field ${
-                                    this.textfieldArray.length > 0 ||
-                                    this.datepickerArray.length > 0 ||
-                                    this.timepickerArray.length > 0
-                                        ? KupCardCSSClasses.HAS_CONTENT
-                                        : ''
-                                }`}
-                            >
-                                {this.datepickerArray.length > 0
-                                    ? this.compList(
-                                          this.datepickerArray,
-                                          'datepicker'
-                                      )
-                                    : null}
-                                {this.textfieldsIds.includes(
-                                    KupColumnMenuIds.TEXTFIELD_FILTER
-                                ) ? (
-                                    <kup-text-field
-                                        {...this.textfieldArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.TEXTFIELD_FILTER
-                                        )}
-                                    />
-                                ) : null}
-                                {this.textfieldsIds.includes(
-                                    KupColumnMenuIds.TEXTFIELD_FROM
-                                ) ? (
-                                    <kup-text-field
-                                        {...this.textfieldArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.TEXTFIELD_FROM
-                                        )}
-                                    />
-                                ) : null}
-                                {this.textfieldsIds.includes(
-                                    KupColumnMenuIds.TEXTFIELD_TO
-                                ) ? (
-                                    <kup-text-field
-                                        {...this.textfieldArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.TEXTFIELD_TO
-                                        )}
-                                    />
-                                ) : null}
-                                {this.timepickerArray.length > 0
-                                    ? this.compList(
-                                          this.timepickerArray,
-                                          'timepicker'
-                                      )
-                                    : null}
-                            </div>
-                            {this.checkboxArray.length > 0 ? (
-                                <div class="sub-checkbox">
-                                    {this.compList(
-                                        this.checkboxArray,
-                                        'checkbox'
+                    {/* Render only the second view */}
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${this.viewIndex} ${
+                            this.visibleView === this.viewIndex
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        <div class="sub-button">
+                            {this.buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_REMOVE
+                            ) ? (
+                                <kup-button
+                                    {...this.buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_REMOVE
                                     )}
-                                </div>
+                                />
+                            ) : null}
+                            {this.buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_GROUP
+                            ) ? (
+                                <kup-button
+                                    {...this.buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_GROUP
+                                    )}
+                                />
                             ) : null}
                         </div>
-                    ) : null}
-
-                    {this.tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
-                        <div
-                            class={`${KupCardCSSClasses.CARD_VIEW} ${
-                                KupCardCSSClasses.VIEW_PREFIX
-                            }${this.viewIndex} ${
-                                this.visibleView === this.viewIndex++
-                                    ? KupCardCSSClasses.VISIBLE
-                                    : ''
-                            }`}
-                        >
-                            <div class="sub-button">
-                                {this.buttonsIds.includes(
-                                    KupColumnMenuIds.BUTTON_REMOVE
-                                ) ? (
-                                    <kup-button
-                                        {...this.buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_REMOVE
-                                        )}
-                                    />
-                                ) : null}
-                                {this.buttonsIds.includes(
-                                    KupColumnMenuIds.BUTTON_GROUP
-                                ) ? (
-                                    <kup-button
-                                        {...this.buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_GROUP
-                                        )}
-                                    />
-                                ) : null}
-                            </div>
-                            <div class="sub-formula">
-                                {this.textfieldsIds.includes(
-                                    KupColumnMenuIds.TEXTFIELD_FORMULA
-                                ) ? (
-                                    <kup-text-field
-                                        {...this.textfieldArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.TEXTFIELD_FORMULA
-                                        )}
-                                    />
-                                ) : null}
-                            </div>
-                            <div class="sub-chip">
-                                {this.chipArray[0] ? (
-                                    <kup-chip
-                                        {...this.chipArray[0]}
-                                        type={FChipType.INPUT}
-                                        id={KupCardIds.COLUMNS_LIST}
+                        <div class="sub-formula">
+                            {this.textfieldsIds.includes(
+                                KupColumnMenuIds.TEXTFIELD_FORMULA
+                            ) ? (
+                                <kup-text-field
+                                    {...this.textfieldArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.TEXTFIELD_FORMULA
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-chip">
+                            {this.chipArray[0] ? (
+                                <kup-chip
+                                    {...this.chipArray[0]}
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
+                            ) : (
+                                <kup-chip
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
+                            )}
+                            {this.buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_APPLY
+                            ) ? (
+                                <kup-button
+                                    {...this.buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_APPLY
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        {this.objectArray[0] ? (
+                            <div class="sub-tree">
+                                {this.treeArray[0] ? (
+                                    <kup-tree
+                                        class="kup-full-width"
+                                        globalFilter
+                                        {...this.treeArray[0]}
+                                        id={KupCardIds.EXTRA_COLUMNS}
                                     />
                                 ) : (
-                                    <kup-chip
-                                        type={FChipType.INPUT}
-                                        id={KupCardIds.COLUMNS_LIST}
-                                    />
-                                )}
-                                {this.buttonsIds.includes(
-                                    KupColumnMenuIds.BUTTON_APPLY
-                                ) ? (
-                                    <kup-button
-                                        {...this.buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_APPLY
-                                        )}
-                                    />
-                                ) : null}
-                            </div>
-                            {this.objectArray[0] ? (
-                                <div class="sub-tree">
-                                    {this.treeArray[0] ? (
-                                        <kup-tree
-                                            class="kup-full-width"
-                                            globalFilter
-                                            {...this.treeArray[0]}
-                                            id={KupCardIds.EXTRA_COLUMNS}
+                                    <div class="sub-spinner">
+                                        <kup-spinner
+                                            active={true}
+                                            dimensions="8px"
+                                            layout={2}
                                         />
-                                    ) : (
-                                        <div class="sub-spinner">
-                                            <kup-spinner
-                                                active={true}
-                                                dimensions="8px"
-                                                layout={2}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            ) : null}
-                        </div>
-                    ) : null}
-
-                    {this.tabsValues.includes(KupLanguageGeneric.SETTINGS) ? (
-                        <div
-                            class={`${KupCardCSSClasses.CARD_VIEW} ${
-                                KupCardCSSClasses.VIEW_PREFIX
-                            }${this.viewIndex} ${
-                                this.visibleView === this.viewIndex++
-                                    ? KupCardCSSClasses.VISIBLE
-                                    : ''
-                            }`}
-                        >
-                            <div class="sub-autocomplete">
-                                {this.autocompleteArray.length > 0
-                                    ? this.compList(
-                                          this.autocompleteArray,
-                                          'autocomplete'
-                                      )
-                                    : null}
+                                    </div>
+                                )}
                             </div>
-                            <div class="sub-switch">
-                                {this.switchesIds.includes(
-                                    KupColumnMenuIds.SWITCH_KEY
-                                ) ? (
-                                    <kup-switch
-                                        {...this.switchArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.SWITCH_KEY
-                                        )}
-                                    />
-                                ) : null}
-                            </div>
-                        </div>
-                    ) : null}
+                        ) : null}
+                    </div>
                 </div>
             </Host>
         );
