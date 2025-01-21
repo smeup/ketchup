@@ -32,6 +32,7 @@ import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 import { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -92,6 +93,7 @@ export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+export { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 export { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -5239,6 +5241,7 @@ declare global {
         "kup-datatable-update": KupDatatableUpdatePayload;
         "kup-datatable-check": KupDatatableCellCheckPayload;
         "kup-datatable-cell-click": FCellEventPayload;
+        "kup-datatable-drop": KupDropEventPayload;
         "kup-datatable-cell-iconclick": FCellEventPayload;
         "kup-datatable-cell-input": FCellEventPayload;
         "kup-datatable-objectfield-searchpayload": FObjectFieldEventPayload;
@@ -7427,6 +7430,7 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        "onKup-datatable-drop"?: (event: KupDataTableCustomEvent<KupDropEventPayload>) => void;
         /**
           * Event fired when the history confirm button is pressed.
          */
