@@ -26,6 +26,7 @@ import { KupFileUploadProps } from './kup-file-upload-declaration';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-file-upload',
@@ -64,7 +65,7 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     @State() inputRef?: HTMLInputElement;
-    @State() inputFileName;
+    @State() files?: File[] = [];
 
     //#endregion
 
@@ -145,17 +146,31 @@ export class KupFileUpload {
     }
 
     #handleFileChange(event: Event) {
-        const fullName = (event.target as HTMLInputElement).files[0]?.name;
-
-        this.inputFileName =
-            fullName?.length > 20
-                ? fullName.slice(0, 9) + '...' + fullName.slice(-10)
-                : fullName;
+        const newFiles = Array.from((event.target as HTMLInputElement).files);
+        this.files = [...this.files, ...newFiles];
     }
 
-    #handleRemoveSelected() {
-        this.inputRef.value = '';
-        this.inputRef.dispatchEvent(new CustomEvent('change'));
+    #handleFileRemove(index: number) {
+        this.files = [
+            ...this.files.splice(0, index),
+            ...this.files.splice(index + 1),
+        ];
+    }
+
+    #handleDrop(event: DragEvent) {
+        event.preventDefault();
+
+        const droppedFiles = event.dataTransfer.files;
+        if (droppedFiles.length > 0) {
+            const newFiles = Array.from(droppedFiles);
+            this.files = [...this.files, ...newFiles];
+        }
+    }
+
+    #trimFileName(fileName: string) {
+        return fileName?.length > 20
+            ? fileName.slice(0, 9) + '...' + fileName.slice(-10)
+            : fileName;
     }
     //#endregion
 
@@ -193,36 +208,49 @@ export class KupFileUpload {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div class="file-upload">
+                    <div
+                        class="file-upload"
+                        onDrop={this.#handleDrop.bind(this)}
+                        onDragOver={(event) => event.preventDefault()}
+                    >
                         <input
                             type="file"
                             ref={(el) => (this.inputRef = el)}
                             onChange={this.#handleFileChange.bind(this)}
                             hidden
                         ></input>
-                        <FButton
-                            icon="upload"
-                            buttonType="file"
-                            label={this.#kupManager.language.translate(
-                                KupLanguageGeneric.UPLOAD
-                            )}
-                            onClick={this.#handleClick.bind(this)}
-                        ></FButton>
-                        <div class="file-upload__desc">
-                            {this.inputFileName && (
-                                <span
-                                    class="file-upload__desc__clear"
-                                    onClick={this.#handleRemoveSelected.bind(
-                                        this
-                                    )}
-                                ></span>
-                            )}
-                            <span class="file-upload__desc_label">
-                                {this.inputFileName ??
-                                    this.#kupManager.language.translate(
-                                        KupLanguageGeneric.UPLOAD_EMPTY
-                                    )}
-                            </span>
+                        <div class="file-upload__buttons">
+                            <FButton
+                                icon="upload"
+                                label={'Choose'}
+                                onClick={this.#handleClick.bind(this)}
+                            ></FButton>
+                            <FButton
+                                icon="save"
+                                label={'Upload'}
+                                styling={FButtonStyling.FLAT}
+                            ></FButton>
+                            <FButton
+                                icon="clear"
+                                label={'Cancel'}
+                                styling={FButtonStyling.FLAT}
+                            ></FButton>
+                        </div>
+                        <div class="file-upload__list">
+                            {this.files.map((file, i) => (
+                                <div class="file-upload__list__item">
+                                    <span class="file-upload__list__item__desc">
+                                        {this.#trimFileName(file.name)}
+                                    </span>
+                                    <span
+                                        class="file-upload__list__item__clear"
+                                        onClick={this.#handleFileRemove.bind(
+                                            this,
+                                            i
+                                        )}
+                                    ></span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

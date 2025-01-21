@@ -1,15 +1,62 @@
 :host {
   --kup_upload_icon_color: var(--kup-upload-icon-color, var(--kup-icon-color));
+  --kup_upload_border_color: var(
+    --kup-upload-border-color,
+    var(--kup-gray-color-30)
+  );
 
   .file-upload {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1em;
+    border: 2px dashed var(--kup_upload_border_color);
+    border-radius: 4px;
+    padding: 1em;
+
+    &__buttons {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+
+      &__item {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+
+        // &__desc {
+        // }
+        &__clear {
+          background-color: var(--kup_upload_icon_color);
+          cursor: pointer;
+          height: 16px;
+          width: 16px;
+          min-width: 16px;
+          min-height: 16px;
+          outline: none;
+          pointer-events: all;
+          -webkit-mask: var(--kup-clear-icon);
+          mask: var(--kup-clear-icon);
+
+          &:hover {
+            background-color: var(--kup-danger-color-60);
+          }
+        }
+      }
+    }
 
     &__desc {
+      min-height: 4em;
       display: flex;
-      gap: 0.5em;
-      align-items: center;
+      flex-direction: column;
+      gap: 1em;
 
       &__clear {
         background-color: var(--kup_upload_icon_color);
