@@ -173,6 +173,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--lightmode': props.lightMode,
         'mdc-text-field--outlined': isOutlined,
         'mdc-text-field--textarea': props.textArea,
+        'mdc-text-field--editor-fallback': props.editorFallback,
         'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,
         'mdc-text-field--with-trailing-icon': props.icon && props.trailingIcon,
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,

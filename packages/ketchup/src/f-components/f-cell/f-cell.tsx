@@ -712,6 +712,7 @@ function setEditableCell(
                 <FTextField
                     {...cell.data}
                     textArea={true}
+                    editorFallback={true}
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
