@@ -1,5 +1,8 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { KupTextFieldEventPayload } from '../../components';
+import {
+    KupEditorEventPayload,
+    KupTextFieldEventPayload,
+} from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -710,6 +713,11 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+            try {
+                cell.value = JSON.parse(`"${cell.value}"`);
+            } catch (e) {
+                cell.value = JSON.parse(JSON.stringify(cell.value));
+            }
             return (
                 <FTextField
                     {...cell.data}
@@ -720,12 +728,6 @@ function setEditableCell(
                     value={cell.value}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                    }}
-                    onKeyDown={(e: KeyboardEvent) => {
-                        cell.data?.onKeyDown?.(e);
-                        if (e.key === 'Enter') {
-                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                        }
                     }}
                     onInput={(e: InputEvent) => {
                         cell.data?.onInput?.(e);
@@ -1439,6 +1441,9 @@ function cellEvent(
                     ).detail.comp.data;
                 }
                 break;
+            case FCellTypes.EDITOR:
+                value = JSON.stringify(value).slice(1, -1);
+                break;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
@@ -1488,7 +1493,6 @@ function getValueFromEventTarget(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
-
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
     }
