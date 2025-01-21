@@ -6537,7 +6537,7 @@ export class KupDataTable {
         if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
-                height: this.tableHeight,
+                maxHeight: this.tableHeight,
                 overflow: 'auto',
             };
         }
