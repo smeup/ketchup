@@ -102,7 +102,11 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
-    const subcomponentProps: unknown = { ...cell.data };
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        resource: cell?.icon,
+        placeholderResource: cell?.placeholderIcon,
+    };
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
