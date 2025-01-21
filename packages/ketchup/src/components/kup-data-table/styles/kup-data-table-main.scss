@@ -195,7 +195,7 @@ table {
         box-sizing: border-box;
         height: 36px;
         text-align: right;
-        font-weight: bold;
+        font-weight: 600;
         padding: 0.5em var(--kup-space-03);
         &:hover {
           background-color: var(--kup_datatable_background_color);
@@ -432,7 +432,7 @@ tbody {
       background: var(--kup-layer-1-selected);
       border-top: var(--kup_datatable_border);
       color: var(--kup-text-secondary);
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
 
       &.group-label {
@@ -468,6 +468,7 @@ tbody {
           text-align: right;
           padding: 0.5em var(--kup-space-03);
           font-family: var(--kup_datatable_font_family_monospace);
+          font-weight: 600;
 
           &.negative-number {
             color: var(--kup-danger-color-60);
@@ -552,7 +553,7 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 .totals-value {
-  font-weight: bold;
+  font-weight: 600;
   @include kup-heading-compact-01;
   font-size: 13px;
   font-family: var(--kup_datatable_font_family_monospace);
