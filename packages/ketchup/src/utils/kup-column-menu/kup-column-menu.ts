@@ -131,6 +131,10 @@ export class KupColumnMenu {
         currentData?: KupCardData
     ): KupCardData {
         const data: KupCardData = currentData ? { ...currentData } : {};
+        this.filtersColumnMenuInstance.resetTextualFilters(
+            comp.filters,
+            column.name
+        );
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
