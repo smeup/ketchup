@@ -2723,7 +2723,7 @@ export class KupDataTable {
             }
         }
         if (this.showCustomization) {
-            this.#customizePanelPosition();
+            //this.#customizePanelPosition();
         }
         this.#totalMenuPosition();
         this.#checkScrollOnHover();

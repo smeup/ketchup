@@ -305,7 +305,7 @@ export class KupDynamicPosition {
             }
         }
 
-        (el as any)._resizeListener = repositionListener;
+        (el as any)._repositionListener = repositionListener;
     }
 
     removeRepositionListeners(el: KupDynamicPositionElement): void {

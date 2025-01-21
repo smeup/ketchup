@@ -2253,6 +2253,7 @@ export class KupTree {
         this.#kupManager.language.unregister(this);
         this.#kupManager.resize.unobserve(this.rootElement);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.interact.unregister([this.treeWrapperRef]);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'
