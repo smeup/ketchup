@@ -1,0 +1,32 @@
+:host {
+  --kup_upload_icon_color: var(--kup-upload-icon-color, var(--kup-icon-color));
+
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    &__desc {
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+
+      &__clear {
+        background-color: var(--kup_upload_icon_color);
+        cursor: pointer;
+        height: 16px;
+        width: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        outline: none;
+        pointer-events: all;
+        -webkit-mask: var(--kup-clear-icon);
+        mask: var(--kup-clear-icon);
+
+        &:hover {
+          background-color: var(--kup-danger-color-60);
+        }
+      }
+    }
+  }
+}

@@ -21,7 +21,7 @@ import {
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import { getProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupFileUploadProps } from './kup-file-upload-declaration';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -29,7 +29,7 @@ import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-dec
 
 @Component({
     tag: 'kup-file-upload',
-    // styleUrl: 'kup-file-upload.scss',
+    styleUrl: 'kup-file-upload.scss',
     shadow: true,
 })
 export class KupFileUpload {
@@ -64,7 +64,7 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     @State() inputRef?: HTMLInputElement;
-    @State() inputFileName = '';
+    @State() inputFileName;
 
     //#endregion
 
@@ -114,7 +114,7 @@ export class KupFileUpload {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        // setProps(this, KupFileUploadProps, props);
+        setProps(this, KupFileUploadProps, props);
     }
     //#endregion
 
@@ -145,7 +145,17 @@ export class KupFileUpload {
     }
 
     #handleFileChange(event: Event) {
-        this.inputFileName = (event.target as HTMLInputElement).files[0].name;
+        const fullName = (event.target as HTMLInputElement).files[0]?.name;
+
+        this.inputFileName =
+            fullName?.length > 20
+                ? fullName.slice(0, 9) + '...' + fullName.slice(-10)
+                : fullName;
+    }
+
+    #handleRemoveSelected() {
+        this.inputRef.value = '';
+        this.inputRef.dispatchEvent(new CustomEvent('change'));
     }
     //#endregion
 
@@ -183,13 +193,7 @@ export class KupFileUpload {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            'flex-direction': 'column',
-                            gap: '1em',
-                        }}
-                    >
+                    <div class="file-upload">
                         <input
                             type="file"
                             ref={(el) => (this.inputRef = el)}
@@ -204,7 +208,22 @@ export class KupFileUpload {
                             )}
                             onClick={this.#handleClick.bind(this)}
                         ></FButton>
-                        <span>{this.inputFileName}</span>
+                        <div class="file-upload__desc">
+                            {this.inputFileName && (
+                                <span
+                                    class="file-upload__desc__clear"
+                                    onClick={this.#handleRemoveSelected.bind(
+                                        this
+                                    )}
+                                ></span>
+                            )}
+                            <span class="file-upload__desc_label">
+                                {this.inputFileName ??
+                                    this.#kupManager.language.translate(
+                                        KupLanguageGeneric.UPLOAD_EMPTY
+                                    )}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </Host>
