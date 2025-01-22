@@ -10,6 +10,7 @@ const dom: KupDom = document.documentElement as KupDom;
 dom.ketchup = new KupManager({ dates: { locale } });
 
 const mockedRows = sampleKupDataDataset.rows;
+const mockedColumns = sampleKupDataDataset.columns;
 
 describe('kup datatable totalizations', () => {
     it('handles error without parameters', () => {
@@ -28,22 +29,22 @@ describe('kup datatable totalizations', () => {
     });
 
     it('handles error with rows without total', () => {
-        const totals = calcTotals(mockedRows);
+        const totals = calcTotals(mockedColumns, mockedRows);
         expect(totals).toEqual({});
     });
 
     it('handles error with undefined total', () => {
-        const totals = calcTotals(mockedRows, undefined);
+        const totals = calcTotals(mockedColumns, mockedRows, undefined);
         expect(totals).toEqual({});
     });
 
     it('handles error with empty total', () => {
-        const totals = calcTotals(mockedRows, {});
+        const totals = calcTotals(mockedColumns, mockedRows, {});
         expect(totals).toEqual({});
     });
 
     it('calculates count', () => {
-        const totals = calcTotals(mockedRows, {
+        const totals = calcTotals(mockedColumns, mockedRows, {
             FLD1: TotalMode.COUNT,
             FLD2: TotalMode.COUNT,
             FLD3: TotalMode.COUNT,
@@ -58,7 +59,7 @@ describe('kup datatable totalizations', () => {
     });
 
     it('calculates sum', () => {
-        const totals = calcTotals(mockedRows, {
+        const totals = calcTotals(mockedColumns, mockedRows, {
             FLD1: TotalMode.SUM,
             FLD2: TotalMode.SUM,
             FLD3: TotalMode.SUM,
@@ -71,7 +72,7 @@ describe('kup datatable totalizations', () => {
     });
 
     it('calculates average', () => {
-        const totals = calcTotals(mockedRows, {
+        const totals = calcTotals(mockedColumns, mockedRows, {
             FLD1: TotalMode.AVERAGE,
             FLD2: TotalMode.AVERAGE,
             FLD3: TotalMode.AVERAGE,
@@ -84,7 +85,7 @@ describe('kup datatable totalizations', () => {
     });
 
     it('calculates mixed', () => {
-        const totals = calcTotals(mockedRows, {
+        const totals = calcTotals(mockedColumns, mockedRows, {
             FLD1: TotalMode.SUM,
             FLD2: TotalMode.AVERAGE,
             FLD3: TotalMode.SUM,
