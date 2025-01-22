@@ -18,24 +18,17 @@ import {
     KupMultiSelectEventPayload,
     KupMultiSelectProps,
 } from './kup-multi-select-declarations';
-import { FSwitch } from '../../f-components/f-switch/f-switch';
-import {
-    FSwitchProps,
-    FSwitchSizing,
-} from '../../f-components/f-switch/f-switch-declarations';
+import { FSwitchSizing } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FChipType } from '../../f-components/f-chip/f-chip-declarations';
 import {
-    KupLanguageGeneric,
-    KupLanguageColumn,
-} from '../../managers/kup-language/kup-language-declarations';
-import {
     KupCardCSSClasses,
     KupCardIds,
 } from '../kup-card/kup-card-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-multi-select',
@@ -45,88 +38,24 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 export class KupMultiSelect {
     @Element() rootElement: HTMLElement;
 
-    @State() value: string = '';
     @State() visibleView: number = 2;
     @State() viewIndex: number = 2;
 
-    @Prop({ mutable: true }) checked: boolean = false;
     @Prop() customStyle: string = '';
     @Prop() disabled: boolean = false;
-    @Prop() label: string = null;
-    @Prop() leadingLabel: boolean = false;
-    @Prop() sizing: FSwitchSizing = FSwitchSizing.MEDIUM;
+    /**
+     * The json data used to populate the tree view: the basic, always visible tree nodes.
+     */
+    @Prop({ mutable: true }) data: KupTreeNode[] = [];
 
     // Other state properties for handling arrays
-    @State() textfieldArray: any[] = [];
-    @State() datepickerArray: any[] = [];
-    @State() timepickerArray: any[] = [];
-    @State() checkboxArray: any[] = [];
-    @State() autocompleteArray: any[] = [];
-    @State() switchArray: any[] = [];
+
     @State() buttonArray: any[] = [];
     @State() chipArray: any[] = [];
     @State() treeArray: any[] = [];
-    @State() objectArray: any[] = [];
     @State() buttonsIds: string[] = [];
-    @State() textfieldsIds: string[] = [];
-    @State() switchesIds: string[] = [];
 
     private kupManager: KupManager = kupManagerInstance();
-
-    @Event({
-        eventName: 'kup-multi-select-blur',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBlur: EventEmitter<KupMultiSelectEventPayload>;
-
-    @Event({
-        eventName: 'kup-multi-select-change',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupChange: EventEmitter<KupMultiSelectEventPayload>;
-
-    @Event({
-        eventName: 'kup-multi-select-focus',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupFocus: EventEmitter<KupMultiSelectEventPayload>;
-
-    onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
-    }
-
-    onKupChange() {
-        if (this.checked) {
-            this.checked = false;
-            this.value = 'off';
-        } else {
-            this.checked = true;
-            this.value = 'on';
-        }
-        this.kupChange.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
-    }
-
-    onKupFocus() {
-        this.kupFocus.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
-    }
 
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
@@ -154,11 +83,6 @@ export class KupMultiSelect {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
-        if (this.checked) {
-            this.value = 'on';
-        } else {
-            this.value = 'off';
-        }
     }
 
     componentDidRender() {
@@ -183,44 +107,6 @@ export class KupMultiSelect {
                                 : ''
                         }`}
                     >
-                        <div class="sub-button">
-                            {this.buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_REMOVE
-                            ) ? (
-                                <kup-button
-                                    {...this.buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_REMOVE
-                                    )}
-                                />
-                            ) : null}
-                            {this.buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_GROUP
-                            ) ? (
-                                <kup-button
-                                    {...this.buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_GROUP
-                                    )}
-                                />
-                            ) : null}
-                        </div>
-                        <div class="sub-formula">
-                            {this.textfieldArray.some(
-                                (x) =>
-                                    x.id === KupColumnMenuIds.TEXTFIELD_FORMULA
-                            ) ? (
-                                <kup-text-field
-                                    {...this.textfieldArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.TEXTFIELD_FORMULA
-                                    )}
-                                />
-                            ) : null}
-                        </div>
                         <div class="sub-chip">
                             {this.chipArray[0] ? (
                                 <kup-chip
@@ -251,7 +137,8 @@ export class KupMultiSelect {
                                 class="kup-full-width"
                                 globalFilter
                                 {...this.treeArray[0]}
-                                id={KupCardIds.EXTRA_COLUMNS}
+                                id="multi-select-tree"
+                                data={this.data}
                             />
                         </div>
                     </div>
