@@ -447,11 +447,6 @@
           padding: 16px;
         }
 
-        &.mdc-text-field--editor-fallback {
-          min-height: 15em;
-          min-width: 25em;
-        }
-
         &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
           border: 1px solid var(--kup_textfield_primary_color);
           padding: 0;
