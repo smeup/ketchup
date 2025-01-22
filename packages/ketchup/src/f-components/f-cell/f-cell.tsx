@@ -30,6 +30,7 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
@@ -712,7 +713,7 @@ function setEditableCell(
                 <FTextField
                     {...cell.data}
                     textArea={true}
-                    editorFallback={true}
+                    sizing={KupComponentSizing.EXTRA_LARGE}
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
