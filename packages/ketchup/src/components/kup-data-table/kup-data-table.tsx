@@ -142,6 +142,7 @@ import {
     KupDraggableElement,
     KupDropCallbacks,
     KupDropDataTransferCallback,
+    KupDropEventPayload,
     KupDropEventTypes,
     KupPointerEventTypes,
     KupResizeCallbacks,
@@ -1283,6 +1284,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellClick: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-drop',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDrop: EventEmitter<KupDropEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-cell-iconclick',
@@ -5259,6 +5268,16 @@ export class KupDataTable {
                     </tr>
                 );
 
+                jsxRows.push(
+                    <tr
+                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-row={row}
+                        class="group group-total"
+                    >
+                        {cells}
+                    </tr>
+                );
+
                 // if group is expanded, add children
 
                 if (this.#isGroupExpanded(row)) {
@@ -5283,16 +5302,6 @@ export class KupDataTable {
                             }
                         });
                 }
-
-                jsxRows.push(
-                    <tr
-                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
-                        data-row={row}
-                        class="group group-total"
-                    >
-                        {cells}
-                    </tr>
-                );
             } else {
                 jsxRows.push(
                     <tr
@@ -6537,7 +6546,7 @@ export class KupDataTable {
         if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
-                height: this.tableHeight,
+                maxHeight: this.tableHeight,
                 overflow: 'auto',
             };
         }
@@ -6609,6 +6618,9 @@ export class KupDataTable {
 
         const compCreated = (
             <Host
+                onKup-drop={(e: CustomEvent<KupDropEventPayload>) => {
+                    this.kupDataTableDrop.emit(e.detail);
+                }}
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
                     autoselectOnAction(e);
                     this.kupDataTableCellInput.emit(e.detail);
