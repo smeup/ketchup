@@ -36,8 +36,16 @@ export function customFormula(
 
     // Evaluate the formula
     try {
+        // Use a simple parser to handle comma and negative numbers properly
+        const sanitizedExpression = formula
+            // Replace commas with dots
+            .replace(/,/g, '.')
+            .replace(
+                /(^|[+\-*/(])(-\d+(\.\d+)?)/g,
+                (_, before, number) => `${before}(${number})`
+            );
         const mexp = new Mexp();
-        const lexedFormula = mexp.lex(formula);
+        const lexedFormula = mexp.lex(sanitizedExpression);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
         return mexp.postfixEval(postFixedFormula);
     } catch (error: any) {

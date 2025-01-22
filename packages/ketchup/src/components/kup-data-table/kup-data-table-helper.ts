@@ -753,6 +753,7 @@ function adjustGroupAverageOrFormula(
     } else {
         numberOfLeaf = children.length;
     }
+
     // adjust average/formulas
     toAdjustKeys.forEach((key) => {
         if (type == TotalMode.AVERAGE) {
@@ -798,6 +799,7 @@ export function normalizeRows(
 }
 
 export function calcTotals(
+    columns?: KupDataColumn[],
     rows: Array<KupDataTableRow> = [],
     totals: TotalsMap = {}
 ): { [index: string]: number } {
@@ -807,6 +809,7 @@ export function calcTotals(
     ) {
         return {};
     }
+
     const keys = Object.keys(totals);
     const footerRow: { [index: string]: any } = {};
     const dateColumns: string[] = new Array();
@@ -979,7 +982,10 @@ export function calcTotals(
             if (dateColumns.indexOf(key) != -1) {
                 footerRow[key] = dom.ketchup.dates.format(footerRow[key]);
             } else if (dom.ketchup.math.isNumber(footerRow[key])) {
-                footerRow[key] = +footerRow[key].toFixed(2);
+                const columnDecimals = columns.find(
+                    (col) => col.name == key
+                )?.decimals;
+                footerRow[key] = +footerRow[key].toFixed(columnDecimals);
             }
         }
     }
