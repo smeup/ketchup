@@ -799,7 +799,7 @@ export function normalizeRows(
 }
 
 export function calcTotals(
-    columns: KupDataColumn[],
+    columns?: KupDataColumn[],
     rows: Array<KupDataTableRow> = [],
     totals: TotalsMap = {}
 ): { [index: string]: number } {
@@ -985,7 +985,7 @@ export function calcTotals(
                 const columnDecimals = columns.find(
                     (col) => col.name == key
                 )?.decimals;
-                footerRow[key] = +footerRow[key].toFixed(columnDecimals); // problema qua -- tofixed + cifre da inserire
+                footerRow[key] = +footerRow[key].toFixed(columnDecimals);
             }
         }
     }
