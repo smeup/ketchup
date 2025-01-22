@@ -643,7 +643,7 @@ export class KupAutocomplete {
                 : false,
             showMarker: this.showMarker,
             ...(this.displayedValue && {
-                size: this.displayedValue.length + 5,
+                size: this.displayedValue.length,
             }),
         };
         const fullHeight =
