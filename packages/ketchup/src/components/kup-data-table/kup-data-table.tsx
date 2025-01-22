@@ -142,6 +142,7 @@ import {
     KupDraggableElement,
     KupDropCallbacks,
     KupDropDataTransferCallback,
+    KupDropEventPayload,
     KupDropEventTypes,
     KupPointerEventTypes,
     KupResizeCallbacks,
@@ -1283,6 +1284,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellClick: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-drop',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDrop: EventEmitter<KupDropEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-cell-iconclick',
@@ -6609,6 +6618,9 @@ export class KupDataTable {
 
         const compCreated = (
             <Host
+                onKup-drop={(e: CustomEvent<KupDropEventPayload>) => {
+                    this.kupDataTableDrop.emit(e.detail);
+                }}
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
                     autoselectOnAction(e);
                     this.kupDataTableCellInput.emit(e.detail);
