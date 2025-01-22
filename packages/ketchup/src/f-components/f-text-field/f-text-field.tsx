@@ -472,8 +472,24 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     );
 }
 
+/**
+ * Generates a helper HTML element for a text field based on the provided properties.
+ *
+ * @param {FTextFieldProps} props - The properties of the text field, including configuration for helper messages, errors, and alerts.
+ * @returns {HTMLDivElement | undefined} - A `div` element containing the helper text, error, or alert message if applicable, or `undefined` if no helper is needed.
+ *
+ * The function considers the following props:
+ * - If `helperEnabled` is `false`, no helper is returned.
+ * - If either `error` or `alert` is provided and `legacyLook` is `false`, a helper is generated.
+ * - If `helper` is defined, it is wrapped in a helper text container with optional persistent behavior based on `helperWhenFocused`.
+ * - If no `helper` is defined, the function prioritizes rendering `error` or `alert` messages in the helper line.
+ */
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled !== false && (props.error || props.alert)) {
+    if (
+        props.helperEnabled !== false &&
+        (props.error || props.alert) &&
+        !props.legacyLook
+    ) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
