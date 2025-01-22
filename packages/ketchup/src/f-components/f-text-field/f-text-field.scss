@@ -442,10 +442,14 @@
       &.mdc-text-field--textarea {
         height: auto;
         padding: 0;
-
         .mdc-text-field__input {
           margin: 0;
           padding: 16px;
+        }
+
+        &.mdc-text-field--editor-fallback {
+          min-height: 15em;
+          min-width: 25em;
         }
 
         &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
@@ -498,7 +502,6 @@
           }
         }
       }
-
       .f-image .f-image__icon {
         --kup_image_height: 16px;
         --kup_image_width: 16px;
