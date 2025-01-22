@@ -46,8 +46,8 @@ export class KupMultiSelect {
     @Element() rootElement: HTMLElement;
 
     @State() value: string = '';
-    @State() visibleView: number = 1; // Only use view 2
-    @State() viewIndex: number = 1; // Only use view 2
+    @State() visibleView: number = 2;
+    @State() viewIndex: number = 2;
 
     @Prop({ mutable: true }) checked: boolean = false;
     @Prop() customStyle: string = '';
@@ -173,8 +173,7 @@ export class KupMultiSelect {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div class="section-3">
-                    {/* Render only the second view */}
+                <div id={componentWrapperId}>
                     <div
                         class={`${KupCardCSSClasses.CARD_VIEW} ${
                             KupCardCSSClasses.VIEW_PREFIX
@@ -209,8 +208,9 @@ export class KupMultiSelect {
                             ) : null}
                         </div>
                         <div class="sub-formula">
-                            {this.textfieldsIds.includes(
-                                KupColumnMenuIds.TEXTFIELD_FORMULA
+                            {this.textfieldArray.some(
+                                (x) =>
+                                    x.id === KupColumnMenuIds.TEXTFIELD_FORMULA
                             ) ? (
                                 <kup-text-field
                                     {...this.textfieldArray.find(
@@ -246,26 +246,14 @@ export class KupMultiSelect {
                                 />
                             ) : null}
                         </div>
-                        {this.objectArray[0] ? (
-                            <div class="sub-tree">
-                                {this.treeArray[0] ? (
-                                    <kup-tree
-                                        class="kup-full-width"
-                                        globalFilter
-                                        {...this.treeArray[0]}
-                                        id={KupCardIds.EXTRA_COLUMNS}
-                                    />
-                                ) : (
-                                    <div class="sub-spinner">
-                                        <kup-spinner
-                                            active={true}
-                                            dimensions="8px"
-                                            layout={2}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ) : null}
+                        <div class="sub-tree">
+                            <kup-tree
+                                class="kup-full-width"
+                                globalFilter
+                                {...this.treeArray[0]}
+                                id={KupCardIds.EXTRA_COLUMNS}
+                            />
+                        </div>
                     </div>
                 </div>
             </Host>

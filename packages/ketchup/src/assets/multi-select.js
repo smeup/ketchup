@@ -1553,7 +1553,22 @@ const props = [
     },
 ];
 
-let multiSelect = document.getElementById('extra-columns');
-if (multiSelect != null) {
-    multiSelect.data = props;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const kupMultiSelect = document.getElementById('kup-multi-select');
+        if (kupMultiSelect) {
+            const kupMultiSelectShadowRoot = kupMultiSelect.shadowRoot;
+            const extraColumns = kupMultiSelectShadowRoot
+                ? kupMultiSelectShadowRoot.getElementById('extra-columns')
+                : null;
+
+            if (extraColumns != null) {
+                extraColumns.data = props;
+            } else {
+                console.log('extra-columns not found.');
+            }
+        } else {
+            console.log('kup-multi-select element not found.');
+        }
+    }, 3000);
+});
