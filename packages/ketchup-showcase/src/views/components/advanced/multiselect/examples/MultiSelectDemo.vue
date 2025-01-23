@@ -9,8 +9,10 @@
     ></demo>
   </div>
 </template>
+
 <script>
 import Demo from '@/views/templates/Demo';
+
 export default {
   components: {
     Demo,
@@ -28,9 +30,9 @@ export default {
     };
   },
 };
+
 function createComp() {
   const comp = document.createElement('kup-multi-select');
-  comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.label = 'Demo';
   comp.data = {
