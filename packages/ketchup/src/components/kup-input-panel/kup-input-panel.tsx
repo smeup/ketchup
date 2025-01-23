@@ -749,9 +749,9 @@ export class KupInputPanel {
         let content = [];
 
         if (section.sections?.length) {
-            content = section.sections.map((innerSection) =>
-                this.#renderSection(cells, innerSection)
-            );
+            content = section.sections
+                .map((innerSection) => this.#renderSection(cells, innerSection))
+                .filter(Boolean);
 
             const hasDim = section.sections.some((sec) => sec.dim);
 
@@ -771,9 +771,10 @@ export class KupInputPanel {
                     : `repeat(${section.sections.length}, 1fr)`;
             }
         } else if (section.content?.length) {
-            content = section.content.map((field) =>
-                this.#renderField(cells, field)
-            );
+            content = section.content
+                .map((field) => this.#renderField(cells, field))
+                .filter(Boolean);
+
             styleObj.gridTemplateColumns =
                 +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '';
             if (this.dashboardMode) {
@@ -783,11 +784,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-        const sectionContent = (
+        const sectionContent = content.length ? (
             <div class={classObj} style={styleObj}>
-                {content.filter(Boolean)}
+                {content}
             </div>
-        );
+        ) : undefined;
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
