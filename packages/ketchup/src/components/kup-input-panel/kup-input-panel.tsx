@@ -783,11 +783,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-        const sectionContent = (
+        const sectionContent = content.filter(Boolean).map((content) => (
             <div class={classObj} style={styleObj}>
-                {content.filter(Boolean)}
+                {content}
             </div>
-        );
+        ));
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
