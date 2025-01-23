@@ -43,6 +43,7 @@ export class KupMultiSelect {
 
     @Prop() customStyle: string = '';
     @Prop() disabled: boolean = false;
+    
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
@@ -134,11 +135,11 @@ export class KupMultiSelect {
                         </div>
                         <div class="sub-tree">
                             <kup-tree
+                                {...this.data}
                                 class="kup-full-width"
                                 globalFilter
-                                {...this.treeArray[0]}
                                 id="multi-select-tree"
-                                data={this.data}
+                                //data={this.data}
                             />
                         </div>
                     </div>
@@ -149,22 +150,5 @@ export class KupMultiSelect {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-    }
-
-    compList(array: any[], type: string) {
-        return array.map((item, index) => {
-            switch (type) {
-                case 'datepicker':
-                    return <kup-datepicker key={index} {...item} />;
-                case 'timepicker':
-                    return <kup-time-picker key={index} {...item} />;
-                case 'checkbox':
-                    return <kup-checkbox key={index} {...item} />;
-                case 'autocomplete':
-                    return <kup-autocomplete key={index} {...item} />;
-                default:
-                    return null;
-            }
-        });
     }
 }

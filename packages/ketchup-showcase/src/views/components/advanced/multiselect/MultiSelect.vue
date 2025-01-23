@@ -12,9 +12,11 @@
 <script>
 import MultiSelectBasic from '@/views/components/advanced/multiselect/examples/MultiSelectBasic';
 import Comp from '@/views/templates/Comp';
+import MultiSelectDemo from './examples/MultiSelectDemo.vue';
 export default {
   components: {
     MultiSelectBasic,
+    MultiSelectDemo,
     Comp,
   },
   data() {
