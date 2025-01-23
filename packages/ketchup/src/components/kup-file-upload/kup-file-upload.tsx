@@ -27,6 +27,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-file-upload',
@@ -75,6 +76,19 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+    #preveiwMap = new Map([
+        ['application/pdf', 'file-pdf'],
+        ['application/vnd.ms-excel', 'file-excel'],
+        [
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'file-excel',
+        ],
+        ['application/msword', 'file-word'],
+        [
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'file-word',
+        ],
+    ]);
     //#endregion
 
     //#region WATCHERS
@@ -167,6 +181,26 @@ export class KupFileUpload {
         }
     }
 
+    #handleCancel() {
+        this.files = [];
+    }
+
+    #getPreview(file: File) {
+        const previewIcon = this.#preveiwMap.get(file.type);
+
+        if (!previewIcon) {
+            if (/^image\/.*/g.test(file.type)) {
+                return URL.createObjectURL(file);
+            }
+            if (/^video\/.*/g.test(file.type)) {
+                return 'video';
+            }
+            return 'file';
+        }
+
+        return previewIcon;
+    }
+
     #trimFileName(fileName: string) {
         return fileName?.length > 20
             ? fileName.slice(0, 9) + '...' + fileName.slice(-10)
@@ -222,24 +256,41 @@ export class KupFileUpload {
                         <div class="file-upload__buttons">
                             <FButton
                                 icon="upload"
-                                label={'Choose'}
+                                label={this.#kupManager.language.translate(
+                                    KupLanguageGeneric.CHOOSE
+                                )}
                                 onClick={this.#handleClick.bind(this)}
                             ></FButton>
                             <FButton
                                 icon="save"
-                                label={'Upload'}
+                                disabled={!this.files.length}
+                                label={this.#kupManager.language.translate(
+                                    KupLanguageGeneric.UPLOAD
+                                )}
                                 styling={FButtonStyling.FLAT}
                             ></FButton>
                             <FButton
                                 icon="clear"
-                                label={'Cancel'}
+                                disabled={!this.files.length}
+                                label={this.#kupManager.language.translate(
+                                    KupLanguageGeneric.ABORT
+                                )}
+                                onClick={this.#handleCancel.bind(this)}
                                 styling={FButtonStyling.FLAT}
                             ></FButton>
                         </div>
                         <div class="file-upload__list">
                             {this.files.map((file, i) => (
                                 <div class="file-upload__list__item">
-                                    <span class="file-upload__list__item__desc">
+                                    <div class="file-upload__list__item__preview">
+                                        <FImage
+                                            resource={this.#getPreview(file)}
+                                        ></FImage>
+                                    </div>
+                                    <span
+                                        class="file-upload__list__item__desc"
+                                        title={file.name}
+                                    >
                                         {this.#trimFileName(file.name)}
                                     </span>
                                     <span

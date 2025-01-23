@@ -31,8 +31,17 @@
         gap: 1em;
         align-items: center;
 
-        // &__desc {
-        // }
+        &__preview {
+          height: 3em;
+          width: 3em;
+          display: flex;
+          align-items: center;
+        }
+
+        &__desc {
+          width: 14em;
+        }
+
         &__clear {
           background-color: var(--kup_upload_icon_color);
           cursor: pointer;
@@ -48,30 +57,6 @@
           &:hover {
             background-color: var(--kup-danger-color-60);
           }
-        }
-      }
-    }
-
-    &__desc {
-      min-height: 4em;
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-
-      &__clear {
-        background-color: var(--kup_upload_icon_color);
-        cursor: pointer;
-        height: 16px;
-        width: 16px;
-        min-width: 16px;
-        min-height: 16px;
-        outline: none;
-        pointer-events: all;
-        -webkit-mask: var(--kup-clear-icon);
-        mask: var(--kup-clear-icon);
-
-        &:hover {
-          background-color: var(--kup-danger-color-60);
         }
       }
     }

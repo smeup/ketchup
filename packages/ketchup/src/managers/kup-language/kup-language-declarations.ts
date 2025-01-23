@@ -180,7 +180,7 @@ export enum KupLanguageGeneric {
     INVALID_VALUE = 'genericInvalidValue',
     REQUIRED_VALUE = 'genericRequiredValue',
     UPLOAD = 'genericUpload',
-    UPLOAD_EMPTY = 'genericUploadEmpty',
+    CHOOSE = 'genericChoose',
 }
 /**
  * Grid decodes (data table customization settings).

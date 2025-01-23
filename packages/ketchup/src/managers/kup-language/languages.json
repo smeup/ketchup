@@ -252,8 +252,8 @@
             "genericRowAdd": "Add row",
             "genericInvalidValue": "Invalid value",
             "genericRequiredValue": "This field is required",
-            "genericUpload": "Upload file",
-            "genericUploadEmpty": "No file selected"
+            "genericUpload": "Upload",
+            "genericChoose": "Choose"
         }
     },
     "french": {
@@ -509,8 +509,8 @@
             "genericRowAdd": "Aggiungi riga",
             "genericInvalidValue": "Valore non valido",
             "genericRequiredValue": "Valore obbligatorio",
-            "genericUpload": "Carica file",
-            "genericUploadEmpty": "Nessun file selezionato"
+            "genericUpload": "Carica",
+            "genericChoose": "Scegli"
         },
         "variants": {
             "smeup": {
