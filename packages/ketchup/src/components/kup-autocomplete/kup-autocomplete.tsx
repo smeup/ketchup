@@ -644,6 +644,9 @@ export class KupAutocomplete {
                 ? true
                 : false,
             showMarker: this.showMarker,
+            ...(this.displayedValue && {
+                size: this.displayedValue.length,
+            }),
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
