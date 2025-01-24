@@ -244,14 +244,9 @@ export class KupData {
         ): KupDataRowAction[] => {
             const cellActions: KupDataRowAction[] = [];
             const currentCell = row.cells[column.name];
-
             if (commands) {
-                const commandsFiltered = commands.filter(
-                    (command) =>
-                        this.object.compareObjects(
-                            command.obj,
-                            currentCell.obj
-                        ) || this.object.isObjectTPKEmpty(command.obj)
+                const commandsFiltered = commands.filter((command) =>
+                    this.cell.isActionCell(command, currentCell)
                 );
 
                 commandsFiltered.forEach((command) => {
@@ -277,25 +272,30 @@ export class KupData {
             return cellActions;
         },
         /**
+         * Check if cell can have action.
+         * @param {KupDataCell} cell to check.
+         * @param {KupCommand[]} command action to compare.
+         * @returns {boolean} if cell contain action showed on f-cell.
+         */
+        isActionCell: (command: KupCommand, cell: KupDataCell): boolean => {
+            const comparisonFunctions = [
+                this.object.compareObjects.bind(this.object),
+                this.object.isSameTPWithBlankK.bind(this.object),
+                this.object.isSameTWithBlankPAndK.bind(this.object),
+                this.object.isObjectTPKEmpty.bind(this.object),
+            ];
+            return comparisonFunctions.some((fn) => fn(command.obj, cell.obj));
+        },
+        /**
          * Check if row has action cells.
          * @param {KupDataCell} cell to check.
          * @param {KupCommand[]} commands array of actions
          * @returns {boolean} if cell contain action showed on f-cell
          */
         hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
-            if (
-                commands.some((command) =>
-                    this.object.isObjectTPKEmpty(command.obj)
-                )
-            ) {
-                return true;
-            }
-
-            const isMatchFound = commands.some((command) => {
-                return this.object.compareObjects(command.obj, cell.obj);
-            });
-
-            return isMatchFound;
+            return commands.some((command) =>
+                this.cell.isActionCell(command, cell)
+            );
         },
     };
     column = {
@@ -562,7 +562,7 @@ export class KupData {
     };
     object = {
         /** compare t p k of two objects
-         * @param {KupObj} firsObj
+         * @param {KupObj} firstObj
          * @param {KupObj} secondObj
          * @returns {boolean} result
          */
@@ -571,6 +571,33 @@ export class KupData {
                 firstObj.k === secondObj.k &&
                 firstObj.t === secondObj.t &&
                 firstObj.p === secondObj.p
+            );
+        },
+        /** ckeck if two obj has same T and P, and first obj has blank K
+         * @param {KupObj} firstObj
+         * @param {KupObj} secondObj
+         * @returns {boolean} result
+         */
+        isSameTPWithBlankK: (firstObj: KupObj, secondObj: KupObj): boolean => {
+            return (
+                firstObj.t === secondObj.t &&
+                firstObj.p === secondObj.p &&
+                firstObj.k === ''
+            );
+        },
+        /** ckeck if two obj has same T, and first obj has blank P and K
+         * @param {KupObj} firstObj
+         * @param {KupObj} secondObj
+         * @returns {boolean} result
+         */
+        isSameTWithBlankPAndK: (
+            firstObj: KupObj,
+            secondObj: KupObj
+        ): boolean => {
+            return (
+                firstObj.t === secondObj.t &&
+                firstObj.p === '' &&
+                firstObj.k === ''
             );
         },
         /** check if obj t p k proprieties are empty
