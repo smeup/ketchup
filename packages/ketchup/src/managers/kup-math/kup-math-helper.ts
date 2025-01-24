@@ -37,7 +37,7 @@ export function customFormula(
         // Create a global RegExp to replace all occurrences of the column name
         const regex = getRegExpFromString(formulaColumnName, 'g');
         formula = formula.replace(regex, `(${value.toString()})`);
-    }
+    });
 
     // Remove any leftover brackets (in case there are unmatched ones)
     formula = formula.replace(/[\[\]']+/g, '');
