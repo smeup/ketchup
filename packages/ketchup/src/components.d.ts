@@ -3075,6 +3075,8 @@ export namespace Components {
           * @default true
          */
         "selectable": boolean;
+        "setBlur": () => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
