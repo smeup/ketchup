@@ -2732,6 +2732,7 @@ export class KupDataTable {
             }
         }
         if (this.showCustomization) {
+            //This feature causes memory leak
             //this.#customizePanelPosition();
         }
         this.#totalMenuPosition();
