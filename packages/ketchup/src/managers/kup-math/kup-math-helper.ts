@@ -28,29 +28,38 @@ export function customFormula(
         if (isNaN(value)) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `${formulaColumnName} is not a number`,
+                `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
                 KupDebugCategory.WARNING
             );
             return;
         }
 
-        formula = formula.replace(
-            getRegExpFromString(formulaColumnName, 'g'),
-            '(' + value.toString() + ')'
-        );
-    });
+        // Create a global RegExp to replace all occurrences of the column name
+        const regex = getRegExpFromString(formulaColumnName, 'g');
+        formula = formula.replace(regex, `(${value.toString()})`);
+    }
 
+    // Remove any leftover brackets (in case there are unmatched ones)
     formula = formula.replace(/[\[\]']+/g, '');
-    // Calculate formula
+
+    // Evaluate the formula
     try {
+        // Use a simple parser to handle comma and negative numbers properly
+        const sanitizedExpression = formula
+            // Replace commas with dots
+            .replace(/,/g, '.')
+            .replace(
+                /(^|[+\-*/(])(-\d+(\.\d+)?)/g,
+                (_, before, number) => `${before}(${number})`
+            );
         const mexp = new Mexp();
-        const lexedFormula = mexp.lex(formula);
+        const lexedFormula = mexp.lex(sanitizedExpression);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
         return mexp.postfixEval(postFixedFormula);
-    } catch (e) {
+    } catch (error: any) {
         dom.ketchup.debug.logMessage(
             'kup-data',
-            `Error while evaluating the following formula!(" ${formula} "): ${e.message}`,
+            `Error while evaluating the formula ("${formula}"): ${error.message}`,
             KupDebugCategory.WARNING
         );
         return NaN;

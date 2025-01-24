@@ -1,5 +1,8 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { KupTextFieldEventPayload } from '../../components';
+import {
+    KupEditorEventPayload,
+    KupTextFieldEventPayload,
+} from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -27,6 +30,7 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
@@ -204,6 +208,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         };
         infoEl = <FImage {...fProps} />;
     }
+
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -218,25 +223,47 @@ export const FCell: FunctionalComponent<FCellProps> = (
                 class="f-cell__content"
                 style={cell.styleContent}
                 title={cellTitle}
+                onMouseEnter={(e) => handleMouseEnter(e, props, cellType)}
+                onMouseLeave={(e) => handleMouseLeave(e)}
             >
-                {props.cellActionIcon && (
-                    <FImage
-                        resource="more_vert"
-                        sizeX="16px"
-                        sizeY="16px"
-                        wrapperClass={`f-cell__iconfunction ${
-                            cellType === FCellTypes.NUMBER ? 'left' : 'right'
-                        }`}
-                        onClick={props.cellActionIcon.onClick}
-                        tabIndex={0}
-                    />
-                )}
                 {children && children.length > 0
                     ? children
                     : [props.indents, infoEl, icon, content]}
             </div>
         </div>
     );
+};
+
+const handleMouseEnter = (
+    e: MouseEvent,
+    props: FCellProps,
+    cellType: FCellTypes
+) => {
+    if (props.cellActionIcon) {
+        const parent = e.currentTarget as HTMLElement;
+        const iconElement = document.createElement('kup-image');
+        iconElement.resource = 'more_vert';
+        iconElement.sizeX = '16px';
+        iconElement.sizeY = '16px';
+        iconElement.tabIndex = 0;
+        iconElement.className = `f-cell__iconfunction ${
+            cellType === FCellTypes.NUMBER ? 'left' : 'right'
+        }`;
+
+        if (props.cellActionIcon?.onClick) {
+            iconElement.addEventListener('click', props.cellActionIcon.onClick);
+        }
+        parent.appendChild(iconElement);
+    }
+};
+
+const handleMouseLeave = (event: MouseEvent) => {
+    const parent = event.currentTarget as HTMLElement;
+    const iconContainer = parent.querySelector('kup-image');
+
+    if (iconContainer) {
+        iconContainer.remove();
+    }
 };
 
 const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
@@ -589,10 +616,7 @@ function setEditableCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
 
-            if (
-                cell.shape === FCellShapes.INPUT_CHECKBOX ||
-                cell.data?.legacyLook
-            ) {
+            if (cell.shape === FCellShapes.INPUT_CHECKBOX) {
                 return (
                     <input
                         checked={
@@ -703,22 +727,22 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+            try {
+                cell.value = JSON.parse(`"${cell.value}"`);
+            } catch (e) {
+                cell.value = JSON.parse(JSON.stringify(cell.value));
+            }
             return (
                 <FTextField
                     {...cell.data}
                     textArea={true}
+                    sizing={KupComponentSizing.EXTRA_LARGE}
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
                     value={cell.value}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                    }}
-                    onKeyDown={(e: KeyboardEvent) => {
-                        cell.data?.onKeyDown?.(e);
-                        if (e.key === 'Enter') {
-                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                        }
                     }}
                     onInput={(e: InputEvent) => {
                         cell.data?.onInput?.(e);
@@ -1432,6 +1456,9 @@ function cellEvent(
                     ).detail.comp.data;
                 }
                 break;
+            case FCellTypes.EDITOR:
+                value = JSON.stringify(value).slice(1, -1);
+                break;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
@@ -1481,7 +1508,6 @@ function getValueFromEventTarget(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
-
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
     }

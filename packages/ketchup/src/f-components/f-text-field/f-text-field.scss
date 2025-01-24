@@ -50,6 +50,27 @@
       --kup-textfield-extra-large-height,
       64px
     );
+
+    --kup_textfield_textarea_small_height: var(
+      --kup-textfield-textarea-small-height,
+      32px
+    );
+    --kup_textfield_textarea_medium_height: var(
+      --kup-textfield-textarea-medium-height,
+      50px
+    );
+    --kup_textfield_textarea_large_height: var(
+      --kup-textfield-textarea-large-height,
+      100px
+    );
+    --kup_textfield_textarea_extra_large_height: var(
+      --kup-textfield-textarea-extra-large-height,
+      200px
+    );
+    --kup_textfield_textarea_extra_large_width: var(
+      --kup-textfield-textarea-extra-large-width,
+      300px
+    );
     --kup_textfield_extrasmall_padding: var(
       --kup-textfield-extrasmall-padding,
       0 var(--kup-space-01) 0 var(--kup-space-01)
@@ -442,10 +463,26 @@
       &.mdc-text-field--textarea {
         height: auto;
         padding: 0;
-
         .mdc-text-field__input {
           margin: 0;
           padding: 16px;
+        }
+
+        &.mdc-text-field--textarea--small {
+          min-height: var(--kup_textfield_textarea_small_height);
+        }
+
+        &.mdc-text-field--textarea--medium {
+          height: var(--kup_textfield_textarea_medium_height);
+        }
+
+        &.mdc-text-field--textarea--large {
+          min-height: var(--kup_textfield_textarea_large_height);
+        }
+
+        &.mdc-text-field--textarea--extra-large {
+          min-height: var(--kup_textfield_textarea_extra_large_height);
+          min-width: var(--kup_textfield_textarea_extra_large_width);
         }
 
         &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
@@ -498,7 +535,6 @@
           }
         }
       }
-
       .f-image .f-image__icon {
         --kup_image_height: 16px;
         --kup_image_width: 16px;
