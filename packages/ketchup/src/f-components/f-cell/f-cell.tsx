@@ -946,6 +946,12 @@ function setEditableCell(
                     (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
                     (cellType ? cellType === FCellTypes.MEMO : false) ||
                     cell.data.maxLength >= 256;
+
+                try {
+                    cell.value = JSON.parse(`"${cell.value}"`);
+                } catch (e) {
+                    cell.value = JSON.parse(JSON.stringify(cell.value));
+                }
                 return (
                     <FTextField
                         textArea={isTextArea}
@@ -1461,6 +1467,7 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.EDITOR:
+            case FCellTypes.STRING:
                 value = JSON.stringify(value).slice(1, -1);
                 break;
         }
