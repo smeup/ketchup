@@ -475,6 +475,21 @@ export class KupData {
             return actions.every((action) => action.icon && !action.text);
         },
         /**
+         * Check if command is CodVer with blank K.
+         * @param {KupCommand } command single command.
+         * @returns { boolean } if COD_VER founded or not.
+         */
+        isCodVerBlankK(command: KupCommand): boolean {
+            if (command && command.obj) {
+                return (
+                    command.obj.p === VoCodVerRowEnum.P &&
+                    command.obj.t === VoCodVerRowEnum.T &&
+                    !command.obj.k
+                );
+            }
+            return false;
+        },
+        /**
          * Creates actions from row with VO COD_VER obj.
          * @param {KupDataTableRow} row single row.
          * @param {KupCommand[]} commands group of commands.
@@ -530,6 +545,31 @@ export class KupData {
                 }
             });
 
+            const commandsBlankK = commands.filter((command) =>
+                this.action.isCodVerBlankK(command)
+            );
+            if (commandsBlankK.length && rowCodVers.length) {
+                commandsBlankK.forEach((commandFilter) => {
+                    const index = commands.findIndex(
+                        (command) => command.text === commandFilter.text
+                    );
+                    
+                    actions.push({
+                        icon: commandFilter.icon || 'panorama_fish_eye',
+                        text: commandFilter.text,
+                        obj: { t: '', p: '', k: '' },
+                        cell: { value: '', obj: { t: '', p: '', k: '' } },
+                        index: index,
+                        type: DropDownAction.COMMAND,
+                        column: {
+                            name: '',
+                            title: '',
+                            obj: { t: '', p: '', k: '' },
+                        },
+                    });
+                });
+            }
+
             return actions;
         },
         /**
@@ -582,7 +622,7 @@ export class KupData {
             return (
                 firstObj.t === secondObj.t &&
                 firstObj.p === secondObj.p &&
-                firstObj.k === ''
+                !firstObj.k
             );
         },
         /** ckeck if two obj has same T, and first obj has blank P and K
@@ -596,8 +636,8 @@ export class KupData {
         ): boolean => {
             return (
                 firstObj.t === secondObj.t &&
-                firstObj.p === '' &&
-                firstObj.k === ''
+                !firstObj.p &&
+                !firstObj.k 
             );
         },
         /** check if obj t p k proprieties are empty
