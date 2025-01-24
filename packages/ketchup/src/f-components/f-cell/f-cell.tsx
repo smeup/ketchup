@@ -911,6 +911,7 @@ function setEditableCell(
         case FCellTypes.LINK:
         case FCellTypes.MEMO:
         case FCellTypes.STRING:
+            console.log('is string textfield', cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
@@ -942,13 +943,17 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                const isTextArea =
+                    (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
+                    (cellType ? cellType === FCellTypes.MEMO : false) ||
+                    cell.data.maxLength >= 256;
                 return (
                     <FTextField
-                        textArea={
-                            (cell.shape
-                                ? cell.shape === FCellShapes.MEMO
-                                : false) ||
-                            (cellType ? cellType === FCellTypes.MEMO : false)
+                        textArea={isTextArea}
+                        sizing={
+                            isTextArea
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
