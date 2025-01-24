@@ -241,13 +241,6 @@ const handleMouseEnter = (
 ) => {
     if (props.cellActionIcon) {
         const parent = e.currentTarget as HTMLElement;
-        const iconContainer = parent.querySelector('kup-image');
-
-        if (iconContainer) {
-            iconContainer.style.opacity = '1';
-            return;
-        }
-
         const iconElement = document.createElement('kup-image');
         iconElement.resource = 'more_vert';
         iconElement.sizeX = '16px';
@@ -269,7 +262,7 @@ const handleMouseLeave = (event: MouseEvent) => {
     const iconContainer = parent.querySelector('kup-image');
 
     if (iconContainer) {
-        iconContainer.style.opacity = '0';
+        iconContainer.remove();
     }
 };
 

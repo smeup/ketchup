@@ -3023,7 +3023,8 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
-            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            this.#dropDownActionCardAnchor
+                .parentElement as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.AUTO,
             true
