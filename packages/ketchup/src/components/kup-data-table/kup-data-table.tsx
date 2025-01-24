@@ -810,6 +810,12 @@ export class KupDataTable {
      */
     @Prop({ mutable: true, reflect: true }) updatableData: boolean = false;
 
+    /**
+     * When set to true, editable checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //-------- State --------
 
     @State()
@@ -6615,20 +6621,23 @@ export class KupDataTable {
 
             if (
                 this.updatableData &&
-                e.detail.cell?.shape === FCellShapes.CHECKBOX &&
-                e.detail.cell?.inputSettings?.checkValueOnExit
+                e.detail.cell?.shape === FCellShapes.CHECKBOX
             ) {
-                this.kupCellCheck.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    originalData: this.#originalDataLoaded,
-                    updatedData: getDiffData(
-                        this.#originalDataLoaded,
-                        this.data,
-                        true
-                    ),
-                    cell: e.detail.cell,
-                });
+                if (this.updateOnClick) {
+                    this.#handleUpdateClick(e.detail.cell);
+                } else if (e.detail.cell?.inputSettings?.checkValueOnExit) {
+                    this.kupCellCheck.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        originalData: this.#originalDataLoaded,
+                        updatedData: getDiffData(
+                            this.#originalDataLoaded,
+                            this.data,
+                            true
+                        ),
+                        cell: e.detail.cell,
+                    });
+                }
             }
         };
 

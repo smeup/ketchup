@@ -197,6 +197,12 @@ export class KupInputPanel {
      */
     @Prop() autoSkip?: boolean = false;
 
+    /**
+     * When set to true, checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -1834,10 +1840,19 @@ export class KupInputPanel {
     #onCellUpdate({
         detail: { cell, column },
     }: CustomEvent<FCellEventPayload>) {
-        if (
-            cell.shape === FCellShapes.CHECKBOX &&
-            cell.inputSettings?.checkValueOnExit
-        ) {
+        if (cell.shape !== FCellShapes.CHECKBOX) {
+            return;
+        }
+
+        if (this.updateOnClick) {
+            this.submitCb({
+                value: {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                cell: column.name,
+            });
+        } else if (cell.inputSettings?.checkValueOnExit) {
             this.checkValidValueCallback(
                 {
                     before: { ...this.#originalData },
