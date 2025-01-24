@@ -9,6 +9,7 @@ import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 import { GenericObject } from '../components';
 import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
+import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -78,6 +79,10 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         return value;
     }
     if (dom.ketchup.objects.isNumber(obj)) {
+        if (value === KupMathFormulaResult.IMPOSSIBILE_OPERATION) {
+            return value;
+        }
+
         return dom.ketchup.math.numberStringToFormattedString(
             value,
             decimals ? decimals : -1,
