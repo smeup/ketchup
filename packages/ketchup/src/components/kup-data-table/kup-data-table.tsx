@@ -6615,8 +6615,9 @@ export class KupDataTable {
         };
 
         const useGlobalFilter: boolean =
-            this.globalFilter ||
-            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
+            !this.legacyLook &&
+            (this.globalFilter ||
+                this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER);
 
         const compCreated = (
             <Host
