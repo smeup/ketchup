@@ -4427,6 +4427,7 @@ export class KupDataTable {
             this.updatableData &&
             cell.isEditable &&
             cell.inputSettings?.checkValueOnExit &&
+            cell.shape !== FCellShapes.CHECKBOX &&
             this.#originalDataLoaded.rows.find((r) => r.id == row.id)?.cells[
                 column.name
             ]?.value !== cell.value
@@ -6610,6 +6611,23 @@ export class KupDataTable {
                         this.refresh();
                     }
                 }
+            }
+
+            if (
+                this.updatableData &&
+                e.detail.cell?.shape === FCellShapes.CHECKBOX
+            ) {
+                this.kupCellCheck.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    originalData: this.#originalDataLoaded,
+                    updatedData: getDiffData(
+                        this.#originalDataLoaded,
+                        this.data,
+                        true
+                    ),
+                    cell: e.detail.cell,
+                });
             }
         };
 
