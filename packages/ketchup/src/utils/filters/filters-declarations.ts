@@ -28,17 +28,16 @@ export interface Filter {
 }
 
 /**
- * This regular expressions returns a match like this one:
- * if the string does not match is null, otherwise the indexes are equal to the object below:
+ * This regular expression returns a match with the following groups:
+ * if the string does not match, it returns null; otherwise, the indexes correspond to:
  *
- * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
- * @property {string} 1 - Either !' or ' it's the start of the regexp.
- * @property {string} 2 - Either % or null: means the string must start with the given string.
+ * @property {string} 0 - The entire match of the regexp; equal to the cellValue.
+ * @property {string} 1 - Operator: '!', '>', '>=', '<', or '<=' at the start of the regexp.
+ * @property {string} 2 - Either % or null: indicates the string must start with the given string.
  * @property {string} 3 - Either "" or a string with a length.
- * @property {string} 4 - Either % or null: means the string must finish with the given string.
- * @property {string} 5 - Always equal to ': it's the end of the filter.
+ * @property {string} 4 - Either % or null: indicates the string must finish with the given string.
  */
-export const FILTER_ANALIZER = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
+export const FILTER_ANALIZER = /^(!|>|>=|<|<=){0,1}'(%){0,1}(.*?)(%){0,1}'$/;
 
 export enum KupGlobalFilterMode {
     SIMPLE = 'simple',

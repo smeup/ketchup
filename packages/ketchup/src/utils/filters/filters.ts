@@ -105,115 +105,125 @@ export class Filters {
     filterIsNegative(filterValue: string) {
         const analyzedFilter = filterValue.match(FILTER_ANALIZER);
         const filterIsNegative: boolean = analyzedFilter
-            ? analyzedFilter[1].indexOf('!') >= 0
+            ? analyzedFilter[1]?.indexOf('!') >= 0
             : false;
         return filterIsNegative;
     }
+
     /**
-     * Given a value and a filter value, returns if that value matches the filter.
+     * Determines if a value matches a given filter.
      *
-     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
-     * Valid syntax:
-     * 'filter' = search for exact phrase;
-     * '' = match when value is empty;
-     * 'filter%' = match when a string starts with "filter";
-     * '%filter' = match when a string ends with "filter";
-     * '%filter%' = match when a string contains "filter".
+     * Filter expressions follow the format `[operator]'filter'` with these rules:
+     * - 'filter' = exact phrase match
+     * - '' = matches empty value
+     * - 'filter%' = starts with "filter"
+     * - '%filter' = ends with "filter"
+     * - '%filter%' = contains "filter"
      *
-     * It is also possible to negate the expression by prepending "!" in front of the expression.
-     * For example: !'' = value in the cell must not be empty.
+     * Supports negation operation with "!" (e.g., !'' = non-empty value)
+     * Supports comparison operators: >, >=, <, <=
      *
-     * With no expression set, the filter is by default set to '%filter%'.
      *
-     * @param value - The current value to check.
-     * @param filterValue - The value of the current filter.
-     * @returns false if value or filterValue are empty; 
-                true if value contains filterValue; 
-                true if value matches special filter created on filterValue; 
-                false otherwise.
+     *
+     * @param value - Value to check against the filter
+     * @param filterValue - Filter to apply
+     * @returns Whether the value matches the filter
      */
     isFilterCompliantForValue(value: string, filterValue: string): boolean {
-        if (value == null) {
-            return false;
-        }
-        if (filterValue == null) {
+        if (value == null || filterValue == null) {
             return false;
         }
 
-        const _filterIsNegative: boolean = this.filterIsNegative(filterValue);
-
-        // checks if the value of the filter is contained inside value of the object
-        // Or is if the filter is a special filter to be matched.
-        if (
+        return (
             value.toLowerCase().includes(filterValue.toLowerCase()) ||
             this.matchSpecialFilter(
                 value.toLowerCase(),
-                filterValue.toLowerCase().match(FILTER_ANALIZER),
-                true
+                filterValue.toLowerCase().match(FILTER_ANALIZER)
             )
-        ) {
-            // the element matches the field filter
-            if (_filterIsNegative) {
-                return false;
-            }
-            return true;
-        }
-        if (_filterIsNegative) {
-            return true;
-        }
-        return false;
+        );
     }
 
     /**
-     * Given a value and a filter value, returns if that value matches the filter.
+     * Matches a value against a special filter parsed from a regex.
      *
-     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
-     * Valid syntax:
-     * 'filter' = search for exact phrase;
-     * '' = match when value is empty;
-     * 'filter%' = match when a string starts with "filter";
-     * '%filter' = match when a string ends with "filter";
-     * '%filter%' = match when a string contains "filter".
+     * Filter syntax: `[operator]{0,1}'[wildcard]{0,1}[filterText][wildcard]{0,1}'`
      *
-     * It is also possible to negate the expression by prepending "!" in front of the expression.
-     * For example: !'' = value in the cell must not be empty.
+     * Operators:
+     * - None: exact match
+     * - `!`: negation
+     * - `>`, `>=`, `<`, `<=`: lexicographic comparison
      *
-     * With no expression set, the filter is by default set to '%filter%'.
+     * Wildcards:
+     * - `%` at start: matches ending
+     * - `%` at end: matches starting
+     * - `%` at both: contains
      *
-     * @param value - The current value to check.
-     * @param parsedFilter - The value of the current filter.
-     * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
-     * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
+     * Examples:
+     * - `'text'`: exact match
+     * - `''`: matches empty
+     * - `!''`: matches non-empty
+     * - `'text%'`: starts with "text"
+     * - `'%text'`: ends with "text"
+     * - `'%text%'`: contains "text"
+     * - `>'10'`: lexicographically greater than "10"
+     *
+     * @param value - Value to check
+     * @param parsedFilter - Regex match result from FILTER_ANALIZER
+     * @returns Whether value matches the filter
      */
     matchSpecialFilter(
         value: string,
-        parsedFilter: RegExpMatchArray | null,
-        ignoreNegativeFlag: boolean = false
+        parsedFilter: RegExpMatchArray | null
     ): boolean {
-        if (parsedFilter != null) {
-            // endsWith and startWith are not supported by IE 11
-            // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-            const toRet: boolean =
-                (parsedFilter[3] === '' && !value.trim()) ||
-                (!parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    value.startsWith(parsedFilter[3])) ||
-                (parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    value.endsWith(parsedFilter[3])) ||
-                (!parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    value === parsedFilter[3]) ||
-                (parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    value.indexOf(parsedFilter[3]) >= 0);
-            return !ignoreNegativeFlag
-                ? parsedFilter[1].indexOf('!') < 0
-                    ? toRet
-                    : !toRet
-                : toRet;
+        if (parsedFilter == null) return false;
+
+        const operator = parsedFilter[1] || '';
+        const hasStartWildcard = !!parsedFilter[2];
+        const filterText = parsedFilter[3];
+        const hasEndWildcard = !!parsedFilter[4];
+
+        let result = false;
+
+        console.log('Value, op, filterText', value, operator, filterText);
+
+        // Handle different matching scenarios
+        if (filterText === '') {
+            // Handle empty string scenarios with negation
+            result = operator === '!' ? value.trim() !== '' : !value.trim();
+        } else if (hasStartWildcard && hasEndWildcard) {
+            // Contains wildcard
+            result = value.indexOf(filterText) >= 0;
+        } else if (hasStartWildcard && !hasEndWildcard) {
+            // Ends with wildcard
+            result = value.endsWith(filterText);
+        } else if (!hasStartWildcard && hasEndWildcard) {
+            // Starts with wildcard
+            result = value.startsWith(filterText);
+        } else if (!hasStartWildcard && !hasEndWildcard) {
+            // Operator match
+            switch (operator) {
+                case '!':
+                    result = !(value === filterText);
+                    break;
+                case '>':
+                    result = value > filterText;
+                    break;
+                case '>=':
+                    result = value >= filterText;
+                    break;
+                case '<':
+                    result = value < filterText;
+                    break;
+                case '<=':
+                    result = value <= filterText;
+                    break;
+                default:
+                    result = value === filterText;
+                    break;
+            }
         }
-        return false;
+
+        return result;
     }
 
     isFilterCompliantForSimpleValue(
