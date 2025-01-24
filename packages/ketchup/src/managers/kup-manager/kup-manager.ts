@@ -161,7 +161,10 @@ export class KupManager {
         this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
+
+        // This feature causes memory leaks
         this.openAI = new KupOpenAI(openAIUrl);
+
         this.math = new KupMath();
         this.overrides = overrides ? overrides : null;
         this.objects = new KupObjects(objectsList);
