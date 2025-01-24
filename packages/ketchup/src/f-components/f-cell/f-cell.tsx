@@ -911,7 +911,6 @@ function setEditableCell(
         case FCellTypes.LINK:
         case FCellTypes.MEMO:
         case FCellTypes.STRING:
-            console.log('is string textfield', cell);
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
             const onInput = (e: InputEvent) => {
