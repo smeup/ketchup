@@ -6615,7 +6615,8 @@ export class KupDataTable {
 
             if (
                 this.updatableData &&
-                e.detail.cell?.shape === FCellShapes.CHECKBOX
+                e.detail.cell?.shape === FCellShapes.CHECKBOX &&
+                e.detail.cell?.inputSettings?.checkValueOnExit
             ) {
                 this.kupCellCheck.emit({
                     comp: this,
