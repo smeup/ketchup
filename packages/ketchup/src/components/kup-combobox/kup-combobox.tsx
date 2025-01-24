@@ -225,12 +225,14 @@ export class KupCombobox {
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        if (!this.#isListOpened()) {
+            this.kupBlur.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupChange(value: string) {
