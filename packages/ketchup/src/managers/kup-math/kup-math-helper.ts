@@ -20,7 +20,7 @@ export function customFormula(
         if (value == null) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `${formulaColumnName} is null`,
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is null`,
                 KupDebugCategory.WARNING
             );
             return;
@@ -28,7 +28,7 @@ export function customFormula(
         if (isNaN(value)) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is not a number.`,
                 KupDebugCategory.WARNING
             );
             return;
@@ -55,7 +55,11 @@ export function customFormula(
         const mexp = new Mexp();
         const lexedFormula = mexp.lex(sanitizedExpression);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
-        return mexp.postfixEval(postFixedFormula);
+        const result = mexp.postfixEval(postFixedFormula);
+        if (result === Infinity) {
+            throw Error('Result yielded infinity');
+        }
+        return result;
     } catch (error: any) {
         dom.ketchup.debug.logMessage(
             'kup-data',
