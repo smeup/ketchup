@@ -197,6 +197,12 @@ export class KupInputPanel {
      */
     @Prop() autoSkip?: boolean = false;
 
+    /**
+     * When set to true, checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -1766,6 +1772,10 @@ export class KupInputPanel {
             detail: { column, cell },
         } = e;
 
+        if (cell.shape === FCellShapes.CHECKBOX) {
+            return;
+        }
+
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
 
@@ -1817,6 +1827,32 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
+            this.checkValidValueCallback(
+                {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                column.name
+            );
+        }
+    }
+
+    #onCellUpdate({
+        detail: { cell, column },
+    }: CustomEvent<FCellEventPayload>) {
+        if (cell.shape !== FCellShapes.CHECKBOX) {
+            return;
+        }
+
+        if (this.updateOnClick) {
+            this.submitCb({
+                value: {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                cell: column.name,
+            });
+        } else if (cell.inputSettings?.checkValueOnExit) {
             this.checkValidValueCallback(
                 {
                     before: { ...this.#originalData },
@@ -2086,6 +2122,7 @@ export class KupInputPanel {
         return (
             <Host
                 onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
                 }}

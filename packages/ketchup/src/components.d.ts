@@ -1825,6 +1825,11 @@ export namespace Components {
          */
         "updatableData": boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns": string[];
@@ -2946,6 +2951,11 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
     }
     interface KupLazy {
         /**
@@ -7572,6 +7582,11 @@ declare namespace LocalJSX {
          */
         "updatableData"?: boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns"?: string[];
@@ -8477,6 +8492,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
     }
     interface KupLazy {
         /**
