@@ -186,7 +186,6 @@ Type: `Promise<void>`
  - [kup-input-panel](../kup-input-panel)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
- - [kup-multi-select](../kup-multi-select)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
@@ -278,7 +277,6 @@ graph TD;
   kup-image-list --> kup-text-field
   kup-input-panel --> kup-text-field
   kup-magic-box --> kup-text-field
-  kup-multi-select --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

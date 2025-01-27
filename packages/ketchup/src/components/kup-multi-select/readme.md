@@ -5,23 +5,11 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type                                          | Default                |
-| -------------- | --------------- | ----------- | --------------------------------------------- | ---------------------- |
-| `checked`      | `checked`       |             | `boolean`                                     | `false`                |
-| `customStyle`  | `custom-style`  |             | `string`                                      | `''`                   |
-| `disabled`     | `disabled`      |             | `boolean`                                     | `false`                |
-| `label`        | `label`         |             | `string`                                      | `null`                 |
-| `leadingLabel` | `leading-label` |             | `boolean`                                     | `false`                |
-| `sizing`       | `sizing`        |             | `FSwitchSizing.MEDIUM \| FSwitchSizing.SMALL` | `FSwitchSizing.MEDIUM` |
-
-
-## Events
-
-| Event                     | Description | Type                                      |
-| ------------------------- | ----------- | ----------------------------------------- |
-| `kup-multi-select-blur`   |             | `CustomEvent<KupMultiSelectEventPayload>` |
-| `kup-multi-select-change` |             | `CustomEvent<KupMultiSelectEventPayload>` |
-| `kup-multi-select-focus`  |             | `CustomEvent<KupMultiSelectEventPayload>` |
+| Property      | Attribute      | Description                                                                         | Type            | Default |
+| ------------- | -------------- | ----------------------------------------------------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` |                                                                                     | `string`        | `''`    |
+| `data`        | --             | The json data used to populate the tree view: the basic, always visible tree nodes. | `KupTreeNode[]` | `[]`    |
+| `disabled`    | `disabled`     |                                                                                     | `boolean`       | `false` |
 
 
 ## Methods
@@ -86,35 +74,23 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
-- [kup-button](../kup-button)
 - [kup-chip](../kup-chip)
+- [kup-button](../kup-button)
 - [kup-tree](../kup-tree)
-- [kup-spinner](../kup-spinner)
-- [kup-switch](../kup-switch)
-- [kup-time-picker](../kup-time-picker)
-- [kup-checkbox](../kup-checkbox)
-- [kup-autocomplete](../kup-autocomplete)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-multi-select --> kup-text-field
-  kup-multi-select --> kup-button
   kup-multi-select --> kup-chip
+  kup-multi-select --> kup-button
   kup-multi-select --> kup-tree
-  kup-multi-select --> kup-spinner
-  kup-multi-select --> kup-switch
-  kup-multi-select --> kup-time-picker
-  kup-multi-select --> kup-checkbox
-  kup-multi-select --> kup-autocomplete
   kup-multi-select --> kup-card
   kup-multi-select --> kup-dialog
-  kup-text-field --> kup-card
-  kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-dialog
+  kup-chip --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -160,9 +136,9 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-chip --> kup-card
-  kup-chip --> kup-dialog
-  kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge

@@ -138,7 +138,6 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
- - [kup-multi-select](../kup-multi-select)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
@@ -235,7 +234,6 @@ graph TD;
   kup-cell --> kup-autocomplete
   kup-image-list --> kup-autocomplete
   kup-input-panel --> kup-autocomplete
-  kup-multi-select --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
