@@ -501,66 +501,56 @@ export class KupData {
             commands: KupCommand[]
         ): KupDataRowAction[] => {
             const actions: KupDataRowAction[] = [];
-
             const rowCodVers = this.cell.getRowCodVers(columns, row);
-            rowCodVers.forEach((codVer) => {
-                let hasCommands = false;
-                if (commands) {
-                    const commandsFiltered = commands.filter(
-                        (command) => command.obj.k === codVer.cell.obj.k
-                    );
-                    hasCommands = commandsFiltered.length > 0;
-                    commandsFiltered.forEach((commandFilter) => {
-                        const index = commands.findIndex(
-                            (command) =>
-                                command.icon === commandFilter.icon &&
-                                command.text === commandFilter.text &&
-                                command.obj.k === commandFilter.obj.k
-                        );
-                        actions.push({
-                            icon: commandFilter.icon,
-                            text: commandFilter.text,
-                            obj: commandFilter.obj,
-                            cell: codVer.cell,
-                            index: index,
-                            type: DropDownAction.COMMAND,
-                            column: codVer.column,
-                        });
-                    });
-                }
 
-                if (!hasCommands) {
-                    actions.push({
-                        icon:
-                            codVer.cell.icon ||
-                            codVer.cell.data?.resource ||
-                            codVer.cell.data?.icon ||
-                            '',
-                        text: '',
-                        obj: codVer.cell.obj,
-                        cell: codVer.cell,
-                        type: DropDownAction.CODVER,
-                        column: codVer.column,
-                    });
+            const commandMap = new Map<
+                string,
+                { cmd: KupCommand; index: number }[]
+            >();
+            const blankCommands: { cmd: KupCommand; index: number }[] = [];
+
+            commands.forEach((cmd, idx) => {
+                if (this.action.isCodVerBlankK(cmd)) {
+                    blankCommands.push({ cmd, index: idx });
+                } else {
+                    const key = cmd.obj.k;
+                    if (!commandMap.has(key)) commandMap.set(key, []);
+                    commandMap.get(key)?.push({ cmd, index: idx });
                 }
             });
 
-            const commandsBlankK = commands.filter((command) =>
-                this.action.isCodVerBlankK(command)
-            );
-            if (commandsBlankK.length && rowCodVers.length) {
-                commandsBlankK.forEach((commandFilter) => {
-                    const index = commands.findIndex(
-                        (command) => command.text === commandFilter.text
+            rowCodVers.forEach((codVer) => {
+                const matchedCommands = commandMap.get(codVer.cell.obj.k) || [];
+
+                if (matchedCommands.length) {
+                    matchedCommands.forEach(({ cmd, index }) => {
+                        actions.push(
+                            this.action.createRowAction(
+                                DropDownAction.COMMAND,
+                                codVer,
+                                cmd,
+                                index
+                            )
+                        );
+                    });
+                } else {
+                    actions.push(
+                        this.action.createRowAction(
+                            DropDownAction.CODVER,
+                            codVer
+                        )
                     );
-                    
+                }
+            });
+
+            // handle Codver command with blank K case and almost a codVer Column
+            if (rowCodVers.length && blankCommands.length) {
+                blankCommands.forEach(({ cmd, index }) => {
                     actions.push({
-                        icon: commandFilter.icon || 'panorama_fish_eye',
-                        text: commandFilter.text,
+                        ...this.action.createBlankRowAction(cmd, index),
+                        icon: cmd.icon || 'panorama_fish_eye', //default icon
                         obj: { t: '', p: '', k: '' },
                         cell: { value: '', obj: { t: '', p: '', k: '' } },
-                        index: index,
-                        type: DropDownAction.COMMAND,
                         column: {
                             name: '',
                             title: '',
@@ -571,6 +561,66 @@ export class KupData {
             }
 
             return actions;
+        },
+        /**
+         * Creates a row action object, optionally linked to a command.
+         * Handles both default CODVER actions and COMMAND-based actions.
+         * @param {DropDownAction} type - The type of action to create (COMMAND/CODVER)
+         * @param {Object} codVer - The codVer object containing cell and column references
+         * @param {KupDataCell} codVer.cell - The cell data from the row
+         * @param {KupDataColumn} codVer.column - The related column
+         * @param {KupCommand} [command] - Optional command to associate with the action
+         * @param {number} [index=-1] - Index position in the commands array (default: -1) for CodVer without command.
+         * @returns {KupDataRowAction} Fully configured row action object
+         */
+        createRowAction(
+            type: DropDownAction,
+            codVer: { cell: KupDataCell; column: KupDataColumn },
+            command?: KupCommand,
+            index: number = -1
+        ): KupDataRowAction {
+            const base = {
+                icon: command?.icon || '',
+                text: command?.text || '',
+                index,
+                type,
+                obj: command?.obj || codVer.cell.obj,
+                cell: codVer.cell,
+                column: codVer.column,
+            };
+
+            if (!command) {
+                base.icon =
+                    [
+                        codVer.cell.icon,
+                        codVer.cell.data?.resource,
+                        codVer.cell.data?.icon,
+                    ].find((val) => !!val) || '';
+                base.text = '';
+            }
+
+            return base;
+        },
+        /**
+         * Creates a row action for CodVer commands with blank 'K'.
+         * Handles special cases where the command doesn't reference a specific cell/column.
+         * @param {KupCommand} command - The source command with blank 'K' property
+         * @param {number} index - The position of the command in the original commands array
+         * @returns {KupDataRowAction} Configured row action with empty cell/column references
+         */
+        createBlankRowAction(
+            command: KupCommand,
+            index: number
+        ): KupDataRowAction {
+            return {
+                icon: command.icon || 'panorama_fish_eye',
+                text: command.text,
+                obj: { t: '', p: '', k: '' },
+                cell: { value: '', obj: { t: '', p: '', k: '' } },
+                column: { name: '', title: '', obj: { t: '', p: '', k: '' } },
+                index,
+                type: DropDownAction.COMMAND,
+            };
         },
         /**
          * Check whenever commands got blank uiPopup obj
@@ -634,11 +684,7 @@ export class KupData {
             firstObj: KupObj,
             secondObj: KupObj
         ): boolean => {
-            return (
-                firstObj.t === secondObj.t &&
-                !firstObj.p &&
-                !firstObj.k 
-            );
+            return firstObj.t === secondObj.t && !firstObj.p && !firstObj.k;
         },
         /** check if obj t p k proprieties are empty
          * @param {KupObj} obj
