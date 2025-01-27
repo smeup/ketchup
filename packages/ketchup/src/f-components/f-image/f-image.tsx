@@ -57,14 +57,12 @@ export const FImage: FunctionalComponent<FImageProps> = (
 
     let placeholder: HTMLDivElement = undefined;
     if (props.placeholderResource) {
-        if (props?.resource) {
-            if (isRemoteResource(props.resource)) {
-                placeholder = createIcon(
-                    props.placeholderResource,
-                    props.color,
-                    'f-image__placeholder ' + HIDDEN_CLASS
-                );
-            }
+        if (props.resource && isRemoteResource(props.resource)) {
+            placeholder = createIcon(
+                props.placeholderResource,
+                props.color,
+                'f-image__placeholder ' + HIDDEN_CLASS
+            );
         }
     }
 
