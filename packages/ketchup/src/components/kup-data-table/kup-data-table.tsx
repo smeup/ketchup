@@ -3023,7 +3023,8 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
-            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            this.#dropDownActionCardAnchor
+                .parentElement as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.AUTO,
             true
@@ -6614,8 +6615,9 @@ export class KupDataTable {
         };
 
         const useGlobalFilter: boolean =
-            this.globalFilter ||
-            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
+            !this.legacyLook &&
+            (this.globalFilter ||
+                this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER);
 
         const compCreated = (
             <Host
