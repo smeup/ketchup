@@ -34,11 +34,7 @@ const kupData: KupData = dom.ketchup ? dom.ketchup.data : new KupData();
  * @todo Should contain EVERY row-specific filtering method.
  */
 export class FiltersRows extends Filters {
-    isFilterCompliantForCell(
-        cellValue: KupDataCell,
-        filterValue: string,
-        interval: string[]
-    ) {
+    isFilterCompliantForCell(cellValue: KupDataCell, filterValue: string) {
         if (!cellValue) {
             return false;
         }
@@ -46,16 +42,11 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.value,
             cellValue.obj,
-            filterValue,
-            interval
+            filterValue
         );
     }
 
-    isFilterCompliantForCellObj(
-        cellValue: KupDataCell,
-        filterValue: string,
-        interval: string[]
-    ) {
+    isFilterCompliantForCellObj(cellValue: KupDataCell, filterValue: string) {
         if (!cellValue) {
             return false;
         }
@@ -65,8 +56,7 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.obj.k,
             cellValue.obj,
-            filterValue,
-            interval
+            filterValue
         );
     }
 
@@ -167,7 +157,7 @@ export class FiltersRows extends Filters {
 
             const _filterIsNegative: boolean =
                 this.filterIsNegative(filterValue);
-            let b1 = this.isFilterCompliantForCell(cell, filterValue, interval);
+            let b1 = this.isFilterCompliantForCell(cell, filterValue);
             let b2 = _filterIsNegative;
             if (
                 !kupObjects.isNumber(cell.obj) &&
@@ -175,11 +165,7 @@ export class FiltersRows extends Filters {
                 !kupObjects.isTime(cell.obj) &&
                 !kupObjects.isTimestamp(cell.obj)
             ) {
-                b2 = this.isFilterCompliantForCellObj(
-                    cell,
-                    filterValue,
-                    interval
-                );
+                b2 = this.isFilterCompliantForCellObj(cell, filterValue);
             }
 
             if (_filterIsNegative) {
@@ -351,8 +337,7 @@ export class FiltersRows extends Filters {
                     columnFilters.isFilterCompliantForSimpleValue(
                         v,
                         column.obj,
-                        value,
-                        interval
+                        value
                     )
                 ) {
                     values.push({

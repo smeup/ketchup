@@ -444,28 +444,6 @@ export class FiltersColumnMenu extends Filters {
             this.getTextFilterValueTmp(filters, column),
             false
         );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValueTmp(
-                filters,
-                column,
-                FilterInterval.FROM
-            ),
-            FilterInterval.FROM,
-            false
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValueTmp(
-                filters,
-                column,
-                FilterInterval.TO
-            ),
-            FilterInterval.TO,
-            false
-        );
     }
 
     resetTextualFilters(filters: GenericFilter = {}, column: string) {
@@ -473,28 +451,6 @@ export class FiltersColumnMenu extends Filters {
             filters,
             column,
             this.getTextFilterValue(filters, column),
-            true
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValue(
-                filters,
-                column,
-                FilterInterval.FROM
-            ),
-            FilterInterval.FROM,
-            true
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValue(
-                filters,
-                column,
-                FilterInterval.TO
-            ),
-            FilterInterval.TO,
             true
         );
     }

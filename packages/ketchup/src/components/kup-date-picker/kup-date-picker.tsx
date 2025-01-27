@@ -40,6 +40,7 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { getProps } from '../../utils/utils';
+import { FILTER_ANALIZER } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -413,7 +414,10 @@ export class KupDatePicker {
                 this.ISOvalue = eventDetailValue;
                 this.notISOvalue = '';
             }
-        } else if (this.isAlphanumeric(eventDetailValue)) {
+        } else if (
+            this.isAlphanumeric(eventDetailValue) ||
+            eventDetailValue.match(FILTER_ANALIZER)
+        ) {
             /** donothing */
         } else if (
             this.kupManager.dates.isValidFormattedStringDate(eventDetailValue)
@@ -652,7 +656,7 @@ export class KupDatePicker {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        maxLength={10}
+                        maxLength={textfieldData.maxLength ?? 10}
                         id={this.rootElement.id + '_text-field'}
                         value={this.getDateForOutput()}
                         onBlur={() => this.onKupBlur()}
