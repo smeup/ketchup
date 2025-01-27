@@ -1518,6 +1518,47 @@ export class KupDataTable {
         this.refresh();
     }
     /**
+     * Scrolls to a specified row, identified by its id.
+     * @param {string} id - The id of the row to scroll to.
+     * @returns {Promise<void>} A promise that gets resolved when the scrolling is done.
+     */
+    @Method()
+    async scrollToRow(id: string): Promise<void> {
+        const row = this.#rows.find((r) => r.id === id);
+        if (row) {
+            this.rootElement.shadowRoot
+                .querySelector('[data-id="' + id + '"]')
+                .scrollIntoView();
+        } else {
+            this.#kupManager.debug.logMessage(
+                this,
+                'Row with id ' + id + ' not found.'
+            );
+        }
+    }
+
+    /**
+     * Scrolls to the row at the specified index in the current view (excluding groups).
+     * The row is selected through a querySelector, guaranteeing that the row is in the view.
+     * If the specified row isn't found, the method has no effect.
+     * @param {number} index - The index of the row.
+     * @returns {Promise<void>} A promise that gets resolved when the scrolling is done.
+     */
+    @Method()
+    async scrollToIndex(index: number): Promise<void> {
+        const rows = this.rootElement.shadowRoot.querySelectorAll(
+            'tbody > tr:not(.group)'
+        );
+        if (index < rows.length) {
+            rows[index].scrollIntoView();
+        } else {
+            this.#kupManager.debug.logMessage(
+                this,
+                'Row at index ' + index + ' not found.'
+            );
+        }
+    }
+    /**
      * Adds/subtracts the input number from the first group's depth level.
      */
 
@@ -1801,11 +1842,13 @@ export class KupDataTable {
      * This method will set the selected rows of the component.
      * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     * @param {boolean} scrollIntoView - If true, the component will scroll to the first selected row.
      */
     @Method()
     async setSelectedRows(
         rowsIdentifiers: string[] | number[],
-        emitEvent?: boolean
+        emitEvent?: boolean,
+        scrollIntoView?: boolean
     ): Promise<void> {
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
@@ -1813,6 +1856,14 @@ export class KupDataTable {
             const row = this.#getRow(id);
             if (row) {
                 this.selectedRows.push(row);
+            }
+        }
+
+        if (scrollIntoView) {
+            if (this.selectedRows.length > 0) {
+                this.#rowsRefs[
+                    this.#rows.indexOf(this.selectedRows[0]) - 1
+                ].scrollIntoView();
             }
         }
 
@@ -5297,6 +5348,7 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-id={row.id}
                         data-row={row}
                         class="group"
                     >
@@ -5636,6 +5688,7 @@ export class KupDataTable {
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                    data-id={row.id}
                     data-row={row}
                     class={rowClass}
                 >

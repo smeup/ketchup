@@ -1715,6 +1715,18 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
+          * Scrolls to the row at the specified index in the current view (excluding groups). The row is selected through a querySelector, guaranteeing that the row is in the view. If the specified row isn't found, the method has no effect.
+          * @param index - The index of the row.
+          * @returns A promise that gets resolved when the scrolling is done.
+         */
+        "scrollToIndex": (index: number) => Promise<void>;
+        /**
+          * Scrolls to a specified row, identified by its id.
+          * @param id - The id of the row to scroll to.
+          * @returns A promise that gets resolved when the scrolling is done.
+         */
+        "scrollToRow": (id: string) => Promise<void>;
+        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
@@ -1744,8 +1756,9 @@ export namespace Components {
           * This method will set the selected rows of the component.
           * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+          * @param scrollIntoView - If true, the component will scroll to the first selected row.
          */
-        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -2944,6 +2957,10 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupLazy {
         /**
