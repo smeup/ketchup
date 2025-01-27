@@ -954,6 +954,7 @@ function setEditableCell(
                 }
                 return (
                     <FTextField
+                        {...cell.data}
                         textArea={isTextArea}
                         sizing={
                             isTextArea
@@ -962,7 +963,6 @@ function setEditableCell(
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
-                        {...cell.data}
                         maxLength={
                             (cellType == FCellTypes.NUMBER &&
                                 ((props.column.decimals &&
