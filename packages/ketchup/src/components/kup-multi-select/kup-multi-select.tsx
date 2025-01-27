@@ -47,13 +47,11 @@ export class KupMultiSelect {
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
-    @Prop({ mutable: true }) data: KupTreeNode[] = [];
+    @Prop({ mutable: true }) data: any[] = [];
 
     // Other state properties for handling arrays
 
     @State() buttonArray: any[] = [];
-    @State() chipArray: any[] = [];
-    @State() treeArray: any[] = [];
     @State() buttonsIds: string[] = [];
 
     private kupManager: KupManager = kupManagerInstance();
@@ -109,9 +107,9 @@ export class KupMultiSelect {
                         }`}
                     >
                         <div class="sub-chip">
-                            {this.chipArray[0] ? (
+                            {this.data['kup-chip'] ? (
                                 <kup-chip
-                                    {...this.chipArray[0]}
+                                    data={this.data['kup-chip']}
                                     type={FChipType.INPUT}
                                     id={KupCardIds.COLUMNS_LIST}
                                 />
@@ -135,11 +133,10 @@ export class KupMultiSelect {
                         </div>
                         <div class="sub-tree">
                             <kup-tree
-                                {...this.data}
+                                data={this.data['kup-tree']}
                                 class="kup-full-width"
                                 globalFilter
                                 id="multi-select-tree"
-                                //data={this.data}
                             />
                         </div>
                     </div>

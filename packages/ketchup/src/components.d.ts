@@ -3121,7 +3121,7 @@ export namespace Components {
         /**
           * The json data used to populate the tree view: the basic, always visible tree nodes.
          */
-        "data": KupTreeNode[];
+        "data": any[];
         "disabled": boolean;
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "refresh": () => Promise<void>;
@@ -8654,7 +8654,7 @@ declare namespace LocalJSX {
         /**
           * The json data used to populate the tree view: the basic, always visible tree nodes.
          */
-        "data"?: KupTreeNode[];
+        "data"?: any[];
         "disabled"?: boolean;
     }
     interface KupNavBar {
