@@ -131,6 +131,10 @@ export class KupColumnMenu {
         currentData?: KupCardData
     ): KupCardData {
         const data: KupCardData = currentData ? { ...currentData } : {};
+        this.filtersColumnMenuInstance.resetTextualFilters(
+            comp.filters,
+            column.name
+        );
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
@@ -779,6 +783,7 @@ export class KupColumnMenu {
                 switch (compEvent.type) {
                     case 'kup-textfield-submit':
                     case 'kup-datepicker-textfieldsubmit':
+                    case 'kup-datepicker-change':
                     case 'kup-timepicker-textfieldsubmit':
                         this.saveTextualFilters(comp, dataStorage['column']);
                         this.close(card);

@@ -10,7 +10,6 @@ import {
     Method,
     Prop,
     State,
-    VNode,
     Watch,
 } from '@stencil/core';
 import {
@@ -281,7 +280,7 @@ export class KupDatePicker {
         });
     }
 
-    onKupInput(e: InputEvent) {
+    async onKupInput(e: InputEvent) {
         this.refreshPickerValue(
             (e.target as HTMLInputElement).value,
             this.kupInput,
@@ -290,7 +289,7 @@ export class KupDatePicker {
     }
 
     onKupTextFieldSubmit(e: KeyboardEvent) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
             this.refreshPickerValue(
                 (e.target as HTMLInputElement).value,
                 this.kupTextFieldSubmit
@@ -536,48 +535,6 @@ export class KupDatePicker {
         return this.textfieldEl.id;
     }
 
-    prepTextfield(initialValue: string): VNode {
-        const fullHeight =
-            this.rootElement.classList.contains('kup-full-height');
-        const fullWidth = this.rootElement.classList.contains('kup-full-width');
-        const textfieldData: FTextFieldProps = {
-            ...this.data['kup-text-field'],
-            sizing: this.sizing,
-            outlined: this.outlined,
-            showIcon: this.showIcon,
-            legacyLook: this.legacyLook,
-            error: this.error,
-            showMarker: this.showMarker,
-        };
-        if (!textfieldData.icon && this.showIcon) {
-            textfieldData.icon = 'calendar';
-        }
-        if (textfieldData.icon) {
-            textfieldData.trailingIcon = true;
-        }
-        return (
-            <FTextField
-                {...textfieldData}
-                disabled={this.disabled}
-                fullHeight={fullHeight}
-                fullWidth={fullWidth}
-                maxLength={10}
-                id={this.rootElement.id + '_text-field'}
-                value={initialValue}
-                onBlur={() => this.onKupBlur()}
-                onChange={(e: InputEvent) => this.onKupChange(e)}
-                onClearIconClick={() => this.onKupClearIconClick()}
-                onClick={() => this.onKupClick()}
-                onFocus={() => this.onKupFocus()}
-                onIconClick={() => this.onKupIconClick()}
-                onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
-                onInput={(e: InputEvent) => this.onKupInput(e)}
-            >
-                {this.prepDatePicker()}
-            </FTextField>
-        );
-    }
-
     getInitEndYear(curYear: number): { initYear: number; endYear: number } {
         let initYear: number = curYear - (curYear % 10);
         let endYear: number = initYear + 16 - 1;
@@ -600,32 +557,6 @@ export class KupDatePicker {
         let idConc =
             '#prev-page#next-page#date-picker-div#change-view-button#calendar#';
         return idConc.indexOf('#' + id + '#') >= 0;
-    }
-
-    prepDatePicker() {
-        const data: KupCardData = {
-            options: {
-                initialValue: this.ISOvalue,
-                firstDayIndex: this.firstDayIndex,
-                resetStatus: true,
-                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
-            },
-        };
-
-        return (
-            <kup-card
-                ref={(el) => (this.pickerContainerEl = el)}
-                data={data}
-                layoutFamily={KupCardFamily.BUILT_IN}
-                sizeX="300px"
-                sizeY="auto"
-                isMenu
-                onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
-                    if (ev.detail.value != null && ev.detail.value != '')
-                        this.onKupDatePickerItemClick(ev.detail.value);
-                }}
-            ></kup-card>
-        );
     }
 
     getDateForOutput(): string {
@@ -680,6 +611,34 @@ export class KupDatePicker {
     }
 
     render() {
+        const fullHeight =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
+        const textfieldData: FTextFieldProps = {
+            ...this.data['kup-text-field'],
+            sizing: this.sizing,
+            outlined: this.outlined,
+            showIcon: this.showIcon,
+            legacyLook: this.legacyLook,
+            error: this.error,
+            showMarker: this.showMarker,
+        };
+        if (!textfieldData.icon && this.showIcon) {
+            textfieldData.icon = 'calendar';
+        }
+        if (textfieldData.icon) {
+            textfieldData.trailingIcon = true;
+        }
+
+        const cardData: KupCardData = {
+            options: {
+                initialValue: this.ISOvalue,
+                firstDayIndex: this.firstDayIndex,
+                resetStatus: true,
+                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
+            },
+        };
+
         return (
             <Host>
                 <style>
@@ -688,7 +647,50 @@ export class KupDatePicker {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    {this.prepTextfield(this.getDateForOutput())}
+                    <FTextField
+                        {...textfieldData}
+                        disabled={this.disabled}
+                        fullHeight={fullHeight}
+                        fullWidth={fullWidth}
+                        maxLength={10}
+                        id={this.rootElement.id + '_text-field'}
+                        value={this.getDateForOutput()}
+                        onBlur={() => this.onKupBlur()}
+                        onChange={(e: InputEvent) => this.onKupChange(e)}
+                        onClearIconClick={() => this.onKupClearIconClick()}
+                        onClick={() => this.onKupClick()}
+                        onFocus={() => this.onKupFocus()}
+                        onIconClick={() => this.onKupIconClick()}
+                        onKeyDown={(e: KeyboardEvent) =>
+                            this.onKupTextFieldSubmit(e)
+                        }
+                        onInput={(e: InputEvent) => this.onKupInput(e)}
+                    >
+                        <div
+                            id={this.rootElement.id + '_card'}
+                            class="kup-date-picker-card"
+                        >
+                            <kup-card
+                                ref={(el) => (this.pickerContainerEl = el)}
+                                data={cardData}
+                                layoutFamily={KupCardFamily.BUILT_IN}
+                                sizeX="300px"
+                                sizeY="auto"
+                                isMenu
+                                onkup-card-click={(
+                                    ev: CustomEvent<KupCardClickPayload>
+                                ) => {
+                                    if (
+                                        ev.detail.value != null &&
+                                        ev.detail.value != ''
+                                    )
+                                        this.onKupDatePickerItemClick(
+                                            ev.detail.value
+                                        );
+                                }}
+                            ></kup-card>
+                        </div>
+                    </FTextField>
                 </div>
             </Host>
         );

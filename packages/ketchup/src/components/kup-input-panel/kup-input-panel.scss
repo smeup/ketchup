@@ -32,7 +32,8 @@
   --kup_input_panel_padding--inline: var(--kup-input-panel-padding--inline, 0);
   --kup_input_panel_absolute_max_height: var(
     --kup-input-panel-absolute-max-height,
-    500px
+    /* 716px comes from the maximum number of lines (32) multiplied by the default height per line (22px) plus 12px for the possibility that the scrollbar will be rendered */
+      716px
   );
 
   .input-panel {
@@ -92,11 +93,6 @@
       width: max-content;
     }
 
-    .f-cell .f-checkbox .checkbox .checkbox__native-control {
-      height: 40px;
-      width: 40px;
-    }
-
     &__label_container {
       display: flex;
       flex-direction: column;
@@ -143,6 +139,9 @@
 
       .input-panel-label {
         justify-content: start;
+        &.input-panel-label-number {
+          justify-content: end;
+        }
       }
 
       .mdc-text-field {

@@ -32,6 +32,8 @@ import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
+import { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -46,6 +48,7 @@ import { KupImageClickEventPayload } from "./components/kup-image/kup-image-decl
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -90,6 +93,8 @@ export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+export { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
+export { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -104,6 +109,7 @@ export { KupImageClickEventPayload } from "./components/kup-image/kup-image-decl
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -771,6 +777,8 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        "stateId": string;
+        "store": KupStore;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
@@ -3287,44 +3295,6 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
-    interface KupPhotoFrame {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://smeup.github.io/ketchup/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Html attributes of the picture before the component enters the viewport.
-          * @default {}
-         */
-        "placeholderAttrs": GenericObject;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Html attributes of the picture after the component enters the viewport.
-          * @default {}
-         */
-        "resourceAttrs": GenericObject;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * Percentage of the component dimensions entering the viewport (0.1 => 1).
-          * @default 0.25
-         */
-        "threshold": number;
-    }
     interface KupPlanner {
         /**
           * Add a list of phases to the project
@@ -4866,10 +4836,6 @@ export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPdfElement;
 }
-export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupPhotoFrameElement;
-}
 export interface KupPlannerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPlannerElement;
@@ -5286,8 +5252,12 @@ declare global {
         "kup-datatable-update": KupDatatableUpdatePayload;
         "kup-datatable-check": KupDatatableCellCheckPayload;
         "kup-datatable-cell-click": FCellEventPayload;
+        "kup-datatable-drop": KupDropEventPayload;
         "kup-datatable-cell-iconclick": FCellEventPayload;
         "kup-datatable-cell-input": FCellEventPayload;
+        "kup-datatable-objectfield-searchpayload": FObjectFieldEventPayload;
+        "kup-datatable-objectfield-opensearchmenu": FObjectFieldEventPayload;
+        "kup-datatable-objectfield-selectedmenuitem": FObjectFieldEventPayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5569,6 +5539,9 @@ declare global {
     interface HTMLKupInputPanelElementEventMap {
         "kup-input-panel-ready": KupEventPayload;
         "kup-inputpanel-contextmenu": KupInputPanelClickEventPayload;
+        "kup-inputpanel-objectfield-searchpayload": FObjectFieldEventPayload1;
+        "kup-inputpanel-objectfield-opensearchmenu": FObjectFieldEventPayload1;
+        "kup-inputpanel-objectfield-selectedmenuitem": FObjectFieldEventPayload1;
     }
     interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5697,24 +5670,6 @@ declare global {
     var HTMLKupPdfElement: {
         prototype: HTMLKupPdfElement;
         new (): HTMLKupPdfElement;
-    };
-    interface HTMLKupPhotoFrameElementEventMap {
-        "kup-photoframe-placeholderload": KupEventPayload;
-        "kup-photoframe-resourceload": KupEventPayload;
-    }
-    interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLKupPhotoFrameElement: {
-        prototype: HTMLKupPhotoFrameElement;
-        new (): HTMLKupPhotoFrameElement;
     };
     interface HTMLKupPlannerElementEventMap {
         "kup-planner-click": KupPlannerEventPayload;
@@ -6119,7 +6074,6 @@ declare global {
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
         "kup-pdf": HTMLKupPdfElement;
-        "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
         "kup-probe": HTMLKupProbeElement;
@@ -6729,6 +6683,8 @@ declare namespace LocalJSX {
           * When the navigation change
          */
         "onKup-calendar-viewchange"?: (event: KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>) => void;
+        "stateId"?: string;
+        "store"?: KupStore;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
@@ -7492,6 +7448,7 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        "onKup-datatable-drop"?: (event: KupDataTableCustomEvent<KupDropEventPayload>) => void;
         /**
           * Event fired when the history confirm button is pressed.
          */
@@ -7501,6 +7458,9 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-insert-row"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         "onKup-datatable-loadmoreclick"?: (event: KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
+        "onKup-datatable-objectfield-opensearchmenu"?: (event: KupDataTableCustomEvent<FObjectFieldEventPayload>) => void;
+        "onKup-datatable-objectfield-searchpayload"?: (event: KupDataTableCustomEvent<FObjectFieldEventPayload>) => void;
+        "onKup-datatable-objectfield-selectedmenuitem"?: (event: KupDataTableCustomEvent<FObjectFieldEventPayload>) => void;
         /**
           * When rows selections reset
          */
@@ -8522,6 +8482,9 @@ declare namespace LocalJSX {
           * Generic right click event on input panel.
          */
         "onKup-inputpanel-contextmenu"?: (event: KupInputPanelCustomEvent<KupInputPanelClickEventPayload>) => void;
+        "onKup-inputpanel-objectfield-opensearchmenu"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
+        "onKup-inputpanel-objectfield-searchpayload"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
+        "onKup-inputpanel-objectfield-selectedmenuitem"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
         /**
           * Sets the callback function on loading options via FUN
           * @default null
@@ -8759,37 +8722,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "sendCredentials"?: boolean;
-    }
-    interface KupPhotoFrame {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://smeup.github.io/ketchup/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Triggered when the placeholder is loaded.
-         */
-        "onKup-photoframe-placeholderload"?: (event: KupPhotoFrameCustomEvent<KupEventPayload>) => void;
-        /**
-          * Triggered when the resource is loaded.
-         */
-        "onKup-photoframe-resourceload"?: (event: KupPhotoFrameCustomEvent<KupEventPayload>) => void;
-        /**
-          * Html attributes of the picture before the component enters the viewport.
-          * @default {}
-         */
-        "placeholderAttrs"?: GenericObject;
-        /**
-          * Html attributes of the picture after the component enters the viewport.
-          * @default {}
-         */
-        "resourceAttrs"?: GenericObject;
-        /**
-          * Percentage of the component dimensions entering the viewport (0.1 => 1).
-          * @default 0.25
-         */
-        "threshold"?: number;
     }
     interface KupPlanner {
         /**
@@ -10077,7 +10009,6 @@ declare namespace LocalJSX {
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
         "kup-pdf": KupPdf;
-        "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
         "kup-probe": KupProbe;
@@ -10157,7 +10088,6 @@ declare module "@stencil/core" {
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
             "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
-            "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;

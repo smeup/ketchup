@@ -38,7 +38,7 @@ export interface KupDataColumn {
     size?: string;
     valuesForFilter?: string[];
     visible?: boolean;
-    style?: GenericMap;
+    style?: GenericObject;
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
     tooltip?: boolean;
@@ -105,7 +105,7 @@ export interface KupDataCell {
     obj?: KupObj;
     shape?: FCellShapes;
     slotData?: GenericObject;
-    style?: GenericMap;
+    style?: GenericObject;
     styleContent?: GenericMap;
     title?: string;
     inputSettings?: InputSettingsProps;
@@ -113,14 +113,12 @@ export interface KupDataCell {
 }
 
 export interface KupDataCellOptions extends KupDataCell {
-    options?: CellOptions[];
+    options?: GenericObject | GenericObject[] | CellOptions[];
 }
 
 export interface CellOptions {
     id: string;
     label: string;
-    checked?: boolean;
-    value?: string;
 }
 /**
  *
@@ -133,7 +131,7 @@ export interface CellActionProps {
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
-    value: string;
+    value?: string;
     children?: KupDataNode[];
     disabled?: boolean;
     expandable?: boolean;
@@ -145,7 +143,7 @@ export interface KupDataNode extends KupDataRow {
     data?: GenericObject;
     shape?: FCellShapes;
     isEditable?: boolean;
-    options?: CellOptions[];
+    options?: GenericObject | GenericObject[] | CellOptions[];
 }
 
 /**

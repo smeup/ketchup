@@ -142,19 +142,16 @@ import {
     KupDraggableElement,
     KupDropCallbacks,
     KupDropDataTransferCallback,
+    KupDropEventPayload,
     KupDropEventTypes,
     KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../managers/kup-interact/kup-interact-declarations';
-import {
-    KupDom,
-    KupManagerClickCb,
-} from '../../managers/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellEventPayload,
     FCellPadding,
     FCellShapes,
-    FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
@@ -180,6 +177,7 @@ import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
+import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -230,6 +228,9 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = { ...state.totals };
+                this.visibleColumns = state.visibleColumns
+                    ? [...state.visibleColumns]
+                    : undefined;
             }
         }
     }
@@ -506,6 +507,15 @@ export class KupDataTable {
                     },
                     ''
                 );
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.visibleColumns,
+                    this.visibleColumns
+                )
+            ) {
+                this.state.visibleColumns = [...this.visibleColumns];
                 somethingChanged = true;
             }
 
@@ -1049,6 +1059,8 @@ export class KupDataTable {
     #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
     #INSERT_PREFIX = 'insert_';
 
+    #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
+
     #eventBlurNames = new Map<FCellShapes, string>([
         [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
         [FCellShapes.CHIP, 'kup-textfield-blur'],
@@ -1274,6 +1286,14 @@ export class KupDataTable {
     kupDataTableCellClick: EventEmitter<FCellEventPayload>;
 
     @Event({
+        eventName: 'kup-datatable-drop',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDrop: EventEmitter<KupDropEventPayload>;
+
+    @Event({
         eventName: 'kup-datatable-cell-iconclick',
         composed: true,
         cancelable: false,
@@ -1288,6 +1308,30 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellInput: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-searchpayload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSearchPayload: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-opensearchmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldOpenSearchMenu: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-objectfield-selectedmenuitem',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
 
     /**
      * Closes any opened column menu.
@@ -1471,12 +1515,9 @@ export class KupDataTable {
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
         if (this.visibleColumns?.length) {
-            const index = this.visibleColumns.findIndex(
-                (c) => c === column.name
+            this.visibleColumns = this.visibleColumns.filter(
+                (colName) => colName != column.name
             );
-            if (index) {
-                this.visibleColumns.splice(index, 1);
-            }
         }
         this.kupColumnRemove.emit({
             comp: this,
@@ -1611,39 +1652,51 @@ export class KupDataTable {
      */
     @Method()
     async openColumnMenu(column: string): Promise<void> {
-        this.columnMenuAnchor = column;
-        if (!this.#columnMenuCard) {
-            this.#columnMenuCard = document.createElement('kup-card');
-            this.#columnMenuCard.isMenu = true;
-            this.#columnMenuCard.layoutNumber = 12;
-            this.#columnMenuCard.sizeX = 'auto';
-            this.#columnMenuCard.sizeY = 'auto';
-            this.#columnMenuCard.addEventListener(
-                'kup-card-click',
-                (e: CustomEvent<KupEventPayload>) => {
-                    this.kupDataTableColumnMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        card: this.#columnMenuCard,
-                        event: e,
-                        open: this.#columnMenuCard.menuVisible,
-                    });
-                }
-            );
-            this.#columnMenuCard.addEventListener(
-                'kup-card-event',
-                (e: CustomEvent<KupCardEventPayload>) => {
-                    this.#columnMenuInstance.eventHandlers(e, this);
-                    this.kupDataTableColumnMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        card: this.#columnMenuCard,
-                        event: e,
-                        open: this.#columnMenuCard.menuVisible,
-                    });
-                }
-            );
+        if (this.#columnMenuCard) {
+            this.#closeColumnMenuCard();
         }
+
+        this.columnMenuAnchor = column;
+
+        this.#columnMenuCard = document.createElement('kup-card');
+        this.#columnMenuCard.isMenu = true;
+        this.#columnMenuCard.layoutNumber = 12;
+        this.#columnMenuCard.sizeX = 'auto';
+        this.#columnMenuCard.sizeY = 'auto';
+        this.#columnMenuCard.addEventListener(
+            'kup-card-click',
+            (e: CustomEvent<KupEventPayload>) => {
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+        this.#columnMenuCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                this.#columnMenuInstance.eventHandlers(e, this);
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.#closeColumnMenuCard();
+            },
+            el: this.#columnMenuCard,
+        };
+        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
+
         this.#columnMenuCard.setAttribute('data-column', column);
         this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
             this,
@@ -2970,7 +3023,8 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
-            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            this.#dropDownActionCardAnchor
+                .parentElement as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.AUTO,
             true
@@ -3062,6 +3116,15 @@ export class KupDataTable {
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#actionsCard.remove();
         this.#actionsCard = null;
+    }
+
+    #closeColumnMenuCard() {
+        this.#kupManager.dynamicPosition.stop(
+            this.#columnMenuCard as KupDynamicPositionElement
+        );
+        this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#columnMenuCard.remove();
+        this.#columnMenuCard = null;
     }
 
     #prepareDataForActionsCard(
@@ -3566,6 +3629,7 @@ export class KupDataTable {
         this.#filterRows();
 
         this.#footer = calcTotals(
+            this.getColumns(),
             normalizeRows(this.getColumns(), this.#rows),
             this.totals
         );
@@ -5206,6 +5270,16 @@ export class KupDataTable {
                     </tr>
                 );
 
+                jsxRows.push(
+                    <tr
+                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-row={row}
+                        class="group group-total"
+                    >
+                        {cells}
+                    </tr>
+                );
+
                 // if group is expanded, add children
 
                 if (this.#isGroupExpanded(row)) {
@@ -5230,16 +5304,6 @@ export class KupDataTable {
                             }
                         });
                 }
-
-                jsxRows.push(
-                    <tr
-                        ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
-                        data-row={row}
-                        class="group group-total"
-                    >
-                        {cells}
-                    </tr>
-                );
             } else {
                 jsxRows.push(
                     <tr
@@ -5444,11 +5508,7 @@ export class KupDataTable {
                     }
                 }
                 const cell = row.cells[name] ? row.cells[name] : null;
-                cell.isEditable = this.#setCellEditability(
-                    currentColumn,
-                    row,
-                    cell
-                );
+
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -5456,6 +5516,11 @@ export class KupDataTable {
                         return null;
                     }
                 }
+                cell.isEditable = this.#setCellEditability(
+                    currentColumn,
+                    row,
+                    cell
+                );
                 cell.data = {
                     ...cell.data,
                     legacyLook: this.legacyLook,
@@ -6483,7 +6548,7 @@ export class KupDataTable {
         if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
-                height: this.tableHeight,
+                maxHeight: this.tableHeight,
                 overflow: 'auto',
             };
         }
@@ -6549,8 +6614,16 @@ export class KupDataTable {
             }
         };
 
+        const useGlobalFilter: boolean =
+            !this.legacyLook &&
+            (this.globalFilter ||
+                this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER);
+
         const compCreated = (
             <Host
+                onKup-drop={(e: CustomEvent<KupDropEventPayload>) => {
+                    this.kupDataTableDrop.emit(e.detail);
+                }}
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
                     autoselectOnAction(e);
                     this.kupDataTableCellInput.emit(e.detail);
@@ -6563,6 +6636,21 @@ export class KupDataTable {
                 onKup-cell-iconclick={(e: CustomEvent<FCellEventPayload>) => {
                     this.kupDataTableCellIconClick.emit(e.detail);
                 }}
+                onKup-objectfield-searchpayload={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSearchPayload.emit(e.detail);
+                }}
+                onKup-objectfield-opensearchmenu={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldOpenSearchMenu.emit(e.detail);
+                }}
+                onKup-objectfield-selectedmenuitem={(
+                    e: CustomEvent<FObjectFieldEventPayload>
+                ) => {
+                    this.kupDataTableObjectFieldSelectedMenuItem.emit(e.detail);
+                }}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
@@ -6573,7 +6661,7 @@ export class KupDataTable {
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
-                        {this.globalFilter ? (
+                        {useGlobalFilter ? (
                             <div id="global-filter">
                                 <FTextField
                                     fullWidth={true}

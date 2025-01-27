@@ -2084,6 +2084,7 @@ export class KupTree {
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
         this.columnMenuInstance = new KupColumnMenu();
+        this.initWithPersistedState();
         this.refreshStructureState();
     }
 
@@ -2098,6 +2099,7 @@ export class KupTree {
         this.#kupManager.debug.logRender(this, false);
         if (this.showFooter && this.columns) {
             this.footer = calcTotals(
+                this.getColumns(),
                 normalizeRows(this.getColumns(), this.nodesToRows()),
                 this.totals
             );

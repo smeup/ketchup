@@ -117,35 +117,41 @@ export enum FCellClasses {
 /**
  * Supported cell shapes.
  */
-export enum FCellShapes {
-    AUTOCOMPLETE = 'ACP',
-    BUTTON_LIST = 'BTN',
-    CHART = 'GRA',
-    CHECKBOX = 'CHK',
-    CHIP = 'CHI',
-    COLOR_PICKER = 'CLP',
-    COMBOBOX = 'CMB',
-    DATE = 'CAL',
-    EDITOR = 'EDT',
-    GAUGE = 'GAU',
-    IMAGE = 'IMG',
-    ICON = 'ICO',
-    INPUT_CHECKBOX = 'INC',
-    INPUT_FIELD = 'INF',
-    KNOB = 'KNB',
-    LABEL = 'LBL',
-    MEMO = 'MEM',
-    MULTI_AUTOCOMPLETE = 'AML',
-    MULTI_COMBOBOX = 'CML',
-    OBJECT = 'OBJ',
-    PROGRESS_BAR = 'PGB',
-    RADIO = 'RAD',
-    RATING = 'RTG',
-    SWITCH = 'SWT',
-    TABLE = 'TBL',
-    TEXT_FIELD = 'ITX',
-    TIME = 'TIM',
-}
+export const FCellShapes = {
+    AUTOCOMPLETE: 'ACP',
+    BUTTON_LIST: 'BTN',
+    CHART: 'GRA',
+    CHECKBOX: 'CHK',
+    CHIP: 'CHI',
+    COLOR_PICKER: 'CLP',
+    COMBOBOX: 'CMB',
+    DATE: 'CAL',
+    EDITOR: 'EDT',
+    GAUGE: 'GAU',
+    IMAGE: 'IMG',
+    ICON: 'ICO',
+    INPUT_CHECKBOX: 'INC',
+    INPUT_FIELD: 'INF',
+    KNOB: 'KNB',
+    LABEL: 'LBL',
+    MEMO: 'MEM',
+    MULTI_AUTOCOMPLETE: 'AML',
+    MULTI_COMBOBOX: 'CML',
+    OBJECT: 'OBJ',
+    PROGRESS_BAR: 'PGB',
+    RADIO: 'RAD',
+    RATING: 'RTG',
+    SWITCH: 'SWT',
+    TABLE: 'TBL',
+    TEXT_FIELD: 'ITX',
+    TIME: 'TIM',
+} as const;
+
+// Define the type as keys of the object or a generic string
+export type FCellShapes =
+    | (typeof FCellShapes)[keyof typeof FCellShapes]
+    | string;
+
 /**
  * Supported cell types.
  */
@@ -198,6 +204,7 @@ export const editableTypes = [
     FCellTypes.STRING,
     FCellTypes.SWITCH,
     FCellTypes.TIME,
+    FCellTypes.EDITOR,
 ];
 export const kupTypes = [
     FCellTypes.BAR,

@@ -137,7 +137,6 @@ Type: `Promise<void>`
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
- - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
  - [kup-progress-bar](../kup-progress-bar)
@@ -239,7 +238,6 @@ graph TD;
   kup-numeric-picker --> kup-card
   kup-object-field --> kup-card
   kup-pdf --> kup-card
-  kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card
   kup-qlik --> kup-card

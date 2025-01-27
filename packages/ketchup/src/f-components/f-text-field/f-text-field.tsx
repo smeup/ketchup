@@ -182,6 +182,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             props.legacyLook,
         [`mdc-text-field--${props.sizing || 'small'}`]:
             !props.textArea && !props.legacyLook,
+        [`mdc-text-field--textarea--${props.sizing || 'small'}`]:
+            props.textArea,
         'top-right-indicator': props.showMarker,
     };
 
@@ -190,13 +192,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         ? 'number'
         : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
-    if (
-        props.inputType === 'number' &&
-        ((props.decimals && props.decimals > 0) ||
-            props.group ||
-            (props.integers && props.integers > 0))
-    ) {
+    if (props.inputType === 'number') {
         inputType = 'text';
+        props.inputMode = 'numeric';
         persManageForNumberFormat = true;
     }
     if (props.inputType === 'number') {
@@ -232,10 +230,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     </span>
                 ) : (
                     <input
+                        type={inputType}
                         inputmode={
                             props.inputMode ? props.inputMode : undefined
                         }
-                        type={inputType}
                         step={props.step}
                         min={props.min}
                         max={props.max}
@@ -358,6 +356,49 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             if (e.key.length > 1) {
                                 return;
                             }
+                            if (
+                                (e.key === '.' || e.key === ',') &&
+                                e.code === 'NumpadDecimal'
+                            ) {
+                                const inputElement =
+                                    e.target as HTMLInputElement;
+                                const cursorPosition =
+                                    inputElement.selectionStart ?? 0;
+
+                                // Ottieni il separatore decimale (in base alla configurazione)
+                                const decimalSeparator =
+                                    dom.ketchup.math.decimalSeparator();
+
+                                // Verifica se il valore contiene già il separatore decimale
+                                if (
+                                    inputElement.value.includes(
+                                        decimalSeparator
+                                    )
+                                ) {
+                                    // Se contiene già il separatore, non fare nulla e ritorna
+                                    e.preventDefault();
+                                    return;
+                                }
+
+                                // Inserisci il separatore decimale nel valore dell'input
+                                inputElement.value =
+                                    inputElement.value.slice(
+                                        0,
+                                        cursorPosition
+                                    ) +
+                                    decimalSeparator +
+                                    inputElement.value.slice(cursorPosition);
+
+                                // Posiziona il cursore dopo il separatore decimale
+                                inputElement.setSelectionRange(
+                                    cursorPosition + 1,
+                                    cursorPosition + 1
+                                );
+
+                                // Evita il comportamento predefinito
+                                e.preventDefault();
+                                return;
+                            }
 
                             const options: NumericFieldFormatOptions = {
                                 allowNegative: props.allowNegative ?? true,
@@ -433,8 +474,24 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     );
 }
 
+/**
+ * Generates a helper HTML element for a text field based on the provided properties.
+ *
+ * @param {FTextFieldProps} props - The properties of the text field, including configuration for helper messages, errors, and alerts.
+ * @returns {HTMLDivElement | undefined} - A `div` element containing the helper text, error, or alert message if applicable, or `undefined` if no helper is needed.
+ *
+ * The function considers the following props:
+ * - If `helperEnabled` is `false`, no helper is returned.
+ * - If either `error` or `alert` is provided and `legacyLook` is `false`, a helper is generated.
+ * - If `helper` is defined, it is wrapped in a helper text container with optional persistent behavior based on `helperWhenFocused`.
+ * - If no `helper` is defined, the function prioritizes rendering `error` or `alert` messages in the helper line.
+ */
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled !== false && (props.error || props.alert)) {
+    if (
+        props.helperEnabled !== false &&
+        (props.error || props.alert) &&
+        !props.legacyLook
+    ) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,

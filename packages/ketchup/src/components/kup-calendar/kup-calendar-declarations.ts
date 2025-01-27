@@ -15,7 +15,9 @@ export enum KupCalendarProps {
     editableEvents = 'When true, events are editable.',
     hideNavigation = "When disabled, the navigation toolbar won't be displayed.",
     viewType = 'Type of the view.',
+    calendarColumns = 'Sets which columns of the data property will be used to render each characteristic of an event in the calendar.',
 }
+
 /**
  * Available view types.
  */
