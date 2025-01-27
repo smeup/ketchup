@@ -3127,7 +3127,7 @@ export namespace Components {
     interface KupMultiSelect {
         "customStyle": string;
         /**
-          * The json data used to populate the tree view: the basic, always visible tree nodes.
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
          */
         "data": any[];
         "disabled": boolean;
@@ -8615,7 +8615,7 @@ declare namespace LocalJSX {
     interface KupMultiSelect {
         "customStyle"?: string;
         /**
-          * The json data used to populate the tree view: the basic, always visible tree nodes.
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
          */
         "data"?: any[];
         "disabled"?: boolean;

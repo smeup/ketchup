@@ -28,7 +28,10 @@ import {
     KupCardIds,
 } from '../kup-card/kup-card-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
-import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
+import {
+    KupTreeNode,
+    KupTreeNodeSelectedEventPayload,
+} from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-multi-select',
@@ -38,18 +41,15 @@ import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 export class KupMultiSelect {
     @Element() rootElement: HTMLElement;
 
-    @State() visibleView: number = 2;
-    @State() viewIndex: number = 2;
-
     @Prop() customStyle: string = '';
     @Prop() disabled: boolean = false;
-    
+
     /**
-     * The json data used to populate the tree view: the basic, always visible tree nodes.
+     * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
      */
     @Prop({ mutable: true }) data: any[] = [];
 
-    // Other state properties for handling arrays
+    // Other state properties for handling arrays, maybe not needed, depends on how we will manage the apply button
 
     @State() buttonArray: any[] = [];
     @State() buttonsIds: string[] = [];
@@ -69,6 +69,10 @@ export class KupMultiSelect {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupMultiSelectProps, props);
+    }
+
+    onKupItemClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>) {
+        console.log('prova');
     }
 
     componentWillLoad() {
@@ -97,48 +101,40 @@ export class KupMultiSelect {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div
-                        class={`${KupCardCSSClasses.CARD_VIEW} ${
-                            KupCardCSSClasses.VIEW_PREFIX
-                        }${this.viewIndex} ${
-                            this.visibleView === this.viewIndex
-                                ? KupCardCSSClasses.VISIBLE
-                                : ''
-                        }`}
-                    >
-                        <div class="sub-chip">
-                            {this.data['kup-chip'] ? (
-                                <kup-chip
-                                    data={this.data['kup-chip']}
-                                    type={FChipType.INPUT}
-                                    id={KupCardIds.COLUMNS_LIST}
-                                />
-                            ) : (
-                                <kup-chip
-                                    type={FChipType.INPUT}
-                                    id={KupCardIds.COLUMNS_LIST}
-                                />
-                            )}
-                            {this.buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_APPLY
-                            ) ? (
-                                <kup-button
-                                    {...this.buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_APPLY
-                                    )}
-                                />
-                            ) : null}
-                        </div>
-                        <div class="sub-tree">
-                            <kup-tree
-                                data={this.data['kup-tree']}
-                                class="kup-full-width"
-                                globalFilter
-                                id="multi-select-tree"
+                    <div class="sub-chip">
+                        {this.data['kup-chip'] ? (
+                            <kup-chip
+                                data={this.data['kup-chip']}
+                                type={FChipType.INPUT}
+                                id={KupCardIds.COLUMNS_LIST}
                             />
-                        </div>
+                        ) : (
+                            <kup-chip
+                                type={FChipType.INPUT}
+                                id={KupCardIds.COLUMNS_LIST}
+                            />
+                        )}
+                        {this.buttonsIds.includes(
+                            KupColumnMenuIds.BUTTON_APPLY
+                        ) ? (
+                            <kup-button
+                                {...this.buttonArray.find(
+                                    (x) =>
+                                        x.id === KupColumnMenuIds.BUTTON_APPLY
+                                )}
+                            />
+                        ) : null}
+                    </div>
+                    <div class="sub-tree">
+                        <kup-tree
+                            data={this.data['kup-tree']}
+                            class="kup-full-width"
+                            globalFilter
+                            id="multi-select-tree"
+                            onKup-tree-nodeselected={(
+                                e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                            ) => this.onKupItemClick(e)}
+                        />
                     </div>
                 </div>
             </Host>
