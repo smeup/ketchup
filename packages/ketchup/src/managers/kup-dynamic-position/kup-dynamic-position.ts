@@ -109,7 +109,6 @@ export class KupDynamicPosition {
         el: KupDynamicPositionElement,
         anchorEl: KupDynamicPositionAnchor
     ): void {
-        debugger;
         el.kupDynamicPosition.anchor = anchorEl;
     }
     /**
