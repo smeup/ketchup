@@ -296,7 +296,6 @@ export class KupTypography {
         );
     }
     disconnectedCallback() {
-        console.log('type->disconnectedCallback');
         this.kupManager.theme.unregister(this);
         if (this.toolbarList) {
             this.kupManager.dynamicPosition.unregister([this.toolbarList]);
