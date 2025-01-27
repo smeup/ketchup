@@ -79,6 +79,16 @@ Type: `Promise<void>`
 
 
 
+### `waitForReady() => Promise<void>`
+
+Public method to wait until the component is fully ready.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
