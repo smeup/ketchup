@@ -45,7 +45,7 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-import { getColumnByName } from '../../utils/cell-utils';
+import { getColumnByName, getValueForDisplay } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -365,7 +365,7 @@ export class KupTree {
     private treeWrapperRef: KupScrollOnHoverElement;
     private clickTimeout: any[] = [];
     private globalFilterTimeout: number;
-    private footer: { [index: string]: number };
+    private footer: { [index: string]: string };
     private sizedColumns: KupDataColumn[] = undefined;
     columnFilterTimeout: number;
     private columnMenuInstance: KupColumnMenu;
@@ -1903,19 +1903,14 @@ export class KupTree {
                     );
                 }
 
-                let value;
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = this.footer[column.name];
-                } else {
-                    value = this.#kupManager.math.numberToFormattedString(
-                        this.footer[column.name],
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
-                }
+                const value =
+                    this.footer[column.name] != null
+                        ? getValueForDisplay(
+                              this.footer[column.name],
+                              column.obj,
+                              column.decimals
+                          )
+                        : '';
 
                 return (
                     <td data-column={column.name}>

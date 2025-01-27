@@ -73,7 +73,12 @@ import {
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import { identify, getProps, setProps } from '../../utils/utils';
+import {
+    identify,
+    getProps,
+    setProps,
+    getRegExpFromString,
+} from '../../utils/utils';
 import {
     KupListNode,
     ItemsDisplayMode,
@@ -963,7 +968,7 @@ export class KupDataTable {
     #paginatedRows: Array<KupDataTableRow>;
     #paginatedRowsLength: number = 0;
 
-    #footer: { [index: string]: any }; // TODO change any
+    #footer: { [index: string]: string };
     /**
      * Instance of the KupManager class.
      */
@@ -5050,7 +5055,11 @@ export class KupDataTable {
                                 id: formula
                                     ? `${TotalMode.MATH}${formula}`
                                     : TotalMode.MATH,
-                                value: translation[TotalLabel.MATH],
+                                value: formula
+                                    ? `${
+                                          translation[TotalLabel.MATH]
+                                      }: ${formula}`
+                                    : translation[TotalLabel.MATH],
                             },
                         };
                     };
@@ -5061,10 +5070,10 @@ export class KupDataTable {
                         /* Formula cloumn */
                         const formula = (
                             this.totals[column.name] ?? column.formula
-                        ).replace(new RegExp(TotalMode.MATH, 'g'), '');
+                        ).replace(getRegExpFromString(TotalMode.MATH, 'g'), '');
                         const totalsListElements =
                             getTotalsListElements(formula);
-                        // Add  formula
+                        // Add formula
                         listData.push(
                             {
                                 ...totalsListElements[TotalMode.MATH],
@@ -5138,13 +5147,14 @@ export class KupDataTable {
                     );
                 }
 
-                const value = this.#footer[column.name]
-                    ? getValueForDisplay(
-                          this.#footer[column.name].toString(),
-                          column.obj,
-                          column.decimals
-                      )
-                    : '';
+                const value =
+                    this.#footer[column.name] != null
+                        ? getValueForDisplay(
+                              this.#footer[column.name],
+                              column.obj,
+                              column.decimals
+                          )
+                        : '';
 
                 return (
                     <td
