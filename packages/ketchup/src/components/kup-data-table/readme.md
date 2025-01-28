@@ -365,40 +365,6 @@ Type: `Promise<void>`
 
 
 
-### `scrollToIndex(index: number) => Promise<void>`
-
-Scrolls to the row at the specified index in the current view (excluding groups).
-The row is selected through a querySelector, guaranteeing that the row is in the view.
-If the specified row isn't found, the method has no effect.
-
-#### Parameters
-
-| Name    | Type     | Description             |
-| ------- | -------- | ----------------------- |
-| `index` | `number` | - The index of the row. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-A promise that gets resolved when the scrolling is done.
-
-### `scrollToRow(id: string) => Promise<void>`
-
-Scrolls to a specified row, identified by its id.
-
-#### Parameters
-
-| Name | Type     | Description                       |
-| ---- | -------- | --------------------------------- |
-| `id` | `string` | - The id of the row to scroll to. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-A promise that gets resolved when the scrolling is done.
-
 ### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
 
 Sets the cell value in a table cell.

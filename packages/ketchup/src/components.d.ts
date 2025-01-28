@@ -1715,18 +1715,6 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
-          * Scrolls to the row at the specified index in the current view (excluding groups). The row is selected through a querySelector, guaranteeing that the row is in the view. If the specified row isn't found, the method has no effect.
-          * @param index - The index of the row.
-          * @returns A promise that gets resolved when the scrolling is done.
-         */
-        "scrollToIndex": (index: number) => Promise<void>;
-        /**
-          * Scrolls to a specified row, identified by its id.
-          * @param id - The id of the row to scroll to.
-          * @returns A promise that gets resolved when the scrolling is done.
-         */
-        "scrollToRow": (id: string) => Promise<void>;
-        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
