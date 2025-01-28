@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -36,7 +35,6 @@ import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { dA } from '@fullcalendar/core/internal-common';
 
 @Component({
     tag: 'kup-list',
