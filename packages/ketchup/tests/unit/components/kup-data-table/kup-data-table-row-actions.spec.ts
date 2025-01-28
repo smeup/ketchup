@@ -126,6 +126,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: thirdCell,
                 column: currentColumn,
             },
@@ -134,6 +135,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: fourthCell,
                 column: {
                     isEditable: false,
@@ -174,6 +176,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
+                index: -1,
                 column: {
                     isEditable: false,
                     isKey: false,
@@ -193,6 +196,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: secondCell,
                 column: {
                     isEditable: false,
@@ -211,6 +215,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
+                index: -1,
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -233,6 +238,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: fourthCell,
                 column: {
                     isEditable: false,
