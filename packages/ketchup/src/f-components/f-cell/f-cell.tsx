@@ -944,8 +944,7 @@ function setEditableCell(
             } else {
                 const isTextArea =
                     (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
-                    (cellType ? cellType === FCellTypes.MEMO : false) ||
-                    cell.data.maxLength >= 256;
+                    (cellType ? cellType === FCellTypes.MEMO : false);
 
                 try {
                     cell.value = JSON.parse(`"${cell.value}"`);
