@@ -2,30 +2,27 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type                                                  | Default                 |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------------------------------------------- | ----------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                              | `''`                    |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]`                                     | `null`                  |
-| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`                                             | `false`                 |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                 |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
-| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`                                       | `undefined`             |
-| `variant`     | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | List of elements. | `KupTabBarNode[]` | `null` |
+| `dense` | `dense` | Defaults at false. When set to true, the component is dense. | `boolean` | `false` |
+| `ripple` | `ripple` | When enabled displays Material's ripple effect on item headers. | `boolean` | `false` |
+| `toolbar` | `toolbar` | When enabled displays toolbar item inside each single tab. | `boolean` | `false` |
+| `toolbarData` | -- | Display DataNode Toolbar. | `KupDataNode[]` | `undefined` |
+| `variant` | `variant` | List of elements. | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
 
 ## Events
 
-| Event                  | Description                                    | Type                                           |
-| ---------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `kup-tabbar-blur`      | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-click`     | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-focus`     | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-iconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-tabbar-blur` | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-click` | Triggered when the tab is clicked. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-focus` | Triggered when the tab is focused. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-iconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-itemclick` | Triggered when a list item is clicked. | `CustomEvent<KupToolbarItemClickEventPayload>` |
 
 ## Methods
 
@@ -35,8 +32,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -63,52 +60,47 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                             | Description                                                        |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `--kup-tabbar-font-family`       | Sets font family of the component.                                 |
-| `--kup-tabbar-font-size`         | Sets font size of the component.                                   |
-| `--kup-tabbar-font-weight`       | Sets font weight of the component.                                 |
-| `--kup-tabbar-height`            | Sets height of the component.                                      |
-| `--kup-tabbar-primary-color`     | Sets primary color of the component.                               |
+| Name | Description |
+| --- | --- |
+| `--kup-tabbar-font-family` | Sets font family of the component. |
+| `--kup-tabbar-font-size` | Sets font size of the component. |
+| `--kup-tabbar-font-weight` | Sets font weight of the component. |
+| `--kup-tabbar-height` | Sets height of the component. |
+| `--kup-tabbar-primary-color` | Sets primary color of the component. |
 | `--kup-tabbar-primary-color-rgb` | Sets primary color RGB values of the component (used for shaders). |
-| `--kup-tabbar-tab-padding`       | Sets padding of each tab.                                          |
-
+| `--kup-tabbar-tab-padding` | Sets padding of each tab. |
 
 ## Dependencies
 
 ### Used by
 
- - [kup-card](../kup-card)
- - [kup-input-panel](../kup-input-panel)
+-   [kup-card](../kup-card)
+-   [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
-- [kup-toolbar](../kup-toolbar)
-- [kup-card](../kup-card)
-- [kup-badge](../kup-badge)
+-   [kup-toolbar](../kup-toolbar)
+-   [kup-card](../kup-card)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-tab-bar --> kup-toolbar
@@ -138,33 +130,45 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
+  kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -205,6 +209,7 @@ graph TD;
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -223,6 +228,7 @@ graph TD;
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-dialog
   kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
@@ -241,6 +247,6 @@ graph TD;
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

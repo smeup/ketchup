@@ -1,33 +1,28 @@
 # kup-editor
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                                 | Type                      | Default      |
-| ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
-| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                  | `undefined`  |
-| `editorHeight`    | `editor-height`     | Sets the height of the component.                                                           | `string`                  | `'auto'`     |
-| `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "wysiwyg"` | `'markdown'` |
-| `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |
-| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                 | `false`      |
-| `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`     | `'vertical'` |
-| `selectedTab`     | `selected-tab`      | The markdown editor selected tab.                                                           | `"preview" \| "write"`    | `'write'`    |
-| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                 | `true`       |
-| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                 | `true`       |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `autosaveTimer` | `autosave-timer` | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number` | `undefined` |
+| `editorHeight` | `editor-height` | Sets the height of the component. | `string` | `'auto'` |
+| `initialEditType` | `initial-edit-type` | The editor type. | `"markdown" \| "wysiwyg"` | `'markdown'` |
+| `initialValue` | `initial-value` | The initial editor value. | `string` | `''` |
+| `isReadOnly` | `is-read-only` | Defines whether the editor is disabled or not. | `boolean` | `false` |
+| `previewStyle` | `preview-style` | The editor preview style. | `"tab" \| "vertical"` | `'vertical'` |
+| `selectedTab` | `selected-tab` | The markdown editor selected tab. | `"preview" \| "write"` | `'write'` |
+| `showSaveButton` | `show-save-button` | Defines whether to show the save button in editor's toolbar or not. | `boolean` | `true` |
+| `showToolbar` | `show-toolbar` | Defines whether to show the editor's toolbar or not. | `boolean` | `true` |
 
 ## Events
 
-| Event                 | Description                                                          | Type                                 |
-| --------------------- | -------------------------------------------------------------------- | ------------------------------------ |
+| Event | Description | Type |
+| --- | --- | --- |
 | `kup-editor-autosave` | Triggered at regular intervals if autosaveTimer prop is initialised. | `CustomEvent<KupEditorEventPayload>` |
-| `kup-editor-ready`    | Triggered when the component is ready.                               | `CustomEvent<KupEventPayload>`       |
-| `kup-editor-save`     | Triggered when save button is clicked.                               | `CustomEvent<KupEditorEventPayload>` |
-
+| `kup-editor-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+| `kup-editor-save` | Triggered when save button is clicked. | `CustomEvent<KupEditorEventPayload>` |
 
 ## Methods
 
@@ -37,8 +32,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -55,8 +50,6 @@ Returns the component's internal value as html.
 
 Type: `Promise<string>`
 
-
-
 ### `getValueAsMarkdown() => Promise<string>`
 
 Returns the component's internal value as markdown.
@@ -64,8 +57,6 @@ Returns the component's internal value as markdown.
 #### Returns
 
 Type: `Promise<string>`
-
-
 
 ### `refresh() => Promise<void>`
 
@@ -75,39 +66,36 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [kup-input-panel](../kup-input-panel)
+-   [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
-- [kup-card](../kup-card)
+-   [kup-card](../kup-card)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-editor --> kup-card
+  kup-editor --> kup-dialog
   kup-card --> kup-image
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -140,33 +128,45 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
+  kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -223,6 +223,7 @@ graph TD;
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -244,6 +245,7 @@ graph TD;
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-dialog
   kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
@@ -262,6 +264,6 @@ graph TD;
   style kup-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

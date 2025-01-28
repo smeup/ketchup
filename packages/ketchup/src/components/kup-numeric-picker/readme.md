@@ -1,39 +1,34 @@
 # kup-numeric-picker
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                           | Type      | Default |
-| -------------- | --------------- | ----------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                        | `string`  | `''`    |
-| `data`         | --              | Props of the sub-components.                                                                          | `Object`  | `null`  |
-| `decimals`     | `decimals`      | Defaults at false. When set to true, the component has decimals.                                      | `boolean` | `false` |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                       | `boolean` | `false` |
-| `initialValue` | `initial-value` | Sets the initial value of the component                                                               | `string`  | `''`    |
-| `maxDecimals`  | `max-decimals`  | when set, the component allows you to enter decimals with a maximum of characters.                    | `number`  | `null`  |
-| `maxIntegers`  | `max-integers`  | When set, the component allows you to enter integer numbers with a maximum of characters.             | `number`  | `null`  |
-| `maxLength`    | `max-length`    | When set, the component allows you to enter numbers with a maximum of characters, including decimals. | `number`  | `null`  |
-| `negative`     | `negative`      | Defaults at false. When set to true, the component has negative number.                               | `boolean` | `false` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | Props of the sub-components. | `Object` | `null` |
+| `decimals` | `decimals` | Defaults at false. When set to true, the component has decimals. | `boolean` | `false` |
+| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `initialValue` | `initial-value` | Sets the initial value of the component | `string` | `''` |
+| `maxDecimals` | `max-decimals` | when set, the component allows you to enter decimals with a maximum of characters. | `number` | `null` |
+| `maxIntegers` | `max-integers` | When set, the component allows you to enter integer numbers with a maximum of characters. | `number` | `null` |
+| `maxLength` | `max-length` | When set, the component allows you to enter numbers with a maximum of characters, including decimals. | `number` | `null` |
+| `negative` | `negative` | Defaults at false. When set to true, the component has negative number. | `boolean` | `false` |
 
 ## Events
 
-| Event                               | Description | Type                                        |
-| ----------------------------------- | ----------- | ------------------------------------------- |
-| `kup-numericpicker-blur`            |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-change`          |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`              |
-| `kup-numericpicker-click`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-focus`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-iconclick`       |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-input`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-itemclick`       |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-textfieldsubmit` |             | `CustomEvent<KupNumericPickerEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-numericpicker-blur` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-change` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-cleariconclick` |  | `CustomEvent<KupEventPayload>` |
+| `kup-numericpicker-click` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-focus` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-iconclick` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-input` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-itemclick` |  | `CustomEvent<KupNumericPickerEventPayload>` |
+| `kup-numericpicker-textfieldsubmit` |  | `CustomEvent<KupNumericPickerEventPayload>` |
 
 ## Methods
 
@@ -43,8 +38,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -71,8 +66,6 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setFocus() => Promise<void>`
 
 Sets the focus to the component.
@@ -80,8 +73,6 @@ Sets the focus to the component.
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setValue(value: string) => Promise<void>`
 
@@ -97,17 +88,15 @@ Sets the component's value.
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-numeric-picker --> kup-card
@@ -144,33 +133,45 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
+  kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -227,6 +228,7 @@ graph TD;
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -248,6 +250,7 @@ graph TD;
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-dialog
   kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
@@ -265,6 +268,6 @@ graph TD;
   style kup-numeric-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

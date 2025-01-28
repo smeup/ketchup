@@ -2,28 +2,25 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property       | Attribute       | Description                                                                          | Type           | Default |
-| -------------- | --------------- | ------------------------------------------------------------------------------------ | -------------- | ------- |
-| `columns`      | `columns`       | Number of columns. When null, radio fields will be displayed inline.                 | `number`       | `null`  |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`       | `''`    |
-| `data`         | --              | List of elements.                                                                    | `FRadioData[]` | `null`  |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`      | `false` |
-| `horizontal`   | `horizontal`    | Defaults at false. When set to true, the component is horizontal.                    | `boolean`      | `false` |
-| `label`        | `label`         | When set, its content will be shown as a label.                                      | `string`       | `''`    |
-| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`      | `false` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `columns` | `columns` | Number of columns. When null, radio fields will be displayed inline. | `number` | `null` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | List of elements. | `FRadioData[]` | `null` |
+| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `horizontal` | `horizontal` | Defaults at false. When set to true, the component is horizontal. | `boolean` | `false` |
+| `label` | `label` | When set, its content will be shown as a label. | `string` | `''` |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean` | `false` |
 
 ## Events
 
-| Event              | Description                                       | Type                                      |
-| ------------------ | ------------------------------------------------- | ----------------------------------------- |
-| `kup-radio-blur`   | Triggered when the input element loses focus.     | `CustomEvent<KupEventPayload>`            |
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-radio-blur` | Triggered when the input element loses focus. | `CustomEvent<KupEventPayload>` |
 | `kup-radio-change` | Triggered when the input element's value changes. | `CustomEvent<KupRadioChangeEventPayload>` |
-| `kup-radio-focus`  | Triggered when the input element gets focused.    | `CustomEvent<KupEventPayload>`            |
-
+| `kup-radio-focus` | Triggered when the input element gets focused. | `CustomEvent<KupEventPayload>` |
 
 ## Methods
 
@@ -33,8 +30,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -51,50 +48,45 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                             | Description                                     |
-| -------------------------------- | ----------------------------------------------- |
-| `--kup-radio-font-family`        | Sets font family of the radio's label.          |
-| `--kup-radio-font-size`          | Sets font size of the radio's label.            |
-| `--kup-radio-font-weight`        | Sets font weight of the radio's label.          |
-| `--kup-radio-outer-circle-color` | Sets color of the outer circle.                 |
-| `--kup-radio-primary-color`      | Sets primary color of the component.            |
-| `--kup-radio-primary-color-rgb`  | Sets primary color RGB values of the component. |
-| `--kup-radio-text-color`         | Sets text color of the radio's label.           |
-
+| Name | Description |
+| --- | --- |
+| `--kup-radio-font-family` | Sets font family of the radio's label. |
+| `--kup-radio-font-size` | Sets font size of the radio's label. |
+| `--kup-radio-font-weight` | Sets font weight of the radio's label. |
+| `--kup-radio-outer-circle-color` | Sets color of the outer circle. |
+| `--kup-radio-primary-color` | Sets primary color of the component. |
+| `--kup-radio-primary-color-rgb` | Sets primary color RGB values of the component. |
+| `--kup-radio-text-color` | Sets text color of the radio's label. |
 
 ## Dependencies
 
 ### Used by
 
- - [kup-list](../kup-list)
+-   [kup-list](../kup-list)
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-radio --> kup-card
@@ -131,27 +123,38 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-radio
-  kup-text-field --> kup-card
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -208,6 +211,7 @@ graph TD;
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -229,6 +233,7 @@ graph TD;
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-dialog
   kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
@@ -246,6 +251,6 @@ graph TD;
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

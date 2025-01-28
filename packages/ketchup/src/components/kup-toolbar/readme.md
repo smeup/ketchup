@@ -1,24 +1,19 @@
 # kup-toolbar
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                   | Default |
-| ------------- | -------------- | ------------------------------ | ---------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`               | `''`    |
-| `data`        | --             | The data of the list.          | `KupToolbarTreeNode[]` | `[]`    |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | The data of the list. | `KupToolbarTreeNode[]` | `[]` |
 
 ## Events
 
-| Event               | Description | Type                                       |
-| ------------------- | ----------- | ------------------------------------------ |
-| `kup-toolbar-click` |             | `CustomEvent<KupToolbarClickEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-toolbar-click` |  | `CustomEvent<KupToolbarClickEventPayload>` |
 
 ## Methods
 
@@ -28,8 +23,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -46,62 +41,58 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [kup-box](../kup-box)
- - [kup-card](../kup-card)
- - [kup-cell](../kup-cell)
- - [kup-data-table](../kup-data-table)
- - [kup-form](../kup-form)
- - [kup-image-list](../kup-image-list)
- - [kup-input-panel](../kup-input-panel)
- - [kup-object-field](../kup-object-field)
- - [kup-tab-bar](../kup-tab-bar)
- - [kup-toolbar](.)
- - [kup-tree](../kup-tree)
- - [kup-typography](../kup-typography)
+-   [kup-box](../kup-box)
+-   [kup-card](../kup-card)
+-   [kup-cell](../kup-cell)
+-   [kup-data-table](../kup-data-table)
+-   [kup-form](../kup-form)
+-   [kup-image-list](../kup-image-list)
+-   [kup-input-panel](../kup-input-panel)
+-   [kup-object-field](../kup-object-field)
+-   [kup-tab-bar](../kup-tab-bar)
+-   [kup-toolbar](.)
+-   [kup-tree](../kup-tree)
+-   [kup-typography](../kup-typography)
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-badge](../kup-badge)
-- [kup-image](../kup-image)
-- [kup-autocomplete](../kup-autocomplete)
-- [kup-chip](../kup-chip)
-- [kup-text-field](../kup-text-field)
-- [kup-color-picker](../kup-color-picker)
-- [kup-combobox](../kup-combobox)
-- [kup-date-picker](../kup-date-picker)
-- [kup-rating](../kup-rating)
-- [kup-time-picker](../kup-time-picker)
-- [kup-button-list](../kup-button-list)
-- [kup-chart](../kup-chart)
-- [kup-gauge](../kup-gauge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-toolbar](.)
+-   [kup-card](../kup-card)
+-   [kup-badge](../kup-badge)
+-   [kup-image](../kup-image)
+-   [kup-autocomplete](../kup-autocomplete)
+-   [kup-chip](../kup-chip)
+-   [kup-text-field](../kup-text-field)
+-   [kup-color-picker](../kup-color-picker)
+-   [kup-combobox](../kup-combobox)
+-   [kup-date-picker](../kup-date-picker)
+-   [kup-rating](../kup-rating)
+-   [kup-time-picker](../kup-time-picker)
+-   [kup-button-list](../kup-button-list)
+-   [kup-chart](../kup-chart)
+-   [kup-gauge](../kup-gauge)
+-   [kup-progress-bar](../kup-progress-bar)
+-   [kup-toolbar](.)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-toolbar --> kup-toolbar
@@ -113,33 +104,45 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
+  kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -168,6 +171,6 @@ graph TD;
   style kup-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -1,40 +1,35 @@
 # kup-input-panel
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
-| Property                   | Attribute              | Description                                                                        | Type                                                                                                                                                                                                         | Default                                |
-| -------------------------- | ---------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------- |
-| `autoFocus`                | `auto-focus`           | Sets whether the first input should receive focus.                                 | `boolean`                                                                                                                                                                                                    | `false`                                |
-| `autoSkip`                 | `auto-skip`            | Sets the auto skip between input text fields when the value reaches the max length | `boolean`                                                                                                                                                                                                    | `false`                                |
-| `buttonPosition`           | `button-position`      | Select the position of the buttons related to the input panel                      | `KupInputPanelButtonsPositions.BOTTOM \| KupInputPanelButtonsPositions.CENTER \| KupInputPanelButtonsPositions.LEFT \| KupInputPanelButtonsPositions.RIGHT \| KupInputPanelButtonsPositions.TOP`             | `KupInputPanelButtonsPositions.BOTTOM` |
-| `checkValidObjCallback`    | --                     | Sets the callback for valid the object when cell checkObject is true               | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>`                                                                                                 | `null`                                 |
-| `checkValidValueCallback`  | --                     | Sets the callback for valid the object when cell checkObject is true               | `(currentState: KupInputPanelSubmitValue, cellId: string) => void`                                                                                                                                           | `null`                                 |
-| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                               | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                                                                                                                         | `null`                                 |
-| `customStyle`              | `custom-style`         | Custom style of the component.                                                     | `string`                                                                                                                                                                                                     | `''`                                   |
-| `dashboardMode`            | `dashboard-mode`       | Sets verical layout if dashboardMode is true                                       | `boolean`                                                                                                                                                                                                    | `false`                                |
-| `data`                     | --                     | Actual data of the form.                                                           | `KupInputPanelData`                                                                                                                                                                                          | `null`                                 |
-| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter.             | `boolean`                                                                                                                                                                                                    | `false`                                |
-| `inputPanelPosition`       | `input-panel-position` | Dispositions of the whole input panel elements                                     | `KupInputPanelPosition.COLUMNS \| KupInputPanelPosition.INLINE \| KupInputPanelPosition.PLACEHOLDER \| KupInputPanelPosition.STRETCHED \| KupInputPanelPosition.UPCOLUMNS \| KupInputPanelPosition.UPINLINE` | `KupInputPanelPosition.COLUMNS`        |
-| `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                              | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>`                                                                                               | `null`                                 |
-| `submitCb`                 | --                     | Sets the callback function on submit form                                          | `(e: KupInputPanelSubmit) => unknown`                                                                                                                                                                        | `null`                                 |
-| `updateOnClick`            | `update-on-click`      | When set to true, checkbox will call update                                        | `boolean`                                                                                                                                                                                                    | `false`                                |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `autoFocus` | `auto-focus` | Sets whether the first input should receive focus. | `boolean` | `false` |
+| `autoSkip` | `auto-skip` | Sets the auto skip between input text fields when the value reaches the max length | `boolean` | `false` |
+| `buttonPosition` | `button-position` | Select the position of the buttons related to the input panel | `KupInputPanelButtonsPositions.BOTTOM \| KupInputPanelButtonsPositions.CENTER \| KupInputPanelButtonsPositions.LEFT \| KupInputPanelButtonsPositions.RIGHT \| KupInputPanelButtonsPositions.TOP` | `KupInputPanelButtonsPositions.BOTTOM` |
+| `checkValidObjCallback` | -- | Sets the callback for valid the object when cell checkObject is true | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>` | `null` |
+| `checkValidValueCallback` | -- | Sets the callback for valid the object when cell checkObject is true | `(currentState: KupInputPanelSubmitValue, cellId: string) => void` | `null` |
+| `customButtonClickHandler` | -- | Sets the handler to use when click on custom buttons | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void` | `null` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `dashboardMode` | `dashboard-mode` | Sets verical layout if dashboardMode is true | `boolean` | `false` |
+| `data` | -- | Actual data of the form. | `KupInputPanelData` | `null` |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean` | `false` |
+| `inputPanelPosition` | `input-panel-position` | Dispositions of the whole input panel elements | `KupInputPanelPosition.COLUMNS \| KupInputPanelPosition.INLINE \| KupInputPanelPosition.PLACEHOLDER \| KupInputPanelPosition.STRETCHED \| KupInputPanelPosition.UPCOLUMNS \| KupInputPanelPosition.UPINLINE` | `KupInputPanelPosition.COLUMNS` |
+| `optionsHandler` | -- | Sets the callback function on loading options via FUN | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>` | `null` |
+| `submitCb` | -- | Sets the callback function on submit form | `(e: KupInputPanelSubmit) => unknown` | `null` |
+| `updateOnClick` | `update-on-click` | When set to true, checkbox will call update | `boolean` | `false` |
 
 ## Events
 
-| Event                                         | Description                               | Type                                          |
-| --------------------------------------------- | ----------------------------------------- | --------------------------------------------- |
-| `kup-input-panel-ready`                       | When component load is complete           | `CustomEvent<KupEventPayload>`                |
-| `kup-inputpanel-contextmenu`                  | Generic right click event on input panel. | `CustomEvent<KupInputPanelClickEventPayload>` |
-| `kup-inputpanel-objectfield-opensearchmenu`   |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
-| `kup-inputpanel-objectfield-searchpayload`    |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
-| `kup-inputpanel-objectfield-selectedmenuitem` |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-input-panel-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
+| `kup-inputpanel-contextmenu` | Generic right click event on input panel. | `CustomEvent<KupInputPanelClickEventPayload>` |
+| `kup-inputpanel-objectfield-opensearchmenu` |  | `CustomEvent<FObjectFieldEventPayload>` |
+| `kup-inputpanel-objectfield-searchpayload` |  | `CustomEvent<FObjectFieldEventPayload>` |
+| `kup-inputpanel-objectfield-selectedmenuitem` |  | `CustomEvent<FObjectFieldEventPayload>` |
 
 ## Methods
 
@@ -44,8 +39,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -62,24 +57,27 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+### `waitForReady() => Promise<void>`
 
+Public method to wait until the component is fully ready.
 
+#### Returns
+
+Type: `Promise<void>`
 
 ## CSS Custom Properties
 
@@ -93,33 +91,33 @@ Type: `Promise<void>`
 | `--kup-input-panel-label-width`      | Sets the width of labels.            |
 | `--kup-input-panel-padding`          | Sets the padding of the input panel. |
 
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-dropdown-button](../kup-dropdown-button)
-- [kup-editor](../kup-editor)
-- [kup-data-table](../kup-data-table)
-- [kup-tab-bar](../kup-tab-bar)
-- [kup-badge](../kup-badge)
-- [kup-image](../kup-image)
-- [kup-autocomplete](../kup-autocomplete)
-- [kup-chip](../kup-chip)
-- [kup-text-field](../kup-text-field)
-- [kup-color-picker](../kup-color-picker)
-- [kup-combobox](../kup-combobox)
-- [kup-date-picker](../kup-date-picker)
-- [kup-rating](../kup-rating)
-- [kup-time-picker](../kup-time-picker)
-- [kup-button-list](../kup-button-list)
-- [kup-chart](../kup-chart)
-- [kup-gauge](../kup-gauge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-toolbar](../kup-toolbar)
-- [kup-card](../kup-card)
+-   [kup-dropdown-button](../kup-dropdown-button)
+-   [kup-editor](../kup-editor)
+-   [kup-data-table](../kup-data-table)
+-   [kup-tab-bar](../kup-tab-bar)
+-   [kup-badge](../kup-badge)
+-   [kup-image](../kup-image)
+-   [kup-autocomplete](../kup-autocomplete)
+-   [kup-chip](../kup-chip)
+-   [kup-text-field](../kup-text-field)
+-   [kup-color-picker](../kup-color-picker)
+-   [kup-combobox](../kup-combobox)
+-   [kup-date-picker](../kup-date-picker)
+-   [kup-rating](../kup-rating)
+-   [kup-time-picker](../kup-time-picker)
+-   [kup-button-list](../kup-button-list)
+-   [kup-chart](../kup-chart)
+-   [kup-gauge](../kup-gauge)
+-   [kup-progress-bar](../kup-progress-bar)
+-   [kup-toolbar](../kup-toolbar)
+-   [kup-card](../kup-card)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-input-panel --> kup-dropdown-button
@@ -147,7 +145,6 @@ graph TD;
   kup-dropdown-button --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
@@ -184,26 +181,37 @@ graph TD;
   kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-chip --> kup-card
+  kup-chip --> kup-dialog
   kup-chip --> kup-badge
   kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
   kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
@@ -257,6 +265,7 @@ graph TD;
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -278,6 +287,7 @@ graph TD;
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-dialog
   kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
@@ -296,6 +306,6 @@ graph TD;
   style kup-input-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
