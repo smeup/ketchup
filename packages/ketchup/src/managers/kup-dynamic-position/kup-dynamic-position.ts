@@ -281,6 +281,8 @@ export class KupDynamicPosition {
     }
 
     reposition(el: KupDynamicPositionElement): void {
+        console.log('Called reposition', el, el.classList);
+
         if (
             el.isConnected &&
             el.classList.contains(kupDynamicPositionActiveClass)
@@ -299,8 +301,39 @@ export class KupDynamicPosition {
             let container = this.getAnchorContainer(el);
 
             while (container && container !== document.documentElement) {
-                container.addEventListener('scroll', repositionListener);
-                container = container.parentElement;
+                function isScrollable(element: HTMLElement) {
+                    const style = getComputedStyle(element);
+                    const hasScrollableOverflow =
+                        ['auto', 'scroll'].includes(style.overflow) ||
+                        ['auto', 'scroll'].includes(style.overflowX) ||
+                        ['auto', 'scroll'].includes(style.overflowY);
+
+                    const canScrollVertically =
+                        element.scrollHeight > element.clientHeight;
+                    const canScrollHorizontally =
+                        element.scrollWidth > element.clientWidth;
+
+                    return (
+                        hasScrollableOverflow &&
+                        (canScrollVertically || canScrollHorizontally)
+                    );
+                }
+
+                if (isScrollable(container)) {
+                    container.addEventListener('scroll', repositionListener);
+                }
+
+                if (container.parentElement) {
+                    container = container.parentElement;
+                } else if (
+                    container.getRootNode &&
+                    container.getRootNode() instanceof ShadowRoot
+                ) {
+                    container = (container.getRootNode() as ShadowRoot)
+                        .host as HTMLElement;
+                } else {
+                    container = null;
+                }
             }
         }
 
@@ -318,7 +351,18 @@ export class KupDynamicPosition {
 
             while (container && container !== document.documentElement) {
                 container.removeEventListener('scroll', repositionListener);
-                container = container.parentElement;
+
+                if (container.parentElement) {
+                    container = container.parentElement;
+                } else if (
+                    container.getRootNode &&
+                    container.getRootNode() instanceof ShadowRoot
+                ) {
+                    container = (container.getRootNode() as ShadowRoot)
+                        .host as HTMLElement;
+                } else {
+                    container = null;
+                }
             }
         }
 
