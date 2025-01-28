@@ -24,6 +24,7 @@ export function customFormula(
                 `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
                 KupDebugCategory.WARNING
             );
+            continue;
         }
 
         const sanitizedValue =
