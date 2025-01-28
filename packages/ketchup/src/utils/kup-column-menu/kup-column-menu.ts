@@ -570,6 +570,7 @@ export class KupColumnMenu {
             'data-storage': {
                 column: column,
             },
+            appendSelection: true,
             data: {
                 'kup-text-field': {
                     fullWidth: true,
@@ -621,6 +622,7 @@ export class KupColumnMenu {
             'data-storage': {
                 column: column,
             },
+            appendSelection: true,
             data: {
                 'kup-text-field': {
                     fullWidth: true,
