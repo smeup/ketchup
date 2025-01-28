@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -35,6 +34,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
 
 @Component({
     tag: 'kup-list',
@@ -143,11 +143,16 @@ export class KupList {
      * Instance of the KupManager class.
      */
     #kupManager: KupManager = kupManagerInstance();
+    /**
+     * Reference to the input element.
+     */
+    #inputEl: HTMLInputElement | HTMLTextAreaElement;
     #globalFilterTimeout: number;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
     #previouslySelectedItemIndex: number;
     #previouslySelectedItemReached: boolean;
+    #filterValue: string = '';
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -321,6 +326,16 @@ export class KupList {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupListProps, props);
+    }
+
+    @Method()
+    async setFocus(): Promise<void> {
+        this.#inputEl?.focus();
+    }
+
+    @Method()
+    async setBlur(): Promise<void> {
+        this.#inputEl?.blur();
     }
 
     /*-------------------------------------------------*/
@@ -609,21 +624,17 @@ export class KupList {
     #createFilterComponent() {
         return (
             <div id="global-filter" class="filter">
-                <kup-text-field
+                <FTextField
                     fullWidth={true}
                     label={this.#kupManager.language.translate(
                         KupLanguageSearch.SEARCH
                     )}
                     icon={KupThemeIconValues.SEARCH}
-                    initialValue={this.filter}
-                    onkup-textfield-input={(event) => {
-                        window.clearTimeout(this.filter);
-                        this.#globalFilterTimeout = window.setTimeout(
-                            () => this.onFilterValueChange(event),
-                            400
-                        );
+                    value={this.#filterValue}
+                    onInput={(event) => {
+                        this.onFilterValueChange(event);
                     }}
-                ></kup-text-field>
+                />
             </div>
         );
     }
@@ -650,12 +661,11 @@ export class KupList {
         }
     };
 
-    onFilterValueChange({ detail }) {
-        let value = '';
-        if (detail && detail.value) {
-            value = detail.value;
+    onFilterValueChange(event) {
+        if (event != null && event.target) {
+            this.#filterValue = event.target.value;
+            this.filter = this.#filterValue;
         }
-        this.filter = value;
     }
 
     /*-------------------------------------------------*/
@@ -691,6 +701,15 @@ export class KupList {
             setTimeout(() => {
                 this.rootElement.focus();
             }, 0);
+        }
+        if (this.showFilter) {
+            const f: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('.f-text-field');
+            if (f) {
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    f.querySelector('.mdc-text-field__input');
+                this.#inputEl = inputEl;
+            }
         }
         this.#kupManager.debug.logRender(this, true);
     }
