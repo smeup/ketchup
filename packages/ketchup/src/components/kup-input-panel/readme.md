@@ -22,6 +22,7 @@
 | `inputPanelPosition`       | `input-panel-position` | Dispositions of the whole input panel elements                                     | `KupInputPanelPosition.COLUMNS \| KupInputPanelPosition.INLINE \| KupInputPanelPosition.PLACEHOLDER \| KupInputPanelPosition.STRETCHED \| KupInputPanelPosition.UPCOLUMNS \| KupInputPanelPosition.UPINLINE` | `KupInputPanelPosition.COLUMNS`        |
 | `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                              | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>`                                                                                               | `null`                                 |
 | `submitCb`                 | --                     | Sets the callback function on submit form                                          | `(e: KupInputPanelSubmit) => unknown`                                                                                                                                                                        | `null`                                 |
+| `updateOnClick`            | `update-on-click`      | When set to true, checkbox will call update                                        | `boolean`                                                                                                                                                                                                    | `false`                                |
 
 
 ## Events
