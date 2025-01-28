@@ -33,7 +33,7 @@ import {
     VoCodVerRowEnum,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
 import {
     FCellProps,
     FCellShapes,
@@ -44,6 +44,8 @@ import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
+import { kupManagerInstance } from '../kup-manager/kup-manager';
+import { KupLanguageGeneric } from '../kup-language/kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -548,7 +550,6 @@ export class KupData {
                 blankCommands.forEach(({ cmd, index }) => {
                     actions.push({
                         ...this.action.createBlankRowAction(cmd, index),
-                        icon: cmd.icon || 'panorama_fish_eye', //default icon
                         obj: { t: '', p: '', k: '' },
                         cell: { value: '', obj: { t: '', p: '', k: '' } },
                         column: {
@@ -612,9 +613,13 @@ export class KupData {
             command: KupCommand,
             index: number
         ): KupDataRowAction {
+            const kupManager: KupManager = kupManagerInstance();
+
             return {
                 icon: command.icon || 'panorama_fish_eye',
-                text: command.text,
+                text:
+                    command.text ||
+                    kupManager.language.translate(KupLanguageGeneric.OPTIONS),
                 obj: { t: '', p: '', k: '' },
                 cell: { value: '', obj: { t: '', p: '', k: '' } },
                 column: { name: '', title: '', obj: { t: '', p: '', k: '' } },
