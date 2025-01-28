@@ -194,8 +194,8 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
-  kup-text-field --> kup-card
   kup-chip --> kup-card
+  kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
