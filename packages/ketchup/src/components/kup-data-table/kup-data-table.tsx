@@ -1532,6 +1532,7 @@ export class KupDataTable {
         });
         this.refresh();
     }
+
     /**
      * Adds/subtracts the input number from the first group's depth level.
      */
@@ -1816,11 +1817,13 @@ export class KupDataTable {
      * This method will set the selected rows of the component.
      * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     * @param {boolean} scrollIntoView - If true, the component will scroll to the first selected row.
      */
     @Method()
     async setSelectedRows(
         rowsIdentifiers: string[] | number[],
-        emitEvent?: boolean
+        emitEvent?: boolean,
+        scrollIntoView?: boolean
     ): Promise<void> {
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
@@ -1828,6 +1831,15 @@ export class KupDataTable {
             const row = this.#getRow(id);
             if (row) {
                 this.selectedRows.push(row);
+            }
+        }
+
+        if (scrollIntoView) {
+            if (this.selectedRows?.length > 0) {
+                const idx = this.#rows.indexOf(this.selectedRows[0]) - 1;
+                if (idx >= 1) {
+                    this.#rowsRefs[idx]?.scrollIntoView();
+                }
             }
         }
 
@@ -5315,6 +5327,7 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-id={row.id}
                         data-row={row}
                         class="group"
                     >
@@ -5654,6 +5667,7 @@ export class KupDataTable {
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                    data-id={row.id}
                     data-row={row}
                     class={rowClass}
                 >

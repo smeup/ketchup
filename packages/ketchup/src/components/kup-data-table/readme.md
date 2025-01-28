@@ -434,7 +434,7 @@ Type: `Promise<void>`
 
 
 
-### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>`
+### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
 
@@ -444,6 +444,7 @@ This method will set the selected rows of the component.
 | ----------------- | ---------------------- | -------------------------------------------------------------------- |
 | `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
 | `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
+| `scrollIntoView`  | `boolean`              | - If true, the component will scroll to the first selected row.      |
 
 #### Returns
 
@@ -548,19 +549,18 @@ graph TD;
   kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-text-field
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge

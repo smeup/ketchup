@@ -299,6 +299,8 @@ export class KupInputPanel {
         [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
     ]);
     #keysShortcut: string[] = [];
+    #readyPromise: Promise<void>;
+    #readyResolve: () => void;
     //#endregion
 
     //#region WATCHERS
@@ -332,6 +334,14 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.#readyPromise;
+    }
 
     /**
      * Used to retrieve component's props values.
@@ -2075,6 +2085,12 @@ export class KupInputPanel {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
+    connectedCallback() {
+        this.#readyPromise = new Promise((resolve) => {
+            this.#readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
@@ -2102,6 +2118,12 @@ export class KupInputPanel {
             }
         }
 
+        requestAnimationFrame(async () => {
+            if (this.#formRef && this.#readyResolve) {
+                this.#readyResolve();
+                this.#readyResolve = null;
+            }
+        });
         this.#kupManager.debug.logRender(this, true);
     }
 
