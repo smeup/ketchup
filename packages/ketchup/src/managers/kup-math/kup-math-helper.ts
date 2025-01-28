@@ -34,7 +34,8 @@ export function customFormula(
             return;
         }
 
-        // Create a global RegExp to replace all occurrences of the column name
+        const sanitizedValue =
+            value == null || isNaN(value) ? 'NaN' : value.toString();
         const regex = getRegExpFromString(formulaColumnName, 'g');
         formula = formula.replace(regex, `(${value.toString()})`);
     });
