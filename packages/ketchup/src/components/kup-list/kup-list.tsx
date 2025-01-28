@@ -664,15 +664,8 @@ export class KupList {
     };
 
     onFilterValueChange(event) {
-        if (event != null) {
-            if (event.data) {
-                this.#filterValue += event.data;
-            } else {
-                this.#filterValue = this.#filterValue.substring(
-                    0,
-                    this.#filterValue.length - 1
-                );
-            }
+        if (event != null && event.target) {
+            this.#filterValue = event.target.value;
             this.filter = this.#filterValue;
         }
     }
