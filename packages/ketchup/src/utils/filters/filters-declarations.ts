@@ -1,13 +1,5 @@
 import { KupListNode } from '../../components/kup-list/kup-list-declarations';
 
-/**
- * Interface for ranged filters.
- */
-export enum FilterInterval {
-    FROM = 0,
-    TO = 1,
-}
-
 export interface GenericFilter {
     [index: string]: Filter;
 }

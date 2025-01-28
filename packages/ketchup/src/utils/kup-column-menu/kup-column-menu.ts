@@ -40,7 +40,6 @@ import { Filters } from '../filters/filters';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
     FILTER_ANALIZER,
-    FilterInterval,
     GenericFilter,
     ValueDisplayedValue,
 } from '../filters/filters-declarations';

@@ -3,7 +3,6 @@ import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from './filters';
 import {
     Filter,
-    FilterInterval,
     GenericFilter,
     ValueDisplayedValue,
 } from './filters-declarations';

@@ -3,11 +3,7 @@ import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    FilterInterval,
-    FILTER_ANALIZER,
-    ValueDisplayedValue,
-} from './filters-declarations';
+import { FILTER_ANALIZER, ValueDisplayedValue } from './filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
