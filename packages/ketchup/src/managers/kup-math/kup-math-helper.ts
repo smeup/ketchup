@@ -16,6 +16,7 @@ export function customFormula(
     row: { [index: string]: number }
 ): number {
     // Replace formula column references with the actual values
+
     for (const [formulaColumnName, value] of Object.entries(row)) {
         if (value == null || isNaN(value)) {
             dom.ketchup.debug.logMessage(
@@ -25,9 +26,10 @@ export function customFormula(
             );
         }
 
-        // Create a global RegExp to replace all occurrences of the column name
+        const sanitizedValue =
+            value == null || isNaN(value) ? 'NaN' : value.toString();
         const regex = getRegExpFromString(formulaColumnName, 'g');
-        formula = formula.replace(regex, `(${value.toString()})`);
+        formula = formula.replace(regex, `(${sanitizedValue})`);
     }
 
     // Remove any leftover brackets (in case there are unmatched ones)
