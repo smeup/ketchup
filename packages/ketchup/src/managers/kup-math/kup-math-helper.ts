@@ -23,7 +23,6 @@ export function customFormula(
                 `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
                 KupDebugCategory.WARNING
             );
-            return NaN;
         }
 
         // Create a global RegExp to replace all occurrences of the column name

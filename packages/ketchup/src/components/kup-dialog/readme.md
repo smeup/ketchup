@@ -172,6 +172,8 @@ graph TD;
   kup-dialog --> kup-dialog
   kup-badge --> kup-dialog
   kup-card --> kup-dialog
+  kup-image --> kup-dialog
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-dialog
   kup-list --> kup-dialog
   kup-radio --> kup-dialog
@@ -182,8 +184,6 @@ graph TD;
   kup-date-picker --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
-  kup-image --> kup-dialog
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-dialog
   kup-dropdown-button --> kup-dialog
   kup-chart --> kup-dialog
