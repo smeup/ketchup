@@ -9,14 +9,6 @@ import { GenericObject } from '../../types/GenericTypes';
 
 const HIDDEN_CLASS = 'f-image__hidden';
 
-const isRemoteResource = (resource: string): boolean => {
-    return (
-        resource.indexOf('.') > -1 ||
-        resource.indexOf('/') > -1 ||
-        resource.indexOf('\\') > -1
-    );
-};
-
 export const FImage: FunctionalComponent<FImageProps> = (
     props: FImageProps
 ) => {
@@ -27,7 +19,11 @@ export const FImage: FunctionalComponent<FImageProps> = (
     };
 
     if (props.resource) {
-        if (isRemoteResource(props.resource)) {
+        if (
+            props.resource.indexOf('.') > -1 ||
+            props.resource.indexOf('/') > -1 ||
+            props.resource.indexOf('\\') > -1
+        ) {
             style = {
                 '--kup_image_height': props.sizeY ? props.sizeY : 'auto',
                 '--kup_image_width': props.sizeX ? props.sizeX : '100%',
@@ -55,17 +51,6 @@ export const FImage: FunctionalComponent<FImageProps> = (
         }
     }
 
-    let placeholder: HTMLDivElement = undefined;
-    if (props.placeholderResource) {
-        if (props.resource && isRemoteResource(props.resource)) {
-            placeholder = createIcon(
-                props.placeholderResource,
-                props.color,
-                'f-image__placeholder ' + HIDDEN_CLASS
-            );
-        }
-    }
-
     return (
         <div
             class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} `}
@@ -76,7 +61,13 @@ export const FImage: FunctionalComponent<FImageProps> = (
             onClick={props.onClick}
             tabindex={props.tabIndex ?? null}
         >
-            {placeholder}
+            {props.placeholderResource
+                ? createIcon(
+                      props.placeholderResource,
+                      props.color,
+                      'f-image__placeholder ' + HIDDEN_CLASS
+                  )
+                : undefined}
             {el}
             {...badgeCollection}
         </div>
