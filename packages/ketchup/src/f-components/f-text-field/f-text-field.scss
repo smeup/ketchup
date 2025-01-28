@@ -473,7 +473,7 @@
         }
 
         &.mdc-text-field--textarea--medium {
-          height: var(--kup_textfield_textarea_medium_height);
+          min-height: var(--kup_textfield_textarea_medium_height);
         }
 
         &.mdc-text-field--textarea--large {
