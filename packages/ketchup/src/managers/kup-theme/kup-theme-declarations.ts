@@ -187,6 +187,7 @@ export const fTextFieldUsers = [
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
     KupTagNames.TOOLBAR,
+    KupTagNames.LIST,
 ];
 /**
  * Components using the MDC ripple effect.

@@ -30,6 +30,7 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
@@ -207,6 +208,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         };
         infoEl = <FImage {...fProps} />;
     }
+
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -221,25 +223,47 @@ export const FCell: FunctionalComponent<FCellProps> = (
                 class="f-cell__content"
                 style={cell.styleContent}
                 title={cellTitle}
+                onMouseEnter={(e) => handleMouseEnter(e, props, cellType)}
+                onMouseLeave={(e) => handleMouseLeave(e)}
             >
-                {props.cellActionIcon && (
-                    <FImage
-                        resource="more_vert"
-                        sizeX="16px"
-                        sizeY="16px"
-                        wrapperClass={`f-cell__iconfunction ${
-                            cellType === FCellTypes.NUMBER ? 'left' : 'right'
-                        }`}
-                        onClick={props.cellActionIcon.onClick}
-                        tabIndex={0}
-                    />
-                )}
                 {children && children.length > 0
                     ? children
                     : [props.indents, infoEl, icon, content]}
             </div>
         </div>
     );
+};
+
+const handleMouseEnter = (
+    e: MouseEvent,
+    props: FCellProps,
+    cellType: FCellTypes
+) => {
+    if (props.cellActionIcon) {
+        const parent = e.currentTarget as HTMLElement;
+        const iconElement = document.createElement('kup-image');
+        iconElement.resource = 'more_vert';
+        iconElement.sizeX = '16px';
+        iconElement.sizeY = '16px';
+        iconElement.tabIndex = 0;
+        iconElement.className = `f-cell__iconfunction ${
+            cellType === FCellTypes.NUMBER ? 'left' : 'right'
+        }`;
+
+        if (props.cellActionIcon?.onClick) {
+            iconElement.addEventListener('click', props.cellActionIcon.onClick);
+        }
+        parent.appendChild(iconElement);
+    }
+};
+
+const handleMouseLeave = (event: MouseEvent) => {
+    const parent = event.currentTarget as HTMLElement;
+    const iconContainer = parent.querySelector('kup-image');
+
+    if (iconContainer) {
+        iconContainer.remove();
+    }
 };
 
 const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
@@ -712,6 +736,7 @@ function setEditableCell(
                 <FTextField
                     {...cell.data}
                     textArea={true}
+                    sizing={KupComponentSizing.EXTRA_LARGE}
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}

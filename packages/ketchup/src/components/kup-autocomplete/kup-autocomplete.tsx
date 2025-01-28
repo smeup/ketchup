@@ -258,12 +258,14 @@ export class KupAutocomplete {
     kupItemClick: EventEmitter<KupAutocompleteEventPayload>;
 
     onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        if (!this.#isListOpened()) {
+            this.kupBlur.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupChange(value: string) {
@@ -642,6 +644,9 @@ export class KupAutocomplete {
                 ? true
                 : false,
             showMarker: this.showMarker,
+            ...(this.displayedValue && {
+                size: this.displayedValue.length,
+            }),
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');

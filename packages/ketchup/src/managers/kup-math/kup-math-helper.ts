@@ -16,6 +16,7 @@ export function customFormula(
     row: { [index: string]: number }
 ): number {
     // Replace formula column references with the actual values
+
     for (const [formulaColumnName, value] of Object.entries(row)) {
         if (value == null || isNaN(value)) {
             dom.ketchup.debug.logMessage(
@@ -23,12 +24,13 @@ export function customFormula(
                 `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
                 KupDebugCategory.WARNING
             );
-            return NaN;
+            continue;
         }
 
-        // Create a global RegExp to replace all occurrences of the column name
+        const sanitizedValue =
+            value == null || isNaN(value) ? 'NaN' : value.toString();
         const regex = getRegExpFromString(formulaColumnName, 'g');
-        formula = formula.replace(regex, `(${value.toString()})`);
+        formula = formula.replace(regex, `(${sanitizedValue})`);
     }
 
     // Remove any leftover brackets (in case there are unmatched ones)
@@ -36,8 +38,16 @@ export function customFormula(
 
     // Evaluate the formula
     try {
+        // Use a simple parser to handle comma and negative numbers properly
+        const sanitizedExpression = formula
+            // Replace commas with dots
+            .replace(/,/g, '.')
+            .replace(
+                /(^|[+\-*/(])(-\d+(\.\d+)?)/g,
+                (_, before, number) => `${before}(${number})`
+            );
         const mexp = new Mexp();
-        const lexedFormula = mexp.lex(formula);
+        const lexedFormula = mexp.lex(sanitizedExpression);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
         return mexp.postfixEval(postFixedFormula);
     } catch (error: any) {

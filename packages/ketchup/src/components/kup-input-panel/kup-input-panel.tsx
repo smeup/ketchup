@@ -197,6 +197,12 @@ export class KupInputPanel {
      */
     @Prop() autoSkip?: boolean = false;
 
+    /**
+     * When set to true, checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -759,9 +765,9 @@ export class KupInputPanel {
         let content = [];
 
         if (section.sections?.length) {
-            content = section.sections.map((innerSection) =>
-                this.#renderSection(cells, innerSection)
-            );
+            content = section.sections
+                .map((innerSection) => this.#renderSection(cells, innerSection))
+                .filter(Boolean);
 
             const hasDim = section.sections.some((sec) => sec.dim);
 
@@ -781,9 +787,10 @@ export class KupInputPanel {
                     : `repeat(${section.sections.length}, 1fr)`;
             }
         } else if (section.content?.length) {
-            content = section.content.map((field) =>
-                this.#renderField(cells, field)
-            );
+            content = section.content
+                .map((field) => this.#renderField(cells, field))
+                .filter(Boolean);
+
             styleObj.gridTemplateColumns =
                 +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '';
             if (this.dashboardMode) {
@@ -793,11 +800,11 @@ export class KupInputPanel {
                         : '';
             }
         }
-        const sectionContent = (
+        const sectionContent = content.length ? (
             <div class={classObj} style={styleObj}>
-                {content.filter(Boolean)}
+                {content}
             </div>
-        );
+        ) : undefined;
 
         return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
@@ -1775,6 +1782,10 @@ export class KupInputPanel {
             detail: { column, cell },
         } = e;
 
+        if (cell.shape === FCellShapes.CHECKBOX) {
+            return;
+        }
+
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
 
@@ -1826,6 +1837,32 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
+            this.checkValidValueCallback(
+                {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                column.name
+            );
+        }
+    }
+
+    #onCellUpdate({
+        detail: { cell, column },
+    }: CustomEvent<FCellEventPayload>) {
+        if (cell.shape !== FCellShapes.CHECKBOX) {
+            return;
+        }
+
+        if (this.updateOnClick) {
+            this.submitCb({
+                value: {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                cell: column.name,
+            });
+        } else if (cell.inputSettings?.checkValueOnExit) {
             this.checkValidValueCallback(
                 {
                     before: { ...this.#originalData },
@@ -2107,6 +2144,7 @@ export class KupInputPanel {
         return (
             <Host
                 onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
                 }}

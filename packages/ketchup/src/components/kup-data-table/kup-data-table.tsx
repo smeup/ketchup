@@ -142,6 +142,7 @@ import {
     KupDraggableElement,
     KupDropCallbacks,
     KupDropDataTransferCallback,
+    KupDropEventPayload,
     KupDropEventTypes,
     KupPointerEventTypes,
     KupResizeCallbacks,
@@ -809,6 +810,12 @@ export class KupDataTable {
      */
     @Prop({ mutable: true, reflect: true }) updatableData: boolean = false;
 
+    /**
+     * When set to true, editable checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //-------- State --------
 
     @State()
@@ -1283,6 +1290,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableCellClick: EventEmitter<FCellEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-drop',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDrop: EventEmitter<KupDropEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-cell-iconclick',
@@ -3026,7 +3041,8 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
-            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            this.#dropDownActionCardAnchor
+                .parentElement as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.AUTO,
             true
@@ -3631,6 +3647,7 @@ export class KupDataTable {
         this.#filterRows();
 
         this.#footer = calcTotals(
+            this.getColumns(),
             normalizeRows(this.getColumns(), this.#rows),
             this.totals
         );
@@ -4429,6 +4446,7 @@ export class KupDataTable {
             this.updatableData &&
             cell.isEditable &&
             cell.inputSettings?.checkValueOnExit &&
+            cell.shape !== FCellShapes.CHECKBOX &&
             this.#originalDataLoaded.rows.find((r) => r.id == row.id)?.cells[
                 column.name
             ]?.value !== cell.value
@@ -6551,7 +6569,7 @@ export class KupDataTable {
         if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
-                height: this.tableHeight,
+                maxHeight: this.tableHeight,
                 overflow: 'auto',
             };
         }
@@ -6615,14 +6633,39 @@ export class KupDataTable {
                     }
                 }
             }
+
+            if (
+                this.updatableData &&
+                e.detail.cell?.shape === FCellShapes.CHECKBOX
+            ) {
+                if (this.updateOnClick) {
+                    this.#handleUpdateClick(e.detail.cell);
+                } else if (e.detail.cell?.inputSettings?.checkValueOnExit) {
+                    this.kupCellCheck.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        originalData: this.#originalDataLoaded,
+                        updatedData: getDiffData(
+                            this.#originalDataLoaded,
+                            this.data,
+                            true
+                        ),
+                        cell: e.detail.cell,
+                    });
+                }
+            }
         };
 
         const useGlobalFilter: boolean =
-            this.globalFilter ||
-            this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER;
+            !this.legacyLook &&
+            (this.globalFilter ||
+                this.getRows().length > this.#DEFAULT_ROWS_FOR_GLOBAL_FILTER);
 
         const compCreated = (
             <Host
+                onKup-drop={(e: CustomEvent<KupDropEventPayload>) => {
+                    this.kupDataTableDrop.emit(e.detail);
+                }}
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
                     autoselectOnAction(e);
                     this.kupDataTableCellInput.emit(e.detail);
