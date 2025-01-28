@@ -28,11 +28,11 @@
   );
 
   --kup_textfield_textarea_height_conversion_input_panel: var(
-    --kup-textfield-textarea-small-height-conversion-input_panel,
+    --kup-textfield-textarea-height-conversion-input_panel,
     200px
   );
-  --kup_textfield_textarea_small_width_conversion_input_panel: var(
-    --kup-textfield-textarea-small-width-conversion-input_panel,
+  --kup_textfield_textarea_width_conversion_input_panel: var(
+    --kup-textfield-textarea-width-conversion-input_panel,
     300px
   );
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
@@ -99,7 +99,7 @@
               --kup_textfield_textarea_height_conversion_input_panel
             ) !important;
             min-width: var(
-              --kup_textfield_textarea_small_width_conversion_input_panel
+              --kup_textfield_textarea_width_conversion_input_panel
             ) !important;
           }
         }
