@@ -2094,9 +2094,9 @@ export class KupTree {
         this.#kupManager.debug.logRender(this, false);
         if (this.showFooter && this.columns) {
             this.footer = calcTotals(
-                this.getColumns(),
+                this.totals,
                 normalizeRows(this.getColumns(), this.nodesToRows()),
-                this.totals
+                this.getColumns()
             );
         }
         this.filterNodes();

@@ -799,9 +799,9 @@ export function normalizeRows(
 }
 
 export function calcTotals(
-    columns?: KupDataColumn[],
-    rows: Array<KupDataTableRow> = [],
-    totals: TotalsMap = {}
+    totals: TotalsMap,
+    rows: Array<KupDataTableRow>,
+    columns?: KupDataColumn[]
 ): { [index: string]: string } {
     if (
         dom.ketchup.objects.isEmptyJsObject(rows) ||

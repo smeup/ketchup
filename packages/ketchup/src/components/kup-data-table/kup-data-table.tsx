@@ -3640,9 +3640,9 @@ export class KupDataTable {
         this.#filterRows();
 
         this.#footer = calcTotals(
-            this.getColumns(),
+            this.totals,
             normalizeRows(this.getColumns(), this.#rows),
-            this.totals
+            this.getColumns()
         );
 
         this.#groupRows();
