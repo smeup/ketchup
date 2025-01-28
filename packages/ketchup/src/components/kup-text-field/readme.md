@@ -184,7 +184,6 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
- - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
@@ -219,7 +218,11 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
-  kup-list --> kup-text-field
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-dialog
+  kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
   kup-radio --> kup-badge

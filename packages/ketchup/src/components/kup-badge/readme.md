@@ -141,8 +141,8 @@ graph TD;
   kup-autocomplete --> kup-badge
   kup-list --> kup-badge
   kup-radio --> kup-badge
-  kup-text-field --> kup-badge
   kup-chip --> kup-badge
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-badge
   kup-combobox --> kup-badge
   kup-date-picker --> kup-badge

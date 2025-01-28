@@ -105,6 +105,26 @@ Type: `Promise<void>`
 
 
 
+### `setBlur() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -159,7 +179,6 @@ Type: `Promise<void>`
 
 - [kup-list](.)
 - [kup-radio](../kup-radio)
-- [kup-text-field](../kup-text-field)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)

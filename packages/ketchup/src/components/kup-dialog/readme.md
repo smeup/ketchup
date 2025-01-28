@@ -177,8 +177,8 @@ graph TD;
   kup-autocomplete --> kup-dialog
   kup-list --> kup-dialog
   kup-radio --> kup-dialog
-  kup-text-field --> kup-dialog
   kup-chip --> kup-dialog
+  kup-text-field --> kup-dialog
   kup-color-picker --> kup-dialog
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
