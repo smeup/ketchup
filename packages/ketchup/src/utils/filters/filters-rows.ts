@@ -150,10 +150,6 @@ export class FiltersRows extends Filters {
             }
 
             let filterValue = columnFilters.getTextFilterValue(filters, key);
-            let interval = columnFilters.getIntervalTextFieldFilterValues(
-                filters,
-                getColumnByName(columns, key)
-            );
 
             const _filterIsNegative: boolean =
                 this.filterIsNegative(filterValue);
@@ -316,10 +312,6 @@ export class FiltersRows extends Filters {
             comp.filters,
             column.name
         );
-        let interval = columnFilters.getIntervalTextFieldFilterValuesTmp(
-            comp.filters,
-            column
-        );
         let checkboxes = columnFilters.getCheckBoxFilterValues(
             comp.filters,
             column.name
@@ -361,8 +353,8 @@ export class FiltersRows extends Filters {
             textField: value,
             textFieldTmp: value,
             checkBoxes: [],
-            interval: interval,
-            intervalTmp: interval,
+            interval: [],
+            intervalTmp: [],
         };
 
         let tmpRows = this.filterRows(

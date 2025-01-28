@@ -134,12 +134,17 @@ export class Filters {
             return false;
         }
 
-        return (
-            value.toLowerCase().includes(filterValue.toLowerCase()) ||
-            this.matchSpecialFilter(
-                value.toLowerCase(),
-                filterValue.toLowerCase().match(FILTER_ANALIZER)
-            )
+        // Split multiple filters and trim each one
+        const filters = filterValue.split(';').map((f) => f.trim());
+
+        // All filters must match (AND condition)
+        return filters.every(
+            (filter) =>
+                value.toLowerCase().includes(filter.toLowerCase()) ||
+                this.matchSpecialFilter(
+                    value.toLowerCase(),
+                    filter.toLowerCase().match(FILTER_ANALIZER)
+                )
         );
     }
 
@@ -233,121 +238,142 @@ export class Filters {
             return false;
         }
 
-        const rawFilter = filterValue;
-        filterValue = this.normalizeValue(filterValue, obj);
-        let value = valueToCheck;
+        // Split multiple filters and trim each one
+        const filters = filterValue.split(';').map((f) => f.trim());
 
-        let checkByRegularExpression = true;
+        // All filters must match (AND condition)
+        return filters.every((filter) => {
+            const rawFilter = filter;
+            const normalizedFilter = this.normalizeValue(filter, obj);
+            let value = valueToCheck;
 
-        if (dom.ketchup.objects.isNumber(obj)) {
-            const valueNumber: number = dom.ketchup.math.numberifySafe(
-                value,
-                obj ? obj.p : ''
-            );
+            let checkByRegularExpression = true;
 
-            // Parse filter using FILTER_ANALIZER
-            const filterMatch = rawFilter.toLowerCase().match(FILTER_ANALIZER);
+            if (dom.ketchup.objects.isNumber(obj)) {
+                const valueNumber: number = dom.ketchup.math.numberifySafe(
+                    value,
+                    obj ? obj.p : ''
+                );
 
-            if (filterMatch) {
-                const [_, operator, _startWildcard, filterNum, _endWildcard] =
-                    filterMatch;
+                // Parse filter using FILTER_ANALIZER
+                const filterMatch = rawFilter
+                    .toLowerCase()
+                    .match(FILTER_ANALIZER);
 
-                const numericFilterValue =
-                    dom.ketchup.math.numberifySafe(filterNum);
+                if (filterMatch) {
+                    const [
+                        _,
+                        operator,
+                        _startWildcard,
+                        filterNum,
+                        _endWildcard,
+                    ] = filterMatch;
 
-                if (!isNaN(numericFilterValue)) {
-                    checkByRegularExpression = false;
-                    switch (operator) {
-                        case '>':
-                            return valueNumber > numericFilterValue;
-                        case '>=':
-                            return valueNumber >= numericFilterValue;
-                        case '<':
-                            return valueNumber < numericFilterValue;
-                        case '<=':
-                            return valueNumber <= numericFilterValue;
-                        case '!':
-                            return valueNumber !== numericFilterValue;
-                        default:
-                            return valueNumber === numericFilterValue;
+                    const numericFilterValue =
+                        dom.ketchup.math.numberifySafe(filterNum);
+
+                    if (!isNaN(numericFilterValue)) {
+                        checkByRegularExpression = false;
+                        switch (operator) {
+                            case '>':
+                                return valueNumber > numericFilterValue;
+                            case '>=':
+                                return valueNumber >= numericFilterValue;
+                            case '<':
+                                return valueNumber < numericFilterValue;
+                            case '<=':
+                                return valueNumber <= numericFilterValue;
+                            case '!':
+                                return valueNumber !== numericFilterValue;
+                            default:
+                                return valueNumber === numericFilterValue;
+                        }
                     }
                 }
             }
-        }
-        if (
-            dom.ketchup.objects.isDate(obj) ||
-            dom.ketchup.objects.isTime(obj) ||
-            dom.ketchup.objects.isTimestamp(obj)
-        ) {
-            // Determine the format based on the object type
-            let defaultFormat = KupDatesFormats.ISO_DATE;
-            if (dom.ketchup.objects.isDate(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE;
-            } else if (dom.ketchup.objects.isTime(obj)) {
-                const manageSeconds =
-                    dom.ketchup.objects.isTimeWithSeconds(obj);
-                defaultFormat = manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
-            } else if (dom.ketchup.objects.isTimestamp(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE_TIME;
-            }
-
-            // Parse filter using FILTER_ANALIZER
-            const filterMatch = rawFilter.toLowerCase().match(FILTER_ANALIZER);
-
-            // Convert the value to check to a Date object
-            const normValue = this.normalizeValue(value, obj);
-            let valueDate: Date = null;
-            if (normValue != null) {
-                valueDate = dom.ketchup.dates.toDate(value);
-            }
-
-            if (filterMatch && valueDate) {
-                const [_, operator, _startWildcard, dateStr, _endWildcard] =
-                    filterMatch;
-
-                // Try to convert the filter value to a Date
-                if (dom.ketchup.dates.isValidFormattedStringDate(dateStr)) {
-                    const filterDate = dom.ketchup.dates.toDate(
-                        this.normalizeValue(dateStr, obj)
-                    );
-                    checkByRegularExpression = false;
-
-                    switch (operator) {
-                        case '>':
-                            return valueDate > filterDate;
-                        case '>=':
-                            return valueDate >= filterDate;
-                        case '<':
-                            return valueDate < filterDate;
-                        case '<=':
-                            return valueDate <= filterDate;
-                        case '!':
-                            return valueDate.getTime() !== filterDate.getTime();
-                        default:
-                            return valueDate.getTime() === filterDate.getTime();
-                    }
-                }
-            }
-
-            // If we got here, we either don't have a valid filter pattern or date
-            // Format the value for string comparison
             if (
-                !dom.ketchup.dates.isValidFormattedStringDate(
-                    filterValue,
-                    defaultFormat
-                ) &&
-                !dom.ketchup.dates.isValidFormattedStringDate(filterValue)
+                dom.ketchup.objects.isDate(obj) ||
+                dom.ketchup.objects.isTime(obj) ||
+                dom.ketchup.objects.isTimestamp(obj)
             ) {
-                value = dom.ketchup.dates.format(value);
-            }
-        }
+                // Determine the format based on the object type
+                let defaultFormat = KupDatesFormats.ISO_DATE;
+                if (dom.ketchup.objects.isDate(obj)) {
+                    defaultFormat = KupDatesFormats.ISO_DATE;
+                } else if (dom.ketchup.objects.isTime(obj)) {
+                    const manageSeconds =
+                        dom.ketchup.objects.isTimeWithSeconds(obj);
+                    defaultFormat = manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
+                } else if (dom.ketchup.objects.isTimestamp(obj)) {
+                    defaultFormat = KupDatesFormats.ISO_DATE_TIME;
+                }
 
-        if (checkByRegularExpression) {
-            return this.isFilterCompliantForValue(value, filterValue);
-        }
-        return true;
+                // Parse filter using FILTER_ANALIZER
+                const filterMatch = rawFilter
+                    .toLowerCase()
+                    .match(FILTER_ANALIZER);
+
+                // Convert the value to check to a Date object
+                const normValue = this.normalizeValue(value, obj);
+                let valueDate: Date = null;
+                if (normValue != null) {
+                    valueDate = dom.ketchup.dates.toDate(value);
+                }
+
+                if (filterMatch && valueDate) {
+                    const [_, operator, _startWildcard, dateStr, _endWildcard] =
+                        filterMatch;
+
+                    // Try to convert the filter value to a Date
+                    if (dom.ketchup.dates.isValidFormattedStringDate(dateStr)) {
+                        const filterDate = dom.ketchup.dates.toDate(
+                            this.normalizeValue(dateStr, obj)
+                        );
+                        checkByRegularExpression = false;
+
+                        switch (operator) {
+                            case '>':
+                                return valueDate > filterDate;
+                            case '>=':
+                                return valueDate >= filterDate;
+                            case '<':
+                                return valueDate < filterDate;
+                            case '<=':
+                                return valueDate <= filterDate;
+                            case '!':
+                                return (
+                                    valueDate.getTime() !== filterDate.getTime()
+                                );
+                            default:
+                                return (
+                                    valueDate.getTime() === filterDate.getTime()
+                                );
+                        }
+                    }
+                }
+
+                // If we got here, we either don't have a valid filter pattern or date
+                // Format the value for string comparison
+                if (
+                    !dom.ketchup.dates.isValidFormattedStringDate(
+                        normalizedFilter,
+                        defaultFormat
+                    ) &&
+                    !dom.ketchup.dates.isValidFormattedStringDate(
+                        normalizedFilter
+                    )
+                ) {
+                    value = dom.ketchup.dates.format(value);
+                }
+            }
+
+            if (checkByRegularExpression) {
+                return this.isFilterCompliantForValue(value, normalizedFilter);
+            }
+            return true;
+        });
     }
 
     static valuesArrayContainsValue(
