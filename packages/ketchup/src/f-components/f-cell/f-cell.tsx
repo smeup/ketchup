@@ -106,11 +106,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
-    const subcomponentProps: unknown = {
-        resource: cell?.icon,
-        placeholderResource: cell?.placeholderIcon,
-        ...cell.data,
-    };
+    const subcomponentProps: unknown = { ...cell.data };
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
@@ -171,24 +167,18 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
 
     let icon: VNode = null;
-    if (!isEditable && (column.icon || cell.icon)) {
-        if (
-            content &&
-            cellType != FCellTypes.IMAGE &&
-            cellType != FCellTypes.ICON
-        ) {
-            const fProps: FImageProps = {
-                color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
-                resource: cell.icon ? cell.icon : column.icon,
-                placeholderResource: cell.placeholderIcon
-                    ? cell.placeholderIcon
-                    : column.placeholderIcon,
-                sizeX: '1.25em',
-                sizeY: '1.25em',
-                wrapperClass: 'obj-icon',
-            };
-            icon = <FImage {...fProps} />;
-        }
+    if (!isEditable && (column.icon || cell.icon) && content) {
+        const fProps: FImageProps = {
+            color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
+            resource: cell.icon ? cell.icon : column.icon,
+            placeholderResource: cell.placeholderIcon
+                ? cell.placeholderIcon
+                : column.placeholderIcon,
+            sizeX: '1.25em',
+            sizeY: '1.25em',
+            wrapperClass: 'obj-icon',
+        };
+        icon = <FImage {...fProps} />;
     }
 
     let cellTitle: string = null;
