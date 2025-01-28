@@ -191,13 +191,22 @@ export class Filters {
             result = operator === '!' ? value.trim() !== '' : !value.trim();
         } else if (hasStartWildcard && hasEndWildcard) {
             // Contains wildcard
-            result = value.indexOf(filterText) >= 0;
+            result =
+                operator === '!'
+                    ? !(value.indexOf(filterText) >= 0)
+                    : value.indexOf(filterText) >= 0;
         } else if (hasStartWildcard && !hasEndWildcard) {
             // Ends with wildcard
-            result = value.endsWith(filterText);
+            result =
+                operator === '!'
+                    ? !value.endsWith(filterText)
+                    : value.endsWith(filterText);
         } else if (!hasStartWildcard && hasEndWildcard) {
             // Starts with wildcard
-            result = value.startsWith(filterText);
+            result =
+                operator === '!'
+                    ? !value.startsWith(filterText)
+                    : value.startsWith(filterText);
         } else if (!hasStartWildcard && !hasEndWildcard) {
             // Operator match
             switch (operator) {
