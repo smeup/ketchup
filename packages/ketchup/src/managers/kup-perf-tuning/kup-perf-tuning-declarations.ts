@@ -1,3 +1,3 @@
 export interface KupPerfTuningData {
-    maxRowsPerPage: number;
+    maxCellsPerPage: number;
 }

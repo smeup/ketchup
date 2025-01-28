@@ -206,7 +206,8 @@ export class KupManager {
             tooltipFCellCallbacks,
             tooltipModal
         );
-        this.perfTuning = new KupPerfTuning({ maxRowsPerPage: 5000 });
+        this.perfTuning = new KupPerfTuning({ maxCellsPerPage: 5000 });
+        this.perfTuning.performPerfTuning();
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
