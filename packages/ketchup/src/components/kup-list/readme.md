@@ -161,7 +161,6 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-text-field](../kup-text-field)
 - [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -169,53 +168,40 @@ Type: `Promise<void>`
 graph TD;
   kup-list --> kup-list
   kup-radio --> kup-card
-  kup-radio --> kup-dialog
   kup-radio --> kup-badge
   kup-card --> kup-list
-  kup-autocomplete --> kup-list
-  kup-dialog --> kup-badge
-  kup-dialog --> kup-card
-  kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
-  kup-chip --> kup-card
-  kup-chip --> kup-dialog
-  kup-chip --> kup-badge
-  kup-text-field --> kup-card
-  kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
-  kup-color-picker --> kup-card
-  kup-color-picker --> kup-dialog
-  kup-color-picker --> kup-badge
-  kup-combobox --> kup-list
-  kup-date-picker --> kup-card
-  kup-date-picker --> kup-dialog
-  kup-date-picker --> kup-badge
-  kup-rating --> kup-card
-  kup-rating --> kup-dialog
-  kup-time-picker --> kup-list
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
   kup-image --> kup-spinner
   kup-image --> kup-badge
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
   kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
+  kup-autocomplete --> kup-list
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-badge
+  kup-color-picker --> kup-card
+  kup-color-picker --> kup-badge
+  kup-combobox --> kup-list
+  kup-date-picker --> kup-card
+  kup-date-picker --> kup-badge
+  kup-rating --> kup-card
+  kup-time-picker --> kup-list
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
-  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-chart --> kup-card
-  kup-chart --> kup-dialog
   kup-gauge --> kup-card
-  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
-  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
+  kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
   kup-toolbar --> kup-chip
   kup-toolbar --> kup-text-field
@@ -224,23 +210,19 @@ graph TD;
   kup-toolbar --> kup-date-picker
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-image
   kup-toolbar --> kup-button-list
   kup-toolbar --> kup-chart
   kup-toolbar --> kup-gauge
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
-  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
-  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-list
   kup-switch --> kup-card
-  kup-switch --> kup-dialog
   kup-form --> kup-card
-  kup-form --> kup-dialog
+  kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
   kup-form --> kup-text-field
@@ -249,7 +231,6 @@ graph TD;
   kup-form --> kup-date-picker
   kup-form --> kup-rating
   kup-form --> kup-time-picker
-  kup-form --> kup-image
   kup-form --> kup-button-list
   kup-form --> kup-chart
   kup-form --> kup-gauge
@@ -258,7 +239,6 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px

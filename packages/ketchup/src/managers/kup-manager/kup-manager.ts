@@ -37,6 +37,7 @@ import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
+import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -65,6 +66,7 @@ export class KupManager {
     toolbar: KupToolbar;
     keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
+    perfTuning: KupPerfTuning;
     /**
      * Initializes KupManager.
      */
@@ -204,6 +206,7 @@ export class KupManager {
             tooltipFCellCallbacks,
             tooltipModal
         );
+        this.perfTuning = new KupPerfTuning({ maxRowsPerPage: 7500 });
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =

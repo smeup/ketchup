@@ -102,130 +102,140 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
- - [kup-activity-timeline](../kup-activity-timeline)
- - [kup-autocomplete](../kup-autocomplete)
- - [kup-badge](../kup-badge)
- - [kup-box](../kup-box)
- - [kup-button](../kup-button)
- - [kup-button-list](../kup-button-list)
- - [kup-calendar](../kup-calendar)
- - [kup-card](../kup-card)
- - [kup-card-list](../kup-card-list)
- - [kup-cell](../kup-cell)
- - [kup-chart](../kup-chart)
- - [kup-checkbox](../kup-checkbox)
- - [kup-chip](../kup-chip)
- - [kup-color-picker](../kup-color-picker)
- - [kup-combobox](../kup-combobox)
- - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
- - [kup-date-picker](../kup-date-picker)
- - [kup-dialog](.)
- - [kup-drawer](../kup-drawer)
- - [kup-dropdown-button](../kup-dropdown-button)
- - [kup-echart](../kup-echart)
- - [kup-editor](../kup-editor)
- - [kup-family-tree](../kup-family-tree)
- - [kup-form](../kup-form)
- - [kup-gauge](../kup-gauge)
- - [kup-grid](../kup-grid)
- - [kup-htm](../kup-htm)
- - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
- - [kup-image-list](../kup-image-list)
- - [kup-input-panel](../kup-input-panel)
- - [kup-lazy](../kup-lazy)
- - [kup-list](../kup-list)
- - [kup-magic-box](../kup-magic-box)
- - [kup-nav-bar](../kup-nav-bar)
- - [kup-numeric-picker](../kup-numeric-picker)
- - [kup-object-field](../kup-object-field)
- - [kup-pdf](../kup-pdf)
- - [kup-planner](../kup-planner)
- - [kup-probe](../kup-probe)
- - [kup-progress-bar](../kup-progress-bar)
- - [kup-qlik](../kup-qlik)
- - [kup-radio](../kup-radio)
- - [kup-rating](../kup-rating)
- - [kup-snackbar](../kup-snackbar)
- - [kup-spinner](../kup-spinner)
- - [kup-switch](../kup-switch)
- - [kup-tab-bar](../kup-tab-bar)
- - [kup-text-field](../kup-text-field)
- - [kup-time-picker](../kup-time-picker)
- - [kup-toolbar](../kup-toolbar)
- - [kup-tree](../kup-tree)
- - [kup-txt](../kup-txt)
- - [kup-typography](../kup-typography)
- - [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
 - [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
-- [kup-dialog](.)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-dialog --> kup-dialog
-  kup-badge --> kup-dialog
-  kup-card --> kup-dialog
-  kup-autocomplete --> kup-dialog
-  kup-list --> kup-dialog
-  kup-radio --> kup-dialog
-  kup-text-field --> kup-dialog
-  kup-chip --> kup-dialog
-  kup-color-picker --> kup-dialog
-  kup-combobox --> kup-dialog
-  kup-date-picker --> kup-dialog
-  kup-rating --> kup-dialog
-  kup-time-picker --> kup-dialog
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-card --> kup-image
+  kup-card --> kup-autocomplete
+  kup-card --> kup-chip
+  kup-card --> kup-text-field
+  kup-card --> kup-color-picker
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-rating
+  kup-card --> kup-time-picker
+  kup-card --> kup-button-list
+  kup-card --> kup-chart
+  kup-card --> kup-gauge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-badge
+  kup-card --> kup-toolbar
+  kup-card --> kup-card
+  kup-card --> kup-button
+  kup-card --> kup-list
+  kup-card --> kup-spinner
+  kup-card --> kup-checkbox
+  kup-card --> kup-data-table
+  kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-card --> kup-dropdown-button
   kup-image --> kup-dialog
-  kup-spinner --> kup-dialog
-  kup-button-list --> kup-dialog
-  kup-dropdown-button --> kup-dialog
-  kup-chart --> kup-dialog
-  kup-gauge --> kup-dialog
-  kup-progress-bar --> kup-dialog
-  kup-toolbar --> kup-dialog
-  kup-button --> kup-dialog
-  kup-checkbox --> kup-dialog
+  kup-spinner --> kup-card
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-text-field
+  kup-list --> kup-card
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-badge
+  kup-text-field --> kup-card
+  kup-text-field --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-color-picker --> kup-card
+  kup-color-picker --> kup-badge
+  kup-combobox --> kup-list
+  kup-combobox --> kup-card
+  kup-combobox --> kup-badge
+  kup-date-picker --> kup-card
+  kup-date-picker --> kup-badge
+  kup-rating --> kup-card
+  kup-time-picker --> kup-card
+  kup-time-picker --> kup-list
+  kup-time-picker --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-card
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-badge
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
+  kup-button --> kup-card
+  kup-button --> kup-badge
+  kup-checkbox --> kup-card
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-dialog
-  kup-switch --> kup-dialog
-  kup-form --> kup-dialog
-  kup-tab-bar --> kup-dialog
-  kup-tree --> kup-dialog
-  kup-accordion --> kup-dialog
-  kup-activity-timeline --> kup-dialog
-  kup-box --> kup-dialog
-  kup-calendar --> kup-dialog
-  kup-card-list --> kup-dialog
-  kup-cell --> kup-dialog
-  kup-dashboard --> kup-dialog
-  kup-drawer --> kup-dialog
-  kup-echart --> kup-dialog
-  kup-editor --> kup-dialog
-  kup-family-tree --> kup-dialog
-  kup-grid --> kup-dialog
-  kup-htm --> kup-dialog
-  kup-iframe --> kup-dialog
-  kup-image-list --> kup-dialog
-  kup-input-panel --> kup-dialog
-  kup-lazy --> kup-dialog
-  kup-magic-box --> kup-dialog
-  kup-nav-bar --> kup-dialog
-  kup-numeric-picker --> kup-dialog
-  kup-object-field --> kup-dialog
-  kup-pdf --> kup-dialog
-  kup-planner --> kup-dialog
-  kup-probe --> kup-dialog
-  kup-qlik --> kup-dialog
-  kup-snackbar --> kup-dialog
-  kup-txt --> kup-dialog
-  kup-typography --> kup-dialog
-  kup-typography-list --> kup-dialog
+  kup-switch --> kup-card
+  kup-form --> kup-card
+  kup-form --> kup-image
+  kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-badge
+  kup-form --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-badge
+  kup-tree --> kup-card
+  kup-tree --> kup-list
+  kup-tree --> kup-text-field
+  kup-tree --> kup-image
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-combobox
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-rating
+  kup-tree --> kup-time-picker
+  kup-tree --> kup-button-list
+  kup-tree --> kup-chart
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

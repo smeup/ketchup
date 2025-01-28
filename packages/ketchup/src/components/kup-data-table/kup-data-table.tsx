@@ -929,7 +929,8 @@ export class KupDataTable {
                 (acc, r) => acc + Object.keys(r.cells).length,
                 0
             );
-            const maxCellsNumberPerPage = 10000;
+            const maxCellsNumberPerPage =
+                this.#kupManager.perfTuning.data.maxRowsPerPage;
             if (cellsNumber > maxCellsNumberPerPage) {
                 // Rounds a number up to the nearest multiple of ten.
                 this.#maxRowsPerPage =

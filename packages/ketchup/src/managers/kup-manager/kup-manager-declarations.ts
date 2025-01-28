@@ -23,6 +23,7 @@ import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
+import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -54,6 +55,7 @@ export interface KupManager {
     tooltip: KupTooltip;
     keysBinding: KupKeysBinding;
     utilities: KupManagerUtilities;
+    perfTuning: KupPerfTuning;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
