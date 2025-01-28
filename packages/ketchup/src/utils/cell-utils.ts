@@ -83,6 +83,7 @@ export function getValueForDisplay(
     if (value == null || value.trim() == '') {
         return value;
     }
+
     if (dom.ketchup.objects.isNumber(obj)) {
         if (isNaN(Number(value))) {
             return KupMathFormulaResult.IMPOSSIBILE_OPERATION;
@@ -90,13 +91,15 @@ export function getValueForDisplay(
 
         return dom.ketchup.math.numberStringToFormattedString(
             value,
-            decimals ? decimals : -1,
+            decimals ?? -1,
             obj ? obj.p : ''
         );
     }
+
     if (dom.ketchup.objects.isDate(obj) && dom.ketchup.dates.isIsoDate(value)) {
         return dom.ketchup.dates.format(value);
     }
+
     if (dom.ketchup.objects.isTime(obj)) {
         return dom.ketchup.dates.timeStringToFormattedString(
             value,
@@ -104,9 +107,11 @@ export function getValueForDisplay(
             obj.t + obj.p
         );
     }
+
     if (dom.ketchup.objects.isTimestamp(obj)) {
         return dom.ketchup.dates.timestampStringToFormattedString(value);
     }
+
     return value;
 }
 
