@@ -340,24 +340,6 @@ export class KupDynamicPosition {
                     el.addEventListener('scroll', repositionListener);
                 }
             });
-
-            // while (container && container !== document.documentElement) {
-            //     if (this.isScrollable(container)) {
-            //         container.addEventListener('scroll', repositionListener);
-            //     }
-
-            //     if (container.parentElement) {
-            //         container = container.parentElement;
-            //     } else if (
-            //         container.getRootNode &&
-            //         container.getRootNode() instanceof ShadowRoot
-            //     ) {
-            //         container = (container.getRootNode() as ShadowRoot)
-            //             .host as HTMLElement;
-            //     } else {
-            //         container = null;
-            //     }
-            // }
         }
 
         (el as any)._repositionListener = repositionListener;
@@ -375,22 +357,6 @@ export class KupDynamicPosition {
             this.updateEventListenerOnAncestors(container, (el) => {
                 el.removeEventListener('scroll', repositionListener);
             });
-
-            // while (container && container !== document.documentElement) {
-            //     container.removeEventListener('scroll', repositionListener);
-
-            //     if (container.parentElement) {
-            //         container = container.parentElement;
-            //     } else if (
-            //         container.getRootNode &&
-            //         container.getRootNode() instanceof ShadowRoot
-            //     ) {
-            //         container = (container.getRootNode() as ShadowRoot)
-            //             .host as HTMLElement;
-            //     } else {
-            //         container = null;
-            //     }
-            // }
         }
 
         delete (el as any)._repositionListener;
