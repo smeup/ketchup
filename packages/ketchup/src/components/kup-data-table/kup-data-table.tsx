@@ -4447,6 +4447,7 @@ export class KupDataTable {
             cell.isEditable &&
             cell.inputSettings?.checkValueOnExit &&
             cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH &&
             this.#originalDataLoaded.rows.find((r) => r.id == row.id)?.cells[
                 column.name
             ]?.value !== cell.value
@@ -6636,7 +6637,8 @@ export class KupDataTable {
 
             if (
                 this.updatableData &&
-                e.detail.cell?.shape === FCellShapes.CHECKBOX
+                (e.detail.cell?.shape === FCellShapes.CHECKBOX ||
+                    e.detail.cell?.shape === FCellShapes.SWITCH)
             ) {
                 if (this.updateOnClick) {
                     this.#handleUpdateClick(e.detail.cell);

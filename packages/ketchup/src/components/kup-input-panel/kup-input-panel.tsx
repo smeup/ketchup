@@ -98,6 +98,7 @@ import {
     KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { C } from '@fullcalendar/core/internal-common';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -1782,7 +1783,10 @@ export class KupInputPanel {
             detail: { column, cell },
         } = e;
 
-        if (cell.shape === FCellShapes.CHECKBOX) {
+        if (
+            cell.shape === FCellShapes.CHECKBOX ||
+            cell.shape === FCellShapes.SWITCH
+        ) {
             return;
         }
 
@@ -1850,7 +1854,10 @@ export class KupInputPanel {
     #onCellUpdate({
         detail: { cell, column },
     }: CustomEvent<FCellEventPayload>) {
-        if (cell.shape !== FCellShapes.CHECKBOX) {
+        if (
+            cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH
+        ) {
             return;
         }
 
