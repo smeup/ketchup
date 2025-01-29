@@ -27,12 +27,12 @@
     var(--kup-font-size)
   );
 
-  --kup_textfield_textarea_height_conversion_input_panel: var(
-    --kup-textfield-textarea-height-conversion-input_panel,
+  --kup_textfield_textarea_height_input_panel: var(
+    --kup-textfield-textarea-height-input_panel,
     200px
   );
-  --kup_textfield_textarea_width_conversion_input_panel: var(
-    --kup-textfield-textarea-width-conversion-input_panel,
+  --kup_textfield_textarea_width_input_panel: var(
+    --kup-textfield-textarea-width-input_panel,
     300px
   );
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
@@ -96,10 +96,10 @@
         .mdc-text-field {
           &.mdc-text-field--textarea {
             min-height: var(
-              --kup_textfield_textarea_height_conversion_input_panel
+              --kup_textfield_textarea_height_input_panel
             ) !important;
             min-width: var(
-              --kup_textfield_textarea_width_conversion_input_panel
+              --kup_textfield_textarea_width_input_panel
             ) !important;
           }
         }
@@ -170,10 +170,10 @@
         height: unset !important;
       }
     }
-    .input-panel-form--inline {
-      display: flex;
-      align-items: end;
-      gap: 1rem;
-    }
+  }
+  .input-panel-form--inline {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
   }
 }
