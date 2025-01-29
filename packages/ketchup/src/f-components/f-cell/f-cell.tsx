@@ -931,7 +931,7 @@ function setEditableCell(
                     (!(
                         cell.shape == 'MEMO' ||
                         cellType == FCellTypes.MEMO ||
-                        cell.data.maxLength >= 256
+                        cell.data?.maxLength >= 256
                     ) &&
                         e.key === 'Enter') ||
                     /^F[1-9]|F1[0-2]$/.test(e.key)
