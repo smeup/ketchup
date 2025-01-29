@@ -34,8 +34,6 @@ export function customFormula(
             return;
         }
 
-        const sanitizedValue =
-            value == null || isNaN(value) ? 'NaN' : value.toString();
         const regex = getRegExpFromString(formulaColumnName, 'g');
         formula = formula.replace(regex, `(${value.toString()})`);
     });
