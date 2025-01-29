@@ -1782,7 +1782,10 @@ export class KupInputPanel {
             detail: { column, cell },
         } = e;
 
-        if (cell.shape === FCellShapes.CHECKBOX) {
+        if (
+            cell.shape === FCellShapes.CHECKBOX ||
+            cell.shape === FCellShapes.SWITCH
+        ) {
             return;
         }
 
@@ -1850,7 +1853,10 @@ export class KupInputPanel {
     #onCellUpdate({
         detail: { cell, column },
     }: CustomEvent<FCellEventPayload>) {
-        if (cell.shape !== FCellShapes.CHECKBOX) {
+        if (
+            cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH
+        ) {
             return;
         }
 

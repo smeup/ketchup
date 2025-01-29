@@ -3,11 +3,8 @@ import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    FilterInterval,
-    FILTER_ANALIZER,
-    ValueDisplayedValue,
-} from './filters-declarations';
+import { FILTER_ANALIZER, ValueDisplayedValue } from './filters-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -26,7 +23,7 @@ export class Filters {
         return (comp as KupTree).rootElement.tagName === KupTagNames.TREE;
     }
 
-    isObjFiltrableByInterval(obj): boolean {
+    isObjNumeric(obj: KupObj): boolean {
         if (dom.ketchup.objects.isDate(obj)) {
             return true;
         }
@@ -105,247 +102,284 @@ export class Filters {
     filterIsNegative(filterValue: string) {
         const analyzedFilter = filterValue.match(FILTER_ANALIZER);
         const filterIsNegative: boolean = analyzedFilter
-            ? analyzedFilter[1].indexOf('!') >= 0
+            ? analyzedFilter[1]?.indexOf('!') >= 0
             : false;
         return filterIsNegative;
     }
+
     /**
-     * Given a value and a filter value, returns if that value matches the filter.
+     * Determines if a value matches a given filter.
      *
-     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
-     * Valid syntax:
-     * 'filter' = search for exact phrase;
-     * '' = match when value is empty;
-     * 'filter%' = match when a string starts with "filter";
-     * '%filter' = match when a string ends with "filter";
-     * '%filter%' = match when a string contains "filter".
+     * Filter expressions follow the format `[operator]'filter'` with these rules:
+     * - 'filter' = exact phrase match
+     * - '' = matches empty value
+     * - 'filter%' = starts with "filter"
+     * - '%filter' = ends with "filter"
+     * - '%filter%' = contains "filter"
      *
-     * It is also possible to negate the expression by prepending "!" in front of the expression.
-     * For example: !'' = value in the cell must not be empty.
+     * Supports negation operation with "!" (e.g., !'' = non-empty value)
+     * Supports comparison operators: >, >=, <, <=
      *
-     * With no expression set, the filter is by default set to '%filter%'.
      *
-     * @param value - The current value to check.
-     * @param filterValue - The value of the current filter.
-     * @returns false if value or filterValue are empty; 
-                true if value contains filterValue; 
-                true if value matches special filter created on filterValue; 
-                false otherwise.
+     *
+     * @param value - Value to check against the filter
+     * @param filterValue - Filter to apply
+     * @returns Whether the value matches the filter
      */
     isFilterCompliantForValue(value: string, filterValue: string): boolean {
-        if (value == null) {
-            return false;
-        }
-        if (filterValue == null) {
+        if (value == null || filterValue == null) {
             return false;
         }
 
-        const _filterIsNegative: boolean = this.filterIsNegative(filterValue);
+        // Split multiple filters and trim each one
+        const filters = filterValue.split(';').map((f) => f.trim());
 
-        // checks if the value of the filter is contained inside value of the object
-        // Or is if the filter is a special filter to be matched.
-        if (
-            value.toLowerCase().includes(filterValue.toLowerCase()) ||
-            this.matchSpecialFilter(
-                value.toLowerCase(),
-                filterValue.toLowerCase().match(FILTER_ANALIZER),
-                true
-            )
-        ) {
-            // the element matches the field filter
-            if (_filterIsNegative) {
-                return false;
-            }
-            return true;
-        }
-        if (_filterIsNegative) {
-            return true;
-        }
-        return false;
+        // All filters must match (AND condition)
+        return filters.every(
+            (filter) =>
+                value.toLowerCase().includes(filter.toLowerCase()) ||
+                this.matchSpecialFilter(
+                    value.toLowerCase(),
+                    filter.toLowerCase().match(FILTER_ANALIZER)
+                )
+        );
     }
 
     /**
-     * Given a value and a filter value, returns if that value matches the filter.
+     * Matches a value against a special filter parsed from a regex.
      *
-     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
-     * Valid syntax:
-     * 'filter' = search for exact phrase;
-     * '' = match when value is empty;
-     * 'filter%' = match when a string starts with "filter";
-     * '%filter' = match when a string ends with "filter";
-     * '%filter%' = match when a string contains "filter".
+     * Filter syntax: `[operator]{0,1}'[wildcard]{0,1}[filterText][wildcard]{0,1}'`
      *
-     * It is also possible to negate the expression by prepending "!" in front of the expression.
-     * For example: !'' = value in the cell must not be empty.
+     * Operators:
+     * - None: exact match
+     * - `!`: negation
+     * - `>`, `>=`, `<`, `<=`: lexicographic comparison
      *
-     * With no expression set, the filter is by default set to '%filter%'.
+     * Wildcards:
+     * - `%` at start: matches ending
+     * - `%` at end: matches starting
+     * - `%` at both: contains
      *
-     * @param value - The current value to check.
-     * @param parsedFilter - The value of the current filter.
-     * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
-     * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
+     * Examples:
+     * - `'text'`: exact match
+     * - `''`: matches empty
+     * - `!''`: matches non-empty
+     * - `'text%'`: starts with "text"
+     * - `'%text'`: ends with "text"
+     * - `'%text%'`: contains "text"
+     * - `>'10'`: lexicographically greater than "10"
+     *
+     * @param value - Value to check
+     * @param parsedFilter - Regex match result from FILTER_ANALIZER
+     * @returns Whether value matches the filter
      */
     matchSpecialFilter(
         value: string,
-        parsedFilter: RegExpMatchArray | null,
-        ignoreNegativeFlag: boolean = false
+        parsedFilter: RegExpMatchArray | null
     ): boolean {
-        if (parsedFilter != null) {
-            // endsWith and startWith are not supported by IE 11
-            // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-            const toRet: boolean =
-                (parsedFilter[3] === '' && !value.trim()) ||
-                (!parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    value.startsWith(parsedFilter[3])) ||
-                (parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    value.endsWith(parsedFilter[3])) ||
-                (!parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    value === parsedFilter[3]) ||
-                (parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    value.indexOf(parsedFilter[3]) >= 0);
-            return !ignoreNegativeFlag
-                ? parsedFilter[1].indexOf('!') < 0
-                    ? toRet
-                    : !toRet
-                : toRet;
+        if (parsedFilter == null) return false;
+
+        const operator = parsedFilter[1] || '';
+        const hasStartWildcard = !!parsedFilter[2];
+        const filterText = parsedFilter[3];
+        const hasEndWildcard = !!parsedFilter[4];
+
+        let result = false;
+
+        // Handle different matching scenarios
+        if (filterText === '') {
+            // Handle empty string scenarios with negation
+            result = operator === '!' ? value.trim() !== '' : !value.trim();
+        } else if (hasStartWildcard && hasEndWildcard) {
+            // Contains wildcard
+            result =
+                operator === '!'
+                    ? !(value.indexOf(filterText) >= 0)
+                    : value.indexOf(filterText) >= 0;
+        } else if (hasStartWildcard && !hasEndWildcard) {
+            // Ends with wildcard
+            result =
+                operator === '!'
+                    ? !value.endsWith(filterText)
+                    : value.endsWith(filterText);
+        } else if (!hasStartWildcard && hasEndWildcard) {
+            // Starts with wildcard
+            result =
+                operator === '!'
+                    ? !value.startsWith(filterText)
+                    : value.startsWith(filterText);
+        } else if (!hasStartWildcard && !hasEndWildcard) {
+            // Operator match
+            switch (operator) {
+                case '!':
+                    result = !(value === filterText);
+                    break;
+                case '>':
+                    result = value > filterText;
+                    break;
+                case '>=':
+                    result = value >= filterText;
+                    break;
+                case '<':
+                    result = value < filterText;
+                    break;
+                case '<=':
+                    result = value <= filterText;
+                    break;
+                default:
+                    result = value === filterText;
+                    break;
+            }
         }
-        return false;
+
+        return result;
     }
 
     isFilterCompliantForSimpleValue(
         valueToCheck: string,
         obj: any,
-        filterValue: string,
-        interval: string[]
+        filterValue: string
     ) {
         if (valueToCheck == null) {
             return false;
         }
 
-        filterValue = this.normalizeValue(filterValue, obj);
-        let value = valueToCheck;
+        // Split multiple filters and trim each one
+        const filters = filterValue.split(';').map((f) => f.trim());
 
-        let from: string = '';
-        let to: string = '';
-        if (interval != null) {
-            from = interval[FilterInterval.FROM];
-            to = interval[FilterInterval.TO];
-        }
-        let checkByRegularExpression = true;
-        if (dom.ketchup.objects.isNumber(obj)) {
-            let valueNumber: number = dom.ketchup.math.numberifySafe(
-                value,
-                obj ? obj.p : ''
-            );
-            if (from != '') {
-                if (dom.ketchup.math.isNumber(from)) {
-                    checkByRegularExpression = false;
-                    let fromNumber: number =
-                        dom.ketchup.math.numberifySafe(from);
-                    if (valueNumber < fromNumber) {
-                        return false;
-                    }
-                } else {
-                    filterValue = from;
-                }
-            }
-            if (to != '') {
-                if (dom.ketchup.math.isNumber(to)) {
-                    checkByRegularExpression = false;
-                    let toNumber: number = dom.ketchup.math.numberifySafe(to);
-                    if (valueNumber > toNumber) {
-                        return false;
-                    }
-                } else {
-                    filterValue = to;
-                }
-            }
-        }
-        if (
-            dom.ketchup.objects.isDate(obj) ||
-            dom.ketchup.objects.isTime(obj) ||
-            dom.ketchup.objects.isTimestamp(obj)
-        ) {
-            let valueDate: Date = null;
+        // All filters must match (AND condition)
+        return filters.every((filter) => {
+            const rawFilter = filter;
+            const normalizedFilter = this.normalizeValue(filter, obj);
+            let value = valueToCheck;
 
-            let defaultFormat = KupDatesFormats.ISO_DATE;
-            if (dom.ketchup.objects.isDate(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE;
-            } else if (dom.ketchup.objects.isTime(obj)) {
-                const manageSeconds =
-                    dom.ketchup.objects.isTimeWithSeconds(obj);
-                defaultFormat = manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
-            } else if (dom.ketchup.objects.isTimestamp(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE_TIME;
-            }
+            let checkByRegularExpression = true;
 
-            const normValue = this.normalizeValue(value, obj);
-            if (normValue != null) {
-                valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
-            }
+            if (dom.ketchup.objects.isNumber(obj)) {
+                const valueNumber: number = dom.ketchup.math.numberifySafe(
+                    value,
+                    obj ? obj.p : ''
+                );
 
-            if (from != '') {
-                if (
-                    valueDate != null &&
-                    dom.ketchup.dates.isValidFormattedStringDate(
-                        from,
-                        defaultFormat,
-                        true
-                    )
-                ) {
-                    checkByRegularExpression = false;
-                    let fromDate: Date = dom.ketchup.dates.toDate(
-                        from,
-                        defaultFormat
-                    );
-                    if (valueDate < fromDate) {
-                        return false;
+                // Parse filter using FILTER_ANALIZER
+                const filterMatch = rawFilter
+                    .toLowerCase()
+                    .match(FILTER_ANALIZER);
+
+                if (filterMatch) {
+                    const [
+                        _,
+                        operator,
+                        _startWildcard,
+                        filterNum,
+                        _endWildcard,
+                    ] = filterMatch;
+
+                    const numericFilterValue =
+                        dom.ketchup.math.numberifySafe(filterNum);
+
+                    if (!isNaN(numericFilterValue)) {
+                        checkByRegularExpression = false;
+                        switch (operator) {
+                            case '>':
+                                return valueNumber > numericFilterValue;
+                            case '>=':
+                                return valueNumber >= numericFilterValue;
+                            case '<':
+                                return valueNumber < numericFilterValue;
+                            case '<=':
+                                return valueNumber <= numericFilterValue;
+                            case '!':
+                                return valueNumber !== numericFilterValue;
+                            default:
+                                return valueNumber === numericFilterValue;
+                        }
                     }
-                } else {
-                    filterValue = from;
-                }
-            }
-            if (to != '') {
-                if (
-                    valueDate != null &&
-                    dom.ketchup.dates.isValidFormattedStringDate(
-                        to,
-                        defaultFormat,
-                        true
-                    )
-                ) {
-                    checkByRegularExpression = false;
-                    let toDate: Date = dom.ketchup.dates.toDate(
-                        to,
-                        defaultFormat
-                    );
-                    if (valueDate > toDate) {
-                        return false;
-                    }
-                } else {
-                    filterValue = to;
                 }
             }
             if (
-                !dom.ketchup.dates.isValidFormattedStringDate(
-                    filterValue,
-                    defaultFormat
-                ) &&
-                !dom.ketchup.dates.isValidFormattedStringDate(filterValue)
+                dom.ketchup.objects.isDate(obj) ||
+                dom.ketchup.objects.isTime(obj) ||
+                dom.ketchup.objects.isTimestamp(obj)
             ) {
-                value = dom.ketchup.dates.format(value);
+                // Determine the format based on the object type
+                let defaultFormat = KupDatesFormats.ISO_DATE;
+                if (dom.ketchup.objects.isDate(obj)) {
+                    defaultFormat = KupDatesFormats.ISO_DATE;
+                } else if (dom.ketchup.objects.isTime(obj)) {
+                    const manageSeconds =
+                        dom.ketchup.objects.isTimeWithSeconds(obj);
+                    defaultFormat = manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
+                } else if (dom.ketchup.objects.isTimestamp(obj)) {
+                    defaultFormat = KupDatesFormats.ISO_DATE_TIME;
+                }
+
+                // Parse filter using FILTER_ANALIZER
+                const filterMatch = rawFilter
+                    .toLowerCase()
+                    .match(FILTER_ANALIZER);
+
+                // Convert the value to check to a Date object
+                const normValue = this.normalizeValue(value, obj);
+                let valueDate: Date = null;
+                if (normValue != null) {
+                    valueDate = dom.ketchup.dates.toDate(value);
+                }
+
+                if (filterMatch && valueDate) {
+                    const [_, operator, _startWildcard, dateStr, _endWildcard] =
+                        filterMatch;
+
+                    // Try to convert the filter value to a Date
+                    if (dom.ketchup.dates.isValidFormattedStringDate(dateStr)) {
+                        const filterDate = dom.ketchup.dates.toDate(
+                            this.normalizeValue(dateStr, obj)
+                        );
+                        checkByRegularExpression = false;
+
+                        switch (operator) {
+                            case '>':
+                                return valueDate > filterDate;
+                            case '>=':
+                                return valueDate >= filterDate;
+                            case '<':
+                                return valueDate < filterDate;
+                            case '<=':
+                                return valueDate <= filterDate;
+                            case '!':
+                                return (
+                                    valueDate.getTime() !== filterDate.getTime()
+                                );
+                            default:
+                                return (
+                                    valueDate.getTime() === filterDate.getTime()
+                                );
+                        }
+                    }
+                }
+
+                // If we got here, we either don't have a valid filter pattern or date
+                // Format the value for string comparison
+                if (
+                    !dom.ketchup.dates.isValidFormattedStringDate(
+                        normalizedFilter,
+                        defaultFormat
+                    ) &&
+                    !dom.ketchup.dates.isValidFormattedStringDate(
+                        normalizedFilter
+                    )
+                ) {
+                    value = dom.ketchup.dates.format(value);
+                }
             }
-        }
-        if (checkByRegularExpression) {
-            return this.isFilterCompliantForValue(value, filterValue);
-        }
-        return true;
+
+            if (checkByRegularExpression) {
+                return this.isFilterCompliantForValue(value, normalizedFilter);
+            }
+            return true;
+        });
     }
 
     static valuesArrayContainsValue(
