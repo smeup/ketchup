@@ -1,7 +1,5 @@
 # kup-typography-list
 
-
-
 <!-- Auto Generated Below -->
 
 

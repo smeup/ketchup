@@ -722,7 +722,7 @@ export class KupDataTable {
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop() rowsPerPage = 10;
+    @Prop({ mutable: true }) rowsPerPage = 10;
     /**
      * Activates the scroll on hover function.
      */
@@ -926,6 +926,26 @@ export class KupDataTable {
         }
     }
 
+    @Watch('data')
+    computeMaxRowsPerPage() {
+        if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
+            const columnsNumber = this.data.columns.length;
+            const cellsNumber = this.data.rows.reduce(
+                (acc, r) => acc + Object.keys(r.cells).length,
+                0
+            );
+            const maxCellsNumberPerPage =
+                this.#kupManager.perfTuning.data.maxCellsPerPage;
+            if (cellsNumber > maxCellsNumberPerPage) {
+                // Rounds a number up to the nearest multiple of ten.
+                this.#maxRowsPerPage =
+                    Math.ceil(maxCellsNumberPerPage / columnsNumber / 10) * 10;
+            }
+            if (this.rowsPerPage > this.#maxRowsPerPage)
+                this.rowsPerPage = this.#maxRowsPerPage;
+        }
+    }
+
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
         if (!this.#isRestoringState) {
@@ -1062,6 +1082,7 @@ export class KupDataTable {
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
     #lastFocusedRow: KupDataTableRow = null;
+    #maxRowsPerPage: number;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
@@ -2710,6 +2731,7 @@ export class KupDataTable {
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
         }
+        this.computeMaxRowsPerPage();
         this.currentRowsPerPage = this.rowsPerPage;
         this.#isRestoringState = false;
 
@@ -2746,6 +2768,10 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        // If the component is not connected this method must not be executed
+        if (!this.rootElement.isConnected) {
+            return;
+        }
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const fs: NodeListOf<HTMLElement> =
@@ -5772,6 +5798,9 @@ export class KupDataTable {
                                     ? this.currentRowsPerPage
                                     : this.rowsPerPage
                             }
+                            maxRowsPerPage={
+                                this.#maxRowsPerPage ?? this.#rowsLength
+                            }
                             onLoadMore={
                                 this.showLoadMore
                                     ? () => {
@@ -6977,6 +7006,11 @@ export class KupDataTable {
         );
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.toolbar.unregister([this.rootElement]);
+        if (this.#customizeTopPanelRef)
+            this.#kupManager.dynamicPosition.unregister([
+                this.#customizeTopPanelRef,
+            ]);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'
