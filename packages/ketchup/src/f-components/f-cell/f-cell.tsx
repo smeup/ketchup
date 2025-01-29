@@ -927,7 +927,11 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (/^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (
+                    ((cell.shape != 'MEMO' || cellType != FCellTypes.MEMO) &&
+                        e.key === 'Enter') ||
+                    /^F[1-9]|F1[0-2]$/.test(e.key)
+                ) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
