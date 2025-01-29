@@ -145,6 +145,15 @@ export class KupDialog {
      */
     @Method()
     async recalcPosition(): Promise<void> {
+        if (!this.rootElement?.isConnected) {
+            this.#kupManager.debug.logMessage(
+                this,
+                'recalcPosition() ran after the component was disconnected. Aborting.',
+                KupDebugCategory.WARNING
+            );
+            this.#disconnectedCallback();
+            return;
+        }
         const rect = this.rootElement.getBoundingClientRect();
         if (!rect.x && !rect.y && !rect.height && !rect.width) {
             this.#kupManager.debug.logMessage(
@@ -187,6 +196,16 @@ export class KupDialog {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupDialogProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*          P r i v a t e   M e t h o d s          */
+    /*-------------------------------------------------*/
+    #disconnectedCallback() {
+        if (this.modal) {
+            this.#kupManager.interact.hideModalBackdrop();
+        }
+        this.#kupManager.theme.unregister(this);
     }
 
     /*-------------------------------------------------*/
@@ -283,9 +302,6 @@ export class KupDialog {
     }
 
     disconnectedCallback() {
-        if (this.modal) {
-            this.#kupManager.interact.hideModalBackdrop();
-        }
-        this.#kupManager.theme.unregister(this);
+        this.#disconnectedCallback();
     }
 }
