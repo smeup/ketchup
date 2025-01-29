@@ -2768,6 +2768,10 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        // If the component is not connected this method must not be executed
+        if (!this.rootElement.isConnected) {
+            return;
+        }
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const fs: NodeListOf<HTMLElement> =
@@ -2777,8 +2781,7 @@ export class KupDataTable {
             }
         }
         if (this.showCustomization) {
-            //This feature causes memory leak
-            //this.#customizePanelPosition();
+            this.#customizePanelPosition();
         }
         this.#totalMenuPosition();
         this.#checkScrollOnHover();
@@ -5744,7 +5747,6 @@ export class KupDataTable {
 
     #onCustomSettingsClick() {
         if (!this.openedCustomSettings) {
-            //alert('Temporary disabled, due to memory leak investigation');
             this.#openCustomSettings();
         } else {
             this.#closeCustomSettings();
@@ -6937,7 +6939,6 @@ export class KupDataTable {
                                           sizeX="10px"
                                       />
                                   </div>,
-                                  //This feature causes memory leak
                                   this.renderCustomizePanel(),
                               ]
                             : null}
