@@ -353,8 +353,6 @@ export class FiltersRows extends Filters {
             textField: value,
             textFieldTmp: value,
             checkBoxes: [],
-            interval: [],
-            intervalTmp: [],
         };
 
         let tmpRows = this.filterRows(

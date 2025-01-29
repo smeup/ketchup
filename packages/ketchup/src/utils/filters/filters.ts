@@ -4,6 +4,7 @@ import { KupTree } from '../../components/kup-tree/kup-tree';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FILTER_ANALIZER, ValueDisplayedValue } from './filters-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -22,7 +23,7 @@ export class Filters {
         return (comp as KupTree).rootElement.tagName === KupTagNames.TREE;
     }
 
-    isObjFiltrableByInterval(obj): boolean {
+    isObjNumeric(obj: KupObj): boolean {
         if (dom.ketchup.objects.isDate(obj)) {
             return true;
         }

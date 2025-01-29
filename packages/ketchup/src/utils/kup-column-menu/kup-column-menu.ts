@@ -138,7 +138,7 @@ export class KupColumnMenu {
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
-        data.datepicker = this.prepIntervalDatePicker(comp, column);
+        data.datepicker = this.prepDatePicker(comp, column);
         data.object = column.objs
             ? column.objs
             : column.obj
@@ -150,7 +150,7 @@ export class KupColumnMenu {
             data.text = [column.title];
         }
         data.textfield = this.prepTextfield(comp, column);
-        data.timepicker = this.prepIntervalTimePicker(comp, column);
+        data.timepicker = this.prepTimePicker(comp, column);
         return data;
     }
     /**
@@ -447,12 +447,8 @@ export class KupColumnMenu {
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (comp.showFilters) {
-            if (
-                this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                    column
-                )
-            ) {
-                props = props.concat(this.prepIntervalTextfield(comp, column));
+            if (this.filtersColumnMenuInstance.isColumnNumeric(column)) {
+                props = props.concat(this.prepNumericTextfield(comp, column));
             } else if (dom.ketchup.objects.isStringObject(column.obj)) {
                 let filterInitialValue =
                     this.filtersColumnMenuInstance.getTextFilterValue(
@@ -502,12 +498,12 @@ export class KupColumnMenu {
     }
 
     /**
-     * Handles the column menu's interval textfields props (number column type).
+     * Handles the column menu's textfields props (number column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Text fields props.
      */
-    prepIntervalTextfield(
+    prepNumericTextfield(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -542,12 +538,12 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Handles the column menu's interval timepicker props (time column type).
+     * Handles the column menu's timepicker props (time column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Time picker fields props.
      */
-    prepIntervalTimePicker(
+    prepTimePicker(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -591,12 +587,12 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Handles the column menu's interval datepicker props (date/timestamp column type).
+     * Handles the column menu's datepicker props (date/timestamp column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Date picker fields props.
      */
-    prepIntervalDatePicker(
+    prepDatePicker(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -803,11 +799,7 @@ export class KupColumnMenu {
                 break;
         }
         //#endregion
-        if (
-            card.data?.checkbox &&
-            !dataStorage?.['isInterval'] &&
-            dataStorage?.['column']
-        ) {
+        if (card.data?.checkbox && dataStorage?.['column']) {
             card.data.checkbox = this.prepCheckbox(comp, dataStorage['column']);
             card.refresh();
         }

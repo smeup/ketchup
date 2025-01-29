@@ -146,8 +146,6 @@ export class FiltersColumnMenu extends Filters {
                 textField: '',
                 textFieldTmp: '',
                 checkBoxes: [],
-                interval: null,
-                intervalTmp: null,
             };
             filters[column] = filter;
         }
@@ -203,8 +201,8 @@ export class FiltersColumnMenu extends Filters {
         }
     }
 
-    isColumnFiltrableByInterval(column: KupDataColumn): boolean {
-        return this.isObjFiltrableByInterval(column.obj);
+    isColumnNumeric(column: KupDataColumn): boolean {
+        return this.isObjNumeric(column.obj);
     }
 
     setTextFieldFilterValue(
@@ -229,8 +227,6 @@ export class FiltersColumnMenu extends Filters {
                 textField: '',
                 textFieldTmp: '',
                 checkBoxes: [],
-                interval: null,
-                intervalTmp: null,
             };
             filters[column] = filter;
         }
@@ -305,8 +301,6 @@ export class FiltersColumnMenu extends Filters {
             textField: '',
             textFieldTmp: '',
             checkBoxes: [],
-            interval: null,
-            intervalTmp: null,
         };
     }
 }

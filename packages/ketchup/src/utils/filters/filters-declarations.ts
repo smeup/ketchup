@@ -15,8 +15,6 @@ export interface Filter {
     textField: string;
     textFieldTmp?: string;
     checkBoxes: ValueDisplayedValue[];
-    interval?: string[];
-    intervalTmp?: string[];
 }
 
 /**
