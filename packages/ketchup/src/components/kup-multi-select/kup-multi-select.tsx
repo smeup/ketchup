@@ -1,37 +1,23 @@
 import {
     Component,
     Element,
-    Event,
-    EventEmitter,
     forceUpdate,
     h,
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
+import { FChipType } from '../../f-components/f-chip/f-chip-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import {
-    KupMultiSelectEventPayload,
-    KupMultiSelectProps,
-} from './kup-multi-select-declarations';
-import { FSwitchSizing } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { FChipType } from '../../f-components/f-chip/f-chip-declarations';
-import {
-    KupCardCSSClasses,
-    KupCardIds,
-} from '../kup-card/kup-card-declarations';
-import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
-import {
-    KupTreeNode,
-    KupTreeNodeSelectedEventPayload,
-} from '../kup-tree/kup-tree-declarations';
+import { KupTreeNodeSelectedEventPayload } from '../kup-tree/kup-tree-declarations';
+import { KupMultiSelectProps } from './kup-multi-select-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-multi-select',
@@ -49,10 +35,7 @@ export class KupMultiSelect {
      */
     @Prop({ mutable: true }) data: any[] = [];
 
-    // Other state properties for handling arrays, maybe not needed, depends on how we will manage the apply button
-
-    @State() buttonArray: any[] = [];
-    @State() buttonsIds: string[] = [];
+    #chips: HTMLKupChipElement = null;
 
     private kupManager: KupManager = kupManagerInstance();
 
@@ -71,13 +54,56 @@ export class KupMultiSelect {
         setProps(this, KupMultiSelectProps, props);
     }
 
-    onKupItemClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>) {
-        console.log('prova');
+    //this may be useful eventually
+
+    extractTreeNodeValues(node: KupDataNode): string[] {
+        let nodes: string[] = [];
+
+        if (node.value && node.value.trim()) {
+            nodes.push(node.value);
+        }
+
+        //recursively manage the children's values, return an array of strings with all values
+        if (node.children && node.children.length > 0) {
+            node.children.forEach((child) => {
+                nodes.push(...this.extractTreeNodeValues(child));
+            });
+        }
+
+        //returns at least the value of the selected node if it has no children
+        return nodes;
+    }
+
+    onNodeSelected(e: CustomEvent<KupTreeNodeSelectedEventPayload>) {
+        const selectedNodeValue = e.detail.treeNode.value;
+        const chipIndex = this.data['kup-chip'].findIndex(
+            (chip) => chip.id === selectedNodeValue
+        );
+
+        if (chipIndex !== -1) { //already selected, deselect
+            this.data['kup-chip'] = [
+                ...this.data['kup-chip'].slice(0, chipIndex),
+                ...this.data['kup-chip'].slice(chipIndex + 1),
+            ];
+            console.log('eliminando\n' + JSON.stringify(this.data['kup-chip']));
+        } else { //not selected
+            this.data['kup-chip'].push({
+                id: selectedNodeValue,
+                value: selectedNodeValue,
+            });
+            console.log(
+                'aggiungendo\n' + JSON.stringify(this.data['kup-chip'])
+            );
+        }
+
+        this.#chips.refresh();
+        //this.refresh();
     }
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        this.data['kup-chip'] = [];
     }
 
     componentDidLoad() {
@@ -102,28 +128,12 @@ export class KupMultiSelect {
                 </style>
                 <div id={componentWrapperId}>
                     <div class="sub-chip">
-                        {this.data['kup-chip'] ? (
-                            <kup-chip
-                                data={this.data['kup-chip']}
-                                type={FChipType.INPUT}
-                                id={KupCardIds.COLUMNS_LIST}
-                            />
-                        ) : (
-                            <kup-chip
-                                type={FChipType.INPUT}
-                                id={KupCardIds.COLUMNS_LIST}
-                            />
-                        )}
-                        {this.buttonsIds.includes(
-                            KupColumnMenuIds.BUTTON_APPLY
-                        ) ? (
-                            <kup-button
-                                {...this.buttonArray.find(
-                                    (x) =>
-                                        x.id === KupColumnMenuIds.BUTTON_APPLY
-                                )}
-                            />
-                        ) : null}
+                        <kup-chip
+                            data={this.data['kup-chip']}
+                            type={FChipType.STANDARD}
+                            id="multi-select-chips"
+                            ref={(el) => (this.#chips = el)}
+                        />
                     </div>
                     <div class="sub-tree">
                         <kup-tree
@@ -133,7 +143,7 @@ export class KupMultiSelect {
                             id="multi-select-tree"
                             onKup-tree-nodeselected={(
                                 e: CustomEvent<KupTreeNodeSelectedEventPayload>
-                            ) => this.onKupItemClick(e)}
+                            ) => this.onNodeSelected(e)}
                         />
                     </div>
                 </div>

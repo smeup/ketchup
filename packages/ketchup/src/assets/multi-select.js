@@ -1897,24 +1897,6 @@ const data = {
             visible: true,
         },
     ],
-    'kup-chip': [
-        {
-            checked: false,
-            id: 'favorites',
-            value: 'Favorites',
-        },
-        {
-            checked: true,
-            icon: 'filter_2',
-            id: 'Set alarm clock',
-            value: 'Label 2',
-        },
-        {
-            checked: false,
-            id: 'favorites2',
-            value: 'Favorites',
-        },
-    ],
 };
 
 const multiSelect = document.getElementById('kup-multi-select');
