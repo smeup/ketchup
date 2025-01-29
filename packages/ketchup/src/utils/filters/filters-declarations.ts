@@ -26,8 +26,9 @@ export interface Filter {
  * @property {string} 2 - Either % or null: indicates the string must start with the given string.
  * @property {string} 3 - Either "" or a string with a length.
  * @property {string} 4 - Either % or null: indicates the string must finish with the given string.
+ * This regex ignores spaces at the beginning, at the end, and between the operator and the quoted value.
  */
-export const FILTER_ANALIZER = /^(!|>|>=|<|<=){0,1}'(%){0,1}(.*?)(%){0,1}'$/;
+export const FILTER_ANALYZER = /^\s*(!|>|>=|<|<=)?\s*'(%)?(.*?)(%)?'\s*$/;
 
 export enum KupGlobalFilterMode {
     SIMPLE = 'simple',

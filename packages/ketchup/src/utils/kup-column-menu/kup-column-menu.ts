@@ -39,7 +39,7 @@ import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from '../filters/filters';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
-    FILTER_ANALIZER,
+    FILTER_ANALYZER,
     GenericFilter,
     ValueDisplayedValue,
 } from '../filters/filters-declarations';
@@ -820,7 +820,7 @@ export class KupColumnMenu {
         }
         let newFilter = '';
         if (value) {
-            if (!value.match(FILTER_ANALIZER)) {
+            if (!value.match(FILTER_ANALYZER)) {
                 newFilter = this.filtersColumnMenuInstance.normalizeValue(
                     value.trim(),
                     column.obj

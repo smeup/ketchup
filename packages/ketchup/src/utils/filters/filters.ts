@@ -3,7 +3,7 @@ import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { FILTER_ANALIZER, ValueDisplayedValue } from './filters-declarations';
+import { FILTER_ANALYZER, ValueDisplayedValue } from './filters-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -100,7 +100,7 @@ export class Filters {
      * @param filterValue the filter value to use for check
      */
     filterIsNegative(filterValue: string) {
-        const analyzedFilter = filterValue.match(FILTER_ANALIZER);
+        const analyzedFilter = filterValue.match(FILTER_ANALYZER);
         const filterIsNegative: boolean = analyzedFilter
             ? analyzedFilter[1]?.indexOf('!') >= 0
             : false;
@@ -140,7 +140,7 @@ export class Filters {
                 value.toLowerCase().includes(filter.toLowerCase()) ||
                 this.matchSpecialFilter(
                     value.toLowerCase(),
-                    filter.toLowerCase().match(FILTER_ANALIZER)
+                    filter.toLowerCase().match(FILTER_ANALYZER)
                 )
         );
     }
@@ -264,7 +264,7 @@ export class Filters {
                 // Parse filter using FILTER_ANALIZER
                 const filterMatch = rawFilter
                     .toLowerCase()
-                    .match(FILTER_ANALIZER);
+                    .match(FILTER_ANALYZER);
 
                 if (filterMatch) {
                     const [
@@ -319,7 +319,7 @@ export class Filters {
                 // Parse filter using FILTER_ANALIZER
                 const filterMatch = rawFilter
                     .toLowerCase()
-                    .match(FILTER_ANALIZER);
+                    .match(FILTER_ANALYZER);
 
                 // Convert the value to check to a Date object
                 const normValue = this.normalizeValue(value, obj);
