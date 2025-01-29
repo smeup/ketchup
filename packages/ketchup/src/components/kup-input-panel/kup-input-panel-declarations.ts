@@ -106,7 +106,8 @@ export type DataAdapterFn = (
     fieldLabel: string,
     currentValue: string,
     cell?: KupInputPanelCell,
-    id?: string
+    id?: string,
+    layout?: KupInputPanelLayout
 ) => Object;
 
 export type InputPanelCells = {

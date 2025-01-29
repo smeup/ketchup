@@ -1267,7 +1267,7 @@ export class KupInputPanel {
         const adapter = dataAdapterMap.get(cellType);
 
         return adapter
-            ? adapter(options, fieldLabel, currentValue, cell, col.name)
+            ? adapter(options, fieldLabel, currentValue, cell, col.name, layout)
             : null;
     }
 
@@ -1518,7 +1518,8 @@ export class KupInputPanel {
         _fieldLabel: string,
         _value: string,
         cell: KupInputPanelCell,
-        id: string
+        id: string,
+        layout: KupInputPanelLayout
     ) {
         try {
             let data = JSON.parse(cell.value);
@@ -1569,7 +1570,8 @@ export class KupInputPanel {
                                     data: {
                                         ...this.#mapData(
                                             row.cells[key],
-                                            column
+                                            column,
+                                            layout
                                         ),
                                         disabled:
                                             row.cells[key].editable === false,
