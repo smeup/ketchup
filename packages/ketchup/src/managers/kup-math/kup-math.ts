@@ -2,6 +2,7 @@ import { KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupMathFormulaResult,
     KupMathFormulas,
     KupMathLocales,
     KupMathNumbers,
@@ -300,7 +301,7 @@ export class KupMath {
     }
     /**
      * Returns a number from a non-specified input type between string, number, or String.
-     * If value in is null, undefined or blank, returns 0
+     * If value in is null, undefined, blank or enum formula result returns 0
      * @param {string} input number as string, formatted by locale US, decimal separator . (like java decimal numbers)
      * @param {boolean} inputIsLocalized - Numberifies assuming the input string is in the current KupMath locale's format.
      * @param {string} type - type of number for calculate suffix
@@ -312,7 +313,12 @@ export class KupMath {
         type?: string,
         decFmt?: string
     ): number {
-        if (!input || input == null || input.trim() == '') {
+        if (
+            !input ||
+            input == null ||
+            input.trim() == '' ||
+            input === KupMathFormulaResult.IMPOSSIBILE_OPERATION
+        ) {
             input = '0';
         }
         return this.numberify(input, inputIsLocalized, type, decFmt);

@@ -56,7 +56,7 @@ import {
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
 } from './kup-data-table-declarations';
-import { getColumnByName } from '../../utils/cell-utils';
+import { getColumnByName, getValueForDisplay } from '../../utils/cell-utils';
 import {
     calcTotals,
     normalizeRows,
@@ -73,7 +73,12 @@ import {
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import { identify, getProps, setProps } from '../../utils/utils';
+import {
+    identify,
+    getProps,
+    setProps,
+    getRegExpFromString,
+} from '../../utils/utils';
 import {
     KupListNode,
     ItemsDisplayMode,
@@ -969,7 +974,7 @@ export class KupDataTable {
     #paginatedRows: Array<KupDataTableRow>;
     #paginatedRowsLength: number = 0;
 
-    #footer: { [index: string]: any }; // TODO change any
+    #footer: { [index: string]: string };
     /**
      * Instance of the KupManager class.
      */
@@ -3647,9 +3652,9 @@ export class KupDataTable {
         this.#filterRows();
 
         this.#footer = calcTotals(
-            this.getColumns(),
+            this.totals,
             normalizeRows(this.getColumns(), this.#rows),
-            this.totals
+            this.getColumns()
         );
 
         this.#groupRows();
@@ -4860,21 +4865,16 @@ export class KupDataTable {
     }
 
     onTotalsChange(event, column) {
-        // close menu
         this.#closeTotalMenu();
-        if (column) {
-            // must do this
-            // otherwise does not fire the watcher
-            const totalsCopy = { ...this.totals };
-            const value = event.detail.selected.id;
-            if (value === TotalLabel.CANC) {
-                if (this.totals && this.totals[column.name]) {
-                    delete totalsCopy[column.name];
-                }
-            } else {
-                totalsCopy[column.name] = value;
-            }
-            this.totals = totalsCopy;
+        if (column && this.totals) {
+            const selectedElementId = event.detail.selected.id;
+            selectedElementId === TotalLabel.CANC && this.totals[column.name]
+                ? // Delete column from totals
+                  delete this.totals[column.name]
+                : // Update total operation for the specified column
+                  (this.totals[column.name] = selectedElementId);
+
+            this.totals = { ...this.totals }; // Trigger totals watcher
         }
     }
 
@@ -5005,6 +5005,7 @@ export class KupDataTable {
                         KupLanguageTotals.SUM
                     ),
                 };
+
                 if (this.totals) {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
@@ -5038,61 +5039,115 @@ export class KupDataTable {
                 }
 
                 if (this.#isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: KupListNode[] = [
-                        {
-                            id: TotalMode.COUNT,
-                            value: translation[TotalLabel.COUNT],
-                        },
-                        {
-                            id: TotalMode.DISTINCT,
-                            value: translation[TotalLabel.DISTINCT],
-                        },
-                    ];
-                    if (this.#kupManager.objects.isNumber(column.obj)) {
-                        // TODO Move these objects in declarations
-                        listData.push(
-                            {
+                    const getTotalsListElements = (
+                        formula = ''
+                    ): Record<TotalMode | TotalLabel.CANC, KupListNode> => {
+                        return {
+                            [TotalMode.COUNT]: {
+                                id: TotalMode.COUNT,
+                                value: translation[TotalLabel.COUNT],
+                            },
+                            [TotalMode.DISTINCT]: {
+                                id: TotalMode.DISTINCT,
+                                value: translation[TotalLabel.DISTINCT],
+                            },
+                            [TotalMode.SUM]: {
                                 id: TotalMode.SUM,
-                                separator: true,
                                 value: translation[TotalLabel.SUM],
                             },
-                            {
+                            [TotalMode.AVERAGE]: {
                                 id: TotalMode.AVERAGE,
                                 value: translation[TotalLabel.AVERAGE],
                             },
-                            {
+                            [TotalMode.MIN]: {
                                 id: TotalMode.MIN,
                                 value: translation[TotalLabel.MIN],
                             },
-                            {
+                            [TotalMode.MAX]: {
                                 id: TotalMode.MAX,
                                 value: translation[TotalLabel.MAX],
-                            }
-                        );
-                    } else if (this.#kupManager.objects.isDate(column.obj)) {
+                            },
+                            [TotalLabel.CANC]: {
+                                id: TotalLabel.CANC,
+                                value: translation[TotalLabel.CANC],
+                            },
+                            [TotalMode.MATH]: {
+                                id: formula
+                                    ? `${TotalMode.MATH}${formula}`
+                                    : TotalMode.MATH,
+                                value: formula
+                                    ? `${
+                                          translation[TotalLabel.MATH]
+                                      }: ${formula}`
+                                    : translation[TotalLabel.MATH],
+                            },
+                        };
+                    };
+
+                    // Add list elements
+                    const listData: KupListNode[] = [];
+                    if (this.totals && column.formula) {
+                        /* Formula cloumn */
+                        const formula = (
+                            this.totals[column.name] ?? column.formula
+                        ).replace(getRegExpFromString(TotalMode.MATH, 'g'), '');
+                        const totalsListElements =
+                            getTotalsListElements(formula);
+                        // Add formula
                         listData.push(
                             {
-                                id: TotalMode.MIN,
-                                separator: true,
-                                value: translation[TotalLabel.MIN],
+                                ...totalsListElements[TotalMode.MATH],
+                                selected: !!this.totals[column.name],
                             },
                             {
-                                id: TotalMode.MAX,
-                                value: translation[TotalLabel.MAX],
+                                ...totalsListElements[TotalLabel.CANC],
+                                separator: true,
                             }
                         );
-                    }
-                    if (this.totals) {
-                        const selectedItem: KupListNode = listData.find(
-                            (item) => item.id === this.totals[column.name]
+                    } else {
+                        /* Standard column */
+                        // Add default operations
+                        const totalsListElements = getTotalsListElements();
+                        listData.push(
+                            totalsListElements[TotalMode.COUNT],
+                            totalsListElements[TotalMode.DISTINCT]
                         );
-                        if (selectedItem) {
-                            selectedItem.selected = true;
-                            listData.push({
-                                id: TotalLabel.CANC,
-                                separator: true,
-                                value: translation[TotalLabel.CANC],
-                            });
+
+                        if (this.#kupManager.objects.isNumber(column.obj)) {
+                            // Add number operations
+                            listData.push(
+                                {
+                                    ...totalsListElements[TotalMode.SUM],
+                                    separator: true,
+                                },
+                                totalsListElements[TotalMode.AVERAGE],
+                                totalsListElements[TotalMode.MIN],
+                                totalsListElements[TotalMode.MAX]
+                            );
+                        } else if (
+                            this.#kupManager.objects.isDate(column.obj)
+                        ) {
+                            // Add date operations
+                            listData.push(
+                                {
+                                    ...totalsListElements[TotalMode.MIN],
+                                    separator: true,
+                                },
+                                totalsListElements[TotalMode.MAX]
+                            );
+                        }
+
+                        if (this.totals) {
+                            const selectedItem: KupListNode = listData.find(
+                                (item) => item.id === this.totals[column.name]
+                            );
+                            if (selectedItem) {
+                                selectedItem.selected = true;
+                                listData.push({
+                                    ...totalsListElements[TotalLabel.CANC],
+                                    separator: true,
+                                });
+                            }
                         }
                     }
 
@@ -5112,29 +5167,14 @@ export class KupDataTable {
                     );
                 }
 
-                // TODO please use getValueForDisplay
-                let value;
-                const footerValue = this.#footer[column.name];
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = footerValue;
-                } else if (
-                    (menuLabel === TotalLabel.MAX ||
-                        menuLabel === TotalLabel.MIN) &&
-                    this.#kupManager.objects.isDate(column.obj)
-                ) {
-                    if (footerValue) {
-                        value = footerValue;
-                    }
-                } else {
-                    value = this.#kupManager.math.numberToFormattedString(
-                        footerValue,
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
-                }
+                const value =
+                    this.#footer[column.name] != null
+                        ? getValueForDisplay(
+                              this.#footer[column.name],
+                              column.obj,
+                              column.decimals
+                          )
+                        : '';
 
                 return (
                     <td
