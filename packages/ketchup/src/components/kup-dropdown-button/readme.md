@@ -2,33 +2,36 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Props of the sub-components. | `Object` | `null` |
-| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
-| `displayMode` | `display-mode` | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `dropdownOnly` | `dropdown-only` | Default value is false. When set to true, the arrow dropdown button is the only button displayed. | `boolean` | `false` |
-| `icon` | `icon` | Defaults at null. When set, the button will show this icon. | `string` | `null` |
-| `initialValue` | `initial-value` | Sets the initial value of the component. | `string` | `''` |
-| `label` | `label` | Defaults at null. When set, the button will show this text. | `string` | `null` |
-| `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found. | `string` | `null` |
-| `selectMode` | `select-mode` | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE` |
-| `sizing` | `sizing` | Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
-| `styling` | `styling` | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default. | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
-| `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text. | `boolean` | `false` |
+| Property          | Attribute          | Description                                                                                                                     | Type                                                                                                                                                                | Default                        |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                                  | `string`                                                                                                                                                            | `''`                           |
+| `data`            | --                 | Props of the sub-components.                                                                                                    | `Object`                                                                                                                                                            | `null`                         |
+| `disabled`        | `disabled`         | Defaults at false. When set to true, the component is disabled.                                                                 | `boolean`                                                                                                                                                           | `false`                        |
+| `displayMode`     | `display-mode`     | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".   | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `dropdownOnly`    | `dropdown-only`    | Default value is false. When set to true, the arrow dropdown button is the only button displayed.                               | `boolean`                                                                                                                                                           | `false`                        |
+| `icon`            | `icon`             | Defaults at null. When set, the button will show this icon.                                                                     | `string`                                                                                                                                                            | `null`                         |
+| `initialValue`    | `initial-value`    | Sets the initial value of the component.                                                                                        | `string`                                                                                                                                                            | `''`                           |
+| `label`           | `label`            | Defaults at null. When set, the button will show this text.                                                                     | `string`                                                                                                                                                            | `null`                         |
+| `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                                              | `string`                                                                                                                                                            | `null`                         |
+| `selectMode`      | `select-mode`      | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE`        |
+| `sizing`          | `sizing`           | Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL`             | `KupComponentSizing.SMALL`     |
+| `styling`         | `styling`          | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.                   | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                                         | `FButtonStyling.RAISED`        |
+| `trailingIcon`    | `trailing-icon`    | Defaults at null. When set, the icon will be shown after the text.                                                              | `boolean`                                                                                                                                                           | `false`                        |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-dropdownbutton-blur` | Triggered when the primary button loses focus. | `CustomEvent<KupDropdownButtonEventPayload>` |
-| `kup-dropdownbutton-change` | Triggered when a list item changes. | `CustomEvent<KupDropdownButtonEventPayload>` |
-| `kup-dropdownbutton-click` | Triggered when the primary button is clicked. | `CustomEvent<KupDropdownButtonEventPayload>` |
-| `kup-dropdownbutton-focus` | Triggered when the primary button is focused. | `CustomEvent<KupDropdownButtonEventPayload>` |
-| `kup-dropdownbutton-itemclick` | Triggered when a list item is clicked. | `CustomEvent<KupDropdownButtonEventPayload>` |
+| Event                          | Description                                    | Type                                         |
+| ------------------------------ | ---------------------------------------------- | -------------------------------------------- |
+| `kup-dropdownbutton-blur`      | Triggered when the primary button loses focus. | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-change`    | Triggered when a list item changes.            | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-click`     | Triggered when the primary button is clicked.  | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-focus`     | Triggered when the primary button is focused.  | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupDropdownButtonEventPayload>` |
+
 
 ## Methods
 
@@ -38,8 +41,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -56,6 +59,8 @@ Returns the component's internal value.
 
 Type: `Promise<string>`
 
+
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -64,19 +69,23 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setValue(value: string) => Promise<void>`
 
@@ -92,33 +101,39 @@ Sets the internal value of the component.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
--   [kup-button-list](../kup-button-list)
--   [kup-card](../kup-card)
--   [kup-data-table](../kup-data-table)
--   [kup-input-panel](../kup-input-panel)
+ - [kup-button-list](../kup-button-list)
+ - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
+ - [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
--   [kup-list](../kup-list)
--   [kup-card](../kup-card)
--   [kup-badge](../kup-badge)
+- [kup-list](../kup-list)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
+  kup-list --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-radio --> kup-badge
   kup-card --> kup-dropdown-button
   kup-image --> kup-card
@@ -162,9 +177,13 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -181,11 +200,14 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-dropdown-button
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
   kup-form --> kup-image
@@ -205,6 +227,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -228,6 +251,6 @@ graph TD;
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

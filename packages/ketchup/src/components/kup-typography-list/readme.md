@@ -2,21 +2,24 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Props of the sub-components. | `KupDataNode[]` | `[]` |
-| `toolbar` | `toolbar` | Manage the toolbar icon. If true is visible, otherwise is not | `boolean` | `false` |
-| `type` | `type` | Sets the type of the typography from a list. body-compact is the default | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
+| Property      | Attribute      | Description                                                              | Type                                                                                                                                                                                                                   | Default                        |
+| ------------- | -------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle` | `custom-style` | Custom style of the component.                                           | `string`                                                                                                                                                                                                               | `''`                           |
+| `data`        | --             | Props of the sub-components.                                             | `KupDataNode[]`                                                                                                                                                                                                        | `[]`                           |
+| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not            | `boolean`                                                                                                                                                                                                              | `false`                        |
+| `type`        | `type`         | Sets the type of the typography from a list. body-compact is the default | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-typographylist-click` |  | `CustomEvent<KupTypographyListClickEventPayload>` |
-| `kup-typographylist-icon-click` |  | `CustomEvent<KupTypographyListIconClickEventPayload>` |
+| Event                           | Description | Type                                                  |
+| ------------------------------- | ----------- | ----------------------------------------------------- |
+| `kup-typographylist-click`      |             | `CustomEvent<KupTypographyListClickEventPayload>`     |
+| `kup-typographylist-icon-click` |             | `CustomEvent<KupTypographyListIconClickEventPayload>` |
+
 
 ## Methods
 
@@ -26,8 +29,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -44,28 +47,33 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-typography-list --> kup-card
@@ -86,6 +94,7 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-toolbar
   kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -144,14 +153,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -168,8 +183,10 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -196,6 +213,7 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
   kup-form --> kup-image
@@ -215,6 +233,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -237,6 +256,6 @@ graph TD;
   style kup-typography-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

@@ -2,33 +2,36 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `clockVariant` | `clock-variant` | When set to true, the drop down menu will display a clock. | `boolean` | `true` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Props of the sub-components (time input text field) | `Object` | `{}` |
-| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
-| `error` | `error` | Set error message | `string` | `''` |
-| `initialValue` | `initial-value` | Sets the initial value of the component. | `string` | `''` |
-| `manageSeconds` | `manage-seconds` | Manage seconds. | `boolean` | `true` |
-| `showMarker` | `show-marker` | When true shows a small marker on the component. | `boolean` | `false` |
-| `timeMinutesStep` | `time-minutes-step` | Minutes step. | `number` | `10` |
+| Property          | Attribute           | Description                                                     | Type      | Default |
+| ----------------- | ------------------- | --------------------------------------------------------------- | --------- | ------- |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.      | `boolean` | `true`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                  | `string`  | `''`    |
+| `data`            | --                  | Props of the sub-components (time input text field)             | `Object`  | `{}`    |
+| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `error`           | `error`             | Set error message                                               | `string`  | `''`    |
+| `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `true`  |
+| `showMarker`      | `show-marker`       | When true shows a small marker on the component.                | `boolean` | `false` |
+| `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-timepicker-blur` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-change` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-cleariconclick` |  | `CustomEvent<KupEventPayload>` |
-| `kup-timepicker-click` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-focus` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-iconclick` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-input` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-itemclick` |  | `CustomEvent<KupTimePickerEventPayload>` |
-| `kup-timepicker-textfieldsubmit` |  | `CustomEvent<KupTimePickerEventPayload>` |
+| Event                            | Description | Type                                     |
+| -------------------------------- | ----------- | ---------------------------------------- |
+| `kup-timepicker-blur`            |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-change`          |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`           |
+| `kup-timepicker-click`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-focus`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-iconclick`       |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-input`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-itemclick`       |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-textfieldsubmit` |             | `CustomEvent<KupTimePickerEventPayload>` |
+
 
 ## Methods
 
@@ -38,8 +41,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -56,6 +59,8 @@ Returns the component's internal value.
 
 Type: `Promise<string>`
 
+
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -63,6 +68,8 @@ This method is used to trigger a new render of the component.
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setFocus() => Promise<void>`
 
@@ -72,19 +79,23 @@ Focuses the input element.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setValue(value: string) => Promise<void>`
 
@@ -100,32 +111,36 @@ Sets the internal value of the component.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
--   [kup-box](../kup-box)
--   [kup-card](../kup-card)
--   [kup-cell](../kup-cell)
--   [kup-data-table](../kup-data-table)
--   [kup-form](../kup-form)
--   [kup-image-list](../kup-image-list)
--   [kup-input-panel](../kup-input-panel)
--   [kup-toolbar](../kup-toolbar)
--   [kup-tree](../kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-list](../kup-list)
--   [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-list](../kup-list)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
   kup-card --> kup-time-picker
   kup-image --> kup-card
@@ -173,23 +188,32 @@ graph TD;
   kup-rating --> kup-dialog
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-time-picker
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-time-picker
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-time-picker
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-time-picker
   kup-box --> kup-time-picker
@@ -199,6 +223,6 @@ graph TD;
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

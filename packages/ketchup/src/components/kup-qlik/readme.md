@@ -2,28 +2,30 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `app` | `app` | Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again) | `any` | `false` |
-| `appid` | `appid` | Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239 | `string` | `''` |
-| `bordered` | `bordered` | Set gird border | `boolean` | `false` |
-| `config` | -- | Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>} | `QlikServer` | `undefined` |
-| `debug` | `debug` | Activate logging Default false | `boolean` | `false` |
-| `defobjsize` | `defobjsize` | Set default obj's container pixel height | `string` | `'400px'` |
-| `fluid` | `fluid` | Define width of grid, with true width = 100% responsive, false 1200px | `boolean` | `false` |
-| `grid` | -- | Set the grid structure (JSON) selections --> Data selection array field --> Qlik field on which to make the selection values --> Array of int or string value which to select rows colums --> they define the structure of grid obj --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm) colDim --> define column's dimension, it could have values from 1 to 12 where 12 is 100% size --> define size height of obj's div container, it colud have this values XS\|S\|M\|L\|XL noSelections --> define if selections in object are disable (default: false) Example: { selections:[ { field: 'Anno', values:[2020] } ], rows:[ { columns:[ { obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase> }, { obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase> } ] } ] } | `KupQlikGrid[]` | `[]` |
-| `qlik` | `qlik` | Set Qlik Server istance would you like to use after connection | `any` | `undefined` |
+| Property     | Attribute    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Type            | Default     |
+| ------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----------- |
+| `app`        | `app`        | Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `any`           | `false`     |
+| `appid`      | `appid`      | Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `string`        | `''`        |
+| `bordered`   | `bordered`   | Set gird border                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `boolean`       | `false`     |
+| `config`     | --           | Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `QlikServer`    | `undefined` |
+| `debug`      | `debug`      | Activate logging Default false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `boolean`       | `false`     |
+| `defobjsize` | `defobjsize` | Set default obj's container pixel height                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`        | `'400px'`   |
+| `fluid`      | `fluid`      | Define width of grid, with true width = 100% responsive, false 1200px                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `boolean`       | `false`     |
+| `grid`       | --           | Set the grid structure (JSON) selections --> Data selection array    field   --> Qlik field on which to make the selection    values  --> Array of int or string value which to select rows    colums --> they define the structure of grid      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)      colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%      size    --> define size height of obj's div container, it colud have this values XS\|S\|M\|L\|XL        noSelections --> define if selections in object are disable (default: false) Example: { selections:[  {      field: 'Anno',      values:[2020]  } ], rows:[  {    columns:[        {            obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>        },        {            obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>        }    ]  } ] } | `KupQlikGrid[]` | `[]`        |
+| `qlik`       | `qlik`       | Set Qlik Server istance would you like to use after connection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `any`           | `undefined` |
+
 
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-qlik --> kup-card
@@ -44,6 +46,7 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-toolbar
   kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -102,14 +105,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -126,8 +135,10 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -154,6 +165,7 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
   kup-form --> kup-image
@@ -173,6 +185,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -195,6 +208,6 @@ graph TD;
   style kup-qlik fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

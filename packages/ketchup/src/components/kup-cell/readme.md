@@ -2,22 +2,25 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | The data of the cell. | `KupDataCell` | `null` |
-| `density` | `density` | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE` | `FCellPadding.NONE` |
-| `dragEnabled` | `drag-enabled` | When set to true, the component is draggable. | `boolean` | `false` |
-| `showSubmit` | `show-submit` | Show submit button | `boolean` | `false` |
-| `submitPosition` | `submit-position` | Submit button position, default is right | `KupCellElementsPosition.bottom \| KupCellElementsPosition.left \| KupCellElementsPosition.right \| KupCellElementsPosition.top` | `KupCellElementsPosition.right` |
+| Property         | Attribute         | Description                                                                             | Type                                                                                                                             | Default                         |
+| ---------------- | ----------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `customStyle`    | `custom-style`    | Custom style of the component.                                                          | `string`                                                                                                                         | `''`                            |
+| `data`           | --                | The data of the cell.                                                                   | `KupDataCell`                                                                                                                    | `null`                          |
+| `density`        | `density`         | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE`                                            | `FCellPadding.NONE`             |
+| `dragEnabled`    | `drag-enabled`    | When set to true, the component is draggable.                                           | `boolean`                                                                                                                        | `false`                         |
+| `showSubmit`     | `show-submit`     | Show submit button                                                                      | `boolean`                                                                                                                        | `false`                         |
+| `submitPosition` | `submit-position` | Submit button position, default is right                                                | `KupCellElementsPosition.bottom \| KupCellElementsPosition.left \| KupCellElementsPosition.right \| KupCellElementsPosition.top` | `KupCellElementsPosition.right` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-cell-submit-click` |  | `CustomEvent<KupCellSubmitClickEventPayload>` |
+| Event                   | Description | Type                                          |
+| ----------------------- | ----------- | --------------------------------------------- |
+| `kup-cell-submit-click` |             | `CustomEvent<KupCellSubmitClickEventPayload>` |
+
 
 ## Methods
 
@@ -35,14 +38,16 @@ Adds the given CSS classes to the cell's data.
 
 Type: `Promise<void>`
 
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -59,6 +64,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `removeCssClasses(classes?: string[]) => Promise<void>`
 
 Removes the given CSS classes from the cell's data.
@@ -73,56 +80,63 @@ Removes the given CSS classes from the cell's data.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-cell-background` | Sets the background of the cell. |
-| `--kup-cell-font-family` | Sets the font family of the cell. |
-| `--kup-cell-font-family-monospace` | Sets the monospace font family of the cell (for numbers). |
-| `--kup-cell-font-size` | Sets the font size of the cell. |
-| `--kup-cell-text-color` | Sets the text color of the cell. NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+| Name                               | Description                                                                                                                                                                         |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-cell-background`            | Sets the background of the cell.                                                                                                                                                    |
+| `--kup-cell-font-family`           | Sets the font family of the cell.                                                                                                                                                   |
+| `--kup-cell-font-family-monospace` | Sets the monospace font family of the cell (for numbers).                                                                                                                           |
+| `--kup-cell-font-size`             | Sets the font size of the cell.                                                                                                                                                     |
+| `--kup-cell-text-color`            | Sets the text color of the cell. NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
 
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-badge](../kup-badge)
--   [kup-image](../kup-image)
--   [kup-autocomplete](../kup-autocomplete)
--   [kup-chip](../kup-chip)
--   [kup-text-field](../kup-text-field)
--   [kup-color-picker](../kup-color-picker)
--   [kup-combobox](../kup-combobox)
--   [kup-date-picker](../kup-date-picker)
--   [kup-rating](../kup-rating)
--   [kup-time-picker](../kup-time-picker)
--   [kup-button-list](../kup-button-list)
--   [kup-chart](../kup-chart)
--   [kup-gauge](../kup-gauge)
--   [kup-progress-bar](../kup-progress-bar)
--   [kup-toolbar](../kup-toolbar)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
+- [kup-image](../kup-image)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-cell --> kup-card
+  kup-cell --> kup-dialog
   kup-cell --> kup-badge
   kup-cell --> kup-image
   kup-cell --> kup-autocomplete
@@ -154,6 +168,7 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-toolbar
   kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -212,14 +227,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -236,8 +257,10 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -264,6 +287,7 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
   kup-form --> kup-image
@@ -283,6 +307,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -305,6 +330,6 @@ graph TD;
   style kup-cell fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

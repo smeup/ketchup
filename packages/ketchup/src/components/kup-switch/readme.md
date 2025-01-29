@@ -2,24 +2,27 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `checked` | `checked` | Defaults at false. When set to true, the component will be set to 'checked'. | `boolean` | `false` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
-| `label` | `label` | Defaults at null. When specified, its content will be shown as a label. | `string` | `null` |
-| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean` | `false` |
-| `sizing` | `sizing` | Sets the size of the switch | `FSwitchSizing.MEDIUM \| FSwitchSizing.SMALL` | `FSwitchSizing.MEDIUM` |
+| Property       | Attribute       | Description                                                                          | Type                                          | Default                |
+| -------------- | --------------- | ------------------------------------------------------------------------------------ | --------------------------------------------- | ---------------------- |
+| `checked`      | `checked`       | Defaults at false. When set to true, the component will be set to 'checked'.         | `boolean`                                     | `false`                |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`                                      | `''`                   |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`                                     | `false`                |
+| `label`        | `label`         | Defaults at null. When specified, its content will be shown as a label.              | `string`                                      | `null`                 |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`                                     | `false`                |
+| `sizing`       | `sizing`        | Sets the size of the switch                                                          | `FSwitchSizing.MEDIUM \| FSwitchSizing.SMALL` | `FSwitchSizing.MEDIUM` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-switch-blur` | Triggered when the input element loses focus. | `CustomEvent<KupSwitchEventPayload>` |
+| Event               | Description                                       | Type                                 |
+| ------------------- | ------------------------------------------------- | ------------------------------------ |
+| `kup-switch-blur`   | Triggered when the input element loses focus.     | `CustomEvent<KupSwitchEventPayload>` |
 | `kup-switch-change` | Triggered when the input element's value changes. | `CustomEvent<KupSwitchEventPayload>` |
-| `kup-switch-focus` | Triggered when the input element gets focused. | `CustomEvent<KupSwitchEventPayload>` |
+| `kup-switch-focus`  | Triggered when the input element gets focused.    | `CustomEvent<KupSwitchEventPayload>` |
+
 
 ## Methods
 
@@ -29,8 +32,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -47,48 +50,55 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-switch-font-family` | Sets font family of the switch's label. |
-| `--kup-switch-font-size` | Sets font size of the switch's label. |
-| `--kup-switch-font-weight` | Sets font weight of the switch's label. |
-| `--kup-switch-label-color` | Sets text color of the switch's label. |
-| `--kup-switch-primary-color` | Sets primary color of the component. |
+| Name                             | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| `--kup-switch-font-family`       | Sets font family of the switch's label.         |
+| `--kup-switch-font-size`         | Sets font size of the switch's label.           |
+| `--kup-switch-font-weight`       | Sets font weight of the switch's label.         |
+| `--kup-switch-label-color`       | Sets text color of the switch's label.          |
+| `--kup-switch-primary-color`     | Sets primary color of the component.            |
 | `--kup-switch-primary-color-rgb` | Sets primary color RGB values of the component. |
-| `--kup-switch-thumb-color` | Sets thumb color. |
+| `--kup-switch-thumb-color`       | Sets thumb color.                               |
+
 
 ## Dependencies
 
 ### Used by
 
--   [kup-card](../kup-card)
--   [kup-data-table](../kup-data-table)
+ - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
 
 ### Depends on
 
--   [kup-card](../kup-card)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-card --> kup-switch
   kup-image --> kup-card
   kup-image --> kup-image
@@ -139,14 +149,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -163,8 +179,10 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-switch
   kup-form --> kup-card
@@ -186,6 +204,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -208,6 +227,6 @@ graph TD;
   style kup-switch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

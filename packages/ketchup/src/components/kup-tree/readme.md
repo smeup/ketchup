@@ -56,53 +56,56 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `asAccordion` | `as-accordion` | When enabled, the first level of depth will give an accordion look to nodes. | `boolean` | `false` |
-| `columns` | -- | The columns of the tree when tree visualization is active. | `KupDataColumn[]` | `undefined` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | The json data used to populate the tree view: the basic, always visible tree nodes. | `KupTreeNode[]` | `[]` |
-| `density` | `density` | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE` | `FCellPadding.MEDIUM` |
-| `dynamicExpansionCallback` | -- | Function that gets invoked when a new set of nodes must be loaded as children of a node. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: KupTreeNode, treeNodePath: TreeNodePath) => Promise<KupTreeNode[]>` | `undefined` |
-| `editableData` | `editable-data` | When set to true, editable cells will be rendered using input components. | `boolean` | `false` |
-| `enableExtraColumns` | `enable-extra-columns` | Enables the extracolumns add buttons. | `boolean` | `true` |
-| `expanded` | `expanded` | Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded. | `boolean` | `false` |
-| `expansionMode` | `expansion-mode` | Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node. | `KupTreeExpansionMode.DROPDOWN \| KupTreeExpansionMode.NODE` | `KupTreeExpansionMode.DROPDOWN` |
-| `filters` | -- | List of filters set by the user. | `GenericFilter` | `{}` |
-| `globalFilter` | `global-filter` | When set to true it activates the global filter. | `boolean` | `false` |
-| `globalFilterMode` | `global-filter-mode` | The mode of the global filter (default SIMPLE) | `KupGlobalFilterMode.HIGHLIGHT \| KupGlobalFilterMode.SIMPLE` | `KupGlobalFilterMode.SIMPLE` |
-| `globalFilterValue` | `global-filter-value` | The value of the global filter. | `string` | `''` |
-| `preventXScroll` | `prevent-x-scroll` | Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column. | `boolean` | `false` |
-| `removableColumns` | `removable-columns` | Sets the possibility to remove the selected column. | `boolean` | `true` |
-| `ripple` | `ripple` | When enabled displays Material's ripple effect on nodes (only when no columns are displayed). | `boolean` | `true` |
-| `scrollOnHover` | `scroll-on-hover` | Activates the scroll on hover function. | `boolean` | `false` |
-| `showColumns` | `show-columns` | Shows the tree data as a table. | `boolean` | `false` |
-| `showFilters` | `show-filters` | When set to true enables the column filters. | `boolean` | `true` |
-| `showFooter` | `show-footer` | When set to true shows the footer. | `boolean` | `false` |
-| `showHeader` | `show-header` | Flag: shows the header of the tree when the tree is displayed as a table. | `boolean` | `false` |
-| `showIcons` | `show-icons` | Shows the icons of the nodes. | `boolean` | `true` |
-| `stateId` | `state-id` |  | `string` | `''` |
-| `store` | -- |  | `KupStore` | `undefined` |
-| `totals` | -- | Defines the current totals options. | `TotalsMap` | `undefined` |
-| `useDynamicExpansion` | `use-dynamic-expansion` | When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server. For more information: | `boolean` | `false` |
+| Property                   | Attribute               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Type                                                                                    | Default                         |
+| -------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------- |
+| `asAccordion`              | `as-accordion`          | When enabled, the first level of depth will give an accordion look to nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `boolean`                                                                               | `false`                         |
+| `columns`                  | --                      | The columns of the tree when tree visualization is active.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `KupDataColumn[]`                                                                       | `undefined`                     |
+| `customStyle`              | `custom-style`          | Custom style of the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `string`                                                                                | `''`                            |
+| `data`                     | --                      | The json data used to populate the tree view: the basic, always visible tree nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `KupTreeNode[]`                                                                         | `[]`                            |
+| `density`                  | `density`               | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE`   | `FCellPadding.MEDIUM`           |
+| `dynamicExpansionCallback` | --                      | Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: KupTreeNode, treeNodePath: TreeNodePath) => Promise<KupTreeNode[]>` | `undefined`                     |
+| `editableData`             | `editable-data`         | When set to true, editable cells will be rendered using input components.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `boolean`                                                                               | `false`                         |
+| `enableExtraColumns`       | `enable-extra-columns`  | Enables the extracolumns add buttons.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                               | `true`                          |
+| `expanded`                 | `expanded`              | Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `boolean`                                                                               | `false`                         |
+| `expansionMode`            | `expansion-mode`        | Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `KupTreeExpansionMode.DROPDOWN \| KupTreeExpansionMode.NODE`                            | `KupTreeExpansionMode.DROPDOWN` |
+| `filters`                  | --                      | List of filters set by the user.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `GenericFilter`                                                                         | `{}`                            |
+| `globalFilter`             | `global-filter`         | When set to true it activates the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `boolean`                                                                               | `false`                         |
+| `globalFilterMode`         | `global-filter-mode`    | The mode of the global filter (default SIMPLE)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `KupGlobalFilterMode.HIGHLIGHT \| KupGlobalFilterMode.SIMPLE`                           | `KupGlobalFilterMode.SIMPLE`    |
+| `globalFilterValue`        | `global-filter-value`   | The value of the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                | `''`                            |
+| `preventXScroll`           | `prevent-x-scroll`      | Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `boolean`                                                                               | `false`                         |
+| `removableColumns`         | `removable-columns`     | Sets the possibility to remove the selected column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                               | `true`                          |
+| `ripple`                   | `ripple`                | When enabled displays Material's ripple effect on nodes (only when no columns are displayed).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                                                                               | `true`                          |
+| `scrollOnHover`            | `scroll-on-hover`       | Activates the scroll on hover function.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                                               | `false`                         |
+| `showColumns`              | `show-columns`          | Shows the tree data as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `boolean`                                                                               | `false`                         |
+| `showFilters`              | `show-filters`          | When set to true enables the column filters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `boolean`                                                                               | `true`                          |
+| `showFooter`               | `show-footer`           | When set to true shows the footer.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `boolean`                                                                               | `false`                         |
+| `showHeader`               | `show-header`           | Flag: shows the header of the tree when the tree is displayed as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `boolean`                                                                               | `false`                         |
+| `showIcons`                | `show-icons`            | Shows the icons of the nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                                                                               | `true`                          |
+| `stateId`                  | `state-id`              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                | `''`                            |
+| `store`                    | --                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `KupStore`                                                                              | `undefined`                     |
+| `totals`                   | --                      | Defines the current totals options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `TotalsMap`                                                                             | `undefined`                     |
+| `useDynamicExpansion`      | `use-dynamic-expansion` | When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:                                                                                                                                                                                                                                                                                           | `boolean`                                                                               | `false`                         |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-tree-buttonclick` |  | `CustomEvent<KupTreeNodeButtonClickEventPayload>` |
-| `kup-tree-columnmenu` | When the column menu is being opened/closed. | `CustomEvent<KupTreeColumnMenuEventPayload>` |
-| `kup-tree-columnremove` | Event fired when columns are removed (set to hidden). | `CustomEvent<KupTreeColumnRemoveEventPayload>` |
-| `kup-tree-contextmenu` | Generic right click event on tree. | `CustomEvent<KupTreeContextMenuEventPayload>` |
-| `kup-tree-didload` |  | `CustomEvent<KupEventPayload>` |
-| `kup-tree-didunload` | Triggered when stop propagation event | `CustomEvent<KupEventPayload>` |
-| `kup-tree-dynamicmassexpansion` |  | `CustomEvent<KupTreeDynamicMassExpansionEventPayload>` |
-| `kup-tree-nodecollapse` | Fired when a KupTreeNode gets collapsed (closed). | `CustomEvent<KupTreeNodeCollapseEventPayload>` |
-| `kup-tree-nodedblclick` |  | `CustomEvent<KupTreeNodeCollapseEventPayload>` |
-| `kup-tree-nodeexpand` | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<KupTreeNodeExpandEventPayload>` |
-| `kup-tree-nodeselected` | Fired when a node of the tree has been selected | `CustomEvent<KupTreeNodeSelectedEventPayload>` |
+| Event                           | Description                                                                                                                       | Type                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `kup-tree-buttonclick`          |                                                                                                                                   | `CustomEvent<KupTreeNodeButtonClickEventPayload>`      |
+| `kup-tree-columnmenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<KupTreeColumnMenuEventPayload>`           |
+| `kup-tree-columnremove`         | Event fired when columns are removed (set to hidden).                                                                             | `CustomEvent<KupTreeColumnRemoveEventPayload>`         |
+| `kup-tree-contextmenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<KupTreeContextMenuEventPayload>`          |
+| `kup-tree-didload`              |                                                                                                                                   | `CustomEvent<KupEventPayload>`                         |
+| `kup-tree-didunload`            | Triggered when stop propagation event                                                                                             | `CustomEvent<KupEventPayload>`                         |
+| `kup-tree-dynamicmassexpansion` |                                                                                                                                   | `CustomEvent<KupTreeDynamicMassExpansionEventPayload>` |
+| `kup-tree-nodecollapse`         | Fired when a KupTreeNode gets collapsed (closed).                                                                                 | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
+| `kup-tree-nodedblclick`         |                                                                                                                                   | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
+| `kup-tree-nodeexpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<KupTreeNodeExpandEventPayload>`           |
+| `kup-tree-nodeselected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<KupTreeNodeSelectedEventPayload>`         |
+
 
 ## Methods
 
@@ -114,6 +117,8 @@ Closes any opened column menu.
 
 Type: `Promise<void>`
 
+
+
 ### `collapseAll() => Promise<void>`
 
 Collapses all nodes.
@@ -121,6 +126,8 @@ Collapses all nodes.
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `expandAll() => Promise<void>`
 
@@ -130,14 +137,16 @@ Expands all nodes.
 
 Type: `Promise<void>`
 
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -154,6 +163,8 @@ This method will get the selected nodes of the component.
 
 Type: `Promise<TreeNodePath>`
 
+
+
 ### `hideColumn(column: KupDataColumn) => Promise<void>`
 
 Hides the given column.
@@ -168,6 +179,8 @@ Hides the given column.
 
 Type: `Promise<void>`
 
+
+
 ### `isEmpty() => Promise<boolean>`
 
 True if there aren't visible nodes
@@ -175,6 +188,8 @@ True if there aren't visible nodes
 #### Returns
 
 Type: `Promise<boolean>`
+
+
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
@@ -190,6 +205,8 @@ Opens the column menu of the given column.
 
 Type: `Promise<void>`
 
+
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -198,6 +215,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
@@ -205,6 +224,8 @@ This method is invoked by KupManager whenever the component changes size.
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setExpansionByDepth(modifier: number) => Promise<void>`
 
@@ -220,19 +241,23 @@ Adds/subtracts the input number from the first node's depth level.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setSelectedNode(treeNodePath: string, emitEvent?: boolean) => Promise<void>`
 
@@ -240,63 +265,66 @@ This method will set the selected rows of the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `treeNodePath` | `string` |  |
-| `emitEvent` | `boolean` | - The event will always be emitted unless emitEvent is set to false. |
+| Name           | Type      | Description                                                          |
+| -------------- | --------- | -------------------------------------------------------------------- |
+| `treeNodePath` | `string`  |                                                                      |
+| `emitEvent`    | `boolean` | - The event will always be emitted unless emitEvent is set to false. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-tree-border` | Sets border of the component. |
-| `--kup-tree-color` | Sets text color of the component. |
-| `--kup-tree-color-rgb` | Sets text color RGB values of the component (used for shaders). |
-| `--kup-tree-filter-background-color` | Sets the background color of the global filter. |
-| `--kup-tree-font-family` | Sets font family of the component. |
-| `--kup-tree-font-family-monospace` | Sets monospace font family of the component (for number cells). |
-| `--kup-tree-font-size` | Sets font size of the component. |
-| `--kup-tree-hover-background-color` | Sets hover background color of the component. |
-| `--kup-tree-hover-color` | Sets hover color of the component. |
-| `--kup-tree-icon-color` | Sets icons color. |
-| `--kup-tree-primary-color` | Sets the primary color of the component. |
-| `--kup-tree-primary-color-rgb` | Sets the primary color RGB values of the component (used for shaders). |
-| `--kup-tree-text-on-primary-color` | Sets the text on primary color of the component. |
+| Name                                 | Description                                                            |
+| ------------------------------------ | ---------------------------------------------------------------------- |
+| `--kup-tree-border`                  | Sets border of the component.                                          |
+| `--kup-tree-color`                   | Sets text color of the component.                                      |
+| `--kup-tree-color-rgb`               | Sets text color RGB values of the component (used for shaders).        |
+| `--kup-tree-filter-background-color` | Sets the background color of the global filter.                        |
+| `--kup-tree-font-family`             | Sets font family of the component.                                     |
+| `--kup-tree-font-family-monospace`   | Sets monospace font family of the component (for number cells).        |
+| `--kup-tree-font-size`               | Sets font size of the component.                                       |
+| `--kup-tree-hover-background-color`  | Sets hover background color of the component.                          |
+| `--kup-tree-hover-color`             | Sets hover color of the component.                                     |
+| `--kup-tree-icon-color`              | Sets icons color.                                                      |
+| `--kup-tree-primary-color`           | Sets the primary color of the component.                               |
+| `--kup-tree-primary-color-rgb`       | Sets the primary color RGB values of the component (used for shaders). |
+| `--kup-tree-text-on-primary-color`   | Sets the text on primary color of the component.                       |
+
 
 ## Dependencies
 
 ### Used by
 
--   [kup-card](../kup-card)
--   [kup-magic-box](../kup-magic-box)
+ - [kup-card](../kup-card)
+ - [kup-magic-box](../kup-magic-box)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-list](../kup-list)
--   [kup-text-field](../kup-text-field)
--   [kup-dialog](../kup-dialog)
--   [kup-image](../kup-image)
--   [kup-autocomplete](../kup-autocomplete)
--   [kup-chip](../kup-chip)
--   [kup-color-picker](../kup-color-picker)
--   [kup-combobox](../kup-combobox)
--   [kup-date-picker](../kup-date-picker)
--   [kup-rating](../kup-rating)
--   [kup-time-picker](../kup-time-picker)
--   [kup-button-list](../kup-button-list)
--   [kup-chart](../kup-chart)
--   [kup-gauge](../kup-gauge)
--   [kup-progress-bar](../kup-progress-bar)
--   [kup-badge](../kup-badge)
--   [kup-toolbar](../kup-toolbar)
+- [kup-card](../kup-card)
+- [kup-list](../kup-list)
+- [kup-text-field](../kup-text-field)
+- [kup-dialog](../kup-dialog)
+- [kup-image](../kup-image)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-tree --> kup-card
@@ -367,14 +395,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -391,8 +425,10 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -419,6 +455,7 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-toolbar
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
   kup-form --> kup-image
@@ -438,11 +475,12 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-magic-box --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

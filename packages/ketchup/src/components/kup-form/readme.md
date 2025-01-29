@@ -2,22 +2,25 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Actual data of the form. | `KupFormData` | `null` |
-| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean` | `false` |
-| `labelPlacement` | `label-placement` | Sets the label placement for 'all' fields in form | `KupFormLabelPlacement.BOTTOM \| KupFormLabelPlacement.HIDDEN \| KupFormLabelPlacement.LEFT \| KupFormLabelPlacement.PLACEHOLDER \| KupFormLabelPlacement.RIGHT \| KupFormLabelPlacement.TOP \| KupFormLabelPlacement.WATERMARK` | `KupFormLabelPlacement.TOP` |
-| `layout` | -- | How the form will arrange its content. | `KupFormLayout` | `null` |
-| `submitCb` | -- | Sets the callback function on submit form | `(e: SubmitEvent) => unknown` | `null` |
+| Property             | Attribute              | Description                                                            | Type                                                                                                                                                                                                                             | Default                     |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                                                                                                                                         | `''`                        |
+| `data`               | --                     | Actual data of the form.                                               | `KupFormData`                                                                                                                                                                                                                    | `null`                      |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                                                                                                                                        | `false`                     |
+| `labelPlacement`     | `label-placement`      | Sets the label placement for 'all' fields in form                      | `KupFormLabelPlacement.BOTTOM \| KupFormLabelPlacement.HIDDEN \| KupFormLabelPlacement.LEFT \| KupFormLabelPlacement.PLACEHOLDER \| KupFormLabelPlacement.RIGHT \| KupFormLabelPlacement.TOP \| KupFormLabelPlacement.WATERMARK` | `KupFormLabelPlacement.TOP` |
+| `layout`             | --                     | How the form will arrange its content.                                 | `KupFormLayout`                                                                                                                                                                                                                  | `null`                      |
+| `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown`                                                                                                                                                                                                    | `null`                      |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
+| Event            | Description                     | Type                           |
+| ---------------- | ------------------------------- | ------------------------------ |
 | `kup-form-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
+
 
 ## Methods
 
@@ -27,8 +30,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -45,6 +48,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setFocus(column: string, rowId: string) => Promise<void>`
 
 Sets the focus on an editable table cell.
@@ -60,19 +65,24 @@ Sets the focus on an editable table cell.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -86,34 +96,34 @@ Type: `Promise<void>`
 | `--kup-form-label-width`      | Sets the width of labels.          |
 | `--kup-form-padding`          | Sets the padding of the form.      |
 
+
 ## Dependencies
 
 ### Used by
 
--   [kup-data-table](../kup-data-table)
+ - [kup-data-table](../kup-data-table)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-image](../kup-image)
--   [kup-autocomplete](../kup-autocomplete)
--   [kup-chip](../kup-chip)
--   [kup-text-field](../kup-text-field)
--   [kup-color-picker](../kup-color-picker)
--   [kup-combobox](../kup-combobox)
--   [kup-date-picker](../kup-date-picker)
--   [kup-rating](../kup-rating)
--   [kup-time-picker](../kup-time-picker)
--   [kup-button-list](../kup-button-list)
--   [kup-chart](../kup-chart)
--   [kup-gauge](../kup-gauge)
--   [kup-progress-bar](../kup-progress-bar)
--   [kup-badge](../kup-badge)
--   [kup-toolbar](../kup-toolbar)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-image](../kup-image)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-form --> kup-card
@@ -149,6 +159,7 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-toolbar
   kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -207,14 +218,20 @@ graph TD;
   kup-time-picker --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-dialog
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
   kup-toolbar --> kup-image
   kup-toolbar --> kup-autocomplete
@@ -231,13 +248,17 @@ graph TD;
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
   kup-data-table --> kup-form
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
@@ -260,6 +281,6 @@ graph TD;
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
