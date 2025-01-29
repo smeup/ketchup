@@ -82,6 +82,7 @@ export class KupDynamicPosition {
             placement: placement ? placement : KupDynamicPositionPlacement.AUTO,
             rAF: null,
         };
+        const self = this;
         const mutObserver: MutationObserver = new MutationObserver(function (
             mutations
         ) {
@@ -91,7 +92,8 @@ export class KupDynamicPosition {
                     kupDynamicPositionActiveClass
                 )
             ) {
-                dom.ketchup.dynamicPosition.run(el);
+                self.addRepositionListeners(el);
+                self.run(el);
             }
         });
         mutObserver.observe(el, {
@@ -137,8 +139,6 @@ export class KupDynamicPosition {
      */
     start(el: KupDynamicPositionElement): void {
         el.classList.add(kupDynamicPositionActiveClass);
-        dom.ketchup.dynamicPosition.run(el);
-        this.addRepositionListeners(el);
     }
     /**
      * Ends the process of dynamically reposition the element.
@@ -281,13 +281,48 @@ export class KupDynamicPosition {
     }
 
     reposition(el: KupDynamicPositionElement): void {
-        console.log('Called reposition', el, el.classList);
-
         if (
             el.isConnected &&
             el.classList.contains(kupDynamicPositionActiveClass)
         ) {
             dom.ketchup.dynamicPosition.run(el);
+        }
+    }
+
+    isScrollable(el: KupDynamicPositionElement): boolean {
+        const style = getComputedStyle(el);
+        const hasScrollableOverflow =
+            ['auto', 'scroll'].includes(style.overflow) ||
+            ['auto', 'scroll'].includes(style.overflowX) ||
+            ['auto', 'scroll'].includes(style.overflowY);
+
+        const canScrollVertically = el.scrollHeight > el.clientHeight;
+        const canScrollHorizontally = el.scrollWidth > el.clientWidth;
+
+        return (
+            hasScrollableOverflow &&
+            (canScrollVertically || canScrollHorizontally)
+        );
+    }
+
+    updateEventListenerOnAncestors(
+        container: HTMLElement,
+        updateCallback: (el: HTMLElement) => void
+    ) {
+        while (container && container !== document.documentElement) {
+            updateCallback(container);
+
+            if (container.parentElement) {
+                container = container.parentElement;
+            } else if (
+                container.getRootNode &&
+                container.getRootNode() instanceof ShadowRoot
+            ) {
+                container = (container.getRootNode() as ShadowRoot)
+                    .host as HTMLElement;
+            } else {
+                container = null;
+            }
         }
     }
 
@@ -300,41 +335,29 @@ export class KupDynamicPosition {
         if (el?.kupDynamicPosition?.anchor) {
             let container = this.getAnchorContainer(el);
 
-            while (container && container !== document.documentElement) {
-                function isScrollable(element: HTMLElement) {
-                    const style = getComputedStyle(element);
-                    const hasScrollableOverflow =
-                        ['auto', 'scroll'].includes(style.overflow) ||
-                        ['auto', 'scroll'].includes(style.overflowX) ||
-                        ['auto', 'scroll'].includes(style.overflowY);
-
-                    const canScrollVertically =
-                        element.scrollHeight > element.clientHeight;
-                    const canScrollHorizontally =
-                        element.scrollWidth > element.clientWidth;
-
-                    return (
-                        hasScrollableOverflow &&
-                        (canScrollVertically || canScrollHorizontally)
-                    );
+            this.updateEventListenerOnAncestors(container, (el) => {
+                if (this.isScrollable(el)) {
+                    el.addEventListener('scroll', repositionListener);
                 }
+            });
 
-                if (isScrollable(container)) {
-                    container.addEventListener('scroll', repositionListener);
-                }
+            // while (container && container !== document.documentElement) {
+            //     if (this.isScrollable(container)) {
+            //         container.addEventListener('scroll', repositionListener);
+            //     }
 
-                if (container.parentElement) {
-                    container = container.parentElement;
-                } else if (
-                    container.getRootNode &&
-                    container.getRootNode() instanceof ShadowRoot
-                ) {
-                    container = (container.getRootNode() as ShadowRoot)
-                        .host as HTMLElement;
-                } else {
-                    container = null;
-                }
-            }
+            //     if (container.parentElement) {
+            //         container = container.parentElement;
+            //     } else if (
+            //         container.getRootNode &&
+            //         container.getRootNode() instanceof ShadowRoot
+            //     ) {
+            //         container = (container.getRootNode() as ShadowRoot)
+            //             .host as HTMLElement;
+            //     } else {
+            //         container = null;
+            //     }
+            // }
         }
 
         (el as any)._repositionListener = repositionListener;
@@ -349,21 +372,25 @@ export class KupDynamicPosition {
         if (el?.kupDynamicPosition?.anchor) {
             let container = this.getAnchorContainer(el);
 
-            while (container && container !== document.documentElement) {
-                container.removeEventListener('scroll', repositionListener);
+            this.updateEventListenerOnAncestors(container, (el) => {
+                el.removeEventListener('scroll', repositionListener);
+            });
 
-                if (container.parentElement) {
-                    container = container.parentElement;
-                } else if (
-                    container.getRootNode &&
-                    container.getRootNode() instanceof ShadowRoot
-                ) {
-                    container = (container.getRootNode() as ShadowRoot)
-                        .host as HTMLElement;
-                } else {
-                    container = null;
-                }
-            }
+            // while (container && container !== document.documentElement) {
+            //     container.removeEventListener('scroll', repositionListener);
+
+            //     if (container.parentElement) {
+            //         container = container.parentElement;
+            //     } else if (
+            //         container.getRootNode &&
+            //         container.getRootNode() instanceof ShadowRoot
+            //     ) {
+            //         container = (container.getRootNode() as ShadowRoot)
+            //             .host as HTMLElement;
+            //     } else {
+            //         container = null;
+            //     }
+            // }
         }
 
         delete (el as any)._repositionListener;

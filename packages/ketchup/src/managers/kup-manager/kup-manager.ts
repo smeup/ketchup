@@ -165,7 +165,7 @@ export class KupManager {
         this.magicBox = null;
 
         //This feature causes memory leaks
-        //this.openAI = new KupOpenAI(openAIUrl);
+        this.openAI = new KupOpenAI(openAIUrl);
 
         this.math = new KupMath();
         this.overrides = overrides ? overrides : null;
@@ -207,7 +207,6 @@ export class KupManager {
             tooltipModal
         );
         this.perfTuning = new KupPerfTuning({ maxCellsPerPage: 5000 });
-        this.perfTuning.performPerfTuning();
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =

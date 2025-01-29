@@ -5704,8 +5704,8 @@ export class KupDataTable {
 
     #onCustomSettingsClick() {
         if (!this.openedCustomSettings) {
-            alert('Temporary disabled, due to memory leak investigation');
-            //this.#openCustomSettings();
+            //alert('Temporary disabled, due to memory leak investigation');
+            this.#openCustomSettings();
         } else {
             this.#closeCustomSettings();
         }
@@ -6897,7 +6897,8 @@ export class KupDataTable {
                                           sizeX="10px"
                                       />
                                   </div>,
-                                  //this.renderCustomizePanel(),
+                                  //This feature causes memory leak
+                                  this.renderCustomizePanel(),
                               ]
                             : null}
                         <table
