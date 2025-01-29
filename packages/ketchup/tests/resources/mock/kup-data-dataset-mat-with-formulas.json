@@ -1,0 +1,1221 @@
+{
+    "columns": [
+        {
+            "name": "XXCODI",
+            "title": "Codice",
+            "visible": true,
+            "isEditable": false,
+            "maxLength": 15,
+            "length": 15,
+            "obj": {
+                "t": "",
+                "p": "",
+                "k": ""
+            }
+        },
+        {
+            "name": "XXDATE",
+            "title": "Date",
+            "visible": true,
+            "isEditable": false,
+            "maxLength": 15,
+            "length": 15,
+            "obj": {
+                "t": "D8",
+                "p": "",
+                "k": ""
+            }
+        },
+        {
+            "name": "COL1",
+            "title": "V1",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 0
+        },
+        {
+            "name": "COL2",
+            "title": "V2",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 0
+        },
+        {
+            "name": "COL3",
+            "title": "V3",
+            "visible": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 0
+        },
+        {
+            "name": "DIFF12",
+            "title": "V2-V1\nFormula semplice",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "formula": "([COL2]-[COL1])",
+            "decimals": 0
+        },
+        {
+            "name": "DIV12",
+            "title": "V2/V1\nFormula semplice",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 2,
+            "formula": "([COL2]/[COL1])"
+        },
+        {
+            "name": "DIFF13",
+            "title": "V3-V1\nFormula con colonna nas",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "formula": "([COL3]-[COL1])",
+            "decimals": 0
+        },
+        {
+            "name": "COL4",
+            "title": "V4",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 0
+        },
+        {
+            "name": "DIFF14",
+            "title": "V1-V4\nFormula con colonna bla",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "formula": "([COL1]-[COL4])",
+            "decimals": 0
+        },
+        {
+            "name": "COMPL",
+            "title": "(V2-V1)*100/V2\nFormula comple",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "P",
+                "k": ""
+            },
+            "integers": 15,
+            "decimals": 2,
+            "formula": "([COL2]-[COL1])*100/[COL2]"
+        }
+    ],
+    "rows": [
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00001",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00001"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "2024-04-03",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "---",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "125",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "125"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "30",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "30"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "115"
+                    },
+                    "value": "115",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "12,5"
+                    },
+                    "value": "12.5",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "20"
+                    },
+                    "value": "20",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "10"
+                    },
+                    "value": "10",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "92"
+                    },
+                    "value": "92",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "0"
+        },
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00002",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00002"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "2025-05-03",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "30",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "30"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "20",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "20"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "1",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "1"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "-10"
+                    },
+                    "value": "-10",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0,66666666"
+                    },
+                    "value": "0.66666666",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "-29"
+                    },
+                    "value": "-29",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "30"
+                    },
+                    "value": "30",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "-50"
+                    },
+                    "value": "-50",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "1"
+        },
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00003",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00003"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "2025-05-04",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "5",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "0",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "10",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "10"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "-5"
+                    },
+                    "value": "-5",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "value": "0",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "value": "5",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "value": "5",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": ""
+                    },
+                    "value": "---",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "2"
+        },
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00004",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00004"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "0",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "5",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "5",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "value": "5",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "value": "---",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "value": "5",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "value": "0",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "100"
+                    },
+                    "value": "100",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "3"
+        },
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00005",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00005"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "00000000",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "0",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "0",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "15",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "15"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "value": "0",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "value": "---",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "15"
+                    },
+                    "value": "15",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "0"
+                    },
+                    "value": "0",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": ""
+                    },
+                    "value": "---",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "4"
+        },
+        {
+            "cells": {
+                "XXCODI": {
+                    "value": "00006",
+                    "obj": {
+                        "t": "",
+                        "p": "",
+                        "k": "00006"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "XXDATE": {
+                    "value": "2025-05-04",
+                    "obj": {
+                        "t": "D8",
+                        "p": "",
+                        "k": "2025-05-04"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL1": {
+                    "value": "145000000",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "145000000"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL2": {
+                    "value": "563000000",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "563000000"
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "COL3": {
+                    "value": "15",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "15"
+                    },
+                    "data": {
+                        "size": 15,
+                        "integers": 15
+                    },
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "418000000"
+                    },
+                    "value": "418000000",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIV12": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "3,88275862"
+                    },
+                    "value": "3.88275862",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "DIFF13": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "-144999985"
+                    },
+                    "value": "-144999985",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COL4": {
+                    "value": "",
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": ""
+                    },
+                    "editable": false,
+                    "data": {
+                        "size": 15,
+                        "legacyLook": false
+                    },
+                    "isEditable": false,
+                    "style": {},
+                    "cssClass": ""
+                },
+                "DIFF14": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "145000000"
+                    },
+                    "value": "145000000",
+                    "data": {
+                        "integers": 15,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "COMPL": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "74,24511545"
+                    },
+                    "value": "74.24511545",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                }
+            },
+            "id": "5"
+        }
+    ]
+}

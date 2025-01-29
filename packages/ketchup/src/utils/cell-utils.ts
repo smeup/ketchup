@@ -9,6 +9,8 @@ import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 import { GenericObject } from '../components';
 import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
+import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
+import { KupObj } from '../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -58,7 +60,7 @@ export function formatToNumber(cell: KupDataCell): number {
 }
 
 function _getCellValueForDisplay(
-    value,
+    value: string,
     column: KupDataColumn,
     cell: KupDataCell
 ): string {
@@ -73,20 +75,31 @@ function _getCellValueForDisplay(
     );
 }
 
-export function getValueForDisplay(value, obj, decimals: number): string {
+export function getValueForDisplay(
+    value: string,
+    obj: KupObj,
+    decimals: number
+): string {
     if (value == null || value.trim() == '') {
         return value;
     }
+
     if (dom.ketchup.objects.isNumber(obj)) {
+        if (isNaN(Number(value))) {
+            return KupMathFormulaResult.IMPOSSIBILE_OPERATION;
+        }
+
         return dom.ketchup.math.numberStringToFormattedString(
             value,
-            decimals ? decimals : -1,
+            decimals ?? -1,
             obj ? obj.p : ''
         );
     }
+
     if (dom.ketchup.objects.isDate(obj) && dom.ketchup.dates.isIsoDate(value)) {
         return dom.ketchup.dates.format(value);
     }
+
     if (dom.ketchup.objects.isTime(obj)) {
         return dom.ketchup.dates.timeStringToFormattedString(
             value,
@@ -94,9 +107,11 @@ export function getValueForDisplay(value, obj, decimals: number): string {
             obj.t + obj.p
         );
     }
+
     if (dom.ketchup.objects.isTimestamp(obj)) {
         return dom.ketchup.dates.timestampStringToFormattedString(value);
     }
+
     return value;
 }
 
