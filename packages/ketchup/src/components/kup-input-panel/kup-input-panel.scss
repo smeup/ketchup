@@ -91,17 +91,15 @@
           width: 100%;
         }
       }
+    }
 
-      .f-text-field {
-        .mdc-text-field {
-          &.mdc-text-field--textarea {
-            min-height: var(
-              --kup_textfield_textarea_height_input_panel
-            ) !important;
-            min-width: var(
-              --kup_textfield_textarea_width_input_panel
-            ) !important;
-          }
+    .f-text-field {
+      .mdc-text-field {
+        &.mdc-text-field--textarea {
+          min-height: var(
+            --kup_textfield_textarea_height_input_panel
+          ) !important;
+          min-width: var(--kup_textfield_textarea_width_input_panel) !important;
         }
       }
     }
