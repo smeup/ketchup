@@ -1746,8 +1746,9 @@ export namespace Components {
           * This method will set the selected rows of the component.
           * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+          * @param scrollIntoView - If true, the component will scroll to the first selected row.
          */
-        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -1824,6 +1825,11 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
         /**
           * List of the visible columns
          */
@@ -2946,6 +2952,15 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupLazy {
         /**
@@ -3075,6 +3090,8 @@ export namespace Components {
           * @default true
          */
         "selectable": boolean;
+        "setBlur": () => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -7572,6 +7589,11 @@ declare namespace LocalJSX {
          */
         "updatableData"?: boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns"?: string[];
@@ -8477,6 +8499,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
     }
     interface KupLazy {
         /**

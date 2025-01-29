@@ -280,15 +280,17 @@ export class KupTypography {
                     onClick={() => this.onKupClick}
                 >
                     <FTypography {...props} />
-                    <FImage
-                        {...propsFImage}
-                        onClick={(event: MouseEvent) => {
-                            event.stopPropagation();
-                            this.onKupIconClick(
-                                event.currentTarget as HTMLElement
-                            );
-                        }}
-                    />
+                    {this.toolbar && (
+                        <FImage
+                            {...propsFImage}
+                            onClick={(event: MouseEvent) => {
+                                event.stopPropagation();
+                                this.onKupIconClick(
+                                    event.currentTarget as HTMLElement
+                                );
+                            }}
+                        />
+                    )}
                 </div>
             </Host>
         );

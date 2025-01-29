@@ -197,6 +197,12 @@ export class KupInputPanel {
      */
     @Prop() autoSkip?: boolean = false;
 
+    /**
+     * When set to true, checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -293,6 +299,8 @@ export class KupInputPanel {
         [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
     ]);
     #keysShortcut: string[] = [];
+    #readyPromise: Promise<void>;
+    #readyResolve: () => void;
     //#endregion
 
     //#region WATCHERS
@@ -326,6 +334,14 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.#readyPromise;
+    }
 
     /**
      * Used to retrieve component's props values.
@@ -1766,6 +1782,10 @@ export class KupInputPanel {
             detail: { column, cell },
         } = e;
 
+        if (cell.shape === FCellShapes.CHECKBOX) {
+            return;
+        }
+
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
 
@@ -1817,6 +1837,32 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
+            this.checkValidValueCallback(
+                {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                column.name
+            );
+        }
+    }
+
+    #onCellUpdate({
+        detail: { cell, column },
+    }: CustomEvent<FCellEventPayload>) {
+        if (cell.shape !== FCellShapes.CHECKBOX) {
+            return;
+        }
+
+        if (this.updateOnClick) {
+            this.submitCb({
+                value: {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                cell: column.name,
+            });
+        } else if (cell.inputSettings?.checkValueOnExit) {
             this.checkValidValueCallback(
                 {
                     before: { ...this.#originalData },
@@ -2039,6 +2085,12 @@ export class KupInputPanel {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
+    connectedCallback() {
+        this.#readyPromise = new Promise((resolve) => {
+            this.#readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
@@ -2066,6 +2118,12 @@ export class KupInputPanel {
             }
         }
 
+        requestAnimationFrame(async () => {
+            if (this.#formRef && this.#readyResolve) {
+                this.#readyResolve();
+                this.#readyResolve = null;
+            }
+        });
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -2086,6 +2144,7 @@ export class KupInputPanel {
         return (
             <Host
                 onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
                 }}

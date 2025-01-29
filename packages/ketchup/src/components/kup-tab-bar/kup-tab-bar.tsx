@@ -432,8 +432,6 @@ export class KupTabBar {
                                 color={`var(${KupThemeColorValues.PRIMARY})`}
                                 resource={node.icon}
                                 placeholderResource={node.placeholderIcon}
-                                sizeX="24px"
-                                sizeY="24px"
                                 wrapperClass="tab__icon"
                             />
                         ) : null}
