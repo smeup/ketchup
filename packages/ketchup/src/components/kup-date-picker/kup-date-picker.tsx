@@ -40,7 +40,7 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { getProps } from '../../utils/utils';
-import { FILTER_ANALIZER } from '../../utils/filters/filters-declarations';
+import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -416,7 +416,7 @@ export class KupDatePicker {
         if (eventDetailValue) {
             const isValidFilter =
                 this.isAlphanumeric(eventDetailValue) ||
-                eventDetailValue.match(FILTER_ANALIZER);
+                eventDetailValue.match(FILTER_ANALYZER);
 
             if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
                 if (!isOnInputEvent) {
