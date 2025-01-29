@@ -1837,6 +1837,11 @@ export namespace Components {
     }
     interface KupDatePicker {
         /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -7599,6 +7604,11 @@ declare namespace LocalJSX {
         "visibleColumns"?: string[];
     }
     interface KupDatePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
