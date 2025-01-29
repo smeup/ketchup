@@ -98,7 +98,6 @@ import {
     KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-import { C } from '@fullcalendar/core/internal-common';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
