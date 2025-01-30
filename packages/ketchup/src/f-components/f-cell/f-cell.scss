@@ -20,7 +20,7 @@
     --kup-fcell-padding-wide,
     var(--kup-space-04) var(--kup-space-03)
   );
-  --kup_fcell_dense_min_height: var(--kup-fcell-medium-min-height, 28px);
+  --kup_fcell_dense_min_height: var(--kup-fcell-medium-min-height, 20px);
   --kup_fcell_medium_min_height: var(--kup-fcell-medium-min-height, 36px);
   --kup_fcell_wide_min_height: var(--kup-fcell-wide-min-height, 50px);
 
@@ -537,21 +537,18 @@
     --kup-textfield-fullwidth-padding: 0px;
     --kup-checkbox-padding: 0px;
     --kup-chip-margin: 0 4px;
-    min-height: var(--kup_fcell_dense_min_height);
     padding: var(--kup_fcell_padding_dense);
   }
 
   &.medium {
     --kup-textfield-fullwidth-height: var(--kup_fcell_medium_min_height);
     --kup-textfield-fullwidth-padding: 0px;
-    min-height: var(--kup_fcell_medium_min_height);
     padding: var(--kup_fcell_padding_medium);
   }
 
   &.wide {
     --kup-textfield-fullwidth-height: var(--kup_fcell_wide_min_height);
     --kup-textfield-fullwidth-padding: 0px;
-    min-height: var(--kup_fcell_wide_min_height);
     padding: var(--kup_fcell_padding_wide);
   }
 }
