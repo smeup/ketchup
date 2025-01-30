@@ -6710,7 +6710,7 @@ export class KupDataTable {
                     e.detail.cell?.shape === FCellShapes.SWITCH)
             ) {
                 if (this.updateOnClick) {
-                    this.#handleUpdateClick(e.detail.cell);
+                    this.#handleUpdateClick();
                 } else if (e.detail.cell?.inputSettings?.checkValueOnExit) {
                     this.kupCellCheck.emit({
                         comp: this,
