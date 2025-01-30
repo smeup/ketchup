@@ -80,13 +80,15 @@ export class KupMultiSelect {
             (chip) => chip.id === selectedNodeValue
         );
 
-        if (chipIndex !== -1) { //already selected, deselect
+        if (chipIndex !== -1) {
+            //already selected, deselect
             this.data['kup-chip'] = [
                 ...this.data['kup-chip'].slice(0, chipIndex),
                 ...this.data['kup-chip'].slice(chipIndex + 1),
             ];
             console.log('eliminando\n' + JSON.stringify(this.data['kup-chip']));
-        } else { //not selected
+        } else {
+            //not selected
             this.data['kup-chip'].push({
                 id: selectedNodeValue,
                 value: selectedNodeValue,
@@ -96,8 +98,7 @@ export class KupMultiSelect {
             );
         }
 
-        this.#chips.refresh();
-        //this.refresh();
+        this.#chips.data = [...this.data['kup-chip']];
     }
 
     componentWillLoad() {

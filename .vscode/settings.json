@@ -7,7 +7,7 @@
     "eslint.validate": ["vue", "html", "javascript", "typescript"],
     "eslint.run": "onSave",
     "[typescriptreact]": {
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
