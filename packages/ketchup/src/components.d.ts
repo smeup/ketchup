@@ -32,6 +32,7 @@ import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 import { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -92,6 +93,7 @@ export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+export { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 export { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -1744,8 +1746,9 @@ export namespace Components {
           * This method will set the selected rows of the component.
           * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+          * @param scrollIntoView - If true, the component will scroll to the first selected row.
          */
-        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -1823,11 +1826,21 @@ export namespace Components {
          */
         "updatableData": boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns": string[];
     }
     interface KupDatePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection": boolean;
         /**
           * Custom style of the component.
           * @default ""
@@ -2972,6 +2985,15 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupLazy {
         /**
@@ -3101,6 +3123,8 @@ export namespace Components {
           * @default true
          */
         "selectable": boolean;
+        "setBlur": () => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -3309,44 +3333,6 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-    }
-    interface KupPhotoFrame {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://smeup.github.io/ketchup/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Html attributes of the picture before the component enters the viewport.
-          * @default {}
-         */
-        "placeholderAttrs": GenericObject;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Html attributes of the picture after the component enters the viewport.
-          * @default {}
-         */
-        "resourceAttrs": GenericObject;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * Percentage of the component dimensions entering the viewport (0.1 => 1).
-          * @default 0.25
-         */
-        "threshold": number;
     }
     interface KupPlanner {
         /**
@@ -4628,6 +4614,10 @@ export namespace Components {
          */
         "totals": TotalsMap;
         /**
+          * The max-height of a tree
+         */
+        "treeHeight": string;
+        /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
          */
@@ -4892,10 +4882,6 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
 export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPdfElement;
-}
-export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupPhotoFrameElement;
 }
 export interface KupPlannerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -5313,6 +5299,7 @@ declare global {
         "kup-datatable-update": KupDatatableUpdatePayload;
         "kup-datatable-check": KupDatatableCellCheckPayload;
         "kup-datatable-cell-click": FCellEventPayload;
+        "kup-datatable-drop": KupDropEventPayload;
         "kup-datatable-cell-iconclick": FCellEventPayload;
         "kup-datatable-cell-input": FCellEventPayload;
         "kup-datatable-objectfield-searchpayload": FObjectFieldEventPayload;
@@ -5742,24 +5729,6 @@ declare global {
         prototype: HTMLKupPdfElement;
         new (): HTMLKupPdfElement;
     };
-    interface HTMLKupPhotoFrameElementEventMap {
-        "kup-photoframe-placeholderload": KupEventPayload;
-        "kup-photoframe-resourceload": KupEventPayload;
-    }
-    interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLKupPhotoFrameElement: {
-        prototype: HTMLKupPhotoFrameElement;
-        new (): HTMLKupPhotoFrameElement;
-    };
     interface HTMLKupPlannerElementEventMap {
         "kup-planner-click": KupPlannerEventPayload;
         "kup-planner-dblclick": KupPlannerEventPayload;
@@ -6163,7 +6132,6 @@ declare global {
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
         "kup-pdf": HTMLKupPdfElement;
-        "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
         "kup-probe": HTMLKupProbeElement;
@@ -7538,6 +7506,7 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        "onKup-datatable-drop"?: (event: KupDataTableCustomEvent<KupDropEventPayload>) => void;
         /**
           * Event fired when the history confirm button is pressed.
          */
@@ -7679,11 +7648,21 @@ declare namespace LocalJSX {
          */
         "updatableData"?: boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns"?: string[];
     }
     interface KupDatePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
@@ -8601,6 +8580,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
     }
     interface KupLazy {
         /**
@@ -8820,37 +8804,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "sendCredentials"?: boolean;
-    }
-    interface KupPhotoFrame {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://smeup.github.io/ketchup/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Triggered when the placeholder is loaded.
-         */
-        "onKup-photoframe-placeholderload"?: (event: KupPhotoFrameCustomEvent<KupEventPayload>) => void;
-        /**
-          * Triggered when the resource is loaded.
-         */
-        "onKup-photoframe-resourceload"?: (event: KupPhotoFrameCustomEvent<KupEventPayload>) => void;
-        /**
-          * Html attributes of the picture before the component enters the viewport.
-          * @default {}
-         */
-        "placeholderAttrs"?: GenericObject;
-        /**
-          * Html attributes of the picture after the component enters the viewport.
-          * @default {}
-         */
-        "resourceAttrs"?: GenericObject;
-        /**
-          * Percentage of the component dimensions entering the viewport (0.1 => 1).
-          * @default 0.25
-         */
-        "threshold"?: number;
     }
     interface KupPlanner {
         /**
@@ -10010,6 +9963,10 @@ declare namespace LocalJSX {
          */
         "totals"?: TotalsMap;
         /**
+          * The max-height of a tree
+         */
+        "treeHeight"?: string;
+        /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
          */
@@ -10138,7 +10095,6 @@ declare namespace LocalJSX {
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
         "kup-pdf": KupPdf;
-        "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
         "kup-probe": KupProbe;
@@ -10218,7 +10174,6 @@ declare module "@stencil/core" {
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
             "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
-            "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;

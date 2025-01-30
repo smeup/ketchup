@@ -1,5 +1,8 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { KupTextFieldEventPayload } from '../../components';
+import {
+    KupEditorEventPayload,
+    KupTextFieldEventPayload,
+} from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -27,6 +30,7 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupTagNames,
 } from '../../types/GenericTypes';
 import {
@@ -102,7 +106,14 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
-    const subcomponentProps: unknown = { ...cell.data };
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        ...(cell?.icon ? { resource: cell.icon } : {}),
+        ...(cell?.placeholderIcon
+            ? { placeholderResource: cell.placeholderIcon }
+            : {}),
+    };
+
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
@@ -163,18 +174,24 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
 
     let icon: VNode = null;
-    if (!isEditable && (column.icon || cell.icon) && content) {
-        const fProps: FImageProps = {
-            color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
-            resource: cell.icon ? cell.icon : column.icon,
-            placeholderResource: cell.placeholderIcon
-                ? cell.placeholderIcon
-                : column.placeholderIcon,
-            sizeX: '1.25em',
-            sizeY: '1.25em',
-            wrapperClass: 'obj-icon',
-        };
-        icon = <FImage {...fProps} />;
+    if (!isEditable && (column.icon || cell.icon)) {
+        if (
+            content &&
+            cellType != FCellTypes.IMAGE &&
+            cellType != FCellTypes.ICON
+        ) {
+            const fProps: FImageProps = {
+                color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
+                resource: cell.icon ? cell.icon : column.icon,
+                placeholderResource: cell.placeholderIcon
+                    ? cell.placeholderIcon
+                    : column.placeholderIcon,
+                sizeX: '1.25em',
+                sizeY: '1.25em',
+                wrapperClass: 'obj-icon',
+            };
+            icon = <FImage {...fProps} />;
+        }
     }
 
     let cellTitle: string = null;
@@ -204,6 +221,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         };
         infoEl = <FImage {...fProps} />;
     }
+
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -218,25 +236,47 @@ export const FCell: FunctionalComponent<FCellProps> = (
                 class="f-cell__content"
                 style={cell.styleContent}
                 title={cellTitle}
+                onMouseEnter={(e) => handleMouseEnter(e, props, cellType)}
+                onMouseLeave={(e) => handleMouseLeave(e)}
             >
-                {props.cellActionIcon && (
-                    <FImage
-                        resource="more_vert"
-                        sizeX="16px"
-                        sizeY="16px"
-                        wrapperClass={`f-cell__iconfunction ${
-                            cellType === FCellTypes.NUMBER ? 'left' : 'right'
-                        }`}
-                        onClick={props.cellActionIcon.onClick}
-                        tabIndex={0}
-                    />
-                )}
                 {children && children.length > 0
                     ? children
                     : [props.indents, infoEl, icon, content]}
             </div>
         </div>
     );
+};
+
+const handleMouseEnter = (
+    e: MouseEvent,
+    props: FCellProps,
+    cellType: FCellTypes
+) => {
+    if (props.cellActionIcon) {
+        const parent = e.currentTarget as HTMLElement;
+        const iconElement = document.createElement('kup-image');
+        iconElement.resource = 'more_vert';
+        iconElement.sizeX = '16px';
+        iconElement.sizeY = '16px';
+        iconElement.tabIndex = 0;
+        iconElement.className = `f-cell__iconfunction ${
+            cellType === FCellTypes.NUMBER ? 'left' : 'right'
+        }`;
+
+        if (props.cellActionIcon?.onClick) {
+            iconElement.addEventListener('click', props.cellActionIcon.onClick);
+        }
+        parent.appendChild(iconElement);
+    }
+};
+
+const handleMouseLeave = (event: MouseEvent) => {
+    const parent = event.currentTarget as HTMLElement;
+    const iconContainer = parent.querySelector('kup-image');
+
+    if (iconContainer) {
+        iconContainer.remove();
+    }
 };
 
 const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
@@ -704,18 +744,13 @@ function setEditableCell(
                 <FTextField
                     {...cell.data}
                     textArea={true}
+                    sizing={KupComponentSizing.EXTRA_LARGE}
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
                     value={cell.value}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                    }}
-                    onKeyDown={(e: KeyboardEvent) => {
-                        cell.data?.onKeyDown?.(e);
-                        if (e.key === 'Enter') {
-                            cellEvent(e, props, cellType, FCellEvents.UPDATE);
-                        }
                     }}
                     onInput={(e: InputEvent) => {
                         cell.data?.onInput?.(e);
@@ -892,7 +927,15 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (
+                    (!(
+                        cell.shape == 'MEMO' ||
+                        cellType == FCellTypes.MEMO ||
+                        cell.data?.maxLength >= 256
+                    ) &&
+                        e.key === 'Enter') ||
+                    /^F[1-9]|F1[0-2]$/.test(e.key)
+                ) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -915,17 +958,20 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                const isTextArea =
+                    (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
+                    (cellType ? cellType === FCellTypes.MEMO : false);
                 return (
                     <FTextField
-                        textArea={
-                            (cell.shape
-                                ? cell.shape === FCellShapes.MEMO
-                                : false) ||
-                            (cellType ? cellType === FCellTypes.MEMO : false)
+                        {...cell.data}
+                        textArea={isTextArea}
+                        sizing={
+                            isTextArea
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
-                        {...cell.data}
                         maxLength={
                             (cellType == FCellTypes.NUMBER &&
                                 ((props.column.decimals &&
@@ -1429,6 +1475,10 @@ function cellEvent(
                     ).detail.comp.data;
                 }
                 break;
+            case FCellTypes.EDITOR:
+            case FCellTypes.STRING:
+                value = JSON.stringify(value).slice(1, -1);
+                break;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
@@ -1478,7 +1528,6 @@ function getValueFromEventTarget(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
-
     if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
         value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
     }

@@ -225,12 +225,14 @@ export class KupCombobox {
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        if (!this.#isListOpened()) {
+            this.kupBlur.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupChange(value: string) {
@@ -463,6 +465,7 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
+        window.setTimeout(() => this.#listEl.setFocus(), 100);
     }
 
     #closeList() {
@@ -470,6 +473,7 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
+        window.setTimeout(() => this.#listEl.setBlur(), 100);
     }
 
     #isListOpened(): boolean {

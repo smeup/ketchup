@@ -26,6 +26,15 @@
     --kup-input-panel-font-size,
     var(--kup-font-size)
   );
+
+  --kup_textfield_textarea_height_input_panel: var(
+    --kup-textfield-textarea-height-input_panel,
+    200px
+  );
+  --kup_textfield_textarea_width_input_panel: var(
+    --kup-textfield-textarea-width-input_panel,
+    300px
+  );
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
@@ -80,6 +89,17 @@
       .f-cell__content {
         > * {
           width: 100%;
+        }
+      }
+    }
+
+    .f-text-field {
+      .mdc-text-field {
+        &.mdc-text-field--textarea {
+          min-height: var(
+            --kup_textfield_textarea_height_input_panel
+          ) !important;
+          min-width: var(--kup_textfield_textarea_width_input_panel) !important;
         }
       }
     }

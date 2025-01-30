@@ -6033,6 +6033,14 @@
             ></kup-image>
             <div class="icon-label">spellcheck</div>
           </div>
+          <div class="icon-wrapper" title="split_right">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="split_right"
+            ></kup-image>
+            <div class="icon-label">split_right</div>
+          </div>
           <div class="icon-wrapper" title="star_half">
             <kup-image
               size-x="48px"

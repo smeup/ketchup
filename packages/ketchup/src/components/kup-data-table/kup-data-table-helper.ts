@@ -29,7 +29,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { getRegExpFromString } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -753,6 +753,7 @@ function adjustGroupAverageOrFormula(
     } else {
         numberOfLeaf = children.length;
     }
+
     // adjust average/formulas
     toAdjustKeys.forEach((key) => {
         if (type == TotalMode.AVERAGE) {
@@ -798,192 +799,181 @@ export function normalizeRows(
 }
 
 export function calcTotals(
-    rows: Array<KupDataTableRow> = [],
-    totals: TotalsMap = {}
-): { [index: string]: number } {
+    totals: TotalsMap,
+    rows: Array<KupDataTableRow>,
+    columns?: KupDataColumn[]
+): { [index: string]: string } {
     if (
         dom.ketchup.objects.isEmptyJsObject(rows) ||
         dom.ketchup.objects.isEmptyJsObject(totals)
     ) {
         return {};
     }
-    const keys = Object.keys(totals);
-    const footerRow: { [index: string]: any } = {};
-    const dateColumns: string[] = new Array();
 
-    // if there are only COUNT, no need to loop on rows
-    let onlyCount =
-        keys.length === 0 ||
-        keys.every((key) => totals[key] === TotalMode.COUNT);
-    if (onlyCount) {
-        keys.forEach((columnName) => (footerRow[columnName] = rows.length));
-    } else {
-        let distinctObj = {};
-        rows.forEach((r, index, array) => {
-            keys.filter(
-                (key) =>
-                    TotalMode.COUNT !== totals[key] &&
-                    totals[key].indexOf(TotalMode.MATH) != 0
-            ).forEach((key) => {
-                // getting cell
-                const cell = r.cells[key];
-                if (cell) {
-                    if (totals[key] === TotalMode.DISTINCT) {
-                        let cellValue;
-                        if (dom.ketchup.objects.isNumber(cell.obj)) {
-                            cellValue = dom.ketchup.math.numberify(
-                                dom.ketchup.math.numberifySafe(cell.value)
-                            );
-                        } else {
-                            cellValue = cell.value;
-                        }
-                        let distinctList = distinctObj[key];
-                        if (!distinctList) {
-                            // first round
-                            distinctObj[key] = [];
-                            distinctObj[key].push(cellValue);
-                        } else {
-                            // update the list
-                            distinctList.push(cellValue);
-                        }
-                    } else if (dom.ketchup.objects.isNumber(cell.obj)) {
-                        const cellValue = dom.ketchup.math.numberify(
-                            dom.ketchup.math.numberifySafe(cell.value)
-                        );
-                        let currentFooterValue = footerRow[key];
-                        switch (true) {
-                            // TODO DRY the MIN and MAX functions
-                            case totals[key] === TotalMode.MIN:
-                                if (currentFooterValue) {
-                                    footerRow[key] = Math.min(
-                                        currentFooterValue,
-                                        cellValue
-                                    );
-                                } else {
-                                    footerRow[key] = cellValue;
-                                }
-                                break;
-                            case totals[key] === TotalMode.MAX:
-                                if (currentFooterValue) {
-                                    footerRow[key] = Math.max(
-                                        currentFooterValue,
-                                        cellValue
-                                    );
-                                } else {
-                                    footerRow[key] = cellValue;
-                                }
-                                break;
-                            default:
-                                // SUM
-                                currentFooterValue = footerRow[key] || 0;
-                                footerRow[key] =
-                                    cellValue +
-                                    dom.ketchup.math.numberify(
-                                        currentFooterValue
-                                    );
-                        }
-                        // TODO DRY the MIN and MAX functions
-                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
-                        if (dateColumns.indexOf(key) == -1) {
-                            dateColumns.push(key);
-                        }
-                        if (
-                            dom.ketchup.dates.isValidFormattedStringDate(
-                                cell.value
-                            )
-                        ) {
-                            const cellValue = dom.ketchup.dates.toDate(
-                                dom.ketchup.dates.toDayjs(cell.value)
-                            );
-                            const currentFooterValue = footerRow[key]
-                                ? dom.ketchup.dates.toDate(
-                                      dom.ketchup.dates.toDayjs(footerRow[key])
-                                  )
-                                : null;
-                            switch (true) {
-                                case totals[key] === TotalMode.MIN:
-                                    if (currentFooterValue) {
-                                        let moments = [];
-                                        moments.push(cellValue);
-                                        moments.push(currentFooterValue);
-                                        footerRow[key] =
-                                            dom.ketchup.dates.format(
-                                                dom.ketchup.dates.min(moments),
-                                                KupDatesFormats.ISO_DATE
-                                            );
-                                    } else {
-                                        footerRow[key] =
-                                            dom.ketchup.dates.format(
-                                                cellValue,
-                                                KupDatesFormats.ISO_DATE
-                                            );
-                                    }
-                                    break;
-                                case totals[key] === TotalMode.MAX:
-                                    if (currentFooterValue) {
-                                        let moments = [];
-                                        moments.push(cellValue);
-                                        moments.push(currentFooterValue);
-                                        footerRow[key] =
-                                            dom.ketchup.dates.format(
-                                                dom.ketchup.dates.max(moments),
-                                                KupDatesFormats.ISO_DATE
-                                            );
-                                    } else {
-                                        footerRow[key] =
-                                            dom.ketchup.dates.format(
-                                                cellValue,
-                                                KupDatesFormats.ISO_DATE
-                                            );
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                }
-                if (
-                    index === array.length - 1 &&
-                    totals[key] === TotalMode.DISTINCT
-                ) {
-                    // last round
-                    footerRow[key] = new Set(distinctObj[key]).size;
-                    distinctObj[key] = [];
-                }
-            });
-        });
-    }
-    // fixing MATH, AVERAGE and COUNT
-    for (let key of keys) {
-        switch (true) {
-            case totals[key] === TotalMode.AVERAGE:
-                const sum: number = footerRow[key];
-                if (sum && rows.length > 0) {
-                    footerRow[key] = sum / rows.length;
-                }
-                break;
-            case totals[key] === TotalMode.COUNT:
-                footerRow[key] = rows.length;
-                break;
-            case totals[key].indexOf(TotalMode.MATH) == 0:
-                footerRow[key] = dom.ketchup.math.formulas.custom(
-                    totals[key].substring(TotalMode.MATH.length),
-                    footerRow
-                );
-                break;
-            default:
-                break;
+    const footerRow: { [columnName: string]: string } = {};
+    const totalsEntriesWithFormula: [string, string][] = [];
+    // Filtered totals to exclude COUNT and MATH operations
+    const filteredTotalsEntries: [string, TotalMode][] = Object.entries(
+        totals
+    ).reduce((filteredTotalsEntries, [columnName, totalOperation]) => {
+        // Calc COUNT
+        if (totalOperation === TotalMode.COUNT) {
+            footerRow[columnName] = rows.length.toString();
+            return filteredTotalsEntries;
         }
-        if (footerRow[key]) {
-            if (dateColumns.indexOf(key) != -1) {
-                footerRow[key] = dom.ketchup.dates.format(footerRow[key]);
-            } else if (dom.ketchup.math.isNumber(footerRow[key])) {
-                footerRow[key] = +footerRow[key].toFixed(2);
+
+        if (totalOperation.indexOf(TotalMode.MATH) === 0) {
+            totalsEntriesWithFormula.push([columnName, totalOperation]);
+            return filteredTotalsEntries;
+        }
+
+        filteredTotalsEntries.push([columnName, totalOperation]);
+        return filteredTotalsEntries;
+    }, []);
+
+    if (!filteredTotalsEntries && !totalsEntriesWithFormula) {
+        // There are only COUNT totals operations
+        return footerRow;
+    }
+
+    type ObjType = 'generic' | 'number' | 'date';
+    const filteredTotalsColumns: {
+        columnName: string;
+        objType: ObjType;
+        totalOperation: TotalMode;
+        values: string[];
+    }[] = filteredTotalsEntries?.map(([columnName, totalOperation]) => {
+        let objType: ObjType = 'generic';
+        const obj =
+            columns?.find((column) => column.name === columnName)?.obj ??
+            rows[0].cells[columnName]?.obj;
+
+        if (dom.ketchup.objects.isNumber(obj)) {
+            objType = 'number';
+        }
+
+        if (dom.ketchup.objects.isDate(obj)) {
+            objType = 'date';
+        }
+
+        return {
+            columnName,
+            objType,
+            totalOperation,
+            values: rows.map((row) => row.cells[columnName].value),
+        };
+    });
+
+    // Calc SUM, AVERAGE, MIN, MAX and DISTINCT
+    filteredTotalsColumns?.forEach(
+        ({ columnName, objType, totalOperation, values }) => {
+            if (objType === 'number') {
+                if (totalOperation === TotalMode.SUM) {
+                    footerRow[columnName] = values
+                        .reduce((sum, value) => {
+                            sum += dom.ketchup.math.numberifySafe(value);
+                            return sum;
+                        }, 0)
+                        .toString();
+                    return;
+                }
+
+                if (totalOperation === TotalMode.AVERAGE) {
+                    footerRow[columnName] = (
+                        values.reduce((sum, value) => {
+                            sum += dom.ketchup.math.numberifySafe(value);
+                            return sum;
+                        }, 0) / rows.length
+                    ).toString();
+                    return;
+                }
+
+                if (totalOperation === TotalMode.MIN) {
+                    footerRow[columnName] = Math.min(
+                        ...values.map((value) =>
+                            dom.ketchup.math.numberifySafe(value)
+                        )
+                    ).toString();
+                    return;
+                }
+
+                if (totalOperation === TotalMode.MAX) {
+                    footerRow[columnName] = Math.max(
+                        ...values.map((value) =>
+                            dom.ketchup.math.numberifySafe(value)
+                        )
+                    ).toString();
+                    return;
+                }
+            }
+
+            if (objType === 'date') {
+                const dates = values
+                    .filter((value) => dom.ketchup.dates.isIsoDate(value))
+                    .map((value) =>
+                        dom.ketchup.dates.toDate(
+                            value,
+                            KupDatesFormats.ISO_DATE
+                        )
+                    );
+                if (!dates) {
+                    return;
+                }
+
+                if (totalOperation === TotalMode.MIN) {
+                    footerRow[columnName] = dom.ketchup.dates.format(
+                        dom.ketchup.dates.min(dates),
+                        KupDatesFormats.ISO_DATE
+                    );
+                    return;
+                }
+                if (totalOperation === TotalMode.MAX) {
+                    footerRow[columnName] = dom.ketchup.dates.format(
+                        dom.ketchup.dates.max(dates),
+                        KupDatesFormats.ISO_DATE
+                    );
+                    return;
+                }
+            }
+
+            if (totalOperation === TotalMode.DISTINCT) {
+                footerRow[columnName] = new Set(values).size.toString();
             }
         }
-    }
+    );
+
+    // Calc MATH
+    totalsEntriesWithFormula?.forEach(([columnName, totalOperation]) => {
+        const formula = totalOperation?.replace(
+            getRegExpFromString(TotalMode.MATH, 'g'),
+            ''
+        );
+
+        footerRow[columnName] = dom.ketchup.math.formulas
+            .custom(formula, getFooterRowOnlyNumbers(footerRow))
+            .toString();
+    });
+
     return footerRow;
+}
+
+export function getFooterRowOnlyNumbers(footerRow: {
+    [index: string]: string;
+}): { [index: string]: number } {
+    return Object.fromEntries(
+        Object.entries(footerRow)?.reduce<[string, number][]>(
+            (footerRowOnlyNumbers, [columnName, totalResult]) => {
+                if (dom.ketchup.math.isNumber(totalResult)) {
+                    footerRowOnlyNumbers.push([
+                        columnName,
+                        Number(totalResult),
+                    ]);
+                }
+                return footerRowOnlyNumbers;
+            },
+            []
+        )
+    );
 }
 
 function adjustGroupId(row: KupDataTableRow): void {

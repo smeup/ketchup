@@ -15,31 +15,50 @@ export function customFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
-    // Replace formula column references with the actual values
-    for (const [formulaColumnName, value] of Object.entries(row)) {
-        if (value == null || isNaN(value)) {
+    // Replace formula column names with the actual values
+    Object.entries(row).forEach(([formulaColumnName, value]) => {
+        if (value == null) {
             dom.ketchup.debug.logMessage(
                 'kup-data',
-                `Error while evaluating the formula ("${formula}"): ${formulaColumnName} is null or not a number.`,
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is null`,
                 KupDebugCategory.WARNING
             );
-            return NaN;
+            return;
+        }
+        if (isNaN(value)) {
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is not a number.`,
+                KupDebugCategory.WARNING
+            );
+            return;
         }
 
-        // Create a global RegExp to replace all occurrences of the column name
         const regex = getRegExpFromString(formulaColumnName, 'g');
         formula = formula.replace(regex, `(${value.toString()})`);
-    }
+    });
 
     // Remove any leftover brackets (in case there are unmatched ones)
     formula = formula.replace(/[\[\]']+/g, '');
 
     // Evaluate the formula
     try {
+        // Use a simple parser to handle comma and negative numbers properly
+        const sanitizedExpression = formula
+            // Replace commas with dots
+            .replace(/,/g, '.')
+            .replace(
+                /(^|[+\-*/(])(-\d+(\.\d+)?)/g,
+                (_, before, number) => `${before}(${number})`
+            );
         const mexp = new Mexp();
-        const lexedFormula = mexp.lex(formula);
+        const lexedFormula = mexp.lex(sanitizedExpression);
         const postFixedFormula = mexp.toPostfix(lexedFormula);
-        return mexp.postfixEval(postFixedFormula);
+        const result = mexp.postfixEval(postFixedFormula);
+        if (result === Infinity) {
+            throw Error('Result yielded infinity');
+        }
+        return result;
     } catch (error: any) {
         dom.ketchup.debug.logMessage(
             'kup-data',

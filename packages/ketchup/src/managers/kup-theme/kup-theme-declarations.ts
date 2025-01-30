@@ -189,6 +189,7 @@ export const fTextFieldUsers = [
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
     KupTagNames.TOOLBAR,
+    KupTagNames.LIST,
 ];
 /**
  * Components using the MDC ripple effect.
@@ -362,11 +363,61 @@ export enum KupThemeIconValues {
     KEY = '--kup-key-icon',
     SEARCH = '--kup-search-icon',
 }
+
 export enum KupThemeFonts {
-    IBM_PLEX_MONO = 'IBMPlexMono-Regular',
-    IBM_PLEX_SANS = 'IBMPlexSans-Regular',
+    IBM_PLEX_SANS = 'IbmPlexSans-Regular',
+    IBM_PLEX_SANS_LIGHT = 'IbmPlexSans-Light',
+    IBM_PLEX_SANS_LIGHT_ITALIC = 'IbmPlexSans-LightItalic',
+    IBM_PLEX_SANS_ITALIC = 'IbmPlexSans-Italic',
+    IBM_PLEX_SANS_MEDIUM = 'IbmPlexSans-Medium',
+    IBM_PLEX_SANS_MEDIUM_ITALIC = 'IbmPlexSans-MediumItalic',
+    IBM_PLEX_SANS_SEMI_BOLD = 'IbmPlexSans-SemiBold',
+    IBM_PLEX_SANS_SEMI_BOLD_ITALIC = 'IbmPlexSans-SemiBoldItalic',
+    IBM_PLEX_SANS_BOLD = 'IbmPlexSans-Bold',
+    IBM_PLEX_SANS_BOLD_ITALIC = 'IbmPlexSans-BoldItalic',
+    IBM_PLEX_SANS_EXTRA_BOLD = 'IbmPlexSans-ExtraBold',
+    IBM_PLEX_SANS_EXTRA_BOLD_ITALIC = 'IbmPlexSans-ExtraBoldItalic',
+    IBM_PLEX_MONO = 'IbmPlexMono-Regular',
+    IBM_PLEX_MONO_LIGHT = 'IbmPlexMono-Light',
+    IBM_PLEX_MONO_LIGHT_ITALIC = 'IbmPlexMono-LightItalic',
+    IBM_PLEX_MONO_ITALIC = 'IbmPlexMono-Italic',
+    IBM_PLEX_MONO_MEDIUM = 'IbmPlexMono-Medium',
+    IBM_PLEX_MONO_MEDIUM_ITALIC = 'IbmPlexMono-MediumItalic',
+    IBM_PLEX_MONO_SEMI_BOLD = 'IbmPlexMono-SemiBold',
+    IBM_PLEX_MONO_SEMI_BOLD_ITALIC = 'IbmPlexMono-SemiBoldItalic',
+    IBM_PLEX_MONO_BOLD = 'IbmPlexMono-Bold',
+    IBM_PLEX_MONO_BOLD_ITALIC = 'IbmPlexMono-BoldItalic',
+    IBM_PLEX_MONO_EXTRA_BOLD = 'IbmPlexMono-ExtraBold',
+    IBM_PLEX_MONO_EXTRA_BOLD_ITALIC = 'IbmPlexMono-ExtraBoldItalic',
 }
+
 export const KupThemeFontFamilyMap: Record<KupThemeFonts, string> = {
     [KupThemeFonts.IBM_PLEX_MONO]: 'IBM Plex Mono',
+    [KupThemeFonts.IBM_PLEX_MONO_LIGHT]: 'IBM Plex Mono Light',
+    [KupThemeFonts.IBM_PLEX_MONO_LIGHT_ITALIC]: 'IBM Plex Mono Light Italic',
+    [KupThemeFonts.IBM_PLEX_MONO_ITALIC]: 'IBM Plex Mono Italic',
+    [KupThemeFonts.IBM_PLEX_MONO_MEDIUM]: 'IBM Plex Mono Medium',
+    [KupThemeFonts.IBM_PLEX_MONO_MEDIUM_ITALIC]: 'IBM Plex Mono Medium Italic',
+    [KupThemeFonts.IBM_PLEX_MONO_SEMI_BOLD]: 'IBM Plex Mono SemiBold',
+    [KupThemeFonts.IBM_PLEX_MONO_SEMI_BOLD_ITALIC]:
+        'IBM Plex Mono SemiBold Italic',
+    [KupThemeFonts.IBM_PLEX_MONO_BOLD]: 'IBM Plex Mono Bold',
+    [KupThemeFonts.IBM_PLEX_MONO_BOLD_ITALIC]: 'IBM Plex Mono Bold Italic',
+    [KupThemeFonts.IBM_PLEX_MONO_EXTRA_BOLD]: 'IBM Plex Mono ExtraBold',
+    [KupThemeFonts.IBM_PLEX_MONO_EXTRA_BOLD_ITALIC]:
+        'IBM Plex Mono ExtraBold Italic',
     [KupThemeFonts.IBM_PLEX_SANS]: 'IBM Plex Sans',
+    [KupThemeFonts.IBM_PLEX_SANS_LIGHT]: 'IBM Plex Sans Light',
+    [KupThemeFonts.IBM_PLEX_SANS_LIGHT_ITALIC]: 'IBM Plex Sans Light Italic',
+    [KupThemeFonts.IBM_PLEX_SANS_ITALIC]: 'IBM Plex Sans Italic',
+    [KupThemeFonts.IBM_PLEX_SANS_MEDIUM]: 'IBM Plex Sans Medium',
+    [KupThemeFonts.IBM_PLEX_SANS_MEDIUM_ITALIC]: 'IBM Plex Sans Medium Italic',
+    [KupThemeFonts.IBM_PLEX_SANS_SEMI_BOLD]: 'IBM Plex Sans SemiBold',
+    [KupThemeFonts.IBM_PLEX_SANS_SEMI_BOLD_ITALIC]:
+        'IBM Plex Sans SemiBold Italic',
+    [KupThemeFonts.IBM_PLEX_SANS_BOLD]: 'IBM Plex Sans Bold',
+    [KupThemeFonts.IBM_PLEX_SANS_BOLD_ITALIC]: 'IBM Plex Sans Bold Italic',
+    [KupThemeFonts.IBM_PLEX_SANS_EXTRA_BOLD]: 'IBM Plex Sans ExtraBold',
+    [KupThemeFonts.IBM_PLEX_SANS_EXTRA_BOLD_ITALIC]:
+        'IBM Plex Sans ExtraBold Italic',
 };

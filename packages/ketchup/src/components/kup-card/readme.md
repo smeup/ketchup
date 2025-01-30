@@ -136,7 +136,6 @@ Type: `Promise<void>`
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
- - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
  - [kup-progress-bar](../kup-progress-bar)
@@ -157,6 +156,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-image](../kup-image)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
 - [kup-text-field](../kup-text-field)
@@ -165,7 +165,6 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
-- [kup-image](../kup-image)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -188,20 +187,20 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-card --> kup-card
+  kup-image --> kup-card
+  kup-dialog --> kup-card
+  kup-badge --> kup-card
+  kup-spinner --> kup-card
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
-  kup-dialog --> kup-card
-  kup-badge --> kup-card
-  kup-text-field --> kup-card
   kup-chip --> kup-card
+  kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
   kup-rating --> kup-card
   kup-time-picker --> kup-card
-  kup-image --> kup-card
-  kup-spinner --> kup-card
   kup-button-list --> kup-card
   kup-dropdown-button --> kup-card
   kup-chart --> kup-card
@@ -237,7 +236,6 @@ graph TD;
   kup-numeric-picker --> kup-card
   kup-object-field --> kup-card
   kup-pdf --> kup-card
-  kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card
   kup-qlik --> kup-card

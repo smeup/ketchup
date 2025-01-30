@@ -142,7 +142,6 @@ Type: `Promise<void>`
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
- - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
  - [kup-progress-bar](../kup-progress-bar)
@@ -173,18 +172,18 @@ graph TD;
   kup-dialog --> kup-dialog
   kup-badge --> kup-dialog
   kup-card --> kup-dialog
+  kup-image --> kup-dialog
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-dialog
   kup-list --> kup-dialog
   kup-radio --> kup-dialog
-  kup-text-field --> kup-dialog
   kup-chip --> kup-dialog
+  kup-text-field --> kup-dialog
   kup-color-picker --> kup-dialog
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
-  kup-image --> kup-dialog
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-dialog
   kup-dropdown-button --> kup-dialog
   kup-chart --> kup-dialog
@@ -220,7 +219,6 @@ graph TD;
   kup-numeric-picker --> kup-dialog
   kup-object-field --> kup-dialog
   kup-pdf --> kup-dialog
-  kup-photo-frame --> kup-dialog
   kup-planner --> kup-dialog
   kup-probe --> kup-dialog
   kup-qlik --> kup-dialog
