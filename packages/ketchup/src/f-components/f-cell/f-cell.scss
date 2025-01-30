@@ -533,7 +533,7 @@
   }
 
   &.dense {
-    --kup-textfield-fullwidth-height: 28px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_dense_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     --kup-checkbox-padding: 0px;
     --kup-chip-margin: 0 4px;
@@ -542,14 +542,14 @@
   }
 
   &.medium {
-    --kup-textfield-fullwidth-height: 36px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_medium_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     min-height: var(--kup_fcell_medium_min_height);
     padding: var(--kup_fcell_padding_medium);
   }
 
   &.wide {
-    --kup-textfield-fullwidth-height: 50px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_wide_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     min-height: var(--kup_fcell_wide_min_height);
     padding: var(--kup_fcell_padding_wide);
