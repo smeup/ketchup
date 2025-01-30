@@ -2145,8 +2145,12 @@ export class KupTree {
 
         let wrapperClass: string = 'density-medium';
         const wrapperStyle: Record<string, string> = {
-            overflow: 'auto',
-            ...(this.treeHeight ? { maxHeight: this.treeHeight } : {}),
+            ...(this.treeHeight
+                ? {
+                      maxHeight: this.treeHeight,
+                      overflow: 'auto',
+                  }
+                : {}),
         };
         switch (this.density) {
             case FCellPadding.DENSE:
