@@ -287,11 +287,14 @@ export class KupTree {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-
     /**
      * The mode of the global filter (default SIMPLE)
      */
     @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
+    /**
+     * The max-height of a tree
+     */
+    @Prop() treeHeight: string = undefined;
     /**
      * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells.
      * It works only on cells of the main column.
@@ -2139,7 +2142,16 @@ export class KupTree {
         this.contentRefs = [];
 
         this.sizedColumns = this.getSizedColumns();
+
         let wrapperClass: string = 'density-medium';
+        const wrapperStyle: Record<string, string> = {
+            ...(this.treeHeight
+                ? {
+                      maxHeight: this.treeHeight,
+                      overflow: 'auto',
+                  }
+                : {}),
+        };
         switch (this.density) {
             case FCellPadding.DENSE:
                 wrapperClass = 'density-dense';
@@ -2208,7 +2220,11 @@ export class KupTree {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} class={wrapperClass}>
+                <div
+                    id={componentWrapperId}
+                    class={wrapperClass}
+                    style={wrapperStyle}
+                >
                     {filterField}
                     <div
                         class="wrapper"
