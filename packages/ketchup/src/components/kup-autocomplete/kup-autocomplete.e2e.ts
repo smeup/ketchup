@@ -83,7 +83,7 @@ describe('kup-autocomplete', () => {
         expect(suggestions).not.toBeNull();
 
         suggestions.forEach((el, index) => {
-            const expectedText = data[index].id;
+            const expectedText = `${data[index].id} - ${data[index].value}`;
             const actualText = el.textContent.trim();
             expect(actualText).toBe(expectedText);
         });
