@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -36,7 +35,6 @@ import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { dA } from '@fullcalendar/core/internal-common';
 
 @Component({
     tag: 'kup-list',
@@ -664,15 +662,8 @@ export class KupList {
     };
 
     onFilterValueChange(event) {
-        if (event != null) {
-            if (event.data) {
-                this.#filterValue += event.data;
-            } else {
-                this.#filterValue = this.#filterValue.substring(
-                    0,
-                    this.#filterValue.length - 1
-                );
-            }
+        if (event != null && event.target) {
+            this.#filterValue = event.target.value;
             this.filter = this.#filterValue;
         }
     }

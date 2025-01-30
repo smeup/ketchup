@@ -135,13 +135,14 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
 
 function getRowsItems(props: FPaginatorProps) {
     const rowsPerPageItems: KupListNode[] = [];
+    const max = Math.min(props.max, props.maxRowsPerPage);
     let i = props.perPage;
 
     if (i === 0) {
         return rowsPerPageItems;
     }
 
-    while (i < props.max) {
+    while (i < max) {
         const selected = i == props.perPage;
         rowsPerPageItems.push({
             id: i.toString(),
@@ -151,11 +152,11 @@ function getRowsItems(props: FPaginatorProps) {
         i = i * 2;
     }
 
-    const selected = props.max == props.perPage;
+    const selected = max == props.perPage;
     rowsPerPageItems.push({
-        id: props.max.toString(),
+        id: max.toString(),
         selected: selected,
-        value: props.max.toString(),
+        value: max.toString(),
     });
 
     return rowsPerPageItems;

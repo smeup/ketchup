@@ -503,8 +503,12 @@ export class KupInteract {
     unregister(elements: HTMLElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
+                const el = elements[index];
                 this.managedElements.delete(elements[index]);
-                interact(elements[index]).unset();
+                if (!el) {
+                    continue;
+                }
+                interact(el).unset();
             }
         }
     }

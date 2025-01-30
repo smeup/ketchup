@@ -106,7 +106,14 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
-    const subcomponentProps: unknown = { ...cell.data };
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        ...(cell?.icon ? { resource: cell.icon } : {}),
+        ...(cell?.placeholderIcon
+            ? { placeholderResource: cell.placeholderIcon }
+            : {}),
+    };
+
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
@@ -167,18 +174,24 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
 
     let icon: VNode = null;
-    if (!isEditable && (column.icon || cell.icon) && content) {
-        const fProps: FImageProps = {
-            color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
-            resource: cell.icon ? cell.icon : column.icon,
-            placeholderResource: cell.placeholderIcon
-                ? cell.placeholderIcon
-                : column.placeholderIcon,
-            sizeX: '1.25em',
-            sizeY: '1.25em',
-            wrapperClass: 'obj-icon',
-        };
-        icon = <FImage {...fProps} />;
+    if (!isEditable && (column.icon || cell.icon)) {
+        if (
+            content &&
+            cellType != FCellTypes.IMAGE &&
+            cellType != FCellTypes.ICON
+        ) {
+            const fProps: FImageProps = {
+                color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
+                resource: cell.icon ? cell.icon : column.icon,
+                placeholderResource: cell.placeholderIcon
+                    ? cell.placeholderIcon
+                    : column.placeholderIcon,
+                sizeX: '1.25em',
+                sizeY: '1.25em',
+                wrapperClass: 'obj-icon',
+            };
+            icon = <FImage {...fProps} />;
+        }
     }
 
     let cellTitle: string = null;
@@ -727,11 +740,6 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
-            try {
-                cell.value = JSON.parse(`"${cell.value}"`);
-            } catch (e) {
-                cell.value = JSON.parse(JSON.stringify(cell.value));
-            }
             return (
                 <FTextField
                     {...cell.data}
@@ -919,7 +927,15 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (
+                    (!(
+                        cell.shape == 'MEMO' ||
+                        cellType == FCellTypes.MEMO ||
+                        cell.data?.maxLength >= 256
+                    ) &&
+                        e.key === 'Enter') ||
+                    /^F[1-9]|F1[0-2]$/.test(e.key)
+                ) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -942,17 +958,20 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                const isTextArea =
+                    (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
+                    (cellType ? cellType === FCellTypes.MEMO : false);
                 return (
                     <FTextField
-                        textArea={
-                            (cell.shape
-                                ? cell.shape === FCellShapes.MEMO
-                                : false) ||
-                            (cellType ? cellType === FCellTypes.MEMO : false)
+                        {...cell.data}
+                        textArea={isTextArea}
+                        sizing={
+                            isTextArea
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
-                        {...cell.data}
                         maxLength={
                             (cellType == FCellTypes.NUMBER &&
                                 ((props.column.decimals &&
@@ -1457,6 +1476,7 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.EDITOR:
+            case FCellTypes.STRING:
                 value = JSON.stringify(value).slice(1, -1);
                 break;
         }
