@@ -18,6 +18,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupTreeNodeSelectedEventPayload } from '../kup-tree/kup-tree-declarations';
 import { KupMultiSelectProps } from './kup-multi-select-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { getParentNode } from '../../managers/kup-data/kup-data-node-helper';
 
 @Component({
     tag: 'kup-multi-select',
@@ -54,8 +55,9 @@ export class KupMultiSelect {
         setProps(this, KupMultiSelectProps, props);
     }
 
-    //this may be useful eventually
-
+    /**
+     * Returns the value of the node + the values of all children if it has any
+     */
     extractTreeNodeValues(node: KupDataNode): string[] {
         let nodes: string[] = [];
 
@@ -75,30 +77,79 @@ export class KupMultiSelect {
     }
 
     onNodeSelected(e: CustomEvent<KupTreeNodeSelectedEventPayload>) {
-        const selectedNodeValue = e.detail.treeNode.value;
-        const chipIndex = this.data['kup-chip'].findIndex(
-            (chip) => chip.id === selectedNodeValue
+        const selectedNode = e.detail.treeNode;
+        const selectedValues = this.extractTreeNodeValues(selectedNode); // Get node value + all child values
+
+        // Check if node that has been clicked is already selected, and also if all its children are already selected (in this case we would deselect)
+        const isSelected = selectedValues.every((value) =>
+            this.data['kup-chip'].some((chip) => chip.id === value)
         );
 
-        if (chipIndex !== -1) {
-            //already selected, deselect
-            this.data['kup-chip'] = [
-                ...this.data['kup-chip'].slice(0, chipIndex),
-                ...this.data['kup-chip'].slice(chipIndex + 1),
-            ];
-            console.log('eliminando\n' + JSON.stringify(this.data['kup-chip']));
-        } else {
-            //not selected
-            this.data['kup-chip'].push({
-                id: selectedNodeValue,
-                value: selectedNodeValue,
-            });
-            console.log(
-                'aggiungendo\n' + JSON.stringify(this.data['kup-chip'])
+        if (isSelected) {
+            // Deselect: Remove selected values from kup-chip
+            this.data['kup-chip'] = this.data['kup-chip'].filter(
+                (chip) => !selectedValues.includes(chip.id)
             );
+
+            // Deselect parent if not all children are selected
+            let parentNode = getParentNode(this.data['kup-tree'], selectedNode); // Using the library function
+            while (parentNode) {
+                const parentChildren =
+                    parentNode.children?.map((child) => child.value) || [];
+                const allChildrenSelected = parentChildren.every((value) =>
+                    this.data['kup-chip'].some((chip) => chip.id === value)
+                );
+
+                if (!allChildrenSelected) {
+                    this.data['kup-chip'] = this.data['kup-chip'].filter(
+                        (chip) => chip.id !== parentNode.value
+                    );
+                }
+
+                parentNode = getParentNode(this.data['kup-tree'], parentNode); // Using the library function again
+            }
+        } else {
+            // Select: Add nodes to kup-chip
+            selectedValues.forEach((value) => {
+                if (!this.data['kup-chip'].some((chip) => chip.id === value)) {
+                    this.data['kup-chip'].push({ id: value, value });
+                }
+            });
+
+            // Check if parent can be selected
+            let parentNode = getParentNode(this.data['kup-tree'], selectedNode); // Using the library function
+            while (parentNode) {
+                const parentChildren =
+                    parentNode.children?.map((child) => child.value) || [];
+                const allChildrenSelected = parentChildren.every((value) =>
+                    this.data['kup-chip'].some((chip) => chip.id === value)
+                );
+
+                if (allChildrenSelected) {
+                    if (
+                        !this.data['kup-chip'].some(
+                            (chip) => chip.id === parentNode.value
+                        )
+                    ) {
+                        this.data['kup-chip'].push({
+                            id: parentNode.value,
+                            value: parentNode.value,
+                        });
+                    }
+                }
+
+                parentNode = getParentNode(this.data['kup-tree'], parentNode); // Using the library function again
+            }
         }
 
+        // Assign new data prop to kup-chip component, triggering visual update
         this.#chips.data = [...this.data['kup-chip']];
+
+        // Log selected values for MongoDB query
+        console.log(
+            'Selected values for MongoDB:',
+            this.data['kup-chip'].map((chip) => chip.id)
+        );
     }
 
     componentWillLoad() {
