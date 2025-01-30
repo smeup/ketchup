@@ -4892,16 +4892,25 @@ export class KupDataTable {
 
     onTotalsChange(event, column) {
         this.#closeTotalMenu();
-        if (column && this.totals) {
-            const selectedElementId = event.detail.selected.id;
-            selectedElementId === TotalLabel.CANC && this.totals[column.name]
-                ? // Delete column from totals
-                  delete this.totals[column.name]
-                : // Update total operation for the specified column
-                  (this.totals[column.name] = selectedElementId);
-
-            this.totals = { ...this.totals }; // Trigger totals watcher
+        if (!column) {
+            return;
         }
+
+        const selectedElementId = event.detail.selected.id;
+        const newTotals = this.totals ?? {};
+
+        // Delete column from totals
+        if (selectedElementId === TotalLabel.CANC) {
+            delete newTotals[column.name];
+            this.totals = Object.keys(newTotals).length
+                ? { ...newTotals } // Trigger totals watcher
+                : undefined;
+            return;
+        }
+
+        // Add/update total operation for the specified column
+        newTotals[column.name] = selectedElementId;
+        this.totals = { ...newTotals }; // Trigger totals watcher
     }
 
     #totalMenuPosition() {
@@ -5112,18 +5121,24 @@ export class KupDataTable {
 
                     // Add list elements
                     const listData: KupListNode[] = [];
-                    if (this.totals && column.formula) {
+                    if (column.formula) {
                         /* Formula cloumn */
                         const formula = (
-                            this.totals[column.name] ?? column.formula
-                        ).replace(getRegExpFromString(TotalMode.MATH, 'g'), '');
+                            (this.#hasTotals() && this.totals[column.name]) ||
+                            column.formula
+                        )?.replace(
+                            getRegExpFromString(TotalMode.MATH, 'g'),
+                            ''
+                        );
                         const totalsListElements =
                             getTotalsListElements(formula);
                         // Add formula
                         listData.push(
                             {
                                 ...totalsListElements[TotalMode.MATH],
-                                selected: !!this.totals[column.name],
+                                selected: this.#hasTotals()
+                                    ? !!this.totals[column.name]
+                                    : false,
                             },
                             {
                                 ...totalsListElements[TotalLabel.CANC],
@@ -5163,7 +5178,7 @@ export class KupDataTable {
                             );
                         }
 
-                        if (this.totals) {
+                        if (this.#hasTotals()) {
                             const selectedItem: KupListNode = listData.find(
                                 (item) => item.id === this.totals[column.name]
                             );
