@@ -2098,8 +2098,8 @@ export class KupTree {
         if (this.showFooter && this.columns) {
             this.footer = calcTotals(
                 this.totals,
-                normalizeRows(this.getColumns(), this.nodesToRows()),
-                this.getColumns()
+                this.getColumns(),
+                normalizeRows(this.getColumns(), this.nodesToRows())
             );
         }
         this.filterNodes();
