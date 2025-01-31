@@ -127,6 +127,7 @@ export const FCellShapes = {
     COMBOBOX: 'CMB',
     DATE: 'CAL',
     EDITOR: 'EDT',
+    FILE_UPLOAD: 'FUP',
     GAUGE: 'GAU',
     IMAGE: 'IMG',
     ICON: 'ICO',
@@ -168,6 +169,7 @@ export enum FCellTypes {
     DATE = 'date',
     DATETIME = 'datetime',
     EDITOR = 'editor',
+    FILE_UPLOAD = 'file-upload',
     GAUGE = 'gauge',
     ICON = 'icon',
     IMAGE = 'image',
@@ -205,6 +207,7 @@ export const editableTypes = [
     FCellTypes.SWITCH,
     FCellTypes.TIME,
     FCellTypes.EDITOR,
+    FCellTypes.FILE_UPLOAD,
 ];
 export const kupTypes = [
     FCellTypes.BAR,

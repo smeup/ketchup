@@ -23,6 +23,7 @@ import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+import { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -84,6 +85,7 @@ export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+export { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -5136,6 +5138,7 @@ declare global {
     };
     interface HTMLKupCellElementEventMap {
         "kup-cell-submit-click": KupCellSubmitClickEventPayload;
+        "kup-cell-upload": KupFileUploadEventPayload;
     }
     interface HTMLKupCellElement extends Components.KupCell, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupCellElementEventMap>(type: K, listener: (this: HTMLKupCellElement, ev: KupCellCustomEvent<HTMLKupCellElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5460,6 +5463,7 @@ declare global {
     };
     interface HTMLKupFileUploadElementEventMap {
         "kup-file-upload-ready": KupEventPayload;
+        "kup-file-upload-upload": KupFileUploadEventPayload;
     }
     interface HTMLKupFileUploadElement extends Components.KupFileUpload, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6914,6 +6918,7 @@ declare namespace LocalJSX {
          */
         "dragEnabled"?: boolean;
         "onKup-cell-submit-click"?: (event: KupCellCustomEvent<KupCellSubmitClickEventPayload>) => void;
+        "onKup-cell-upload"?: (event: KupCellCustomEvent<KupFileUploadEventPayload>) => void;
         /**
           * Show submit button
          */
@@ -8097,6 +8102,7 @@ declare namespace LocalJSX {
           * When component load is complete
          */
         "onKup-file-upload-ready"?: (event: KupFileUploadCustomEvent<KupEventPayload>) => void;
+        "onKup-file-upload-upload"?: (event: KupFileUploadCustomEvent<KupFileUploadEventPayload>) => void;
     }
     interface KupForm {
         /**

@@ -22,7 +22,10 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
-import { KupFileUploadProps } from './kup-file-upload-declaration';
+import {
+    KupFileUploadEventPayload,
+    KupFileUploadProps,
+} from './kup-file-upload-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -149,6 +152,13 @@ export class KupFileUpload {
     })
     kupReady: EventEmitter<KupEventPayload>;
 
+    @Event({
+        eventName: 'kup-file-upload-upload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupUpload: EventEmitter<KupFileUploadEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -206,6 +216,15 @@ export class KupFileUpload {
             ? fileName.slice(0, 9) + '...' + fileName.slice(-10)
             : fileName;
     }
+
+    #uploadClick(e: MouseEvent): void {
+        e.stopPropagation();
+        this.kupUpload.emit({
+            comp: this,
+            id: this.rootElement.id,
+            files: this.files,
+        });
+    }
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -251,6 +270,7 @@ export class KupFileUpload {
                             type="file"
                             ref={(el) => (this.inputRef = el)}
                             onChange={this.#handleFileChange.bind(this)}
+                            multiple
                             hidden
                         ></input>
                         <div class="file-upload__buttons">
@@ -267,6 +287,7 @@ export class KupFileUpload {
                                 label={this.#kupManager.language.translate(
                                     KupLanguageGeneric.UPLOAD
                                 )}
+                                onClick={this.#uploadClick.bind(this)}
                                 styling={FButtonStyling.FLAT}
                             ></FButton>
                             <FButton
