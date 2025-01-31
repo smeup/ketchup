@@ -521,6 +521,7 @@ export class KupCombobox {
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false
                 }
+                filter={''}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
