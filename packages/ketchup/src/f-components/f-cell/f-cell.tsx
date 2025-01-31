@@ -715,6 +715,9 @@ function setEditableCell(
                     onKup-combobox-blur={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.DATE:
