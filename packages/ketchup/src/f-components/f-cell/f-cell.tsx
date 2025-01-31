@@ -601,6 +601,9 @@ function setEditableCell(
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
+    if (cell.data?.maxLength >= 256) {
+        cell.shape = 'MEMO';
+    }
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
             return (
@@ -740,6 +743,7 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+        case FCellTypes.MEMO:
             return (
                 <FTextField
                     {...cell.data}
@@ -917,7 +921,7 @@ function setEditableCell(
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
-        case FCellTypes.MEMO:
+        // case FCellTypes.MEMO:
         case FCellTypes.STRING:
             const onChange = (e: InputEvent) =>
                 cellEvent(e, props, cellType, FCellEvents.UPDATE);
@@ -950,9 +954,9 @@ function setEditableCell(
                     ></input>
                 );
             } else {
-                const isTextArea =
-                    (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
-                    (cellType ? cellType === FCellTypes.MEMO : false);
+                const isTextArea = false;
+                // (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
+                // (cellType ? cellType === FCellTypes.MEMO : false);
                 return (
                     <FTextField
                         {...cell.data}
@@ -1050,6 +1054,7 @@ function setCell(
                 />
             );
         case FCellTypes.EDITOR:
+        case FCellTypes.MEMO:
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
@@ -1466,10 +1471,6 @@ function cellEvent(
                         e as CustomEvent<KupChipChangeEventPayload>
                     ).detail.comp.data;
                 }
-                break;
-            case FCellTypes.EDITOR:
-            case FCellTypes.STRING:
-                value = JSON.stringify(value).slice(1, -1);
                 break;
         }
         if (cell.obj) {
