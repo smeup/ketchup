@@ -422,6 +422,7 @@ export class KupInteract {
         el: HTMLElement,
         handleEl?: HTMLElement,
         unresizable?: boolean,
+        isDraggable?: boolean,
         restrictContainer?: RectResolvable<
             [number, number, Interaction<keyof ActionMap>]
         >
@@ -434,23 +435,25 @@ export class KupInteract {
                 el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
             },
         };
-        this.draggable(
-            el,
-            {
-                allowFrom: handleEl ? handleEl : null,
-                modifiers: [
-                    interact.modifiers.restrictRect({
-                        restriction: restrictContainer
-                            ? restrictContainer
-                            : dom.ketchup.interact.restrictContainer,
-                        endOnly: true,
-                    }),
-                ],
-            },
-            null,
-            KupDragEffect.MOVE,
-            callbacks
-        );
+        if (isDraggable) {
+            this.draggable(
+                el,
+                {
+                    allowFrom: handleEl ? handleEl : null,
+                    modifiers: [
+                        interact.modifiers.restrictRect({
+                            restriction: restrictContainer
+                                ? restrictContainer
+                                : dom.ketchup.interact.restrictContainer,
+                            endOnly: true,
+                        }),
+                    ],
+                },
+                null,
+                KupDragEffect.MOVE,
+                callbacks
+            );
+        }
         if (!unresizable) {
             el.classList.add(kupDialogResizableClass);
             this.resizable(

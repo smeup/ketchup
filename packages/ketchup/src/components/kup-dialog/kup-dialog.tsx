@@ -68,6 +68,11 @@ export class KupDialog {
      */
     @Prop() resizable = true;
     /**
+     * Sets whether the dialog is draggable or not.
+     * @default "true"
+     */
+    @Prop() isDraggable = true;
+    /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
      */
@@ -221,7 +226,8 @@ export class KupDialog {
         this.#kupManager.interact.dialogify(
             this.rootElement,
             this.#header ? this.#header : null,
-            !this.resizable
+            !this.resizable,
+            this.isDraggable
         );
         if (this.autoCenter?.onReady) {
             this.recalcPosition();
