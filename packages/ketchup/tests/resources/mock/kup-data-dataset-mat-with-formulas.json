@@ -146,6 +146,20 @@
             "integers": 15,
             "decimals": 2,
             "formula": "([COL2]-[COL1])*100/[COL2]"
+        },
+        {
+            "name": "SUM15",
+            "title": "DIFF12 + DIFF13",
+            "visible": true,
+            "isEditable": false,
+            "obj": {
+                "t": "NR",
+                "p": "",
+                "k": ""
+            },
+            "integers": 15,
+            "formula": "([DIFF12]+[DIFF13])",
+            "decimals": 0
         }
     ],
     "rows": [
@@ -315,6 +329,22 @@
                         "k": "92"
                     },
                     "value": "92",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "135"
+                    },
+                    "value": "135",
                     "data": {
                         "integers": 15,
                         "decimals": 2,
@@ -501,6 +531,22 @@
                     "style": {},
                     "cssClass": "",
                     "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "-39"
+                    },
+                    "value": "-39",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
                 }
             },
             "id": "1"
@@ -671,6 +717,22 @@
                         "k": ""
                     },
                     "value": "---",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "0"
+                    },
+                    "value": "0",
                     "data": {
                         "integers": 15,
                         "decimals": 2,
@@ -857,6 +919,22 @@
                     "style": {},
                     "cssClass": "",
                     "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "10"
+                    },
+                    "value": "10",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
                 }
             },
             "id": "3"
@@ -1035,6 +1113,22 @@
                     "style": {},
                     "cssClass": "",
                     "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "15"
+                    },
+                    "value": "15",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
                 }
             },
             "id": "4"
@@ -1205,6 +1299,22 @@
                         "k": "74,24511545"
                     },
                     "value": "74.24511545",
+                    "data": {
+                        "integers": 15,
+                        "decimals": 2,
+                        "legacyLook": false
+                    },
+                    "style": {},
+                    "cssClass": "",
+                    "isEditable": false
+                },
+                "SUM15": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "P",
+                        "k": "273000015"
+                    },
+                    "value": "273000015",
                     "data": {
                         "integers": 15,
                         "decimals": 2,
