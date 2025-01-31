@@ -139,6 +139,9 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog

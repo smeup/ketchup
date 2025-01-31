@@ -184,6 +184,9 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-button-list --> kup-dropdown-button
