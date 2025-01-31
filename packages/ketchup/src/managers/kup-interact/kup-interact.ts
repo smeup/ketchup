@@ -422,7 +422,7 @@ export class KupInteract {
         el: HTMLElement,
         handleEl?: HTMLElement,
         unresizable?: boolean,
-        isDraggable?: boolean,
+        isDraggable: boolean = true,
         restrictContainer?: RectResolvable<
             [number, number, Interaction<keyof ActionMap>]
         >

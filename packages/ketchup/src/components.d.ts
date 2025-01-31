@@ -1955,6 +1955,11 @@ export namespace Components {
          */
         "header": KupDialogHeader;
         /**
+          * Sets whether the dialog is draggable or not.
+          * @default "true"
+         */
+        "isDraggable": boolean;
+        /**
           * The max width of the dialog, defaults to 90dvw.
           * @default "auto"
          */
@@ -7701,6 +7706,11 @@ declare namespace LocalJSX {
           * @default "{ icons: { close: true } }"
          */
         "header"?: KupDialogHeader;
+        /**
+          * Sets whether the dialog is draggable or not.
+          * @default "true"
+         */
+        "isDraggable"?: boolean;
         /**
           * The max width of the dialog, defaults to 90dvw.
           * @default "auto"
