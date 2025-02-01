@@ -76,6 +76,11 @@ export class KupToolbar {
      * @default []
      */
     @Prop({ mutable: true }) data: KupToolbarTreeNode[] = [];
+    /**
+     * The data of the list.
+     * @default true
+     */
+    @Prop() showIcons: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -164,6 +169,18 @@ export class KupToolbar {
     #renderTreeNode(node: KupToolbarTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
 
+        // Single item node [icons + value]
+        const singleItem = (
+            <div class="toolbar-single-value-node">
+                {node?.icon && this.showIcons ? (
+                    <FImage resource={node?.icon} sizeX="14px" sizeY="14px" />
+                ) : (
+                    <FImage resource="empty" sizeX="14px" sizeY="14px" />
+                )}
+                {node.value}
+            </div>
+        );
+
         if (!hasChildren) {
             const column = this.generateColumnForNode(node);
             const row = this.generateRowForNode(node);
@@ -194,7 +211,7 @@ export class KupToolbar {
                                     : undefined
                             }
                         >
-                            <span>{node.value}</span>
+                            {singleItem}
                             <div class="chevron-type-wrapper">
                                 {node.componentType && (
                                     <div class="component-type-chip">
@@ -212,7 +229,7 @@ export class KupToolbar {
         } else {
             return (
                 <div class="parent-class" tabindex="0">
-                    <span>{node.value}</span>
+                    {singleItem}
                     <div class="chevron-type-wrapper">
                         {node.componentType && (
                             <div class="component-type-chip">
