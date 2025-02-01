@@ -9,6 +9,7 @@
 | ------------- | -------------- | ------------------------------ | ---------------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component. | `string`               | `''`    |
 | `data`        | --             | The data of the list.          | `KupToolbarTreeNode[]` | `[]`    |
+| `showIcons`   | `show-icons`   | The data of the list.          | `boolean`              | `true`  |
 
 
 ## Events
