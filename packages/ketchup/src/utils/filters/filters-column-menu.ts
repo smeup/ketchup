@@ -3,7 +3,6 @@ import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from './filters';
 import {
     Filter,
-    FilterInterval,
     GenericFilter,
     ValueDisplayedValue,
 } from './filters-declarations';
@@ -96,9 +95,6 @@ export class FiltersColumnMenu extends Filters {
         if (textfield != null && textfield.trim() != '') {
             return true;
         }
-        if (this._hasIntervalTextFieldFilterValues(filters, column, tmp)) {
-            return true;
-        }
         let checkboxes = this.getCheckBoxFilterValues(filters, column.name);
         if (checkboxes == null || checkboxes.length < 1) {
             return false;
@@ -129,57 +125,7 @@ export class FiltersColumnMenu extends Filters {
         values = filter.checkBoxes;
         return values;
     }
-    /**
-     * Returns whether a text field should be a date or time picker.
-     * @param {GenericFilter} filters - Filters of the component.
-     * @param {KupDataColumn} column - Name of the column.
-     * @returns {boolean} True when the text field is a date or time picker.
-     */
-    hasIntervalTextFieldFilterValues(
-        filters: GenericFilter = {},
-        column: KupDataColumn
-    ): boolean {
-        return this._hasIntervalTextFieldFilterValues(filters, column, false);
-    }
 
-    hasIntervalTextFieldFilterValuesTmp(
-        filters: GenericFilter = {},
-        column: KupDataColumn
-    ): boolean {
-        return this._hasIntervalTextFieldFilterValues(filters, column, true);
-    }
-
-    private _hasIntervalTextFieldFilterValues(
-        filters: GenericFilter = {},
-        column: KupDataColumn,
-        tmp: boolean
-    ): boolean {
-        if (column == null) {
-            return false;
-        }
-        if (!this.isColumnFiltrableByInterval(column)) {
-            return false;
-        }
-        let intervalFrom = this._getIntervalTextFieldFilterValue(
-            filters,
-            column.name,
-            FilterInterval.FROM,
-            tmp
-        );
-        if (intervalFrom != null && intervalFrom.trim() != '') {
-            return true;
-        }
-        let intervalTo = this._getIntervalTextFieldFilterValue(
-            filters,
-            column.name,
-            FilterInterval.TO,
-            tmp
-        );
-        if (intervalTo != null && intervalTo.trim() != '') {
-            return true;
-        }
-        return false;
-    }
     /**
      * Triggers when a new filter checkbox becomes checked.
      * @param {GenericFilter} filters - Filters of the component.
@@ -200,8 +146,6 @@ export class FiltersColumnMenu extends Filters {
                 textField: '',
                 textFieldTmp: '',
                 checkBoxes: [],
-                interval: null,
-                intervalTmp: null,
             };
             filters[column] = filter;
         }
@@ -257,96 +201,8 @@ export class FiltersColumnMenu extends Filters {
         }
     }
 
-    isColumnFiltrableByInterval(column: KupDataColumn): boolean {
-        return this.isObjFiltrableByInterval(column.obj);
-    }
-
-    getIntervalTextFieldFilterValues(
-        filters: GenericFilter = {},
-        column: KupDataColumn
-    ): Array<string> {
-        return this._getIntervalTextFieldFilterValues(filters, column, false);
-    }
-    getIntervalTextFieldFilterValuesTmp(
-        filters: GenericFilter = {},
-        column: KupDataColumn
-    ): Array<string> {
-        return this._getIntervalTextFieldFilterValues(filters, column, true);
-    }
-
-    private _getIntervalTextFieldFilterValues(
-        filters: GenericFilter = {},
-        column: KupDataColumn,
-        tmp: boolean
-    ): Array<string> {
-        if (!this._hasIntervalTextFieldFilterValues(filters, column, tmp)) {
-            return ['', ''];
-        }
-
-        let values = [
-            this._getIntervalTextFieldFilterValue(
-                filters,
-                column.name,
-                FilterInterval.FROM,
-                tmp
-            ),
-            this._getIntervalTextFieldFilterValue(
-                filters,
-                column.name,
-                FilterInterval.TO,
-                tmp
-            ),
-        ];
-        return values;
-    }
-
-    getIntervalTextFieldFilterValue(
-        filters: GenericFilter = {},
-        column: string,
-        index: FilterInterval
-    ): string {
-        return this._getIntervalTextFieldFilterValue(
-            filters,
-            column,
-            index,
-            false
-        );
-    }
-    getIntervalTextFieldFilterValueTmp(
-        filters: GenericFilter = {},
-        column: string,
-        index: FilterInterval
-    ): string {
-        return this._getIntervalTextFieldFilterValue(
-            filters,
-            column,
-            index,
-            true
-        );
-    }
-    private _getIntervalTextFieldFilterValue(
-        filters: GenericFilter = {},
-        column: string,
-        index: FilterInterval,
-        tmp: boolean
-    ): string {
-        let value = '';
-
-        if (filters == null) {
-            return value;
-        }
-        let filter: Filter = filters[column];
-        if (filter == null) {
-            return value;
-        }
-        if (tmp && filter.intervalTmp == null) {
-            return value;
-        }
-        if (!tmp && filter.interval == null) {
-            return value;
-        }
-        value = tmp ? filter.intervalTmp[index] : filter.interval[index];
-        return value;
+    isColumnNumeric(column: KupDataColumn): boolean {
+        return this.isObjNumeric(column.obj);
     }
 
     setTextFieldFilterValue(
@@ -371,8 +227,6 @@ export class FiltersColumnMenu extends Filters {
                 textField: '',
                 textFieldTmp: '',
                 checkBoxes: [],
-                interval: null,
-                intervalTmp: null,
             };
             filters[column] = filter;
         }
@@ -384,86 +238,11 @@ export class FiltersColumnMenu extends Filters {
         }
     }
 
-    setIntervalTextFieldFilterValue(
-        filters: GenericFilter = {},
-        column: string,
-        newFilter: string,
-        index: FilterInterval
-    ) {
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            newFilter,
-            index,
-            true
-        );
-    }
-
-    private _setIntervalTextFieldFilterValue(
-        filters: GenericFilter = {},
-        column: string,
-        newFilter: string,
-        index: FilterInterval,
-        tmp: boolean
-    ) {
-        if (filters == null) {
-            return;
-        }
-        let filter: Filter = filters[column];
-        if (filter == null) {
-            filter = {
-                textField: '',
-                textFieldTmp: '',
-                checkBoxes: [],
-                interval: null,
-                intervalTmp: null,
-            };
-            filters[column] = filter;
-        }
-        if (filter.interval == null) {
-            filter.interval = [];
-            filter.interval.push('', '');
-        }
-        if (filter.intervalTmp == null) {
-            filter.intervalTmp = [];
-            filter.intervalTmp.push('', '');
-        }
-        if (tmp) {
-            filter.intervalTmp[index] =
-                newFilter != null ? newFilter.trim() : newFilter;
-        } else {
-            filter.interval[index] =
-                newFilter != null ? newFilter.trim() : newFilter;
-        }
-    }
-
     saveTextualFilters(filters: GenericFilter = {}, column: string) {
         this._setTextFieldFilterValue(
             filters,
             column,
             this.getTextFilterValueTmp(filters, column),
-            false
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValueTmp(
-                filters,
-                column,
-                FilterInterval.FROM
-            ),
-            FilterInterval.FROM,
-            false
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValueTmp(
-                filters,
-                column,
-                FilterInterval.TO
-            ),
-            FilterInterval.TO,
             false
         );
     }
@@ -475,28 +254,6 @@ export class FiltersColumnMenu extends Filters {
             this.getTextFilterValue(filters, column),
             true
         );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValue(
-                filters,
-                column,
-                FilterInterval.FROM
-            ),
-            FilterInterval.FROM,
-            true
-        );
-        this._setIntervalTextFieldFilterValue(
-            filters,
-            column,
-            this.getIntervalTextFieldFilterValue(
-                filters,
-                column,
-                FilterInterval.TO
-            ),
-            FilterInterval.TO,
-            true
-        );
     }
 
     getFilterValueForTooltip(
@@ -504,7 +261,6 @@ export class FiltersColumnMenu extends Filters {
         column: KupDataColumn
     ): string {
         let txtFilter = this.getTextFilterValue(filters, column.name);
-        let interval = this.getIntervalTextFieldFilterValues(filters, column);
         let chkFilters = this.getCheckBoxFilterValues(filters, column.name);
 
         let separator = '';
@@ -515,30 +271,6 @@ export class FiltersColumnMenu extends Filters {
             column.decimals
         );
         if (txtFilter != '') {
-            separator = ' AND ';
-        }
-        if (interval[FilterInterval.FROM] != '') {
-            txtFiterRis +=
-                separator +
-                '(>= ' +
-                getValueForDisplay(
-                    interval[FilterInterval.FROM],
-                    column.obj,
-                    column.decimals
-                ) +
-                ')';
-            separator = ' AND ';
-        }
-        if (interval[FilterInterval.TO] != '') {
-            txtFiterRis +=
-                separator +
-                '(<= ' +
-                getValueForDisplay(
-                    interval[FilterInterval.TO],
-                    column.obj,
-                    column.decimals
-                ) +
-                ')';
             separator = ' AND ';
         }
 
@@ -569,8 +301,6 @@ export class FiltersColumnMenu extends Filters {
             textField: '',
             textFieldTmp: '',
             checkBoxes: [],
-            interval: null,
-            intervalTmp: null,
         };
     }
 }

@@ -1837,6 +1837,11 @@ export namespace Components {
     }
     interface KupDatePicker {
         /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -4580,6 +4585,10 @@ export namespace Components {
           * Defines the current totals options.
          */
         "totals": TotalsMap;
+        /**
+          * The max-height of a tree
+         */
+        "treeHeight": string;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
@@ -7600,6 +7609,11 @@ declare namespace LocalJSX {
     }
     interface KupDatePicker {
         /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection"?: boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -9881,6 +9895,10 @@ declare namespace LocalJSX {
           * Defines the current totals options.
          */
         "totals"?: TotalsMap;
+        /**
+          * The max-height of a tree
+         */
+        "treeHeight"?: string;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback

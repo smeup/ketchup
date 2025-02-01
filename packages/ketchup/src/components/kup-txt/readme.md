@@ -1,7 +1,5 @@
 # kup-txt
 
-
-
 <!-- Auto Generated Below -->
 
 

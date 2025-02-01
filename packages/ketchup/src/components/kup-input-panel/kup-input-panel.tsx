@@ -60,6 +60,8 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    CheckConditionsByEventType,
+    CheckTriggeringEvents,
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
@@ -1267,7 +1269,7 @@ export class KupInputPanel {
         const adapter = dataAdapterMap.get(cellType);
 
         return adapter
-            ? adapter(options, fieldLabel, currentValue, cell, col.name)
+            ? adapter(options, fieldLabel, currentValue, cell, col.name, layout)
             : null;
     }
 
@@ -1518,7 +1520,8 @@ export class KupInputPanel {
         _fieldLabel: string,
         _value: string,
         cell: KupInputPanelCell,
-        id: string
+        id: string,
+        layout: KupInputPanelLayout
     ) {
         try {
             let data = JSON.parse(cell.value);
@@ -1569,7 +1572,8 @@ export class KupInputPanel {
                                     data: {
                                         ...this.#mapData(
                                             row.cells[key],
-                                            column
+                                            column,
+                                            layout
                                         ),
                                         disabled:
                                             row.cells[key].editable === false,
@@ -1777,12 +1781,15 @@ export class KupInputPanel {
         });
     }
 
-    async #onBlurHandler(e: CustomEvent<FCellEventPayload>) {
+    async #manageInputPanelCheck(
+        e: CustomEvent<FCellEventPayload>,
+        eventType: CheckTriggeringEvents
+    ) {
         const {
             detail: { column, cell },
         } = e;
 
-        if (cell.shape === FCellShapes.CHECKBOX) {
+        if (CheckConditionsByEventType[eventType](cell?.shape)) {
             return;
         }
 
@@ -1850,7 +1857,10 @@ export class KupInputPanel {
     #onCellUpdate({
         detail: { cell, column },
     }: CustomEvent<FCellEventPayload>) {
-        if (cell.shape !== FCellShapes.CHECKBOX) {
+        if (
+            cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH
+        ) {
             return;
         }
 
@@ -2143,7 +2153,9 @@ export class KupInputPanel {
 
         return (
             <Host
-                onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-blur={(e) =>
+                    this.#manageInputPanelCheck(e, CheckTriggeringEvents.BLUR)
+                }
                 onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
@@ -2152,6 +2164,12 @@ export class KupInputPanel {
                 onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
+                }
+                onKup-cell-itemclick={(e) =>
+                    this.#manageInputPanelCheck(
+                        e,
+                        CheckTriggeringEvents.ITEMCLICK
+                    )
                 }
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>

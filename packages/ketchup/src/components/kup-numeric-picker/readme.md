@@ -1,7 +1,5 @@
 # kup-numeric-picker
 
-
-
 <!-- Auto Generated Below -->
 
 

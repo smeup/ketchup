@@ -718,6 +718,9 @@ function setEditableCell(
                     onKup-combobox-blur={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.DATE:
@@ -931,7 +934,15 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (/^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (
+                    (!(
+                        cell.shape == 'MEMO' ||
+                        cellType == FCellTypes.MEMO ||
+                        cell.data?.maxLength >= 256
+                    ) &&
+                        e.key === 'Enter') ||
+                    /^F[1-9]|F1[0-2]$/.test(e.key)
+                ) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };

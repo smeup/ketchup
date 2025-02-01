@@ -1,7 +1,5 @@
 # kup-input-panel
 
-
-
 <!-- Auto Generated Below -->
 
 
