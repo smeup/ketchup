@@ -168,10 +168,16 @@ export class KupToolbar {
 
     #renderTreeNode(node: KupToolbarTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
+        const isDisabled = node.disabled ?? false;
 
         // Single item node [icons + value]
         const singleItem = (
-            <div class="toolbar-single-value-node">
+            <div
+                class={`toolbar-single-value-node ${
+                    isDisabled ? 'toolbar-item-disabled' : ''
+                }`}
+                data-alt={isDisabled ? 'This option is disabled' : ''}
+            >
                 {node?.icon && this.showIcons ? (
                     <FImage resource={node?.icon} sizeX="14px" sizeY="14px" />
                 ) : (
@@ -201,14 +207,18 @@ export class KupToolbar {
                     ) : (
                         <div
                             id={node.value}
-                            class="parent-class"
-                            tabindex="0"
+                            class={`parent-class ${
+                                isDisabled ? 'toolbar-item-disabled' : ''
+                            }`}
+                            tabindex={isDisabled ? -1 : 0}
                             onClick={
-                                !cellProps.shape || cellProps.cell.data
-                                    ? () => {
-                                          this.onKupClick(index, node);
-                                      }
-                                    : undefined
+                                isDisabled ||
+                                (cellProps.shape && !cellProps.cell.data)
+                                    ? undefined
+                                    : () => this.onKupClick(index, node)
+                            }
+                            data-alt={
+                                isDisabled ? 'This option is disabled' : ''
                             }
                         >
                             {singleItem}
@@ -228,7 +238,12 @@ export class KupToolbar {
             );
         } else {
             return (
-                <div class="parent-class" tabindex="0">
+                <div
+                    class={`parent-class ${
+                        isDisabled ? 'toolbar-item-disabled' : ''
+                    }`}
+                    tabindex={isDisabled ? -1 : 0}
+                >
                     {singleItem}
                     <div class="chevron-type-wrapper">
                         {node.componentType && (
