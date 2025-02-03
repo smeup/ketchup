@@ -19,12 +19,14 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    KupDialogAnchor,
     KupDialogAutoCenter,
     KupDialogHeader,
     KupDialogModal,
     KupDialogProps,
 } from './kup-dialog-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import type { EdgeOptions } from '@interactjs/types/index';
 
 @Component({
     tag: 'kup-dialog',
@@ -72,6 +74,11 @@ export class KupDialog {
      * @default "true"
      */
     @Prop() isDraggable = true;
+    /**
+     * Sets anchor position.
+     * @default "none"
+     */
+    @Prop() anchor: KupDialogAnchor = KupDialogAnchor.NONE;
     /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
@@ -213,6 +220,21 @@ export class KupDialog {
         this.#kupManager.theme.unregister(this);
     }
 
+    #getEdgeOptions(): EdgeOptions {
+        switch (this.anchor) {
+            case KupDialogAnchor.NONE:
+                return { left: true, top: false, right: true, bottom: true };
+            case KupDialogAnchor.LEFT:
+                return { left: false, top: false, right: true, bottom: false };
+            case KupDialogAnchor.TOP:
+                return { left: false, top: false, right: false, bottom: true };
+            case KupDialogAnchor.RIGHT:
+                return { left: true, top: false, right: false, bottom: false };
+            case KupDialogAnchor.BOTTOM:
+                return { left: false, top: true, right: false, bottom: false };
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -223,13 +245,17 @@ export class KupDialog {
     }
 
     componentDidLoad() {
+        const isDetatched = this.anchor == KupDialogAnchor.NONE;
         this.#kupManager.interact.dialogify(
             this.rootElement,
             this.#header ? this.#header : null,
-            !this.resizable,
-            this.isDraggable
+            {
+                unresizable: !this.resizable,
+                isDraggable: isDetatched,
+                edges: this.#getEdgeOptions(),
+            }
         );
-        if (this.autoCenter?.onReady) {
+        if (this.autoCenter?.onReady && isDetatched) {
             this.recalcPosition();
         } else {
             this.rootElement.removeAttribute('fade-in');
@@ -259,12 +285,20 @@ export class KupDialog {
     }
 
     render() {
-        const style = {
-            '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
-            '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
-            '--kup_dialog_max_width': this.maxSizeX ? this.maxSizeX : '90dvw',
-            '--kup_dialog_max_height': this.maxSizeY ? this.maxSizeY : '90dvh',
-        };
+        let style: { [k: string]: string } = {};
+
+        if (this.anchor == KupDialogAnchor.NONE) {
+            style = {
+                '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
+                '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
+                '--kup_dialog_max_width': this.maxSizeX
+                    ? this.maxSizeX
+                    : '90dvw',
+                '--kup_dialog_max_height': this.maxSizeY
+                    ? this.maxSizeY
+                    : '90dvh',
+            };
+        }
 
         const headerSlot = this.rootElement.querySelector('[slot="header"]');
         if (headerSlot) {
@@ -272,7 +306,7 @@ export class KupDialog {
         }
 
         return (
-            <Host fade-in style={style}>
+            <Host fade-in style={style} data-anchor={this.anchor.toString()}>
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

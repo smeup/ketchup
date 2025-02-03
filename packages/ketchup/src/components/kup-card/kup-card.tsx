@@ -380,7 +380,9 @@ export class KupCard {
                 this.kupManager.interact.dialogify(
                     card,
                     dragHandle ? dragHandle : null,
-                    unresizable
+                    {
+                        unresizable: unresizable,
+                    }
                 );
             }
         }

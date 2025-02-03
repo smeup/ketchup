@@ -9,6 +9,7 @@ export enum KupDialogProps {
     modal = 'Set of options to display the dialog as a modal.',
     resizable = 'Sets whether the dialog is resizable or not.',
     isDraggable = 'Sets whether the dialog is draggable or not.',
+    anchor = 'Sets anchor position.',
     sizeX = 'The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).',
     maxSizeY = 'The max height of the dialog, defaults to 90dvh.',
@@ -30,4 +31,12 @@ export interface KupDialogIcons {
 
 export interface KupDialogModal {
     closeOnBackdropClick?: boolean;
+}
+
+export enum KupDialogAnchor {
+    NONE = 'none',
+    LEFT = 'left',
+    TOP = 'top',
+    RIGHT = 'right',
+    BOTTOM = 'bottom',
 }

@@ -15,6 +15,7 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import interact from 'interactjs';
 import {
     kupDialogAttribute,
+    KupDialogifyOptions,
     kupDialogResizableClass,
     KupDragCallbacks,
     KupDragEffect,
@@ -415,14 +416,13 @@ export class KupInteract {
      * This method gives the element dialog-like features, by activating moving on drag and, optionally, the resize.
      * @param {HTMLElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
-     * @param {boolean} unresizable - When true, the dialog can't be resized.
+     * @param {KupDialogifyOptions} options - Sets the options for dialogify.
      * @param {RectResolvable<[number, number, Interaction<keyof ActionMap>]>} restrictContainer - When present, it will set the constraint of "el": it can't be moved outside this container.
      */
     dialogify(
         el: HTMLElement,
         handleEl?: HTMLElement,
-        unresizable?: boolean,
-        isDraggable: boolean = true,
+        options?: KupDialogifyOptions,
         restrictContainer?: RectResolvable<
             [number, number, Interaction<keyof ActionMap>]
         >
@@ -435,7 +435,7 @@ export class KupInteract {
                 el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
             },
         };
-        if (isDraggable) {
+        if (options?.isDraggable) {
             this.draggable(
                 el,
                 {
@@ -454,17 +454,12 @@ export class KupInteract {
                 callbacks
             );
         }
-        if (!unresizable) {
+        if (!options?.unresizable) {
             el.classList.add(kupDialogResizableClass);
             this.resizable(
                 el,
                 {
-                    edges: {
-                        left: true,
-                        right: true,
-                        bottom: true,
-                        top: false,
-                    },
+                    edges: options.edges,
                     modifiers: [
                         interact.modifiers.restrictSize({
                             min: { width: 100, height: 100 },
@@ -472,7 +467,7 @@ export class KupInteract {
                     ],
                 },
                 null,
-                true,
+                false,
                 true
             );
         }

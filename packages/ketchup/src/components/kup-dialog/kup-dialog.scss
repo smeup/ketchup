@@ -51,6 +51,24 @@
   }
 }
 
+:host([data-anchor='left']) {
+  inset: 0 auto 0 0;
+  width: 50%;
+  height: 100%;
+}
+:host([data-anchor='top']) {
+  inset: 0 0 auto 0;
+  height: 50%;
+}
+:host([data-anchor='right']) {
+  inset: 0 0 0 auto;
+  width: 50%;
+}
+:host([data-anchor='bottom']) {
+  inset: auto 0 0 0;
+  height: 50%;
+}
+
 .header {
   color: var(--kup_dialogheader_text_color);
   display: flex;
