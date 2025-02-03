@@ -1,4 +1,5 @@
 import { GenericObject, KupEventPayload } from '../../components';
+import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataCell,
@@ -237,10 +238,13 @@ export const CheckConditionsByEventType = {
         return (
             value === FCellShapes.CHECKBOX ||
             value === FCellShapes.SWITCH ||
-            value === FCellShapes.COMBOBOX
+            value === FCellShapes.COMBOBOX ||
+            value === FCellShapes.AUTOCOMPLETE
         );
     },
     itemclick: (value: FCellShapes) => {
-        return value !== FCellShapes.COMBOBOX;
+        return (
+            value !== FCellShapes.COMBOBOX && value !== FCellShapes.AUTOCOMPLETE
+        );
     },
 };
