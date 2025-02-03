@@ -2396,10 +2396,20 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets to show spinner during upload.
+          * @param loading - Boolean to set if is loading.
+         */
+        "setLoading": (loading: boolean) => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets upload has been successfull to show success message.
+          * @param success - Boolean to set if upload has been successfull.
+         */
+        "setSuccess": (success: boolean) => Promise<void>;
     }
     interface KupForm {
         /**

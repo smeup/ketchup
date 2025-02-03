@@ -22,6 +22,6 @@ export default {
       titles: ['Playground'],
     };
   },
-  title: 'Ketchup | Button',
+  title: 'Ketchup | File Upload',
 };
 </script>

@@ -17,7 +17,8 @@ export type KupLanguageKey =
     | KupLanguagePage
     | KupLanguageRow
     | KupLanguageSearch
-    | KupLanguageTotals;
+    | KupLanguageTotals
+    | KupLanguageUpload;
 /**
  * Interface of the languages JSON.
  */
@@ -244,4 +245,11 @@ export enum KupLanguageTotals {
     MINIMUM = 'totalsMinimum',
     PRODUCT = 'totalsProduct',
     SUM = 'totalsSum',
+}
+
+/**
+ * File upload
+ */
+export enum KupLanguageUpload {
+    SUCCESS = 'fileUploadSuccess',
 }

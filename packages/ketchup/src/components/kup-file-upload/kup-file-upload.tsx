@@ -28,7 +28,10 @@ import {
 } from './kup-file-upload-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
-import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageUpload,
+} from '../../managers/kup-language/kup-language-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 
@@ -70,6 +73,8 @@ export class KupFileUpload {
 
     @State() inputRef?: HTMLInputElement;
     @State() files?: File[] = [];
+    @State() uploadSuccess?: boolean = false;
+    @State() showSpinner?: boolean = false;
 
     //#endregion
 
@@ -100,9 +105,7 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     @Watch('data')
-    onDataChanged() {
-        console.log(this.data);
-    }
+    onDataChanged() {}
     //#endregion
 
     //#region PUBLIC METHODS
@@ -133,6 +136,26 @@ export class KupFileUpload {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupFileUploadProps, props);
+    }
+    /**
+     * Sets upload has been successfull to show success message.
+     * @param {boolean} success - Boolean to set if upload has been successfull.
+     */
+    @Method()
+    async setSuccess(success: boolean): Promise<void> {
+        this.setLoading(false);
+        if (success) {
+            this.#handleCancel();
+            this.uploadSuccess = success;
+        }
+    }
+    /**
+     * Sets to show spinner during upload.
+     * @param {boolean} loading - Boolean to set if is loading.
+     */
+    @Method()
+    async setLoading(loading: boolean): Promise<void> {
+        this.showSpinner = loading;
     }
     //#endregion
 
@@ -170,6 +193,7 @@ export class KupFileUpload {
     }
 
     #handleFileChange(event: Event) {
+        this.uploadSuccess = false;
         const newFiles = Array.from((event.target as HTMLInputElement).files);
         this.files = [...this.files, ...newFiles];
     }
@@ -224,6 +248,7 @@ export class KupFileUpload {
             id: this.rootElement.id,
             files: this.files,
         });
+        this.setLoading(true);
     }
     //#endregion
 
@@ -262,7 +287,10 @@ export class KupFileUpload {
                 </style>
                 <div id={componentWrapperId}>
                     <div
-                        class="file-upload"
+                        class={{
+                            'file-upload': true,
+                            'file-upload-spinner': this.showSpinner,
+                        }}
                         onDrop={this.#handleDrop.bind(this)}
                         onDragOver={(event) => event.preventDefault()}
                     >
@@ -300,30 +328,49 @@ export class KupFileUpload {
                                 styling={FButtonStyling.FLAT}
                             ></FButton>
                         </div>
-                        <div class="file-upload__list">
-                            {this.files.map((file, i) => (
-                                <div class="file-upload__list__item">
-                                    <div class="file-upload__list__item__preview">
-                                        <FImage
-                                            resource={this.#getPreview(file)}
-                                        ></FImage>
+                        {this.uploadSuccess ? (
+                            <span>
+                                {this.#kupManager.language.translate(
+                                    KupLanguageUpload.SUCCESS
+                                )}
+                            </span>
+                        ) : (
+                            <div class="file-upload__list">
+                                {this.files.map((file, i) => (
+                                    <div class="file-upload__list__item">
+                                        <div class="file-upload__list__item__preview">
+                                            <FImage
+                                                resource={this.#getPreview(
+                                                    file
+                                                )}
+                                            ></FImage>
+                                        </div>
+                                        <span
+                                            class="file-upload__list__item__desc"
+                                            title={file.name}
+                                        >
+                                            {this.#trimFileName(file.name)}
+                                        </span>
+                                        <span
+                                            class="file-upload__list__item__clear"
+                                            onClick={this.#handleFileRemove.bind(
+                                                this,
+                                                i
+                                            )}
+                                        ></span>
                                     </div>
-                                    <span
-                                        class="file-upload__list__item__desc"
-                                        title={file.name}
-                                    >
-                                        {this.#trimFileName(file.name)}
-                                    </span>
-                                    <span
-                                        class="file-upload__list__item__clear"
-                                        onClick={this.#handleFileRemove.bind(
-                                            this,
-                                            i
-                                        )}
-                                    ></span>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
+                        {this.showSpinner && (
+                            <div class="file-upload__spinner-container">
+                                <kup-spinner
+                                    active={true}
+                                    layout={14}
+                                    dimensions="7px"
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </Host>

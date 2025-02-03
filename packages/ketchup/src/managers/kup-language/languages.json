@@ -253,7 +253,8 @@
             "genericInvalidValue": "Invalid value",
             "genericRequiredValue": "This field is required",
             "genericUpload": "Upload",
-            "genericChoose": "Choose"
+            "genericChoose": "Choose",
+            "fileUploadSuccess": "Upload complete"
         }
     },
     "french": {
@@ -510,7 +511,8 @@
             "genericInvalidValue": "Valore non valido",
             "genericRequiredValue": "Valore obbligatorio",
             "genericUpload": "Carica",
-            "genericChoose": "Scegli"
+            "genericChoose": "Scegli",
+            "fileUploadSuccess": "Caricamento completato"
         },
         "variants": {
             "smeup": {

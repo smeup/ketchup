@@ -4,21 +4,35 @@
     --kup-upload-border-color,
     var(--kup-gray-color-30)
   );
+  flex: 1;
+
+  .file-upload-spinner > * {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .file-upload-spinner > file-upload__spinner-container {
+    opacity: 1;
+  }
 
   .file-upload {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1em;
     border: 2px dashed var(--kup_upload_border_color);
     border-radius: 4px;
     padding: 1em;
+    position: relative;
 
     &__buttons {
       display: flex;
       gap: 1em;
       align-items: center;
       justify-content: center;
+      .spinner {
+        height: 48px;
+        margin: auto;
+        width: 48px;
+      }
     }
 
     &__list {
@@ -59,6 +73,13 @@
           }
         }
       }
+    }
+
+    &__spinner-container {
+      height: calc(100% - 2em);
+      width: 20%;
+      position: absolute;
+      left: 40%;
     }
   }
 }

@@ -49,6 +49,22 @@ Type: `Promise<void>`
 
 
 
+### `setLoading(loading: boolean) => Promise<void>`
+
+Sets to show spinner during upload.
+
+#### Parameters
+
+| Name      | Type      | Description                     |
+| --------- | --------- | ------------------------------- |
+| `loading` | `boolean` | - Boolean to set if is loading. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -58,6 +74,22 @@ Sets the props to the component.
 | Name    | Type            | Description                                                  |
 | ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setSuccess(success: boolean) => Promise<void>`
+
+Sets upload has been successfull to show success message.
+
+#### Parameters
+
+| Name      | Type      | Description                                      |
+| --------- | --------- | ------------------------------------------------ |
+| `success` | `boolean` | - Boolean to set if upload has been successfull. |
 
 #### Returns
 
