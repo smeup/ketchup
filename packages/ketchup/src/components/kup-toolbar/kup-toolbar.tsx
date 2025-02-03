@@ -20,7 +20,10 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
-import { KupToolbarClickEventPayload } from './kup-toolbar-declarations';
+import {
+    KupToolbarClickEventPayload,
+    KupToolbarTreeNode,
+} from './kup-toolbar-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupDataCellOptions,
@@ -72,7 +75,12 @@ export class KupToolbar {
      * The data of the list.
      * @default []
      */
-    @Prop({ mutable: true }) data: KupTreeNode[] = [];
+    @Prop({ mutable: true }) data: KupToolbarTreeNode[] = [];
+    /**
+     * The data of the list.
+     * @default true
+     */
+    @Prop() showIcons: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -95,7 +103,7 @@ export class KupToolbar {
     })
     kupClick: EventEmitter<KupToolbarClickEventPayload>;
 
-    onKupClick(index: number, node: KupTreeNode) {
+    onKupClick(index: number, node: KupToolbarTreeNode) {
         this.#handleClick(index, node);
     }
 
@@ -133,14 +141,14 @@ export class KupToolbar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private generateRowForNode(treeNode: KupTreeNode): KupDataRow {
+    private generateRowForNode(treeNode: KupToolbarTreeNode): KupDataRow {
         const col: KupDataColumn = this.generateColumnForNode(treeNode);
         const row: KupDataRow = { cells: {} };
         row.cells[col.name] = treeNode;
         return row;
     }
 
-    private generateColumnForNode(treeNode: KupTreeNode): KupDataColumn {
+    private generateColumnForNode(treeNode: KupToolbarTreeNode): KupDataColumn {
         const colname: string =
             treeNode.obj && treeNode.obj.t
                 ? treeNode.obj.t + ';' + treeNode.obj.p
@@ -158,8 +166,26 @@ export class KupToolbar {
         };
     }
 
-    #renderTreeNode(node: KupTreeNode, index: number): VNode {
+    #renderTreeNode(node: KupToolbarTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
+        const isDisabled = node.disabled ?? false;
+
+        // Single item node [icons + value]
+        const singleItem = (
+            <div
+                class={`toolbar-single-value-node ${
+                    isDisabled ? 'toolbar-item-disabled' : ''
+                }`}
+                data-alt={isDisabled ? 'This option is disabled' : ''}
+            >
+                {node?.icon && this.showIcons ? (
+                    <FImage resource={node?.icon} sizeX="14px" sizeY="14px" />
+                ) : (
+                    <FImage resource="empty" sizeX="14px" sizeY="14px" />
+                )}
+                {node.value}
+            </div>
+        );
 
         if (!hasChildren) {
             const column = this.generateColumnForNode(node);
@@ -175,38 +201,64 @@ export class KupToolbar {
             };
 
             return (
-                <>
+                <Fragment>
                     {cellProps.cell.shape ? (
                         <FCell {...cellProps} />
                     ) : (
                         <div
                             id={node.value}
-                            class="parent-class"
-                            tabindex="0"
+                            class={`parent-class ${
+                                isDisabled ? 'toolbar-item-disabled' : ''
+                            }`}
+                            tabindex={isDisabled ? -1 : 0}
                             onClick={
-                                !cellProps.shape || cellProps.cell.data
-                                    ? () => {
-                                          this.onKupClick(index, node);
-                                      }
-                                    : undefined
+                                isDisabled ||
+                                (cellProps.shape && !cellProps.cell.data)
+                                    ? undefined
+                                    : () => this.onKupClick(index, node)
+                            }
+                            data-alt={
+                                isDisabled ? 'This option is disabled' : ''
                             }
                         >
-                            <span>{node.value}</span>
+                            {singleItem}
+                            <div class="chevron-type-wrapper">
+                                {node.componentType && (
+                                    <div class="component-type-chip">
+                                        {node.componentType}
+                                    </div>
+                                )}
+                                <div
+                                    style={{ width: '14px', height: '14px' }}
+                                ></div>
+                            </div>
                         </div>
                     )}
-                </>
+                </Fragment>
             );
         } else {
             return (
-                <div class="parent-class" tabindex="0">
-                    <span>{node.value}</span>
-                    <FImage
-                        resource="chevron-right"
-                        sizeX="14px"
-                        sizeY="14px"
-                        color="var(--kup-text-secondary)"
-                        wrapperClass="chevron-right"
-                    ></FImage>
+                <div
+                    class={`parent-class ${
+                        isDisabled ? 'toolbar-item-disabled' : ''
+                    }`}
+                    tabindex={isDisabled ? -1 : 0}
+                >
+                    {singleItem}
+                    <div class="chevron-type-wrapper">
+                        {node.componentType && (
+                            <div class="component-type-chip">
+                                {node.componentType}
+                            </div>
+                        )}
+                        <FImage
+                            resource="chevron-right"
+                            sizeX="14px"
+                            sizeY="14px"
+                            color="var(--kup-text-secondary)"
+                            wrapperClass="chevron-right"
+                        ></FImage>
+                    </div>
                     <div class="nested-class">
                         {this.#renderNestedChildren(node.children, index)}
                     </div>
@@ -215,7 +267,7 @@ export class KupToolbar {
         }
     }
 
-    #handleClick(index: number, node: KupTreeNode): void {
+    #handleClick(index: number, node: KupToolbarTreeNode): void {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -225,7 +277,7 @@ export class KupToolbar {
     }
 
     #renderNestedChildren(
-        children: KupTreeNode[],
+        children: KupToolbarTreeNode[],
         parentIndex: number
     ): VNode[] {
         return children.map((child, index) =>

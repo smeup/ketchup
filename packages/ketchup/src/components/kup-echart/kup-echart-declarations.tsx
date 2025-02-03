@@ -1,3 +1,4 @@
+import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
     KupDataColumn,
     KupDataRow,
@@ -65,7 +66,7 @@ export enum KupEchartTypes {
     BUBBLE = 'Bubble',
     SANKEY = 'Sankey',
     CANDLE = 'Candle',
-    CALENDAR = 'Calendar'
+    CALENDAR = 'Calendar',
 }
 
 export interface KupEchartClickEventPayload extends KupEventPayload {
@@ -74,3 +75,6 @@ export interface KupEchartClickEventPayload extends KupEventPayload {
     x: number | string;
     y: number | string;
 }
+
+export type KupEchartXAxis = XAXisComponentOption;
+export type KupEchartYAxis = YAXisComponentOption;

@@ -134,8 +134,8 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-object-field](../kup-object-field)
  - [kup-pdf](../kup-pdf)
- - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
  - [kup-progress-bar](../kup-progress-bar)
@@ -150,11 +150,13 @@ Type: `Promise<void>`
  - [kup-time-picker](../kup-time-picker)
  - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
+ - [kup-txt](../kup-txt)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
+- [kup-image](../kup-image)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
 - [kup-text-field](../kup-text-field)
@@ -163,12 +165,12 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
-- [kup-image](../kup-image)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](.)
 - [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
@@ -185,11 +187,13 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-card --> kup-card
+  kup-image --> kup-card
+  kup-dialog --> kup-card
+  kup-badge --> kup-card
+  kup-spinner --> kup-card
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
-  kup-dialog --> kup-card
-  kup-badge --> kup-card
   kup-chip --> kup-card
   kup-text-field --> kup-card
   kup-color-picker --> kup-card
@@ -197,20 +201,18 @@ graph TD;
   kup-date-picker --> kup-card
   kup-rating --> kup-card
   kup-time-picker --> kup-card
-  kup-image --> kup-card
-  kup-spinner --> kup-card
   kup-button-list --> kup-card
   kup-dropdown-button --> kup-card
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-toolbar --> kup-card
   kup-button --> kup-card
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
   kup-tab-bar --> kup-card
-  kup-toolbar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
   kup-activity-timeline --> kup-card
@@ -232,12 +234,13 @@ graph TD;
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card
   kup-numeric-picker --> kup-card
+  kup-object-field --> kup-card
   kup-pdf --> kup-card
-  kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card
   kup-qlik --> kup-card
   kup-snackbar --> kup-card
+  kup-txt --> kup-card
   kup-typography --> kup-card
   kup-typography-list --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px

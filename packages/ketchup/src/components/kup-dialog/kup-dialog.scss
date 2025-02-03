@@ -19,6 +19,7 @@
     --kup-dialog-header-height,
     var(--kup-space-09)
   );
+  --kup_dialog_content_max_height: var(--kup-dialog-content-max-height, 85dvh);
 
   box-sizing: border-box;
   display: block;
@@ -26,6 +27,8 @@
   left: var(--kup_dialog_left, -100%);
   min-height: var(--kup_dialog_height);
   min-width: var(--kup_dialog_width);
+  max-width: var(--kup_dialog_max_width);
+  max-height: var(--kup_dialog_max_height);
   position: absolute;
   top: var(--kup_dialog_top, -100%);
   transition: opacity 0.25s ease-in;
@@ -88,4 +91,5 @@
   overflow: auto;
   user-select: text;
   background-color: var(--kup_dialog_background_color);
+  max-height: var(--kup_dialog_content_max_height);
 }

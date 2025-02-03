@@ -112,6 +112,7 @@ Type: `Promise<void>`
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-object-field](../kup-object-field)
  - [kup-planner](../kup-planner)
  - [kup-radio](../kup-radio)
  - [kup-snackbar](../kup-snackbar)
@@ -133,10 +134,13 @@ Type: `Promise<void>`
 graph TD;
   kup-badge --> kup-badge
   kup-card --> kup-badge
+  kup-image --> kup-badge
+  kup-dialog --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-badge
   kup-radio --> kup-badge
-  kup-dialog --> kup-badge
   kup-chip --> kup-badge
   kup-text-field --> kup-badge
   kup-color-picker --> kup-badge
@@ -145,9 +149,6 @@ graph TD;
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
@@ -156,6 +157,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-button --> kup-badge
   kup-checkbox --> kup-badge
   kup-data-table --> kup-badge
@@ -163,7 +165,6 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-badge
   kup-tree --> kup-badge
   kup-accordion --> kup-badge
   kup-activity-timeline --> kup-badge
@@ -176,6 +177,7 @@ graph TD;
   kup-input-panel --> kup-badge
   kup-magic-box --> kup-badge
   kup-numeric-picker --> kup-badge
+  kup-object-field --> kup-badge
   kup-planner --> kup-badge
   kup-snackbar --> kup-badge
   kup-typography --> kup-badge

@@ -32,7 +32,10 @@ import {
     KupListEventPayload,
     ValueDisplayedValue,
 } from '../kup-list/kup-list-declarations';
-import { consistencyCheck } from '../kup-list/kup-list-helper';
+import {
+    consistencyCheck,
+    getIdOfItemByDisplayMode,
+} from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -89,7 +92,7 @@ export class KupAutocomplete {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
@@ -108,6 +111,10 @@ export class KupAutocomplete {
      * @default ""
      */
     @Prop() initialValue: string = '';
+    /**
+     * Sets the initial value decode of the component
+     */
+    @Prop() initialValueDecode: string = '';
     /**
      * Enables a clear trailing icon.
      * @default false
@@ -128,19 +135,18 @@ export class KupAutocomplete {
      * @default false
      */
     @Prop() leadingLabel: boolean = false;
-
     /**
      * The minimum number of chars to trigger the autocomplete
-     * @default 1
+     * @default 3
      */
-    @Prop() minimumChars: number = 1;
+    @Prop() minimumChars: number = 3;
     /**
      * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
      * @default false
      */
     @Prop() readOnly: boolean = false;
     /**
-     * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
@@ -155,15 +161,25 @@ export class KupAutocomplete {
      */
     @Prop() showDropDownIcon: boolean = true;
     /**
-     * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * When true shows a small marker on the component.
+     * @default false
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() showMarker: boolean = false;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.SMALL
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * When set, the icon will be shown after the text.
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * Set custom placeholder / watermark for text field
+     * @default "Type code or description"
+     */
+    @Prop() placeholder: string = 'Type code or description';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -242,24 +258,38 @@ export class KupAutocomplete {
     kupItemClick: EventEmitter<KupAutocompleteEventPayload>;
 
     onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        if (!this.#isListOpened()) {
+            this.kupBlur.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupChange(value: string) {
         this.#doConsistencyCheck = true;
-        const ret = this.#consistencyCheck(value, true);
-        if (ret.exists || this.allowInconsistentValues) {
+        if (value) {
+            const ret = this.#consistencyCheck(value, undefined, true);
+            if (ret.exists || this.allowInconsistentValues) {
+                this.kupChange.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    node: ret.node,
+                });
+            }
+        } else {
+            this.value = '';
+            this.displayedValue = '';
             this.kupChange.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
                 inputValue: this.#textfieldEl.value,
-                node: ret.node,
+                node: { value: '' },
             });
         }
     }
@@ -284,17 +314,23 @@ export class KupAutocomplete {
 
     onKupInput() {
         this.#doConsistencyCheck = true;
-        const ret = this.#consistencyCheck(this.#textfieldEl.value, false);
-        this.#openList(false);
-        if (this.#textfieldEl.value.length >= this.minimumChars) {
-            this.kupInput.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-                node: ret.node,
-            });
-        }
+        const ret = this.#consistencyCheck(
+            this.#textfieldEl.value,
+            undefined,
+            false
+        );
+        setTimeout(() => {
+            this.#openList(false);
+            if (this.#textfieldEl.value.length >= this.minimumChars) {
+                this.kupInput.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    value: this.value,
+                    inputValue: this.#textfieldEl.value,
+                    node: ret.node,
+                });
+            }
+        }, 400);
     }
 
     onKupIconClick() {
@@ -427,9 +463,17 @@ export class KupAutocomplete {
      * @param {string} value - Value of the component.
      */
     @Method()
-    async setValue(value: string) {
+    async setValue(value: string, valueDecode?: string) {
         this.#doConsistencyCheck = true;
-        this.#consistencyCheck(value, true);
+        this.#consistencyCheck(value, valueDecode, true);
+    }
+    /**
+     * Calls closeList method (acts like a reset).
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async reset() {
+        this.#closeList();
     }
 
     /*-------------------------------------------------*/
@@ -490,40 +534,49 @@ export class KupAutocomplete {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(idIn: string, setValue: boolean): ValueDisplayedValue {
+    #consistencyCheck(
+        idIn: string,
+        idInDecode: string,
+        eventShouldSetValue: boolean
+    ): ValueDisplayedValue {
         if (!this.#doConsistencyCheck) {
             return;
         }
-        this.#doConsistencyCheck = false;
-        const ret = consistencyCheck(
-            idIn,
-            this.data['kup-list'],
-            this.#listEl,
-            this.selectMode,
-            this.displayMode
-        );
-        if (ret.exists || this.allowInconsistentValues) {
-            if (setValue) {
+        if (idIn && idInDecode) {
+            this.displayedValue = getIdOfItemByDisplayMode(
+                { id: idIn, value: idInDecode },
+                this.displayMode,
+                ' - '
+            );
+        } else {
+            this.#doConsistencyCheck = false;
+            const ret = consistencyCheck(
+                idIn,
+                this.data['kup-list'],
+                this.#listEl,
+                this.selectMode,
+                this.displayMode
+            );
+            if (
+                (ret.exists || this.allowInconsistentValues) &&
+                eventShouldSetValue
+            ) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
+            } else {
+                this.displayedValue = idIn;
             }
             if (this.#listEl != null && !this.serverHandledFilter) {
                 this.#listEl.filter = ret.value;
             }
-        } else {
-            this.displayedValue = idIn;
-            if (this.#listEl != null && !this.serverHandledFilter) {
-                this.#listEl.filter = ret.value;
-            }
+            return ret;
         }
-
-        return ret;
     }
 
     #prepList() {
         return (
             <kup-list
-                displayMode={this.displayMode}
+                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
@@ -532,6 +585,26 @@ export class KupAutocomplete {
                 ref={(el) => (this.#listEl = el as any)}
             ></kup-list>
         );
+    }
+
+    #calcSize() {
+        // Explicitly setting size from sub-components props, if present
+        if (this.data['kup-text-field']?.size) {
+            return this.data['kup-text-field']?.size as number;
+        } else {
+            switch (this.displayMode) {
+                case ItemsDisplayMode.CODE:
+                    return 15;
+                case ItemsDisplayMode.DESCRIPTION:
+                    return 35;
+                case ItemsDisplayMode.CODE_AND_DESC:
+                case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+                case ItemsDisplayMode.DESC_AND_CODE:
+                    return 50;
+                default:
+                    return 35;
+            }
+        }
     }
 
     /*-------------------------------------------------*/
@@ -552,7 +625,7 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, true);
+        this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -588,6 +661,7 @@ export class KupAutocomplete {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            placeholder: this.placeholder,
             readOnly: this.readOnly,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
@@ -597,6 +671,8 @@ export class KupAutocomplete {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            showMarker: this.showMarker,
+            size: this.#calcSize(),
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
@@ -619,7 +695,7 @@ export class KupAutocomplete {
                         {...props}
                         icon={
                             this.showDropDownIcon
-                                ? KupThemeIconValues.DROPDOWN
+                                ? KupThemeIconValues.SEARCH
                                 : null
                         }
                         trailingIcon={true}

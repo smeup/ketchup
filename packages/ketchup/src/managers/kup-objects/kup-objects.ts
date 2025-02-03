@@ -384,4 +384,22 @@ export class KupObjects {
             (Object.keys(obj).length === 0 && obj.constructor === Object)
         );
     }
+    /**
+     * Check whether the object is a J1;KEY;...
+     * @param {GenericObject} object - Object to check.
+     * @returns {boolean} True if the object is a J1;KEY
+     */
+    isJ1Key(obj: GenericObject): boolean {
+        if (!obj) return false;
+        return 'J1' === obj.t && 'KEY' === obj.p;
+    }
+    /**
+     * Check whether the object is a J1;PATHFILE;...
+     * @param {GenericObject} object - Object to check.
+     * @returns {boolean} True if the object is a J1;PATHFILE
+     */
+    isJ1Pathfile(obj: GenericObject): boolean {
+        if (!obj) return false;
+        return 'J1' === obj.t && 'PATHFILE' === obj.p;
+    }
 }

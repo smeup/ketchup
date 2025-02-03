@@ -129,9 +129,21 @@
     var(--kup-imagelist-columns-mobile, var(--kup_imagelist_columns_mobile)),
     minmax(0px, 1fr)
   );
-  margin-top: 1em;
   width: 100%;
   grid-auto-flow: row;
+
+  &.full-description {
+    .f-cell .f-cell__content .image-list__wrapper .f-image.image-list__image {
+      display: flow-root;
+    }
+    .image-list__label {
+      overflow: unset;
+      text-align: center;
+      text-overflow: unset;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
 
   .f-cell {
     height: 100%;
@@ -180,7 +192,6 @@
     width: 100%;
     height: calc(100% - 16px - var(--kup-space-03) * 2);
     overflow: hidden;
-
     .f-image__icon {
       mask-size: 100% !important;
     }

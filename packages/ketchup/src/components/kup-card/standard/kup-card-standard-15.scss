@@ -6,7 +6,6 @@
   color: var(--kup-text-color);
   display: block;
   font-size: var(--kup-font-size);
-  max-width: 40vw;
   outline: none;
 
   .section-1 {
@@ -154,5 +153,11 @@
   #search,
   #new {
     margin: 0 0 0.5em 0;
+  }
+}
+
+@media screen and (min-width: 678px) {
+  .standard-layout-15 {
+    max-width: 40vw;
   }
 }

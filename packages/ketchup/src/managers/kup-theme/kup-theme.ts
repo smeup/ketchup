@@ -21,6 +21,7 @@ import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
 import * as FTypographyCSS from '../../f-components/f-typography/f-typography.css';
 import * as rippleCSS from './mdc-ripple.css';
+import * as fObjectFieldCSS from '../../f-components/f-object-field/f-object-field.css';
 import {
     editorUsers,
     fButtonUsers,
@@ -44,6 +45,7 @@ import {
     masterCustomStyle,
     rippleUsers,
     KupThemeFontFamilyMap,
+    fObjectFieldUsers,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
@@ -307,6 +309,9 @@ export class KupTheme {
             }
             if (rippleUsers.includes(tagName)) {
                 completeStyle += rippleCSS['default'];
+            }
+            if (fObjectFieldUsers.includes(tagName)) {
+                completeStyle += fObjectFieldCSS['default'];
             }
         }
         return completeStyle ? completeStyle : null;

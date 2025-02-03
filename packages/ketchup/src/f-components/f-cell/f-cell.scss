@@ -1,4 +1,5 @@
 .f-cell {
+  --kup_fcell_width: var(--kup-fcell-width, 100%);
   --kup_cell_background: var(--kup-cell-background);
   --kup_cell_font_family: var(--kup-cell-font-family);
   --kup_cell_font_family_monospace: var(
@@ -19,6 +20,9 @@
     --kup-fcell-padding-wide,
     var(--kup-space-04) var(--kup-space-03)
   );
+  --kup_fcell_dense_min_height: var(--kup-fcell-medium-min-height, 20px);
+  --kup_fcell_medium_min_height: var(--kup-fcell-medium-min-height, 36px);
+  --kup_fcell_wide_min_height: var(--kup-fcell-wide-min-height, 50px);
 
   background: var(--kup_cell_background);
   box-sizing: border-box;
@@ -27,33 +31,26 @@
   font-family: var(--kup_cell_font_family);
   font-size: var(--kup_cell_font_size);
   min-height: 100%;
-  width: 100%;
+  width: var(--kup_fcell_width);
   word-break: break-all;
   word-wrap: break-word;
-
+  max-width: 100%;
   &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
     max-height: 100%;
   }
 
-  &:hover {
-    .f-image.f-cell__iconfunction.right,
-    .f-image.f-cell__iconfunction.left {
-      opacity: 1;
-      background-color: var(--kup-gray-color-10-hover);
-      z-index: 2;
-    }
-  }
   .f-cell__content {
     align-items: center;
     display: flex;
     width: 100%;
     position: relative;
 
-    .f-image.f-cell__iconfunction {
+    .f-cell__iconfunction {
       display: block;
-      opacity: 0;
       position: absolute;
       transition: opacity 0.3s ease;
+      background-color: var(--kup-gray-color-10-hover);
+      z-index: 2;
 
       &.right {
         right: 0;
@@ -61,10 +58,6 @@
 
       &.left {
         left: 0;
-      }
-
-      &:focus-within {
-        opacity: 1;
       }
     }
     img,
@@ -172,11 +165,6 @@
     padding: 0px;
   }
 
-  .f-checkbox .checkbox .checkbox__native-control {
-    height: 18px;
-    width: 18px;
-  }
-
   kup-checkbox,
   kup-image {
     display: flex;
@@ -197,6 +185,10 @@
 
   kup-progress-bar {
     display: block;
+  }
+
+  .obj-field-extra-btn {
+    align-self: end;
   }
 
   .input-field {
@@ -528,8 +520,20 @@
     }
   }
 
+  &.c-input-uppercase .f-cell__content {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  &.c-input-lowercase .f-cell__content {
+    input {
+      text-transform: lowercase;
+    }
+  }
+
   &.dense {
-    --kup-textfield-fullwidth-height: 28px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_dense_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     --kup-checkbox-padding: 0px;
     --kup-chip-margin: 0 4px;
@@ -537,13 +541,13 @@
   }
 
   &.medium {
-    --kup-textfield-fullwidth-height: 36px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_medium_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     padding: var(--kup_fcell_padding_medium);
   }
 
   &.wide {
-    --kup-textfield-fullwidth-height: 50px;
+    --kup-textfield-fullwidth-height: var(--kup_fcell_wide_min_height);
     --kup-textfield-fullwidth-padding: 0px;
     padding: var(--kup_fcell_padding_wide);
   }

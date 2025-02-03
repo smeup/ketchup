@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-time-picker component.
@@ -12,6 +12,7 @@ export enum KupTimePickerProps {
     initialValue = 'Sets the initial value of the component',
     manageSeconds = 'Manage seconds',
     timeMinutesStep = 'Minutes step',
+    showMarker = 'When true shows a small marker on the component',
 }
 
 export interface KupTimePickerEventPayload extends KupEventPayload {

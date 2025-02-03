@@ -3,7 +3,7 @@ import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
-    sourceMap: true,
+    sourceMap: false,
     namespace: 'ketchup',
     testing: {
         reporters: [
@@ -37,6 +37,8 @@ export const config: Config = {
         },
         collectCoverageFrom: ['src/**/*.ts'],
         browserHeadless: 'new',
+        setupFilesAfterEnv: ['<rootDir>/tests/resources/setup/setup.js'],
+        verbose: true,
         //browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
     },
     outputTargets: [
@@ -114,25 +116,25 @@ export const config: Config = {
                 { src: 'text-field.html' },
                 { src: 'tree-performance.html' },
                 { src: 'tree.html' },
+                { src: 'txt.html' },
             ],
             serviceWorker: null, // disable service workers
         },
-        reactOutputTarget({
-            componentCorePackage: '@sme.up/ketchup',
-            proxiesFile: '../ketchup-react/src/index.ts',
-            includeDefineCustomElements: true,
-        }),
+        reactOutputTarget({ outDir: '../ketchup-react' }),
         {
             type: 'dist',
             esmLoaderPath: './loader',
         },
         {
             type: 'dist-custom-elements',
+            externalRuntime: false,
+            includeGlobalScripts: false,
         },
     ],
     extras: {
         enableImportInjection: true,
     },
+    excludeUnusedDependencies: true,
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],

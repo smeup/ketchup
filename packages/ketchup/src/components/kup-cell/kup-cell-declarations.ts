@@ -1,4 +1,4 @@
-import { KupDataCell, KupEventPayload } from '../../components';
+import { KupEventPayload } from '../../components';
 import { KupDataCellOptions } from '../../managers/kup-data/kup-data-declarations';
 
 /**

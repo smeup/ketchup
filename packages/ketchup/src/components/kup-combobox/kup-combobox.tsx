@@ -26,7 +26,10 @@ import {
     KupListEventPayload,
     ValueDisplayedValue,
 } from '../kup-list/kup-list-declarations';
-import { consistencyCheck } from '../kup-list/kup-list-helper';
+import {
+    consistencyCheck,
+    getIdOfItemByDisplayMode,
+} from '../kup-list/kup-list-helper';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
@@ -80,7 +83,7 @@ export class KupCombobox {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -98,14 +101,18 @@ export class KupCombobox {
      */
     @Prop() initialValue: string = '';
     /**
+     * Sets the initial value decode of the component
+     */
+    @Prop() initialValueDecode: string = '';
+    /**
      * Enables a clear trailing icon.
      * @default false
      */
     @Prop() isClearable: boolean = false;
     /**
-     * Lets the combobox behave as a select element.
+     * Lets the combobox behave as a select element, making the textfield readable only but interactable.
      */
-    @Prop({ reflect: true }) isSelect: boolean = false;
+    @Prop({ reflect: true }) isSelect: boolean = true;
     /**
      * When set, its content will be shown as a label.
      * @default null
@@ -121,8 +128,9 @@ export class KupCombobox {
      * @default false
      */
     @Prop() readOnly: boolean = false;
+
     /**
-     * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
@@ -131,18 +139,19 @@ export class KupCombobox {
     @Prop() showDropDownIcon: boolean = true;
     /**
      * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * When set, the icon will be shown after the text.
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
-
-    /*-------------------------------------------------*/
-    /*       I n t e r n a l   V a r i a b l e s       */
-    /*-------------------------------------------------*/
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
 
     /**
      * Instance of the KupManager class.
@@ -153,10 +162,19 @@ export class KupCombobox {
     #textfieldWrapper: HTMLElement = undefined;
     #textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     #clickCb: KupManagerClickCb = null;
+    #componentTriggered: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-combobox-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupComboboxEventPayload>;
 
     @Event({
         eventName: 'kup-combobox-blur',
@@ -173,14 +191,6 @@ export class KupCombobox {
         bubbles: true,
     })
     kupChange: EventEmitter<KupComboboxEventPayload>;
-
-    @Event({
-        eventName: 'kup-combobox-click',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<KupComboboxEventPayload>;
 
     @Event({
         eventName: 'kup-combobox-focus',
@@ -215,16 +225,18 @@ export class KupCombobox {
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+        if (!this.#isListOpened()) {
+            this.kupBlur.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+            });
+        }
     }
 
     onKupChange(value: string) {
-        let ret = this.#consistencyCheck(value, true);
+        let ret = this.#consistencyCheck(value, undefined, true);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
@@ -232,23 +244,26 @@ export class KupCombobox {
             inputValue: this.#textfieldEl.value,
             node: ret.node,
         });
+        this.#closeList();
     }
 
     onKupClick() {
-        if (this.isSelect == true) {
-            if (this.#textfieldWrapper.classList.contains('toggled')) {
-                this.#closeList();
-            } else {
-                this.#openList();
-            }
-        }
+        this.onKupIconClick();
+    }
 
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-        });
+    onKupIconClick() {
+        if (this.#textfieldWrapper.classList.contains('toggled')) {
+            this.#closeList();
+        } else {
+            this.#openList();
+            this.kupIconClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                open: this.#textfieldWrapper.classList.contains('toggled'),
+            });
+        }
     }
 
     onKupFocus() {
@@ -261,7 +276,11 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        let ret = this.#consistencyCheck(this.#textfieldEl.value, false);
+        let ret = this.#consistencyCheck(
+            this.#textfieldEl.value,
+            undefined,
+            false
+        );
         this.#openList();
         this.kupInput.emit({
             comp: this,
@@ -269,21 +288,6 @@ export class KupCombobox {
             value: this.value,
             inputValue: this.#textfieldEl.value,
             node: ret.node,
-        });
-    }
-
-    onKupIconClick() {
-        if (this.#textfieldWrapper.classList.contains('toggled')) {
-            this.#closeList();
-        } else {
-            this.#openList();
-        }
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-            inputValue: this.#textfieldEl.value,
-            open: this.#textfieldWrapper.classList.contains('toggled'),
         });
     }
 
@@ -308,7 +312,13 @@ export class KupCombobox {
 
     @Watch('initialValue')
     initialValueChange(newValue: string) {
-        this.setValue(newValue);
+        this.initialValueDecode = undefined;
+        this.setValue(newValue, undefined);
+    }
+
+    @Watch('initialValueDecode')
+    initialValueDecodeChange(newValue: string) {
+        this.setValue(this.initialValue, newValue);
     }
 
     /*-------------------------------------------------*/
@@ -348,13 +358,13 @@ export class KupCombobox {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupIconClick();
                     this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList();
+                    this.onKupIconClick();
                     this.#listEl.focusPrevious();
                     break;
             }
@@ -409,8 +419,16 @@ export class KupCombobox {
      * @param {string} value - Value to be set.
      */
     @Method()
-    async setValue(value: string) {
-        this.#consistencyCheck(value, true);
+    async setValue(value: string, valueDecode?: string) {
+        this.#consistencyCheck(value, valueDecode, true);
+    }
+    /**
+     * Calls closeList method (acts like a reset).
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async reset() {
+        this.#closeList();
     }
 
     /*-------------------------------------------------*/
@@ -455,6 +473,7 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
+        window.setTimeout(() => this.#listEl.setFocus(), 100);
     }
 
     #closeList() {
@@ -462,46 +481,55 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
+        window.setTimeout(() => this.#listEl.setBlur(), 100);
     }
 
     #isListOpened(): boolean {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(idIn: string, setValue: boolean): ValueDisplayedValue {
-        let ret = consistencyCheck(
-            idIn,
-            this.data['kup-list'],
-            this.#listEl,
-            this.selectMode,
-            this.displayMode
-        );
-
-        if (ret.exists) {
-            if (setValue) {
+    #consistencyCheck(
+        idIn: string,
+        idInDecode: string,
+        eventShouldSetValue: boolean
+    ): ValueDisplayedValue {
+        if (idIn != null && idInDecode != null) {
+            this.displayedValue = getIdOfItemByDisplayMode(
+                { id: idIn, value: idInDecode },
+                this.displayMode,
+                ' - '
+            );
+        } else {
+            const ret = consistencyCheck(
+                idIn,
+                this.data['kup-list'],
+                this.#listEl,
+                this.selectMode,
+                this.displayMode
+            );
+            if (ret.exists && eventShouldSetValue) {
                 this.value = ret.value;
                 this.displayedValue = ret.displayedValue;
+            } else {
+                this.displayedValue = idIn;
             }
             if (this.#listEl != null) {
                 this.#listEl.filter = ret.value;
             }
-        } else {
-            this.value = idIn;
-            this.displayedValue = idIn;
-            if (this.#listEl != null) {
-                this.#listEl.filter = ret.value;
-            }
+            return ret;
         }
-
-        return ret;
     }
 
     #prepList() {
         return (
             <kup-list
                 {...this.data['kup-list']}
-                displayMode={this.displayMode}
+                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 is-menu
+                showFilter={
+                    this.data['kup-list']?.data?.length >= 10 ? true : false
+                }
+                filter={''}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
@@ -527,7 +555,7 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(this.value, true);
+        this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -564,6 +592,7 @@ export class KupCombobox {
             label: this.label,
             leadingLabel: this.leadingLabel,
             readOnly: this.readOnly,
+            isSelect: this.isSelect,
             sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
@@ -572,6 +601,7 @@ export class KupCombobox {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            showMarker: this.showMarker,
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
@@ -604,7 +634,7 @@ export class KupCombobox {
                         }
                         value={this.displayedValue}
                         onBlur={() => this.onKupBlur()}
-                        onClick={() => this.onKupClick()}
+                        onClick={() => this.onKupIconClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChange(e.target.value)
                         }

@@ -82,6 +82,14 @@ export default {
           default: 'true',
           try: 'switch',
         },
+        {
+          prop: 'showFullDescription',
+          description:
+            'When enabled, image descriptions will always be displayed entirely and not cut or truncated.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoMethods: [
         {

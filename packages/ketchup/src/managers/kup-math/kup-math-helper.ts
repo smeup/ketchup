@@ -1,5 +1,7 @@
+import Mexp from 'math-expression-evaluator';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { getRegExpFromString } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -13,30 +15,60 @@ export function customFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
-    const keys = Object.keys(row);
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        let value: number = row[key];
-        if (value != null && !isNaN(value)) {
-            let re: RegExp = new RegExp(key, 'g');
-            formula = formula.replace(re, value.toString());
+    // Replace formula column names with the actual values
+    Object.entries(row).forEach(([formulaColumnName, value]) => {
+        if (value == null) {
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is null`,
+                KupDebugCategory.WARNING
+            );
+            return;
         }
-    }
+        if (isNaN(value)) {
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                `Evaluating the formula ("${formula}"): ${formulaColumnName} is not a number.`,
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
+
+        const regex = getRegExpFromString(formulaColumnName, 'g');
+        formula = formula.replace(regex, `(${value.toString()})`);
+    });
+
+    // Remove any leftover brackets (in case there are unmatched ones)
     formula = formula.replace(/[\[\]']+/g, '');
+
+    // Evaluate the formula
     try {
-        const result = Function(
-            '"use strict"; return (' + formula + ')'
-        )() as number;
+        // Use a simple parser to handle comma and negative numbers properly
+        const sanitizedExpression = formula
+            // Replace commas with dots
+            .replace(/,/g, '.')
+            .replace(
+                /(^|[+\-*/(])(-\d+(\.\d+)?)/g,
+                (_, before, number) => `${before}(${number})`
+            );
+        const mexp = new Mexp();
+        const lexedFormula = mexp.lex(sanitizedExpression);
+        const postFixedFormula = mexp.toPostfix(lexedFormula);
+        const result = mexp.postfixEval(postFixedFormula);
+        if (result === Infinity) {
+            throw Error('Result yielded infinity');
+        }
         return result;
-    } catch (e) {
+    } catch (error: any) {
         dom.ketchup.debug.logMessage(
             'kup-data',
-            'Error while evaluating the following formula!(' + formula + ')',
+            `Error while evaluating the formula ("${formula}"): ${error.message}`,
             KupDebugCategory.WARNING
         );
         return NaN;
     }
 }
+
 /**
  * Calculates a single Y point of a normal distribution.
  * @param {number} average - Average.

@@ -73,10 +73,20 @@ export class KupDialog {
      */
     @Prop() sizeX = 'auto';
     /**
-     * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+     * The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
      * @default "auto"
      */
     @Prop() sizeY = 'auto';
+    /**
+     * The max width of the dialog, defaults to 90dvw.
+     * @default "auto"
+     */
+    @Prop() maxSizeX = '90dvw';
+    /**
+     * The max height of the dialog, defaults to 90dvh.
+     * @default "auto"
+     */
+    @Prop() maxSizeY = '90dvh';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -135,6 +145,15 @@ export class KupDialog {
      */
     @Method()
     async recalcPosition(): Promise<void> {
+        if (!this.rootElement?.isConnected) {
+            this.#kupManager.debug.logMessage(
+                this,
+                'recalcPosition() ran after the component was disconnected. Aborting.',
+                KupDebugCategory.WARNING
+            );
+            this.#disconnectedCallback();
+            return;
+        }
         const rect = this.rootElement.getBoundingClientRect();
         if (!rect.x && !rect.y && !rect.height && !rect.width) {
             this.#kupManager.debug.logMessage(
@@ -157,10 +176,10 @@ export class KupDialog {
             }
         }
         this.#recalcSafeguard = 0;
-        const left = window.innerWidth / 2 - rect.width / 2;
-        const top = window.innerHeight / 2 - rect.height / 2 + window.scrollY;
-        this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
-        this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
+        this.rootElement.style.left = '0';
+        this.rootElement.style.bottom = '0';
+        this.rootElement.style.right = '0';
+        this.rootElement.style.top = '0';
         this.rootElement.removeAttribute('fade-in');
     }
     /**
@@ -177,6 +196,16 @@ export class KupDialog {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupDialogProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*          P r i v a t e   M e t h o d s          */
+    /*-------------------------------------------------*/
+    #disconnectedCallback() {
+        if (this.modal) {
+            this.#kupManager.interact.hideModalBackdrop();
+        }
+        this.#kupManager.theme.unregister(this);
     }
 
     /*-------------------------------------------------*/
@@ -227,7 +256,14 @@ export class KupDialog {
         const style = {
             '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
             '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
+            '--kup_dialog_max_width': this.maxSizeX ? this.maxSizeX : '90dvw',
+            '--kup_dialog_max_height': this.maxSizeY ? this.maxSizeY : '90dvh',
         };
+
+        const headerSlot = this.rootElement.querySelector('[slot="header"]');
+        if (headerSlot) {
+            this.#header = headerSlot as HTMLElement;
+        }
 
         return (
             <Host fade-in style={style}>
@@ -254,9 +290,11 @@ export class KupDialog {
                                 ></FImage>
                             ) : null}
                         </div>
+                    ) : headerSlot ? (
+                        <slot name="header"></slot>
                     ) : null}
                     <div class="content">
-                        <slot></slot>
+                        <slot name="content"></slot>
                     </div>
                 </div>
             </Host>
@@ -264,9 +302,6 @@ export class KupDialog {
     }
 
     disconnectedCallback() {
-        if (this.modal) {
-            this.#kupManager.interact.hideModalBackdrop();
-        }
-        this.#kupManager.theme.unregister(this);
+        this.#disconnectedCallback();
     }
 }

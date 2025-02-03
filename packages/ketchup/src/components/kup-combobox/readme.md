@@ -5,25 +5,27 @@
 
 ## Properties
 
-| Property           | Attribute             | Description                                                                                                                              | Type                                                                                                                                                    | Default                        |
-| ------------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `alert`            | `alert`               | Set alert message                                                                                                                        | `string`                                                                                                                                                | `''`                           |
-| `customStyle`      | `custom-style`        | Custom style of the component.                                                                                                           | `string`                                                                                                                                                | `''`                           |
-| `data`             | --                    | Props of the sub-components (date input text field).                                                                                     | `Object`                                                                                                                                                | `undefined`                    |
-| `disabled`         | `disabled`            | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean`                                                                                                                                               | `false`                        |
-| `displayMode`      | `display-mode`        | Sets how to show the selected item value. Suported values: "code", "description", "both".                                                | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.DESCRIPTION` |
-| `error`            | `error`               | Set error message                                                                                                                        | `string`                                                                                                                                                | `''`                           |
-| `icon`             | `icon`                | When set, the text-field will show this icon.                                                                                            | `string`                                                                                                                                                | `null`                         |
-| `initialValue`     | `initial-value`       | Sets the initial value of the component                                                                                                  | `string`                                                                                                                                                | `''`                           |
-| `isClearable`      | `is-clearable`        | Enables a clear trailing icon.                                                                                                           | `boolean`                                                                                                                                               | `false`                        |
-| `isSelect`         | `is-select`           | Lets the combobox behave as a select element.                                                                                            | `boolean`                                                                                                                                               | `false`                        |
-| `label`            | `label`               | When set, its content will be shown as a label.                                                                                          | `string`                                                                                                                                                | `null`                         |
-| `leadingLabel`     | `leading-label`       | When set to true, the label will be on the left of the component.                                                                        | `boolean`                                                                                                                                               | `false`                        |
-| `readOnly`         | `read-only`           | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean`                                                                                                                                               | `false`                        |
-| `selectMode`       | `select-mode`         | Sets how to return the selected item value. Suported values: "code", "description", "both".                                              | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                                                        | `ItemsDisplayMode.CODE`        |
-| `showDropDownIcon` | `show-drop-down-icon` | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                               | `true`                         |
-| `sizing`           | `sizing`              | Sets the type of the button                                                                                                              | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM`    |
-| `trailingIcon`     | `trailing-icon`       | When set, the icon will be shown after the text.                                                                                         | `boolean`                                                                                                                                               | `false`                        |
+| Property             | Attribute              | Description                                                                                                                              | Type                                                                                                                                                                | Default                        |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `alert`              | `alert`                | Set alert message                                                                                                                        | `string`                                                                                                                                                            | `''`                           |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                                                                                           | `string`                                                                                                                                                            | `''`                           |
+| `data`               | --                     | Props of the sub-components (date input text field).                                                                                     | `Object`                                                                                                                                                            | `undefined`                    |
+| `disabled`           | `disabled`             | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean`                                                                                                                                                           | `false`                        |
+| `displayMode`        | `display-mode`         | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".            | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `error`              | `error`                | Set error message                                                                                                                        | `string`                                                                                                                                                            | `''`                           |
+| `icon`               | `icon`                 | When set, the text-field will show this icon.                                                                                            | `string`                                                                                                                                                            | `null`                         |
+| `initialValue`       | `initial-value`        | Sets the initial value of the component                                                                                                  | `string`                                                                                                                                                            | `''`                           |
+| `initialValueDecode` | `initial-value-decode` | Sets the initial value decode of the component                                                                                           | `string`                                                                                                                                                            | `''`                           |
+| `isClearable`        | `is-clearable`         | Enables a clear trailing icon.                                                                                                           | `boolean`                                                                                                                                                           | `false`                        |
+| `isSelect`           | `is-select`            | Lets the combobox behave as a select element, making the textfield readable only but interactable.                                       | `boolean`                                                                                                                                                           | `true`                         |
+| `label`              | `label`                | When set, its content will be shown as a label.                                                                                          | `string`                                                                                                                                                            | `null`                         |
+| `leadingLabel`       | `leading-label`        | When set to true, the label will be on the left of the component.                                                                        | `boolean`                                                                                                                                                           | `false`                        |
+| `readOnly`           | `read-only`            | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean`                                                                                                                                                           | `false`                        |
+| `selectMode`         | `select-mode`          | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE`        |
+| `showDropDownIcon`   | `show-drop-down-icon`  | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                                           | `true`                         |
+| `showMarker`         | `show-marker`          | When true shows a small marker on the component.                                                                                         | `boolean`                                                                                                                                                           | `false`                        |
+| `sizing`             | `sizing`               | Sets the type of the button                                                                                                              | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL`             | `KupComponentSizing.SMALL`     |
+| `trailingIcon`       | `trailing-icon`        | When set, the icon will be shown after the text.                                                                                         | `boolean`                                                                                                                                                           | `false`                        |
 
 
 ## Events
@@ -77,6 +79,16 @@ Type: `Promise<void>`
 
 
 
+### `reset() => Promise<void>`
+
+Calls closeList method (acts like a reset).
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFocus() => Promise<void>`
 
 Sets the focus to the component.
@@ -103,15 +115,16 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `setValue(value: string, valueDecode?: string) => Promise<void>`
 
 Sets the component's value.
 
 #### Parameters
 
-| Name    | Type     | Description        |
-| ------- | -------- | ------------------ |
-| `value` | `string` | - Value to be set. |
+| Name          | Type     | Description        |
+| ------------- | -------- | ------------------ |
+| `value`       | `string` | - Value to be set. |
+| `valueDecode` | `string` |                    |
 
 #### Returns
 
@@ -158,16 +171,23 @@ graph TD;
   kup-radio --> kup-dialog
   kup-radio --> kup-badge
   kup-card --> kup-combobox
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-autocomplete --> kup-dialog
-  kup-autocomplete --> kup-badge
+  kup-image --> kup-card
+  kup-image --> kup-image
+  kup-image --> kup-dialog
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
@@ -186,13 +206,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-card
-  kup-image --> kup-image
-  kup-image --> kup-dialog
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -207,6 +220,7 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-combobox
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -221,7 +235,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-combobox
   kup-tree --> kup-combobox
   kup-box --> kup-combobox
   kup-cell --> kup-combobox

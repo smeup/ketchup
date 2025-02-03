@@ -10,7 +10,6 @@ import {
     Method,
     Prop,
     State,
-    VNode,
     Watch,
 } from '@stencil/core';
 import {
@@ -41,6 +40,7 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { getProps } from '../../utils/utils';
+import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -62,6 +62,12 @@ export class KupDatePicker {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
+    /**
+     * When set to true, the selected date will be appended to the current value
+     * instead of replacing it.
+     * @default false
+     */
+    @Prop() appendSelection: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -96,9 +102,9 @@ export class KupDatePicker {
     @Prop() outlined: boolean = false;
     /**
      * Sets the sizing of the textfield of the datepicker
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * Sets the sizing of the textfield of the datepicker
      * @default true
@@ -114,6 +120,16 @@ export class KupDatePicker {
      * @default '''
      */
     @Prop() error: string = '';
+    /**
+     * When true shows a small marker on the component.
+     * @default false
+     */
+    @Prop() showMarker: boolean = false;
+    /**
+     * When enabled, font will be set to monospace and sizing will be extra-small .
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -271,7 +287,7 @@ export class KupDatePicker {
         });
     }
 
-    onKupInput(e: InputEvent) {
+    async onKupInput(e: InputEvent) {
         this.refreshPickerValue(
             (e.target as HTMLInputElement).value,
             this.kupInput,
@@ -280,7 +296,7 @@ export class KupDatePicker {
     }
 
     onKupTextFieldSubmit(e: KeyboardEvent) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
             this.refreshPickerValue(
                 (e.target as HTMLInputElement).value,
                 this.kupTextFieldSubmit
@@ -394,32 +410,42 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        this.ISOvalue = '';
         this.notISOvalue = newValue;
-        // check if input contains special codes
-        if (!eventDetailValue) {
-            /** donothing */
-        } else if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
-            if (isOnInputEvent != true) {
-                this.ISOvalue = eventDetailValue;
-                this.notISOvalue = '';
+        this.ISOvalue = '';
+
+        if (eventDetailValue) {
+            const isValidFilter =
+                this.isAlphanumeric(eventDetailValue) ||
+                eventDetailValue.match(FILTER_ANALYZER);
+
+            if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
+                if (!isOnInputEvent) {
+                    this.ISOvalue = eventDetailValue;
+                    if (!this.appendSelection) {
+                        this.notISOvalue = '';
+                    }
+                }
+            } else if (
+                !isValidFilter &&
+                this.kupManager.dates.isValidFormattedStringDate(
+                    eventDetailValue
+                )
+            ) {
+                if (!this.appendSelection) {
+                    newValue = this.kupManager.dates.format(
+                        this.kupManager.dates.normalize(eventDetailValue),
+                        KupDatesFormats.ISO_DATE
+                    );
+                    this.refreshPickerComponentValue(newValue);
+                }
+
+                if (!isOnInputEvent) {
+                    this.ISOvalue = newValue;
+                    if (!this.appendSelection) {
+                        this.notISOvalue = '';
+                    }
+                }
             }
-        } else if (this.isAlphanumeric(eventDetailValue)) {
-            /** donothing */
-        } else if (
-            this.kupManager.dates.isValidFormattedStringDate(eventDetailValue)
-        ) {
-            newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(eventDetailValue),
-                KupDatesFormats.ISO_DATE
-            );
-            this.refreshPickerComponentValue(newValue);
-            if (isOnInputEvent != true) {
-                this.ISOvalue = newValue;
-                this.notISOvalue = '';
-            }
-        } else {
-            /** donothing */
         }
 
         if (newValue != null && eventToRaise) {
@@ -456,7 +482,17 @@ export class KupDatePicker {
         if (newValue == null) {
             return;
         }
-        this.setValue(newValue);
+
+        if (this.appendSelection) {
+            // Append behavior: combine current value with the new date
+            const currentValue = this.textfieldEl.value;
+            const formattedDate = this.kupManager.dates.format(newValue);
+            const combinedValue = currentValue + formattedDate;
+            this.refreshPickerValue(combinedValue, undefined);
+        } else {
+            // Default behavior: replace the entire value
+            this.setValue(newValue);
+        }
     }
 
     getPickerValueSelected(): string {
@@ -526,46 +562,6 @@ export class KupDatePicker {
         return this.textfieldEl.id;
     }
 
-    prepTextfield(initialValue: string): VNode {
-        const fullHeight =
-            this.rootElement.classList.contains('kup-full-height');
-        const fullWidth = this.rootElement.classList.contains('kup-full-width');
-        const textfieldData: FTextFieldProps = {
-            ...this.data['kup-text-field'],
-            sizing: this.sizing,
-            outlined: this.outlined,
-            showIcon: this.showIcon,
-            error: this.error,
-        };
-        if (!textfieldData.icon && this.showIcon) {
-            textfieldData.icon = 'calendar';
-        }
-        if (textfieldData.icon) {
-            textfieldData.trailingIcon = true;
-        }
-        return (
-            <FTextField
-                {...textfieldData}
-                disabled={this.disabled}
-                fullHeight={fullHeight}
-                fullWidth={fullWidth}
-                maxLength={10}
-                id={this.rootElement.id + '_text-field'}
-                value={initialValue}
-                onBlur={() => this.onKupBlur()}
-                onChange={(e: InputEvent) => this.onKupChange(e)}
-                onClearIconClick={() => this.onKupClearIconClick()}
-                onClick={() => this.onKupClick()}
-                onFocus={() => this.onKupFocus()}
-                onIconClick={() => this.onKupIconClick()}
-                onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
-                onInput={(e: InputEvent) => this.onKupInput(e)}
-            >
-                {this.prepDatePicker()}
-            </FTextField>
-        );
-    }
-
     getInitEndYear(curYear: number): { initYear: number; endYear: number } {
         let initYear: number = curYear - (curYear % 10);
         let endYear: number = initYear + 16 - 1;
@@ -588,32 +584,6 @@ export class KupDatePicker {
         let idConc =
             '#prev-page#next-page#date-picker-div#change-view-button#calendar#';
         return idConc.indexOf('#' + id + '#') >= 0;
-    }
-
-    prepDatePicker() {
-        const data: KupCardData = {
-            options: {
-                initialValue: this.ISOvalue,
-                firstDayIndex: this.firstDayIndex,
-                resetStatus: true,
-                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
-            },
-        };
-
-        return (
-            <kup-card
-                ref={(el) => (this.pickerContainerEl = el)}
-                data={data}
-                layoutFamily={KupCardFamily.BUILT_IN}
-                sizeX="300px"
-                sizeY="auto"
-                isMenu
-                onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
-                    if (ev.detail.value != null && ev.detail.value != '')
-                        this.onKupDatePickerItemClick(ev.detail.value);
-                }}
-            ></kup-card>
-        );
     }
 
     getDateForOutput(): string {
@@ -668,6 +638,34 @@ export class KupDatePicker {
     }
 
     render() {
+        const fullHeight =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
+        const textfieldData: FTextFieldProps = {
+            ...this.data['kup-text-field'],
+            sizing: this.sizing,
+            outlined: this.outlined,
+            showIcon: this.showIcon,
+            legacyLook: this.legacyLook,
+            error: this.error,
+            showMarker: this.showMarker,
+        };
+        if (!textfieldData.icon && this.showIcon) {
+            textfieldData.icon = 'calendar';
+        }
+        if (textfieldData.icon) {
+            textfieldData.trailingIcon = true;
+        }
+
+        const cardData: KupCardData = {
+            options: {
+                initialValue: this.ISOvalue,
+                firstDayIndex: this.firstDayIndex,
+                resetStatus: true,
+                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
+            },
+        };
+
         return (
             <Host>
                 <style>
@@ -676,7 +674,50 @@ export class KupDatePicker {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    {this.prepTextfield(this.getDateForOutput())}
+                    <FTextField
+                        {...textfieldData}
+                        disabled={this.disabled}
+                        fullHeight={fullHeight}
+                        fullWidth={fullWidth}
+                        maxLength={textfieldData.maxLength ?? 10}
+                        id={this.rootElement.id + '_text-field'}
+                        value={this.getDateForOutput()}
+                        onBlur={() => this.onKupBlur()}
+                        onChange={(e: InputEvent) => this.onKupChange(e)}
+                        onClearIconClick={() => this.onKupClearIconClick()}
+                        onClick={() => this.onKupClick()}
+                        onFocus={() => this.onKupFocus()}
+                        onIconClick={() => this.onKupIconClick()}
+                        onKeyDown={(e: KeyboardEvent) =>
+                            this.onKupTextFieldSubmit(e)
+                        }
+                        onInput={(e: InputEvent) => this.onKupInput(e)}
+                    >
+                        <div
+                            id={this.rootElement.id + '_card'}
+                            class="kup-date-picker-card"
+                        >
+                            <kup-card
+                                ref={(el) => (this.pickerContainerEl = el)}
+                                data={cardData}
+                                layoutFamily={KupCardFamily.BUILT_IN}
+                                sizeX="300px"
+                                sizeY="auto"
+                                isMenu
+                                onkup-card-click={(
+                                    ev: CustomEvent<KupCardClickPayload>
+                                ) => {
+                                    if (
+                                        ev.detail.value != null &&
+                                        ev.detail.value != ''
+                                    )
+                                        this.onKupDatePickerItemClick(
+                                            ev.detail.value
+                                        );
+                                }}
+                            ></kup-card>
+                        </div>
+                    </FTextField>
                 </div>
             </Host>
         );

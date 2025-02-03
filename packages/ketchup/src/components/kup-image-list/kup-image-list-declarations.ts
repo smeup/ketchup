@@ -16,6 +16,7 @@ export enum KupImageListProps {
     data = 'Actual data of the component',
     ripple = "When enabled displays Material's ripple effect on clicked items.",
     rows = 'Cam set a specific number of rows. It overwrite the columns flow into rows flow',
+    showFullDescription = 'When enabled, image descriptions will always be displayed entirely and not cut or truncated.',
 }
 
 export interface KupImageListEventPayload extends KupEventPayload {
@@ -32,6 +33,6 @@ export interface KupImageListEventHandlerDetails {
 }
 
 export interface KupImageListDataNode extends KupDataNode {
-    badgeData: GenericObject[];
+    badgeData?: GenericObject[];
     children?: KupImageListDataNode[];
 }

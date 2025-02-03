@@ -59,7 +59,7 @@ export class KupDynamicPosition {
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
-        el.style.zIndex = `calc(var(--kup-navbar-zindex) + 1)`;
+        el.style.zIndex = `calc(var(--kup-navbar-zindex) + 1000)`;
         const originalPath: HTMLElement[] = [];
         if (detach) {
             let currentEl: unknown = el;
@@ -82,6 +82,7 @@ export class KupDynamicPosition {
             placement: placement ? placement : KupDynamicPositionPlacement.AUTO,
             rAF: null,
         };
+        const self = this;
         const mutObserver: MutationObserver = new MutationObserver(function (
             mutations
         ) {
@@ -91,9 +92,8 @@ export class KupDynamicPosition {
                     kupDynamicPositionActiveClass
                 )
             ) {
-                requestAnimationFrame(function () {
-                    dom.ketchup.dynamicPosition.run(el);
-                });
+                self.addRepositionListeners(el);
+                self.run(el);
             }
         });
         mutObserver.observe(el, {
@@ -120,6 +120,7 @@ export class KupDynamicPosition {
     unregister(elements: KupDynamicPositionElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
+                this.removeRepositionListeners(elements[index]);
                 this.managedElements.delete(elements[index]);
             }
         }
@@ -145,6 +146,7 @@ export class KupDynamicPosition {
      */
     stop(el: KupDynamicPositionElement): void {
         el.classList.remove(kupDynamicPositionActiveClass);
+        this.removeRepositionListeners(el);
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
@@ -153,11 +155,9 @@ export class KupDynamicPosition {
     run(el: KupDynamicPositionElement): void {
         if (!el.isConnected) {
             dom.ketchup.dynamicPosition.managedElements.delete(el);
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
             return;
         }
         if (!el.classList.contains(kupDynamicPositionActiveClass)) {
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
             return;
         }
         // Reset placement
@@ -278,9 +278,94 @@ export class KupDynamicPosition {
                 el.style.left = `${left}px`;
             }
         }
-        // Testing behavior: always anchored - 2024-09-25
-        el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
+    }
+
+    reposition(el: KupDynamicPositionElement): void {
+        if (
+            el.isConnected &&
+            el.classList.contains(kupDynamicPositionActiveClass)
+        ) {
             dom.ketchup.dynamicPosition.run(el);
-        });
+        }
+    }
+
+    isScrollable(el: KupDynamicPositionElement): boolean {
+        const style = getComputedStyle(el);
+        const hasScrollableOverflow =
+            ['auto', 'scroll'].includes(style.overflow) ||
+            ['auto', 'scroll'].includes(style.overflowX) ||
+            ['auto', 'scroll'].includes(style.overflowY);
+
+        const canScrollVertically = el.scrollHeight > el.clientHeight;
+        const canScrollHorizontally = el.scrollWidth > el.clientWidth;
+
+        return (
+            hasScrollableOverflow &&
+            (canScrollVertically || canScrollHorizontally)
+        );
+    }
+
+    updateEventListenerOnAncestors(
+        container: HTMLElement,
+        updateCallback: (el: HTMLElement) => void
+    ) {
+        while (container && container !== document.documentElement) {
+            updateCallback(container);
+
+            if (container.parentElement) {
+                container = container.parentElement;
+            } else if (
+                container.getRootNode &&
+                container.getRootNode() instanceof ShadowRoot
+            ) {
+                container = (container.getRootNode() as ShadowRoot)
+                    .host as HTMLElement;
+            } else {
+                container = null;
+            }
+        }
+    }
+
+    addRepositionListeners(el: KupDynamicPositionElement): void {
+        const repositionListener = () => this.reposition(el);
+
+        window.addEventListener('resize', repositionListener);
+        window.addEventListener('scroll', repositionListener);
+
+        if (el?.kupDynamicPosition?.anchor) {
+            let container = this.getAnchorContainer(el);
+
+            this.updateEventListenerOnAncestors(container, (el) => {
+                if (this.isScrollable(el)) {
+                    el.addEventListener('scroll', repositionListener);
+                }
+            });
+        }
+
+        (el as any)._repositionListener = repositionListener;
+    }
+
+    removeRepositionListeners(el: KupDynamicPositionElement): void {
+        const repositionListener = (el as any)._repositionListener;
+
+        window.removeEventListener('resize', repositionListener);
+        window.removeEventListener('scroll', repositionListener);
+
+        if (el?.kupDynamicPosition?.anchor) {
+            let container = this.getAnchorContainer(el);
+
+            this.updateEventListenerOnAncestors(container, (el) => {
+                el.removeEventListener('scroll', repositionListener);
+            });
+        }
+
+        delete (el as any)._repositionListener;
+    }
+
+    getAnchorContainer(el: KupDynamicPositionElement): HTMLElement {
+        return el.kupDynamicPosition.anchor &&
+            this.anchorIsHTMLElement(el.kupDynamicPosition.anchor)
+            ? (el.kupDynamicPosition.anchor as HTMLElement).parentElement
+            : undefined;
     }
 }

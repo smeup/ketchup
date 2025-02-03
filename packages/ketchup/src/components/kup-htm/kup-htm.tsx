@@ -24,6 +24,7 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { KupHTMProps } from './kup-htm-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-htm',
@@ -97,6 +98,17 @@ export class KupHTM {
     }
 
     /*-------------------------------------------------*/
+    /*          P r i v a t e    M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #isObjectCompatibleWithHTM(object: KupObj): boolean {
+        return (
+            this.#kupManager.objects.isLink(object) ||
+            this.#kupManager.objects.isJ1Pathfile(object)
+        );
+    }
+
+    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -123,7 +135,7 @@ export class KupHTM {
     }
 
     render() {
-        const isLink = this.#kupManager.objects.isLink(this.data.obj);
+        const isLink = this.#isObjectCompatibleWithHTM(this?.data?.obj);
 
         return (
             <Host>

@@ -9,16 +9,28 @@ export function getIdOfItemByDisplayMode(
     mode: ItemsDisplayMode,
     separator: string
 ): string {
-    if (mode == ItemsDisplayMode.CODE) {
-        return item.id;
+    const { id, value } = item;
+
+    if (id == null && value) {
+        return value;
     }
-    if (mode == ItemsDisplayMode.DESCRIPTION) {
-        return item.value;
+    if (id && value == null) {
+        return id;
     }
-    if (mode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
-        return item.id + separator + item.value;
+
+    switch (mode) {
+        case ItemsDisplayMode.CODE:
+            return id;
+        case ItemsDisplayMode.DESCRIPTION:
+            return value;
+        case ItemsDisplayMode.CODE_AND_DESC:
+        case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+            return id && value ? id + separator + value : id || value;
+        case ItemsDisplayMode.DESC_AND_CODE:
+            return value && id ? value + separator + id : value || id;
+        default:
+            return id;
     }
-    return item.id;
 }
 
 export function consistencyCheck(
@@ -54,7 +66,11 @@ export function consistencyCheck(
         trueValue = selected.id;
     } else {
         id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
-        displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
+        displayedValue = getIdOfItemByDisplayMode(
+            selected,
+            id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
+            ' - '
+        );
         trueValue = getIdOfItemByDisplayMode(
             selected,
             ItemsDisplayMode.CODE,
@@ -142,7 +158,7 @@ export function getItemByDisplayMode(
         for (let i = 0; i < listData['data'].length; i++) {
             let displayedValue = getIdOfItemByDisplayMode(
                 listData['data'][i],
-                displayMode,
+                id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
                 ' - '
             );
             if (setSelected == true) {

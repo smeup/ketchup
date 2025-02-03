@@ -25,9 +25,9 @@ export default {
                     column: 'FLD1',
                     shape: 'IMG',
                     data: {
-                      resource: 'https://via.placeholder.com/64?text={{obj.k}}',
+                      resource: 'https://placehold.co/64?text={{obj.k}}',
                     },
-                    value: 'https://via.placeholder.com/64?text={{obj.k}}',
+                    value: 'https://placehold.co/64?text={{obj.k}}',
                   },
                 ],
               },

@@ -20,7 +20,7 @@ export function AutocompleteItemFactory(
     });
   }
 
-  const pp = { data: toRet, displayMode: 'both', selectable: true };
+  const pp = { data: toRet, displayMode: 'Both', selectable: true };
   return pp;
 }
 

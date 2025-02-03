@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.0.1"
-            >v10.0.1</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.1.0"
+            >v10.1.0</a
           ></div
         ></div
       >
@@ -772,6 +772,16 @@ export default {
                 },
                 icon: 'access_time',
                 value: 'Time picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'txt',
+                  },
+                },
+                icon: 'TXT',
+                value: 'TXT',
                 visible: true,
               },
             ],
