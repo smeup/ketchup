@@ -272,6 +272,13 @@ export class KupInputPanel {
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
     ]);
+    #cellTypesNeedingReset: Map<FCellTypes, string> = new Map<
+        FCellTypes,
+        string
+    >([
+        [FCellTypes.COMBOBOX, 'kup-combobox'],
+        [FCellTypes.AUTOCOMPLETE, 'kup-autocomplete'],
+    ]);
     #cellCustomRender: Map<
         FCellShapes,
         (
@@ -1113,20 +1120,20 @@ export class KupInputPanel {
                     cell,
                     cell.shape
                 );
-                const componentQuery = this.#cellTypeComponents.get(cellType);
-                if (!componentQuery) {
-                    return;
-                }
+                const queryCompSetValue =
+                    this.#cellTypeComponents.get(cellType);
+                const queryCompNeedsReset =
+                    this.#cellTypesNeedingReset.get(cellType);
 
-                const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id='${column.name.replace(
-                        /\//g,
-                        '\\$1'
-                    )}']`
-                );
-                if (cell.value) {
-                    el?.setValue(cell.value);
-                }
+                if (!queryCompSetValue && !queryCompNeedsReset) return;
+
+                const selector =
+                    (queryCompSetValue ?? queryCompNeedsReset) +
+                    `[id='${column.name.replace(/\//g, '\\$1')}']`;
+                const el: any =
+                    this.rootElement.shadowRoot.querySelector(selector);
+
+                queryCompNeedsReset ? el?.reset() : el?.setValue?.(cell.value);
             })
         );
 

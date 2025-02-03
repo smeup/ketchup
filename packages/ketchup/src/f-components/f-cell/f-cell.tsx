@@ -622,6 +622,9 @@ function setEditableCell(
                     onKup-autocomplete-blur={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-autocomplete-itemclick={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.CHECKBOX:
