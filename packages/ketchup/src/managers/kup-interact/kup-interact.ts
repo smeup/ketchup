@@ -473,6 +473,24 @@ export class KupInteract {
         }
     }
     /**
+     * Undialogify element
+     */
+    undialogify(el: HTMLElement) {
+        // unregister dialog
+        this.unregister([el]);
+
+        // reset Interact.js properties to prevent switch wrong positioning when switching anchor
+        el.style.removeProperty('left');
+        el.style.removeProperty('top');
+        el.style.removeProperty('right');
+        el.style.removeProperty('bottom');
+        el.style.removeProperty('width');
+        el.style.removeProperty('height');
+        el.style.removeProperty('transform');
+        el.removeAttribute('data-x');
+        el.removeAttribute('data-y');
+    }
+    /**
      * Hides the modal's backdrop.
      */
     hideModalBackdrop(): void {
