@@ -69,11 +69,6 @@ export class KupDialog {
      */
     @Prop() resizable = true;
     /**
-     * Sets whether the dialog is draggable or not.
-     * @default "true"
-     */
-    @Prop() isDraggable = true;
-    /**
      * Sets anchor position ("none", "left", "top", "right", "bottom").
      * @default "none"
      */

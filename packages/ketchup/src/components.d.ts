@@ -317,6 +317,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
@@ -1378,6 +1383,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "selectMode": ItemsDisplayMode;
@@ -1959,11 +1969,6 @@ export namespace Components {
           * @default "{ icons: { close: true } }"
          */
         "header": KupDialogHeader;
-        /**
-          * Sets whether the dialog is draggable or not.
-          * @default "true"
-         */
-        "isDraggable": boolean;
         /**
           * The max width of the dialog, defaults to 90dvw.
           * @default "auto"
@@ -7721,11 +7726,6 @@ declare namespace LocalJSX {
           * @default "{ icons: { close: true } }"
          */
         "header"?: KupDialogHeader;
-        /**
-          * Sets whether the dialog is draggable or not.
-          * @default "true"
-         */
-        "isDraggable"?: boolean;
         /**
           * The max width of the dialog, defaults to 90dvw.
           * @default "auto"
