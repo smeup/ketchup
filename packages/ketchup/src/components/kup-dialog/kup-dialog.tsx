@@ -290,6 +290,10 @@ export class KupDialog {
             }
         );
 
+        this.rootElement.style.removeProperty('left');
+        this.rootElement.style.removeProperty('top');
+        this.rootElement.style.removeProperty('right');
+        this.rootElement.style.removeProperty('bottom');
         this.rootElement.style.removeProperty('width');
         this.rootElement.style.removeProperty('height');
     }
