@@ -5222,7 +5222,9 @@ export class KupDataTable {
                           )
                         : '';
                 const totalsClass = `totals-value ${
-                    isNegativeNumber(totalValue) && FCellClasses.TEXT_DANGER
+                    isNegativeNumber(this.#footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
                 }`;
 
                 return (
