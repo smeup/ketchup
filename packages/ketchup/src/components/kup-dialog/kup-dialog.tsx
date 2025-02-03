@@ -19,7 +19,6 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
-    KupDialogAnchor,
     KupDialogAutoCenter,
     KupDialogHeader,
     KupDialogModal,
@@ -75,10 +74,10 @@ export class KupDialog {
      */
     @Prop() isDraggable = true;
     /**
-     * Sets anchor position.
+     * Sets anchor position ("none", "left", "top", "right", "bottom").
      * @default "none"
      */
-    @Prop() anchor: KupDialogAnchor = KupDialogAnchor.NONE;
+    @Prop() anchor: 'none' | 'left' | 'top' | 'right' | 'bottom' = 'none';
     /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
@@ -222,15 +221,15 @@ export class KupDialog {
 
     #getEdgeOptions(): EdgeOptions {
         switch (this.anchor) {
-            case KupDialogAnchor.NONE:
-                return { left: true, top: false, right: true, bottom: true };
-            case KupDialogAnchor.LEFT:
+            case 'none':
+                return { left: true, top: true, right: true, bottom: true };
+            case 'left':
                 return { left: false, top: false, right: true, bottom: false };
-            case KupDialogAnchor.TOP:
+            case 'top':
                 return { left: false, top: false, right: false, bottom: true };
-            case KupDialogAnchor.RIGHT:
+            case 'right':
                 return { left: true, top: false, right: false, bottom: false };
-            case KupDialogAnchor.BOTTOM:
+            case 'bottom':
                 return { left: false, top: true, right: false, bottom: false };
         }
     }
@@ -245,12 +244,12 @@ export class KupDialog {
     }
 
     componentDidLoad() {
-        const isDetatched = this.anchor == KupDialogAnchor.NONE;
+        const isDetatched = this.anchor == 'none';
         this.#kupManager.interact.dialogify(
             this.rootElement,
             this.#header ? this.#header : null,
             {
-                unresizable: !this.resizable || !isDetatched,
+                isResizable: this.resizable || !isDetatched,
                 isDraggable: isDetatched,
                 edges: this.#getEdgeOptions(),
             }
@@ -276,6 +275,25 @@ export class KupDialog {
         this.#kupManager.debug.logLoad(this, true);
     }
 
+    componentDidUpdate() {
+        console.log('Updated!');
+        this.#kupManager.interact.unregister([this.rootElement]);
+
+        const isDetatched = this.anchor == 'none';
+        this.#kupManager.interact.dialogify(
+            this.rootElement,
+            this.#header ? this.#header : null,
+            {
+                isResizable: this.resizable || !isDetatched,
+                isDraggable: isDetatched,
+                edges: this.#getEdgeOptions(),
+            }
+        );
+
+        this.rootElement.style.removeProperty('width');
+        this.rootElement.style.removeProperty('height');
+    }
+
     componentWillRender() {
         this.#kupManager.debug.logRender(this, false);
     }
@@ -287,7 +305,7 @@ export class KupDialog {
     render() {
         let style: { [k: string]: string } = {};
 
-        if (this.anchor == KupDialogAnchor.NONE) {
+        if (this.anchor == 'none') {
             style = {
                 '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
                 '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',

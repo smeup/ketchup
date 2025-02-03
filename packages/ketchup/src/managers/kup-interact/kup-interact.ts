@@ -454,7 +454,7 @@ export class KupInteract {
                 callbacks
             );
         }
-        if (!options?.unresizable) {
+        if (options?.isResizable) {
             el.classList.add(kupDialogResizableClass);
             this.resizable(
                 el,

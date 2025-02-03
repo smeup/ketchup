@@ -35,7 +35,7 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 import { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
-import { KupDialogAnchor, KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
+import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes, KupEchartXAxis, KupEchartYAxis } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
@@ -96,7 +96,7 @@ export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 export { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
 export { FObjectFieldEventPayload } from "./f-components/f-object-field/f-object-field-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
-export { KupDialogAnchor, KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
+export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes, KupEchartXAxis, KupEchartYAxis } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
@@ -1929,10 +1929,10 @@ export namespace Components {
     }
     interface KupDialog {
         /**
-          * Sets anchor position.
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
           * @default "none"
          */
-        "anchor": KupDialogAnchor;
+        "anchor": 'none' | 'left' | 'top' | 'right' | 'bottom';
         /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"
@@ -7696,10 +7696,10 @@ declare namespace LocalJSX {
     }
     interface KupDialog {
         /**
-          * Sets anchor position.
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
           * @default "none"
          */
-        "anchor"?: KupDialogAnchor;
+        "anchor"?: 'none' | 'left' | 'top' | 'right' | 'bottom';
         /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"

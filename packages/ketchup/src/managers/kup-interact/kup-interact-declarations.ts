@@ -141,7 +141,7 @@ export interface KupDropEventTarget {
  * Dialogify options
  */
 export interface KupDialogifyOptions {
-    unresizable?: boolean;
+    isResizable?: boolean;
     isDraggable?: boolean;
     edges?: EdgeOptions | null;
 }
