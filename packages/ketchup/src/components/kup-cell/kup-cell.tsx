@@ -24,7 +24,6 @@ import {
 import {
     FCellOptionsProps,
     FCellPadding,
-    FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDragDataTransferCallback,

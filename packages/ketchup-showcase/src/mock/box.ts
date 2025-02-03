@@ -788,7 +788,7 @@ export const imgBadgeData = {
           },
           shape: 'IMG',
           data: {
-            resource: 'https://via.placeholder.com/64?text=SC',
+            resource: 'https://placehold.co/64?text=SC',
             sizeX: '32px',
             sizeY: '32px',
             badgeData: [
@@ -802,7 +802,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'https://via.placeholder.com/64?text=SC',
+          value: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {
@@ -868,11 +868,11 @@ export const pgbData = {
             k: 'CN;COL;SANCOS',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=SC',
+            resource: 'https://placehold.co/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
+          value: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {
@@ -904,11 +904,11 @@ export const pgbData = {
             k: 'CN;COL;CASFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=CF',
+            resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
@@ -941,11 +941,11 @@ export const pgbData = {
             k: 'CN;COL;DELGIO',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=DG',
+            resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -978,11 +978,11 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=PF',
+            resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1017,11 +1017,11 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=PF',
+            resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1055,11 +1055,11 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=PF',
+            resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1125,11 +1125,11 @@ export const boxBadgeData = {
             k: 'CN;COL;CASFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=CF',
+            resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
@@ -1172,11 +1172,11 @@ export const boxBadgeData = {
             k: 'CN;COL;PARFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=PF',
+            resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1220,11 +1220,11 @@ export const boxBadgeData = {
             k: 'CN;COL;DELGIO',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=DG',
+            resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -1299,9 +1299,9 @@ export const shapeData = {
             p: 'COL',
             k: 'PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CUSTOM',
+          value: 'https://placehold.co/64?text=CUSTOM',
           data: {
-            resource: 'https://via.placeholder.com/64?text=CUSTOM',
+            resource: 'https://placehold.co/64?text=CUSTOM',
             badgeData: [
               {
                 imageData: { resource: 'account' },
@@ -1479,11 +1479,11 @@ export function createData(rows: number) {
             k: 'CN;COL;CASFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=CF',
+            resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
@@ -1522,11 +1522,11 @@ export function createData(rows: number) {
             k: 'CN;COL;PARFRA',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=PF',
+            resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1565,11 +1565,11 @@ export function createData(rows: number) {
             k: 'CN;COL;DELGIO',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=DG',
+            resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -1608,11 +1608,11 @@ export function createData(rows: number) {
             k: 'CN;COL;SANCOS',
           },
           data: {
-            resource: 'https://via.placeholder.com/64?text=SC',
+            resource: 'https://placehold.co/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
+          value: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {

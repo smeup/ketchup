@@ -18,12 +18,12 @@ import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
+import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -55,6 +55,7 @@ export interface KupManager {
     tooltip: KupTooltip;
     keysBinding: KupKeysBinding;
     utilities: KupManagerUtilities;
+    perfTuning: KupPerfTuning;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
@@ -69,6 +70,7 @@ export interface KupManager {
         el: HTMLElement,
         options?: Partial<Options>
     ) => Promise<HTMLCanvasElement>;
+    removeDisconnectedElements: () => void;
 }
 /**
  * Interface for the KupManager utilities.

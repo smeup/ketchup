@@ -126,6 +126,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: thirdCell,
                 column: currentColumn,
             },
@@ -134,6 +135,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: fourthCell,
                 column: {
                     isEditable: false,
@@ -174,6 +176,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
+                index: -1,
                 column: {
                     isEditable: false,
                     isKey: false,
@@ -193,6 +196,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: secondCell,
                 column: {
                     isEditable: false,
@@ -211,6 +215,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
+                index: -1,
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -233,6 +238,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 text: '',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
+                index: -1,
                 cell: fourthCell,
                 column: {
                     isEditable: false,
@@ -285,8 +291,21 @@ describe('kup data getCodVerRows', () => {
     it('should filter cells with VO;CODVER from row', () => {
         const expectedResult = [
             {
-                name: 'X$CFG',
-                value: {
+                id: 'X$CFG',
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                },
+                cell: {
                     isEditable: false,
                     obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                     value: '',
@@ -294,13 +313,17 @@ describe('kup data getCodVerRows', () => {
                 },
             },
         ];
-        const result = dom.ketchup.data.cell.getCodVer(mockedRows[0]);
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            mockedColumns,
+            mockedRows[0]
+        );
 
         expect(result).toEqual(expectedResult);
     });
 
     it('should return an empy array where no VO;CODVER found', () => {
-        const result = dom.ketchup.data.cell.getCodVer(
+        const result = dom.ketchup.data.cell.getRowCodVers(
+            sampleKupDataDatasetNoCodVer.columns,
             sampleKupDataDatasetNoCodVer.rows[0]
         );
 

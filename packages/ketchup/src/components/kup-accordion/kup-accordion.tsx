@@ -79,9 +79,9 @@ export class KupAccordion {
     @Prop() ripple: boolean = false;
     /**
      * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

@@ -1,6 +1,7 @@
 import {
     FCellInfo,
     FCellShapes,
+    InputSettingsProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { GenericMap, GenericObject } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
@@ -21,6 +22,8 @@ export interface KupDataColumn {
     children?: KupDataColumnChild[];
     cssClass?: string;
     decimals?: number;
+    integers?: number;
+    group?: boolean;
     formula?: string;
     hideValuesRepetitions?: boolean;
     icon?: string;
@@ -35,10 +38,11 @@ export interface KupDataColumn {
     size?: string;
     valuesForFilter?: string[];
     visible?: boolean;
-    style?: GenericMap;
+    style?: GenericObject;
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
     tooltip?: boolean;
+    useAs?: string;
 }
 export interface KupDataColumnChild {
     name: string;
@@ -87,7 +91,8 @@ export interface KupCommand {
  * Generic cell interface.
  */
 export interface KupDataCell {
-    value: string;
+    value?: string;
+    decode?: string;
     cardID?: number;
     cssClass?: string;
     data?: GenericObject;
@@ -100,20 +105,20 @@ export interface KupDataCell {
     obj?: KupObj;
     shape?: FCellShapes;
     slotData?: GenericObject;
-    style?: GenericMap;
+    style?: GenericObject;
     styleContent?: GenericMap;
     title?: string;
+    inputSettings?: InputSettingsProps;
+    tooltip?: boolean;
 }
 
 export interface KupDataCellOptions extends KupDataCell {
-    options?: CellOptions[];
+    options?: GenericObject | GenericObject[] | CellOptions[];
 }
 
 export interface CellOptions {
     id: string;
     label: string;
-    checked?: boolean;
-    value?: string;
 }
 /**
  *
@@ -126,7 +131,7 @@ export interface CellActionProps {
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
-    value: string;
+    value?: string;
     children?: KupDataNode[];
     disabled?: boolean;
     expandable?: boolean;
@@ -138,8 +143,19 @@ export interface KupDataNode extends KupDataRow {
     data?: GenericObject;
     shape?: FCellShapes;
     isEditable?: boolean;
-    options?: CellOptions[];
+    options?: GenericObject | GenericObject[] | CellOptions[];
 }
+
+/**
+ * Interface related to smeup data structure setup commands.
+ */
+export interface KupDataCommand extends KupDataCell {
+    children?: Array<KupDataCommand>;
+    cells?: {
+        [key: string]: KupDataCell;
+    };
+}
+
 /**
  * Interface related to cells operations.
  */

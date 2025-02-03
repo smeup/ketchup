@@ -1,4 +1,24 @@
 {
+    "columns": [
+        {
+            "name": "FLD1",
+            "title": "FLD1"
+        },
+        {
+            "name": "FLD2",
+            "title": "FLD2",
+            "decimals": 0
+        },
+        {
+            "name": "FLD3",
+            "title": "FLD3",
+            "decimals": 2
+        },
+        {
+            "name": "FLD4",
+            "title": "FLD1"
+        }
+    ],
     "rows": [
         {
             "cells": {

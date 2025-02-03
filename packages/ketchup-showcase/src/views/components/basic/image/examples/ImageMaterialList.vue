@@ -3856,6 +3856,14 @@
             <kup-image size-x="48px" size-y="48px" resource="lock"></kup-image>
             <div class="icon-label">lock</div>
           </div>
+          <div class="icon-wrapper" title="logout">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="logout"
+            ></kup-image>
+            <div class="icon-label">Logout</div>
+          </div>
           <div class="icon-wrapper" title="looks_3">
             <kup-image
               size-x="48px"
@@ -6024,6 +6032,14 @@
               resource="spellcheck"
             ></kup-image>
             <div class="icon-label">spellcheck</div>
+          </div>
+          <div class="icon-wrapper" title="split_right">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="split_right"
+            ></kup-image>
+            <div class="icon-label">split_right</div>
           </div>
           <div class="icon-wrapper" title="star_half">
             <kup-image

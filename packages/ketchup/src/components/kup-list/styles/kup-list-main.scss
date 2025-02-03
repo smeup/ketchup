@@ -73,6 +73,11 @@
   outline: none;
 }
 
+.scroll-list {
+  overflow-y: auto;
+  max-height: var(--kup_list_max_height_as_menu);
+}
+
 .list {
   background: var(--kup_list_background_color);
   color: var(--kup_list_text_color);
@@ -245,7 +250,6 @@
   color: var(--kup-text-color);
   display: none;
   max-height: var(--kup_list_max_height_as_menu);
-  overflow: auto;
   position: relative;
   transform: none;
   transform-origin: unset;

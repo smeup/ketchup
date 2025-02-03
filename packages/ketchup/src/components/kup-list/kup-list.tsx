@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -31,9 +30,11 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
 
 @Component({
     tag: 'kup-list',
@@ -81,6 +82,13 @@ export class KupList {
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * Show filter for filter elements in list
+     * @default false
+     */
+    @Prop() showFilter: boolean = false;
+
     /**
      * Keeps string for filtering elements when filter mode is active
      * @default ''
@@ -135,9 +143,14 @@ export class KupList {
      * Instance of the KupManager class.
      */
     #kupManager: KupManager = kupManagerInstance();
-
+    /**
+     * Reference to the input element.
+     */
+    #inputEl: HTMLInputElement | HTMLTextAreaElement;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
+    #previouslySelectedItemIndex: number;
+    #previouslySelectedItemReached: boolean;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -186,33 +199,6 @@ export class KupList {
     }
 
     /*-------------------------------------------------*/
-    /*                L i s t e n e r s                */
-    /*-------------------------------------------------*/
-
-    @Listen('keydown')
-    listenKeydown(e: KeyboardEvent) {
-        if (this.keyboardNavigation) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.focusPrevious();
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.#handleSelection(this.focused);
-                    break;
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -221,52 +207,74 @@ export class KupList {
      */
     @Method()
     async focusNext(): Promise<void> {
-        if (
-            isNaN(this.focused) ||
-            this.focused === null ||
-            this.focused === undefined
-        ) {
-            if (this.selected.length === 1) {
-                const selectedItem: KupListNode = this.data.find(
-                    (x: KupListNode) => x.id === this.selected[0]
-                );
-                this.focused = this.data.indexOf(selectedItem) + 1;
+        if (this.#listItems.length > 0) {
+            if (
+                isNaN(this.focused) ||
+                this.focused === null ||
+                this.focused === undefined
+            ) {
+                if (this.selected.length === 1) {
+                    const selectedItem: KupListNode = this.data.find(
+                        (x: KupListNode) => x.id === this.selected[0]
+                    );
+                    this.focused = this.data.indexOf(selectedItem) + 1;
+                } else {
+                    this.focused = 0;
+                }
             } else {
+                this.focused++;
+            }
+            if (this.focused > this.#listItems.length - 1) {
                 this.focused = 0;
             }
-        } else {
-            this.focused++;
+            if (
+                !this.#previouslySelectedItemReached &&
+                this.#listItems[this.#previouslySelectedItemIndex]
+            ) {
+                this.#previouslySelectedItemReached = true;
+                this.focused = this.#previouslySelectedItemIndex;
+                this.#listItems[this.#previouslySelectedItemIndex].focus();
+            } else if (this.#listItems[this.focused]) {
+                this.#listItems[this.focused].focus();
+            }
         }
-        if (this.focused > this.#listItems.length - 1) {
-            this.focused = 0;
-        }
-        this.#listItems[this.focused].focus();
     }
     /**
      * Focuses the previous element of the list.
      */
     @Method()
     async focusPrevious(): Promise<void> {
-        if (
-            isNaN(this.focused) ||
-            this.focused === null ||
-            this.focused === undefined
-        ) {
-            if (this.selected.length === 1) {
-                const selectedItem: KupListNode = this.data.find(
-                    (x: KupListNode) => x.id === this.selected[0]
-                );
-                this.focused = this.data.indexOf(selectedItem) - 1;
+        if (this.#listItems.length > 0) {
+            if (
+                isNaN(this.focused) ||
+                this.focused === null ||
+                this.focused === undefined
+            ) {
+                if (this.selected.length === 1) {
+                    const selectedItem: KupListNode = this.data.find(
+                        (x: KupListNode) => x.id === this.selected[0]
+                    );
+                    this.focused = this.data.indexOf(selectedItem) - 1;
+                } else {
+                    this.focused = 0;
+                }
             } else {
-                this.focused = 0;
+                this.focused--;
             }
-        } else {
-            this.focused--;
+            if (this.focused < 0) {
+                this.focused = this.#listItems.length - 1;
+            }
+            if (
+                !this.#previouslySelectedItemReached &&
+                this.#listItems[this.#previouslySelectedItemIndex]
+            ) {
+                this.#previouslySelectedItemReached = true;
+                this.focused = this.#previouslySelectedItemIndex;
+                this.#listItems[this.#previouslySelectedItemIndex].focus();
+            } else if (this.#listItems[this.focused]) {
+                this.#listItems[this.focused].focus();
+            }
         }
-        if (this.focused < 0) {
-            this.focused = this.#listItems.length - 1;
-        }
-        this.#listItems[this.focused].focus();
     }
     /**
      * Used to retrieve component's props values.
@@ -318,6 +326,16 @@ export class KupList {
         setProps(this, KupListProps, props);
     }
 
+    @Method()
+    async setFocus(): Promise<void> {
+        this.#inputEl?.focus();
+    }
+
+    @Method()
+    async setBlur(): Promise<void> {
+        this.#inputEl?.blur();
+    }
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
@@ -350,6 +368,8 @@ export class KupList {
                 item.selected = this.selected.includes(item.id);
             }
 
+            this.#previouslySelectedItemReached = false;
+            this.#previouslySelectedItemIndex = this.focused;
             this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -368,7 +388,9 @@ export class KupList {
             item.selected = false;
         }
         if (!item.id) {
-            item.id = item.value;
+            if (item.id != '') {
+                item.id = item.value;
+            }
         }
 
         let nestedList: VNode = null;
@@ -394,7 +416,11 @@ export class KupList {
             imageTag = this.#getIconTag(item.icon, item.placeholderIcon);
         }
         let primaryTextTag = [
-            getIdOfItemByDisplayMode(item, this.displayMode, ' - '),
+            getIdOfItemByDisplayMode(
+                item,
+                item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.displayMode,
+                ' - '
+            ),
         ];
 
         let secTextTag = [];
@@ -593,6 +619,52 @@ export class KupList {
         );
     }
 
+    #createFilterComponent() {
+        return (
+            <div id="global-filter" class="filter">
+                <FTextField
+                    fullWidth={true}
+                    label={this.#kupManager.language.translate(
+                        KupLanguageSearch.SEARCH
+                    )}
+                    icon={KupThemeIconValues.SEARCH}
+                    value={this.filter}
+                    onInput={(event) => {
+                        this.onFilterValueChange(event);
+                    }}
+                />
+            </div>
+        );
+    }
+
+    #listenKeydown = (e: KeyboardEvent) => {
+        if (this.keyboardNavigation && this.#listItems) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.#handleSelection(this.focused);
+                    break;
+            }
+        }
+    };
+
+    onFilterValueChange(event) {
+        if (event != null && event.target) {
+            this.filter = event?.target?.value ?? '';
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -627,6 +699,17 @@ export class KupList {
                 this.rootElement.focus();
             }, 0);
         }
+        if (this.showFilter) {
+            const f: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('.f-text-field');
+            if (f) {
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    f.querySelector('.mdc-text-field__input');
+                this.#inputEl = inputEl;
+            }
+        }
+        this.#previouslySelectedItemIndex =
+            this.data.findIndex((node) => node.selected === true) ?? 0;
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -634,6 +717,8 @@ export class KupList {
         this.#listItems = [];
         let componentClass: string = 'list';
         let wrapperClass = undefined;
+        let filterClass = 'filter';
+        let listScrollClass = 'scroll-list';
 
         if (this.isMenu) {
             wrapperClass = 'kup-menu';
@@ -678,16 +763,29 @@ export class KupList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id="kup-component" class={wrapperClass}>
-                    <ul
-                        class={componentClass}
-                        role={roleAttr}
-                        aria-multiselectable={ariaMultiSelectable}
-                    >
-                        {this.data
-                            .filter((item) => this.#itemCompliant(item))
-                            .map((item) => this.#renderListItem(item, index++))}
-                    </ul>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onKeyDown={this.#listenKeydown}
+                >
+                    {this.showFilter ? (
+                        <div class={filterClass}>
+                            {this.#createFilterComponent()}
+                        </div>
+                    ) : null}
+                    <div class={listScrollClass}>
+                        <ul
+                            class={componentClass}
+                            role={roleAttr}
+                            aria-multiselectable={ariaMultiSelectable}
+                        >
+                            {this.data
+                                .filter((item) => this.#itemCompliant(item))
+                                .map((item) =>
+                                    this.#renderListItem(item, index++)
+                                )}
+                        </ul>
+                    </div>
                 </div>
             </Host>
         );

@@ -30,6 +30,7 @@ export interface FCellProps extends FComponent {
     setSizes?: boolean;
     shape?: FCellShapes;
     cellActionIcon?: CellActionProps;
+    inputSettings?: InputSettingsProps;
 }
 
 export interface FCellOptionsProps extends FCellProps {
@@ -48,10 +49,13 @@ export interface FCellInfo {
  * Supported cell events.
  */
 export enum FCellEvents {
+    BLUR = 'kup-cell-blur',
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
+    ITEMCLICK = 'kup-cell-itemclick', // Used for CMB and ACP
     KEYUP = 'kup-cell-keyup',
+    SECONDARY_ICON_CLICK = 'kup-cell-secondaryiconclick',
     UPDATE = 'kup-cell-update',
 }
 /**
@@ -114,33 +118,41 @@ export enum FCellClasses {
 /**
  * Supported cell shapes.
  */
-export enum FCellShapes {
-    AUTOCOMPLETE = 'ACP',
-    BUTTON_LIST = 'BTN',
-    CHART = 'GRA',
-    CHECKBOX = 'CHK',
-    CHIP = 'CHI',
-    COLOR_PICKER = 'CLP',
-    COMBOBOX = 'CMB',
-    DATE = 'DAT',
-    EDITOR = 'EDT',
-    GAUGE = 'GAU',
-    IMAGE = 'IMG',
-    INPUT_CHECKBOX = 'INC',
-    INPUT_FIELD = 'INF',
-    KNOB = 'KNB',
-    LABEL = 'LBL',
-    MULTI_AUTOCOMPLETE = 'AML',
-    MULTI_COMBOBOX = 'CML',
-    OBJECT = 'OBJ',
-    PROGRESS_BAR = 'PGB',
-    RADIO = 'RAD',
-    RATING = 'RTG',
-    SWITCH = 'SWT',
-    TABLE = 'TBL',
-    TEXT_FIELD = 'ITX',
-    TIME = 'TIM',
-}
+export const FCellShapes = {
+    AUTOCOMPLETE: 'ACP',
+    BUTTON_LIST: 'BTN',
+    CHART: 'GRA',
+    CHECKBOX: 'CHK',
+    CHIP: 'CHI',
+    COLOR_PICKER: 'CLP',
+    COMBOBOX: 'CMB',
+    DATE: 'CAL',
+    EDITOR: 'EDT',
+    GAUGE: 'GAU',
+    IMAGE: 'IMG',
+    ICON: 'ICO',
+    INPUT_CHECKBOX: 'INC',
+    INPUT_FIELD: 'INF',
+    KNOB: 'KNB',
+    LABEL: 'LBL',
+    MEMO: 'MEM',
+    MULTI_AUTOCOMPLETE: 'AML',
+    MULTI_COMBOBOX: 'CML',
+    OBJECT: 'OBJ',
+    PROGRESS_BAR: 'PGB',
+    RADIO: 'RAD',
+    RATING: 'RTG',
+    SWITCH: 'SWT',
+    TABLE: 'TBL',
+    TEXT_FIELD: 'ITX',
+    TIME: 'TIM',
+} as const;
+
+// Define the type as keys of the object or a generic string
+export type FCellShapes =
+    | (typeof FCellShapes)[keyof typeof FCellShapes]
+    | string;
+
 /**
  * Supported cell types.
  */
@@ -164,6 +176,7 @@ export enum FCellTypes {
     LINK = 'link',
     MULTI_AUTOCOMPLETE = 'multi-autocomplete',
     MULTI_COMBOBOX = 'multi-combobox',
+    MEMO = 'memo',
     NUMBER = 'number',
     OBJECT = 'object',
     PROGRESS_BAR = 'progress-bar',
@@ -182,6 +195,7 @@ export const editableTypes = [
     FCellTypes.COMBOBOX,
     FCellTypes.DATE,
     FCellTypes.LINK,
+    FCellTypes.MEMO,
     FCellTypes.MULTI_AUTOCOMPLETE,
     FCellTypes.MULTI_COMBOBOX,
     FCellTypes.NUMBER,
@@ -191,6 +205,7 @@ export const editableTypes = [
     FCellTypes.STRING,
     FCellTypes.SWITCH,
     FCellTypes.TIME,
+    FCellTypes.EDITOR,
 ];
 export const kupTypes = [
     FCellTypes.BAR,
@@ -214,7 +229,15 @@ export const kupTypes = [
 export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
-    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
+    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent | FocusEvent;
+    inputValue?: string;
     row: KupDataRow;
     type: FCellTypes;
+}
+
+export interface InputSettingsProps {
+    forceUppercase?: boolean;
+    forceLowercase?: boolean;
+    checkObject?: boolean;
+    checkValueOnExit?: boolean;
 }

@@ -655,9 +655,29 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 :host([legacy-look]) {
+  --kup-textfield-background-color: transparent;
+  --kup-fcell-width: 100%;
+  --kup-fcell-padding-dense: 0px;
+  --kup-dense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
+  --kup-textfield-extrasmall-padding: var(--kup-dense-legacy-look-padding);
   th .header-cell__content {
     font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
     font-size: 11px;
+    padding: var(--kup-dense-legacy-look-padding);
+  }
+  .f-cell__text {
+    padding: var(--kup-dense-legacy-look-padding);
+  }
+  .f-cell {
+    &.dense {
+      min-height: var(--kup_fcell_dense_min_height);
+    }
+    &.medium {
+      min-height: var(--kup_fcell_medium_min_height);
+    }
+    &.wide {
+      min-height: var(--kup_fcell_wide_min_height);
+    }
   }
 }

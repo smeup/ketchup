@@ -78,7 +78,7 @@ const data = {
                         p: 'IMG',
                         k: '...',
                     },
-                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                    value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
                 style: {
                     obj: {
@@ -142,7 +142,7 @@ const data = {
                         p: 'IMG',
                         k: '...',
                     },
-                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                    value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
                 style: {
                     obj: {
@@ -241,7 +241,7 @@ const calendarColumnsData = {
                         p: 'IMG',
                         k: '...',
                     },
-                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                    value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
                 col7: {
                     obj: {
@@ -305,7 +305,7 @@ const calendarColumnsData = {
                         p: 'IMG',
                         k: '...',
                     },
-                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                    value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
                 col7: {
                     obj: {

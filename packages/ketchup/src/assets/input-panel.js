@@ -1,5 +1,5 @@
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = absoluteLayoutTest;
+inputPanel.data = data;
 
 // Tables
 const datatable = {

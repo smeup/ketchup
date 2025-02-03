@@ -774,6 +774,16 @@ export default {
                 value: 'Time picker',
                 visible: true,
               },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'txt',
+                  },
+                },
+                icon: 'TXT',
+                value: 'TXT',
+                visible: true,
+              },
             ],
             expandable: true,
             icon: 'shape',

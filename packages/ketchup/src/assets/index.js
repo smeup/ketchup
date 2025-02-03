@@ -266,6 +266,10 @@ components.data = [
         value: 'Tree',
         id: 'tree.html',
     },
+    {
+        value: 'TXT',
+        id: 'txt.html',
+    },
 ];
 // Setting up performance pages
 const performances = document.querySelector('#performances');

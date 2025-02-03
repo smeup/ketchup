@@ -1458,7 +1458,6 @@ echart11.data = {
     ],
 };
 
-
 echart12.types = ['Bar', 'Bar'];
 echart12.colors = ['blue'];
 echart12.chartTitle = {

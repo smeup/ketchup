@@ -130,9 +130,9 @@ export class KupButton {
     @Prop() trailingIcon: boolean = false;
     /**
      * Sets the type of the button
-     * @default KupComponentSizing.MEDIUM
+     * @default KupComponentSizing.SMALL
      */
-    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
 
     @Prop() keyShortcut: string;
 

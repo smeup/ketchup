@@ -75,7 +75,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     label={dom.ketchup.language.translate(
                         KupLanguageGeneric.LOAD_MORE
                     )}
-                    sizing={KupComponentSizing.MEDIUM}
+                    sizing={KupComponentSizing.SMALL}
                     styling={FButtonStyling.FLAT}
                     wrapperClass="load-more-button kup-neutral"
                 />
@@ -98,7 +98,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                         icon="chevron_left"
                         disabled={isPrevPageDisabled(props)}
                         onClick={props.onPrevPage}
-                        sizing={KupComponentSizing.MEDIUM}
+                        sizing={KupComponentSizing.SMALL}
                         styling={FButtonStyling.FLAT}
                         wrapperClass="kup-neutral prev-page"
                     />
@@ -108,7 +108,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                         icon="chevron_right"
                         disabled={isNextPageDisabled(props)}
                         onClick={props.onNextPage}
-                        sizing={KupComponentSizing.MEDIUM}
+                        sizing={KupComponentSizing.SMALL}
                         styling={FButtonStyling.FLAT}
                         wrapperClass="kup-neutral next-page"
                     />
@@ -135,13 +135,14 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
 
 function getRowsItems(props: FPaginatorProps) {
     const rowsPerPageItems: KupListNode[] = [];
+    const max = Math.min(props.max, props.maxRowsPerPage);
     let i = props.perPage;
 
     if (i === 0) {
         return rowsPerPageItems;
     }
 
-    while (i < props.max) {
+    while (i < max) {
         const selected = i == props.perPage;
         rowsPerPageItems.push({
             id: i.toString(),
@@ -151,11 +152,11 @@ function getRowsItems(props: FPaginatorProps) {
         i = i * 2;
     }
 
-    const selected = props.max == props.perPage;
+    const selected = max == props.perPage;
     rowsPerPageItems.push({
-        id: props.max.toString(),
+        id: max.toString(),
         selected: selected,
-        value: props.max.toString(),
+        value: max.toString(),
     });
 
     return rowsPerPageItems;

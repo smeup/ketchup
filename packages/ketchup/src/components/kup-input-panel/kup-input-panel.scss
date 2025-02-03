@@ -9,6 +9,7 @@
 */
 
 :host {
+  --kup-fcell-width: fit-content;
   --kup_input_panel_background_color: var(
     --kup-input-panel-background-color,
     var(--kup-layer-0)
@@ -25,9 +26,24 @@
     --kup-input-panel-font-size,
     var(--kup-font-size)
   );
+
+  --kup_textfield_textarea_height_input_panel: var(
+    --kup-textfield-textarea-height-input_panel,
+    200px
+  );
+  --kup_textfield_textarea_width_input_panel: var(
+    --kup-textfield-textarea-width-input_panel,
+    300px
+  );
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
+  --kup_input_panel_padding--inline: var(--kup-input-panel-padding--inline, 0);
+  --kup_input_panel_absolute_max_height: var(
+    --kup-input-panel-absolute-max-height,
+    /* 716px comes from the maximum number of lines (32) multiplied by the default height per line (22px) plus 12px for the possibility that the scrollbar will be rendered */
+      716px
+  );
 
   .input-panel {
     background: var(--kup_input_panel_background_color);
@@ -37,7 +53,24 @@
     overflow: auto;
     padding: var(--kup_input_panel_padding);
     position: relative;
-    gap: 2rem;
+    gap: 1rem;
+
+    &__commands {
+      display: flex;
+      gap: 1rem;
+      &.input-panel__commands--right {
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+    }
+
+    &--inline {
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: var(--kup_input_panel_padding--inline);
+      display: inline-flex;
+    }
 
     &--column {
       flex-direction: column;
@@ -51,6 +84,7 @@
 
     &__section {
       display: grid;
+      min-width: 0;
 
       .f-cell__content {
         > * {
@@ -59,13 +93,24 @@
       }
     }
 
+    .f-text-field {
+      .mdc-text-field {
+        &.mdc-text-field--textarea {
+          min-height: var(
+            --kup_textfield_textarea_height_input_panel
+          ) !important;
+          min-width: var(--kup_textfield_textarea_width_input_panel) !important;
+        }
+      }
+    }
+
     &__horizontal-section {
       display: inline-grid;
     }
 
-    .f-cell .f-checkbox .checkbox .checkbox__native-control {
-      height: 40px;
-      width: 40px;
+    &__section-inline {
+      display: inline-block;
+      width: max-content;
     }
 
     &__label_container {
@@ -99,20 +144,34 @@
       height: 100%;
       align-items: center;
       justify-content: center;
+
+      &--legacy-look {
+        font-size: 12px;
+        font-family: var(--kup-font-family-monospace);
+        white-space: pre;
+      }
     }
 
     &--absolute {
-      // TODO: calc the height dynamically
-      height: 40ch;
       justify-content: flex-end;
+      padding: var(--kup-space-02);
+      max-height: var(--kup_input_panel_absolute_max_height);
 
       .input-panel-label {
         justify-content: start;
+        &.input-panel-label-number {
+          justify-content: end;
+        }
       }
 
       .mdc-text-field {
         height: unset !important;
       }
     }
+  }
+  .input-panel-form--inline {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
   }
 }

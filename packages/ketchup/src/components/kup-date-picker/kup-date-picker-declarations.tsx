@@ -13,6 +13,7 @@ export enum KupDatePickerProps {
     sizing = 'Sets the size of the component. Medium is the default',
     showIcon = 'You can set if u want to show the calendar icon to toggle date-picker. True is the default',
     showPreviousNextMonthDays = 'You can set if show the previous/next month days in calendar',
+    showMarker = 'When true shows a small marker on the component',
 }
 export enum SourceEvent {
     DATE = 'date',

@@ -15,16 +15,19 @@
     "author": "Gruppo Sme.UP <info@smeup.com> (https://www.smeup.com/)",
     "repository": "https://github.com/smeup/ketchup",
     "devDependencies": {
-        "@types/d3-shape": "^3.1.1",
-        "@types/geojson": "^7946.0.10",
-        "@types/jest": "^27.0.3",
-        "@types/node": "^20.2.5",
-        "@types/numeral": "^2.0.2",
-        "@types/react": "^18.2.7",
-        "@types/react-dom": "^18.2.4",
-        "eslint": "^8.46.0",
-        "lerna": "^7.1.4",
-        "workbox-build": "^7.0.0"
+        "@types/d3-shape": "3.1.6",
+        "@types/geojson": "7946.0.14",
+        "@types/jest": "27.0.3",
+        "@types/node": "18.16.0",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "eslint": "8.46.0",
+        "lerna": "^8",
+        "typescript": "^5",
+        "workbox-build": "7.3.0"
+    },
+    "dependencies": {
+        "math-expression-evaluator": "^2.0.6"
     },
     "scripts": {
         "lerna": "lerna",

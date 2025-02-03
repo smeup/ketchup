@@ -25,10 +25,11 @@ export class KupDataTableState implements KupState {
     loadMoreLimit: number = 1000;
     selection = SelectionMode.SINGLE;
     rowsPerPage = 10;
-    showFilters = false;
+    showFilters = true;
     showGroups = false;
     showHeader = true;
     showLoadMore: boolean = false;
+    showPaginator: boolean = true;
     sortEnabled = true;
     sort: Array<SortObject> = [];
     sortableColumnsMutateData: boolean = true;
@@ -40,6 +41,7 @@ export class KupDataTableState implements KupState {
     showFooter: boolean = false;
     totals: TotalsMap;
     load: boolean = false;
+    visibleColumns: string[] = undefined;
 
     public toDebugString() {
         // TODO

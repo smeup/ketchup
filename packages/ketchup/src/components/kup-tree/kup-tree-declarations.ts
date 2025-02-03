@@ -4,9 +4,12 @@ import {
     KupDataNode,
 } from '../../managers/kup-data/kup-data-declarations';
 import type { PointerEvent } from '@interactjs/types/index';
-import { GenericMap, KupEventPayload } from '../../types/GenericTypes';
+import {
+    GenericMap,
+    GenericObject,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 /**
  * Props of the kup-tree component.
  * Used to export every prop in an object.
@@ -43,7 +46,7 @@ export enum KupTreeProps {
 export interface KupTreeNode extends KupDataNode {
     expandable?: boolean;
     iconColor?: string;
-    style?: GenericMap;
+    style?: GenericObject;
     visible?: boolean;
     selected?: boolean;
 }

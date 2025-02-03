@@ -9,21 +9,15 @@ export enum KupAutocompleteProps {
     customStyle = 'Custom style of the component.',
     data = 'Props of the sub-components.',
     disabled = 'Defaults at false. When set to true, the component is disabled.',
-    displayMode = 'Sets how to show the selected item value. Suported values: "code", "description", "both".',
+    displayMode = 'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".',
     initialValue = 'Sets the initial value of the component.',
+    initialValueDecode = 'Sets the initial value decode of the component',
     inputDelay = 'Input event emission delay in milliseconds.',
     minimumChars = 'The minimum number of chars to trigger the autocomplete.',
-    selectMode = 'Sets how to return the selected item value. Suported values: "code", "description", "both".',
+    selectMode = 'Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".',
     serverHandledFilter = 'When true, the items filter is managed server side, otherwise items filter is done client side.',
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
-}
-/**
- * The available display modes for the autocomplete component.
- */
-export enum KupAutocompleteDisplayMode {
-    CODE = 'code',
-    DESCRIPTION = 'description',
-    DESCRIPTION_AND_CODE = 'both',
+    showMarker = 'When true shows a small marker on the component',
 }
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {

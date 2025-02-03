@@ -324,12 +324,9 @@ export class KupDates {
      * @param {string} format - Format of the input date.
      * @returns {dayjs.Dayjs} Dayjs object.
      */
-    toDayjs(input: dayjs.ConfigType, format?: string): dayjs.Dayjs {
-        if (format) {
-            return dayjs(input, format);
-        } else {
-            return dayjs(input);
-        }
+    toDayjs(input: dayjs.ConfigType, format?: string): dayjs.Dayjs | null {
+        const dayJsResult = format ? dayjs(input, format) : dayjs(input);
+        return dayJsResult.isValid() ? dayJsResult : null;
     }
 
     /**

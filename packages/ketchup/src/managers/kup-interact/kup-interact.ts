@@ -82,7 +82,7 @@ export class KupInteract {
         this.container.appendChild(this.modalBackdrop);
         document.body.appendChild(this.container);
         this.managedElements = new Set();
-        this.zIndex = zIndex ? zIndex : 1000;
+        this.zIndex = zIndex ? zIndex : 905;
         this.modalBackdrop.style.zIndex = (this.zIndex - 1).toString();
         this.restrictContainer = restrictContainer ? restrictContainer : null;
     }
@@ -503,8 +503,12 @@ export class KupInteract {
     unregister(elements: HTMLElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
+                const el = elements[index];
                 this.managedElements.delete(elements[index]);
-                interact(elements[index]).unset();
+                if (!el) {
+                    continue;
+                }
+                interact(el).unset();
             }
         }
     }

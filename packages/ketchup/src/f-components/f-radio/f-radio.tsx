@@ -53,7 +53,7 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                             onFocus={props.onFocus}
                         ></input>
                     ) : (
-                        <>
+                        <Fragment>
                             {data.checked ? (
                                 <FImage
                                     resource="check"
@@ -74,7 +74,7 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                                     }
                                 ></FImage>
                             )}
-                        </>
+                        </Fragment>
                     )}
                     {radioType === FRadioType.RADIO && (
                         <div class="radio__background">

@@ -77,13 +77,14 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `selection`                 | `selection`                    | Set the type of the rows selection.                                                                                                                                                                                                         | `SelectionMode.MULTIPLE \| SelectionMode.MULTIPLE_CHECKBOX \| SelectionMode.NONE \| SelectionMode.SINGLE` | `SelectionMode.SINGLE`               |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                                        | `boolean`                                                                                                 | `true`                               |
 | `showDeleteButton`          | `show-delete-button`           | Enables the delete row button.                                                                                                                                                                                                              | `boolean`                                                                                                 | `false`                              |
-| `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                                | `boolean`                                                                                                 | `false`                              |
+| `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                                | `boolean`                                                                                                 | `true`                               |
 | `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                                          | `boolean`                                                                                                 | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                                        | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                                      | `ShowGrid.ROW`                       |
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                               | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                                      | `boolean`                                                                                                 | `true`                               |
 | `showHistoryButton`         | `show-history-button`          | Enables the history button.                                                                                                                                                                                                                 | `boolean`                                                                                                 | `false`                              |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                                   | `boolean`                                                                                                 | `false`                              |
+| `showPaginator`             | `show-paginator`               | Set the paginator visibility                                                                                                                                                                                                                | `boolean`                                                                                                 | `true`                               |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                                        | `SortObject[]`                                                                                            | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns by clicking on the column header.                                                                                                                                                       | `boolean`                                                                                                 | `true`                               |
 | `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event                                                                                                    | `boolean`                                                                                                 | `true`                               |
@@ -93,32 +94,42 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                                | `string`                                                                                                  | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options                                                                                                                                                                                                          | `TotalsMap`                                                                                               | `undefined`                          |
 | `transpose`                 | `transpose`                    | Transposes the data of the data table                                                                                                                                                                                                       | `boolean`                                                                                                 | `false`                              |
-| `updatableData`             | `updatable-data`               | When set to true, editable cells will be rendered using input components, and update button will appair below the matrix                                                                                                                    | `boolean`                                                                                                 | `false`                              |
+| `updatableData`             | `updatable-data`               | When set to true, editable cells will be rendered using input components and an update button will appear below the matrix                                                                                                                  | `boolean`                                                                                                 | `false`                              |
+| `updateOnClick`             | `update-on-click`              | When set to true, editable checkbox will call update                                                                                                                                                                                        | `boolean`                                                                                                 | `false`                              |
+| `visibleColumns`            | --                             | List of the visible columns                                                                                                                                                                                                                 | `string[]`                                                                                                | `undefined`                          |
 
 
 ## Events
 
-| Event                                  | Description                                                                                                                                                    | Type                                                      |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `kup-datatable-cell-action-icon-click` | Event fired when the cell action icon is pressed                                                                                                               | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-cell-actions-menu`      | Generic right click event on a cell in data table.                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-click`                  | Generic click event on data table.                                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-columnmenu`             | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                                                                          | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
-| `kup-datatable-columnmove`             | Event fired when columns are moved (sorted).                                                                                                                   | `CustomEvent<KupDatatableColumnMoveEventPayload>`         |
-| `kup-datatable-columnremove`           | Event fired when columns are removed (set to hidden).                                                                                                          | `CustomEvent<KupDatatableColumnRemoveEventPayload>`       |
-| `kup-datatable-contextmenu`            | Generic right click event on data table.                                                                                                                       | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-dblclick`               | Generic double click event on data table.                                                                                                                      | `CustomEvent<KupDatatableClickEventPayload>`              |
-| `kup-datatable-delete-row`             | Event fired when the delete row button is pressed.                                                                                                             | `CustomEvent<KupDatatableDeleteRowEventPayload>`          |
-| `kup-datatable-didload`                | When component load is complete                                                                                                                                | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-didunload`              | When component unload is complete                                                                                                                              | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-history`                | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableHistoryEventPayload>`            |
-| `kup-datatable-insert-row`             | Event fired when the insert row confirm button is pressed.                                                                                                     | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
-| `kup-datatable-loadmoreclick`          |                                                                                                                                                                | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
-| `kup-datatable-resetselectedrows`      | When rows selections reset                                                                                                                                     | `CustomEvent<KupEventPayload>`                            |
-| `kup-datatable-rowaction-item-click`   | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
-| `kup-datatable-rowselected`            | When a row is selected                                                                                                                                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
-| `kup-datatable-save`                   | Event fired when the save button is pressed.                                                                                                                   | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
-| `kup-datatable-update`                 | Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true | `CustomEvent<KupDatatableUpdatePayload>`                  |
+| Event                                        | Description                                                                                                                                                    | Type                                                      |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `kup-datatable-cell-action-icon-click`       | Event fired when the cell action icon is pressed                                                                                                               | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-cell-actions-menu`            | Generic right click event on a cell in data table.                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-cell-click`                   |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
+| `kup-datatable-cell-iconclick`               |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
+| `kup-datatable-cell-input`                   |                                                                                                                                                                | `CustomEvent<FCellEventPayload>`                          |
+| `kup-datatable-check`                        |                                                                                                                                                                | `CustomEvent<KupDatatableCellCheckPayload>`               |
+| `kup-datatable-click`                        | Generic click event on data table.                                                                                                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-columnmenu`                   | Emitted by the column menu card when opened/closed or when a kup-card-event is fired.                                                                          | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
+| `kup-datatable-columnmove`                   | Event fired when columns are moved (sorted).                                                                                                                   | `CustomEvent<KupDatatableColumnMoveEventPayload>`         |
+| `kup-datatable-columnremove`                 | Event fired when columns are removed (set to hidden).                                                                                                          | `CustomEvent<KupDatatableColumnRemoveEventPayload>`       |
+| `kup-datatable-contextmenu`                  | Generic right click event on data table.                                                                                                                       | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-dblclick`                     | Generic double click event on data table.                                                                                                                      | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-delete-row`                   | Event fired when the delete row button is pressed.                                                                                                             | `CustomEvent<KupDatatableDeleteRowEventPayload>`          |
+| `kup-datatable-didload`                      | When component load is complete                                                                                                                                | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-didunload`                    | When component unload is complete                                                                                                                              | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-drop`                         |                                                                                                                                                                | `CustomEvent<KupDropEventPayload>`                        |
+| `kup-datatable-history`                      | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableHistoryEventPayload>`            |
+| `kup-datatable-insert-row`                   | Event fired when the insert row confirm button is pressed.                                                                                                     | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
+| `kup-datatable-loadmoreclick`                |                                                                                                                                                                | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
+| `kup-datatable-objectfield-opensearchmenu`   |                                                                                                                                                                | `CustomEvent<FObjectFieldEventPayload>`                   |
+| `kup-datatable-objectfield-searchpayload`    |                                                                                                                                                                | `CustomEvent<FObjectFieldEventPayload>`                   |
+| `kup-datatable-objectfield-selectedmenuitem` |                                                                                                                                                                | `CustomEvent<FObjectFieldEventPayload>`                   |
+| `kup-datatable-resetselectedrows`            | When rows selections reset                                                                                                                                     | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-rowaction-item-click`         | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
+| `kup-datatable-rowselected`                  | When a row is selected                                                                                                                                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
+| `kup-datatable-save`                         | Event fired when the save button is pressed.                                                                                                                   | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
+| `kup-datatable-update`                       | Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true | `CustomEvent<KupDatatableUpdatePayload>`                  |
 
 
 ## Methods
@@ -225,6 +236,16 @@ Type: `Promise<any>`
 #### Returns
 
 Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>`
+
+
+
+### `getLastFocusedRow() => Promise<KupDataTableRow>`
+
+This method is used to retrieve last focused row or the first if there's no row focused
+
+#### Returns
+
+Type: `Promise<KupDataTableRow>`
 
 
 
@@ -413,7 +434,7 @@ Type: `Promise<void>`
 
 
 
-### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>`
+### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
 
@@ -423,6 +444,7 @@ This method will set the selected rows of the component.
 | ----------------- | ---------------------- | -------------------------------------------------------------------- |
 | `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
 | `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
+| `scrollIntoView`  | `boolean`              | - If true, the component will scroll to the first selected row.      |
 
 #### Returns
 
@@ -465,6 +487,7 @@ Type: `Promise<void>`
 - [kup-dialog](../kup-dialog)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
+- [kup-dropdown-button](../kup-dropdown-button)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -477,6 +500,7 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-toolbar](../kup-toolbar)
 
 ### Graph
 ```mermaid
@@ -491,6 +515,7 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-dropdown-button
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-chip
@@ -503,7 +528,21 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-toolbar
   kup-card --> kup-data-table
+  kup-image --> kup-card
+  kup-image --> kup-image
+  kup-image --> kup-dialog
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
@@ -516,12 +555,6 @@ graph TD;
   kup-radio --> kup-card
   kup-radio --> kup-dialog
   kup-radio --> kup-badge
-  kup-dialog --> kup-badge
-  kup-dialog --> kup-card
-  kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
@@ -544,13 +577,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-card
-  kup-image --> kup-image
-  kup-image --> kup-dialog
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -565,6 +591,23 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
@@ -575,26 +618,11 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-dialog
+  kup-tree --> kup-image
   kup-tree --> kup-autocomplete
   kup-tree --> kup-chip
   kup-tree --> kup-color-picker
@@ -602,16 +630,17 @@ graph TD;
   kup-tree --> kup-date-picker
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
-  kup-tree --> kup-image
   kup-tree --> kup-button-list
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-tree --> kup-toolbar
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
   kup-form --> kup-dialog
+  kup-form --> kup-image
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
   kup-form --> kup-text-field
@@ -620,12 +649,12 @@ graph TD;
   kup-form --> kup-date-picker
   kup-form --> kup-rating
   kup-form --> kup-time-picker
-  kup-form --> kup-image
   kup-form --> kup-button-list
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-form --> kup-toolbar
   kup-input-panel --> kup-data-table
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

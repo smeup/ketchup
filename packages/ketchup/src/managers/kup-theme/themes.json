@@ -109,7 +109,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "octaneGrey": {
         "cssVariables": {
@@ -226,7 +251,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "darkOctane": {
         "cssVariables": {
@@ -347,7 +397,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "darkOctaneGray": {
         "cssVariables": {
@@ -468,7 +543,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "bubbles": {
         "cssVariables": {
@@ -586,7 +686,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "cobalt": {
         "cssVariables": {
@@ -709,7 +834,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "dark": {
         "cssVariables": {
@@ -832,7 +982,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "flamingo": {
         "cssVariables": {
@@ -955,7 +1130,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "graphite": {
         "cssVariables": {
@@ -1209,7 +1409,32 @@
             "--kup-key-icon": "key",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "obsidian": {
         "cssVariables": {
@@ -1338,7 +1563,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "ocean": {
         "cssVariables": {
@@ -1458,7 +1708,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "print": {
         "cssVariables": {
@@ -1719,7 +1994,32 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "red": {
         "cssVariables": {
@@ -1849,7 +2149,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "sapphire": {
         "cssVariables": {
@@ -1981,7 +2306,32 @@
         "customStyles": {
             "KUP-DATA-TABLE": "#kup-component th { --kup_datatable_th_border: none; font-weight: normal; }"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "silver": {
         "cssVariables": {
@@ -2108,7 +2458,32 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {},
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     },
     "teal": {
         "cssVariables": {
@@ -2359,6 +2734,31 @@
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
         },
-        "fonts": ["IbmPlexMono-Regular", "IbmPlexSans-Regular"]
+        "fonts": [
+            "IBMPlexSans-Light",
+            "IBMPlexSans-LightItalic",
+            "IBMPlexSans-Regular",
+            "IBMPlexSans-Italic",
+            "IBMPlexSans-Medium",
+            "IBMPlexSans-MediumItalic",
+            "IBMPlexSans-SemiBold",
+            "IBMPlexSans-SemiBoldItalic",
+            "IBMPlexSans-Bold",
+            "IBMPlexSans-BoldItalic",
+            "IBMPlexSans-ExtraBold",
+            "IBMPlexSans-ExtraBoldItalic",
+            "IBMPlexMono-Light",
+            "IBMPlexMono-LightItalic",
+            "IBMPlexMono-Regular",
+            "IBMPlexMono-Italic",
+            "IBMPlexMono-Medium",
+            "IBMPlexMono-MediumItalic",
+            "IBMPlexMono-SemiBold",
+            "IBMPlexMono-SemiBoldItalic",
+            "IBMPlexMono-Bold",
+            "IBMPlexMono-BoldItalic",
+            "IBMPlexMono-ExtraBold",
+            "IBMPlexMono-ExtraBoldItalic"
+        ]
     }
 }
