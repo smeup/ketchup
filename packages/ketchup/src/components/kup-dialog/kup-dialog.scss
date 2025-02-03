@@ -51,6 +51,9 @@
   }
 }
 
+:host([data-anchor='none']) {
+  inset: 0;
+}
 :host([data-anchor='left']) {
   inset: 0 auto 0 0;
   width: 50%;
