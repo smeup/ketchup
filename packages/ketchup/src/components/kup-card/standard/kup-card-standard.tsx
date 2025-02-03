@@ -1151,39 +1151,9 @@ export function create14(component: KupCard): VNode {
                             {datepickerArray.length > 0
                                 ? compList(datepickerArray, 'datepicker')
                                 : null}
-                            {textfieldsIds.includes(
-                                KupColumnMenuIds.TEXTFIELD_FILTER
-                            ) ? (
-                                <kup-text-field
-                                    {...textfieldArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.TEXTFIELD_FILTER
-                                    )}
-                                />
-                            ) : null}
-                            {textfieldsIds.includes(
-                                KupColumnMenuIds.TEXTFIELD_FROM
-                            ) ? (
-                                <kup-text-field
-                                    {...textfieldArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.TEXTFIELD_FROM
-                                    )}
-                                />
-                            ) : null}
-                            {textfieldsIds.includes(
-                                KupColumnMenuIds.TEXTFIELD_TO
-                            ) ? (
-                                <kup-text-field
-                                    {...textfieldArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.TEXTFIELD_TO
-                                    )}
-                                />
-                            ) : null}
+                            {textfieldArray.length > 0
+                                ? compList(textfieldArray, 'textfield')
+                                : null}
                             {timepickerArray.length > 0
                                 ? compList(timepickerArray, 'timepicker')
                                 : null}
