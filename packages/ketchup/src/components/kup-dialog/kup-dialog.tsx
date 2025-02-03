@@ -328,7 +328,11 @@ export class KupDialog {
         }
 
         return (
-            <Host fade-in style={style} data-anchor={this.anchor.toString()}>
+            <Host
+                fade-in
+                style={style}
+                data-anchor={this.anchor?.toString() || 'none'}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
