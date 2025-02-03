@@ -7005,9 +7005,7 @@ export class KupDataTable {
                                 <tr>{header}</tr>
                             </thead>
                             <tbody>{rows}</tbody>
-                            {this.showFooter || this.#hasTotals()
-                                ? this.renderFooter()
-                                : null}
+                            {this.showFooter && this.renderFooter()}
                         </table>
                         {stickyEl}
                     </div>
