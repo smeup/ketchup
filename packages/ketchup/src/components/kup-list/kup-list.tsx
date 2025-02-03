@@ -147,12 +147,10 @@ export class KupList {
      * Reference to the input element.
      */
     #inputEl: HTMLInputElement | HTMLTextAreaElement;
-    #globalFilterTimeout: number;
     #radios: KupRadio[] = [];
     #listItems: HTMLElement[] = [];
     #previouslySelectedItemIndex: number;
     #previouslySelectedItemReached: boolean;
-    #filterValue: string = '';
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -630,7 +628,7 @@ export class KupList {
                         KupLanguageSearch.SEARCH
                     )}
                     icon={KupThemeIconValues.SEARCH}
-                    value={this.#filterValue}
+                    value={this.filter}
                     onInput={(event) => {
                         this.onFilterValueChange(event);
                     }}
@@ -663,8 +661,7 @@ export class KupList {
 
     onFilterValueChange(event) {
         if (event != null && event.target) {
-            this.#filterValue = event.target.value;
-            this.filter = this.#filterValue;
+            this.filter = event?.target?.value ?? '';
         }
     }
 
@@ -711,6 +708,8 @@ export class KupList {
                 this.#inputEl = inputEl;
             }
         }
+        this.#previouslySelectedItemIndex =
+            this.data.findIndex((node) => node.selected === true) ?? 0;
         this.#kupManager.debug.logRender(this, true);
     }
 

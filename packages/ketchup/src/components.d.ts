@@ -4438,6 +4438,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * The data of the list.
+          * @default true
+         */
+        "showIcons": boolean;
     }
     interface KupTooltip {
         "TooltipContent": any;
@@ -9809,6 +9814,11 @@ declare namespace LocalJSX {
          */
         "data"?: KupToolbarTreeNode[];
         "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarClickEventPayload>) => void;
+        /**
+          * The data of the list.
+          * @default true
+         */
+        "showIcons"?: boolean;
     }
     interface KupTooltip {
         "TooltipContent"?: any;

@@ -1,4 +1,6 @@
 import { GenericObject, KupEventPayload } from '../../components';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataCell,
     KupDataCellOptions,
@@ -224,4 +226,25 @@ export const InputPanelKeyCommands: InputPanelCommand = {
     '*ENT': 'Enter',
     '*PDN': 'PageDown',
     '*PUP': 'PageUp',
+};
+
+export enum CheckTriggeringEvents {
+    BLUR = 'blur',
+    ITEMCLICK = 'itemclick',
+}
+
+export const CheckConditionsByEventType = {
+    blur: (value: FCellShapes) => {
+        return (
+            value === FCellShapes.CHECKBOX ||
+            value === FCellShapes.SWITCH ||
+            value === FCellShapes.COMBOBOX ||
+            value === FCellShapes.AUTOCOMPLETE
+        );
+    },
+    itemclick: (value: FCellShapes) => {
+        return (
+            value !== FCellShapes.COMBOBOX && value !== FCellShapes.AUTOCOMPLETE
+        );
+    },
 };

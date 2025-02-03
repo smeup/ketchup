@@ -141,6 +141,10 @@ export class KupData {
                 }
             }
 
+            if (cell.data?.maxLength >= 256) {
+                return FCellTypes.MEMO;
+            }
+
             if (dom.ketchup.objects.isBar(obj)) {
                 return FCellTypes.BAR;
             } else if (dom.ketchup.objects.isButton(obj)) {

@@ -53,6 +53,7 @@ export enum FCellEvents {
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
+    ITEMCLICK = 'kup-cell-itemclick', // Used for CMB and ACP
     KEYUP = 'kup-cell-keyup',
     SECONDARY_ICON_CLICK = 'kup-cell-secondaryiconclick',
     UPDATE = 'kup-cell-update',

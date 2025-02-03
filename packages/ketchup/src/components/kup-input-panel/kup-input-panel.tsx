@@ -60,6 +60,8 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    CheckConditionsByEventType,
+    CheckTriggeringEvents,
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
@@ -269,6 +271,13 @@ export class KupInputPanel {
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
+    ]);
+    #cellTypesNeedingReset: Map<FCellTypes, string> = new Map<
+        FCellTypes,
+        string
+    >([
+        [FCellTypes.COMBOBOX, 'kup-combobox'],
+        [FCellTypes.AUTOCOMPLETE, 'kup-autocomplete'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -1111,20 +1120,20 @@ export class KupInputPanel {
                     cell,
                     cell.shape
                 );
-                const componentQuery = this.#cellTypeComponents.get(cellType);
-                if (!componentQuery) {
-                    return;
-                }
+                const queryCompSetValue =
+                    this.#cellTypeComponents.get(cellType);
+                const queryCompNeedsReset =
+                    this.#cellTypesNeedingReset.get(cellType);
 
-                const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id='${column.name.replace(
-                        /\//g,
-                        '\\$1'
-                    )}']`
-                );
-                if (cell.value) {
-                    el?.setValue(cell.value);
-                }
+                if (!queryCompSetValue && !queryCompNeedsReset) return;
+
+                const selector =
+                    (queryCompSetValue ?? queryCompNeedsReset) +
+                    `[id='${column.name.replace(/\//g, '\\$1')}']`;
+                const el: any =
+                    this.rootElement.shadowRoot.querySelector(selector);
+
+                queryCompNeedsReset ? el?.reset() : el?.setValue?.(cell.value);
             })
         );
 
@@ -1779,15 +1788,15 @@ export class KupInputPanel {
         });
     }
 
-    async #onBlurHandler(e: CustomEvent<FCellEventPayload>) {
+    async #manageInputPanelCheck(
+        e: CustomEvent<FCellEventPayload>,
+        eventType: CheckTriggeringEvents
+    ) {
         const {
             detail: { column, cell },
         } = e;
 
-        if (
-            cell.shape === FCellShapes.CHECKBOX ||
-            cell.shape === FCellShapes.SWITCH
-        ) {
+        if (CheckConditionsByEventType[eventType](cell?.shape)) {
             return;
         }
 
@@ -2151,7 +2160,9 @@ export class KupInputPanel {
 
         return (
             <Host
-                onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-blur={(e) =>
+                    this.#manageInputPanelCheck(e, CheckTriggeringEvents.BLUR)
+                }
                 onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
@@ -2160,6 +2171,12 @@ export class KupInputPanel {
                 onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
+                }
+                onKup-cell-itemclick={(e) =>
+                    this.#manageInputPanelCheck(
+                        e,
+                        CheckTriggeringEvents.ITEMCLICK
+                    )
                 }
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>

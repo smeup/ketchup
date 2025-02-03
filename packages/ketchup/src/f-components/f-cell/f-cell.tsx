@@ -619,6 +619,9 @@ function setEditableCell(
                     onKup-autocomplete-blur={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-autocomplete-itemclick={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -712,6 +715,9 @@ function setEditableCell(
                     onKup-combobox-blur={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.DATE:
@@ -929,8 +935,8 @@ function setEditableCell(
                 if (
                     (!(
                         cell.shape == 'MEMO' ||
-                        cellType == FCellTypes.MEMO ||
-                        cell.data?.maxLength >= 256
+                        cell.data?.maxLength >= 256 ||
+                        cellType == FCellTypes.MEMO
                     ) &&
                         e.key === 'Enter') ||
                     /^F[1-9]|F1[0-2]$/.test(e.key)
@@ -1057,6 +1063,7 @@ function setCell(
                 />
             );
         case FCellTypes.EDITOR:
+        case FCellTypes.MEMO:
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
@@ -1473,10 +1480,6 @@ function cellEvent(
                         e as CustomEvent<KupChipChangeEventPayload>
                     ).detail.comp.data;
                 }
-                break;
-            case FCellTypes.EDITOR:
-            case FCellTypes.STRING:
-                value = JSON.stringify(value).slice(1, -1);
                 break;
         }
         if (cell.obj) {

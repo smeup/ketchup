@@ -291,7 +291,7 @@ describe('kup-input-panel', () => {
         expect(listOptions).toHaveLength(data.rows[0].cells.NAT.options.length);
 
         const firstOptionValue = await listOptions[0].find('span');
-        expect(firstOptionValue).toEqualText('Italy');
+        expect(firstOptionValue).toEqualText('ITA - Italy');
         await firstOptionValue.click();
 
         const updatedValue = await input.getProperty('value');

@@ -800,8 +800,8 @@ export function normalizeRows(
 
 export function calcTotals(
     totals: TotalsMap,
-    rows: Array<KupDataTableRow>,
-    columns?: KupDataColumn[]
+    columns: KupDataColumn[],
+    rows: Array<KupDataTableRow>
 ): { [index: string]: string } {
     if (
         dom.ketchup.objects.isEmptyJsObject(rows) ||
@@ -812,64 +812,49 @@ export function calcTotals(
 
     const footerRow: { [columnName: string]: string } = {};
     const totalsEntriesWithFormula: [string, string][] = [];
-    // Filtered totals to exclude COUNT and MATH operations
-    const filteredTotalsEntries: [string, TotalMode][] = Object.entries(
-        totals
-    ).reduce((filteredTotalsEntries, [columnName, totalOperation]) => {
+
+    const filteredTotalsColumns = columns.reduce<
+        {
+            totalOperation: string;
+            totalColumn: KupDataColumn;
+            columnValues: string[];
+        }[]
+    >((filteredTotalsColumns, column) => {
+        if (!totals[column.name]) {
+            return filteredTotalsColumns;
+        }
+        const totalOperation = totals[column.name];
         // Calc COUNT
         if (totalOperation === TotalMode.COUNT) {
-            footerRow[columnName] = rows.length.toString();
-            return filteredTotalsEntries;
+            footerRow[column.name] = rows.length.toString();
+            return filteredTotalsColumns;
         }
 
+        // Populate MATH operations array
         if (totalOperation.indexOf(TotalMode.MATH) === 0) {
-            totalsEntriesWithFormula.push([columnName, totalOperation]);
-            return filteredTotalsEntries;
+            totalsEntriesWithFormula.push([column.name, totalOperation]);
+            return filteredTotalsColumns;
         }
 
-        filteredTotalsEntries.push([columnName, totalOperation]);
-        return filteredTotalsEntries;
+        // Get totals columns
+        filteredTotalsColumns.push({
+            totalOperation,
+            totalColumn: column,
+            columnValues: rows.map((row) => row.cells[column.name].value),
+        });
+        return filteredTotalsColumns;
     }, []);
 
-    if (!filteredTotalsEntries && !totalsEntriesWithFormula) {
-        // There are only COUNT totals operations
+    if (!filteredTotalsColumns && !totalsEntriesWithFormula) {
         return footerRow;
     }
 
-    type ObjType = 'generic' | 'number' | 'date';
-    const filteredTotalsColumns: {
-        columnName: string;
-        objType: ObjType;
-        totalOperation: TotalMode;
-        values: string[];
-    }[] = filteredTotalsEntries?.map(([columnName, totalOperation]) => {
-        let objType: ObjType = 'generic';
-        const obj =
-            columns?.find((column) => column.name === columnName)?.obj ??
-            rows[0].cells[columnName]?.obj;
-
-        if (dom.ketchup.objects.isNumber(obj)) {
-            objType = 'number';
-        }
-
-        if (dom.ketchup.objects.isDate(obj)) {
-            objType = 'date';
-        }
-
-        return {
-            columnName,
-            objType,
-            totalOperation,
-            values: rows.map((row) => row.cells[columnName].value),
-        };
-    });
-
     // Calc SUM, AVERAGE, MIN, MAX and DISTINCT
     filteredTotalsColumns?.forEach(
-        ({ columnName, objType, totalOperation, values }) => {
-            if (objType === 'number') {
+        ({ totalOperation, totalColumn, columnValues }) => {
+            if (dom.ketchup.objects.isNumber(totalColumn.obj)) {
                 if (totalOperation === TotalMode.SUM) {
-                    footerRow[columnName] = values
+                    footerRow[totalColumn.name] = columnValues
                         .reduce((sum, value) => {
                             sum += dom.ketchup.math.numberifySafe(value);
                             return sum;
@@ -879,8 +864,8 @@ export function calcTotals(
                 }
 
                 if (totalOperation === TotalMode.AVERAGE) {
-                    footerRow[columnName] = (
-                        values.reduce((sum, value) => {
+                    footerRow[totalColumn.name] = (
+                        columnValues.reduce((sum, value) => {
                             sum += dom.ketchup.math.numberifySafe(value);
                             return sum;
                         }, 0) / rows.length
@@ -889,8 +874,8 @@ export function calcTotals(
                 }
 
                 if (totalOperation === TotalMode.MIN) {
-                    footerRow[columnName] = Math.min(
-                        ...values.map((value) =>
+                    footerRow[totalColumn.name] = Math.min(
+                        ...columnValues.map((value) =>
                             dom.ketchup.math.numberifySafe(value)
                         )
                     ).toString();
@@ -898,8 +883,8 @@ export function calcTotals(
                 }
 
                 if (totalOperation === TotalMode.MAX) {
-                    footerRow[columnName] = Math.max(
-                        ...values.map((value) =>
+                    footerRow[totalColumn.name] = Math.max(
+                        ...columnValues.map((value) =>
                             dom.ketchup.math.numberifySafe(value)
                         )
                     ).toString();
@@ -907,8 +892,8 @@ export function calcTotals(
                 }
             }
 
-            if (objType === 'date') {
-                const dates = values
+            if (dom.ketchup.objects.isDate(totalColumn.obj)) {
+                const dates = columnValues
                     .filter((value) => dom.ketchup.dates.isIsoDate(value))
                     .map((value) =>
                         dom.ketchup.dates.toDate(
@@ -921,14 +906,14 @@ export function calcTotals(
                 }
 
                 if (totalOperation === TotalMode.MIN) {
-                    footerRow[columnName] = dom.ketchup.dates.format(
+                    footerRow[totalColumn.name] = dom.ketchup.dates.format(
                         dom.ketchup.dates.min(dates),
                         KupDatesFormats.ISO_DATE
                     );
                     return;
                 }
                 if (totalOperation === TotalMode.MAX) {
-                    footerRow[columnName] = dom.ketchup.dates.format(
+                    footerRow[totalColumn.name] = dom.ketchup.dates.format(
                         dom.ketchup.dates.max(dates),
                         KupDatesFormats.ISO_DATE
                     );
@@ -937,7 +922,9 @@ export function calcTotals(
             }
 
             if (totalOperation === TotalMode.DISTINCT) {
-                footerRow[columnName] = new Set(values).size.toString();
+                footerRow[totalColumn.name] = new Set(
+                    columnValues
+                ).size.toString();
             }
         }
     );
