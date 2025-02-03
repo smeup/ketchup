@@ -84,7 +84,7 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
-    #preveiwMap = new Map([
+    #previewMap = new Map([
         ['application/pdf', 'file-pdf'],
         ['application/vnd.ms-excel', 'file-excel'],
         [
@@ -220,7 +220,7 @@ export class KupFileUpload {
     }
 
     #getPreview(file: File) {
-        const previewIcon = this.#preveiwMap.get(file.type);
+        const previewIcon = this.#previewMap.get(file.type);
 
         if (!previewIcon) {
             if (/^image\/.*/g.test(file.type)) {
