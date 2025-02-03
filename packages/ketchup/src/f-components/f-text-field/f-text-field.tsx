@@ -207,14 +207,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         value = formatValue(value, options, false);
     }
 
-    if (props.textArea) {
-        try {
-            value = JSON.parse(`"${value}"`);
-        } catch (e) {
-            value = JSON.parse(JSON.stringify(value));
-        }
-    }
-
     return (
         <div class={classContainerObj}>
             {!props.fullWidth ? labelEl : undefined}
