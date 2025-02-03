@@ -755,7 +755,7 @@ export class KupDataTable {
     /**
      * When set to true shows the footer.
      */
-    @Prop() showFooter: boolean = false;
+    @Prop() showFooter: boolean = true;
     /**
      * Can be used to customize the grid view of the table.
      */
