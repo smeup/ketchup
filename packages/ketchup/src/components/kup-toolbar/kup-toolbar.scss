@@ -21,6 +21,12 @@
   border-left: 1px solid transparent;
   align-items: center;
 
+  .toolbar-single-value-node {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
   &:hover:not(:has(> .f-cell)) {
     background-color: var(--kup-gray-color-10-hover);
   }
