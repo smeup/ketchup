@@ -82,6 +82,7 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-image](../kup-image)
 
 ### Depends on
@@ -130,9 +131,7 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
-  kup-file-upload --> kup-card
-  kup-file-upload --> kup-dialog
-  kup-file-upload --> kup-badge
+  kup-file-upload --> kup-spinner
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card

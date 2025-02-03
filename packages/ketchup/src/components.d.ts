@@ -319,6 +319,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
          */
@@ -1379,6 +1384,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */

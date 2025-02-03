@@ -167,6 +167,7 @@ graph TD;
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
+  kup-file-upload --> kup-spinner
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog
   kup-file-upload --> kup-badge

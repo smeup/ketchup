@@ -114,6 +114,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-spinner](../kup-spinner)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -121,9 +122,12 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-file-upload --> kup-spinner
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog
   kup-file-upload --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-card --> kup-file-upload
   kup-image --> kup-card
   kup-image --> kup-image
@@ -136,8 +140,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
