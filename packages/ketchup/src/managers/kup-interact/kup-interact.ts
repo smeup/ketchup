@@ -479,7 +479,7 @@ export class KupInteract {
         // unregister dialog
         this.unregister([el]);
 
-        // reset Interact.js properties to prevent switch wrong positioning when switching anchor
+        // reset Interact.js properties to prevent switch to a wrong position when changing anchor
         el.style.removeProperty('left');
         el.style.removeProperty('top');
         el.style.removeProperty('right');
