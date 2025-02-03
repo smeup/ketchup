@@ -250,7 +250,7 @@ export class KupDialog {
             this.rootElement,
             this.#header ? this.#header : null,
             {
-                unresizable: !this.resizable,
+                unresizable: !this.resizable || !isDetatched,
                 isDraggable: isDetatched,
                 edges: this.#getEdgeOptions(),
             }
