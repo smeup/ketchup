@@ -467,6 +467,14 @@ export class KupAutocomplete {
         this.#doConsistencyCheck = true;
         this.#consistencyCheck(value, valueDecode, true);
     }
+    /**
+     * Calls closeList method (acts like a reset).
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async reset() {
+        this.#closeList();
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -568,7 +576,7 @@ export class KupAutocomplete {
     #prepList() {
         return (
             <kup-list
-                displayMode={this.displayMode}
+                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
@@ -577,6 +585,26 @@ export class KupAutocomplete {
                 ref={(el) => (this.#listEl = el as any)}
             ></kup-list>
         );
+    }
+
+    #calcSize() {
+        // Explicitly setting size from sub-components props, if present
+        if (this.data['kup-text-field']?.size) {
+            return this.data['kup-text-field']?.size as number;
+        } else {
+            switch (this.displayMode) {
+                case ItemsDisplayMode.CODE:
+                    return 15;
+                case ItemsDisplayMode.DESCRIPTION:
+                    return 35;
+                case ItemsDisplayMode.CODE_AND_DESC:
+                case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+                case ItemsDisplayMode.DESC_AND_CODE:
+                    return 50;
+                default:
+                    return 35;
+            }
+        }
     }
 
     /*-------------------------------------------------*/
@@ -644,9 +672,7 @@ export class KupAutocomplete {
                 ? true
                 : false,
             showMarker: this.showMarker,
-            ...(this.displayedValue && {
-                size: this.displayedValue.length,
-            }),
+            size: this.#calcSize(),
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
