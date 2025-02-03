@@ -271,9 +271,10 @@ export class KupDialog {
     }
 
     componentDidUpdate() {
-        console.log('Updated!');
+        // unregister dialog
         this.#kupManager.interact.unregister([this.rootElement]);
 
+        // regsiter again
         const isDetatched = this.anchor == 'none';
         this.#kupManager.interact.dialogify(
             this.rootElement,
@@ -285,12 +286,14 @@ export class KupDialog {
             }
         );
 
+        // reset Interact.js properties to prevent switch wrong positioning when switching anchor
         this.rootElement.style.removeProperty('left');
         this.rootElement.style.removeProperty('top');
         this.rootElement.style.removeProperty('right');
         this.rootElement.style.removeProperty('bottom');
         this.rootElement.style.removeProperty('width');
         this.rootElement.style.removeProperty('height');
+        this.rootElement.style.removeProperty('translate');
     }
 
     componentWillRender() {
