@@ -422,6 +422,14 @@ export class KupCombobox {
     async setValue(value: string, valueDecode?: string) {
         this.#consistencyCheck(value, valueDecode, true);
     }
+    /**
+     * Calls closeList method (acts like a reset).
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async reset() {
+        this.#closeList();
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
