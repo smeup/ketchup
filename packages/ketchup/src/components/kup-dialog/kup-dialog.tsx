@@ -274,7 +274,7 @@ export class KupDialog {
         // unregister dialog
         this.#kupManager.interact.undialogify(this.rootElement);
 
-        // regsiter again
+        // register it again
         const isDetatched = this.anchor == 'none';
         this.#kupManager.interact.dialogify(
             this.rootElement,
