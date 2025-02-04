@@ -1,19 +1,24 @@
-# kup-progress-bar
+# kup-file-upload
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                         | Type      | Default |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `centeredLabel` | `centered-label` | Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed. | `boolean` | `true`  |
-| `customStyle`   | `custom-style`   | Custom style of the component.                                                                                      | `string`  | `''`    |
-| `hideLabel`     | `hide-label`     | Flag to show or hide the progress bar's label.                                                                      | `boolean` | `false` |
-| `icon`          | `icon`           | Specifies an icon to replace the label.                                                                             | `string`  | `null`  |
-| `isRadial`      | `is-radial`      | Radial version.                                                                                                     | `boolean` | `false` |
-| `label`         | `label`          | Specifies a text for the bar's label.                                                                               | `string`  | `null`  |
-| `value`         | `value`          | The current value the progress bar must display.                                                                    | `number`  | `0`     |
+| Property      | Attribute      | Description                     | Type     | Default |
+| ------------- | -------------- | ------------------------------- | -------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.  | `string` | `''`    |
+| `data`        | `data`         | Actual data of the input field. | `any`    | `null`  |
+
+
+## Events
+
+| Event                    | Description                     | Type                                     |
+| ------------------------ | ------------------------------- | ---------------------------------------- |
+| `kup-file-upload-ready`  | When component load is complete | `CustomEvent<KupEventPayload>`           |
+| `kup-file-upload-upload` |                                 | `CustomEvent<KupFileUploadEventPayload>` |
 
 
 ## Methods
@@ -44,6 +49,22 @@ Type: `Promise<void>`
 
 
 
+### `setLoading(loading: boolean) => Promise<void>`
+
+Sets to show spinner during upload.
+
+#### Parameters
+
+| Name      | Type      | Description                     |
+| --------- | --------- | ------------------------------- |
+| `loading` | `boolean` | - Boolean to set if is loading. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -60,21 +81,21 @@ Type: `Promise<void>`
 
 
 
+### `setSuccess(success: boolean) => Promise<void>`
 
-## CSS Custom Properties
+Sets upload has been successfull to show success message.
 
-| Name                                      | Description                                                     |
-| ----------------------------------------- | --------------------------------------------------------------- |
-| `--kup-progressbar-border-radius`         | Sets border radius of the component.                            |
-| `--kup-progressbar-font-family`           | Sets font family of the component.                              |
-| `--kup-progressbar-font-size`             | Sets font size of the component.                                |
-| `--kup-progressbar-height`                | Sets height of the component.                                   |
-| `--kup-progressbar-primary-color`         | Sets primary color of the component.                            |
-| `--kup-progressbar-text-color`            | Sets text color of the component.                               |
-| `--kup-progressbar-text-color-rgb`        | Sets text color RGB values of the component (used for shaders). |
-| `--kup-progressbar-text-on-primary-color` | Sets text on primary color of the component.                    |
-| `--kup-progressbar-track-color`           | Sets track color of the progress bar (empty section).           |
-| `--kup-progressbar-width`                 | Sets width of the component.                                    |
+#### Parameters
+
+| Name      | Type      | Description                                      |
+| --------- | --------- | ------------------------------------------------ |
+| `success` | `boolean` | - Boolean to set if upload has been successfull. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies
@@ -93,15 +114,21 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-spinner](../kup-spinner)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-progress-bar --> kup-card
-  kup-progress-bar --> kup-dialog
-  kup-card --> kup-progress-bar
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
+  kup-card --> kup-file-upload
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -113,8 +140,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
@@ -143,10 +168,6 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
-  kup-file-upload --> kup-spinner
-  kup-file-upload --> kup-card
-  kup-file-upload --> kup-dialog
-  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -165,27 +186,29 @@ graph TD;
   kup-chart --> kup-dialog
   kup-gauge --> kup-card
   kup-gauge --> kup-dialog
-  kup-toolbar --> kup-progress-bar
+  kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
+  kup-toolbar --> kup-file-upload
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-file-upload
   kup-switch --> kup-card
   kup-switch --> kup-dialog
-  kup-form --> kup-progress-bar
+  kup-form --> kup-file-upload
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-progress-bar
-  kup-box --> kup-progress-bar
-  kup-cell --> kup-progress-bar
-  kup-image-list --> kup-progress-bar
-  kup-input-panel --> kup-progress-bar
-  style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px
+  kup-tree --> kup-file-upload
+  kup-box --> kup-file-upload
+  kup-cell --> kup-file-upload
+  kup-image-list --> kup-file-upload
+  kup-input-panel --> kup-file-upload
+  style kup-file-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -127,6 +127,7 @@ Type: `Promise<void>`
  - [kup-echart](../kup-echart)
  - [kup-editor](../kup-editor)
  - [kup-family-tree](../kup-family-tree)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
@@ -182,6 +183,7 @@ graph TD;
   kup-color-picker --> kup-dialog
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
+  kup-file-upload --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
   kup-button-list --> kup-dialog

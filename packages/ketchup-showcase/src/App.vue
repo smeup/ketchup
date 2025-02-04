@@ -585,6 +585,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'fileupload',
+                  },
+                },
+                icon: 'upload',
+                value: 'File Upload',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'gauge',
                   },
                 },

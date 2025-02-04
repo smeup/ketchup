@@ -251,7 +251,10 @@
             "genericRowDelete": "Delete row",
             "genericRowAdd": "Add row",
             "genericInvalidValue": "Invalid value",
-            "genericRequiredValue": "This field is required"
+            "genericRequiredValue": "This field is required",
+            "genericUpload": "Upload",
+            "genericChoose": "Choose",
+            "fileUploadSuccess": "Upload complete"
         }
     },
     "french": {
@@ -506,7 +509,10 @@
             "genericRowDelete": "Elimina riga",
             "genericRowAdd": "Aggiungi riga",
             "genericInvalidValue": "Valore non valido",
-            "genericRequiredValue": "Valore obbligatorio"
+            "genericRequiredValue": "Valore obbligatorio",
+            "genericUpload": "Carica",
+            "genericChoose": "Scegli",
+            "fileUploadSuccess": "Caricamento completato"
         },
         "variants": {
             "smeup": {

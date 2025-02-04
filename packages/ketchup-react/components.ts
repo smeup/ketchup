@@ -7,7 +7,7 @@
 
 /* eslint-disable */
 
-import { type FCellEventPayload, type FObjectFieldEventPayload, type KupAccordionCustomEvent, type KupAccordionItemSelectedEventPayload, type KupActivityTimelineClickEventPayload, type KupActivityTimelineCustomEvent, type KupAutocompleteCustomEvent, type KupAutocompleteEventPayload, type KupAutocompleteIconClickEventPayload, type KupBadgeCustomEvent, type KupBoxAutoSelectEventPayload, type KupBoxClickEventPayload, type KupBoxContextMenuEventPayload, type KupBoxCustomEvent, type KupBoxLoadMoreClickEventPayload, type KupBoxRowActionClickEventPayload, type KupBoxSelectedEventPayload, type KupButtonClickEventPayload, type KupButtonCustomEvent, type KupButtonListClickEventPayload, type KupButtonListCustomEvent, type KupCalendarCustomEvent, type KupCalendarDateClickEventPayload, type KupCalendarEventClickEventPayload, type KupCalendarEventDropEventPayload, type KupCalendarViewChangeEventPayload, type KupCardClickPayload, type KupCardCustomEvent, type KupCardEventPayload, type KupCardListClickEventPayload, type KupCardListCustomEvent, type KupCellCustomEvent, type KupCellSubmitClickEventPayload, type KupChartClickEvent, type KupChartCustomEvent, type KupCheckboxCustomEvent, type KupCheckboxEventPayload, type KupChipChangeEventPayload, type KupChipCustomEvent, type KupChipEventPayload, type KupColorPickerCustomEvent, type KupColorPickerEventPayload, type KupComboboxCustomEvent, type KupComboboxEventPayload, type KupComboboxIconClickEventPayload, type KupDashboardCustomEvent, type KupDashboardEventPayload, type KupDataTableCustomEvent, type KupDatatableCellCheckPayload, type KupDatatableClickEventPayload, type KupDatatableColumnMenuEventPayload, type KupDatatableColumnMoveEventPayload, type KupDatatableColumnRemoveEventPayload, type KupDatatableDeleteRowEventPayload, type KupDatatableHistoryEventPayload, type KupDatatableInsertRowEventPayload, type KupDatatableLoadMoreClickEventPayload, type KupDatatableRowActionItemClickEventPayload, type KupDatatableRowSelectedEventPayload, type KupDatatableUpdatePayload, type KupDatePickerCustomEvent, type KupDatePickerEventPayload, type KupDialogCustomEvent, type KupDrawerCustomEvent, type KupDropEventPayload, type KupDropdownButtonCustomEvent, type KupDropdownButtonEventPayload, type KupEchartClickEventPayload, type KupEchartCustomEvent, type KupEditorCustomEvent, type KupEditorEventPayload, type KupEventPayload, type KupFamilyTreeCustomEvent, type KupFamilyTreeEventPayload, type KupFormCustomEvent, type KupHtmCustomEvent, type KupIframeCustomEvent, type KupImageClickEventPayload, type KupImageCustomEvent, type KupImageListCustomEvent, type KupImageListEventPayload, type KupInputPanelClickEventPayload, type KupInputPanelCustomEvent, type KupLazyCustomEvent, type KupListCustomEvent, type KupListEventPayload, type KupNavBarCustomEvent, type KupNumericPickerCustomEvent, type KupNumericPickerEventPayload, type KupPdfCustomEvent, type KupPlannerClickEventPayload, type KupPlannerCustomEvent, type KupPlannerEventPayload, type KupPlannerUnloadEventPayload, type KupRadioChangeEventPayload, type KupRadioCustomEvent, type KupRatingClickEventPayload, type KupRatingCustomEvent, type KupSnackbarCustomEvent, type KupSpinnerCustomEvent, type KupSwitchCustomEvent, type KupSwitchEventPayload, type KupTabBarCustomEvent, type KupTabBarEventPayload, type KupTextFieldCustomEvent, type KupTextFieldEventPayload, type KupTimePickerCustomEvent, type KupTimePickerEventPayload, type KupToolbarClickEventPayload, type KupToolbarCustomEvent, type KupToolbarItemClickEventPayload, type KupTreeColumnMenuEventPayload, type KupTreeColumnRemoveEventPayload, type KupTreeContextMenuEventPayload, type KupTreeCustomEvent, type KupTreeDynamicMassExpansionEventPayload, type KupTreeNodeButtonClickEventPayload, type KupTreeNodeCollapseEventPayload, type KupTreeNodeExpandEventPayload, type KupTreeNodeSelectedEventPayload, type KupTxtCustomEvent, type KupTypographyClickEventPayload, type KupTypographyCustomEvent, type KupTypographyIconClickEventPayload, type KupTypographyListClickEventPayload, type KupTypographyListCustomEvent, type KupTypographyListIconClickEventPayload } from "@sme.up/ketchup";
+import { type FCellEventPayload, type FObjectFieldEventPayload, type KupAccordionCustomEvent, type KupAccordionItemSelectedEventPayload, type KupActivityTimelineClickEventPayload, type KupActivityTimelineCustomEvent, type KupAutocompleteCustomEvent, type KupAutocompleteEventPayload, type KupAutocompleteIconClickEventPayload, type KupBadgeCustomEvent, type KupBoxAutoSelectEventPayload, type KupBoxClickEventPayload, type KupBoxContextMenuEventPayload, type KupBoxCustomEvent, type KupBoxLoadMoreClickEventPayload, type KupBoxRowActionClickEventPayload, type KupBoxSelectedEventPayload, type KupButtonClickEventPayload, type KupButtonCustomEvent, type KupButtonListClickEventPayload, type KupButtonListCustomEvent, type KupCalendarCustomEvent, type KupCalendarDateClickEventPayload, type KupCalendarEventClickEventPayload, type KupCalendarEventDropEventPayload, type KupCalendarViewChangeEventPayload, type KupCardClickPayload, type KupCardCustomEvent, type KupCardEventPayload, type KupCardListClickEventPayload, type KupCardListCustomEvent, type KupCellCustomEvent, type KupCellSubmitClickEventPayload, type KupChartClickEvent, type KupChartCustomEvent, type KupCheckboxCustomEvent, type KupCheckboxEventPayload, type KupChipChangeEventPayload, type KupChipCustomEvent, type KupChipEventPayload, type KupColorPickerCustomEvent, type KupColorPickerEventPayload, type KupComboboxCustomEvent, type KupComboboxEventPayload, type KupComboboxIconClickEventPayload, type KupDashboardCustomEvent, type KupDashboardEventPayload, type KupDataTableCustomEvent, type KupDatatableCellCheckPayload, type KupDatatableClickEventPayload, type KupDatatableColumnMenuEventPayload, type KupDatatableColumnMoveEventPayload, type KupDatatableColumnRemoveEventPayload, type KupDatatableDeleteRowEventPayload, type KupDatatableHistoryEventPayload, type KupDatatableInsertRowEventPayload, type KupDatatableLoadMoreClickEventPayload, type KupDatatableRowActionItemClickEventPayload, type KupDatatableRowSelectedEventPayload, type KupDatatableUpdatePayload, type KupDatePickerCustomEvent, type KupDatePickerEventPayload, type KupDialogCustomEvent, type KupDrawerCustomEvent, type KupDropEventPayload, type KupDropdownButtonCustomEvent, type KupDropdownButtonEventPayload, type KupEchartClickEventPayload, type KupEchartCustomEvent, type KupEditorCustomEvent, type KupEditorEventPayload, type KupEventPayload, type KupFamilyTreeCustomEvent, type KupFamilyTreeEventPayload, type KupFileUploadCustomEvent, type KupFileUploadEventPayload, type KupFormCustomEvent, type KupHtmCustomEvent, type KupIframeCustomEvent, type KupImageClickEventPayload, type KupImageCustomEvent, type KupImageListCustomEvent, type KupImageListEventPayload, type KupInputPanelClickEventPayload, type KupInputPanelCustomEvent, type KupLazyCustomEvent, type KupListCustomEvent, type KupListEventPayload, type KupNavBarCustomEvent, type KupNumericPickerCustomEvent, type KupNumericPickerEventPayload, type KupPdfCustomEvent, type KupPlannerClickEventPayload, type KupPlannerCustomEvent, type KupPlannerEventPayload, type KupPlannerUnloadEventPayload, type KupRadioChangeEventPayload, type KupRadioCustomEvent, type KupRatingClickEventPayload, type KupRatingCustomEvent, type KupSnackbarCustomEvent, type KupSpinnerCustomEvent, type KupSwitchCustomEvent, type KupSwitchEventPayload, type KupTabBarCustomEvent, type KupTabBarEventPayload, type KupTextFieldCustomEvent, type KupTextFieldEventPayload, type KupTimePickerCustomEvent, type KupTimePickerEventPayload, type KupToolbarClickEventPayload, type KupToolbarCustomEvent, type KupToolbarItemClickEventPayload, type KupTreeColumnMenuEventPayload, type KupTreeColumnRemoveEventPayload, type KupTreeContextMenuEventPayload, type KupTreeCustomEvent, type KupTreeDynamicMassExpansionEventPayload, type KupTreeNodeButtonClickEventPayload, type KupTreeNodeCollapseEventPayload, type KupTreeNodeExpandEventPayload, type KupTreeNodeSelectedEventPayload, type KupTxtCustomEvent, type KupTypographyClickEventPayload, type KupTypographyCustomEvent, type KupTypographyIconClickEventPayload, type KupTypographyListClickEventPayload, type KupTypographyListCustomEvent, type KupTypographyListIconClickEventPayload } from "@sme.up/ketchup";
 import { KupAccordion as KupAccordionElement, defineCustomElement as defineKupAccordion } from "@sme.up/ketchup/dist/components/kup-accordion.js";
 import { KupActivityTimeline as KupActivityTimelineElement, defineCustomElement as defineKupActivityTimeline } from "@sme.up/ketchup/dist/components/kup-activity-timeline.js";
 import { KupAutocomplete as KupAutocompleteElement, defineCustomElement as defineKupAutocomplete } from "@sme.up/ketchup/dist/components/kup-autocomplete.js";
@@ -35,6 +35,7 @@ import { KupDropdownButton as KupDropdownButtonElement, defineCustomElement as d
 import { KupEchart as KupEchartElement, defineCustomElement as defineKupEchart } from "@sme.up/ketchup/dist/components/kup-echart.js";
 import { KupEditor as KupEditorElement, defineCustomElement as defineKupEditor } from "@sme.up/ketchup/dist/components/kup-editor.js";
 import { KupFamilyTree as KupFamilyTreeElement, defineCustomElement as defineKupFamilyTree } from "@sme.up/ketchup/dist/components/kup-family-tree.js";
+import { KupFileUpload as KupFileUploadElement, defineCustomElement as defineKupFileUpload } from "@sme.up/ketchup/dist/components/kup-file-upload.js";
 import { KupForm as KupFormElement, defineCustomElement as defineKupForm } from "@sme.up/ketchup/dist/components/kup-form.js";
 import { KupGanttCalendar as KupGanttCalendarElement, defineCustomElement as defineKupGanttCalendar } from "@sme.up/ketchup/dist/components/kup-gantt-calendar.js";
 import { KupGantt as KupGanttElement, defineCustomElement as defineKupGantt } from "@sme.up/ketchup/dist/components/kup-gantt.js";
@@ -266,14 +267,20 @@ export const KupCardList: StencilReactComponent<KupCardListElement, KupCardListE
     defineCustomElement: defineKupCardList
 });
 
-type KupCellEvents = { onKupCellSubmitClick: EventName<KupCellCustomEvent<KupCellSubmitClickEventPayload>> };
+type KupCellEvents = {
+    onKupCellSubmitClick: EventName<KupCellCustomEvent<KupCellSubmitClickEventPayload>>,
+    onKupCellUpload: EventName<KupCellCustomEvent<KupFileUploadEventPayload>>
+};
 
 export const KupCell: StencilReactComponent<KupCellElement, KupCellEvents> = /*@__PURE__*/ createComponent<KupCellElement, KupCellEvents>({
     tagName: 'kup-cell',
     elementClass: KupCellElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: { onKupCellSubmitClick: 'kup-cell-submit-click' } as KupCellEvents,
+    events: {
+        onKupCellSubmitClick: 'kup-cell-submit-click',
+        onKupCellUpload: 'kup-cell-upload'
+    } as KupCellEvents,
     defineCustomElement: defineKupCell
 });
 
@@ -605,6 +612,23 @@ export const KupFamilyTree: StencilReactComponent<KupFamilyTreeElement, KupFamil
         onKupFamilytreeDblclick: 'kup-familytree-dblclick'
     } as KupFamilyTreeEvents,
     defineCustomElement: defineKupFamilyTree
+});
+
+type KupFileUploadEvents = {
+    onKupFileUploadReady: EventName<KupFileUploadCustomEvent<KupEventPayload>>,
+    onKupFileUploadUpload: EventName<KupFileUploadCustomEvent<KupFileUploadEventPayload>>
+};
+
+export const KupFileUpload: StencilReactComponent<KupFileUploadElement, KupFileUploadEvents> = /*@__PURE__*/ createComponent<KupFileUploadElement, KupFileUploadEvents>({
+    tagName: 'kup-file-upload',
+    elementClass: KupFileUploadElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {
+        onKupFileUploadReady: 'kup-file-upload-ready',
+        onKupFileUploadUpload: 'kup-file-upload-upload'
+    } as KupFileUploadEvents,
+    defineCustomElement: defineKupFileUpload
 });
 
 type KupFormEvents = { onKupFormReady: EventName<KupFormCustomEvent<KupEventPayload>> };
