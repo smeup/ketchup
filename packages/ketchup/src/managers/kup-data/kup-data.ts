@@ -104,6 +104,8 @@ export class KupData {
                         return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
+                    case FCellShapes.FILE_UPLOAD:
+                        return FCellTypes.FILE_UPLOAD;
                     case FCellShapes.GAUGE:
                         return FCellTypes.GAUGE;
                     case FCellShapes.IMAGE:

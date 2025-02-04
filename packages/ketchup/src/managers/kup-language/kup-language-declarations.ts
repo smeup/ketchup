@@ -17,7 +17,8 @@ export type KupLanguageKey =
     | KupLanguagePage
     | KupLanguageRow
     | KupLanguageSearch
-    | KupLanguageTotals;
+    | KupLanguageTotals
+    | KupLanguageUpload;
 /**
  * Interface of the languages JSON.
  */
@@ -179,6 +180,8 @@ export enum KupLanguageGeneric {
     ROW_DELETE = 'genericRowDelete',
     INVALID_VALUE = 'genericInvalidValue',
     REQUIRED_VALUE = 'genericRequiredValue',
+    UPLOAD = 'genericUpload',
+    CHOOSE = 'genericChoose',
 }
 /**
  * Grid decodes (data table customization settings).
@@ -242,4 +245,11 @@ export enum KupLanguageTotals {
     MINIMUM = 'totalsMinimum',
     PRODUCT = 'totalsProduct',
     SUM = 'totalsSum',
+}
+
+/**
+ * File upload
+ */
+export enum KupLanguageUpload {
+    SUCCESS = 'fileUploadSuccess',
 }

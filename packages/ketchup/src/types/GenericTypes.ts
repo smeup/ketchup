@@ -112,6 +112,7 @@ export enum KupTagNames {
     TOOLTIP = 'KUP-TOOLTIP',
     TREE = 'KUP-TREE',
     OBJECT_FIELD = 'KUP-OBJECT-FIELD',
+    UPLOAD = 'KUP-FILE-UPLOAD',
 }
 
 /**
