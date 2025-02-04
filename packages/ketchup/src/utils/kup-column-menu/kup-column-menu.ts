@@ -464,7 +464,6 @@ export class KupColumnMenu {
                     'data-storage': {
                         column: column,
                     },
-                    fullWidth: true,
                     isClearable: true,
                     size: 30,
                     maxLength: 30,
@@ -527,7 +526,6 @@ export class KupColumnMenu {
             'data-storage': {
                 column: column,
             },
-            fullWidth: true,
             helperWhenFocused: true,
             isClearable: true,
             size: 30,

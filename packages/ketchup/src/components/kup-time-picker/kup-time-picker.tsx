@@ -40,6 +40,7 @@ import {
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -61,6 +62,12 @@ export class KupTimePicker {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
+    /**
+     * When set to true, the selected date will be appended to the current value
+     * instead of replacing it.
+     * @default false
+     */
+    @Prop() appendSelection: boolean = false;
     /**
      * When set to true, the drop down menu will display a clock.
      * @default true
@@ -416,17 +423,19 @@ export class KupTimePicker {
 
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
+        const isValidFilter = FILTER_ANALYZER.test(eventDetailValue);
         if (
             this.kupManager.dates.isValidFormattedStringTime(
                 eventDetailValue,
                 this.manageSeconds
-            )
+            ) ||
+            isValidFilter
         ) {
             this.value = eventDetailValue;
             newValue = this.value;
         }
 
-        if (newValue != null) {
+        if (newValue != null && eventToRaise) {
             eventToRaise.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -449,7 +458,20 @@ export class KupTimePicker {
         if (newValue == null) {
             return;
         }
-        this.value = newValue;
+        if (this.appendSelection) {
+            // Append behavior: combine current value with the new date
+            const currentValue = this.textfieldEl.value;
+            const formattedDate =
+                this.kupManager.dates.timeStringToFormattedString(
+                    newValue,
+                    this.manageSeconds
+                );
+            const combinedValue = currentValue + formattedDate;
+            this.refreshPickerValue(combinedValue, undefined);
+        } else {
+            // Default behavior: replace the entire value
+            this.value = newValue;
+        }
     }
 
     getPickerValueSelected(): string {
@@ -518,7 +540,7 @@ export class KupTimePicker {
         return this.pickerKupEl.id;
     }
 
-    prepTextfield(initialValue: string): any {
+    prepTextfield(): any {
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
@@ -540,7 +562,7 @@ export class KupTimePicker {
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
-                value={initialValue}
+                value={this.value}
                 onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClick={() => this.onKupClick()}
@@ -578,10 +600,14 @@ export class KupTimePicker {
     }
 
     prepTimePicker() {
+        const startingValue = this.kupManager.dates.timeStringToFormattedString(
+            '',
+            this.manageSeconds
+        );
         if (this.clockVariant) {
             const data: KupCardData = {
                 options: {
-                    initialValue: this.value,
+                    initialValue: startingValue,
                     manageSeconds: this.manageSeconds,
                     hoursActive: this.hoursActive,
                     minutesActive: this.minutesActive,
@@ -610,7 +636,7 @@ export class KupTimePicker {
             return (
                 <kup-list
                     ref={(el) => (this.pickerKupEl = el)}
-                    data={this.createTimeListData(this.value)}
+                    data={this.createTimeListData(startingValue)}
                     is-menu
                     onkup-list-click={(e) =>
                         this.onKupTimePickerItemClick(e, e.detail.selected.id)
@@ -729,9 +755,7 @@ export class KupTimePicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
-                    {this.prepTextfield(this.getTimeForOutput())}
-                </div>
+                <div id={componentWrapperId}>{this.prepTextfield()}</div>
             </Host>
         );
     }
