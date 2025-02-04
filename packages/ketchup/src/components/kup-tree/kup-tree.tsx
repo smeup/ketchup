@@ -45,7 +45,11 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-import { getColumnByName, getValueForDisplay } from '../../utils/cell-utils';
+import {
+    getColumnByName,
+    getValueForDisplay,
+    isNegativeNumber,
+} from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -78,6 +82,7 @@ import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarati
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1906,7 +1911,7 @@ export class KupTree {
                     );
                 }
 
-                const value =
+                const totalValue =
                     this.footer[column.name] != null
                         ? getValueForDisplay(
                               this.footer[column.name],
@@ -1914,15 +1919,20 @@ export class KupTree {
                               column.decimals
                           )
                         : '';
+                const totalsClass = `totals-value ${
+                    isNegativeNumber(this.footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
+                }`;
 
                 return (
                     <td data-column={column.name}>
                         {totalMenu}
                         <span
-                            class="totals-value"
+                            class={totalsClass}
                             title={translation[menuLabel]}
                         >
-                            {value}
+                            {totalValue}
                         </span>
                     </td>
                 );
