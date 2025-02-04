@@ -78,12 +78,12 @@ export class KupDialog {
      * The min width of the dialog.
      * @default "auto"
      */
-    @Prop() minSizeX = 'auto';
+    @Prop() minSizeX = '10dvw';
     /**
      * The min height of the dialog.
      * @default "auto"
      */
-    @Prop() minSizeY = 'auto';
+    @Prop() minSizeY = '20dvh';
     /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
@@ -250,12 +250,17 @@ export class KupDialog {
         let { width, height } = e.rect;
         const target = e.target;
 
-        const dim = this.#getMinMaxDimensions(target);
+        const dim = this.#getMinMaxDimensions(this.rootElement);
+        const isDetatched = this.anchor == 'none';
 
         const isHorizontalShiftAllowed =
-            width >= dim.min.width && width <= dim.max.width;
+            width >= dim.min.width - 1 &&
+            width <= dim.max.width + 1 &&
+            isDetatched;
         const isVerticalShiftAllowed =
-            height >= dim.min.height && height <= dim.max.height;
+            height >= dim.min.height - 1 &&
+            height <= dim.max.height + 1 &&
+            isDetatched;
 
         if (e.edges.left && isHorizontalShiftAllowed) {
             target.style.left = `${
@@ -284,7 +289,6 @@ export class KupDialog {
 
     #dialogify() {
         const isDetatched = this.anchor == 'none';
-
         this.#kupManager.interact.dialogify(
             this.rootElement,
             this.#header ? this.#header : null,
@@ -329,18 +333,26 @@ export class KupDialog {
         if (this.anchor == 'none') {
             styles[minHeight] = this.minSizeY ? this.minSizeY : 'auto';
             styles[minWidth] = this.minSizeX ? this.minSizeX : 'auto';
+
             styles[height] = this.sizeY ? this.sizeY : 'auto';
             styles[width] = this.sizeX ? this.sizeX : 'auto';
+
             styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '90dvh';
             styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '90dvw';
         }
         if (this.anchor == 'left' || this.anchor == 'right') {
             styles[minHeight] = '100dvh';
             styles[minWidth] = this.minSizeX ? this.minSizeX : '10dvw';
+
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '100dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '80dvw';
         }
         if (this.anchor == 'top' || this.anchor == 'bottom') {
             styles[minHeight] = this.minSizeY ? this.minSizeY : '10dvh';
             styles[minWidth] = '100dvw';
+
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '80dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '100dvw';
         }
         return styles;
     }
