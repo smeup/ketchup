@@ -1,4 +1,8 @@
-import type { DropEvent, InteractEvent } from '@interactjs/types/index';
+import type {
+    DropEvent,
+    EdgeOptions,
+    InteractEvent,
+} from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import { KupBoxRow } from '../../components/kup-box/kup-box-declarations';
 import {
@@ -131,4 +135,18 @@ export interface KupDropEventTarget {
     row?: KupDataRow | KupBoxRow;
     cell?: KupDataCell;
     column?: KupDataColumn;
+}
+
+/**
+ * Dialogify options
+ */
+export interface KupDialogifyOptions {
+    isResizable?: boolean;
+    isDraggable?: boolean;
+    onResize?: (e: ResizeEvent) => void;
+    resizeConstraints?: {
+        min?: { width: number; height: number };
+        max?: { width: number; height: number };
+    };
+    edges?: EdgeOptions | null;
 }

@@ -25,8 +25,8 @@
   display: block;
   height: var(--kup_dialog_height);
   left: var(--kup_dialog_left, -100%);
-  min-height: var(--kup_dialog_height);
-  min-width: var(--kup_dialog_width);
+  min-height: var(--kup_dialog_min_height);
+  min-width: var(--kup_dialog_min_width);
   max-width: var(--kup_dialog_max_width);
   max-height: var(--kup_dialog_max_height);
   position: absolute;
@@ -49,6 +49,27 @@
   ::slotted {
     opacity: 0;
   }
+}
+
+:host([data-anchor='none']) {
+  inset: 0;
+}
+:host([data-anchor='left']) {
+  inset: 0 auto 0 0;
+  width: 50%;
+  height: 100%;
+}
+:host([data-anchor='top']) {
+  inset: 0 0 auto 0;
+  height: 50%;
+}
+:host([data-anchor='right']) {
+  inset: 0 0 0 auto;
+  width: 50%;
+}
+:host([data-anchor='bottom']) {
+  inset: auto 0 0 0;
+  height: 50%;
 }
 
 .header {
