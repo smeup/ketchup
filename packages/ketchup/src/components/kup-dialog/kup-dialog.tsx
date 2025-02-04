@@ -78,7 +78,7 @@ export class KupDialog {
      * The min width of the dialog.
      * @default "auto"
      */
-    @Prop() minSizeX = '10dvw';
+    @Prop() minSizeX = '20dvw';
     /**
      * The min height of the dialog.
      * @default "auto"
@@ -331,8 +331,8 @@ export class KupDialog {
 
         const styles = {};
         if (this.anchor == 'none') {
-            styles[minHeight] = this.minSizeY ? this.minSizeY : 'auto';
-            styles[minWidth] = this.minSizeX ? this.minSizeX : 'auto';
+            styles[minHeight] = this.minSizeY ? this.minSizeY : '20dvh';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : '20dvw';
 
             styles[height] = this.sizeY ? this.sizeY : 'auto';
             styles[width] = this.sizeX ? this.sizeX : 'auto';
@@ -342,13 +342,13 @@ export class KupDialog {
         }
         if (this.anchor == 'left' || this.anchor == 'right') {
             styles[minHeight] = '100dvh';
-            styles[minWidth] = this.minSizeX ? this.minSizeX : '10dvw';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : '20dvw';
 
             styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '100dvh';
             styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '80dvw';
         }
         if (this.anchor == 'top' || this.anchor == 'bottom') {
-            styles[minHeight] = this.minSizeY ? this.minSizeY : '10dvh';
+            styles[minHeight] = this.minSizeY ? this.minSizeY : '20dvh';
             styles[minWidth] = '100dvw';
 
             styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '80dvh';
