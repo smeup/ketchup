@@ -83,6 +83,16 @@ Type: `Promise<void>`
 
 
 
+### `reset() => Promise<void>`
+
+Calls closeList method (acts like a reset).
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFocus() => Promise<void>`
 
 Sets the focus to the component.

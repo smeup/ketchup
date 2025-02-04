@@ -56,7 +56,11 @@ import {
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
 } from './kup-data-table-declarations';
-import { getColumnByName, getValueForDisplay } from '../../utils/cell-utils';
+import {
+    getColumnByName,
+    getValueForDisplay,
+    isNegativeNumber,
+} from '../../utils/cell-utils';
 import {
     calcTotals,
     normalizeRows,
@@ -154,6 +158,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellEventPayload,
     FCellPadding,
     FCellShapes,
@@ -750,7 +755,7 @@ export class KupDataTable {
     /**
      * When set to true shows the footer.
      */
-    @Prop() showFooter: boolean = false;
+    @Prop() showFooter: boolean = true;
     /**
      * Can be used to customize the grid view of the table.
      */
@@ -5208,7 +5213,7 @@ export class KupDataTable {
                     );
                 }
 
-                const value =
+                const totalValue =
                     this.#footer[column.name] != null
                         ? getValueForDisplay(
                               this.#footer[column.name],
@@ -5216,6 +5221,11 @@ export class KupDataTable {
                               column.decimals
                           )
                         : '';
+                const totalsClass = `totals-value ${
+                    isNegativeNumber(this.#footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
+                }`;
 
                 return (
                     <td
@@ -5232,12 +5242,9 @@ export class KupDataTable {
                         }
                     >
                         {totalMenu}
-                        <span
-                            class="totals-value"
-                            title={translation[menuLabel]}
-                        >
-                            {value}
-                        </span>
+                        <div class={totalsClass} title={translation[menuLabel]}>
+                            {totalValue}
+                        </div>
                     </td>
                 );
             }
@@ -6998,9 +7005,7 @@ export class KupDataTable {
                                 <tr>{header}</tr>
                             </thead>
                             <tbody>{rows}</tbody>
-                            {this.showFooter || this.#hasTotals()
-                                ? this.renderFooter()
-                                : null}
+                            {this.showFooter && this.renderFooter()}
                         </table>
                         {stickyEl}
                     </div>
