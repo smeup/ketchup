@@ -250,17 +250,6 @@ export class KupDialog {
         let { width, height } = e.rect;
         const target = e.target;
 
-        // const minWidth = getComputedStyle(target).minWidth.replace('px', '');
-        // const minHeight = getComputedStyle(target).minHeight.replace('px', '');
-        // const maxWidth = getComputedStyle(target).maxWidth.replace('px', '');
-        // const maxHeight = getComputedStyle(target).maxHeight.replace('px', '');
-        // console.log(this.#getMinMaxDimensions(target));
-
-        // const isHorizontalShiftAllowed =
-        //     width >= parseFloat(minWidth) && width <= parseFloat(maxWidth);
-        // const isVerticalShiftAllowed =
-        //     height >= parseFloat(minHeight) && width <= parseFloat(maxHeight);
-
         const dim = this.#getMinMaxDimensions(target);
 
         const isHorizontalShiftAllowed =
