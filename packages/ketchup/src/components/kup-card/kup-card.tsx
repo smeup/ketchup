@@ -382,6 +382,7 @@ export class KupCard {
                     dragHandle ? dragHandle : null,
                     {
                         isResizable: isResizable,
+                        isDraggable: true,
                     }
                 );
             }

@@ -1,12 +1,17 @@
 // Replace the object below with yours.
-const compName = 'kup-dialog';
+const compName = 'kup-button';
 
 // Replace the props below with yours.
 const props = {
-    modal: null,
-    sizeX: '50dvw',
-    sizeY: '80dvh',
-    // anchor: 'right',
+    checked: true,
+    customStyle: '',
+    disabled: false,
+    icon: 'favorite',
+    iconOff: null,
+    label: null,
+    styling: 'raised',
+    toggable: false,
+    trailingIcon: false,
 };
 
 const wrapper = document.querySelector('#debug-wrapper');
