@@ -358,13 +358,36 @@ export class KupInteract {
                     el.style.height = e.rect.height + 'px';
                 }
                 if (moveOnResize) {
-                    const el = e.target as HTMLElement;
                     const oldTransform = e.target.style.transform;
-                    let x = parseFloat(el.getAttribute('data-x')) || 0;
-                    let y = parseFloat(el.getAttribute('data-y')) || 0;
-                    x += e.deltaRect.left;
-                    y += e.deltaRect.top;
-                    el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+
+                    let { width, height } = e.rect;
+                    const target = e.target;
+
+                    if (e.edges.left) {
+                        target.style.left = `${
+                            parseFloat(target.style.left || '0') +
+                            e.deltaRect.left
+                        }px`;
+                    }
+                    if (e.edges.top) {
+                        target.style.top = `${
+                            parseFloat(target.style.top || '0') +
+                            e.deltaRect.top
+                        }px`;
+                    }
+                    if (e.edges.right) {
+                        target.style.right = `${
+                            parseFloat(target.style.right || '0') -
+                            e.deltaRect.right
+                        }px`;
+                    }
+                    if (e.edges.bottom) {
+                        target.style.bottom = `${
+                            parseFloat(target.style.bottom || '0') -
+                            e.deltaRect.bottom
+                        }px`;
+                    }
+
                     if (
                         dom.ketchup.interact.isInViewport(
                             el,
@@ -372,8 +395,8 @@ export class KupInteract {
                             e.delta
                         )
                     ) {
-                        el.setAttribute('data-x', x.toString());
-                        el.setAttribute('data-y', y.toString());
+                        target.style.width = `${width}px`;
+                        target.style.height = `${height}px`;
                     }
                 }
             },
@@ -467,7 +490,7 @@ export class KupInteract {
                     ],
                 },
                 null,
-                false,
+                true,
                 true
             );
         }
