@@ -78,6 +78,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
     props: FCellProps,
     children?: VNode[]
 ) => {
+    // if (cellType === FCellTypes.CHECKBOX) {
+    console.log('props in cell', props);
+    // }
     const cell = props.cell;
     const column = props.column;
     const row = props.row;
@@ -97,9 +100,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
     isEditable = isEditable && props.editable;
 
-    if (cell.options) {
-        cell.data = mapData(cell, column) ?? cell.data;
-    }
+    cell.data = mapData(cell, column) ?? cell.data;
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
