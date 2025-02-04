@@ -143,7 +143,7 @@ export interface KupDropEventTarget {
 export interface KupDialogifyOptions {
     isResizable?: boolean;
     isDraggable?: boolean;
-    moveOnResize?: boolean;
+    onResize?: (e: ResizeEvent) => void;
     resizeConstraints?: {
         min?: { width: number; height: number };
         max?: { width: number; height: number };

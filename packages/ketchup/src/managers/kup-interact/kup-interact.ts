@@ -358,65 +358,22 @@ export class KupInteract {
                     el.style.height = e.rect.height + 'px';
                 }
                 if (moveOnResize) {
-                    let { width, height } = e.rect;
-                    const target = e.target;
-
-                    const minWidth = getComputedStyle(el).minWidth.replace(
-                        'px',
-                        ''
-                    );
-                    const minHeight = getComputedStyle(el).minHeight.replace(
-                        'px',
-                        ''
-                    );
-                    const maxWidth = getComputedStyle(el).maxWidth.replace(
-                        'px',
-                        ''
-                    );
-                    const maxHeight = getComputedStyle(el).maxHeight.replace(
-                        'px',
-                        ''
-                    );
-
+                    const el = e.target as HTMLElement;
+                    const oldTransform = e.target.style.transform;
+                    let x = parseFloat(el.getAttribute('data-x')) || 0;
+                    let y = parseFloat(el.getAttribute('data-y')) || 0;
+                    x += e.deltaRect.left;
+                    y += e.deltaRect.top;
+                    el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
                     if (
-                        e.edges.left &&
-                        width >= parseFloat(minWidth) &&
-                        width <= parseFloat(maxWidth)
+                        dom.ketchup.interact.isInViewport(
+                            el,
+                            oldTransform,
+                            e.delta
+                        )
                     ) {
-                        target.style.left = `${
-                            parseFloat(target.style.left || '0') +
-                            e.deltaRect.left
-                        }px`;
-                    }
-                    if (
-                        e.edges.top &&
-                        height >= parseFloat(minHeight) &&
-                        height <= parseFloat(maxHeight)
-                    ) {
-                        target.style.top = `${
-                            parseFloat(target.style.top || '0') +
-                            e.deltaRect.top
-                        }px`;
-                    }
-                    if (
-                        e.edges.right &&
-                        width >= parseFloat(minWidth) &&
-                        width <= parseFloat(maxWidth)
-                    ) {
-                        target.style.right = `${
-                            parseFloat(target.style.right || '0') -
-                            e.deltaRect.right
-                        }px`;
-                    }
-                    if (
-                        e.edges.bottom &&
-                        height >= parseFloat(minHeight) &&
-                        height <= parseFloat(maxHeight)
-                    ) {
-                        target.style.bottom = `${
-                            parseFloat(target.style.bottom || '0') -
-                            e.deltaRect.bottom
-                        }px`;
+                        el.setAttribute('data-x', x.toString());
+                        el.setAttribute('data-y', y.toString());
                     }
                 }
             },
@@ -511,8 +468,14 @@ export class KupInteract {
                         ),
                     ],
                 },
-                null,
-                options?.moveOnResize ?? true,
+                {
+                    move(e: ResizeEvent) {
+                        if (options.onResize) {
+                            options.onResize(e);
+                        }
+                    },
+                },
+                options?.onResize ? false : true,
                 true
             );
         }

@@ -225,25 +225,61 @@ export class KupDialog {
         this.#kupManager.theme.unregister(this);
     }
 
+    #onResize(e: ResizeEvent) {
+        let { width, height } = e.rect;
+        const target = e.target;
+
+        const minWidth = getComputedStyle(target).minWidth.replace('px', '');
+        const minHeight = getComputedStyle(target).minHeight.replace('px', '');
+        const maxWidth = getComputedStyle(target).maxWidth.replace('px', '');
+        const maxHeight = getComputedStyle(target).maxHeight.replace('px', '');
+
+        if (
+            e.edges.left &&
+            width >= parseFloat(minWidth) &&
+            width <= parseFloat(maxWidth)
+        ) {
+            target.style.left = `${
+                parseFloat(target.style.left || '0') + e.deltaRect.left
+            }px`;
+        }
+        if (
+            e.edges.top &&
+            height >= parseFloat(minHeight) &&
+            height <= parseFloat(maxHeight)
+        ) {
+            target.style.top = `${
+                parseFloat(target.style.top || '0') + e.deltaRect.top
+            }px`;
+        }
+        if (
+            e.edges.right &&
+            width >= parseFloat(minWidth) &&
+            width <= parseFloat(maxWidth)
+        ) {
+            target.style.right = `${
+                parseFloat(target.style.right || '0') - e.deltaRect.right
+            }px`;
+        }
+        if (
+            e.edges.bottom &&
+            height >= parseFloat(minHeight) &&
+            height <= parseFloat(maxHeight)
+        ) {
+            target.style.bottom = `${
+                parseFloat(target.style.bottom || '0') - e.deltaRect.bottom
+            }px`;
+        }
+    }
+
     #dialogify() {
         const isDetatched = this.anchor == 'none';
 
-        const minWidth = getComputedStyle(this.rootElement).minWidth.replace(
-            'px',
-            ''
-        );
-        const minHeight = getComputedStyle(this.rootElement).minHeight.replace(
-            'px',
-            ''
-        );
-        const maxWidth = getComputedStyle(this.rootElement).maxWidth.replace(
-            'px',
-            ''
-        );
-        const maxHeight = getComputedStyle(this.rootElement).maxHeight.replace(
-            'px',
-            ''
-        );
+        const el = this.rootElement;
+        const minWidth = getComputedStyle(el).minWidth.replace('px', '');
+        const minHeight = getComputedStyle(el).minHeight.replace('px', '');
+        const maxWidth = getComputedStyle(el).maxWidth.replace('px', '');
+        const maxHeight = getComputedStyle(el).maxHeight.replace('px', '');
 
         this.#kupManager.interact.dialogify(
             this.rootElement,
@@ -251,7 +287,7 @@ export class KupDialog {
             {
                 isResizable: this.resizable || !isDetatched,
                 isDraggable: isDetatched,
-                moveOnResize: isDetatched,
+                onResize: this.#onResize,
                 resizeConstraints: {
                     min: {
                         width: parseFloat(minWidth),
