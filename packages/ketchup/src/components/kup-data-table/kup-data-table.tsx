@@ -1089,6 +1089,9 @@ export class KupDataTable {
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
 
+    #readyPromise: Promise<void>;
+    #readyResolve: () => void;
+
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
     #FIELDS_FORM_ID: string = 'fieldsForm';
@@ -1097,16 +1100,6 @@ export class KupDataTable {
     #INSERT_PREFIX = 'insert_';
 
     #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
-
-    #eventBlurNames = new Map<FCellShapes, string>([
-        [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
-        [FCellShapes.CHIP, 'kup-textfield-blur'],
-        [FCellShapes.COMBOBOX, 'kup-combobox-blur'],
-        [FCellShapes.DATE, 'kup-datepicker-blur'],
-        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
-        [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
-        [FCellShapes.TIME, 'kup-timepicker-blur'],
-    ]);
 
     /**
      * When component unload is complete
@@ -1856,22 +1849,21 @@ export class KupDataTable {
         emitEvent?: boolean,
         scrollIntoView?: boolean
     ): Promise<void> {
+        let firstRowSelectedId = undefined;
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
             const id = rowsIdentifiers[index];
             const row = this.#getRow(id);
             if (row) {
+                if (!firstRowSelectedId) {
+                    firstRowSelectedId = id;
+                }
                 this.selectedRows.push(row);
             }
         }
 
-        if (scrollIntoView) {
-            if (this.selectedRows?.length > 0) {
-                const idx = this.#rows.indexOf(this.selectedRows[0]) - 1;
-                if (idx >= 1) {
-                    this.#rowsRefs[idx]?.scrollIntoView();
-                }
-            }
+        if (scrollIntoView && firstRowSelectedId) {
+            this.scrollToRow(firstRowSelectedId);
         }
 
         if (emitEvent !== false) {
@@ -1883,6 +1875,30 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
+    }
+
+    /**
+     * This method will scroll the component to rowIdentifier row.
+     * @param {string|number} rowIdentifier - Id (dataset) or indexe (rendered rows).
+     */
+    @Method()
+    async scrollToRow(rowIdentifier: string | number): Promise<void> {
+        const id = rowIdentifier;
+        const row = this.#getRow(id);
+        if (row) {
+            const idx = this.#rows.indexOf(row) - 1;
+            if (idx >= 1) {
+                this.#rowsRefs[idx]?.scrollIntoView();
+            }
+        }
+    }
+
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.#readyPromise;
     }
     /**
      * This method is used to retrieve last focused row or the first if there's no row focused
@@ -2715,6 +2731,12 @@ export class KupDataTable {
 
     //---- Lifecycle hooks ----
 
+    connectedCallback() {
+        this.#readyPromise = new Promise((resolve) => {
+            this.#readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
@@ -2785,6 +2807,12 @@ export class KupDataTable {
                 FTextFieldMDC(fs[index]);
             }
         }
+        requestAnimationFrame(async () => {
+            if (root && this.#readyResolve) {
+                this.#readyResolve();
+                this.#readyResolve = null;
+            }
+        });
         if (this.showCustomization) {
             this.#customizePanelPosition();
         }

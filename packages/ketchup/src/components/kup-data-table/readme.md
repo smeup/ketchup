@@ -367,6 +367,22 @@ Type: `Promise<void>`
 
 
 
+### `scrollToRow(rowIdentifier: string | number) => Promise<void>`
+
+This method will scroll the component to rowIdentifier row.
+
+#### Parameters
+
+| Name            | Type               | Description                               |
+| --------------- | ------------------ | ----------------------------------------- |
+| `rowIdentifier` | `string \| number` | - Id (dataset) or indexe (rendered rows). |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
 
 Sets the cell value in a table cell.
@@ -445,6 +461,16 @@ This method will set the selected rows of the component.
 | `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
 | `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
 | `scrollIntoView`  | `boolean`              | - If true, the component will scroll to the first selected row.      |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `waitForReady() => Promise<void>`
+
+Public method to wait until the component is fully ready.
 
 #### Returns
 
