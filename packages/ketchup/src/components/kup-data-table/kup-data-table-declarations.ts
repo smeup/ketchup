@@ -77,6 +77,7 @@ export enum KupDataTableProps {
     totals = 'Defines the current totals options.',
     transpose = 'Transposes the data of the data table.',
     updatableData = 'When set to true, editable cells will be rendered using input components and update button will appair below the matrix',
+    updateOnClick = 'When set to true, editable checkbox will call update',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
