@@ -26,6 +26,7 @@ import {
 } from './kup-dialog-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import type { EdgeOptions } from '@interactjs/types/index';
+import { ResizeEvent } from '@interactjs/types';
 
 @Component({
     tag: 'kup-dialog',
@@ -224,6 +225,52 @@ export class KupDialog {
         this.#kupManager.theme.unregister(this);
     }
 
+    #dialogify() {
+        const isDetatched = this.anchor == 'none';
+
+        const minWidth = getComputedStyle(this.rootElement).minWidth.replace(
+            'px',
+            ''
+        );
+        const minHeight = getComputedStyle(this.rootElement).minHeight.replace(
+            'px',
+            ''
+        );
+        const maxWidth = getComputedStyle(this.rootElement).maxWidth.replace(
+            'px',
+            ''
+        );
+        const maxHeight = getComputedStyle(this.rootElement).maxHeight.replace(
+            'px',
+            ''
+        );
+
+        this.#kupManager.interact.dialogify(
+            this.rootElement,
+            this.#header ? this.#header : null,
+            {
+                isResizable: this.resizable || !isDetatched,
+                isDraggable: isDetatched,
+                moveOnResize: isDetatched,
+                resizeConstraints: {
+                    min: {
+                        width: parseFloat(minWidth),
+                        height: parseFloat(minHeight),
+                    },
+                    max: {
+                        width: parseFloat(maxWidth),
+                        height: parseFloat(maxHeight),
+                    },
+                },
+                edges: this.#getEdgeOptions(),
+            }
+        );
+    }
+
+    #undialogify() {
+        this.#kupManager.interact.undialogify(this.rootElement);
+    }
+
     #getEdgeOptions(): EdgeOptions {
         switch (this.anchor) {
             case 'none':
@@ -277,18 +324,9 @@ export class KupDialog {
     }
 
     componentDidLoad() {
-        const isDetatched = this.anchor == 'none';
-        this.#kupManager.interact.dialogify(
-            this.rootElement,
-            this.#header ? this.#header : null,
-            {
-                isResizable: this.resizable || !isDetatched,
-                isDraggable: isDetatched,
-                moveOnResize: isDetatched,
-                edges: this.#getEdgeOptions(),
-            }
-        );
-        if (this.autoCenter?.onReady && isDetatched) {
+        this.#dialogify();
+
+        if (this.autoCenter?.onReady && this.anchor == 'none') {
             this.recalcPosition();
         } else {
             this.rootElement.removeAttribute('fade-in');
@@ -311,20 +349,10 @@ export class KupDialog {
 
     componentDidUpdate() {
         // unregister dialog
-        this.#kupManager.interact.undialogify(this.rootElement);
+        this.#undialogify();
 
         // register it again
-        const isDetatched = this.anchor == 'none';
-        this.#kupManager.interact.dialogify(
-            this.rootElement,
-            this.#header ? this.#header : null,
-            {
-                isResizable: this.resizable || !isDetatched,
-                isDraggable: isDetatched,
-                moveOnResize: isDetatched,
-                edges: this.#getEdgeOptions(),
-            }
-        );
+        this.#dialogify();
     }
 
     componentWillRender() {

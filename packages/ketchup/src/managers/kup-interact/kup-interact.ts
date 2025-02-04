@@ -358,45 +358,65 @@ export class KupInteract {
                     el.style.height = e.rect.height + 'px';
                 }
                 if (moveOnResize) {
-                    const oldTransform = e.target.style.transform;
-
                     let { width, height } = e.rect;
                     const target = e.target;
 
-                    if (e.edges.left) {
+                    const minWidth = getComputedStyle(el).minWidth.replace(
+                        'px',
+                        ''
+                    );
+                    const minHeight = getComputedStyle(el).minHeight.replace(
+                        'px',
+                        ''
+                    );
+                    const maxWidth = getComputedStyle(el).maxWidth.replace(
+                        'px',
+                        ''
+                    );
+                    const maxHeight = getComputedStyle(el).maxHeight.replace(
+                        'px',
+                        ''
+                    );
+
+                    if (
+                        e.edges.left &&
+                        width >= parseFloat(minWidth) &&
+                        width <= parseFloat(maxWidth)
+                    ) {
                         target.style.left = `${
                             parseFloat(target.style.left || '0') +
                             e.deltaRect.left
                         }px`;
                     }
-                    if (e.edges.top) {
+                    if (
+                        e.edges.top &&
+                        height >= parseFloat(minHeight) &&
+                        height <= parseFloat(maxHeight)
+                    ) {
                         target.style.top = `${
                             parseFloat(target.style.top || '0') +
                             e.deltaRect.top
                         }px`;
                     }
-                    if (e.edges.right) {
+                    if (
+                        e.edges.right &&
+                        width >= parseFloat(minWidth) &&
+                        width <= parseFloat(maxWidth)
+                    ) {
                         target.style.right = `${
                             parseFloat(target.style.right || '0') -
                             e.deltaRect.right
                         }px`;
                     }
-                    if (e.edges.bottom) {
+                    if (
+                        e.edges.bottom &&
+                        height >= parseFloat(minHeight) &&
+                        height <= parseFloat(maxHeight)
+                    ) {
                         target.style.bottom = `${
                             parseFloat(target.style.bottom || '0') -
                             e.deltaRect.bottom
                         }px`;
-                    }
-
-                    if (
-                        dom.ketchup.interact.isInViewport(
-                            el,
-                            oldTransform,
-                            e.delta
-                        )
-                    ) {
-                        target.style.width = `${width}px`;
-                        target.style.height = `${height}px`;
                     }
                 }
             },
@@ -484,9 +504,11 @@ export class KupInteract {
                 {
                     edges: options.edges,
                     modifiers: [
-                        interact.modifiers.restrictSize({
-                            min: { width: 100, height: 100 },
-                        }),
+                        interact.modifiers.restrictSize(
+                            options?.resizeConstraints ?? {
+                                min: { width: 100, height: 100 },
+                            }
+                        ),
                     ],
                 },
                 null,

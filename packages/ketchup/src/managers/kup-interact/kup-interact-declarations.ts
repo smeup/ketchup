@@ -144,5 +144,9 @@ export interface KupDialogifyOptions {
     isResizable?: boolean;
     isDraggable?: boolean;
     moveOnResize?: boolean;
+    resizeConstraints?: {
+        min?: { width: number; height: number };
+        max?: { width: number; height: number };
+    };
     edges?: EdgeOptions | null;
 }
