@@ -38,7 +38,10 @@
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
-  --kup_input_panel_padding--inline: var(--kup-input-panel-padding--inline, 0);
+  --kup_input_panel_padding--inline: var(
+    --kup-input-panel-padding--inline,
+    1em 0
+  );
   --kup_input_panel_absolute_max_height: var(
     --kup-input-panel-absolute-max-height,
     /* 716px comes from the maximum number of lines (32) multiplied by the default height per line (22px) plus 12px for the possibility that the scrollbar will be rendered */
