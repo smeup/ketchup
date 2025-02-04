@@ -1,8 +1,5 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import {
-    KupEditorEventPayload,
-    KupTextFieldEventPayload,
-} from '../../components';
+import { KupTextFieldEventPayload } from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -767,6 +764,8 @@ function setEditableCell(
                     }
                 />
             );
+        case FCellTypes.FILE_UPLOAD:
+            return <kup-file-upload {...cell.data} />;
         case FCellTypes.MULTI_AUTOCOMPLETE:
             return (
                 <kup-chip

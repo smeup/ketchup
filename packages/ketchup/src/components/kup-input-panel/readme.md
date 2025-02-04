@@ -118,6 +118,7 @@ Type: `Promise<void>`
 - [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
+- [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-button-list](../kup-button-list)
@@ -143,6 +144,7 @@ graph TD;
   kup-input-panel --> kup-color-picker
   kup-input-panel --> kup-combobox
   kup-input-panel --> kup-date-picker
+  kup-input-panel --> kup-file-upload
   kup-input-panel --> kup-rating
   kup-input-panel --> kup-time-picker
   kup-input-panel --> kup-button-list
@@ -171,6 +173,7 @@ graph TD;
   kup-card --> kup-color-picker
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
+  kup-card --> kup-file-upload
   kup-card --> kup-rating
   kup-card --> kup-time-picker
   kup-card --> kup-button-list
@@ -223,6 +226,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -249,6 +256,7 @@ graph TD;
   kup-toolbar --> kup-color-picker
   kup-toolbar --> kup-combobox
   kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-file-upload
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
   kup-toolbar --> kup-button-list
@@ -279,6 +287,7 @@ graph TD;
   kup-data-table --> kup-text-field
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-date-picker
+  kup-data-table --> kup-file-upload
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
   kup-data-table --> kup-button-list
@@ -297,6 +306,7 @@ graph TD;
   kup-form --> kup-color-picker
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
+  kup-form --> kup-file-upload
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-button-list
@@ -319,6 +329,7 @@ graph TD;
   kup-tree --> kup-color-picker
   kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
+  kup-tree --> kup-file-upload
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
   kup-tree --> kup-button-list

@@ -97,7 +97,6 @@ import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import {
     KupDataColumn,
-    KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 
@@ -253,19 +252,6 @@ export class KupInputPanel {
     ]);
 
     #originalData: KupInputPanelData = null;
-
-    #eventNames = new Map<FCellTypes, string[]>([
-        [
-            FCellTypes.AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [
-            FCellTypes.MULTI_AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
-        [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
-    ]);
 
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([

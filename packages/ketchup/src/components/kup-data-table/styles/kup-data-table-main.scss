@@ -556,6 +556,10 @@ th.obj:hover span:not(.overlay-action) {
   @include kup-heading-compact-01;
   font-size: 13px;
   font-family: var(--kup_datatable_font_family_monospace);
+
+  &.danger-text {
+    color: var(--kup-danger-color-60) !important;
+  }
 }
 
 .settings-trigger {

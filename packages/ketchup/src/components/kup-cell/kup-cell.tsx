@@ -39,6 +39,7 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { submitPositionAdapter } from '../../utils/cell-utils';
+import { KupFileUploadEventPayload } from '../kup-file-upload/kup-file-upload-declarations';
 
 @Component({
     tag: 'kup-cell',
@@ -107,6 +108,14 @@ export class KupCell {
         bubbles: true,
     })
     kupCellSubmitClick: EventEmitter<KupCellSubmitClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-cell-upload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellUpload: EventEmitter<KupFileUploadEventPayload>;
 
     /**
      * Adds the given CSS classes to the cell's data.
@@ -231,6 +240,10 @@ export class KupCell {
             cell: this.data as KupDataCellOptions,
         });
     }
+    private upload(e: CustomEvent<KupFileUploadEventPayload>): void {
+        e.stopPropagation();
+        this.kupCellUpload.emit(e.detail);
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -268,7 +281,7 @@ export class KupCell {
         };
 
         return (
-            <Host>
+            <Host onKup-file-upload-upload={this.upload.bind(this)}>
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

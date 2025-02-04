@@ -338,6 +338,10 @@ tfoot {
 
 .totals-value {
   font-weight: bold;
+
+  &.danger-text {
+    color: var(--kup-danger-color-60) !important;
+  }
 }
 
 :host([as-accordion]) {
