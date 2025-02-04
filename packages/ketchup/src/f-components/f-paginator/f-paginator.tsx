@@ -1,5 +1,8 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { KupListNode } from '../../components/kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListNode,
+} from '../../components/kup-list/kup-list-declarations';
 import {
     KupLanguageGeneric,
     KupLanguagePage,
@@ -39,6 +42,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             inputType: 'number',
             max: maxNumberOfPage,
             min: 1,
+            size: 5,
         },
     };
     const dataRowsSelector = {
@@ -57,6 +61,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             inputType: 'number',
             max: props.max,
             min: 1,
+            size: 5,
         },
     };
     return (
@@ -83,15 +88,26 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             <kup-combobox
                 class="rows-selector"
                 data={dataRowsSelector}
+                displayMode={ItemsDisplayMode.CODE}
                 initialValue={props.perPage.toString()}
+                initialValueDecode={props.perPage.toString()}
                 onkup-combobox-change={props.onRowsChange}
             />
             <kup-combobox
                 class="page-selector"
                 data={dataPageSelector}
+                displayMode={ItemsDisplayMode.CODE}
                 initialValue={props.currentPage.toString()}
+                initialValueDecode={props.currentPage.toString()}
                 onkup-combobox-change={props.onPageChange}
             />
+            {props.showMaxPages ? (
+                <div class="max-page-wrapper">
+                    <label htmlFor="page-selector">
+                        {'/ ' + maxNumberOfPage}
+                    </label>
+                </div>
+            ) : null}
             <div class="arrow-wrapper">
                 {props.mode !== FPaginatorMode.SIMPLE ? (
                     <FButton

@@ -34,6 +34,11 @@
       flex: 2;
     }
   }
+
+  .max-page-wrapper > label {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 }
 
 @media (max-width: 678px) {

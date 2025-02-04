@@ -524,7 +524,7 @@ export class KupCombobox {
         return (
             <kup-list
                 {...this.data['kup-list']}
-                displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                displayMode={this.displayMode}
                 is-menu
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false
