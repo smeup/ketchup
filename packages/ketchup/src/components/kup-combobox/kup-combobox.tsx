@@ -473,7 +473,10 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
-        window.setTimeout(() => this.#listEl.setFocus(), 100);
+        window.setTimeout(
+            () => document.getElementById('global-filter').focus(),
+            100
+        );
     }
 
     #closeList() {
@@ -529,7 +532,6 @@ export class KupCombobox {
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false
                 }
-                filter={''}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
