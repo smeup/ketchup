@@ -473,10 +473,7 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
-        window.setTimeout(
-            () => document.getElementById('global-filter').focus(),
-            100
-        );
+        window.setTimeout(() => this.#listEl.setFocus(), 300);
     }
 
     #closeList() {
@@ -484,7 +481,7 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
-        window.setTimeout(() => this.#listEl.setBlur(), 100);
+        window.setTimeout(() => this.#listEl.setBlur(), 300);
     }
 
     #isListOpened(): boolean {
