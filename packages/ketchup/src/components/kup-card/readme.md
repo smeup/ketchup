@@ -121,6 +121,7 @@ Type: `Promise<void>`
  - [kup-echart](../kup-echart)
  - [kup-editor](../kup-editor)
  - [kup-family-tree](../kup-family-tree)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
@@ -163,6 +164,7 @@ Type: `Promise<void>`
 - [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
+- [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-button-list](../kup-button-list)
@@ -199,6 +201,7 @@ graph TD;
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
+  kup-file-upload --> kup-card
   kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-button-list --> kup-card

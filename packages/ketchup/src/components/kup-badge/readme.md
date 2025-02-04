@@ -105,6 +105,7 @@ Type: `Promise<void>`
  - [kup-dialog](../kup-dialog)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-family-tree](../kup-family-tree)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-form](../kup-form)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -146,6 +147,7 @@ graph TD;
   kup-color-picker --> kup-badge
   kup-combobox --> kup-badge
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-badge

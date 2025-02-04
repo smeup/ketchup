@@ -251,6 +251,10 @@ function localCompareAsInJava(t1: string, t2: string): number {
     return t1Length - t2Length;
 }
 
+export function isNegativeNumber(value: string): boolean {
+    return dom.ketchup.math.numberifySafe(value) < 0;
+}
+
 // -------------
 // ADAPTERS from SmeupDataTable to FCell data attribute
 // -------------

@@ -78,7 +78,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                                        | `boolean`                                                                                                 | `true`                               |
 | `showDeleteButton`          | `show-delete-button`           | Enables the delete row button.                                                                                                                                                                                                              | `boolean`                                                                                                 | `false`                              |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                                | `boolean`                                                                                                 | `true`                               |
-| `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                                          | `boolean`                                                                                                 | `false`                              |
+| `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                                          | `boolean`                                                                                                 | `true`                               |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                                        | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                                      | `ShowGrid.ROW`                       |
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                               | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                                      | `boolean`                                                                                                 | `true`                               |
@@ -367,6 +367,22 @@ Type: `Promise<void>`
 
 
 
+### `scrollToRow(rowIdentifier: string | number) => Promise<void>`
+
+This method will scroll the component to rowIdentifier row.
+
+#### Parameters
+
+| Name            | Type               | Description                               |
+| --------------- | ------------------ | ----------------------------------------- |
+| `rowIdentifier` | `string \| number` | - Id (dataset) or indexe (rendered rows). |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
 
 Sets the cell value in a table cell.
@@ -452,6 +468,16 @@ Type: `Promise<void>`
 
 
 
+### `waitForReady() => Promise<void>`
+
+Public method to wait until the component is fully ready.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -494,6 +520,7 @@ Type: `Promise<void>`
 - [kup-text-field](../kup-text-field)
 - [kup-color-picker](../kup-color-picker)
 - [kup-date-picker](../kup-date-picker)
+- [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-button-list](../kup-button-list)
@@ -522,6 +549,7 @@ graph TD;
   kup-data-table --> kup-text-field
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-date-picker
+  kup-data-table --> kup-file-upload
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
   kup-data-table --> kup-button-list
@@ -571,6 +599,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -601,6 +633,7 @@ graph TD;
   kup-toolbar --> kup-color-picker
   kup-toolbar --> kup-combobox
   kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-file-upload
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
   kup-toolbar --> kup-button-list
@@ -628,6 +661,7 @@ graph TD;
   kup-tree --> kup-color-picker
   kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
+  kup-tree --> kup-file-upload
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
   kup-tree --> kup-button-list
@@ -647,6 +681,7 @@ graph TD;
   kup-form --> kup-color-picker
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
+  kup-form --> kup-file-upload
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-button-list

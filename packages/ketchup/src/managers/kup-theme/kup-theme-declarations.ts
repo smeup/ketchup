@@ -24,6 +24,7 @@ export const fButtonUsers = [
     KupTagNames.OBJECT_FIELD,
     KupTagNames.SNACKBAR,
     KupTagNames.TOOLBAR,
+    KupTagNames.UPLOAD,
 ];
 /**
  * Components using the FCell functional component.
@@ -102,6 +103,7 @@ export const fImageUsers = [
     KupTagNames.TYPOGRAPHY,
     KupTagNames.TYPOGRAPHY_LIST,
     KupTagNames.TREE,
+    KupTagNames.UPLOAD,
 ];
 /**
  * Components using the FPaginator functional component.
