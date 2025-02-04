@@ -2562,7 +2562,9 @@ export class KupDataTable {
                             "Couldn't find cell to retrieve drag informations!",
                             KupDebugCategory.WARNING
                         );
-                        return;
+                        return {
+                            id: this.rootElement.id,
+                        };
                     }
                     return {
                         cell,
@@ -2605,7 +2607,9 @@ export class KupDataTable {
                         "Couldn't find cell to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
-                    return;
+                    return {
+                        id: this.rootElement.id,
+                    };
                 }
                 return {
                     cell,
