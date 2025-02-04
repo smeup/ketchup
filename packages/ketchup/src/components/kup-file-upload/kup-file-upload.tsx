@@ -207,7 +207,7 @@ export class KupFileUpload {
 
     #handleDrop(event: DragEvent) {
         event.preventDefault();
-
+        this.uploadSuccess = false;
         const droppedFiles = event.dataTransfer.files;
         if (droppedFiles.length > 0) {
             const newFiles = Array.from(droppedFiles);
