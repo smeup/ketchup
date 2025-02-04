@@ -74,6 +74,16 @@ export class KupDialog {
      */
     @Prop() anchor: 'none' | 'left' | 'top' | 'right' | 'bottom' = 'none';
     /**
+     * The min width of the dialog.
+     * @default "auto"
+     */
+    @Prop() minSizeX = 'auto';
+    /**
+     * The min height of the dialog.
+     * @default "auto"
+     */
+    @Prop() minSizeY = 'auto';
+    /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
      */
@@ -229,6 +239,34 @@ export class KupDialog {
         }
     }
 
+    #getStyles(): { [k: string]: string } {
+        const minHeight = '--kup_dialog_min_height';
+        const minWidth = '--kup_dialog_min_width';
+        const height = '--kup_dialog_height';
+        const width = '--kup_dialog_width';
+        const maxHeight = '--kup_dialog_max_height';
+        const maxWidth = '--kup_dialog_max_width';
+
+        const styles = {};
+        if (this.anchor == 'none') {
+            styles[minHeight] = this.minSizeY ? this.minSizeY : 'auto';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : 'auto';
+            styles[height] = this.sizeY ? this.sizeY : 'auto';
+            styles[width] = this.sizeX ? this.sizeX : 'auto';
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '90dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '90dvw';
+        }
+        if (this.anchor == 'left' || this.anchor == 'right') {
+            styles[minHeight] = '100dvh';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : '10dvw';
+        }
+        if (this.anchor == 'top' || this.anchor == 'bottom') {
+            styles[minHeight] = this.minSizeY ? this.minSizeY : '10dvh';
+            styles[minWidth] = '100dvw';
+        }
+        return styles;
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -296,20 +334,7 @@ export class KupDialog {
     }
 
     render() {
-        let style: { [k: string]: string } = {};
-
-        if (this.anchor == 'none') {
-            style = {
-                '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
-                '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
-                '--kup_dialog_max_width': this.maxSizeX
-                    ? this.maxSizeX
-                    : '90dvw',
-                '--kup_dialog_max_height': this.maxSizeY
-                    ? this.maxSizeY
-                    : '90dvh',
-            };
-        }
+        let style: { [k: string]: string } = this.#getStyles();
 
         const headerSlot = this.rootElement.querySelector('[slot="header"]');
         if (headerSlot) {

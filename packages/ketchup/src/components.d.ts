@@ -1980,6 +1980,16 @@ export namespace Components {
          */
         "maxSizeY": string;
         /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX": string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY": string;
+        /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
          */
@@ -7736,6 +7746,16 @@ declare namespace LocalJSX {
           * @default "auto"
          */
         "maxSizeY"?: string;
+        /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX"?: string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY"?: string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"

@@ -9,6 +9,8 @@ export enum KupDialogProps {
     modal = 'Set of options to display the dialog as a modal.',
     resizable = 'Sets whether the dialog is resizable or not.',
     anchor = 'Sets anchor position ("none", "left", "top", "right", "bottom")',
+    minSizeY = 'The min height of the dialog.',
+    minSizeX = 'The min width of the dialog.',
     sizeX = 'The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).',
     maxSizeY = 'The max height of the dialog, defaults to 90dvh.',
