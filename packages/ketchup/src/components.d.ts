@@ -1727,6 +1727,11 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
+          * This method will scroll the component to rowIdentifier row.
+          * @param rowIdentifier - Id (dataset) or indexe (rendered rows).
+         */
+        "scrollToRow": (rowIdentifier: string | number) => Promise<void>;
+        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
@@ -1844,6 +1849,10 @@ export namespace Components {
           * List of the visible columns
          */
         "visibleColumns": string[];
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupDatePicker {
         /**
