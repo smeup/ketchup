@@ -143,5 +143,6 @@ export interface KupDropEventTarget {
 export interface KupDialogifyOptions {
     isResizable?: boolean;
     isDraggable?: boolean;
+    moveOnResize?: boolean;
     edges?: EdgeOptions | null;
 }

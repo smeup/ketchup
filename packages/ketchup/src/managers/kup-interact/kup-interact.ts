@@ -490,7 +490,7 @@ export class KupInteract {
                     ],
                 },
                 null,
-                true,
+                options?.moveOnResize ?? true,
                 true
             );
         }

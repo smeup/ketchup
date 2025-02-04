@@ -284,6 +284,7 @@ export class KupDialog {
             {
                 isResizable: this.resizable || !isDetatched,
                 isDraggable: isDetatched,
+                moveOnResize: isDetatched,
                 edges: this.#getEdgeOptions(),
             }
         );
@@ -320,6 +321,7 @@ export class KupDialog {
             {
                 isResizable: this.resizable || !isDetatched,
                 isDraggable: isDetatched,
+                moveOnResize: isDetatched,
                 edges: this.#getEdgeOptions(),
             }
         );
