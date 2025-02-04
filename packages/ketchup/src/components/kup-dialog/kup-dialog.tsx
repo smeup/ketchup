@@ -225,47 +225,68 @@ export class KupDialog {
         this.#kupManager.theme.unregister(this);
     }
 
+    #getMinMaxDimensions(element: Element): {
+        min: { width: number; height: number };
+        max: { width: number; height: number };
+    } {
+        const minWidth = getComputedStyle(element).minWidth.replace('px', '');
+        const minHeight = getComputedStyle(element).minHeight.replace('px', '');
+        const maxWidth = getComputedStyle(element).maxWidth.replace('px', '');
+        const maxHeight = getComputedStyle(element).maxHeight.replace('px', '');
+
+        return {
+            min: {
+                width: parseFloat(minWidth),
+                height: parseFloat(minHeight),
+            },
+            max: {
+                width: parseFloat(maxWidth),
+                height: parseFloat(maxHeight),
+            },
+        };
+    }
+
     #onResize(e: ResizeEvent) {
         let { width, height } = e.rect;
         const target = e.target;
 
-        const minWidth = getComputedStyle(target).minWidth.replace('px', '');
-        const minHeight = getComputedStyle(target).minHeight.replace('px', '');
-        const maxWidth = getComputedStyle(target).maxWidth.replace('px', '');
-        const maxHeight = getComputedStyle(target).maxHeight.replace('px', '');
+        // const minWidth = getComputedStyle(target).minWidth.replace('px', '');
+        // const minHeight = getComputedStyle(target).minHeight.replace('px', '');
+        // const maxWidth = getComputedStyle(target).maxWidth.replace('px', '');
+        // const maxHeight = getComputedStyle(target).maxHeight.replace('px', '');
+        // console.log(this.#getMinMaxDimensions(target));
 
-        if (
-            e.edges.left &&
-            width >= parseFloat(minWidth) &&
-            width <= parseFloat(maxWidth)
-        ) {
+        // const isHorizontalShiftAllowed =
+        //     width >= parseFloat(minWidth) && width <= parseFloat(maxWidth);
+        // const isVerticalShiftAllowed =
+        //     height >= parseFloat(minHeight) && width <= parseFloat(maxHeight);
+
+        const dim = this.#getMinMaxDimensions(target);
+
+        const isHorizontalShiftAllowed =
+            width >= dim.min.width && width <= dim.max.width;
+        const isVerticalShiftAllowed =
+            height >= dim.min.height && height <= dim.max.height;
+
+        if (e.edges.left && isHorizontalShiftAllowed) {
             target.style.left = `${
                 parseFloat(target.style.left || '0') + e.deltaRect.left
             }px`;
         }
-        if (
-            e.edges.top &&
-            height >= parseFloat(minHeight) &&
-            height <= parseFloat(maxHeight)
-        ) {
+
+        if (e.edges.top && isVerticalShiftAllowed) {
             target.style.top = `${
                 parseFloat(target.style.top || '0') + e.deltaRect.top
             }px`;
         }
-        if (
-            e.edges.right &&
-            width >= parseFloat(minWidth) &&
-            width <= parseFloat(maxWidth)
-        ) {
+
+        if (e.edges.right && isHorizontalShiftAllowed) {
             target.style.right = `${
                 parseFloat(target.style.right || '0') - e.deltaRect.right
             }px`;
         }
-        if (
-            e.edges.bottom &&
-            height >= parseFloat(minHeight) &&
-            height <= parseFloat(maxHeight)
-        ) {
+
+        if (e.edges.bottom && isVerticalShiftAllowed) {
             target.style.bottom = `${
                 parseFloat(target.style.bottom || '0') - e.deltaRect.bottom
             }px`;
@@ -275,29 +296,14 @@ export class KupDialog {
     #dialogify() {
         const isDetatched = this.anchor == 'none';
 
-        const el = this.rootElement;
-        const minWidth = getComputedStyle(el).minWidth.replace('px', '');
-        const minHeight = getComputedStyle(el).minHeight.replace('px', '');
-        const maxWidth = getComputedStyle(el).maxWidth.replace('px', '');
-        const maxHeight = getComputedStyle(el).maxHeight.replace('px', '');
-
         this.#kupManager.interact.dialogify(
             this.rootElement,
             this.#header ? this.#header : null,
             {
                 isResizable: this.resizable || !isDetatched,
                 isDraggable: isDetatched,
-                onResize: this.#onResize,
-                resizeConstraints: {
-                    min: {
-                        width: parseFloat(minWidth),
-                        height: parseFloat(minHeight),
-                    },
-                    max: {
-                        width: parseFloat(maxWidth),
-                        height: parseFloat(maxHeight),
-                    },
-                },
+                onResize: this.#onResize.bind(this),
+                resizeConstraints: this.#getMinMaxDimensions(this.rootElement),
                 edges: this.#getEdgeOptions(),
             }
         );
