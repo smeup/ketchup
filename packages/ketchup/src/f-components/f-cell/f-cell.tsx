@@ -302,17 +302,15 @@ const MainCHIAdapter = (
     _fieldLabel: string,
     _currentValue: string,
     cell: KupInputPanelCell
-) => {
-    const newData = {
-        data: options?.length
-            ? options?.map((option) => ({
-                  id: option.id,
-                  value: option.id,
-              }))
-            : [],
-    };
-    cell.data = { ...cell.data, ...newData };
-};
+) => ({
+    ...cell.data,
+    data: options?.length
+        ? options?.map((option) => ({
+              id: option.id,
+              value: option.id,
+          }))
+        : [],
+});
 
 const MainObjectAdapter = (
     _options: CellOptions[],
@@ -320,14 +318,12 @@ const MainObjectAdapter = (
     currentValue: string,
     cell: KupInputPanelCell,
     _id: string
-) => {
-    const newData = {
-        initialValue: currentValue || '',
-        label: fieldLabel || '',
-        value: currentValue || '',
-    };
-    cell.data = { ...cell.data, ...newData };
-};
+) => ({
+    ...cell.data,
+    initialValue: currentValue || '',
+    label: fieldLabel || '',
+    value: currentValue || '',
+});
 
 const MainCHKAdapter = (
     _options: CellOptions[],
@@ -372,7 +368,7 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    cell.data = { ...cell.data, ...newData };
+    return { ...cell.data, ...newData };
 };
 
 const MainCMBandACPAdapter = (
