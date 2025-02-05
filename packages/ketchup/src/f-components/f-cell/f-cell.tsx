@@ -97,9 +97,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
     isEditable = isEditable && props.editable;
 
-    if (cell.options) {
-        cell.data = mapData(cell, column) ?? cell.data;
-    }
+    cell.data = mapData(cell, column) ?? cell.data;
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
@@ -304,25 +302,24 @@ const MainCHIAdapter = (
     _fieldLabel: string,
     _currentValue: string,
     cell: KupInputPanelCell
-) => {
-    const newData = {
-        data: options?.length
-            ? options?.map((option) => ({
-                  id: option.id,
-                  value: option.id,
-              }))
-            : [],
-    };
-    cell.data = { ...cell.data, ...newData };
-};
+) => ({
+    ...cell.data,
+    data: options?.length
+        ? options?.map((option) => ({
+              id: option.id,
+              value: option.id,
+          }))
+        : [],
+});
 
 const MainObjectAdapter = (
     _options: CellOptions[],
     fieldLabel: string,
     currentValue: string,
-    _cell: KupInputPanelCell,
+    cell: KupInputPanelCell,
     _id: string
 ) => ({
+    ...cell.data,
     data: {
         initialValue: currentValue || '',
         label: fieldLabel || '',
@@ -373,7 +370,7 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    cell.data = { ...cell.data, ...newData };
+    return { ...cell.data, ...newData };
 };
 
 const MainCMBandACPAdapter = (
