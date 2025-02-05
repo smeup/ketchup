@@ -727,7 +727,7 @@ export class KupDataTable {
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ mutable: true }) rowsPerPage = 10;
+    @Prop({ mutable: true }) rowsPerPage = 1000;
     /**
      * Activates the scroll on hover function.
      */
@@ -2562,7 +2562,9 @@ export class KupDataTable {
                             "Couldn't find cell to retrieve drag informations!",
                             KupDebugCategory.WARNING
                         );
-                        return;
+                        return {
+                            id: this.rootElement.id,
+                        };
                     }
                     return {
                         cell,
@@ -2605,7 +2607,9 @@ export class KupDataTable {
                         "Couldn't find cell to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
-                    return;
+                    return {
+                        id: this.rootElement.id,
+                    };
                 }
                 return {
                     cell,
@@ -6775,7 +6779,7 @@ export class KupDataTable {
                     e.detail.cell?.shape === FCellShapes.SWITCH)
             ) {
                 if (this.updateOnClick) {
-                    this.#handleUpdateClick();
+                    this.#handleUpdateClick(e.detail.cell);
                 } else if (e.detail.cell?.inputSettings?.checkValueOnExit) {
                     this.kupCellCheck.emit({
                         comp: this,

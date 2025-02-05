@@ -254,6 +254,7 @@ export class KupCombobox {
     onKupIconClick() {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
+            this.#listEl?.setBlur();
         } else {
             this.#openList();
             this.kupIconClick.emit({
@@ -263,6 +264,7 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
+            this.#listEl?.setFocus();
         }
     }
 
@@ -473,7 +475,6 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
-        window.setTimeout(() => this.#listEl.setFocus(), 100);
     }
 
     #closeList() {
@@ -481,7 +482,6 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
-        window.setTimeout(() => this.#listEl.setBlur(), 100);
     }
 
     #isListOpened(): boolean {
@@ -529,7 +529,6 @@ export class KupCombobox {
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false
                 }
-                filter={''}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
