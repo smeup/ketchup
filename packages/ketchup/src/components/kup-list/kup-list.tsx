@@ -614,8 +614,8 @@ export class KupList {
         }
 
         return (
-            item.id.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
-            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            item.id?.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+            item.value?.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
         );
     }
 

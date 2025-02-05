@@ -24,7 +24,11 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     props: FPaginatorProps
 ) => {
     if (!props.perPage) {
-        props.perPage = 10;
+        props.perPage = 1000;
+    }
+
+    if (props.perPage > props.max) {
+        props.perPage = props.max;
     }
     const maxNumberOfPage = Math.ceil(props.max / props.perPage);
     const pageItems = getPageItems(props, maxNumberOfPage);
@@ -142,7 +146,7 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
         pageItems.push({
             id: i.toString(),
             selected: selected,
-            value: i.toString(),
+            //value: i.toString(),
         });
     }
 
@@ -163,7 +167,7 @@ function getRowsItems(props: FPaginatorProps) {
         rowsPerPageItems.push({
             id: i.toString(),
             selected: selected,
-            value: i.toString(),
+            //value: i.toString(),
         });
         i = i * 2;
     }
@@ -172,7 +176,7 @@ function getRowsItems(props: FPaginatorProps) {
     rowsPerPageItems.push({
         id: max.toString(),
         selected: selected,
-        value: max.toString(),
+        //value: max.toString(),
     });
 
     return rowsPerPageItems;
