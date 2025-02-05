@@ -1,7 +1,13 @@
 .f-object-field {
-  display: flex;
-
   .obj-field-extra-btn {
     align-self: end;
+  }
+
+  .fields-wrapper {
+    display: flex;
+  }
+
+  .mdc-error-message {
+    color: var(--kup-danger-color-60);
   }
 }

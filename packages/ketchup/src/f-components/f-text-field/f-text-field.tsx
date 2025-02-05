@@ -29,6 +29,9 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-warning': props.warning,
         [props.wrapperClass]: !!props.wrapperClass,
     };
+    const helper = setHelper(props);
+    const attachHelperSection: boolean =
+        props.attachHelperSection?.(helper) ?? false;
     return (
         <div
             class={classObj}
@@ -44,12 +47,12 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
                 >
                     {[
                         setContent(props),
-                        setHelper(props),
+                        attachHelperSection ? helper : null,
                         <label>{props.label}</label>,
                     ]}
                 </div>
             ) : (
-                [setContent(props), setHelper(props)]
+                [setContent(props), attachHelperSection ? helper : null]
             )}
             {children}
         </div>
