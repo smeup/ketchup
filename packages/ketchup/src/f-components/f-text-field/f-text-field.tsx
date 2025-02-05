@@ -31,7 +31,8 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     };
     const helper = setHelper(props);
     const attachHelperSection: boolean =
-        props.attachHelperSection?.(helper) ?? false;
+        props.attachHelperSection?.(helper) ?? true;
+
     return (
         <div
             class={classObj}
