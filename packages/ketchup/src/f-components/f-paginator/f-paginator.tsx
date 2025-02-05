@@ -36,6 +36,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataPageSelector = {
         'kup-list': {
             data: pageItems,
+            displayMode: 'CodeOnly',
         },
         'kup-text-field': {
             label: dom.ketchup.language.translate(KupLanguagePage.PAGE),
@@ -52,6 +53,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataRowsSelector = {
         'kup-list': {
             data: rowsPerPageItems,
+            displayMode: 'CodeOnly',
         },
         'kup-text-field': {
             label:
@@ -146,7 +148,7 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
         pageItems.push({
             id: i.toString(),
             selected: selected,
-            //value: i.toString(),
+            value: i.toString(),
         });
     }
 
@@ -167,7 +169,7 @@ function getRowsItems(props: FPaginatorProps) {
         rowsPerPageItems.push({
             id: i.toString(),
             selected: selected,
-            //value: i.toString(),
+            value: i.toString(),
         });
         i = i * 2;
     }
@@ -176,7 +178,7 @@ function getRowsItems(props: FPaginatorProps) {
     rowsPerPageItems.push({
         id: max.toString(),
         selected: selected,
-        //value: max.toString(),
+        value: max.toString(),
     });
 
     return rowsPerPageItems;
