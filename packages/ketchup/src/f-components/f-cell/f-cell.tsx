@@ -320,9 +320,11 @@ const MainObjectAdapter = (
     _id: string
 ) => ({
     ...cell.data,
-    initialValue: currentValue || '',
-    label: fieldLabel || '',
-    value: currentValue || '',
+    data: {
+        initialValue: currentValue || '',
+        label: fieldLabel || '',
+        value: currentValue || '',
+    },
 });
 
 const MainCHKAdapter = (
