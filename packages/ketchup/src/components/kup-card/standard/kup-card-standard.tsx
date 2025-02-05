@@ -7,6 +7,7 @@ import { KupTabBarNode } from '../../kup-tab-bar/kup-tab-bar-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
+    KupLanguageSearch,
 } from '../../../managers/kup-language/kup-language-declarations';
 import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
@@ -1035,6 +1036,11 @@ export function create14(component: KupCard): VNode {
             textfieldsIds.push(textfield['id']);
         }
     }
+
+    const tooltipText = dom.ketchup.language.translate(
+        KupLanguageSearch.TOOLTIP
+    );
+
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             {objectArray[0] ? (
@@ -1148,6 +1154,18 @@ export function create14(component: KupCard): VNode {
                                     : ''
                             }`}
                         >
+                            <div class="tooltip-container">
+                                <kup-image
+                                    resource="question-mark"
+                                    size-x="18px"
+                                    size-y="18px"
+                                ></kup-image>
+                                <span class="tooltip-text">
+                                    {tooltipText
+                                        .split('\n')
+                                        .map((line) => [line, <br />])}
+                                </span>
+                            </div>
                             {datepickerArray.length > 0
                                 ? compList(datepickerArray, 'datepicker')
                                 : null}

@@ -86,6 +86,33 @@
   .section-2,
   .section-3 {
     padding: 1em;
+
+    .tooltip-container {
+      position: absolute;
+      right: 1em;
+      z-index: 1;
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      background-color: var(--kup-gray-color-20);
+      color: var(--kup-text-primary);
+      text-align: left;
+      padding: 8px;
+      border-radius: 4px;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
   .sub-button {
