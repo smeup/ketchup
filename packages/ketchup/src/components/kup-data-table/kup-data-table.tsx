@@ -4144,18 +4144,6 @@ export class KupDataTable {
             }
         }
 
-        // Manage row selection on rowAction click
-        if (!td) {
-            this.kupRowSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn: null,
-            });
-            return;
-        }
-
         // find clicked column
         const clickedColumn: string = td.dataset.column;
 
@@ -5586,7 +5574,7 @@ export class KupDataTable {
                                     action.text || action.column?.title || '',
                                     'action',
                                     () => {
-                                        this.#onRowClick(row, null, true);
+                                        this.setSelectedRows([row.id], false);
                                         this.kupRowActionItemClick.emit({
                                             comp: this,
                                             id: this.rootElement.id,
@@ -5615,7 +5603,7 @@ export class KupDataTable {
                                 ),
                                 'expander',
                                 (e) => {
-                                    this.#onRowClick(row, null, true);
+                                    this.setSelectedRows([row.id], false);
                                     this.#onRowActionExpanderClick(
                                         e,
                                         row,
