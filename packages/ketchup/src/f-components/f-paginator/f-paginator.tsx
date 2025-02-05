@@ -36,7 +36,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataPageSelector = {
         'kup-list': {
             data: pageItems,
-            displayMode: 'CodeOnly',
+            displayMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label: dom.ketchup.language.translate(KupLanguagePage.PAGE),
@@ -53,7 +53,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataRowsSelector = {
         'kup-list': {
             data: rowsPerPageItems,
-            displayMode: 'CodeOnly',
+            displayMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label:
