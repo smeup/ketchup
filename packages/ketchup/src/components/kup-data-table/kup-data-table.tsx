@@ -3142,19 +3142,31 @@ export class KupDataTable {
                         const selectedObject =
                             dropDownActions[selectedObjectIndex];
 
-                        this.kupRowActionItemClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            row: row,
-                            obj: selectedObject.obj,
-                            cell: selectedObject.cell,
-                            type: selectedObject.type,
-                            index: selectedObject.index,
-                            column: selectedObject.column,
-                        });
-                        setTimeout(() => {
-                            this.#closeRowActionsCard();
-                        }, 0);
+                        const dispatchSelection = () => {
+                            this.kupRowActionItemClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                row: row,
+                                obj: selectedObject.obj,
+                                cell: selectedObject.cell,
+                                type: selectedObject.type,
+                                index: selectedObject.index,
+                                column: selectedObject.column,
+                            });
+                            setTimeout(() => {
+                                this.#closeRowActionsCard();
+                            }, 0);
+                        };
+
+                        const rowId = row.id;
+                        if (rowId) {
+                            this.setSelectedRows([row.id], true).then(() => {
+                                dispatchSelection();
+                            });
+                        } else {
+                            // fallback in case the row has no id (should never happen)
+                            dispatchSelection();
+                        }
                 }
             }
         );
@@ -5574,7 +5586,6 @@ export class KupDataTable {
                                     action.text || action.column?.title || '',
                                     'action',
                                     () => {
-                                        this.setSelectedRows([row.id], false);
                                         this.kupRowActionItemClick.emit({
                                             comp: this,
                                             id: this.rootElement.id,
@@ -5603,7 +5614,6 @@ export class KupDataTable {
                                 ),
                                 'expander',
                                 (e) => {
-                                    this.setSelectedRows([row.id], false);
                                     this.#onRowActionExpanderClick(
                                         e,
                                         row,
