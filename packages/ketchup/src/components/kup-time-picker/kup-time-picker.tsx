@@ -230,15 +230,13 @@ export class KupTimePicker {
         this.setFocus();
     }
 
-    onKupClearIconClick() {
-        this.setPickerValueSelected('');
-
+    async onKupClearIconClick() {
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
-
+        this.value = '';
         this.kupClearIconClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -458,8 +456,8 @@ export class KupTimePicker {
         if (newValue == null) {
             return;
         }
-        if (this.appendSelection) {
-            // Append behavior: combine current value with the new date
+        if (this.appendSelection && newValue) {
+            // Append behavior: combine current value with the new one
             const currentValue = this.textfieldEl.value;
             const formattedDate =
                 this.kupManager.dates.timeStringToFormattedString(
