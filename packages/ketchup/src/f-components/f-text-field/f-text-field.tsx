@@ -71,7 +71,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         props.textArea = true;
     }
 
-    if (props.label && !props.leadingLabel && !props.trailingLabel) {
+    if (
+        props.label &&
+        !props.leadingLabel &&
+        !props.trailingLabel &&
+        !props.legacyLook // do not show label in input panel absolute ( legacy mode )
+    ) {
         labelEl = (
             <div class="mdc-text-field__label-container">
                 <label class="mdc-label" htmlFor="kup-input">
