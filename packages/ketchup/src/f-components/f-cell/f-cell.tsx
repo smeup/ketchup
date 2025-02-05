@@ -278,7 +278,7 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
     if (!cell) {
         return null;
     }
-    const options = cell?.options;
+    const options = cell.options;
     const fieldLabel = column.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
