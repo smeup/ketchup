@@ -78,9 +78,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
     props: FCellProps,
     children?: VNode[]
 ) => {
-    // if (cellType === FCellTypes.CHECKBOX) {
-    console.log('props in cell', props);
-    // }
     const cell = props.cell;
     const column = props.column;
     const row = props.row;
