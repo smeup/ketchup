@@ -5890,6 +5890,7 @@ export class KupDataTable {
                             onRowsChange={(
                                 e: CustomEvent<KupComboboxEventPayload>
                             ) => this.#handleRowsPerPageChange(e.detail.value)}
+                            showMaxPages={true}
                         />
                     ) : null}
                 </div>
