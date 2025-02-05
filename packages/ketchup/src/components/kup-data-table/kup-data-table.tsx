@@ -727,7 +727,7 @@ export class KupDataTable {
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ mutable: true }) rowsPerPage = 10;
+    @Prop({ mutable: true }) rowsPerPage = 1000;
     /**
      * Activates the scroll on hover function.
      */
