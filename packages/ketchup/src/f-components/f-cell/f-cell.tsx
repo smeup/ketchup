@@ -329,13 +329,12 @@ const MainObjectAdapter = (
 
 const MainCHKAdapter = (
     _options: CellOptions[],
-    fieldLabel: string,
+    _fieldLabel: string,
     currentValue: string,
     cell: KupDataCellOptions
 ) => ({
     ...cell.data,
     checked: currentValue === 'on' || currentValue === '1',
-    label: fieldLabel,
 });
 
 const MainBTNAdapter = (
