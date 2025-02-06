@@ -14,6 +14,4 @@ export enum KupColumnMenuIds {
     SWITCH_KEY = 'key',
     TEXTFIELD_FILTER = 'filter',
     TEXTFIELD_FORMULA = 'formula',
-    TEXTFIELD_FROM = 'filter-from',
-    TEXTFIELD_TO = 'filter-to',
 }
