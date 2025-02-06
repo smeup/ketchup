@@ -599,7 +599,7 @@ export class KupTimePicker {
 
     prepTimePicker() {
         const startingValue = this.kupManager.dates.timeStringToFormattedString(
-            '',
+            this.value,
             this.manageSeconds
         );
         if (this.clockVariant) {
