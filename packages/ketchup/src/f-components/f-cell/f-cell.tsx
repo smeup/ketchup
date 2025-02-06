@@ -279,7 +279,9 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
         return null;
     }
     const options = cell.options;
-    const fieldLabel = column.title;
+    const fieldLabel = cell.data?.hasOwnProperty('label')
+        ? cell.data.label
+        : column.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
@@ -329,12 +331,13 @@ const MainObjectAdapter = (
 
 const MainCHKAdapter = (
     _options: CellOptions[],
-    _fieldLabel: string,
+    fieldLabel: string,
     currentValue: string,
     cell: KupDataCellOptions
 ) => ({
     ...cell.data,
     checked: currentValue === 'on' || currentValue === '1',
+    label: fieldLabel,
 });
 
 const MainBTNAdapter = (
