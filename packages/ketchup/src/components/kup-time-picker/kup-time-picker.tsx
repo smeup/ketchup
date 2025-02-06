@@ -598,10 +598,13 @@ export class KupTimePicker {
     }
 
     prepTimePicker() {
-        const startingValue = this.kupManager.dates.timeStringToFormattedString(
+        const startingValue = this.kupManager.dates.isValidFormattedStringTime(
             this.value,
             this.manageSeconds
-        );
+        )
+            ? this.getTimeForOutput()
+            : '';
+
         if (this.clockVariant) {
             const data: KupCardData = {
                 options: {
