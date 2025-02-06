@@ -231,12 +231,12 @@ export class KupTimePicker {
     }
 
     async onKupClearIconClick() {
+        this.value = '';
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: await this.getValue(),
         });
-        this.value = '';
         this.kupClearIconClick.emit({
             comp: this,
             id: this.rootElement.id,
