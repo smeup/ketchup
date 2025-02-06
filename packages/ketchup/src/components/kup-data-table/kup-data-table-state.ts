@@ -30,6 +30,7 @@ export class KupDataTableState implements KupState {
     showHeader = true;
     showLoadMore: boolean = false;
     showPaginator: boolean = true;
+    hiddenSubmitButton: boolean = false;
     sortEnabled = true;
     sort: Array<SortObject> = [];
     sortableColumnsMutateData: boolean = true;
