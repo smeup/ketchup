@@ -477,24 +477,24 @@ export class KupColumnMenu {
                 });
             }
         }
-        // if (!FiltersColumnMenu.isTree(comp)) {
-        //     if (
-        //         dom.ketchup.objects.isNumber(column.obj) &&
-        //         comp.enableColumnsFormula
-        //     ) {
-        //         props.push({
-        //             fullWidth: true,
-        //             icon: 'functions',
-        //             id: KupColumnMenuIds.TEXTFIELD_FORMULA,
-        //             key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
-        //             helper: `i.e.: Description;[${column.name}] * 2`,
-        //             label: dom.ketchup.language.translate(
-        //                 KupLanguageTotals.FORMULA
-        //             ),
-        //             trailingIcon: true,
-        //         });
-        //     }
-        // }
+        if (!FiltersColumnMenu.isTree(comp)) {
+            if (
+                dom.ketchup.objects.isNumber(column.obj) &&
+                comp.enableColumnsFormula
+            ) {
+                props.push({
+                    fullWidth: true,
+                    icon: 'functions',
+                    id: KupColumnMenuIds.TEXTFIELD_FORMULA,
+                    key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
+                    helper: `i.e.: Description;[${column.name}] * 2`,
+                    label: dom.ketchup.language.translate(
+                        KupLanguageTotals.FORMULA
+                    ),
+                    trailingIcon: true,
+                });
+            }
+        }
         return props;
     }
 

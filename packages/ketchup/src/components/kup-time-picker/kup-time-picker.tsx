@@ -538,7 +538,7 @@ export class KupTimePicker {
         return this.pickerKupEl.id;
     }
 
-    prepTextfield(): any {
+    prepTextfield(initialValue: string): any {
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
@@ -560,7 +560,7 @@ export class KupTimePicker {
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
-                value={this.value}
+                value={initialValue}
                 onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClick={() => this.onKupClick()}
@@ -699,6 +699,9 @@ export class KupTimePicker {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
+        if (FILTER_ANALYZER.test(this.value)) {
+            return this.value;
+        }
         let v1 = this.kupManager.dates.timeStringToFormattedString(
             this.value,
             this.manageSeconds
@@ -753,7 +756,9 @@ export class KupTimePicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>{this.prepTextfield()}</div>
+                <div id={componentWrapperId}>
+                    {this.prepTextfield(this.getTimeForOutput())}
+                </div>
             </Host>
         );
     }
