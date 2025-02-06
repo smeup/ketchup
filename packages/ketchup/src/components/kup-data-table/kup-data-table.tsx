@@ -737,7 +737,7 @@ export class KupDataTable {
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ mutable: true }) rowsPerPage = 10;
+    @Prop({ mutable: true }) rowsPerPage = 1000;
     /**
      * Activates the scroll on hover function.
      */
@@ -3155,19 +3155,31 @@ export class KupDataTable {
                         const selectedObject =
                             dropDownActions[selectedObjectIndex];
 
-                        this.kupRowActionItemClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            row: row,
-                            obj: selectedObject.obj,
-                            cell: selectedObject.cell,
-                            type: selectedObject.type,
-                            index: selectedObject.index,
-                            column: selectedObject.column,
-                        });
-                        setTimeout(() => {
-                            this.#closeRowActionsCard();
-                        }, 0);
+                        const dispatchSelection = () => {
+                            this.kupRowActionItemClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                row: row,
+                                obj: selectedObject.obj,
+                                cell: selectedObject.cell,
+                                type: selectedObject.type,
+                                index: selectedObject.index,
+                                column: selectedObject.column,
+                            });
+                            setTimeout(() => {
+                                this.#closeRowActionsCard();
+                            }, 0);
+                        };
+
+                        const rowId = row.id;
+                        if (rowId) {
+                            this.setSelectedRows([row.id], true).then(() => {
+                                dispatchSelection();
+                            });
+                        } else {
+                            // fallback in case the row has no id (should never happen)
+                            dispatchSelection();
+                        }
                 }
             }
         );
@@ -3844,6 +3856,8 @@ export class KupDataTable {
     }
 
     #adjustPaginator() {
+        this.computeMaxRowsPerPage()
+        
         const numberOfRows = this.#rowsLength;
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
@@ -4155,18 +4169,6 @@ export class KupDataTable {
                 default:
                     break;
             }
-        }
-
-        // Manage row selection on rowAction click
-        if (!td) {
-            this.kupRowSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn: null,
-            });
-            return;
         }
 
         // find clicked column
@@ -5599,7 +5601,6 @@ export class KupDataTable {
                                     action.text || action.column?.title || '',
                                     'action',
                                     () => {
-                                        this.#onRowClick(row, null, true);
                                         this.kupRowActionItemClick.emit({
                                             comp: this,
                                             id: this.rootElement.id,
@@ -5628,7 +5629,6 @@ export class KupDataTable {
                                 ),
                                 'expander',
                                 (e) => {
-                                    this.#onRowClick(row, null, true);
                                     this.#onRowActionExpanderClick(
                                         e,
                                         row,
@@ -5901,6 +5901,7 @@ export class KupDataTable {
                             onRowsChange={(
                                 e: CustomEvent<KupComboboxEventPayload>
                             ) => this.#handleRowsPerPageChange(e.detail.value)}
+                            showMaxPages={true}
                         />
                     ) : null}
                 </div>

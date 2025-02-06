@@ -1955,6 +1955,11 @@ export namespace Components {
     }
     interface KupDialog {
         /**
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
+          * @default "none"
+         */
+        "anchor": 'none' | 'left' | 'top' | 'right' | 'bottom';
+        /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"
          */
@@ -1990,6 +1995,16 @@ export namespace Components {
           * @default "auto"
          */
         "maxSizeY": string;
+        /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX": string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY": string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
@@ -7785,6 +7800,11 @@ declare namespace LocalJSX {
     }
     interface KupDialog {
         /**
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
+          * @default "none"
+         */
+        "anchor"?: 'none' | 'left' | 'top' | 'right' | 'bottom';
+        /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"
          */
@@ -7810,6 +7830,16 @@ declare namespace LocalJSX {
           * @default "auto"
          */
         "maxSizeY"?: string;
+        /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX"?: string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY"?: string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
