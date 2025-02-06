@@ -21,7 +21,22 @@
   border-left: 1px solid transparent;
   align-items: center;
 
-  &:hover:not(:has(> .f-cell)) {
+  &.toolbar-item-disabled {
+    background-color: var(--kup-gray-color-30);
+    color: var(--kup-gray-color-40);
+    cursor: not-allowed;
+    .chevron-type-wrapper .f-image .iconWrapper .f-image__icon {
+      background-color: var(--kup-gray-color-40) !important;
+    }
+  }
+
+  .toolbar-single-value-node {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &:hover:not(.toolbar-item-disabled):not(:has(> .f-cell)) {
     background-color: var(--kup-gray-color-10-hover);
   }
 
@@ -54,7 +69,7 @@
     @include kup-caption-01;
   }
 
-  &:hover {
+  &:hover:not(.toolbar-item-disabled) {
     > .nested-class {
       display: block;
     }

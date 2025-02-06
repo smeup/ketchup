@@ -23,6 +23,7 @@ import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+import { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -84,6 +85,7 @@ export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+export { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -316,6 +318,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.CODE
@@ -1378,6 +1385,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Calls closeList method (acts like a reset).
+          * @param value - Value to be set.
+         */
+        "reset": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "selectMode": ItemsDisplayMode;
@@ -1717,6 +1729,11 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
+          * This method will scroll the component to rowIdentifier row.
+          * @param rowIdentifier - Id (dataset) or indexe (rendered rows).
+         */
+        "scrollToRow": (rowIdentifier: string | number) => Promise<void>;
+        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
@@ -1746,8 +1763,9 @@ export namespace Components {
           * This method will set the selected rows of the component.
           * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+          * @param scrollIntoView - If true, the component will scroll to the first selected row.
          */
-        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean, scrollIntoView?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -1825,11 +1843,25 @@ export namespace Components {
          */
         "updatableData": boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns": string[];
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupDatePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection": boolean;
         /**
           * Custom style of the component.
           * @default ""
@@ -1918,6 +1950,11 @@ export namespace Components {
     }
     interface KupDialog {
         /**
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
+          * @default "none"
+         */
+        "anchor": 'none' | 'left' | 'top' | 'right' | 'bottom';
+        /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"
          */
@@ -1953,6 +1990,16 @@ export namespace Components {
           * @default "auto"
          */
         "maxSizeY": string;
+        /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX": string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY": string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
@@ -2359,6 +2406,44 @@ export namespace Components {
           * @default false
          */
         "stackedLeaves": boolean;
+    }
+    interface KupFileUpload {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the input field.
+          * @default null
+         */
+        "data": any;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets to show spinner during upload.
+          * @param loading - Boolean to set if is loading.
+         */
+        "setLoading": (loading: boolean) => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets upload has been successfull to show success message.
+          * @param success - Boolean to set if upload has been successfull.
+         */
+        "setSuccess": (success: boolean) => Promise<void>;
     }
     interface KupForm {
         /**
@@ -2946,6 +3031,15 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick": boolean;
+        /**
+          * Public method to wait until the component is fully ready.
+         */
+        "waitForReady": () => Promise<void>;
     }
     interface KupLazy {
         /**
@@ -3075,6 +3169,8 @@ export namespace Components {
           * @default true
          */
         "selectable": boolean;
+        "setBlur": () => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -4387,6 +4483,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * The data of the list.
+          * @default true
+         */
+        "showIcons": boolean;
     }
     interface KupTooltip {
         "TooltipContent": any;
@@ -4574,6 +4675,10 @@ export namespace Components {
           * Defines the current totals options.
          */
         "totals": TotalsMap;
+        /**
+          * The max-height of a tree
+         */
+        "treeHeight": string;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
@@ -4791,6 +4896,10 @@ export interface KupEditorCustomEvent<T> extends CustomEvent<T> {
 export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFamilyTreeElement;
+}
+export interface KupFileUploadCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupFileUploadElement;
 }
 export interface KupFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -5089,6 +5198,7 @@ declare global {
     };
     interface HTMLKupCellElementEventMap {
         "kup-cell-submit-click": KupCellSubmitClickEventPayload;
+        "kup-cell-upload": KupFileUploadEventPayload;
     }
     interface HTMLKupCellElement extends Components.KupCell, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupCellElementEventMap>(type: K, listener: (this: HTMLKupCellElement, ev: KupCellCustomEvent<HTMLKupCellElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5410,6 +5520,24 @@ declare global {
     var HTMLKupFamilyTreeElement: {
         prototype: HTMLKupFamilyTreeElement;
         new (): HTMLKupFamilyTreeElement;
+    };
+    interface HTMLKupFileUploadElementEventMap {
+        "kup-file-upload-ready": KupEventPayload;
+        "kup-file-upload-upload": KupFileUploadEventPayload;
+    }
+    interface HTMLKupFileUploadElement extends Components.KupFileUpload, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupFileUploadElement: {
+        prototype: HTMLKupFileUploadElement;
+        new (): HTMLKupFileUploadElement;
     };
     interface HTMLKupFormElementEventMap {
         "kup-form-ready": KupEventPayload;
@@ -6054,6 +6182,7 @@ declare global {
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
+        "kup-file-upload": HTMLKupFileUploadElement;
         "kup-form": HTMLKupFormElement;
         "kup-gantt": HTMLKupGanttElement;
         "kup-gantt-calendar": HTMLKupGanttCalendarElement;
@@ -6856,6 +6985,7 @@ declare namespace LocalJSX {
          */
         "dragEnabled"?: boolean;
         "onKup-cell-submit-click"?: (event: KupCellCustomEvent<KupCellSubmitClickEventPayload>) => void;
+        "onKup-cell-upload"?: (event: KupCellCustomEvent<KupFileUploadEventPayload>) => void;
         /**
           * Show submit button
          */
@@ -7590,11 +7720,21 @@ declare namespace LocalJSX {
          */
         "updatableData"?: boolean;
         /**
+          * When set to true, editable checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
+        /**
           * List of the visible columns
          */
         "visibleColumns"?: string[];
     }
     interface KupDatePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
@@ -7668,6 +7808,11 @@ declare namespace LocalJSX {
     }
     interface KupDialog {
         /**
+          * Sets anchor position ("none", "left", "top", "right", "bottom").
+          * @default "none"
+         */
+        "anchor"?: 'none' | 'left' | 'top' | 'right' | 'bottom';
+        /**
           * Auto centers the dialog relatively to the viewport.
           * @default "{ onReady: true }"
          */
@@ -7693,6 +7838,16 @@ declare namespace LocalJSX {
           * @default "auto"
          */
         "maxSizeY"?: string;
+        /**
+          * The min width of the dialog.
+          * @default "auto"
+         */
+        "minSizeX"?: string;
+        /**
+          * The min height of the dialog.
+          * @default "auto"
+         */
+        "minSizeY"?: string;
         /**
           * Set of options to display the dialog as a modal.
           * @default "{ closeOnBackdropClick: true }"
@@ -8012,6 +8167,24 @@ declare namespace LocalJSX {
           * @default false
          */
         "stackedLeaves"?: boolean;
+    }
+    interface KupFileUpload {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the input field.
+          * @default null
+         */
+        "data"?: any;
+        /**
+          * When component load is complete
+         */
+        "onKup-file-upload-ready"?: (event: KupFileUploadCustomEvent<KupEventPayload>) => void;
+        "onKup-file-upload-upload"?: (event: KupFileUploadCustomEvent<KupFileUploadEventPayload>) => void;
     }
     interface KupForm {
         /**
@@ -8495,6 +8668,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: KupInputPanelSubmit) => unknown;
+        /**
+          * When set to true, checkbox will call update
+          * @default false
+         */
+        "updateOnClick"?: boolean;
     }
     interface KupLazy {
         /**
@@ -9711,6 +9889,11 @@ declare namespace LocalJSX {
          */
         "data"?: KupToolbarTreeNode[];
         "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarClickEventPayload>) => void;
+        /**
+          * The data of the list.
+          * @default true
+         */
+        "showIcons"?: boolean;
     }
     interface KupTooltip {
         "TooltipContent"?: any;
@@ -9881,6 +10064,10 @@ declare namespace LocalJSX {
          */
         "totals"?: TotalsMap;
         /**
+          * The max-height of a tree
+         */
+        "treeHeight"?: string;
+        /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
          */
@@ -9989,6 +10176,7 @@ declare namespace LocalJSX {
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-family-tree": KupFamilyTree;
+        "kup-file-upload": KupFileUpload;
         "kup-form": KupForm;
         "kup-gantt": KupGantt;
         "kup-gantt-calendar": KupGanttCalendar;
@@ -10068,6 +10256,7 @@ declare module "@stencil/core" {
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
+            "kup-file-upload": LocalJSX.KupFileUpload & JSXBase.HTMLAttributes<HTMLKupFileUploadElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gantt": LocalJSX.KupGantt & JSXBase.HTMLAttributes<HTMLKupGanttElement>;
             "kup-gantt-calendar": LocalJSX.KupGanttCalendar & JSXBase.HTMLAttributes<HTMLKupGanttCalendarElement>;

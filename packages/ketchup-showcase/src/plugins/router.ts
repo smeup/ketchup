@@ -84,6 +84,12 @@ const basicRoutes = [
       import(`@/views/components/basic/dropdownbutton/DropdownButton.vue`),
   },
   {
+    path: `/fileupload`,
+    name: 'fileupload',
+    component: () =>
+      import(`@/views/components/basic/fileupload/FileUpload.vue`),
+  },
+  {
     path: `/gauge`,
     name: 'gauge',
     component: () => import(`@/views/components/basic/gauge/Gauge.vue`),

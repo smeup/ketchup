@@ -40,6 +40,7 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { getProps } from '../../utils/utils';
+import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -61,6 +62,12 @@ export class KupDatePicker {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
+    /**
+     * When set to true, the selected date will be appended to the current value
+     * instead of replacing it.
+     * @default false
+     */
+    @Prop() appendSelection: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -403,32 +410,42 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        this.ISOvalue = '';
         this.notISOvalue = newValue;
-        // check if input contains special codes
-        if (!eventDetailValue) {
-            /** donothing */
-        } else if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
-            if (isOnInputEvent != true) {
-                this.ISOvalue = eventDetailValue;
-                this.notISOvalue = '';
+        this.ISOvalue = '';
+
+        if (eventDetailValue) {
+            const isValidFilter =
+                this.isAlphanumeric(eventDetailValue) ||
+                eventDetailValue.match(FILTER_ANALYZER);
+
+            if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
+                if (!isOnInputEvent) {
+                    this.ISOvalue = eventDetailValue;
+                    if (!this.appendSelection) {
+                        this.notISOvalue = '';
+                    }
+                }
+            } else if (
+                !isValidFilter &&
+                this.kupManager.dates.isValidFormattedStringDate(
+                    eventDetailValue
+                )
+            ) {
+                if (!this.appendSelection) {
+                    newValue = this.kupManager.dates.format(
+                        this.kupManager.dates.normalize(eventDetailValue),
+                        KupDatesFormats.ISO_DATE
+                    );
+                    this.refreshPickerComponentValue(newValue);
+                }
+
+                if (!isOnInputEvent) {
+                    this.ISOvalue = newValue;
+                    if (!this.appendSelection) {
+                        this.notISOvalue = '';
+                    }
+                }
             }
-        } else if (this.isAlphanumeric(eventDetailValue)) {
-            /** donothing */
-        } else if (
-            this.kupManager.dates.isValidFormattedStringDate(eventDetailValue)
-        ) {
-            newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(eventDetailValue),
-                KupDatesFormats.ISO_DATE
-            );
-            this.refreshPickerComponentValue(newValue);
-            if (isOnInputEvent != true) {
-                this.ISOvalue = newValue;
-                this.notISOvalue = '';
-            }
-        } else {
-            /** donothing */
         }
 
         if (newValue != null && eventToRaise) {
@@ -465,7 +482,17 @@ export class KupDatePicker {
         if (newValue == null) {
             return;
         }
-        this.setValue(newValue);
+
+        if (this.appendSelection) {
+            // Append behavior: combine current value with the new date
+            const currentValue = this.textfieldEl.value;
+            const formattedDate = this.kupManager.dates.format(newValue);
+            const combinedValue = currentValue + formattedDate;
+            this.refreshPickerValue(combinedValue, undefined);
+        } else {
+            // Default behavior: replace the entire value
+            this.setValue(newValue);
+        }
     }
 
     getPickerValueSelected(): string {
@@ -652,7 +679,7 @@ export class KupDatePicker {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        maxLength={10}
+                        maxLength={textfieldData.maxLength ?? 10}
                         id={this.rootElement.id + '_text-field'}
                         value={this.getDateForOutput()}
                         onBlur={() => this.onKupBlur()}

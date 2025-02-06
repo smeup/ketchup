@@ -68,7 +68,7 @@ export interface KupBoxLayout {
 
 export interface KupBoxSection {
     collapsible?: boolean;
-    columns?: number;
+    columns?: string;
     content?: KupBoxObject[];
     dim?: string;
     horizontal?: boolean;

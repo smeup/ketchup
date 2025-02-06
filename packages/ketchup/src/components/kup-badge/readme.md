@@ -105,6 +105,7 @@ Type: `Promise<void>`
  - [kup-dialog](../kup-dialog)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-family-tree](../kup-family-tree)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-form](../kup-form)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -134,21 +135,22 @@ Type: `Promise<void>`
 graph TD;
   kup-badge --> kup-badge
   kup-card --> kup-badge
+  kup-image --> kup-badge
+  kup-dialog --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-badge
   kup-list --> kup-badge
   kup-radio --> kup-badge
-  kup-dialog --> kup-badge
-  kup-text-field --> kup-badge
   kup-chip --> kup-badge
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-badge
   kup-combobox --> kup-badge
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card

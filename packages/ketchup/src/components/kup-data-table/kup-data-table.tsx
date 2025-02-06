@@ -56,7 +56,11 @@ import {
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
 } from './kup-data-table-declarations';
-import { getColumnByName } from '../../utils/cell-utils';
+import {
+    getColumnByName,
+    getValueForDisplay,
+    isNegativeNumber,
+} from '../../utils/cell-utils';
 import {
     calcTotals,
     normalizeRows,
@@ -73,7 +77,12 @@ import {
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import { identify, getProps, setProps } from '../../utils/utils';
+import {
+    identify,
+    getProps,
+    setProps,
+    getRegExpFromString,
+} from '../../utils/utils';
 import {
     KupListNode,
     ItemsDisplayMode,
@@ -149,6 +158,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellEventPayload,
     FCellPadding,
     FCellShapes,
@@ -717,7 +727,7 @@ export class KupDataTable {
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop() rowsPerPage = 10;
+    @Prop({ mutable: true }) rowsPerPage = 1000;
     /**
      * Activates the scroll on hover function.
      */
@@ -745,7 +755,7 @@ export class KupDataTable {
     /**
      * When set to true shows the footer.
      */
-    @Prop() showFooter: boolean = false;
+    @Prop() showFooter: boolean = true;
     /**
      * Can be used to customize the grid view of the table.
      */
@@ -809,6 +819,12 @@ export class KupDataTable {
      * @default false
      */
     @Prop({ mutable: true, reflect: true }) updatableData: boolean = false;
+
+    /**
+     * When set to true, editable checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
 
     //-------- State --------
 
@@ -915,6 +931,26 @@ export class KupDataTable {
         }
     }
 
+    @Watch('data')
+    computeMaxRowsPerPage() {
+        if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
+            const columnsNumber = this.data.columns.length;
+            const cellsNumber = this.data.rows.reduce(
+                (acc, r) => acc + Object.keys(r.cells).length,
+                0
+            );
+            const maxCellsNumberPerPage =
+                this.#kupManager.perfTuning.data.maxCellsPerPage;
+            if (cellsNumber > maxCellsNumberPerPage) {
+                // Rounds a number up to the nearest multiple of ten.
+                this.#maxRowsPerPage =
+                    Math.ceil(maxCellsNumberPerPage / columnsNumber / 10) * 10;
+            }
+            if (this.rowsPerPage > this.#maxRowsPerPage)
+                this.rowsPerPage = this.#maxRowsPerPage;
+        }
+    }
+
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
         if (!this.#isRestoringState) {
@@ -963,7 +999,7 @@ export class KupDataTable {
     #paginatedRows: Array<KupDataTableRow>;
     #paginatedRowsLength: number = 0;
 
-    #footer: { [index: string]: any }; // TODO change any
+    #footer: { [index: string]: string };
     /**
      * Instance of the KupManager class.
      */
@@ -1051,6 +1087,10 @@ export class KupDataTable {
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
     #lastFocusedRow: KupDataTableRow = null;
+    #maxRowsPerPage: number;
+
+    #readyPromise: Promise<void>;
+    #readyResolve: () => void;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
@@ -1060,16 +1100,6 @@ export class KupDataTable {
     #INSERT_PREFIX = 'insert_';
 
     #DEFAULT_ROWS_FOR_GLOBAL_FILTER: number = 50;
-
-    #eventBlurNames = new Map<FCellShapes, string>([
-        [FCellShapes.AUTOCOMPLETE, 'kup-autocomplete-blur'],
-        [FCellShapes.CHIP, 'kup-textfield-blur'],
-        [FCellShapes.COMBOBOX, 'kup-combobox-blur'],
-        [FCellShapes.DATE, 'kup-datepicker-blur'],
-        [FCellShapes.MULTI_AUTOCOMPLETE, 'kup-autocomplete-blur'],
-        [FCellShapes.MULTI_COMBOBOX, 'kup-combobox-blur'],
-        [FCellShapes.TIME, 'kup-timepicker-blur'],
-    ]);
 
     /**
      * When component unload is complete
@@ -1526,6 +1556,7 @@ export class KupDataTable {
         });
         this.refresh();
     }
+
     /**
      * Adds/subtracts the input number from the first group's depth level.
      */
@@ -1810,19 +1841,29 @@ export class KupDataTable {
      * This method will set the selected rows of the component.
      * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     * @param {boolean} scrollIntoView - If true, the component will scroll to the first selected row.
      */
     @Method()
     async setSelectedRows(
         rowsIdentifiers: string[] | number[],
-        emitEvent?: boolean
+        emitEvent?: boolean,
+        scrollIntoView?: boolean
     ): Promise<void> {
+        let firstRowSelectedId = undefined;
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
             const id = rowsIdentifiers[index];
             const row = this.#getRow(id);
             if (row) {
+                if (!firstRowSelectedId) {
+                    firstRowSelectedId = id;
+                }
                 this.selectedRows.push(row);
             }
+        }
+
+        if (scrollIntoView && firstRowSelectedId) {
+            this.scrollToRow(firstRowSelectedId);
         }
 
         if (emitEvent !== false) {
@@ -1834,6 +1875,30 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
+    }
+
+    /**
+     * This method will scroll the component to rowIdentifier row.
+     * @param {string|number} rowIdentifier - Id (dataset) or indexe (rendered rows).
+     */
+    @Method()
+    async scrollToRow(rowIdentifier: string | number): Promise<void> {
+        const id = rowIdentifier;
+        const row = this.#getRow(id);
+        if (row) {
+            const idx = this.#rows.indexOf(row) - 1;
+            if (idx >= 1) {
+                this.#rowsRefs[idx]?.scrollIntoView();
+            }
+        }
+    }
+
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.#readyPromise;
     }
     /**
      * This method is used to retrieve last focused row or the first if there's no row focused
@@ -2497,7 +2562,9 @@ export class KupDataTable {
                             "Couldn't find cell to retrieve drag informations!",
                             KupDebugCategory.WARNING
                         );
-                        return;
+                        return {
+                            id: this.rootElement.id,
+                        };
                     }
                     return {
                         cell,
@@ -2540,7 +2607,9 @@ export class KupDataTable {
                         "Couldn't find cell to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
-                    return;
+                    return {
+                        id: this.rootElement.id,
+                    };
                 }
                 return {
                     cell,
@@ -2666,6 +2735,12 @@ export class KupDataTable {
 
     //---- Lifecycle hooks ----
 
+    connectedCallback() {
+        this.#readyPromise = new Promise((resolve) => {
+            this.#readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
@@ -2687,6 +2762,7 @@ export class KupDataTable {
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
         }
+        this.computeMaxRowsPerPage();
         this.currentRowsPerPage = this.rowsPerPage;
         this.#isRestoringState = false;
 
@@ -2723,6 +2799,10 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        // If the component is not connected this method must not be executed
+        if (!this.rootElement.isConnected) {
+            return;
+        }
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const fs: NodeListOf<HTMLElement> =
@@ -2731,6 +2811,12 @@ export class KupDataTable {
                 FTextFieldMDC(fs[index]);
             }
         }
+        requestAnimationFrame(async () => {
+            if (root && this.#readyResolve) {
+                this.#readyResolve();
+                this.#readyResolve = null;
+            }
+        });
         if (this.showCustomization) {
             this.#customizePanelPosition();
         }
@@ -3056,19 +3142,31 @@ export class KupDataTable {
                         const selectedObject =
                             dropDownActions[selectedObjectIndex];
 
-                        this.kupRowActionItemClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            row: row,
-                            obj: selectedObject.obj,
-                            cell: selectedObject.cell,
-                            type: selectedObject.type,
-                            index: selectedObject.index,
-                            column: selectedObject.column,
-                        });
-                        setTimeout(() => {
-                            this.#closeRowActionsCard();
-                        }, 0);
+                        const dispatchSelection = () => {
+                            this.kupRowActionItemClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                row: row,
+                                obj: selectedObject.obj,
+                                cell: selectedObject.cell,
+                                type: selectedObject.type,
+                                index: selectedObject.index,
+                                column: selectedObject.column,
+                            });
+                            setTimeout(() => {
+                                this.#closeRowActionsCard();
+                            }, 0);
+                        };
+
+                        const rowId = row.id;
+                        if (rowId) {
+                            this.setSelectedRows([row.id], true).then(() => {
+                                dispatchSelection();
+                            });
+                        } else {
+                            // fallback in case the row has no id (should never happen)
+                            dispatchSelection();
+                        }
                 }
             }
         );
@@ -3629,9 +3727,9 @@ export class KupDataTable {
         this.#filterRows();
 
         this.#footer = calcTotals(
+            this.totals,
             this.getColumns(),
-            normalizeRows(this.getColumns(), this.#rows),
-            this.totals
+            normalizeRows(this.getColumns(), this.#rows)
         );
 
         this.#groupRows();
@@ -3745,6 +3843,8 @@ export class KupDataTable {
     }
 
     #adjustPaginator() {
+        this.computeMaxRowsPerPage()
+        
         const numberOfRows = this.#rowsLength;
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
@@ -4428,6 +4528,8 @@ export class KupDataTable {
             this.updatableData &&
             cell.isEditable &&
             cell.inputSettings?.checkValueOnExit &&
+            cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH &&
             this.#originalDataLoaded.rows.find((r) => r.id == row.id)?.cells[
                 column.name
             ]?.value !== cell.value
@@ -4840,22 +4942,26 @@ export class KupDataTable {
     }
 
     onTotalsChange(event, column) {
-        // close menu
         this.#closeTotalMenu();
-        if (column) {
-            // must do this
-            // otherwise does not fire the watcher
-            const totalsCopy = { ...this.totals };
-            const value = event.detail.selected.id;
-            if (value === TotalLabel.CANC) {
-                if (this.totals && this.totals[column.name]) {
-                    delete totalsCopy[column.name];
-                }
-            } else {
-                totalsCopy[column.name] = value;
-            }
-            this.totals = totalsCopy;
+        if (!column) {
+            return;
         }
+
+        const selectedElementId = event.detail.selected.id;
+        const newTotals = this.totals ?? {};
+
+        // Delete column from totals
+        if (selectedElementId === TotalLabel.CANC) {
+            delete newTotals[column.name];
+            this.totals = Object.keys(newTotals).length
+                ? { ...newTotals } // Trigger totals watcher
+                : undefined;
+            return;
+        }
+
+        // Add/update total operation for the specified column
+        newTotals[column.name] = selectedElementId;
+        this.totals = { ...newTotals }; // Trigger totals watcher
     }
 
     #totalMenuPosition() {
@@ -4985,6 +5091,7 @@ export class KupDataTable {
                         KupLanguageTotals.SUM
                     ),
                 };
+
                 if (this.totals) {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
@@ -5018,61 +5125,121 @@ export class KupDataTable {
                 }
 
                 if (this.#isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: KupListNode[] = [
-                        {
-                            id: TotalMode.COUNT,
-                            value: translation[TotalLabel.COUNT],
-                        },
-                        {
-                            id: TotalMode.DISTINCT,
-                            value: translation[TotalLabel.DISTINCT],
-                        },
-                    ];
-                    if (this.#kupManager.objects.isNumber(column.obj)) {
-                        // TODO Move these objects in declarations
-                        listData.push(
-                            {
+                    const getTotalsListElements = (
+                        formula = ''
+                    ): Record<TotalMode | TotalLabel.CANC, KupListNode> => {
+                        return {
+                            [TotalMode.COUNT]: {
+                                id: TotalMode.COUNT,
+                                value: translation[TotalLabel.COUNT],
+                            },
+                            [TotalMode.DISTINCT]: {
+                                id: TotalMode.DISTINCT,
+                                value: translation[TotalLabel.DISTINCT],
+                            },
+                            [TotalMode.SUM]: {
                                 id: TotalMode.SUM,
-                                separator: true,
                                 value: translation[TotalLabel.SUM],
                             },
-                            {
+                            [TotalMode.AVERAGE]: {
                                 id: TotalMode.AVERAGE,
                                 value: translation[TotalLabel.AVERAGE],
                             },
-                            {
+                            [TotalMode.MIN]: {
                                 id: TotalMode.MIN,
                                 value: translation[TotalLabel.MIN],
                             },
-                            {
+                            [TotalMode.MAX]: {
                                 id: TotalMode.MAX,
                                 value: translation[TotalLabel.MAX],
-                            }
+                            },
+                            [TotalLabel.CANC]: {
+                                id: TotalLabel.CANC,
+                                value: translation[TotalLabel.CANC],
+                            },
+                            [TotalMode.MATH]: {
+                                id: formula
+                                    ? `${TotalMode.MATH}${formula}`
+                                    : TotalMode.MATH,
+                                value: formula
+                                    ? `${
+                                          translation[TotalLabel.MATH]
+                                      }: ${formula}`
+                                    : translation[TotalLabel.MATH],
+                            },
+                        };
+                    };
+
+                    // Add list elements
+                    const listData: KupListNode[] = [];
+                    if (column.formula) {
+                        /* Formula cloumn */
+                        const formula = (
+                            (this.#hasTotals() && this.totals[column.name]) ||
+                            column.formula
+                        )?.replace(
+                            getRegExpFromString(TotalMode.MATH, 'g'),
+                            ''
                         );
-                    } else if (this.#kupManager.objects.isDate(column.obj)) {
+                        const totalsListElements =
+                            getTotalsListElements(formula);
+                        // Add formula
                         listData.push(
                             {
-                                id: TotalMode.MIN,
-                                separator: true,
-                                value: translation[TotalLabel.MIN],
+                                ...totalsListElements[TotalMode.MATH],
+                                selected: this.#hasTotals()
+                                    ? !!this.totals[column.name]
+                                    : false,
                             },
                             {
-                                id: TotalMode.MAX,
-                                value: translation[TotalLabel.MAX],
+                                ...totalsListElements[TotalLabel.CANC],
+                                separator: true,
                             }
                         );
-                    }
-                    if (this.totals) {
-                        const selectedItem: KupListNode = listData.find(
-                            (item) => item.id === this.totals[column.name]
+                    } else {
+                        /* Standard column */
+                        // Add default operations
+                        const totalsListElements = getTotalsListElements();
+                        listData.push(
+                            totalsListElements[TotalMode.COUNT],
+                            totalsListElements[TotalMode.DISTINCT]
                         );
-                        if (selectedItem) {
-                            selectedItem.selected = true;
-                            listData.push({
-                                id: TotalLabel.CANC,
-                                separator: true,
-                                value: translation[TotalLabel.CANC],
-                            });
+
+                        if (this.#kupManager.objects.isNumber(column.obj)) {
+                            // Add number operations
+                            listData.push(
+                                {
+                                    ...totalsListElements[TotalMode.SUM],
+                                    separator: true,
+                                },
+                                totalsListElements[TotalMode.AVERAGE],
+                                totalsListElements[TotalMode.MIN],
+                                totalsListElements[TotalMode.MAX]
+                            );
+                        } else if (
+                            this.#kupManager.objects.isDate(column.obj)
+                        ) {
+                            // Add date operations
+                            listData.push(
+                                {
+                                    ...totalsListElements[TotalMode.MIN],
+                                    separator: true,
+                                },
+                                totalsListElements[TotalMode.MAX]
+                            );
+                        }
+
+                        if (this.#hasTotals()) {
+                            const selectedItem: KupListNode = listData.find(
+                                (item) => item.id === this.totals[column.name]
+                            );
+                            if (selectedItem) {
+                                selectedItem.selected = true;
+                                listData.push({
+                                    ...totalsListElements[TotalLabel.CANC],
+                                    separator: true,
+                                });
+                            }
                         }
                     }
 
@@ -5092,29 +5259,19 @@ export class KupDataTable {
                     );
                 }
 
-                // TODO please use getValueForDisplay
-                let value;
-                const footerValue = this.#footer[column.name];
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = footerValue;
-                } else if (
-                    (menuLabel === TotalLabel.MAX ||
-                        menuLabel === TotalLabel.MIN) &&
-                    this.#kupManager.objects.isDate(column.obj)
-                ) {
-                    if (footerValue) {
-                        value = footerValue;
-                    }
-                } else {
-                    value = this.#kupManager.math.numberToFormattedString(
-                        footerValue,
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
-                }
+                const totalValue =
+                    this.#footer[column.name] != null
+                        ? getValueForDisplay(
+                              this.#footer[column.name],
+                              column.obj,
+                              column.decimals
+                          )
+                        : '';
+                const totalsClass = `totals-value ${
+                    isNegativeNumber(this.#footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
+                }`;
 
                 return (
                     <td
@@ -5131,12 +5288,9 @@ export class KupDataTable {
                         }
                     >
                         {totalMenu}
-                        <span
-                            class="totals-value"
-                            title={translation[menuLabel]}
-                        >
-                            {value}
-                        </span>
+                        <div class={totalsClass} title={translation[menuLabel]}>
+                            {totalValue}
+                        </div>
                     </td>
                 );
             }
@@ -5308,6 +5462,7 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                        data-id={row.id}
                         data-row={row}
                         class="group"
                     >
@@ -5647,6 +5802,7 @@ export class KupDataTable {
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                    data-id={row.id}
                     data-row={row}
                     class={rowClass}
                 >
@@ -5710,6 +5866,9 @@ export class KupDataTable {
                                     ? this.currentRowsPerPage
                                     : this.rowsPerPage
                             }
+                            maxRowsPerPage={
+                                this.#maxRowsPerPage ?? this.#rowsLength
+                            }
                             onLoadMore={
                                 this.showLoadMore
                                     ? () => {
@@ -5729,6 +5888,7 @@ export class KupDataTable {
                             onRowsChange={(
                                 e: CustomEvent<KupComboboxEventPayload>
                             ) => this.#handleRowsPerPageChange(e.detail.value)}
+                            showMaxPages={true}
                         />
                     ) : null}
                 </div>
@@ -6612,6 +6772,28 @@ export class KupDataTable {
                     }
                 }
             }
+
+            if (
+                this.updatableData &&
+                (e.detail.cell?.shape === FCellShapes.CHECKBOX ||
+                    e.detail.cell?.shape === FCellShapes.SWITCH)
+            ) {
+                if (this.updateOnClick) {
+                    this.#handleUpdateClick(e.detail.cell);
+                } else if (e.detail.cell?.inputSettings?.checkValueOnExit) {
+                    this.kupCellCheck.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        originalData: this.#originalDataLoaded,
+                        updatedData: getDiffData(
+                            this.#originalDataLoaded,
+                            this.data,
+                            true
+                        ),
+                        cell: e.detail.cell,
+                    });
+                }
+            }
         };
 
         const useGlobalFilter: boolean =
@@ -6870,9 +7052,7 @@ export class KupDataTable {
                                 <tr>{header}</tr>
                             </thead>
                             <tbody>{rows}</tbody>
-                            {this.showFooter || this.#hasTotals()
-                                ? this.renderFooter()
-                                : null}
+                            {this.showFooter && this.renderFooter()}
                         </table>
                         {stickyEl}
                     </div>
@@ -6893,6 +7073,11 @@ export class KupDataTable {
         );
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.toolbar.unregister([this.rootElement]);
+        if (this.#customizeTopPanelRef)
+            this.#kupManager.dynamicPosition.unregister([
+                this.#customizeTopPanelRef,
+            ]);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'

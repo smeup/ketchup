@@ -1,8 +1,5 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import {
-    KupEditorEventPayload,
-    KupTextFieldEventPayload,
-} from '../../components';
+import { KupTextFieldEventPayload } from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -100,13 +97,18 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
     isEditable = isEditable && props.editable;
 
-    if (cell.options) {
-        cell.data = mapData(cell, column) ?? cell.data;
-    }
+    cell.data = mapData(cell, column) ?? cell.data;
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
-    const subcomponentProps: unknown = { ...cell.data };
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        ...(cell?.icon ? { resource: cell.icon } : {}),
+        ...(cell?.placeholderIcon
+            ? { placeholderResource: cell.placeholderIcon }
+            : {}),
+    };
+
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
@@ -167,18 +169,24 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
 
     let icon: VNode = null;
-    if (!isEditable && (column.icon || cell.icon) && content) {
-        const fProps: FImageProps = {
-            color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
-            resource: cell.icon ? cell.icon : column.icon,
-            placeholderResource: cell.placeholderIcon
-                ? cell.placeholderIcon
-                : column.placeholderIcon,
-            sizeX: '1.25em',
-            sizeY: '1.25em',
-            wrapperClass: 'obj-icon',
-        };
-        icon = <FImage {...fProps} />;
+    if (!isEditable && (column.icon || cell.icon)) {
+        if (
+            content &&
+            cellType != FCellTypes.IMAGE &&
+            cellType != FCellTypes.ICON
+        ) {
+            const fProps: FImageProps = {
+                color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
+                resource: cell.icon ? cell.icon : column.icon,
+                placeholderResource: cell.placeholderIcon
+                    ? cell.placeholderIcon
+                    : column.placeholderIcon,
+                sizeX: '1.25em',
+                sizeY: '1.25em',
+                wrapperClass: 'obj-icon',
+            };
+            icon = <FImage {...fProps} />;
+        }
     }
 
     let cellTitle: string = null;
@@ -294,25 +302,24 @@ const MainCHIAdapter = (
     _fieldLabel: string,
     _currentValue: string,
     cell: KupInputPanelCell
-) => {
-    const newData = {
-        data: options?.length
-            ? options?.map((option) => ({
-                  id: option.id,
-                  value: option.id,
-              }))
-            : [],
-    };
-    cell.data = { ...cell.data, ...newData };
-};
+) => ({
+    ...cell.data,
+    data: options?.length
+        ? options?.map((option) => ({
+              id: option.id,
+              value: option.id,
+          }))
+        : [],
+});
 
 const MainObjectAdapter = (
     _options: CellOptions[],
     fieldLabel: string,
     currentValue: string,
-    _cell: KupInputPanelCell,
+    cell: KupInputPanelCell,
     _id: string
 ) => ({
+    ...cell.data,
     data: {
         initialValue: currentValue || '',
         label: fieldLabel || '',
@@ -363,7 +370,7 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    cell.data = { ...cell.data, ...newData };
+    return { ...cell.data, ...newData };
 };
 
 const MainCMBandACPAdapter = (
@@ -609,6 +616,9 @@ function setEditableCell(
                     onKup-autocomplete-blur={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-autocomplete-itemclick={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -702,6 +712,9 @@ function setEditableCell(
                     onKup-combobox-blur={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
+                    onKup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
                 />
             );
         case FCellTypes.DATE:
@@ -727,11 +740,6 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
-            try {
-                cell.value = JSON.parse(`"${cell.value}"`);
-            } catch (e) {
-                cell.value = JSON.parse(JSON.stringify(cell.value));
-            }
             return (
                 <FTextField
                     {...cell.data}
@@ -753,6 +761,8 @@ function setEditableCell(
                     }
                 />
             );
+        case FCellTypes.FILE_UPLOAD:
+            return <kup-file-upload {...cell.data} />;
         case FCellTypes.MULTI_AUTOCOMPLETE:
             return (
                 <kup-chip
@@ -919,7 +929,15 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (
+                    (!(
+                        cell.shape == 'MEMO' ||
+                        cell.data?.maxLength >= 256 ||
+                        cellType == FCellTypes.MEMO
+                    ) &&
+                        e.key === 'Enter') ||
+                    /^F[1-9]|F1[0-2]$/.test(e.key)
+                ) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -942,17 +960,20 @@ function setEditableCell(
                     ></input>
                 );
             } else {
+                const isTextArea =
+                    (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
+                    (cellType ? cellType === FCellTypes.MEMO : false);
                 return (
                     <FTextField
-                        textArea={
-                            (cell.shape
-                                ? cell.shape === FCellShapes.MEMO
-                                : false) ||
-                            (cellType ? cellType === FCellTypes.MEMO : false)
+                        {...cell.data}
+                        textArea={isTextArea}
+                        sizing={
+                            isTextArea
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
-                        {...cell.data}
                         maxLength={
                             (cellType == FCellTypes.NUMBER &&
                                 ((props.column.decimals &&
@@ -1039,6 +1060,7 @@ function setCell(
                 />
             );
         case FCellTypes.EDITOR:
+        case FCellTypes.MEMO:
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
@@ -1455,9 +1477,6 @@ function cellEvent(
                         e as CustomEvent<KupChipChangeEventPayload>
                     ).detail.comp.data;
                 }
-                break;
-            case FCellTypes.EDITOR:
-                value = JSON.stringify(value).slice(1, -1);
                 break;
         }
         if (cell.obj) {

@@ -473,7 +473,7 @@
         }
 
         &.mdc-text-field--textarea--medium {
-          height: var(--kup_textfield_textarea_medium_height);
+          min-height: var(--kup_textfield_textarea_medium_height);
         }
 
         &.mdc-text-field--textarea--large {
@@ -611,14 +611,10 @@
     &.#{$kup-class-full-width} {
       width: 100%;
 
-      .mdc-text-field {
-        &.mdc-text-field--with-leading-icon {
-          padding-left: 0;
-        }
-
-        &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
-          right: 40px;
-        }
+      .mdc-text-field.mdc-text-field--with-trailing-icon
+        input
+        ~ .kup-clear-icon {
+        right: 40px;
       }
     }
 

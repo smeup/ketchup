@@ -37,6 +37,7 @@ import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
+import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -65,6 +66,7 @@ export class KupManager {
     toolbar: KupToolbar;
     keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
+    perfTuning: KupPerfTuning;
     /**
      * Initializes KupManager.
      */
@@ -201,6 +203,9 @@ export class KupManager {
             tooltipFCellCallbacks,
             tooltipModal
         );
+        this.perfTuning = new KupPerfTuning({
+            maxCellsPerPage: Number.MAX_VALUE,
+        });
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
@@ -382,6 +387,29 @@ export class KupManager {
      */
     removeClickCallback(cb: KupManagerClickCb): void {
         this.utilities.clickCallbacks.delete(cb);
+    }
+
+    /**
+     * Removes elements disconnected by active DOM,
+     * use only from browser console
+     */
+    removeDisconnectedElements(): void {
+        const containers = [
+            this.dynamicPosition.managedElements,
+            this.theme.managedComponents,
+            this.language.managedComponents,
+            this.interact.managedElements,
+            this.toolbar.managedElements,
+            this.tooltip.managedElements,
+            this.dates.managedComponents,
+        ];
+        containers.forEach((e) => {
+            for (const element of e) {
+                if (!element.isConnected) {
+                    e.delete(element);
+                }
+            }
+        });
     }
 }
 /**

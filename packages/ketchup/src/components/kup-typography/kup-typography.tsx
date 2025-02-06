@@ -36,6 +36,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     assetsDirs: ['assets/fonts'],
@@ -160,6 +161,7 @@ export class KupTypography {
             );
             this.kupManager.removeClickCallback(this.#clickCbDropCard);
             this.toolbarList.remove();
+            this.kupManager.dynamicPosition.unregister([this.toolbarList]);
             this.toolbarList = null;
         }
     }
@@ -188,15 +190,13 @@ export class KupTypography {
         this.rootElement.shadowRoot.appendChild(this.toolbarList);
         requestAnimationFrame(() => {
             this.kupManager.dynamicPosition.register(
-                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.toolbarList,
                 this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
                 0,
                 KupDynamicPositionPlacement.AUTO,
                 true
             );
-            this.kupManager.dynamicPosition.start(
-                this.toolbarList as unknown as KupDynamicPositionElement
-            );
+            this.kupManager.dynamicPosition.start(this.toolbarList);
         });
     }
 
@@ -297,5 +297,8 @@ export class KupTypography {
     }
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+        if (this.toolbarList) {
+            this.kupManager.dynamicPosition.unregister([this.toolbarList]);
+        }
     }
 }

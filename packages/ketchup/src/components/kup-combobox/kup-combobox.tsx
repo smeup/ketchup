@@ -254,6 +254,7 @@ export class KupCombobox {
     onKupIconClick() {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
+            this.#listEl?.setBlur();
         } else {
             this.#openList();
             this.kupIconClick.emit({
@@ -263,6 +264,7 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
+            this.#listEl?.setFocus();
         }
     }
 
@@ -422,6 +424,14 @@ export class KupCombobox {
     async setValue(value: string, valueDecode?: string) {
         this.#consistencyCheck(value, valueDecode, true);
     }
+    /**
+     * Calls closeList method (acts like a reset).
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async reset() {
+        this.#closeList();
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -513,8 +523,8 @@ export class KupCombobox {
     #prepList() {
         return (
             <kup-list
+                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 {...this.data['kup-list']}
-                displayMode={this.displayMode}
                 is-menu
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false

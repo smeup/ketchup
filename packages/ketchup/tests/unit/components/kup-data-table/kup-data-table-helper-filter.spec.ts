@@ -52,7 +52,6 @@ describe('kup datatable filtering rows', () => {
                 FLD1: {
                     textField: 'clearly fake filter',
                     checkBoxes: [],
-                    interval: ['', ''],
                 },
             },
             '',
@@ -67,7 +66,7 @@ describe('kup datatable filtering rows', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
-                FLD1: { textField: 'fra', checkBoxes: [], interval: ['', ''] },
+                FLD1: { textField: 'fra', checkBoxes: [] },
             },
             '',
             displayedColumns
@@ -81,8 +80,8 @@ describe('kup datatable filtering rows', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
-                FLD1: { textField: 'fra', checkBoxes: [], interval: ['', ''] },
-                FLD2: { textField: '', checkBoxes: [], interval: ['12', '12'] },
+                FLD1: { textField: 'fra', checkBoxes: [] },
+                FLD2: { textField: `'12'`, checkBoxes: [] },
             },
             '',
             displayedColumns
@@ -119,8 +118,8 @@ describe('kup datatable filtering rows', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
-                FLD1: { textField: 'cas', checkBoxes: [], interval: ['', ''] },
-                FLD2: { textField: '', checkBoxes: [], interval: ['12', '12'] },
+                FLD1: { textField: 'cas', checkBoxes: [] },
+                FLD2: { textField: `'12'`, checkBoxes: [] },
             },
             'fra',
             displayedColumns
@@ -141,7 +140,6 @@ describe('kup datatable filtering rows', () => {
                     [columnToFilterOn]: {
                         textField: "''",
                         checkBoxes: [],
-                        interval: ['', ''],
                     },
                 },
                 '',
@@ -224,7 +222,6 @@ describe('kup datatable filtering rows', () => {
                             [columnToFilterOn]: {
                                 textField: completeFilter,
                                 checkBoxes: [],
-                                interval: ['', ''],
                             },
                         },
                         '',
@@ -265,7 +262,7 @@ describe('kup datatable filtering rows', () => {
                         }
 
                         let compareResult = compareFunction(
-                            row.cells[columnToFilterOn].value,
+                            row.cells[columnToFilterOn].value ?? '',
                             filterText
                         );
                         if (
@@ -339,7 +336,7 @@ describe('kup datatable filtering rows', () => {
                         ) {
                             if (cells && cells[displayedColumns[i].name]) {
                                 foundItem = compareFunction(
-                                    cells[displayedColumns[i].name].value,
+                                    cells[displayedColumns[i].name].value ?? '',
                                     filterText
                                 );
                             }

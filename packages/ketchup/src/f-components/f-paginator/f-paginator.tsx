@@ -1,5 +1,8 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { KupListNode } from '../../components/kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListNode,
+} from '../../components/kup-list/kup-list-declarations';
 import {
     KupLanguageGeneric,
     KupLanguagePage,
@@ -21,7 +24,11 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     props: FPaginatorProps
 ) => {
     if (!props.perPage) {
-        props.perPage = 10;
+        props.perPage = 1000;
+    }
+
+    if (props.perPage > props.max) {
+        props.perPage = props.max;
     }
     const maxNumberOfPage = Math.ceil(props.max / props.perPage);
     const pageItems = getPageItems(props, maxNumberOfPage);
@@ -29,6 +36,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataPageSelector = {
         'kup-list': {
             data: pageItems,
+            displayMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label: dom.ketchup.language.translate(KupLanguagePage.PAGE),
@@ -39,11 +47,13 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             inputType: 'number',
             max: maxNumberOfPage,
             min: 1,
+            size: 5,
         },
     };
     const dataRowsSelector = {
         'kup-list': {
             data: rowsPerPageItems,
+            displayMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label:
@@ -57,6 +67,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             inputType: 'number',
             max: props.max,
             min: 1,
+            size: 5,
         },
     };
     return (
@@ -83,15 +94,26 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             <kup-combobox
                 class="rows-selector"
                 data={dataRowsSelector}
+                displayMode={ItemsDisplayMode.CODE}
                 initialValue={props.perPage.toString()}
+                initialValueDecode={props.perPage.toString()}
                 onkup-combobox-change={props.onRowsChange}
             />
             <kup-combobox
                 class="page-selector"
                 data={dataPageSelector}
+                displayMode={ItemsDisplayMode.CODE}
                 initialValue={props.currentPage.toString()}
+                initialValueDecode={props.currentPage.toString()}
                 onkup-combobox-change={props.onPageChange}
             />
+            {props.showMaxPages ? (
+                <div class="max-page-wrapper">
+                    <label htmlFor="page-selector">
+                        {'/ ' + maxNumberOfPage}
+                    </label>
+                </div>
+            ) : null}
             <div class="arrow-wrapper">
                 {props.mode !== FPaginatorMode.SIMPLE ? (
                     <FButton
@@ -135,13 +157,14 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
 
 function getRowsItems(props: FPaginatorProps) {
     const rowsPerPageItems: KupListNode[] = [];
+    const max = Math.min(props.max, props.maxRowsPerPage);
     let i = props.perPage;
 
     if (i === 0) {
         return rowsPerPageItems;
     }
 
-    while (i < props.max) {
+    while (i < max) {
         const selected = i == props.perPage;
         rowsPerPageItems.push({
             id: i.toString(),
@@ -151,11 +174,11 @@ function getRowsItems(props: FPaginatorProps) {
         i = i * 2;
     }
 
-    const selected = props.max == props.perPage;
+    const selected = max == props.perPage;
     rowsPerPageItems.push({
-        id: props.max.toString(),
+        id: max.toString(),
         selected: selected,
-        value: props.max.toString(),
+        value: max.toString(),
     });
 
     return rowsPerPageItems;

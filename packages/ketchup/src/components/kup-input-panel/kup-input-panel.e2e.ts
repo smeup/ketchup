@@ -291,7 +291,7 @@ describe('kup-input-panel', () => {
         expect(listOptions).toHaveLength(data.rows[0].cells.NAT.options.length);
 
         const firstOptionValue = await listOptions[0].find('span');
-        expect(firstOptionValue).toEqualText('Italy');
+        expect(firstOptionValue).toEqualText('ITA - Italy');
         await firstOptionValue.click();
 
         const updatedValue = await input.getProperty('value');
@@ -1983,5 +1983,104 @@ describe('kup-input-panel', () => {
 
         const buttons = await commands.findAll('kup-dropdown-button');
         expect(buttons.length).toBe(1);
+    });
+
+    it('render inputpanel with a textarea with fixed dimensions', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                // {
+                //     name: 'NAM',
+                //     title: 'Name',
+                //     visible: true,
+                //     maxLength: 50,
+                // },
+                {
+                    name: 'SUR',
+                    title: 'Surname',
+                    visible: true,
+                    maxLength: 1000,
+                    length: 1000,
+                },
+                {
+                    name: 'NOT',
+                    title: 'Note Evasione',
+                    visible: true,
+                    maxLength: 1000,
+                    length: 1000,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        // NAM: {
+                        //     value: '',
+                        //     editable: true,
+                        //     shape: 'ITX',
+                        // },
+                        SUR: {
+                            value: '',
+                            editable: true,
+                            data: {
+                                size: 1000,
+                                maxLength: 1000,
+                            },
+                            shape: 'ITX',
+                        },
+                        NOT: {
+                            value: '',
+                            editable: true,
+                            data: {
+                                size: 1000,
+                                maxLength: 1000,
+                            },
+
+                            shape: 'ITX',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const form = await page.find(
+            'kup-input-panel >>> form.input-panel-form'
+        );
+        expect(form).not.toBeNull();
+
+        const textFields = await form.findAll(
+            '.f-cell.string-cell .f-text-field'
+        );
+        expect(textFields).toHaveLength(data.columns.length);
+
+        for (const [i, textField] of textFields.entries()) {
+            const container = await textField.find(
+                '.mdc-text-field--textarea--small'
+            );
+            expect(container).not.toBeNull;
+            const minHeight = (await container.getComputedStyle()).minHeight;
+
+            const minWidth = (await container.getComputedStyle()).minWidth;
+
+            expect(minHeight).toEqual('200px');
+            expect(minWidth).toEqual('300px');
+
+            const label = await textField.find('label');
+            expect(label).not.toBeNull();
+            expect(label).toHaveClass('mdc-label');
+            expect(label).toEqualText(data.columns[i].title);
+
+            const input = await textField.find('textarea');
+            expect(input).not.toBeNull();
+            const value = await input.getProperty('value');
+            expect(value).toBe('');
+            // expect(input).toHaveClass('mdc-text-field--textarea--small');
+        }
     });
 });

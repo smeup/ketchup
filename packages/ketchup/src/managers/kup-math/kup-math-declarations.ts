@@ -34,3 +34,7 @@ export interface NumericFieldFormatOptions {
     allowNegative: boolean;
     group: boolean;
 }
+
+export enum KupMathFormulaResult {
+    IMPOSSIBILE_OPERATION = '---',
+}

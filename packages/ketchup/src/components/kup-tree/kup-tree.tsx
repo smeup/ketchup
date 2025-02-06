@@ -45,7 +45,11 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-import { getColumnByName } from '../../utils/cell-utils';
+import {
+    getColumnByName,
+    getValueForDisplay,
+    isNegativeNumber,
+} from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -78,6 +82,7 @@ import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarati
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -287,11 +292,14 @@ export class KupTree {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-
     /**
      * The mode of the global filter (default SIMPLE)
      */
     @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
+    /**
+     * The max-height of a tree
+     */
+    @Prop() treeHeight: string = undefined;
     /**
      * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells.
      * It works only on cells of the main column.
@@ -365,7 +373,7 @@ export class KupTree {
     private treeWrapperRef: KupScrollOnHoverElement;
     private clickTimeout: any[] = [];
     private globalFilterTimeout: number;
-    private footer: { [index: string]: number };
+    private footer: { [index: string]: string };
     private sizedColumns: KupDataColumn[] = undefined;
     columnFilterTimeout: number;
     private columnMenuInstance: KupColumnMenu;
@@ -1903,28 +1911,28 @@ export class KupTree {
                     );
                 }
 
-                let value;
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = this.footer[column.name];
-                } else {
-                    value = this.#kupManager.math.numberToFormattedString(
-                        this.footer[column.name],
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
-                }
+                const totalValue =
+                    this.footer[column.name] != null
+                        ? getValueForDisplay(
+                              this.footer[column.name],
+                              column.obj,
+                              column.decimals
+                          )
+                        : '';
+                const totalsClass = `totals-value ${
+                    isNegativeNumber(this.footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
+                }`;
 
                 return (
                     <td data-column={column.name}>
                         {totalMenu}
                         <span
-                            class="totals-value"
+                            class={totalsClass}
                             title={translation[menuLabel]}
                         >
-                            {value}
+                            {totalValue}
                         </span>
                     </td>
                 );
@@ -2099,9 +2107,9 @@ export class KupTree {
         this.#kupManager.debug.logRender(this, false);
         if (this.showFooter && this.columns) {
             this.footer = calcTotals(
+                this.totals,
                 this.getColumns(),
-                normalizeRows(this.getColumns(), this.nodesToRows()),
-                this.totals
+                normalizeRows(this.getColumns(), this.nodesToRows())
             );
         }
         this.filterNodes();
@@ -2144,7 +2152,16 @@ export class KupTree {
         this.contentRefs = [];
 
         this.sizedColumns = this.getSizedColumns();
+
         let wrapperClass: string = 'density-medium';
+        const wrapperStyle: Record<string, string> = {
+            ...(this.treeHeight
+                ? {
+                      maxHeight: this.treeHeight,
+                      overflow: 'auto',
+                  }
+                : {}),
+        };
         switch (this.density) {
             case FCellPadding.DENSE:
                 wrapperClass = 'density-dense';
@@ -2213,7 +2230,11 @@ export class KupTree {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} class={wrapperClass}>
+                <div
+                    id={componentWrapperId}
+                    class={wrapperClass}
+                    style={wrapperStyle}
+                >
                     {filterField}
                     <div
                         class="wrapper"
@@ -2251,9 +2272,10 @@ export class KupTree {
     }
 
     disconnectedCallback() {
-        this.#kupManager.language.register(this);
+        this.#kupManager.language.unregister(this);
         this.#kupManager.resize.unobserve(this.rootElement);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.interact.unregister([this.treeWrapperRef]);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'

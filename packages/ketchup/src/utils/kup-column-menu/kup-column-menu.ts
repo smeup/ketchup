@@ -39,7 +39,7 @@ import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from '../filters/filters';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
-    FilterInterval,
+    FILTER_ANALYZER,
     GenericFilter,
     ValueDisplayedValue,
 } from '../filters/filters-declarations';
@@ -138,7 +138,7 @@ export class KupColumnMenu {
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
-        data.datepicker = this.prepIntervalDatePicker(comp, column);
+        data.datepicker = this.prepDatePicker(comp, column);
         data.object = column.objs
             ? column.objs
             : column.obj
@@ -150,7 +150,7 @@ export class KupColumnMenu {
             data.text = [column.title];
         }
         data.textfield = this.prepTextfield(comp, column);
-        data.timepicker = this.prepIntervalTimePicker(comp, column);
+        data.timepicker = this.prepTimePicker(comp, column);
         return data;
     }
     /**
@@ -447,12 +447,8 @@ export class KupColumnMenu {
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (comp.showFilters) {
-            if (
-                this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                    column
-                )
-            ) {
-                props = props.concat(this.prepIntervalTextfield(comp, column));
+            if (this.filtersColumnMenuInstance.isColumnNumeric(column)) {
+                props = props.concat(this.prepNumericTextfield(comp, column));
             } else if (dom.ketchup.objects.isStringObject(column.obj)) {
                 let filterInitialValue =
                     this.filtersColumnMenuInstance.getTextFilterValue(
@@ -502,12 +498,12 @@ export class KupColumnMenu {
     }
 
     /**
-     * Handles the column menu's interval textfields props (number column type).
+     * Handles the column menu's textfields props (number column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Text fields props.
      */
-    prepIntervalTextfield(
+    prepNumericTextfield(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -519,54 +515,35 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval =
-            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+        let filterInitialValue =
+            this.filtersColumnMenuInstance.getTextFilterValue(
                 comp.filters,
-                column
+                column.name
             );
-        let initialValueFrom = interval[FilterInterval.FROM];
-        let initialValueTo = interval[FilterInterval.TO];
 
         props.push({
             'data-storage': {
                 column: column,
-                intervalIndex: FilterInterval.FROM,
-                isInterval: true,
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: KupColumnMenuIds.TEXTFIELD_FROM,
-            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
-            initialValue: initialValueFrom,
+            id: KupColumnMenuIds.TEXTFIELD_FILTER,
+            key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
+            initialValue: filterInitialValue,
             isClearable: true,
-            label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
-            trailingIcon: true,
-        });
-        props.push({
-            'data-storage': {
-                column: column,
-                intervalIndex: FilterInterval.TO,
-                isInterval: true,
-            },
-            fullWidth: true,
-            helperWhenFocused: true,
-            id: KupColumnMenuIds.TEXTFIELD_TO,
-            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
-            initialValue: initialValueTo,
-            isClearable: true,
-            label: dom.ketchup.language.translate(KupLanguageSearch.TO),
+            label: dom.ketchup.language.translate(KupLanguageSearch.SEARCH),
             trailingIcon: true,
         });
 
         return props;
     }
     /**
-     * Handles the column menu's interval timepicker props (time column type).
+     * Handles the column menu's timepicker props (time column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Time picker fields props.
      */
-    prepIntervalTimePicker(
+    prepTimePicker(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -578,64 +555,44 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval =
-            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+        let filterInitialValue =
+            this.filtersColumnMenuInstance.getTextFilterValue(
                 comp.filters,
-                column
+                column.name
             );
-        let initialValueFrom = interval[FilterInterval.FROM];
-        let initialValueTo = interval[FilterInterval.TO];
 
         props.push({
             'data-storage': {
                 column: column,
-                intervalIndex: FilterInterval.FROM,
-                isInterval: true,
             },
+            appendSelection: true,
             data: {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
                     isClearable: true,
+                    size: 30,
+                    maxLength: 30,
                     label: dom.ketchup.language.translate(
-                        KupLanguageSearch.FROM
+                        KupLanguageSearch.SEARCH
                     ),
                 },
             },
-            id: KupColumnMenuIds.TEXTFIELD_FROM,
-            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
-            initialValue: initialValueFrom,
-            manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
-        });
-        props.push({
-            'data-storage': {
-                column: column,
-                intervalIndex: FilterInterval.TO,
-                isInterval: true,
-            },
-            data: {
-                'kup-text-field': {
-                    fullWidth: true,
-                    helperWhenFocused: true,
-                    isClearable: true,
-                    label: dom.ketchup.language.translate(KupLanguageSearch.TO),
-                },
-            },
-            id: KupColumnMenuIds.TEXTFIELD_TO,
-            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
-            initialValue: initialValueTo,
+            id: KupColumnMenuIds.TEXTFIELD_FILTER,
+            key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
+            initialValue: filterInitialValue,
             manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
 
         return props;
     }
     /**
-     * Handles the column menu's interval datepicker props (date/timestamp column type).
+     * Handles the column menu's datepicker props (date/timestamp column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Date picker fields props.
      */
-    prepIntervalDatePicker(
+    prepDatePicker(
         comp: KupDataTable | KupTree,
         column: KupDataColumn
     ): GenericObject[] {
@@ -650,70 +607,32 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval =
-            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+        let filterInitialValue =
+            this.filtersColumnMenuInstance.getTextFilterValue(
                 comp.filters,
-                column
+                column.name
             );
-        let initialValueFrom = interval[FilterInterval.FROM];
-        let initialValueTo = interval[FilterInterval.TO];
-
-        let suffixFrom = null;
-        let suffixTo = null;
-        if (dom.ketchup.objects.isTimestamp(column.obj)) {
-            suffixFrom = ' 00:00:00';
-            suffixTo = ' 23:59:59';
-            if (initialValueFrom && initialValueFrom.length >= 10) {
-                initialValueFrom = initialValueFrom.substring(0, 10);
-            } else {
-                initialValueFrom = '';
-            }
-            if (initialValueTo && initialValueTo.length >= 10) {
-                initialValueTo = initialValueTo.substring(0, 10);
-            } else {
-                initialValueTo = '';
-            }
-        }
 
         props.push({
             'data-storage': {
                 column: column,
-                suffix: suffixFrom,
-                intervalIndex: FilterInterval.FROM,
-                isInterval: true,
             },
+            appendSelection: true,
             data: {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
                     isClearable: true,
+                    size: 30,
+                    maxLength: 30,
                     label: dom.ketchup.language.translate(
-                        KupLanguageSearch.FROM
+                        KupLanguageSearch.SEARCH
                     ),
                 },
             },
-            id: KupColumnMenuIds.TEXTFIELD_FROM,
-            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
-            initialValue: initialValueFrom,
-        });
-        props.push({
-            'data-storage': {
-                column: column,
-                suffix: suffixTo,
-                intervalIndex: FilterInterval.TO,
-                isInterval: true,
-            },
-            data: {
-                'kup-text-field': {
-                    fullWidth: true,
-                    helperWhenFocused: true,
-                    isClearable: true,
-                    label: dom.ketchup.language.translate(KupLanguageSearch.TO),
-                },
-            },
-            id: KupColumnMenuIds.TEXTFIELD_TO,
-            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
-            initialValue: initialValueTo,
+            id: KupColumnMenuIds.TEXTFIELD_FILTER,
+            key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
+            initialValue: filterInitialValue,
         });
 
         return props;
@@ -791,15 +710,7 @@ export class KupColumnMenu {
                     case 'kup-textfield-cleariconclick':
                     case 'kup-datepicker-cleariconclick':
                     case 'kup-timepicker-cleariconclick':
-                        if (dataStorage['isInterval'] == true) {
-                            this.intervalChange(
-                                comp,
-                                null,
-                                dataStorage['column'],
-                                dataStorage['intervalIndex'],
-                                false
-                            );
-                        } else {
+                        {
                             this.textfieldChange(
                                 comp,
                                 null,
@@ -815,16 +726,7 @@ export class KupColumnMenu {
                     case 'kup-timepicker-itemclick':
                         window.clearTimeout(comp.columnFilterTimeout);
                         comp.columnFilterTimeout = window.setTimeout(() => {
-                            if (dataStorage['isInterval'] == true) {
-                                this.intervalChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column'],
-                                    dataStorage['intervalIndex'],
-                                    !isClickEvent,
-                                    dataStorage['suffix']
-                                );
-                            } else {
+                            {
                                 this.textfieldChange(
                                     comp,
                                     compEvent.detail.value,
@@ -897,11 +799,7 @@ export class KupColumnMenu {
                 break;
         }
         //#endregion
-        if (
-            card.data?.checkbox &&
-            !dataStorage?.['isInterval'] &&
-            dataStorage?.['column']
-        ) {
+        if (card.data?.checkbox && dataStorage?.['column']) {
             card.data.checkbox = this.prepCheckbox(comp, dataStorage['column']);
             card.refresh();
         }
@@ -922,51 +820,20 @@ export class KupColumnMenu {
         }
         let newFilter = '';
         if (value) {
-            newFilter = this.filtersColumnMenuInstance.normalizeValue(
-                value.trim(),
-                column.obj
-            );
+            if (!value.match(FILTER_ANALYZER)) {
+                newFilter = this.filtersColumnMenuInstance.normalizeValue(
+                    value.trim(),
+                    column.obj
+                );
+            } else {
+                newFilter = value;
+            }
         }
         const newFilters: GenericFilter = { ...comp.filters };
         this.filtersColumnMenuInstance.setTextFieldFilterValue(
             newFilters,
             column.name,
             newFilter
-        );
-        comp.filters = newFilters;
-    }
-
-    intervalChange(
-        comp: KupDataTable | KupTree,
-        value: string,
-        column: KupDataColumn,
-        index: FilterInterval,
-        needNormalize: boolean,
-        suffix?: string
-    ): void {
-        if (!FiltersColumnMenu.isTree(comp)) {
-            comp.resetCurrentPage();
-        }
-        let newFilter = '';
-        if (value) {
-            newFilter = value.trim();
-            if (needNormalize) {
-                newFilter = this.filtersColumnMenuInstance.normalizeValue(
-                    newFilter,
-                    column.obj
-                );
-            }
-            if (suffix != null && newFilter != '') {
-                newFilter = newFilter + suffix;
-            }
-        }
-
-        const newFilters: GenericFilter = { ...comp.filters };
-        this.filtersColumnMenuInstance.setIntervalTextFieldFilterValue(
-            newFilters,
-            column.name,
-            newFilter,
-            index
         );
         comp.filters = newFilters;
     }

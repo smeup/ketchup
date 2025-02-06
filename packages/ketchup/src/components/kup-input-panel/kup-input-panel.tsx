@@ -60,6 +60,8 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    CheckConditionsByEventType,
+    CheckTriggeringEvents,
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
@@ -95,7 +97,6 @@ import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import {
     KupDataColumn,
-    KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 
@@ -197,6 +198,12 @@ export class KupInputPanel {
      */
     @Prop() autoSkip?: boolean = false;
 
+    /**
+     * When set to true, checkbox will call update
+     * @default false
+     */
+    @Prop() updateOnClick: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -246,23 +253,17 @@ export class KupInputPanel {
 
     #originalData: KupInputPanelData = null;
 
-    #eventNames = new Map<FCellTypes, string[]>([
-        [
-            FCellTypes.AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [
-            FCellTypes.MULTI_AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
-        [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
-    ]);
-
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
+    ]);
+    #cellTypesNeedingReset: Map<FCellTypes, string> = new Map<
+        FCellTypes,
+        string
+    >([
+        [FCellTypes.COMBOBOX, 'kup-combobox'],
+        [FCellTypes.AUTOCOMPLETE, 'kup-autocomplete'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -293,6 +294,8 @@ export class KupInputPanel {
         [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
     ]);
     #keysShortcut: string[] = [];
+    #readyPromise: Promise<void>;
+    #readyResolve: () => void;
     //#endregion
 
     //#region WATCHERS
@@ -326,6 +329,14 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    /**
+     * Public method to wait until the component is fully ready.
+     */
+    @Method()
+    async waitForReady(): Promise<void> {
+        return this.#readyPromise;
+    }
 
     /**
      * Used to retrieve component's props values.
@@ -1095,20 +1106,20 @@ export class KupInputPanel {
                     cell,
                     cell.shape
                 );
-                const componentQuery = this.#cellTypeComponents.get(cellType);
-                if (!componentQuery) {
-                    return;
-                }
+                const queryCompSetValue =
+                    this.#cellTypeComponents.get(cellType);
+                const queryCompNeedsReset =
+                    this.#cellTypesNeedingReset.get(cellType);
 
-                const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id='${column.name.replace(
-                        /\//g,
-                        '\\$1'
-                    )}']`
-                );
-                if (cell.value) {
-                    el?.setValue(cell.value);
-                }
+                if (!queryCompSetValue && !queryCompNeedsReset) return;
+
+                const selector =
+                    (queryCompSetValue ?? queryCompNeedsReset) +
+                    `[id='${column.name.replace(/\//g, '\\$1')}']`;
+                const el: any =
+                    this.rootElement.shadowRoot.querySelector(selector);
+
+                queryCompNeedsReset ? el?.reset() : el?.setValue?.(cell.value);
             })
         );
 
@@ -1251,7 +1262,7 @@ export class KupInputPanel {
         const adapter = dataAdapterMap.get(cellType);
 
         return adapter
-            ? adapter(options, fieldLabel, currentValue, cell, col.name)
+            ? adapter(options, fieldLabel, currentValue, cell, col.name, layout)
             : null;
     }
 
@@ -1502,7 +1513,8 @@ export class KupInputPanel {
         _fieldLabel: string,
         _value: string,
         cell: KupInputPanelCell,
-        id: string
+        id: string,
+        layout: KupInputPanelLayout
     ) {
         try {
             let data = JSON.parse(cell.value);
@@ -1553,7 +1565,8 @@ export class KupInputPanel {
                                     data: {
                                         ...this.#mapData(
                                             row.cells[key],
-                                            column
+                                            column,
+                                            layout
                                         ),
                                         disabled:
                                             row.cells[key].editable === false,
@@ -1761,10 +1774,17 @@ export class KupInputPanel {
         });
     }
 
-    async #onBlurHandler(e: CustomEvent<FCellEventPayload>) {
+    async #manageInputPanelCheck(
+        e: CustomEvent<FCellEventPayload>,
+        eventType: CheckTriggeringEvents
+    ) {
         const {
             detail: { column, cell },
         } = e;
+
+        if (CheckConditionsByEventType[eventType](cell?.shape)) {
+            return;
+        }
 
         const currCell = this.#getCell(column.name);
         const originalCell = this.#originalData.rows[0].cells[column.name];
@@ -1817,6 +1837,35 @@ export class KupInputPanel {
         }
 
         if (cell.inputSettings?.checkValueOnExit && this.#areValuesUpdated()) {
+            this.checkValidValueCallback(
+                {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                column.name
+            );
+        }
+    }
+
+    #onCellUpdate({
+        detail: { cell, column },
+    }: CustomEvent<FCellEventPayload>) {
+        if (
+            cell.shape !== FCellShapes.CHECKBOX &&
+            cell.shape !== FCellShapes.SWITCH
+        ) {
+            return;
+        }
+
+        if (this.updateOnClick) {
+            this.submitCb({
+                value: {
+                    before: { ...this.#originalData },
+                    after: this.#reverseMapCells(),
+                },
+                cell: column.name,
+            });
+        } else if (cell.inputSettings?.checkValueOnExit) {
             this.checkValidValueCallback(
                 {
                     before: { ...this.#originalData },
@@ -2039,6 +2088,12 @@ export class KupInputPanel {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
+    connectedCallback() {
+        this.#readyPromise = new Promise((resolve) => {
+            this.#readyResolve = resolve;
+        });
+    }
+
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
@@ -2066,6 +2121,12 @@ export class KupInputPanel {
             }
         }
 
+        requestAnimationFrame(async () => {
+            if (this.#formRef && this.#readyResolve) {
+                this.#readyResolve();
+                this.#readyResolve = null;
+            }
+        });
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -2085,7 +2146,10 @@ export class KupInputPanel {
 
         return (
             <Host
-                onKup-cell-blur={this.#onBlurHandler.bind(this)}
+                onKup-cell-blur={(e) =>
+                    this.#manageInputPanelCheck(e, CheckTriggeringEvents.BLUR)
+                }
+                onKup-cell-update={this.#onCellUpdate.bind(this)}
                 onKup-tabbar-click={(e: CustomEvent<KupTabBarEventPayload>) => {
                     this.tabSelected = e.detail.node.id;
                 }}
@@ -2093,6 +2157,12 @@ export class KupInputPanel {
                 onKup-autocomplete-iconclick={this.#getOptionHandler.bind(this)}
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
+                }
+                onKup-cell-itemclick={(e) =>
+                    this.#manageInputPanelCheck(
+                        e,
+                        CheckTriggeringEvents.ITEMCLICK
+                    )
                 }
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>
