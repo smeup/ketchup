@@ -150,12 +150,14 @@ function onKupBlur(component: KupCard) {
 function createClock(component: KupCard) {
     let selectedTime: Date;
     if (getValue(component)) {
-        selectedTime = dom.ketchup.dates.toDate(
-            getValue(component),
-            isManageSeconds(component)
-                ? KupDatesFormats.ISO_TIME
-                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-        );
+        selectedTime = dom.ketchup.dates
+            .toDayjs(
+                getValue(component),
+                isManageSeconds(component)
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+            )
+            .toDate();
     } else {
         selectedTime = new Date();
     }
