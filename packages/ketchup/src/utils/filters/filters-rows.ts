@@ -139,21 +139,31 @@ export class FiltersRows extends Filters {
             return true;
         }
 
-        let keys = Object.keys(filters);
-        // Filters
-        for (let i = 0; i < keys.length; i++) {
-            let key: string = keys[i];
+        console.log('filters', filters);
 
+        // Filters must match for every key in filters
+        return Object.keys(filters).every((key) => {
             const cell = cells[key];
             if (!cell) {
                 return false;
             }
 
             let filterValue = columnFilters.getTextFilterValue(filters, key);
+            let checkboxValues = columnFilters.getCheckBoxFilterValues(
+                filters,
+                key
+            );
 
+            console.log('debug');
             const _filterIsNegative: boolean =
                 this.filterIsNegative(filterValue);
-            let b1 = this.isFilterCompliantForCell(cell, filterValue);
+            let b1 =
+                (filterValue != '' &&
+                    this.isFilterCompliantForCell(cell, filterValue)) ||
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.value)
+                );
+
             let b2 = _filterIsNegative;
             if (
                 !kupObjects.isNumber(cell.obj) &&
@@ -161,56 +171,20 @@ export class FiltersRows extends Filters {
                 !kupObjects.isTime(cell.obj) &&
                 !kupObjects.isTimestamp(cell.obj)
             ) {
-                b2 = this.isFilterCompliantForCellObj(cell, filterValue);
+                b2 =
+                    (filterValue != '' &&
+                        this.isFilterCompliantForCellObj(cell, filterValue)) ||
+                    checkboxValues.some((f) =>
+                        this.isFilterCompliantForCellObj(cell, f.value)
+                    );
             }
 
             if (_filterIsNegative) {
-                if (!b1 || !b2) {
-                    return false;
-                }
+                return b1 && b2;
             } else {
-                if (!b1 && !b2) {
-                    return false;
-                }
+                return b1 || b2;
             }
-
-            let filterValues = columnFilters.getCheckBoxFilterValues(
-                filters,
-                key
-            );
-            if (filterValues.length == 0) {
-                continue;
-            }
-            let retValue = false;
-            for (let i = 0; i < filterValues.length; i++) {
-                let fv = filterValues[i];
-                if (fv == null || fv.value == null) {
-                    continue;
-                }
-                if (cell.value != null) {
-                    if (
-                        cell.value.toLowerCase().trim() ==
-                        fv.value.toLowerCase().trim()
-                    ) {
-                        retValue = true;
-                        break;
-                    }
-                }
-                if (cell.obj != null) {
-                    if (
-                        cell.obj.k.toLowerCase().trim() ==
-                        fv.value.toLowerCase().trim()
-                    ) {
-                        retValue = true;
-                        break;
-                    }
-                }
-            }
-            if (!retValue) {
-                return false;
-            }
-        }
-        return true;
+        });
     }
 
     hasFilters(
