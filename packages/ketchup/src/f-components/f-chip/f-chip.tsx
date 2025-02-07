@@ -189,6 +189,18 @@ function createChipList(
                     </span>
                 );
             }
+
+            let chipText: string = '';
+            if (props.displayId) {
+                if (chip.value) {
+                    chipText = chip.id + ' - ' + chip.value;
+                } else {
+                    chipText = chip.id;
+                }
+            } else {
+                chipText = chip.value;
+            }
+
             return (
                 <div
                     class={componentClass}
@@ -228,11 +240,7 @@ function createChipList(
                                     : null
                             }
                         >
-                            <span class="chip__text">
-                                {props.displayId
-                                    ? chip.id + ' - ' + chip.value
-                                    : chip.value}
-                            </span>
+                            <span class="chip__text">{chipText}</span>
                         </span>
                     </span>
                     {isInput ? (

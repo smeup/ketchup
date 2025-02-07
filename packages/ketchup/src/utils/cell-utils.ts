@@ -6,7 +6,7 @@ import {
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
-import { GenericObject } from '../components';
+import { GenericObject, KupChipNode } from '../components';
 import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
 import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
@@ -305,14 +305,27 @@ export const CHKAdapter = (value: string, label: string) => ({
     label,
 });
 
-export const CHIAdapter = (value: string) => ({
-    data: value?.length
-        ? value
-              .split(';')
-              .map((v) => ({ id: v, value: v }))
-              .filter((value) => !!value)
-        : null,
-});
+export const CHIAdapter = (value: string, decode: string) => {
+    if (!value?.length) {
+        return { data: null };
+    }
+
+    const chipNodes: KupChipNode[] = [];
+    const values = value?.length ? value.split(';') : [];
+    const decodes = decode?.length ? decode.split(';') : [];
+
+    for (let i = 0; i < values.length; i++) {
+        values;
+        chipNodes.push({
+            id: values[i],
+            value: decodes[i],
+        });
+    }
+
+    return {
+        data: chipNodes.filter((value) => !!value),
+    };
+};
 
 export const submitPositionAdapter = (position: KupCellElementsPosition) => {
     const positionAdapterMap = new Map<KupCellElementsPosition, string>([
