@@ -84,3 +84,12 @@ $kup-dd-draggable: 'kup-draggable'; // Attached to the element being dragged
 $kup-dd-draggable-cell: 'kup-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
 $kup-dd-draggable-column: 'kup-draggable-column'; // Attached to the element being dragged when a column is present in the payload
 $kup-dd-draggable-row: 'kup-draggable-row'; // Attached to the element being dragged when a row is present in the payload
+
+//-----------------------------------------------------//
+//               (CSS) G - C E L L S                   //
+//-----------------------------------------------------//
+
+.G-00600 {
+  background-color: rgb(231, 76, 60) !important;
+  color: black !important;
+}
