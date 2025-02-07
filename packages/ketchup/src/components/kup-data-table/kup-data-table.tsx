@@ -229,6 +229,7 @@ export class KupDataTable {
                 this.showHeader = state.showHeader;
                 this.showLoadMore = state.showLoadMore;
                 this.showPaginator = state.showPaginator;
+                this.hiddenSubmitButton = state.hiddenSubmitButton;
                 this.sortEnabled = state.sortEnabled;
                 this.sort = [...state.sort];
                 this.pageSelected = state.pageSelected;
@@ -432,6 +433,15 @@ export class KupDataTable {
                 )
             ) {
                 this.state.showPaginator = this.showPaginator;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.hiddenSubmitButton,
+                    this.hiddenSubmitButton
+                )
+            ) {
+                this.state.hiddenSubmitButton = this.hiddenSubmitButton;
                 somethingChanged = true;
             }
             if (
@@ -773,12 +783,15 @@ export class KupDataTable {
      * If set to true, displays the button to load more records.
      */
     @Prop() showLoadMore: boolean = false;
-
     /**
      * Set the paginator visibility
      */
     @Prop() showPaginator: boolean = true;
-
+    /**
+     * When set to true, the subimt button is hidden
+     * @default false
+     */
+    @Prop() hiddenSubmitButton: boolean = false;
     /**
      * Defines the current sorting options.
      */
@@ -3142,19 +3155,31 @@ export class KupDataTable {
                         const selectedObject =
                             dropDownActions[selectedObjectIndex];
 
-                        this.kupRowActionItemClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            row: row,
-                            obj: selectedObject.obj,
-                            cell: selectedObject.cell,
-                            type: selectedObject.type,
-                            index: selectedObject.index,
-                            column: selectedObject.column,
-                        });
-                        setTimeout(() => {
-                            this.#closeRowActionsCard();
-                        }, 0);
+                        const dispatchSelection = () => {
+                            this.kupRowActionItemClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                row: row,
+                                obj: selectedObject.obj,
+                                cell: selectedObject.cell,
+                                type: selectedObject.type,
+                                index: selectedObject.index,
+                                column: selectedObject.column,
+                            });
+                            setTimeout(() => {
+                                this.#closeRowActionsCard();
+                            }, 0);
+                        };
+
+                        const rowId = row.id;
+                        if (rowId) {
+                            this.setSelectedRows([row.id], true).then(() => {
+                                dispatchSelection();
+                            });
+                        } else {
+                            // fallback in case the row has no id (should never happen)
+                            dispatchSelection();
+                        }
                 }
             }
         );
@@ -4144,18 +4169,6 @@ export class KupDataTable {
                 default:
                     break;
             }
-        }
-
-        // Manage row selection on rowAction click
-        if (!td) {
-            this.kupRowSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn: null,
-            });
-            return;
         }
 
         // find clicked column
@@ -5588,7 +5601,6 @@ export class KupDataTable {
                                     action.text || action.column?.title || '',
                                     'action',
                                     () => {
-                                        this.#onRowClick(row, null, true);
                                         this.kupRowActionItemClick.emit({
                                             comp: this,
                                             id: this.rootElement.id,
@@ -5617,7 +5629,6 @@ export class KupDataTable {
                                 ),
                                 'expander',
                                 (e) => {
-                                    this.#onRowClick(row, null, true);
                                     this.#onRowActionExpanderClick(
                                         e,
                                         row,
@@ -6506,6 +6517,10 @@ export class KupDataTable {
                 bc?.blur();
                 this.#handleUpdateClick();
             });
+
+            if (this.hiddenSubmitButton) {
+                return;
+            }
             commandButtons.push(
                 <kup-button
                     styling={styling}
@@ -6570,8 +6585,11 @@ export class KupDataTable {
         addConfirmButton();
         addCommands();
         addOperations();
-
-        return <div class="commands">{commandButtons}</div>;
+        return (
+            !!commandButtons.length && (
+                <div class="commands">{commandButtons}</div>
+            )
+        );
     }
 
     render() {

@@ -270,34 +270,58 @@ export class KupChip {
         >
     ) {
         e.stopPropagation();
-        const value = e.detail?.value;
-        const listNode = (e.detail as KupAutocompleteEventPayload).node;
-        if (value) {
-            const node = this.data?.find((node) => node.id === value);
-            if (!node) {
-                const data = this.data && this.data.length ? this.data : [];
+        const data = this.data && this.data.length ? this.data : [];
+        // check event type
+        if ('node' in e.detail) {
+            // autocomplete and combobox handler
+            const node = (
+                e.detail as
+                    | KupAutocompleteEventPayload
+                    | KupComboboxEventPayload
+            ).node;
+            // check if node isn't presents in data
+            if (!this.data?.find((n) => n.id === node.id)) {
                 this.data = [
                     ...data,
                     {
-                        id: listNode ? listNode.id : value,
-                        value: listNode ? listNode.value : value,
+                        id: node.id,
+                        value: node.value,
                     },
                 ];
-                const slot:
-                    | HTMLKupAutocompleteElement
-                    | HTMLKupComboboxElement
-                    | HTMLKupTextFieldElement =
-                    this.rootElement.querySelector('[slot=field]');
-                await slot.setValue('');
-                await slot.refresh();
-                await slot.setFocus();
-                this.kupChange.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    stringifiedValues: this.#stringifiedValues(),
-                });
+                await this.#performChangeEvent();
+            }
+        } else {
+            // texfield handler
+            const value = e.detail?.value;
+            if (value) {
+                // check if value isn't already present in data
+                if (!this.data?.find((n) => n.id === value)) {
+                    this.data = [
+                        ...data,
+                        {
+                            id: value,
+                        },
+                    ];
+                    await this.#performChangeEvent();
+                }
             }
         }
+    }
+
+    async #performChangeEvent() {
+        const slot:
+            | HTMLKupAutocompleteElement
+            | HTMLKupComboboxElement
+            | HTMLKupTextFieldElement =
+            this.rootElement.querySelector('[slot=field]');
+        await slot.setValue('');
+        await slot.refresh();
+        await slot.setFocus();
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            stringifiedValues: this.#stringifiedValues(),
+        });
     }
 
     #stringifiedValues() {

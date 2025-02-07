@@ -1633,6 +1633,11 @@ export namespace Components {
          */
         "headerIsPersistent": boolean;
         /**
+          * When set to true, the subimt button is hidden
+          * @default false
+         */
+        "hiddenSubmitButton": boolean;
+        /**
           * Hides the given column.
           * @param column - Column to hide.
          */
@@ -7474,6 +7479,11 @@ declare namespace LocalJSX {
           * When set to true the header will stick on top of the table when scrolling.
          */
         "headerIsPersistent"?: boolean;
+        /**
+          * When set to true, the subimt button is hidden
+          * @default false
+         */
+        "hiddenSubmitButton"?: boolean;
         /**
           * Enables insert mode.
           * @default '''

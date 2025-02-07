@@ -242,7 +242,8 @@ export class KupDatePicker {
     }
 
     async onKupClearIconClick() {
-        this.setPickerValueSelected('');
+        this.notISOvalue = '';
+        this.ISOvalue = '';
 
         this.kupChange.emit({
             comp: this,
@@ -414,10 +415,6 @@ export class KupDatePicker {
         this.ISOvalue = '';
 
         if (eventDetailValue) {
-            const isValidFilter =
-                this.isAlphanumeric(eventDetailValue) ||
-                eventDetailValue.match(FILTER_ANALYZER);
-
             if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
                 if (!isOnInputEvent) {
                     this.ISOvalue = eventDetailValue;
@@ -426,7 +423,7 @@ export class KupDatePicker {
                     }
                 }
             } else if (
-                !isValidFilter &&
+                !this.isAlphanumeric(eventDetailValue) &&
                 this.kupManager.dates.isValidFormattedStringDate(
                     eventDetailValue
                 )
