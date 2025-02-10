@@ -6,40 +6,33 @@ interface FLabelProps extends FComponent {
     parsing?: boolean;
 }
 
-function parseText(inputText: string): VNode[] {
-    const regex = /_(G_[\w]{5})/g;
-    let elements = [];
+function parseText(text: string): VNode[] {
+    const regex = /_(.*?)_ (.*?) _n_/g;
     let lastIndex = 0;
-    let match: RegExpExecArray;
+    const elements: (VNode | string)[] = [];
 
-    while ((match = regex.exec(inputText)) !== null) {
-        if (match.index > lastIndex) {
-            elements.push(inputText.slice(lastIndex, match.index));
+    text.replace(regex, (match, cssClass, content, offset) => {
+        if (offset > lastIndex) {
+            elements.push(text.slice(lastIndex, offset));
         }
 
-        const className = match[1].replace('_', '-');
-
-        let nextTextStart = regex.lastIndex;
-        let nextMatch = regex.exec(inputText);
-        let spanText = nextMatch
-            ? inputText.slice(nextTextStart, nextMatch.index)
-            : inputText.slice(nextTextStart);
-
+        // Aggiungi lo span
         elements.push(
-            <span class={className} key={match.index}>
-                {spanText}
+            <span class={cssClass} key={offset}>
+                {content}
             </span>
         );
 
-        lastIndex = nextMatch ? nextMatch.index : inputText.length;
-        regex.lastIndex = lastIndex;
+        lastIndex = offset + match.length;
+        return ''; // Necessario per evitare errori di TypeScript
+    });
+
+    // Aggiungi il testo rimanente
+    if (lastIndex < text.length) {
+        elements.push(text.slice(lastIndex));
     }
 
-    if (lastIndex < inputText.length) {
-        elements.push(inputText.slice(lastIndex));
-    }
-
-    return elements;
+    return elements as unknown as VNode[];
 }
 
 export const FLabel: FunctionalComponent<FLabelProps> = ({ parsing, text }) => {
