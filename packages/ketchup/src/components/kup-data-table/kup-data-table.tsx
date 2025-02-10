@@ -6512,10 +6512,8 @@ export class KupDataTable {
             this.#kupManager.keysBinding.register('enter', () => {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
-                if (bc) {
-                    bc?.blur();
-                    this.#handleUpdateClick();
-                }
+                bc?.blur();
+                this.#handleUpdateClick();
             });
 
             if (this.hiddenSubmitButton) {
