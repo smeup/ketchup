@@ -101,13 +101,13 @@ type ParsedElement = {
     closed?: boolean;
 };
 
-type Callbacks = {
+type FormattingEventsListener = {
     onStartTag: (tag: string) => void;
     onEndTag: (tag: string) => void;
     onContent: (content: string) => void;
 };
 
-function parse(input: string, callbacks: Callbacks): void {
+function parse(input: string, listener: FormattingEventsListener): void {
     const regex = /(_(\w+)_|_n_)/g;
     let lastIndex = 0;
     let match: RegExpExecArray;
@@ -115,13 +115,13 @@ function parse(input: string, callbacks: Callbacks): void {
     while ((match = regex.exec(input)) !== null) {
         // Capture text before the match
         if (match.index > lastIndex) {
-            callbacks.onContent(input.slice(lastIndex, match.index));
+            listener.onContent(input.slice(lastIndex, match.index));
         }
 
         if (match[1] === '_n_') {
-            callbacks.onEndTag(match[1]);
+            listener.onEndTag(match[1]);
         } else {
-            callbacks.onStartTag(match[2]);
+            listener.onStartTag(match[2]);
         }
 
         lastIndex = regex.lastIndex;
@@ -129,7 +129,7 @@ function parse(input: string, callbacks: Callbacks): void {
 
     // Capture remaining content
     if (lastIndex < input.length) {
-        callbacks.onContent(input.slice(lastIndex));
+        listener.onContent(input.slice(lastIndex));
     }
 }
 
