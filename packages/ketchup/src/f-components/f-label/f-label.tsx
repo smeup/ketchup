@@ -1,38 +1,97 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { FComponent } from '../../types/GenericTypes';
+import { content } from 'html2canvas/dist/types/css/property-descriptors/content';
 
 interface FLabelProps extends FComponent {
     text: string;
     parsing?: boolean;
 }
 
+interface FormattedElement {
+    content?: string;
+    class?: string;
+    closed?: boolean;
+}
+
 function parseText(text: string): VNode[] {
-    const regex = /_(.*?)_ (.*?) _n_/g;
-    let lastIndex = 0;
-    const elements: (VNode | string)[] = [];
+    const elements: FormattedElement[] = [];
+    let lastElement: FormattedElement = null;
 
-    text.replace(regex, (match, cssClass, content, offset) => {
-        if (offset > lastIndex) {
-            elements.push(text.slice(lastIndex, offset));
+    const onStartTag = (tag: string) => {
+        console.log(`onStartTag ${tag}`);
+        lastElement = { class: 'G-' + tag.replace(/_/g, '') };
+        elements.push(lastElement);
+    };
+
+    const onEndTag = (tag) => {
+        console.log(`onEndTag ${tag}`);
+        if (lastElement) {
+            lastElement.closed = true;
+            lastElement = null;
         }
+    };
 
-        // Aggiungi lo span
-        elements.push(
-            <span class={cssClass} key={offset}>
-                {content}
-            </span>
-        );
+    const onTextContent = (content) => {
+        console.log(`onTextContent ${content}`);
+        if (!lastElement) {
+            lastElement = { content: content };
+            elements.push(lastElement);
+        } else {
+            lastElement.content = content;
+        }
+    };
 
-        lastIndex = offset + match.length;
-        return ''; // Necessario per evitare errori di TypeScript
+    parse(text, onStartTag, onEndTag, onTextContent);
+
+    const vNodes: VNode[] = [];
+    elements.forEach((e) => {
+        if (e.closed) {
+            vNodes.push(<span class={e.class}>{e.content}</span>);
+        } else {
+            vNodes.push(<span>{e.content}</span>);
+        }
     });
+    return vNodes;
+}
 
-    // Aggiungi il testo rimanente
-    if (lastIndex < text.length) {
-        elements.push(text.slice(lastIndex));
+function parse(
+    text: string,
+    onStartTag: (tag: string) => void,
+    onEndTag: (tag: string) => void,
+    onTextContent: (content: string) => void
+): void {
+    let matches: RegExpExecArray;
+    const regex = /_([\w]{1,6})_/g;
+    const endTag = '_n_';
+    let startContent = 0;
+    let endContent = 0;
+    let tagStarted = false;
+    while ((matches = regex.exec(text)) !== null) {
+        const tag = matches[0];
+        if (tag === endTag) {
+            onTextContent(text.slice(startContent + 1, matches.index));
+            onEndTag(tag);
+            tagStarted = false;
+            endContent = matches.index;
+        } else {
+            if (startContent == 0 && matches.index > 0) {
+                onTextContent(text.slice(0, matches.index));
+            }
+            startContent = matches.index + tag.length;
+            if (tagStarted && endContent < startContent) {
+                const incStardIndexOf =
+                    endContent !== 0 ? endTag.length + 1 : 0;
+                onTextContent(
+                    text.slice(endContent + incStardIndexOf, matches.index)
+                );
+            }
+            onStartTag(tag);
+            tagStarted = true;
+        }
     }
-
-    return elements as unknown as VNode[];
+    if (endContent + endTag.length < text.length) {
+        onTextContent(text.slice(endContent + endTag.length + 1));
+    }
 }
 
 export const FLabel: FunctionalComponent<FLabelProps> = ({ parsing, text }) => {
