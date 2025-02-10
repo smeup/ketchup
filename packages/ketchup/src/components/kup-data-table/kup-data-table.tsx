@@ -2849,9 +2849,7 @@ export class KupDataTable {
 
         setTimeout(() => this.#updateFixedRowsAndColumnsCssVariables(), 50);
         // *** Store
-        if (this.lazyLoadCells) {
-            this.persistState();
-        }
+        this.persistState();
         // ***
         this.#oldWidth = this.rootElement.clientWidth;
         this.#kupManager.debug.logRender(this, true);
