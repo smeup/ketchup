@@ -288,10 +288,6 @@ export class FiltersColumnMenu extends Filters {
      * @param {string} column - Name of the column.
      */
     removeFilter(filters: GenericFilter = {}, column: string) {
-        filters[column] = {
-            textField: '',
-            textFieldTmp: '',
-            checkBoxes: [],
-        };
+        delete filters[column];
     }
 }

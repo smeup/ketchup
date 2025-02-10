@@ -327,7 +327,7 @@ export class Filters {
                 const normValue = this.normalizeValue(value, obj);
                 let valueDate: Date = null;
                 if (normValue != null) {
-                    valueDate = dom.ketchup.dates.toDate(value);
+                    valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
                 }
 
                 if (filterMatch && valueDate) {

@@ -162,7 +162,44 @@ export class FiltersRows extends Filters {
                     this.isFilterCompliantForCell(cell, filterValue)) ||
                 checkboxValues.some((f) =>
                     this.isFilterCompliantForCell(cell, f.value)
+                ) ||
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.displayedValue)
                 );
+            console.log(
+                'a',
+                filterValue != '' &&
+                    this.isFilterCompliantForCell(cell, filterValue)
+            );
+            console.log('a1', this.isFilterCompliantForCell(cell, filterValue));
+            console.log(
+                'b',
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.value)
+                )
+            );
+            console.log(
+                'c',
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.displayedValue)
+                )
+            );
+            console.log(
+                'd',
+                this.isFilterCompliantForCellObj(cell, filterValue)
+            );
+            console.log(
+                'e',
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCellObj(cell, f.value)
+                )
+            );
+            console.log(
+                'f',
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCellObj(cell, f.displayedValue)
+                )
+            );
 
             let b2 = _filterIsNegative;
             if (
