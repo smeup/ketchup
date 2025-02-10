@@ -62,12 +62,12 @@ export class Filters {
                     manageSeconds
                 )
             ) {
-                return dom.ketchup.dates.formattedStringToCustomDateTime(
+                return dom.ketchup.dates.timeStringToFormattedString(
                     value,
+                    manageSeconds,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
-                    manageSeconds
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
