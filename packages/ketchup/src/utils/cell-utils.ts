@@ -312,12 +312,13 @@ export const CHIAdapter = (value: string, decode: string) => {
 
     const chipNodes: KupChipNode[] = [];
     const values = value?.length ? value.split(';') : [];
-    const decodes = decode?.length ? decode.split(';') : [];
+    // if cell has decode use it else use values as decode
+    const decodes = decode?.length ? decode.split(';') : undefined;
 
     for (let i = 0; i < values.length; i++) {
         chipNodes.push({
             id: values[i],
-            value: decodes[i],
+            value: decodes ? decodes[i] : values[i],
         });
     }
 
