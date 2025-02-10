@@ -134,7 +134,6 @@ export class Filters {
 
         // Split multiple filters and trim each one
         const filters = filterValue.split(';').map((f) => f.trim());
-
         // All filters must match (AND condition)
         return filters.every(
             (filter) =>
@@ -371,6 +370,10 @@ export class Filters {
                     ) &&
                     !dom.ketchup.dates.isValidFormattedStringDate(
                         normalizedFilter
+                    ) &&
+                    !dom.ketchup.dates.isValidFormattedStringTime(
+                        value,
+                        dom.ketchup.objects.isTimeWithSeconds(obj)
                     )
                 ) {
                     value = dom.ketchup.dates.format(value);
