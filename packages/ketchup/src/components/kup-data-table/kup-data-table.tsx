@@ -3856,8 +3856,8 @@ export class KupDataTable {
     }
 
     #adjustPaginator() {
-        this.computeMaxRowsPerPage()
-        
+        this.computeMaxRowsPerPage();
+
         const numberOfRows = this.#rowsLength;
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
@@ -6514,8 +6514,10 @@ export class KupDataTable {
             this.#kupManager.keysBinding.register('enter', () => {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
-                bc?.blur();
-                this.#handleUpdateClick();
+                if (bc) {
+                    bc?.blur();
+                    this.#handleUpdateClick();
+                }
             });
 
             if (this.hiddenSubmitButton) {
