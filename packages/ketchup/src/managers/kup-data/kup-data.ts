@@ -89,7 +89,7 @@ export class KupData {
                     case FCellShapes.AUTOCOMPLETE:
                         return FCellTypes.AUTOCOMPLETE;
                     case FCellShapes.BUTTON_LIST:
-                        return FCellTypes.BUTTON_LIST;
+                        return FCellTypes.BUTTON;
                     case FCellShapes.CHART:
                         return FCellTypes.CHART;
                     case FCellShapes.CHECKBOX:
