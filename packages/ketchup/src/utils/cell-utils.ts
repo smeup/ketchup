@@ -315,7 +315,6 @@ export const CHIAdapter = (value: string, decode: string) => {
     const decodes = decode?.length ? decode.split(';') : [];
 
     for (let i = 0; i < values.length; i++) {
-        values;
         chipNodes.push({
             id: values[i],
             value: decodes[i],
