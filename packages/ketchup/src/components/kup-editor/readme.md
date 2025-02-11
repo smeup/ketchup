@@ -2,30 +2,27 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property          | Attribute           | Description                                                                                 | Type                      | Default      |
-| ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
-| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                  | `undefined`  |
-| `editorHeight`    | `editor-height`     | Sets the height of the component.                                                           | `string`                  | `'auto'`     |
-| `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "wysiwyg"` | `'markdown'` |
-| `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |
-| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                 | `false`      |
-| `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`     | `'vertical'` |
-| `selectedTab`     | `selected-tab`      | The markdown editor selected tab.                                                           | `"preview" \| "write"`    | `'write'`    |
-| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                 | `true`       |
-| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                 | `true`       |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `autosaveTimer` | `autosave-timer` | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number` | `undefined` |
+| `editorHeight` | `editor-height` | Sets the height of the component. | `string` | `'auto'` |
+| `initialEditType` | `initial-edit-type` | The editor type. | `"markdown" \| "wysiwyg"` | `'markdown'` |
+| `initialValue` | `initial-value` | The initial editor value. | `string` | `''` |
+| `isReadOnly` | `is-read-only` | Defines whether the editor is disabled or not. | `boolean` | `false` |
+| `previewStyle` | `preview-style` | The editor preview style. | `"tab" \| "vertical"` | `'vertical'` |
+| `selectedTab` | `selected-tab` | The markdown editor selected tab. | `"preview" \| "write"` | `'write'` |
+| `showSaveButton` | `show-save-button` | Defines whether to show the save button in editor's toolbar or not. | `boolean` | `true` |
+| `showToolbar` | `show-toolbar` | Defines whether to show the editor's toolbar or not. | `boolean` | `true` |
 
 ## Events
 
-| Event                 | Description                                                          | Type                                 |
-| --------------------- | -------------------------------------------------------------------- | ------------------------------------ |
+| Event | Description | Type |
+| --- | --- | --- |
 | `kup-editor-autosave` | Triggered at regular intervals if autosaveTimer prop is initialised. | `CustomEvent<KupEditorEventPayload>` |
-| `kup-editor-ready`    | Triggered when the component is ready.                               | `CustomEvent<KupEventPayload>`       |
-| `kup-editor-save`     | Triggered when save button is clicked.                               | `CustomEvent<KupEditorEventPayload>` |
-
+| `kup-editor-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+| `kup-editor-save` | Triggered when save button is clicked. | `CustomEvent<KupEditorEventPayload>` |
 
 ## Methods
 
@@ -35,8 +32,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -53,8 +50,6 @@ Returns the component's internal value as html.
 
 Type: `Promise<string>`
 
-
-
 ### `getValueAsMarkdown() => Promise<string>`
 
 Returns the component's internal value as markdown.
@@ -62,8 +57,6 @@ Returns the component's internal value as markdown.
 #### Returns
 
 Type: `Promise<string>`
-
-
 
 ### `refresh() => Promise<void>`
 
@@ -73,37 +66,33 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [kup-input-panel](../kup-input-panel)
+-   [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-editor --> kup-card
@@ -296,6 +285,6 @@ graph TD;
   style kup-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

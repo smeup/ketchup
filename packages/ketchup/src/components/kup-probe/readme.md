@@ -2,14 +2,12 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                                                                                                                                                | Default                                                                                                                                                                                           |
-| ------------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`                                                                                                                                            | `''`                                                                                                                                                                                              |
-| `features`    | --             | Specify features to test.      | `{ debug: boolean; language: boolean; longCycleProp: boolean; longCycleVar: boolean; objects: boolean; objectsFunction: boolean; theme: boolean; }` | `{         debug: false,         language: false,         longCycleProp: false,         longCycleVar: false,         objects: false,         objectsFunction: false,         theme: false,     }` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `features` | -- | Specify features to test. | `{ debug: boolean; language: boolean; longCycleProp: boolean; longCycleVar: boolean; objects: boolean; objectsFunction: boolean; theme: boolean; }` | `{ debug: false, language: false, longCycleProp: false, longCycleVar: false, objects: false, objectsFunction: false, theme: false, }` |
 
 ## Methods
 
@@ -21,8 +19,6 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<{ id: string; featuresTime: number; fullTime: number; }>`
 
-
-
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -31,17 +27,15 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-probe --> kup-card
@@ -233,6 +227,6 @@ graph TD;
   style kup-probe fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

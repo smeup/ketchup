@@ -2,14 +2,12 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                 | Default |
-| ------------- | -------------- | ------------------------------ | -------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`             | `''`    |
-| `data`        | --             |                                | `KupObjectFieldData` | `{}`    |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- |  | `KupObjectFieldData` | `{}` |
 
 ## Methods
 
@@ -19,8 +17,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -47,8 +45,6 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setValue(value: string) => Promise<void>`
 
 Sets the component's value.
@@ -65,17 +61,17 @@ Type: `Promise<void>`
 
 Value to set.
 
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-toolbar](../kup-toolbar)
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
+-   [kup-toolbar](../kup-toolbar)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-object-field --> kup-toolbar
@@ -269,6 +265,6 @@ graph TD;
   style kup-object-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

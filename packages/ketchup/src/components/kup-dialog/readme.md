@@ -2,24 +2,22 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                                                                                 | Type                                               | Default                          |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- |
-| `anchor`      | `anchor`       | Sets anchor position ("none", "left", "top", "right", "bottom").                            | `"bottom" \| "left" \| "none" \| "right" \| "top"` | `'none'`                         |
-| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                         | `KupDialogAutoCenter`                              | `{ onReady: true }`              |
-| `customStyle` | `custom-style` | Custom style of the component.                                                              | `string`                                           | `''`                             |
-| `header`      | --             | Header options.                                                                             | `KupDialogHeader`                                  | `{ icons: { close: true } }`     |
-| `maxSizeX`    | `max-size-x`   | The max width of the dialog, defaults to 90dvw.                                             | `string`                                           | `'90dvw'`                        |
-| `maxSizeY`    | `max-size-y`   | The max height of the dialog, defaults to 90dvh.                                            | `string`                                           | `'90dvh'`                        |
-| `minSizeX`    | `min-size-x`   | The min width of the dialog.                                                                | `string`                                           | `'20dvw'`                        |
-| `minSizeY`    | `min-size-y`   | The min height of the dialog.                                                               | `string`                                           | `'20dvh'`                        |
-| `modal`       | --             | Set of options to display the dialog as a modal.                                            | `KupDialogModal`                                   | `{ closeOnBackdropClick: true }` |
-| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                                | `boolean`                                          | `true`                           |
-| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).  | `string`                                           | `'auto'`                         |
-| `sizeY`       | `size-y`       | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string`                                           | `'auto'`                         |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `anchor` | `anchor` | Sets anchor position ("none", "left", "top", "right", "bottom"). | `"bottom" \| "left" \| "none" \| "right" \| "top"` | `'none'` |
+| `autoCenter` | -- | Auto centers the dialog relatively to the viewport. | `KupDialogAutoCenter` | `{ onReady: true }` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `header` | -- | Header options. | `KupDialogHeader` | `{ icons: { close: true } }` |
+| `maxSizeX` | `max-size-x` | The max width of the dialog, defaults to 90dvw. | `string` | `'90dvw'` |
+| `maxSizeY` | `max-size-y` | The max height of the dialog, defaults to 90dvh. | `string` | `'90dvh'` |
+| `minSizeX` | `min-size-x` | The min width of the dialog. | `string` | `'20dvw'` |
+| `minSizeY` | `min-size-y` | The min height of the dialog. | `string` | `'20dvh'` |
+| `modal` | -- | Set of options to display the dialog as a modal. | `KupDialogModal` | `{ closeOnBackdropClick: true }` |
+| `resizable` | `resizable` | Sets whether the dialog is resizable or not. | `boolean` | `true` |
+| `sizeX` | `size-x` | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.). | `string` | `'auto'` |
+| `sizeY` | `size-y` | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string` | `'auto'` |
 
 ## Events
 
@@ -27,7 +25,6 @@
 | ------------------ | ----------- | ------------------------------ |
 | `kup-dialog-close` |             | `CustomEvent<KupEventPayload>` |
 | `kup-dialog-ready` |             | `CustomEvent<KupEventPayload>` |
-
 
 ## Methods
 
@@ -39,16 +36,14 @@ Closes the dialog detaching it from the DOM.
 
 Type: `Promise<void>`
 
-
-
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -65,8 +60,6 @@ Places the dialog at the center of the screen.
 
 Type: `Promise<void>`
 
-
-
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -75,24 +68,19 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -100,78 +88,78 @@ Type: `Promise<void>`
 | ---------------------------- | ---------------------------------- |
 | `--kup-dialog-header-height` | Sets the height of the header bar. |
 
-
 ## Dependencies
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
- - [kup-activity-timeline](../kup-activity-timeline)
- - [kup-autocomplete](../kup-autocomplete)
- - [kup-badge](../kup-badge)
- - [kup-box](../kup-box)
- - [kup-button](../kup-button)
- - [kup-button-list](../kup-button-list)
- - [kup-calendar](../kup-calendar)
- - [kup-card](../kup-card)
- - [kup-card-list](../kup-card-list)
- - [kup-cell](../kup-cell)
- - [kup-chart](../kup-chart)
- - [kup-checkbox](../kup-checkbox)
- - [kup-chip](../kup-chip)
- - [kup-color-picker](../kup-color-picker)
- - [kup-combobox](../kup-combobox)
- - [kup-dashboard](../kup-dashboard)
- - [kup-data-table](../kup-data-table)
- - [kup-date-picker](../kup-date-picker)
- - [kup-dialog](.)
- - [kup-drawer](../kup-drawer)
- - [kup-dropdown-button](../kup-dropdown-button)
- - [kup-echart](../kup-echart)
- - [kup-editor](../kup-editor)
- - [kup-family-tree](../kup-family-tree)
- - [kup-file-upload](../kup-file-upload)
- - [kup-form](../kup-form)
- - [kup-gauge](../kup-gauge)
- - [kup-grid](../kup-grid)
- - [kup-htm](../kup-htm)
- - [kup-iframe](../kup-iframe)
- - [kup-image](../kup-image)
- - [kup-image-list](../kup-image-list)
- - [kup-input-panel](../kup-input-panel)
- - [kup-lazy](../kup-lazy)
- - [kup-list](../kup-list)
- - [kup-magic-box](../kup-magic-box)
- - [kup-multi-select](../kup-multi-select)
- - [kup-nav-bar](../kup-nav-bar)
- - [kup-numeric-picker](../kup-numeric-picker)
- - [kup-object-field](../kup-object-field)
- - [kup-pdf](../kup-pdf)
- - [kup-planner](../kup-planner)
- - [kup-probe](../kup-probe)
- - [kup-progress-bar](../kup-progress-bar)
- - [kup-qlik](../kup-qlik)
- - [kup-radio](../kup-radio)
- - [kup-rating](../kup-rating)
- - [kup-snackbar](../kup-snackbar)
- - [kup-spinner](../kup-spinner)
- - [kup-switch](../kup-switch)
- - [kup-tab-bar](../kup-tab-bar)
- - [kup-text-field](../kup-text-field)
- - [kup-time-picker](../kup-time-picker)
- - [kup-toolbar](../kup-toolbar)
- - [kup-tree](../kup-tree)
- - [kup-txt](../kup-txt)
- - [kup-typography](../kup-typography)
- - [kup-typography-list](../kup-typography-list)
+-   [kup-accordion](../kup-accordion)
+-   [kup-activity-timeline](../kup-activity-timeline)
+-   [kup-autocomplete](../kup-autocomplete)
+-   [kup-badge](../kup-badge)
+-   [kup-box](../kup-box)
+-   [kup-button](../kup-button)
+-   [kup-button-list](../kup-button-list)
+-   [kup-calendar](../kup-calendar)
+-   [kup-card](../kup-card)
+-   [kup-card-list](../kup-card-list)
+-   [kup-cell](../kup-cell)
+-   [kup-chart](../kup-chart)
+-   [kup-checkbox](../kup-checkbox)
+-   [kup-chip](../kup-chip)
+-   [kup-color-picker](../kup-color-picker)
+-   [kup-combobox](../kup-combobox)
+-   [kup-dashboard](../kup-dashboard)
+-   [kup-data-table](../kup-data-table)
+-   [kup-date-picker](../kup-date-picker)
+-   [kup-dialog](.)
+-   [kup-drawer](../kup-drawer)
+-   [kup-dropdown-button](../kup-dropdown-button)
+-   [kup-echart](../kup-echart)
+-   [kup-editor](../kup-editor)
+-   [kup-family-tree](../kup-family-tree)
+-   [kup-file-upload](../kup-file-upload)
+-   [kup-form](../kup-form)
+-   [kup-gauge](../kup-gauge)
+-   [kup-grid](../kup-grid)
+-   [kup-htm](../kup-htm)
+-   [kup-iframe](../kup-iframe)
+-   [kup-image](../kup-image)
+-   [kup-image-list](../kup-image-list)
+-   [kup-input-panel](../kup-input-panel)
+-   [kup-lazy](../kup-lazy)
+-   [kup-list](../kup-list)
+-   [kup-magic-box](../kup-magic-box)
+-   [kup-multi-select](../kup-multi-select)
+-   [kup-nav-bar](../kup-nav-bar)
+-   [kup-numeric-picker](../kup-numeric-picker)
+-   [kup-object-field](../kup-object-field)
+-   [kup-pdf](../kup-pdf)
+-   [kup-planner](../kup-planner)
+-   [kup-probe](../kup-probe)
+-   [kup-progress-bar](../kup-progress-bar)
+-   [kup-qlik](../kup-qlik)
+-   [kup-radio](../kup-radio)
+-   [kup-rating](../kup-rating)
+-   [kup-snackbar](../kup-snackbar)
+-   [kup-spinner](../kup-spinner)
+-   [kup-switch](../kup-switch)
+-   [kup-tab-bar](../kup-tab-bar)
+-   [kup-text-field](../kup-text-field)
+-   [kup-time-picker](../kup-time-picker)
+-   [kup-toolbar](../kup-toolbar)
+-   [kup-tree](../kup-tree)
+-   [kup-txt](../kup-txt)
+-   [kup-typography](../kup-typography)
+-   [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
-- [kup-badge](../kup-badge)
-- [kup-card](../kup-card)
-- [kup-dialog](.)
+-   [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
+-   [kup-dialog](.)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-dialog --> kup-dialog
@@ -236,6 +224,6 @@ graph TD;
   style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

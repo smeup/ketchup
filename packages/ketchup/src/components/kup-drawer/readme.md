@@ -2,22 +2,19 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                    | Type     | Default |
-| ------------- | -------------- | ------------------------------ | -------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''`    |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
 
 ## Events
 
-| Event              | Description                            | Type                           |
-| ------------------ | -------------------------------------- | ------------------------------ |
-| `kup-drawer-close` | Fired when the drawer gets closed.     | `CustomEvent<KupEventPayload>` |
-| `kup-drawer-open`  | Fired when the drawer gets opened.     | `CustomEvent<KupEventPayload>` |
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-drawer-close` | Fired when the drawer gets closed. | `CustomEvent<KupEventPayload>` |
+| `kup-drawer-open` | Fired when the drawer gets opened. | `CustomEvent<KupEventPayload>` |
 | `kup-drawer-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
-
 
 ## Methods
 
@@ -29,16 +26,14 @@ Closes the drawer.
 
 Type: `Promise<void>`
 
-
-
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -65,8 +60,6 @@ Opens the drawer.
 
 Type: `Promise<void>`
 
-
-
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -75,23 +68,19 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `toggle() => Promise<void>`
 
@@ -101,28 +90,25 @@ Opens the drawer when closed and vice-versa.
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                            | Description                                          |
-| ------------------------------- | ---------------------------------------------------- |
-| `--kup-drawer-backdrop`         | Backdrop of the component when in slide mode.        |
-| `--kup-drawer-box-shadow`       | Box shadow of the component when in slide mode.      |
-| `--kup-drawer-permanent-border` | Border of the drawer in permanent mode.              |
+| Name | Description |
+| --- | --- |
+| `--kup-drawer-backdrop` | Backdrop of the component when in slide mode. |
+| `--kup-drawer-box-shadow` | Box shadow of the component when in slide mode. |
+| `--kup-drawer-permanent-border` | Border of the drawer in permanent mode. |
 | `--kup-drawer-slide-transition` | Horizontal transition's duration when in slide mode. |
-| `--kup-drawer-transition`       | Transitions duration.                                |
-
+| `--kup-drawer-transition` | Transitions duration. |
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-drawer --> kup-card
@@ -314,6 +300,6 @@ graph TD;
   style kup-drawer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
