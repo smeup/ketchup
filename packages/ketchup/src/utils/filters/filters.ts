@@ -62,12 +62,12 @@ export class Filters {
                     manageSeconds
                 )
             ) {
-                return dom.ketchup.dates.formattedStringToCustomDateTime(
+                return dom.ketchup.dates.timeStringToFormattedString(
                     value,
+                    manageSeconds,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
-                    manageSeconds
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
@@ -134,7 +134,6 @@ export class Filters {
 
         // Split multiple filters and trim each one
         const filters = filterValue.split(';').map((f) => f.trim());
-
         // All filters must match (AND condition)
         return filters.every(
             (filter) =>
@@ -327,7 +326,7 @@ export class Filters {
                 const normValue = this.normalizeValue(value, obj);
                 let valueDate: Date = null;
                 if (normValue != null) {
-                    valueDate = dom.ketchup.dates.toDate(value);
+                    valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
                 }
 
                 if (filterMatch && valueDate) {
@@ -371,6 +370,10 @@ export class Filters {
                     ) &&
                     !dom.ketchup.dates.isValidFormattedStringDate(
                         normalizedFilter
+                    ) &&
+                    !dom.ketchup.dates.isValidFormattedStringTime(
+                        value,
+                        dom.ketchup.objects.isTimeWithSeconds(obj)
                     )
                 ) {
                     value = dom.ketchup.dates.format(value);
