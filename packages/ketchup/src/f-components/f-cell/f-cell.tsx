@@ -67,6 +67,7 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -101,12 +102,15 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
+    const sizing =
+        props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
     const subcomponentProps: unknown = {
         ...cell.data,
         ...(cell?.icon ? { resource: cell.icon } : {}),
         ...(cell?.placeholderIcon
             ? { placeholderResource: cell.placeholderIcon }
             : {}),
+        ...(sizing ? { sizing } : {}),
     };
 
     let cssClasses = cell.cssClass
@@ -572,10 +576,10 @@ function setCellSizeKup(
         case FCellTypes.CHIP:
             if (cell.style) {
                 if (!cell.style.height) {
-                    cell.style['minHeight'] = '40px';
+                    cell.style['minHeight'] = '18px';
                 }
             } else {
-                cell.style = { minHeight: '40px' };
+                cell.style = { minHeight: '18px' };
             }
             break;
         case FCellTypes.RADIO:
@@ -970,7 +974,9 @@ function setEditableCell(
                         {...cell.data}
                         textArea={isTextArea}
                         sizing={
-                            isTextArea
+                            cell.data.sizing
+                                ? cell.data.sizing
+                                : isTextArea
                                 ? KupComponentSizing.EXTRA_LARGE
                                 : KupComponentSizing.SMALL
                         }

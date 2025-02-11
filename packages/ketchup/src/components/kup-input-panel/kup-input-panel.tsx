@@ -577,6 +577,11 @@ export class KupInputPanel {
             return customRender(cell, column, row.layout?.absolute);
         }
 
+        cell.data = {
+            ...cell.data,
+            sizing: 'extra-small',
+        };
+
         const cellProps: FCellProps = {
             cell,
             column,
