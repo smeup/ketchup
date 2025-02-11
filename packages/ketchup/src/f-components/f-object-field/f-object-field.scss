@@ -1,7 +1,18 @@
 .f-object-field {
-  display: flex;
-
   .obj-field-extra-btn {
     align-self: end;
+  }
+
+  .fields-wrapper {
+    display: flex;
+  }
+
+  .mdc-error-message {
+    color: var(--kup-danger-color-60);
+    font-family: var(--kup-font-family);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0.32px;
   }
 }
