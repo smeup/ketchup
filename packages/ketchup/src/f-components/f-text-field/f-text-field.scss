@@ -699,4 +699,8 @@
       }
     }
   }
+
+  &.f-text-field--sizing-extra-small .mdc-text-field-container {
+    gap: 2px;
+  }
 }

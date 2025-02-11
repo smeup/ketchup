@@ -32,6 +32,7 @@ import {
 } from '../../types/GenericTypes';
 import {
     adaptContentToDisplayMode,
+    CHIAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     isForceLowercase,
@@ -303,19 +304,19 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
 };
 
 const MainCHIAdapter = (
-    options: CellOptions[],
+    _options: CellOptions[],
     _fieldLabel: string,
     _currentValue: string,
     cell: KupInputPanelCell
-) => ({
-    ...cell.data,
-    data: options?.length
-        ? options?.map((option) => ({
-              id: option.id,
-              value: option.id,
-          }))
-        : [],
-});
+) => {
+    if (!cell.data?.data) {
+        return CHIAdapter(cell.value, cell.decode);
+    } else {
+        return {
+            ...cell.data,
+        };
+    }
+};
 
 const MainObjectAdapter = (
     _options: CellOptions[],
