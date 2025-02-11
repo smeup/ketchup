@@ -20,6 +20,11 @@ const STATE = new WeakMap<KupDataCell, FObjectFieldState>();
 export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
     props: FObjectFieldProps
 ) => {
+    let helperSection: HTMLElement;
+    const attachHelperSection = (element: HTMLElement): boolean => {
+        helperSection = element;
+        return false;
+    };
     return (
         <div
             class={`f-object-field ${
@@ -32,24 +37,29 @@ export const FObjectField: FunctionalComponent<FObjectFieldProps> = (
                 }
             }}
         >
-            <FTextField
-                icon={'search'}
-                trailingIcon={true}
-                disabled={false}
-                {...props.cell?.data}
-                value={props.inputValue}
-                onChange={props.onChange}
-                onIconClick={handlers.icon.bind(props)}
-                onInput={handlers.input.bind(props)}
-                onKeyDown={handlers.keydown.bind(props)}
-            ></FTextField>
-            <FButton
-                icon={'menu'}
-                onClick={handlers.button.bind(props)}
-                sizing={KupComponentSizing.SMALL}
-                styling={FButtonStyling.FLAT}
-                wrapperClass="obj-field-extra-btn"
-            ></FButton>
+            <div class="fields-wrapper">
+                <FTextField
+                    icon={'search'}
+                    trailingIcon={true}
+                    disabled={false}
+                    {...props.cell?.data}
+                    attachHelperSection={attachHelperSection}
+                    value={props.inputValue}
+                    onChange={props.onChange}
+                    onIconClick={handlers.icon.bind(props)}
+                    onInput={handlers.input.bind(props)}
+                    onKeyDown={handlers.keydown.bind(props)}
+                ></FTextField>
+                <FButton
+                    icon={'menu'}
+                    onClick={handlers.button.bind(props)}
+                    sizing={KupComponentSizing.SMALL}
+                    styling={FButtonStyling.FLAT}
+                    wrapperClass="obj-field-extra-btn"
+                ></FButton>
+            </div>
+            {helperSection}
+
             <kup-toolbar
                 onKup-toolbar-click={handlers.toolbar.bind(props)}
             ></kup-toolbar>
