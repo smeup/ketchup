@@ -51,6 +51,10 @@
       64px
     );
 
+    --kup_textfield_textarea_extra_small_height: var(
+      --kup-textfield-textarea-extra-small-height,
+      20px
+    );
     --kup_textfield_textarea_small_height: var(
       --kup-textfield-textarea-small-height,
       32px
@@ -466,6 +470,13 @@
         .mdc-text-field__input {
           margin: 0;
           padding: 16px;
+        }
+
+        &.mdc-text-field--textarea--extra-small {
+          min-height: var(--kup_textfield_textarea_extra_small_height);
+          textarea {
+            padding: var(--kup-space-02);
+          }
         }
 
         &.mdc-text-field--textarea--small {

@@ -84,9 +84,9 @@ export class KupChip {
     @Prop() type: FChipType = FChipType.STANDARD;
     /**
      * Sets the size of the chip
-     * @default FChipSize.MEDIUM
+     * @default FChipSize.SMALL
      */
-    @Prop() sizing: FChipSize = FChipSize.MEDIUM;
+    @Prop() sizing: FChipSize = FChipSize.SMALL;
     /**
      * Sets the style of the chip
      * @default FChipStyling.RAISED

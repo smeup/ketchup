@@ -27,6 +27,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-shaped': props.shaped,
         'kup-success': props.success,
         'kup-warning': props.warning,
+        [`f-text-field--${props.sizing || 'small'}`]: true,
         [props.wrapperClass]: !!props.wrapperClass,
     };
     const helper = setHelper(props);
