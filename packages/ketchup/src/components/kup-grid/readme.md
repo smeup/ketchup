@@ -2,13 +2,15 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `columns` | `columns` | The number of columns displayed by the grid, the default behavior is 12. | `number` | `12` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `singleLine` | `single-line` | When set to true, forces the content on a single line. | `boolean` | `false` |
+| Property      | Attribute      | Description                                                              | Type      | Default |
+| ------------- | -------------- | ------------------------------------------------------------------------ | --------- | ------- |
+| `columns`     | `columns`      | The number of columns displayed by the grid, the default behavior is 12. | `number`  | `12`    |
+| `customStyle` | `custom-style` | Custom style of the component.                                           | `string`  | `''`    |
+| `singleLine`  | `single-line`  | When set to true, forces the content on a single line.                   | `boolean` | `false` |
+
 
 ## Methods
 
@@ -18,8 +20,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -36,19 +38,24 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -59,19 +66,19 @@ Type: `Promise<void>`
 | `--kup-grid-gap-mobile` | Sets gap of the grid for lower resolutions. |
 | `--kup-grid-padding`    | Sets padding of the outer layer.            |
 
+
 ## Dependencies
 
 ### Used by
 
--   [kup-card-list](../kup-card-list)
+ - [kup-card-list](../kup-card-list)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-grid --> kup-card
@@ -264,6 +271,6 @@ graph TD;
   style kup-grid fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

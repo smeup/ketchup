@@ -2,11 +2,13 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property | Attribute | Description | Type           | Default     |
 | -------- | --------- | ----------- | -------------- | ----------- |
 | `props`  | --        |             | `PlannerProps` | `undefined` |
+
 
 ## Methods
 
@@ -18,19 +20,21 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
--   [kup-planner](..)
+ - [kup-planner](..)
 
 ### Depends on
 
--   [kup-switcher](kup-switcher)
--   [kup-gantt](kup-gantt)
+- [kup-switcher](kup-switcher)
+- [kup-gantt](kup-gantt)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-planner-renderer --> kup-switcher
@@ -51,6 +55,6 @@ graph TD;
   style kup-planner-renderer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

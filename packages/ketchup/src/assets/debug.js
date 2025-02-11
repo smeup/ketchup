@@ -2,7 +2,7 @@ import KupMultiSelect from '../components/kup-multi-select/kup-multi-select';
 import KupDataCell from '../managers/kup-data/kup-data-declarations';
 
 // Replace the object below with yours.
-const compName = 'f-cell';
+const compName = 'kup-button';
 
 // Replace the props below with yours.
 /*

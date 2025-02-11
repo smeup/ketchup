@@ -2,29 +2,32 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `calendarColumns` | -- | Sets which columns of the data property will be used to render each characteristic of an event in the calendar. | `{ date: string; descr: string; end: string; icon: string; image: string; start: string; style: string; }` | `{ [KupCalendarOptions.DATE]: '', [KupCalendarOptions.DESCR]: '', [KupCalendarOptions.END]: '', [KupCalendarOptions.ICON]: '', [KupCalendarOptions.IMAGE]: '', [KupCalendarOptions.START]: '', [KupCalendarOptions.STYLE]: '', }` |
-| `currentDate` | `current-date` | Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD). | `string` | `null` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Actual data of the calendar. | `KupCalendarData` | `null` |
-| `editableEvents` | `editable-events` | When true, events are editable. | `boolean` | `true` |
-| `enableChangeView` | `enable-change-view` | When true, it will show the changeView | `boolean` | `false` |
-| `hideNavigation` | `hide-navigation` | When disabled, the navigation toolbar won't be displayed. | `boolean` | `false` |
-| `stateId` | `state-id` |  | `string` | `''` |
-| `store` | -- |  | `KupStore` | `undefined` |
-| `viewType` | `view-type` | Type of the view. | `KupCalendarViewTypes.DAY \| KupCalendarViewTypes.LIST \| KupCalendarViewTypes.MONTH \| KupCalendarViewTypes.WEEK` | `KupCalendarViewTypes.MONTH` |
+| Property           | Attribute            | Description                                                                                                     | Type                                                                                                               | Default                                                                                                                                                                                                                                                                                       |
+| ------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `calendarColumns`  | --                   | Sets which columns of the data property will be used to render each characteristic of an event in the calendar. | `{ date: string; descr: string; end: string; icon: string; image: string; start: string; style: string; }`         | `{         [KupCalendarOptions.DATE]: '',         [KupCalendarOptions.DESCR]: '',         [KupCalendarOptions.END]: '',         [KupCalendarOptions.ICON]: '',         [KupCalendarOptions.IMAGE]: '',         [KupCalendarOptions.START]: '',         [KupCalendarOptions.STYLE]: '',     }` |
+| `currentDate`      | `current-date`       | Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).                                      | `string`                                                                                                           | `null`                                                                                                                                                                                                                                                                                        |
+| `customStyle`      | `custom-style`       | Custom style of the component.                                                                                  | `string`                                                                                                           | `''`                                                                                                                                                                                                                                                                                          |
+| `data`             | --                   | Actual data of the calendar.                                                                                    | `KupCalendarData`                                                                                                  | `null`                                                                                                                                                                                                                                                                                        |
+| `editableEvents`   | `editable-events`    | When true, events are editable.                                                                                 | `boolean`                                                                                                          | `true`                                                                                                                                                                                                                                                                                        |
+| `enableChangeView` | `enable-change-view` | When true, it will show the changeView                                                                          | `boolean`                                                                                                          | `false`                                                                                                                                                                                                                                                                                       |
+| `hideNavigation`   | `hide-navigation`    | When disabled, the navigation toolbar won't be displayed.                                                       | `boolean`                                                                                                          | `false`                                                                                                                                                                                                                                                                                       |
+| `stateId`          | `state-id`           |                                                                                                                 | `string`                                                                                                           | `''`                                                                                                                                                                                                                                                                                          |
+| `store`            | --                   |                                                                                                                 | `KupStore`                                                                                                         | `undefined`                                                                                                                                                                                                                                                                                   |
+| `viewType`         | `view-type`          | Type of the view.                                                                                               | `KupCalendarViewTypes.DAY \| KupCalendarViewTypes.LIST \| KupCalendarViewTypes.MONTH \| KupCalendarViewTypes.WEEK` | `KupCalendarViewTypes.MONTH`                                                                                                                                                                                                                                                                  |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-calendar-dateclick` | When a date is clicked. | `CustomEvent<KupCalendarDateClickEventPayload>` |
-| `kup-calendar-eventclick` | When an event is clicked. | `CustomEvent<KupCalendarEventClickEventPayload>` |
-| `kup-calendar-eventdrop` | When a date is dropped. | `CustomEvent<KupCalendarEventDropEventPayload>` |
+| Event                     | Description                | Type                                             |
+| ------------------------- | -------------------------- | ------------------------------------------------ |
+| `kup-calendar-dateclick`  | When a date is clicked.    | `CustomEvent<KupCalendarDateClickEventPayload>`  |
+| `kup-calendar-eventclick` | When an event is clicked.  | `CustomEvent<KupCalendarEventClickEventPayload>` |
+| `kup-calendar-eventdrop`  | When a date is dropped.    | `CustomEvent<KupCalendarEventDropEventPayload>`  |
 | `kup-calendar-viewchange` | When the navigation change | `CustomEvent<KupCalendarViewChangeEventPayload>` |
+
 
 ## Methods
 
@@ -34,8 +37,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -52,6 +55,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
@@ -60,49 +65,54 @@ This method is invoked by KupManager whenever the component changes size.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-calendar-background-color` | Background of the component. |
-| `--kup-calendar-border-color` | Sets borders color of the calendar. |
-| `--kup-calendar-event-background-color` | Sets background color of events. |
-| `--kup-calendar-event-border-color` | Sets border color of events. |
-| `--kup-calendar-event-border-radius` | Sets border radius of events. |
-| `--kup-calendar-event-color` | Sets text color of events. |
-| `--kup-calendar-font-family` | Sets the font family of the component. |
-| `--kup-calendar-font-size` | Sets the font size of the component. |
-| `--kup-calendar-header-background-color` | Sets background color of the header cell. |
-| `--kup-calendar-header-color` | Sets text color of the header cell. |
-| `--kup-calendar-navigator-border` | Sets the border of the navigator. |
+| Name                                          | Description                                         |
+| --------------------------------------------- | --------------------------------------------------- |
+| `--kup-calendar-background-color`             | Background of the component.                        |
+| `--kup-calendar-border-color`                 | Sets borders color of the calendar.                 |
+| `--kup-calendar-event-background-color`       | Sets background color of events.                    |
+| `--kup-calendar-event-border-color`           | Sets border color of events.                        |
+| `--kup-calendar-event-border-radius`          | Sets border radius of events.                       |
+| `--kup-calendar-event-color`                  | Sets text color of events.                          |
+| `--kup-calendar-font-family`                  | Sets the font family of the component.              |
+| `--kup-calendar-font-size`                    | Sets the font size of the component.                |
+| `--kup-calendar-header-background-color`      | Sets background color of the header cell.           |
+| `--kup-calendar-header-color`                 | Sets text color of the header cell.                 |
+| `--kup-calendar-navigator-border`             | Sets the border of the navigator.                   |
 | `--kup-calendar-no-work-day-background-color` | Sets background color of sunday and saturday cells. |
-| `--kup-calendar-no-work-day-color` | Sets text color of sunday and saturday cells. |
-| `--kup-calendar-today-background-color` | Sets background color of today's cell. |
+| `--kup-calendar-no-work-day-color`            | Sets text color of sunday and saturday cells.       |
+| `--kup-calendar-today-background-color`       | Sets background color of today's cell.              |
+
 
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-calendar --> kup-card
@@ -295,6 +305,6 @@ graph TD;
   style kup-calendar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

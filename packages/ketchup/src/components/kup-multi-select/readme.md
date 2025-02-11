@@ -2,17 +2,21 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` |  | `string` | `''` |
-| `data` | -- | The json data used to populate the tree view: the basic, always visible tree nodes. | `KupTreeNode[]` | `[]` |
-| `disabled` | `disabled` |  | `boolean` | `false` |
+| Property      | Attribute      | Description                                                                         | Type            | Default |
+| ------------- | -------------- | ----------------------------------------------------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` |                                                                                     | `string`        | `''`    |
+| `data`        | --             | The json data used to populate the tree view: the basic, always visible tree nodes. | `KupTreeNode[]` | `[]`    |
+| `disabled`    | `disabled`     |                                                                                     | `boolean`       | `false` |
+
 
 ## Methods
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+
 
 #### Parameters
 
@@ -24,13 +28,21 @@
 
 Type: `Promise<GenericObject>`
 
+
+
 ### `refresh() => Promise<void>`
+
+
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
+
+
 
 #### Parameters
 
@@ -42,30 +54,33 @@ Type: `Promise<void>`
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-multi-select-font-family` | Sets font family of the multi-select's label. |
-| `--kup-multi-select-font-size` | Sets font size of the multi-select's label. |
-| `--kup-multi-select-font-weight` | Sets font weight of the multi-select's label. |
-| `--kup-multi-select-label-color` | Sets text color of the multi-select's label. |
-| `--kup-multi-select-primary-color` | Sets primary color of the component. |
+| Name                                   | Description                                     |
+| -------------------------------------- | ----------------------------------------------- |
+| `--kup-multi-select-font-family`       | Sets font family of the multi-select's label.   |
+| `--kup-multi-select-font-size`         | Sets font size of the multi-select's label.     |
+| `--kup-multi-select-font-weight`       | Sets font weight of the multi-select's label.   |
+| `--kup-multi-select-label-color`       | Sets text color of the multi-select's label.    |
+| `--kup-multi-select-primary-color`     | Sets primary color of the component.            |
 | `--kup-multi-select-primary-color-rgb` | Sets primary color RGB values of the component. |
-| `--kup-multi-select-thumb-color` | Sets thumb color. |
+| `--kup-multi-select-thumb-color`       | Sets thumb color.                               |
+
 
 ## Dependencies
 
 ### Depends on
 
--   [kup-chip](../kup-chip)
--   [kup-button](../kup-button)
--   [kup-tree](../kup-tree)
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-chip](../kup-chip)
+- [kup-button](../kup-button)
+- [kup-tree](../kup-tree)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-multi-select --> kup-chip
@@ -252,6 +267,6 @@ graph TD;
   style kup-multi-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

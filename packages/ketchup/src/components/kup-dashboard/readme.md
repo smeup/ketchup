@@ -2,19 +2,22 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | The data of the component. | `KupDataDashboard` | `null` |
-| `enableDesign` | `enable-design` | Enable drag & drop of the section. | `boolean` | `false` |
+| Property       | Attribute       | Description                        | Type               | Default |
+| -------------- | --------------- | ---------------------------------- | ------------------ | ------- |
+| `customStyle`  | `custom-style`  | Custom style of the component.     | `string`           | `''`    |
+| `data`         | --              | The data of the component.         | `KupDataDashboard` | `null`  |
+| `enableDesign` | `enable-design` | Enable drag & drop of the section. | `boolean`          | `false` |
+
 
 ## Events
 
 | Event                | Description | Type                                    |
 | -------------------- | ----------- | --------------------------------------- |
 | `kup-dashboard-save` |             | `CustomEvent<KupDashboardEventPayload>` |
+
 
 ## Methods
 
@@ -24,8 +27,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -42,30 +45,34 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-badge](../kup-badge)
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-dashboard --> kup-badge
@@ -258,6 +265,6 @@ graph TD;
   style kup-dashboard fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

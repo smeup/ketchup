@@ -2,17 +2,20 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `data` | -- | Data containing the text. | `KupDataCell` | `undefined` |
+| Property | Attribute | Description               | Type          | Default     |
+| -------- | --------- | ------------------------- | ------------- | ----------- |
+| `data`   | --        | Data containing the text. | `KupDataCell` | `undefined` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
+| Event           | Description                            | Type                           |
+| --------------- | -------------------------------------- | ------------------------------ |
 | `kup-txt-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+
 
 ## Methods
 
@@ -22,8 +25,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -40,29 +43,33 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-txt --> kup-card
@@ -254,6 +261,6 @@ graph TD;
   style kup-txt fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
