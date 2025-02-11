@@ -1303,10 +1303,10 @@ export class KupInputPanel {
     #CHIAdapter(
         _options: GenericObject,
         _fieldLabel: string,
-        _currentValue: string,
+        currentValue: string,
         cell: KupInputPanelCell
     ) {
-        return CHIAdapter(_currentValue, cell.decode);
+        return CHIAdapter(currentValue, cell.decode);
     }
 
     #GRAAdapter() {
