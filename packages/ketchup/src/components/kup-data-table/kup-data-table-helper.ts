@@ -1142,6 +1142,7 @@ export function decorateDataTable(data: KupDataTableDataset) {
             let cell: KupDataTableCell = row.cells[cellKey];
 
             const value = cell.value;
+            const decode = cell.decode;
             const options = cell['options'];
             cell.isEditable = cell.isEditable ?? cell['editable'];
             const shapeAdapters = {
@@ -1151,7 +1152,7 @@ export function decorateDataTable(data: KupDataTableDataset) {
                     CMBandACPAdapter(value, '', options),
                 [FCellShapes.RADIO]: () => RADAdapter(value, options),
                 [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
-                [FCellShapes.CHIP]: () => CHIAdapter(value),
+                [FCellShapes.CHIP]: () => CHIAdapter(value, decode),
                 [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
             };
 
