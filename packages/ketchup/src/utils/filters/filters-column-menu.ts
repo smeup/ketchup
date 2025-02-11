@@ -175,29 +175,20 @@ export class FiltersColumnMenu extends Filters {
         filters: GenericFilter = {},
         column: string,
         remFilter: string
-    ) {
-        if (filters == null || remFilter == null) {
+    ): void {
+        if (!filters || !remFilter || !filters[column]) {
             return;
         }
-        let filter: Filter = filters[column];
-        if (filter == null) {
-            return;
-        }
-        if (filter.checkBoxes == null) {
-            filter.checkBoxes = [];
-        }
-        let index = Filters.indexOfValueInValuesArray(
-            filter.checkBoxes,
-            remFilter
+
+        const filter = filters[column];
+        filter.checkBoxes = filter.checkBoxes ?? [];
+
+        filter.checkBoxes = filter.checkBoxes.filter(
+            (item) => item.value !== remFilter
         );
-        if (index >= 0) {
-            let chs = [];
-            for (let i = 0; i < filter.checkBoxes.length; i++) {
-                if (i != index) {
-                    chs[chs.length] = filter.checkBoxes[i];
-                }
-            }
-            filter.checkBoxes = [...chs];
+
+        if (filter.checkBoxes.length === 0) {
+            delete filters[column];
         }
     }
 
@@ -297,10 +288,6 @@ export class FiltersColumnMenu extends Filters {
      * @param {string} column - Name of the column.
      */
     removeFilter(filters: GenericFilter = {}, column: string) {
-        filters[column] = {
-            textField: '',
-            textFieldTmp: '',
-            checkBoxes: [],
-        };
+        delete filters[column];
     }
 }
