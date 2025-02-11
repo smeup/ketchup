@@ -7,23 +7,26 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `actionButton` | -- | Set of FButton props to set the action button. | `FButtonProps` | `null` |
-| `closeButton` | `close-button` | When true, the hide button will be displayed. | `boolean` | `true` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `header` | `header` | Sets the textual content of the snackbar. | `string` | `''` |
-| `text` | `text` | Sets the textual content of the snackbar. | `string` | `''` |
-| `timeout` | `timeout` | Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds. | `number` | `null` |
+| Property       | Attribute      | Description                                                                                                      | Type           | Default |
+| -------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- | -------------- | ------- |
+| `actionButton` | --             | Set of FButton props to set the action button.                                                                   | `FButtonProps` | `null`  |
+| `closeButton`  | `close-button` | When true, the hide button will be displayed.                                                                    | `boolean`      | `true`  |
+| `customStyle`  | `custom-style` | Custom style of the component.                                                                                   | `string`       | `''`    |
+| `header`       | `header`       | Sets the textual content of the snackbar.                                                                        | `string`       | `''`    |
+| `text`         | `text`         | Sets the textual content of the snackbar.                                                                        | `string`       | `''`    |
+| `timeout`      | `timeout`      | Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds. | `number`       | `null`  |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-snackbar-actionclick` | Triggered when action button is clicked. | `CustomEvent<KupEventPayload>` |
+| Event                          | Description                                               | Type                           |
+| ------------------------------ | --------------------------------------------------------- | ------------------------------ |
+| `kup-snackbar-actionclick`     | Triggered when action button is clicked.                  | `CustomEvent<KupEventPayload>` |
 | `kup-snackbar-timeoutcomplete` | Triggered when the snackbar's hidden timeout is complete. | `CustomEvent<KupEventPayload>` |
+
 
 ## Methods
 
@@ -33,8 +36,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -51,6 +54,8 @@ Hides the snackbar.
 
 Type: `Promise<void>`
 
+
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -59,19 +64,23 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `show() => Promise<void>`
 
@@ -81,16 +90,18 @@ Displays the snackbar.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-snackbar --> kup-card
@@ -283,6 +294,6 @@ graph TD;
   style kup-snackbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

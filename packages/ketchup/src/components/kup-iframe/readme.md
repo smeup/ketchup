@@ -2,13 +2,15 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `buttonData` | -- | Props of the button (when isButton is set to true). | `Object` | `{}` |
-| `isButton` | `is-button` | The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked. | `boolean` | `false` |
-| `src` | `src` | The address the iframe should be referencing to. | `string` | `undefined` |
+| Property     | Attribute   | Description                                                                                                            | Type      | Default     |
+| ------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `buttonData` | --          | Props of the button (when isButton is set to true).                                                                    | `Object`  | `{}`        |
+| `isButton`   | `is-button` | The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked. | `boolean` | `false`     |
+| `src`        | `src`       | The address the iframe should be referencing to.                                                                       | `string`  | `undefined` |
+
 
 ## Events
 
@@ -16,6 +18,7 @@
 | ------------------ | ----------- | ------------------------------ |
 | `kup-iframe-error` |             | `CustomEvent<KupEventPayload>` |
 | `kup-iframe-load`  |             | `CustomEvent<KupEventPayload>` |
+
 
 ## Methods
 
@@ -25,8 +28,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -43,30 +46,34 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-button](../kup-button)
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-button](../kup-button)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-iframe --> kup-button
@@ -259,6 +266,6 @@ graph TD;
   style kup-iframe fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

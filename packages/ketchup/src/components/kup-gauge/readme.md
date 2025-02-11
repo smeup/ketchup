@@ -72,29 +72,31 @@ Fundamentally, the main problem here is that that if
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `arcThickness` | `arc-thickness` | Sets how much the arc of the gauge should be thick. | `number` | `30` |
-| `colors` | -- | Array of three elements to specify the color of the arcs. | `string[]` | `[ `var(${KupThemeColorValues.SUCCESS})`,         `var(${KupThemeColorValues.WARNING})`, `var(${KupThemeColorValues.DANGER})`, ]` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `firstThreshold` | `first-threshold` | The first threshold, establishing the length of the first and second arc. | `number` | `undefined` |
-| `labelDistance` | `label-distance` | The distance the label and the value has from the gauge graph. | `number` | `20` |
-| `maxValue` | `max-value` | The maximum value reachable in the current graph. | `number` | `100` |
-| `measurementUnit` | `measurement-unit` | A string which will be appended to the displayed values of the component. | `string` | `''` |
-| `minValue` | `min-value` | The minimum value reachable in the current graph. | `number` | `-100` |
-| `needleCircle` | `needle-circle` | When true, shows a rounded needle. | `boolean` | `false` |
-| `onlyValue` | `only-value` | When true, ignore thresholds in gauge and show colored value's arc. | `boolean` | `false` |
-| `reverseColors` | `reverse-colors` | When true, the colors inside the colors array are used in the reversed order. | `boolean` | `false` |
-| `secondThreshold` | `second-threshold` | The second threshold, establishing the length of the second and third arc. | `number` | `undefined` |
-| `showLabels` | `show-labels` | If set to false, threshold values of the gauge are not displayed. | `boolean` | `true` |
-| `showMaxmin` | `show-maxmin` | If set to false, the maximum and minimum values of the gauge are not displayed. | `boolean` | `true` |
-| `showValue` | `show-value` | If set to false, the current value of the gauge is not displayed. | `boolean` | `true` |
-| `size` | `size` | Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable. | `number` | `300` |
-| `value` | `value` | The current value of the gauge. The gauge's needle points to the percentage based on this prop. | `number` | `0` |
-| `valueSize` | `value-size` | The current size of gauge's value. Correct values are: 0,1,2 or 3. | `number` | `0` |
-| `widthComponent` | `width-component` | Set Width gauge. | `string` | `'100%'` |
+| Property          | Attribute          | Description                                                                                                                          | Type       | Default                                                                                                                                               |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arcThickness`    | `arc-thickness`    | Sets how much the arc of the gauge should be thick.                                                                                  | `number`   | `30`                                                                                                                                                  |
+| `colors`          | --                 | Array of three elements to specify the color of the arcs.                                                                            | `string[]` | `[         `var(${KupThemeColorValues.SUCCESS})`,         `var(${KupThemeColorValues.WARNING})`,         `var(${KupThemeColorValues.DANGER})`,     ]` |
+| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                                       | `string`   | `''`                                                                                                                                                  |
+| `firstThreshold`  | `first-threshold`  | The first threshold, establishing the length of the first and second arc.                                                            | `number`   | `undefined`                                                                                                                                           |
+| `labelDistance`   | `label-distance`   | The distance the label and the value has from the gauge graph.                                                                       | `number`   | `20`                                                                                                                                                  |
+| `maxValue`        | `max-value`        | The maximum value reachable in the current graph.                                                                                    | `number`   | `100`                                                                                                                                                 |
+| `measurementUnit` | `measurement-unit` | A string which will be appended to the displayed values of the component.                                                            | `string`   | `''`                                                                                                                                                  |
+| `minValue`        | `min-value`        | The minimum value reachable in the current graph.                                                                                    | `number`   | `-100`                                                                                                                                                |
+| `needleCircle`    | `needle-circle`    | When true, shows a rounded needle.                                                                                                   | `boolean`  | `false`                                                                                                                                               |
+| `onlyValue`       | `only-value`       | When true, ignore thresholds in gauge and show colored value's arc.                                                                  | `boolean`  | `false`                                                                                                                                               |
+| `reverseColors`   | `reverse-colors`   | When true, the colors inside the colors array are used in the reversed order.                                                        | `boolean`  | `false`                                                                                                                                               |
+| `secondThreshold` | `second-threshold` | The second threshold, establishing the length of the second and third arc.                                                           | `number`   | `undefined`                                                                                                                                           |
+| `showLabels`      | `show-labels`      | If set to false, threshold values of the gauge are not displayed.                                                                    | `boolean`  | `true`                                                                                                                                                |
+| `showMaxmin`      | `show-maxmin`      | If set to false, the maximum and minimum values of the gauge are not displayed.                                                      | `boolean`  | `true`                                                                                                                                                |
+| `showValue`       | `show-value`       | If set to false, the current value of the gauge is not displayed.                                                                    | `boolean`  | `true`                                                                                                                                                |
+| `size`            | `size`             | Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable. | `number`   | `300`                                                                                                                                                 |
+| `value`           | `value`            | The current value of the gauge. The gauge's needle points to the percentage based on this prop.                                      | `number`   | `0`                                                                                                                                                   |
+| `valueSize`       | `value-size`       | The current size of gauge's value. Correct values are: 0,1,2 or 3.                                                                   | `number`   | `0`                                                                                                                                                   |
+| `widthComponent`  | `width-component`  | Set Width gauge.                                                                                                                     | `string`   | `'100%'`                                                                                                                                              |
+
 
 ## Methods
 
@@ -104,8 +106,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -122,19 +124,24 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -145,27 +152,27 @@ Type: `Promise<void>`
 | `--kup-gauge-font-size`    | Sets font size of the component.   |
 | `--kup-gauge-needle-color` | Sets color of the needle.          |
 
+
 ## Dependencies
 
 ### Used by
 
--   [kup-box](../kup-box)
--   [kup-card](../kup-card)
--   [kup-cell](../kup-cell)
--   [kup-data-table](../kup-data-table)
--   [kup-form](../kup-form)
--   [kup-image-list](../kup-image-list)
--   [kup-input-panel](../kup-input-panel)
--   [kup-toolbar](../kup-toolbar)
--   [kup-tree](../kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-gauge --> kup-card
@@ -257,6 +264,6 @@ graph TD;
   style kup-gauge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

@@ -1,20 +1,25 @@
 # kup-file-upload
 
+
+
 <!-- Auto Generated Below -->
+
 
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | `data` | Actual data of the input field. | `any` | `null` |
+| Property      | Attribute      | Description                     | Type     | Default |
+| ------------- | -------------- | ------------------------------- | -------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.  | `string` | `''`    |
+| `data`        | `data`         | Actual data of the input field. | `any`    | `null`  |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-file-upload-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
-| `kup-file-upload-upload` |  | `CustomEvent<KupFileUploadEventPayload>` |
+| Event                    | Description                     | Type                                     |
+| ------------------------ | ------------------------------- | ---------------------------------------- |
+| `kup-file-upload-ready`  | When component load is complete | `CustomEvent<KupEventPayload>`           |
+| `kup-file-upload-upload` |                                 | `CustomEvent<KupFileUploadEventPayload>` |
+
 
 ## Methods
 
@@ -24,8 +29,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -42,6 +47,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setLoading(loading: boolean) => Promise<void>`
 
 Sets to show spinner during upload.
@@ -56,19 +63,23 @@ Sets to show spinner during upload.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setSuccess(success: boolean) => Promise<void>`
 
@@ -84,29 +95,31 @@ Sets upload has been successfull to show success message.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
--   [kup-box](../kup-box)
--   [kup-card](../kup-card)
--   [kup-cell](../kup-cell)
--   [kup-data-table](../kup-data-table)
--   [kup-form](../kup-form)
--   [kup-image-list](../kup-image-list)
--   [kup-input-panel](../kup-input-panel)
--   [kup-toolbar](../kup-toolbar)
--   [kup-tree](../kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
--   [kup-spinner](../kup-spinner)
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
+- [kup-spinner](../kup-spinner)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-file-upload --> kup-spinner
@@ -198,6 +211,6 @@ graph TD;
   style kup-file-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

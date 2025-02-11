@@ -2,22 +2,25 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `data` | -- | Dataset containing the activities list. | `KupDataDataset` | `undefined` |
-| `dateColumn` | `date-column` | Columns containing dates. | `string` | `undefined` |
-| `sort` | -- | Defines the current sorting options. | `SortObject[]` | `[]` |
-| `timeColumn` | `time-column` | Columns containing times. | `string` | `undefined` |
+| Property     | Attribute     | Description                             | Type             | Default     |
+| ------------ | ------------- | --------------------------------------- | ---------------- | ----------- |
+| `data`       | --            | Dataset containing the activities list. | `KupDataDataset` | `undefined` |
+| `dateColumn` | `date-column` | Columns containing dates.               | `string`         | `undefined` |
+| `sort`       | --            | Defines the current sorting options.    | `SortObject[]`   | `[]`        |
+| `timeColumn` | `time-column` | Columns containing times.               | `string`         | `undefined` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-activitytimeline-click` | Generic click event on activity. | `CustomEvent<KupActivityTimelineClickEventPayload>` |
+| Event                              | Description                            | Type                                                |
+| ---------------------------------- | -------------------------------------- | --------------------------------------------------- |
+| `kup-activitytimeline-click`       | Generic click event on activity.       | `CustomEvent<KupActivityTimelineClickEventPayload>` |
 | `kup-activitytimeline-contextmenu` | Generic right click event on activity. | `CustomEvent<KupActivityTimelineClickEventPayload>` |
-| `kup-activitytimeline-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+| `kup-activitytimeline-ready`       | Triggered when the component is ready. | `CustomEvent<KupEventPayload>`                      |
+
 
 ## Methods
 
@@ -27,8 +30,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -45,30 +48,34 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-activity-timeline --> kup-card
@@ -261,6 +268,6 @@ graph TD;
   style kup-activity-timeline fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
