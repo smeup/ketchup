@@ -701,7 +701,7 @@ export class KupInputPanel {
 
         return (
             <span class={`${baseClass}${additionalClass}`} id={column.name}>
-                <FLabel text={cell.value} parsing={true} />
+                <FLabel text={cell.value} />
             </span>
         );
     }
