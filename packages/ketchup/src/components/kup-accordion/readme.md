@@ -2,23 +2,20 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type                                                                                                                                                    | Default                    |
-| ------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                                                                                                                                | `''`                       |
-| `data`        | --             | Data of the accordion.                                          | `KupAccordionData`                                                                                                                                      | `null`                     |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                                                               | `false`                    |
-| `sizing`      | `sizing`       | Sets the type of the button                                     | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | Data of the accordion. | `KupAccordionData` | `null` |
+| `ripple` | `ripple` | When enabled displays Material's ripple effect on item headers. | `boolean` | `false` |
+| `sizing` | `sizing` | Sets the type of the button | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
 
 ## Events
 
-| Event                        | Description                     | Type                                                |
-| ---------------------------- | ------------------------------- | --------------------------------------------------- |
+| Event | Description | Type |
+| --- | --- | --- |
 | `kup-accordion-itemselected` | Fired when an item is selected. | `CustomEvent<KupAccordionItemSelectedEventPayload>` |
-
 
 ## Methods
 
@@ -30,8 +27,6 @@ This method collapses all expandible items.
 
 Type: `Promise<void>`
 
-
-
 ### `expandAll() => Promise<void>`
 
 This method expands all expandible items.
@@ -40,16 +35,14 @@ This method expands all expandible items.
 
 Type: `Promise<void>`
 
-
-
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -66,23 +59,19 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `toggleItem(itemName: string) => Promise<void>`
 
@@ -98,38 +87,35 @@ This method activates or deactivates an item
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                                     | Description                                                      |
-| ---------------------------------------- | ---------------------------------------------------------------- |
-| `--kup-accordion-background-color`       | Sets background of the component.                                |
-| `--kup-accordion-border`                 | Sets borders color of the accordion.                             |
-| `--kup-accordion-border-radius`          | Sets border radius of the first and last items of the accordion. |
-| `--kup-accordion-dropdown-icon-color`    | Sets color of the dropdown icon.                                 |
-| `--kup-accordion-font-family`            | Sets font family of the component.                               |
-| `--kup-accordion-font-size`              | Sets font size of the component.                                 |
-| `--kup-accordion-hover-background-color` | Sets background color of the hover effect.                       |
-| `--kup-accordion-hover-color`            | Sets text color of the hover effect.                             |
-| `--kup-accordion-padding`                | Sets padding of the accordion's items.                           |
-| `--kup-accordion-primary-color`          | Sets primary color of the component.                             |
-| `--kup-accordion-primary-color-rgb`      | Sets primary color RGB values of the component.                  |
-| `--kup-accordion-text-color`             | Sets text color of the component.                                |
-| `--kup-accordion-text-on-primary-color`  | Sets text on primary color of the component.                     |
-| `--kup-accordion-transition`             | Sets transition duration for color and background-color.         |
-
+| Name | Description |
+| --- | --- |
+| `--kup-accordion-background-color` | Sets background of the component. |
+| `--kup-accordion-border` | Sets borders color of the accordion. |
+| `--kup-accordion-border-radius` | Sets border radius of the first and last items of the accordion. |
+| `--kup-accordion-dropdown-icon-color` | Sets color of the dropdown icon. |
+| `--kup-accordion-font-family` | Sets font family of the component. |
+| `--kup-accordion-font-size` | Sets font size of the component. |
+| `--kup-accordion-hover-background-color` | Sets background color of the hover effect. |
+| `--kup-accordion-hover-color` | Sets text color of the hover effect. |
+| `--kup-accordion-padding` | Sets padding of the accordion's items. |
+| `--kup-accordion-primary-color` | Sets primary color of the component. |
+| `--kup-accordion-primary-color-rgb` | Sets primary color RGB values of the component. |
+| `--kup-accordion-text-color` | Sets text color of the component. |
+| `--kup-accordion-text-on-primary-color` | Sets text on primary color of the component. |
+| `--kup-accordion-transition` | Sets transition duration for color and background-color. |
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-accordion --> kup-card
@@ -322,6 +308,6 @@ graph TD;
   style kup-accordion fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -3,7 +3,7 @@ module.exports = {
     tabWidth: 4,
     overrides: [
         {
-            files: '*.scss',
+            files: ['*.scss', '*.yaml'],
             options: {
                 tabWidth: 2,
             },

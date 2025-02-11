@@ -3856,8 +3856,8 @@ export class KupDataTable {
     }
 
     #adjustPaginator() {
-        this.computeMaxRowsPerPage()
-        
+        this.computeMaxRowsPerPage();
+
         const numberOfRows = this.#rowsLength;
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);

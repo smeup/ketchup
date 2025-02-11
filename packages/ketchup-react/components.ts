@@ -7,103 +7,479 @@
 
 /* eslint-disable */
 
-import { type FCellEventPayload, type FObjectFieldEventPayload, type KupAccordionCustomEvent, type KupAccordionItemSelectedEventPayload, type KupActivityTimelineClickEventPayload, type KupActivityTimelineCustomEvent, type KupAutocompleteCustomEvent, type KupAutocompleteEventPayload, type KupAutocompleteIconClickEventPayload, type KupBadgeCustomEvent, type KupBoxAutoSelectEventPayload, type KupBoxClickEventPayload, type KupBoxContextMenuEventPayload, type KupBoxCustomEvent, type KupBoxLoadMoreClickEventPayload, type KupBoxRowActionClickEventPayload, type KupBoxSelectedEventPayload, type KupButtonClickEventPayload, type KupButtonCustomEvent, type KupButtonListClickEventPayload, type KupButtonListCustomEvent, type KupCalendarCustomEvent, type KupCalendarDateClickEventPayload, type KupCalendarEventClickEventPayload, type KupCalendarEventDropEventPayload, type KupCalendarViewChangeEventPayload, type KupCardClickPayload, type KupCardCustomEvent, type KupCardEventPayload, type KupCardListClickEventPayload, type KupCardListCustomEvent, type KupCellCustomEvent, type KupCellSubmitClickEventPayload, type KupChartClickEvent, type KupChartCustomEvent, type KupCheckboxCustomEvent, type KupCheckboxEventPayload, type KupChipChangeEventPayload, type KupChipCustomEvent, type KupChipEventPayload, type KupColorPickerCustomEvent, type KupColorPickerEventPayload, type KupComboboxCustomEvent, type KupComboboxEventPayload, type KupComboboxIconClickEventPayload, type KupDashboardCustomEvent, type KupDashboardEventPayload, type KupDataTableCustomEvent, type KupDatatableCellCheckPayload, type KupDatatableClickEventPayload, type KupDatatableColumnMenuEventPayload, type KupDatatableColumnMoveEventPayload, type KupDatatableColumnRemoveEventPayload, type KupDatatableDeleteRowEventPayload, type KupDatatableHistoryEventPayload, type KupDatatableInsertRowEventPayload, type KupDatatableLoadMoreClickEventPayload, type KupDatatableRowActionItemClickEventPayload, type KupDatatableRowSelectedEventPayload, type KupDatatableUpdatePayload, type KupDatePickerCustomEvent, type KupDatePickerEventPayload, type KupDialogCustomEvent, type KupDrawerCustomEvent, type KupDropEventPayload, type KupDropdownButtonCustomEvent, type KupDropdownButtonEventPayload, type KupEchartClickEventPayload, type KupEchartCustomEvent, type KupEditorCustomEvent, type KupEditorEventPayload, type KupEventPayload, type KupFamilyTreeCustomEvent, type KupFamilyTreeEventPayload, type KupFileUploadCustomEvent, type KupFileUploadEventPayload, type KupFormCustomEvent, type KupHtmCustomEvent, type KupIframeCustomEvent, type KupImageClickEventPayload, type KupImageCustomEvent, type KupImageListCustomEvent, type KupImageListEventPayload, type KupInputPanelClickEventPayload, type KupInputPanelCustomEvent, type KupLazyCustomEvent, type KupListCustomEvent, type KupListEventPayload, type KupNavBarCustomEvent, type KupNumericPickerCustomEvent, type KupNumericPickerEventPayload, type KupPdfCustomEvent, type KupPlannerClickEventPayload, type KupPlannerCustomEvent, type KupPlannerEventPayload, type KupPlannerUnloadEventPayload, type KupRadioChangeEventPayload, type KupRadioCustomEvent, type KupRatingClickEventPayload, type KupRatingCustomEvent, type KupSnackbarCustomEvent, type KupSpinnerCustomEvent, type KupSwitchCustomEvent, type KupSwitchEventPayload, type KupTabBarCustomEvent, type KupTabBarEventPayload, type KupTextFieldCustomEvent, type KupTextFieldEventPayload, type KupTimePickerCustomEvent, type KupTimePickerEventPayload, type KupToolbarClickEventPayload, type KupToolbarCustomEvent, type KupToolbarItemClickEventPayload, type KupTreeColumnMenuEventPayload, type KupTreeColumnRemoveEventPayload, type KupTreeContextMenuEventPayload, type KupTreeCustomEvent, type KupTreeDynamicMassExpansionEventPayload, type KupTreeNodeButtonClickEventPayload, type KupTreeNodeCollapseEventPayload, type KupTreeNodeExpandEventPayload, type KupTreeNodeSelectedEventPayload, type KupTxtCustomEvent, type KupTypographyClickEventPayload, type KupTypographyCustomEvent, type KupTypographyIconClickEventPayload, type KupTypographyListClickEventPayload, type KupTypographyListCustomEvent, type KupTypographyListIconClickEventPayload } from "@sme.up/ketchup";
-import { KupAccordion as KupAccordionElement, defineCustomElement as defineKupAccordion } from "@sme.up/ketchup/dist/components/kup-accordion.js";
-import { KupActivityTimeline as KupActivityTimelineElement, defineCustomElement as defineKupActivityTimeline } from "@sme.up/ketchup/dist/components/kup-activity-timeline.js";
-import { KupAutocomplete as KupAutocompleteElement, defineCustomElement as defineKupAutocomplete } from "@sme.up/ketchup/dist/components/kup-autocomplete.js";
-import { KupBadge as KupBadgeElement, defineCustomElement as defineKupBadge } from "@sme.up/ketchup/dist/components/kup-badge.js";
-import { KupBox as KupBoxElement, defineCustomElement as defineKupBox } from "@sme.up/ketchup/dist/components/kup-box.js";
-import { KupButtonList as KupButtonListElement, defineCustomElement as defineKupButtonList } from "@sme.up/ketchup/dist/components/kup-button-list.js";
-import { KupButton as KupButtonElement, defineCustomElement as defineKupButton } from "@sme.up/ketchup/dist/components/kup-button.js";
-import { KupCalendar as KupCalendarElement, defineCustomElement as defineKupCalendar } from "@sme.up/ketchup/dist/components/kup-calendar.js";
-import { KupCardList as KupCardListElement, defineCustomElement as defineKupCardList } from "@sme.up/ketchup/dist/components/kup-card-list.js";
-import { KupCard as KupCardElement, defineCustomElement as defineKupCard } from "@sme.up/ketchup/dist/components/kup-card.js";
-import { KupCell as KupCellElement, defineCustomElement as defineKupCell } from "@sme.up/ketchup/dist/components/kup-cell.js";
-import { KupChart as KupChartElement, defineCustomElement as defineKupChart } from "@sme.up/ketchup/dist/components/kup-chart.js";
-import { KupCheckbox as KupCheckboxElement, defineCustomElement as defineKupCheckbox } from "@sme.up/ketchup/dist/components/kup-checkbox.js";
-import { KupChip as KupChipElement, defineCustomElement as defineKupChip } from "@sme.up/ketchup/dist/components/kup-chip.js";
-import { KupColorPicker as KupColorPickerElement, defineCustomElement as defineKupColorPicker } from "@sme.up/ketchup/dist/components/kup-color-picker.js";
-import { KupCombobox as KupComboboxElement, defineCustomElement as defineKupCombobox } from "@sme.up/ketchup/dist/components/kup-combobox.js";
-import { KupCustomTaskListHeader as KupCustomTaskListHeaderElement, defineCustomElement as defineKupCustomTaskListHeader } from "@sme.up/ketchup/dist/components/kup-custom-task-list-header.js";
-import { KupCustomTaskListTable as KupCustomTaskListTableElement, defineCustomElement as defineKupCustomTaskListTable } from "@sme.up/ketchup/dist/components/kup-custom-task-list-table.js";
-import { KupDashboard as KupDashboardElement, defineCustomElement as defineKupDashboard } from "@sme.up/ketchup/dist/components/kup-dashboard.js";
-import { KupDataTable as KupDataTableElement, defineCustomElement as defineKupDataTable } from "@sme.up/ketchup/dist/components/kup-data-table.js";
-import { KupDatePicker as KupDatePickerElement, defineCustomElement as defineKupDatePicker } from "@sme.up/ketchup/dist/components/kup-date-picker.js";
-import { KupDialog as KupDialogElement, defineCustomElement as defineKupDialog } from "@sme.up/ketchup/dist/components/kup-dialog.js";
-import { KupDrawer as KupDrawerElement, defineCustomElement as defineKupDrawer } from "@sme.up/ketchup/dist/components/kup-drawer.js";
-import { KupDropdownButton as KupDropdownButtonElement, defineCustomElement as defineKupDropdownButton } from "@sme.up/ketchup/dist/components/kup-dropdown-button.js";
-import { KupEchart as KupEchartElement, defineCustomElement as defineKupEchart } from "@sme.up/ketchup/dist/components/kup-echart.js";
-import { KupEditor as KupEditorElement, defineCustomElement as defineKupEditor } from "@sme.up/ketchup/dist/components/kup-editor.js";
-import { KupFamilyTree as KupFamilyTreeElement, defineCustomElement as defineKupFamilyTree } from "@sme.up/ketchup/dist/components/kup-family-tree.js";
-import { KupFileUpload as KupFileUploadElement, defineCustomElement as defineKupFileUpload } from "@sme.up/ketchup/dist/components/kup-file-upload.js";
-import { KupForm as KupFormElement, defineCustomElement as defineKupForm } from "@sme.up/ketchup/dist/components/kup-form.js";
-import { KupGanttCalendar as KupGanttCalendarElement, defineCustomElement as defineKupGanttCalendar } from "@sme.up/ketchup/dist/components/kup-gantt-calendar.js";
-import { KupGantt as KupGanttElement, defineCustomElement as defineKupGantt } from "@sme.up/ketchup/dist/components/kup-gantt.js";
-import { KupGauge as KupGaugeElement, defineCustomElement as defineKupGauge } from "@sme.up/ketchup/dist/components/kup-gauge.js";
-import { KupGridRenderer as KupGridRendererElement, defineCustomElement as defineKupGridRenderer } from "@sme.up/ketchup/dist/components/kup-grid-renderer.js";
-import { KupGrid as KupGridElement, defineCustomElement as defineKupGrid } from "@sme.up/ketchup/dist/components/kup-grid.js";
-import { KupHorizontalScroll as KupHorizontalScrollElement, defineCustomElement as defineKupHorizontalScroll } from "@sme.up/ketchup/dist/components/kup-horizontal-scroll.js";
-import { KupHtm as KupHtmElement, defineCustomElement as defineKupHtm } from "@sme.up/ketchup/dist/components/kup-htm.js";
-import { KupIframe as KupIframeElement, defineCustomElement as defineKupIframe } from "@sme.up/ketchup/dist/components/kup-iframe.js";
-import { KupImageList as KupImageListElement, defineCustomElement as defineKupImageList } from "@sme.up/ketchup/dist/components/kup-image-list.js";
-import { KupImage as KupImageElement, defineCustomElement as defineKupImage } from "@sme.up/ketchup/dist/components/kup-image.js";
-import { KupInputPanel as KupInputPanelElement, defineCustomElement as defineKupInputPanel } from "@sme.up/ketchup/dist/components/kup-input-panel.js";
-import { KupLazy as KupLazyElement, defineCustomElement as defineKupLazy } from "@sme.up/ketchup/dist/components/kup-lazy.js";
-import { KupList as KupListElement, defineCustomElement as defineKupList } from "@sme.up/ketchup/dist/components/kup-list.js";
-import { KupMagicBox as KupMagicBoxElement, defineCustomElement as defineKupMagicBox } from "@sme.up/ketchup/dist/components/kup-magic-box.js";
-import { KupMultiSelect as KupMultiSelectElement, defineCustomElement as defineKupMultiSelect } from "@sme.up/ketchup/dist/components/kup-multi-select.js";
-import { KupNavBar as KupNavBarElement, defineCustomElement as defineKupNavBar } from "@sme.up/ketchup/dist/components/kup-nav-bar.js";
-import { KupNumericPicker as KupNumericPickerElement, defineCustomElement as defineKupNumericPicker } from "@sme.up/ketchup/dist/components/kup-numeric-picker.js";
-import { KupObjectField as KupObjectFieldElement, defineCustomElement as defineKupObjectField } from "@sme.up/ketchup/dist/components/kup-object-field.js";
-import { KupPdf as KupPdfElement, defineCustomElement as defineKupPdf } from "@sme.up/ketchup/dist/components/kup-pdf.js";
-import { KupPlannerRenderer as KupPlannerRendererElement, defineCustomElement as defineKupPlannerRenderer } from "@sme.up/ketchup/dist/components/kup-planner-renderer.js";
-import { KupPlanner as KupPlannerElement, defineCustomElement as defineKupPlanner } from "@sme.up/ketchup/dist/components/kup-planner.js";
-import { KupProbe as KupProbeElement, defineCustomElement as defineKupProbe } from "@sme.up/ketchup/dist/components/kup-probe.js";
-import { KupProgressBar as KupProgressBarElement, defineCustomElement as defineKupProgressBar } from "@sme.up/ketchup/dist/components/kup-progress-bar.js";
-import { KupQlik as KupQlikElement, defineCustomElement as defineKupQlik } from "@sme.up/ketchup/dist/components/kup-qlik.js";
-import { KupRadio as KupRadioElement, defineCustomElement as defineKupRadio } from "@sme.up/ketchup/dist/components/kup-radio.js";
-import { KupRating as KupRatingElement, defineCustomElement as defineKupRating } from "@sme.up/ketchup/dist/components/kup-rating.js";
-import { KupSnackbar as KupSnackbarElement, defineCustomElement as defineKupSnackbar } from "@sme.up/ketchup/dist/components/kup-snackbar.js";
-import { KupSpinner as KupSpinnerElement, defineCustomElement as defineKupSpinner } from "@sme.up/ketchup/dist/components/kup-spinner.js";
-import { KupStandardTooltip as KupStandardTooltipElement, defineCustomElement as defineKupStandardTooltip } from "@sme.up/ketchup/dist/components/kup-standard-tooltip.js";
-import { KupSwitch as KupSwitchElement, defineCustomElement as defineKupSwitch } from "@sme.up/ketchup/dist/components/kup-switch.js";
-import { KupSwitcher as KupSwitcherElement, defineCustomElement as defineKupSwitcher } from "@sme.up/ketchup/dist/components/kup-switcher.js";
-import { KupTabBar as KupTabBarElement, defineCustomElement as defineKupTabBar } from "@sme.up/ketchup/dist/components/kup-tab-bar.js";
-import { KupTaskGantt as KupTaskGanttElement, defineCustomElement as defineKupTaskGantt } from "@sme.up/ketchup/dist/components/kup-task-gantt.js";
-import { KupTaskListHeader as KupTaskListHeaderElement, defineCustomElement as defineKupTaskListHeader } from "@sme.up/ketchup/dist/components/kup-task-list-header.js";
-import { KupTaskListTable as KupTaskListTableElement, defineCustomElement as defineKupTaskListTable } from "@sme.up/ketchup/dist/components/kup-task-list-table.js";
-import { KupTaskList as KupTaskListElement, defineCustomElement as defineKupTaskList } from "@sme.up/ketchup/dist/components/kup-task-list.js";
-import { KupTextField as KupTextFieldElement, defineCustomElement as defineKupTextField } from "@sme.up/ketchup/dist/components/kup-text-field.js";
-import { KupTimePicker as KupTimePickerElement, defineCustomElement as defineKupTimePicker } from "@sme.up/ketchup/dist/components/kup-time-picker.js";
-import { KupToolbar as KupToolbarElement, defineCustomElement as defineKupToolbar } from "@sme.up/ketchup/dist/components/kup-toolbar.js";
-import { KupTooltip as KupTooltipElement, defineCustomElement as defineKupTooltip } from "@sme.up/ketchup/dist/components/kup-tooltip.js";
-import { KupTree as KupTreeElement, defineCustomElement as defineKupTree } from "@sme.up/ketchup/dist/components/kup-tree.js";
-import { KupTxt as KupTxtElement, defineCustomElement as defineKupTxt } from "@sme.up/ketchup/dist/components/kup-txt.js";
-import { KupTypographyList as KupTypographyListElement, defineCustomElement as defineKupTypographyList } from "@sme.up/ketchup/dist/components/kup-typography-list.js";
-import { KupTypography as KupTypographyElement, defineCustomElement as defineKupTypography } from "@sme.up/ketchup/dist/components/kup-typography.js";
-import { KupVerticalScroll as KupVerticalScrollElement, defineCustomElement as defineKupVerticalScroll } from "@sme.up/ketchup/dist/components/kup-vertical-scroll.js";
-import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
+import {
+    type FCellEventPayload,
+    type FObjectFieldEventPayload,
+    type KupAccordionCustomEvent,
+    type KupAccordionItemSelectedEventPayload,
+    type KupActivityTimelineClickEventPayload,
+    type KupActivityTimelineCustomEvent,
+    type KupAutocompleteCustomEvent,
+    type KupAutocompleteEventPayload,
+    type KupAutocompleteIconClickEventPayload,
+    type KupBadgeCustomEvent,
+    type KupBoxAutoSelectEventPayload,
+    type KupBoxClickEventPayload,
+    type KupBoxContextMenuEventPayload,
+    type KupBoxCustomEvent,
+    type KupBoxLoadMoreClickEventPayload,
+    type KupBoxRowActionClickEventPayload,
+    type KupBoxSelectedEventPayload,
+    type KupButtonClickEventPayload,
+    type KupButtonCustomEvent,
+    type KupButtonListClickEventPayload,
+    type KupButtonListCustomEvent,
+    type KupCalendarCustomEvent,
+    type KupCalendarDateClickEventPayload,
+    type KupCalendarEventClickEventPayload,
+    type KupCalendarEventDropEventPayload,
+    type KupCalendarViewChangeEventPayload,
+    type KupCardClickPayload,
+    type KupCardCustomEvent,
+    type KupCardEventPayload,
+    type KupCardListClickEventPayload,
+    type KupCardListCustomEvent,
+    type KupCellCustomEvent,
+    type KupCellSubmitClickEventPayload,
+    type KupChartClickEvent,
+    type KupChartCustomEvent,
+    type KupCheckboxCustomEvent,
+    type KupCheckboxEventPayload,
+    type KupChipChangeEventPayload,
+    type KupChipCustomEvent,
+    type KupChipEventPayload,
+    type KupColorPickerCustomEvent,
+    type KupColorPickerEventPayload,
+    type KupComboboxCustomEvent,
+    type KupComboboxEventPayload,
+    type KupComboboxIconClickEventPayload,
+    type KupDashboardCustomEvent,
+    type KupDashboardEventPayload,
+    type KupDataTableCustomEvent,
+    type KupDatatableCellCheckPayload,
+    type KupDatatableClickEventPayload,
+    type KupDatatableColumnMenuEventPayload,
+    type KupDatatableColumnMoveEventPayload,
+    type KupDatatableColumnRemoveEventPayload,
+    type KupDatatableDeleteRowEventPayload,
+    type KupDatatableHistoryEventPayload,
+    type KupDatatableInsertRowEventPayload,
+    type KupDatatableLoadMoreClickEventPayload,
+    type KupDatatableRowActionItemClickEventPayload,
+    type KupDatatableRowSelectedEventPayload,
+    type KupDatatableUpdatePayload,
+    type KupDatePickerCustomEvent,
+    type KupDatePickerEventPayload,
+    type KupDialogCustomEvent,
+    type KupDrawerCustomEvent,
+    type KupDropEventPayload,
+    type KupDropdownButtonCustomEvent,
+    type KupDropdownButtonEventPayload,
+    type KupEchartClickEventPayload,
+    type KupEchartCustomEvent,
+    type KupEditorCustomEvent,
+    type KupEditorEventPayload,
+    type KupEventPayload,
+    type KupFamilyTreeCustomEvent,
+    type KupFamilyTreeEventPayload,
+    type KupFileUploadCustomEvent,
+    type KupFileUploadEventPayload,
+    type KupFormCustomEvent,
+    type KupHtmCustomEvent,
+    type KupIframeCustomEvent,
+    type KupImageClickEventPayload,
+    type KupImageCustomEvent,
+    type KupImageListCustomEvent,
+    type KupImageListEventPayload,
+    type KupInputPanelClickEventPayload,
+    type KupInputPanelCustomEvent,
+    type KupLazyCustomEvent,
+    type KupListCustomEvent,
+    type KupListEventPayload,
+    type KupNavBarCustomEvent,
+    type KupNumericPickerCustomEvent,
+    type KupNumericPickerEventPayload,
+    type KupPdfCustomEvent,
+    type KupPlannerClickEventPayload,
+    type KupPlannerCustomEvent,
+    type KupPlannerEventPayload,
+    type KupPlannerUnloadEventPayload,
+    type KupRadioChangeEventPayload,
+    type KupRadioCustomEvent,
+    type KupRatingClickEventPayload,
+    type KupRatingCustomEvent,
+    type KupSnackbarCustomEvent,
+    type KupSpinnerCustomEvent,
+    type KupSwitchCustomEvent,
+    type KupSwitchEventPayload,
+    type KupTabBarCustomEvent,
+    type KupTabBarEventPayload,
+    type KupTextFieldCustomEvent,
+    type KupTextFieldEventPayload,
+    type KupTimePickerCustomEvent,
+    type KupTimePickerEventPayload,
+    type KupToolbarClickEventPayload,
+    type KupToolbarCustomEvent,
+    type KupToolbarItemClickEventPayload,
+    type KupTreeColumnMenuEventPayload,
+    type KupTreeColumnRemoveEventPayload,
+    type KupTreeContextMenuEventPayload,
+    type KupTreeCustomEvent,
+    type KupTreeDynamicMassExpansionEventPayload,
+    type KupTreeNodeButtonClickEventPayload,
+    type KupTreeNodeCollapseEventPayload,
+    type KupTreeNodeExpandEventPayload,
+    type KupTreeNodeSelectedEventPayload,
+    type KupTxtCustomEvent,
+    type KupTypographyClickEventPayload,
+    type KupTypographyCustomEvent,
+    type KupTypographyIconClickEventPayload,
+    type KupTypographyListClickEventPayload,
+    type KupTypographyListCustomEvent,
+    type KupTypographyListIconClickEventPayload,
+} from '@sme.up/ketchup';
+import {
+    KupAccordion as KupAccordionElement,
+    defineCustomElement as defineKupAccordion,
+} from '@sme.up/ketchup/dist/components/kup-accordion.js';
+import {
+    KupActivityTimeline as KupActivityTimelineElement,
+    defineCustomElement as defineKupActivityTimeline,
+} from '@sme.up/ketchup/dist/components/kup-activity-timeline.js';
+import {
+    KupAutocomplete as KupAutocompleteElement,
+    defineCustomElement as defineKupAutocomplete,
+} from '@sme.up/ketchup/dist/components/kup-autocomplete.js';
+import {
+    KupBadge as KupBadgeElement,
+    defineCustomElement as defineKupBadge,
+} from '@sme.up/ketchup/dist/components/kup-badge.js';
+import {
+    KupBox as KupBoxElement,
+    defineCustomElement as defineKupBox,
+} from '@sme.up/ketchup/dist/components/kup-box.js';
+import {
+    KupButtonList as KupButtonListElement,
+    defineCustomElement as defineKupButtonList,
+} from '@sme.up/ketchup/dist/components/kup-button-list.js';
+import {
+    KupButton as KupButtonElement,
+    defineCustomElement as defineKupButton,
+} from '@sme.up/ketchup/dist/components/kup-button.js';
+import {
+    KupCalendar as KupCalendarElement,
+    defineCustomElement as defineKupCalendar,
+} from '@sme.up/ketchup/dist/components/kup-calendar.js';
+import {
+    KupCardList as KupCardListElement,
+    defineCustomElement as defineKupCardList,
+} from '@sme.up/ketchup/dist/components/kup-card-list.js';
+import {
+    KupCard as KupCardElement,
+    defineCustomElement as defineKupCard,
+} from '@sme.up/ketchup/dist/components/kup-card.js';
+import {
+    KupCell as KupCellElement,
+    defineCustomElement as defineKupCell,
+} from '@sme.up/ketchup/dist/components/kup-cell.js';
+import {
+    KupChart as KupChartElement,
+    defineCustomElement as defineKupChart,
+} from '@sme.up/ketchup/dist/components/kup-chart.js';
+import {
+    KupCheckbox as KupCheckboxElement,
+    defineCustomElement as defineKupCheckbox,
+} from '@sme.up/ketchup/dist/components/kup-checkbox.js';
+import {
+    KupChip as KupChipElement,
+    defineCustomElement as defineKupChip,
+} from '@sme.up/ketchup/dist/components/kup-chip.js';
+import {
+    KupColorPicker as KupColorPickerElement,
+    defineCustomElement as defineKupColorPicker,
+} from '@sme.up/ketchup/dist/components/kup-color-picker.js';
+import {
+    KupCombobox as KupComboboxElement,
+    defineCustomElement as defineKupCombobox,
+} from '@sme.up/ketchup/dist/components/kup-combobox.js';
+import {
+    KupCustomTaskListHeader as KupCustomTaskListHeaderElement,
+    defineCustomElement as defineKupCustomTaskListHeader,
+} from '@sme.up/ketchup/dist/components/kup-custom-task-list-header.js';
+import {
+    KupCustomTaskListTable as KupCustomTaskListTableElement,
+    defineCustomElement as defineKupCustomTaskListTable,
+} from '@sme.up/ketchup/dist/components/kup-custom-task-list-table.js';
+import {
+    KupDashboard as KupDashboardElement,
+    defineCustomElement as defineKupDashboard,
+} from '@sme.up/ketchup/dist/components/kup-dashboard.js';
+import {
+    KupDataTable as KupDataTableElement,
+    defineCustomElement as defineKupDataTable,
+} from '@sme.up/ketchup/dist/components/kup-data-table.js';
+import {
+    KupDatePicker as KupDatePickerElement,
+    defineCustomElement as defineKupDatePicker,
+} from '@sme.up/ketchup/dist/components/kup-date-picker.js';
+import {
+    KupDialog as KupDialogElement,
+    defineCustomElement as defineKupDialog,
+} from '@sme.up/ketchup/dist/components/kup-dialog.js';
+import {
+    KupDrawer as KupDrawerElement,
+    defineCustomElement as defineKupDrawer,
+} from '@sme.up/ketchup/dist/components/kup-drawer.js';
+import {
+    KupDropdownButton as KupDropdownButtonElement,
+    defineCustomElement as defineKupDropdownButton,
+} from '@sme.up/ketchup/dist/components/kup-dropdown-button.js';
+import {
+    KupEchart as KupEchartElement,
+    defineCustomElement as defineKupEchart,
+} from '@sme.up/ketchup/dist/components/kup-echart.js';
+import {
+    KupEditor as KupEditorElement,
+    defineCustomElement as defineKupEditor,
+} from '@sme.up/ketchup/dist/components/kup-editor.js';
+import {
+    KupFamilyTree as KupFamilyTreeElement,
+    defineCustomElement as defineKupFamilyTree,
+} from '@sme.up/ketchup/dist/components/kup-family-tree.js';
+import {
+    KupFileUpload as KupFileUploadElement,
+    defineCustomElement as defineKupFileUpload,
+} from '@sme.up/ketchup/dist/components/kup-file-upload.js';
+import {
+    KupForm as KupFormElement,
+    defineCustomElement as defineKupForm,
+} from '@sme.up/ketchup/dist/components/kup-form.js';
+import {
+    KupGanttCalendar as KupGanttCalendarElement,
+    defineCustomElement as defineKupGanttCalendar,
+} from '@sme.up/ketchup/dist/components/kup-gantt-calendar.js';
+import {
+    KupGantt as KupGanttElement,
+    defineCustomElement as defineKupGantt,
+} from '@sme.up/ketchup/dist/components/kup-gantt.js';
+import {
+    KupGauge as KupGaugeElement,
+    defineCustomElement as defineKupGauge,
+} from '@sme.up/ketchup/dist/components/kup-gauge.js';
+import {
+    KupGridRenderer as KupGridRendererElement,
+    defineCustomElement as defineKupGridRenderer,
+} from '@sme.up/ketchup/dist/components/kup-grid-renderer.js';
+import {
+    KupGrid as KupGridElement,
+    defineCustomElement as defineKupGrid,
+} from '@sme.up/ketchup/dist/components/kup-grid.js';
+import {
+    KupHorizontalScroll as KupHorizontalScrollElement,
+    defineCustomElement as defineKupHorizontalScroll,
+} from '@sme.up/ketchup/dist/components/kup-horizontal-scroll.js';
+import {
+    KupHtm as KupHtmElement,
+    defineCustomElement as defineKupHtm,
+} from '@sme.up/ketchup/dist/components/kup-htm.js';
+import {
+    KupIframe as KupIframeElement,
+    defineCustomElement as defineKupIframe,
+} from '@sme.up/ketchup/dist/components/kup-iframe.js';
+import {
+    KupImageList as KupImageListElement,
+    defineCustomElement as defineKupImageList,
+} from '@sme.up/ketchup/dist/components/kup-image-list.js';
+import {
+    KupImage as KupImageElement,
+    defineCustomElement as defineKupImage,
+} from '@sme.up/ketchup/dist/components/kup-image.js';
+import {
+    KupInputPanel as KupInputPanelElement,
+    defineCustomElement as defineKupInputPanel,
+} from '@sme.up/ketchup/dist/components/kup-input-panel.js';
+import {
+    KupLazy as KupLazyElement,
+    defineCustomElement as defineKupLazy,
+} from '@sme.up/ketchup/dist/components/kup-lazy.js';
+import {
+    KupList as KupListElement,
+    defineCustomElement as defineKupList,
+} from '@sme.up/ketchup/dist/components/kup-list.js';
+import {
+    KupMagicBox as KupMagicBoxElement,
+    defineCustomElement as defineKupMagicBox,
+} from '@sme.up/ketchup/dist/components/kup-magic-box.js';
+import {
+    KupMultiSelect as KupMultiSelectElement,
+    defineCustomElement as defineKupMultiSelect,
+} from '@sme.up/ketchup/dist/components/kup-multi-select.js';
+import {
+    KupNavBar as KupNavBarElement,
+    defineCustomElement as defineKupNavBar,
+} from '@sme.up/ketchup/dist/components/kup-nav-bar.js';
+import {
+    KupNumericPicker as KupNumericPickerElement,
+    defineCustomElement as defineKupNumericPicker,
+} from '@sme.up/ketchup/dist/components/kup-numeric-picker.js';
+import {
+    KupObjectField as KupObjectFieldElement,
+    defineCustomElement as defineKupObjectField,
+} from '@sme.up/ketchup/dist/components/kup-object-field.js';
+import {
+    KupPdf as KupPdfElement,
+    defineCustomElement as defineKupPdf,
+} from '@sme.up/ketchup/dist/components/kup-pdf.js';
+import {
+    KupPlannerRenderer as KupPlannerRendererElement,
+    defineCustomElement as defineKupPlannerRenderer,
+} from '@sme.up/ketchup/dist/components/kup-planner-renderer.js';
+import {
+    KupPlanner as KupPlannerElement,
+    defineCustomElement as defineKupPlanner,
+} from '@sme.up/ketchup/dist/components/kup-planner.js';
+import {
+    KupProbe as KupProbeElement,
+    defineCustomElement as defineKupProbe,
+} from '@sme.up/ketchup/dist/components/kup-probe.js';
+import {
+    KupProgressBar as KupProgressBarElement,
+    defineCustomElement as defineKupProgressBar,
+} from '@sme.up/ketchup/dist/components/kup-progress-bar.js';
+import {
+    KupQlik as KupQlikElement,
+    defineCustomElement as defineKupQlik,
+} from '@sme.up/ketchup/dist/components/kup-qlik.js';
+import {
+    KupRadio as KupRadioElement,
+    defineCustomElement as defineKupRadio,
+} from '@sme.up/ketchup/dist/components/kup-radio.js';
+import {
+    KupRating as KupRatingElement,
+    defineCustomElement as defineKupRating,
+} from '@sme.up/ketchup/dist/components/kup-rating.js';
+import {
+    KupSnackbar as KupSnackbarElement,
+    defineCustomElement as defineKupSnackbar,
+} from '@sme.up/ketchup/dist/components/kup-snackbar.js';
+import {
+    KupSpinner as KupSpinnerElement,
+    defineCustomElement as defineKupSpinner,
+} from '@sme.up/ketchup/dist/components/kup-spinner.js';
+import {
+    KupStandardTooltip as KupStandardTooltipElement,
+    defineCustomElement as defineKupStandardTooltip,
+} from '@sme.up/ketchup/dist/components/kup-standard-tooltip.js';
+import {
+    KupSwitch as KupSwitchElement,
+    defineCustomElement as defineKupSwitch,
+} from '@sme.up/ketchup/dist/components/kup-switch.js';
+import {
+    KupSwitcher as KupSwitcherElement,
+    defineCustomElement as defineKupSwitcher,
+} from '@sme.up/ketchup/dist/components/kup-switcher.js';
+import {
+    KupTabBar as KupTabBarElement,
+    defineCustomElement as defineKupTabBar,
+} from '@sme.up/ketchup/dist/components/kup-tab-bar.js';
+import {
+    KupTaskGantt as KupTaskGanttElement,
+    defineCustomElement as defineKupTaskGantt,
+} from '@sme.up/ketchup/dist/components/kup-task-gantt.js';
+import {
+    KupTaskListHeader as KupTaskListHeaderElement,
+    defineCustomElement as defineKupTaskListHeader,
+} from '@sme.up/ketchup/dist/components/kup-task-list-header.js';
+import {
+    KupTaskListTable as KupTaskListTableElement,
+    defineCustomElement as defineKupTaskListTable,
+} from '@sme.up/ketchup/dist/components/kup-task-list-table.js';
+import {
+    KupTaskList as KupTaskListElement,
+    defineCustomElement as defineKupTaskList,
+} from '@sme.up/ketchup/dist/components/kup-task-list.js';
+import {
+    KupTextField as KupTextFieldElement,
+    defineCustomElement as defineKupTextField,
+} from '@sme.up/ketchup/dist/components/kup-text-field.js';
+import {
+    KupTimePicker as KupTimePickerElement,
+    defineCustomElement as defineKupTimePicker,
+} from '@sme.up/ketchup/dist/components/kup-time-picker.js';
+import {
+    KupToolbar as KupToolbarElement,
+    defineCustomElement as defineKupToolbar,
+} from '@sme.up/ketchup/dist/components/kup-toolbar.js';
+import {
+    KupTooltip as KupTooltipElement,
+    defineCustomElement as defineKupTooltip,
+} from '@sme.up/ketchup/dist/components/kup-tooltip.js';
+import {
+    KupTree as KupTreeElement,
+    defineCustomElement as defineKupTree,
+} from '@sme.up/ketchup/dist/components/kup-tree.js';
+import {
+    KupTxt as KupTxtElement,
+    defineCustomElement as defineKupTxt,
+} from '@sme.up/ketchup/dist/components/kup-txt.js';
+import {
+    KupTypographyList as KupTypographyListElement,
+    defineCustomElement as defineKupTypographyList,
+} from '@sme.up/ketchup/dist/components/kup-typography-list.js';
+import {
+    KupTypography as KupTypographyElement,
+    defineCustomElement as defineKupTypography,
+} from '@sme.up/ketchup/dist/components/kup-typography.js';
+import {
+    KupVerticalScroll as KupVerticalScrollElement,
+    defineCustomElement as defineKupVerticalScroll,
+} from '@sme.up/ketchup/dist/components/kup-vertical-scroll.js';
+import type {
+    EventName,
+    StencilReactComponent,
+} from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
 
-type KupAccordionEvents = { onKupAccordionItemselected: EventName<KupAccordionCustomEvent<KupAccordionItemSelectedEventPayload>> };
+type KupAccordionEvents = {
+    onKupAccordionItemselected: EventName<
+        KupAccordionCustomEvent<KupAccordionItemSelectedEventPayload>
+    >;
+};
 
-export const KupAccordion: StencilReactComponent<KupAccordionElement, KupAccordionEvents> = /*@__PURE__*/ createComponent<KupAccordionElement, KupAccordionEvents>({
+export const KupAccordion: StencilReactComponent<
+    KupAccordionElement,
+    KupAccordionEvents
+> = /*@__PURE__*/ createComponent<KupAccordionElement, KupAccordionEvents>({
     tagName: 'kup-accordion',
     elementClass: KupAccordionElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: { onKupAccordionItemselected: 'kup-accordion-itemselected' } as KupAccordionEvents,
-    defineCustomElement: defineKupAccordion
+    events: {
+        onKupAccordionItemselected: 'kup-accordion-itemselected',
+    } as KupAccordionEvents,
+    defineCustomElement: defineKupAccordion,
 });
 
 type KupActivityTimelineEvents = {
-    onKupActivitytimelineClick: EventName<KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>>,
-    onKupActivitytimelineContextmenu: EventName<KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>>,
-    onKupActivitytimelineReady: EventName<KupActivityTimelineCustomEvent<KupEventPayload>>
+    onKupActivitytimelineClick: EventName<
+        KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>
+    >;
+    onKupActivitytimelineContextmenu: EventName<
+        KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>
+    >;
+    onKupActivitytimelineReady: EventName<
+        KupActivityTimelineCustomEvent<KupEventPayload>
+    >;
 };
 
-export const KupActivityTimeline: StencilReactComponent<KupActivityTimelineElement, KupActivityTimelineEvents> = /*@__PURE__*/ createComponent<KupActivityTimelineElement, KupActivityTimelineEvents>({
+export const KupActivityTimeline: StencilReactComponent<
+    KupActivityTimelineElement,
+    KupActivityTimelineEvents
+> = /*@__PURE__*/ createComponent<
+    KupActivityTimelineElement,
+    KupActivityTimelineEvents
+>({
     tagName: 'kup-activity-timeline',
     elementClass: KupActivityTimelineElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -111,22 +487,42 @@ export const KupActivityTimeline: StencilReactComponent<KupActivityTimelineEleme
     events: {
         onKupActivitytimelineClick: 'kup-activitytimeline-click',
         onKupActivitytimelineContextmenu: 'kup-activitytimeline-contextmenu',
-        onKupActivitytimelineReady: 'kup-activitytimeline-ready'
+        onKupActivitytimelineReady: 'kup-activitytimeline-ready',
     } as KupActivityTimelineEvents,
-    defineCustomElement: defineKupActivityTimeline
+    defineCustomElement: defineKupActivityTimeline,
 });
 
 type KupAutocompleteEvents = {
-    onKupAutocompleteBlur: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
-    onKupAutocompleteChange: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
-    onKupAutocompleteClick: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
-    onKupAutocompleteFocus: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
-    onKupAutocompleteInput: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
-    onKupAutocompleteIconclick: EventName<KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>>,
-    onKupAutocompleteItemclick: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>
+    onKupAutocompleteBlur: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
+    onKupAutocompleteChange: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
+    onKupAutocompleteClick: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
+    onKupAutocompleteFocus: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
+    onKupAutocompleteInput: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
+    onKupAutocompleteIconclick: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>
+    >;
+    onKupAutocompleteItemclick: EventName<
+        KupAutocompleteCustomEvent<KupAutocompleteEventPayload>
+    >;
 };
 
-export const KupAutocomplete: StencilReactComponent<KupAutocompleteElement, KupAutocompleteEvents> = /*@__PURE__*/ createComponent<KupAutocompleteElement, KupAutocompleteEvents>({
+export const KupAutocomplete: StencilReactComponent<
+    KupAutocompleteElement,
+    KupAutocompleteEvents
+> = /*@__PURE__*/ createComponent<
+    KupAutocompleteElement,
+    KupAutocompleteEvents
+>({
     tagName: 'kup-autocomplete',
     elementClass: KupAutocompleteElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -138,60 +534,83 @@ export const KupAutocomplete: StencilReactComponent<KupAutocompleteElement, KupA
         onKupAutocompleteFocus: 'kup-autocomplete-focus',
         onKupAutocompleteInput: 'kup-autocomplete-input',
         onKupAutocompleteIconclick: 'kup-autocomplete-iconclick',
-        onKupAutocompleteItemclick: 'kup-autocomplete-itemclick'
+        onKupAutocompleteItemclick: 'kup-autocomplete-itemclick',
     } as KupAutocompleteEvents,
-    defineCustomElement: defineKupAutocomplete
+    defineCustomElement: defineKupAutocomplete,
 });
 
-type KupBadgeEvents = { onKupBadgeClick: EventName<KupBadgeCustomEvent<KupEventPayload>> };
+type KupBadgeEvents = {
+    onKupBadgeClick: EventName<KupBadgeCustomEvent<KupEventPayload>>;
+};
 
-export const KupBadge: StencilReactComponent<KupBadgeElement, KupBadgeEvents> = /*@__PURE__*/ createComponent<KupBadgeElement, KupBadgeEvents>({
-    tagName: 'kup-badge',
-    elementClass: KupBadgeElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupBadgeClick: 'kup-badge-click' } as KupBadgeEvents,
-    defineCustomElement: defineKupBadge
-});
+export const KupBadge: StencilReactComponent<KupBadgeElement, KupBadgeEvents> =
+    /*@__PURE__*/ createComponent<KupBadgeElement, KupBadgeEvents>({
+        tagName: 'kup-badge',
+        elementClass: KupBadgeElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupBadgeClick: 'kup-badge-click' } as KupBadgeEvents,
+        defineCustomElement: defineKupBadge,
+    });
 
 type KupBoxEvents = {
-    onKupBoxClick: EventName<KupBoxCustomEvent<KupBoxClickEventPayload>>,
-    onKupBoxSelected: EventName<KupBoxCustomEvent<KupBoxSelectedEventPayload>>,
-    onKupBoxAutoselect: EventName<KupBoxCustomEvent<KupBoxAutoSelectEventPayload>>,
-    onKupBoxRowactionmenuclick: EventName<KupBoxCustomEvent<KupBoxAutoSelectEventPayload>>,
-    onKupBoxRowactionclick: EventName<KupBoxCustomEvent<KupBoxRowActionClickEventPayload>>,
-    onKupBoxDidload: EventName<KupBoxCustomEvent<KupEventPayload>>,
-    onKupBoxDidunload: EventName<KupBoxCustomEvent<KupEventPayload>>,
-    onKupBoxContextmenu: EventName<KupBoxCustomEvent<KupBoxContextMenuEventPayload>>,
-    onKupBoxLoadmoreclick: EventName<KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>>
+    onKupBoxClick: EventName<KupBoxCustomEvent<KupBoxClickEventPayload>>;
+    onKupBoxSelected: EventName<KupBoxCustomEvent<KupBoxSelectedEventPayload>>;
+    onKupBoxAutoselect: EventName<
+        KupBoxCustomEvent<KupBoxAutoSelectEventPayload>
+    >;
+    onKupBoxRowactionmenuclick: EventName<
+        KupBoxCustomEvent<KupBoxAutoSelectEventPayload>
+    >;
+    onKupBoxRowactionclick: EventName<
+        KupBoxCustomEvent<KupBoxRowActionClickEventPayload>
+    >;
+    onKupBoxDidload: EventName<KupBoxCustomEvent<KupEventPayload>>;
+    onKupBoxDidunload: EventName<KupBoxCustomEvent<KupEventPayload>>;
+    onKupBoxContextmenu: EventName<
+        KupBoxCustomEvent<KupBoxContextMenuEventPayload>
+    >;
+    onKupBoxLoadmoreclick: EventName<
+        KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>
+    >;
 };
 
-export const KupBox: StencilReactComponent<KupBoxElement, KupBoxEvents> = /*@__PURE__*/ createComponent<KupBoxElement, KupBoxEvents>({
-    tagName: 'kup-box',
-    elementClass: KupBoxElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupBoxClick: 'kup-box-click',
-        onKupBoxSelected: 'kup-box-selected',
-        onKupBoxAutoselect: 'kup-box-autoselect',
-        onKupBoxRowactionmenuclick: 'kup-box-rowactionmenuclick',
-        onKupBoxRowactionclick: 'kup-box-rowactionclick',
-        onKupBoxDidload: 'kup-box-didload',
-        onKupBoxDidunload: 'kup-box-didunload',
-        onKupBoxContextmenu: 'kup-box-contextmenu',
-        onKupBoxLoadmoreclick: 'kup-box-loadmoreclick'
-    } as KupBoxEvents,
-    defineCustomElement: defineKupBox
-});
+export const KupBox: StencilReactComponent<KupBoxElement, KupBoxEvents> =
+    /*@__PURE__*/ createComponent<KupBoxElement, KupBoxEvents>({
+        tagName: 'kup-box',
+        elementClass: KupBoxElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupBoxClick: 'kup-box-click',
+            onKupBoxSelected: 'kup-box-selected',
+            onKupBoxAutoselect: 'kup-box-autoselect',
+            onKupBoxRowactionmenuclick: 'kup-box-rowactionmenuclick',
+            onKupBoxRowactionclick: 'kup-box-rowactionclick',
+            onKupBoxDidload: 'kup-box-didload',
+            onKupBoxDidunload: 'kup-box-didunload',
+            onKupBoxContextmenu: 'kup-box-contextmenu',
+            onKupBoxLoadmoreclick: 'kup-box-loadmoreclick',
+        } as KupBoxEvents,
+        defineCustomElement: defineKupBox,
+    });
 
 type KupButtonEvents = {
-    onKupButtonBlur: EventName<KupButtonCustomEvent<KupButtonClickEventPayload>>,
-    onKupButtonClick: EventName<KupButtonCustomEvent<KupButtonClickEventPayload>>,
-    onKupButtonFocus: EventName<KupButtonCustomEvent<KupButtonClickEventPayload>>
+    onKupButtonBlur: EventName<
+        KupButtonCustomEvent<KupButtonClickEventPayload>
+    >;
+    onKupButtonClick: EventName<
+        KupButtonCustomEvent<KupButtonClickEventPayload>
+    >;
+    onKupButtonFocus: EventName<
+        KupButtonCustomEvent<KupButtonClickEventPayload>
+    >;
 };
 
-export const KupButton: StencilReactComponent<KupButtonElement, KupButtonEvents> = /*@__PURE__*/ createComponent<KupButtonElement, KupButtonEvents>({
+export const KupButton: StencilReactComponent<
+    KupButtonElement,
+    KupButtonEvents
+> = /*@__PURE__*/ createComponent<KupButtonElement, KupButtonEvents>({
     tagName: 'kup-button',
     elementClass: KupButtonElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -199,30 +618,50 @@ export const KupButton: StencilReactComponent<KupButtonElement, KupButtonEvents>
     events: {
         onKupButtonBlur: 'kup-button-blur',
         onKupButtonClick: 'kup-button-click',
-        onKupButtonFocus: 'kup-button-focus'
+        onKupButtonFocus: 'kup-button-focus',
     } as KupButtonEvents,
-    defineCustomElement: defineKupButton
+    defineCustomElement: defineKupButton,
 });
 
-type KupButtonListEvents = { onKupButtonlistClick: EventName<KupButtonListCustomEvent<KupButtonListClickEventPayload>> };
+type KupButtonListEvents = {
+    onKupButtonlistClick: EventName<
+        KupButtonListCustomEvent<KupButtonListClickEventPayload>
+    >;
+};
 
-export const KupButtonList: StencilReactComponent<KupButtonListElement, KupButtonListEvents> = /*@__PURE__*/ createComponent<KupButtonListElement, KupButtonListEvents>({
+export const KupButtonList: StencilReactComponent<
+    KupButtonListElement,
+    KupButtonListEvents
+> = /*@__PURE__*/ createComponent<KupButtonListElement, KupButtonListEvents>({
     tagName: 'kup-button-list',
     elementClass: KupButtonListElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: { onKupButtonlistClick: 'kup-buttonlist-click' } as KupButtonListEvents,
-    defineCustomElement: defineKupButtonList
+    events: {
+        onKupButtonlistClick: 'kup-buttonlist-click',
+    } as KupButtonListEvents,
+    defineCustomElement: defineKupButtonList,
 });
 
 type KupCalendarEvents = {
-    onKupCalendarEventclick: EventName<KupCalendarCustomEvent<KupCalendarEventClickEventPayload>>,
-    onKupCalendarDateclick: EventName<KupCalendarCustomEvent<KupCalendarDateClickEventPayload>>,
-    onKupCalendarEventdrop: EventName<KupCalendarCustomEvent<KupCalendarEventDropEventPayload>>,
-    onKupCalendarViewchange: EventName<KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>>
+    onKupCalendarEventclick: EventName<
+        KupCalendarCustomEvent<KupCalendarEventClickEventPayload>
+    >;
+    onKupCalendarDateclick: EventName<
+        KupCalendarCustomEvent<KupCalendarDateClickEventPayload>
+    >;
+    onKupCalendarEventdrop: EventName<
+        KupCalendarCustomEvent<KupCalendarEventDropEventPayload>
+    >;
+    onKupCalendarViewchange: EventName<
+        KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>
+    >;
 };
 
-export const KupCalendar: StencilReactComponent<KupCalendarElement, KupCalendarEvents> = /*@__PURE__*/ createComponent<KupCalendarElement, KupCalendarEvents>({
+export const KupCalendar: StencilReactComponent<
+    KupCalendarElement,
+    KupCalendarEvents
+> = /*@__PURE__*/ createComponent<KupCalendarElement, KupCalendarEvents>({
     tagName: 'kup-calendar',
     elementClass: KupCalendarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -231,78 +670,101 @@ export const KupCalendar: StencilReactComponent<KupCalendarElement, KupCalendarE
         onKupCalendarEventclick: 'kup-calendar-eventclick',
         onKupCalendarDateclick: 'kup-calendar-dateclick',
         onKupCalendarEventdrop: 'kup-calendar-eventdrop',
-        onKupCalendarViewchange: 'kup-calendar-viewchange'
+        onKupCalendarViewchange: 'kup-calendar-viewchange',
     } as KupCalendarEvents,
-    defineCustomElement: defineKupCalendar
+    defineCustomElement: defineKupCalendar,
 });
 
 type KupCardEvents = {
-    onKupCardClick: EventName<KupCardCustomEvent<KupCardClickPayload>>,
-    onKupCardClose: EventName<KupCardCustomEvent<KupEventPayload>>,
-    onKupCardEvent: EventName<KupCardCustomEvent<KupCardEventPayload>>,
-    onKupCardReady: EventName<KupCardCustomEvent<KupEventPayload>>
+    onKupCardClick: EventName<KupCardCustomEvent<KupCardClickPayload>>;
+    onKupCardClose: EventName<KupCardCustomEvent<KupEventPayload>>;
+    onKupCardEvent: EventName<KupCardCustomEvent<KupCardEventPayload>>;
+    onKupCardReady: EventName<KupCardCustomEvent<KupEventPayload>>;
 };
 
-export const KupCard: StencilReactComponent<KupCardElement, KupCardEvents> = /*@__PURE__*/ createComponent<KupCardElement, KupCardEvents>({
-    tagName: 'kup-card',
-    elementClass: KupCardElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupCardClick: 'kup-card-click',
-        onKupCardClose: 'kup-card-close',
-        onKupCardEvent: 'kup-card-event',
-        onKupCardReady: 'kup-card-ready'
-    } as KupCardEvents,
-    defineCustomElement: defineKupCard
-});
+export const KupCard: StencilReactComponent<KupCardElement, KupCardEvents> =
+    /*@__PURE__*/ createComponent<KupCardElement, KupCardEvents>({
+        tagName: 'kup-card',
+        elementClass: KupCardElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupCardClick: 'kup-card-click',
+            onKupCardClose: 'kup-card-close',
+            onKupCardEvent: 'kup-card-event',
+            onKupCardReady: 'kup-card-ready',
+        } as KupCardEvents,
+        defineCustomElement: defineKupCard,
+    });
 
-type KupCardListEvents = { onKupCardlistClick: EventName<KupCardListCustomEvent<KupCardListClickEventPayload>> };
+type KupCardListEvents = {
+    onKupCardlistClick: EventName<
+        KupCardListCustomEvent<KupCardListClickEventPayload>
+    >;
+};
 
-export const KupCardList: StencilReactComponent<KupCardListElement, KupCardListEvents> = /*@__PURE__*/ createComponent<KupCardListElement, KupCardListEvents>({
+export const KupCardList: StencilReactComponent<
+    KupCardListElement,
+    KupCardListEvents
+> = /*@__PURE__*/ createComponent<KupCardListElement, KupCardListEvents>({
     tagName: 'kup-card-list',
     elementClass: KupCardListElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupCardlistClick: 'kup-cardlist-click' } as KupCardListEvents,
-    defineCustomElement: defineKupCardList
+    defineCustomElement: defineKupCardList,
 });
 
 type KupCellEvents = {
-    onKupCellSubmitClick: EventName<KupCellCustomEvent<KupCellSubmitClickEventPayload>>,
-    onKupCellUpload: EventName<KupCellCustomEvent<KupFileUploadEventPayload>>
+    onKupCellSubmitClick: EventName<
+        KupCellCustomEvent<KupCellSubmitClickEventPayload>
+    >;
+    onKupCellUpload: EventName<KupCellCustomEvent<KupFileUploadEventPayload>>;
 };
 
-export const KupCell: StencilReactComponent<KupCellElement, KupCellEvents> = /*@__PURE__*/ createComponent<KupCellElement, KupCellEvents>({
-    tagName: 'kup-cell',
-    elementClass: KupCellElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupCellSubmitClick: 'kup-cell-submit-click',
-        onKupCellUpload: 'kup-cell-upload'
-    } as KupCellEvents,
-    defineCustomElement: defineKupCell
-});
+export const KupCell: StencilReactComponent<KupCellElement, KupCellEvents> =
+    /*@__PURE__*/ createComponent<KupCellElement, KupCellEvents>({
+        tagName: 'kup-cell',
+        elementClass: KupCellElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupCellSubmitClick: 'kup-cell-submit-click',
+            onKupCellUpload: 'kup-cell-upload',
+        } as KupCellEvents,
+        defineCustomElement: defineKupCell,
+    });
 
-type KupChartEvents = { onKupChartClick: EventName<KupChartCustomEvent<KupChartClickEvent>> };
+type KupChartEvents = {
+    onKupChartClick: EventName<KupChartCustomEvent<KupChartClickEvent>>;
+};
 
-export const KupChart: StencilReactComponent<KupChartElement, KupChartEvents> = /*@__PURE__*/ createComponent<KupChartElement, KupChartEvents>({
-    tagName: 'kup-chart',
-    elementClass: KupChartElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupChartClick: 'kup-chart-click' } as KupChartEvents,
-    defineCustomElement: defineKupChart
-});
+export const KupChart: StencilReactComponent<KupChartElement, KupChartEvents> =
+    /*@__PURE__*/ createComponent<KupChartElement, KupChartEvents>({
+        tagName: 'kup-chart',
+        elementClass: KupChartElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupChartClick: 'kup-chart-click' } as KupChartEvents,
+        defineCustomElement: defineKupChart,
+    });
 
 type KupCheckboxEvents = {
-    onKupCheckboxBlur: EventName<KupCheckboxCustomEvent<KupCheckboxEventPayload>>,
-    onKupCheckboxChange: EventName<KupCheckboxCustomEvent<KupCheckboxEventPayload>>,
-    onKupCheckboxFocus: EventName<KupCheckboxCustomEvent<KupCheckboxEventPayload>>
+    onKupCheckboxBlur: EventName<
+        KupCheckboxCustomEvent<KupCheckboxEventPayload>
+    >;
+    onKupCheckboxChange: EventName<
+        KupCheckboxCustomEvent<KupCheckboxEventPayload>
+    >;
+    onKupCheckboxFocus: EventName<
+        KupCheckboxCustomEvent<KupCheckboxEventPayload>
+    >;
 };
 
-export const KupCheckbox: StencilReactComponent<KupCheckboxElement, KupCheckboxEvents> = /*@__PURE__*/ createComponent<KupCheckboxElement, KupCheckboxEvents>({
+export const KupCheckbox: StencilReactComponent<
+    KupCheckboxElement,
+    KupCheckboxEvents
+> = /*@__PURE__*/ createComponent<KupCheckboxElement, KupCheckboxEvents>({
     tagName: 'kup-checkbox',
     elementClass: KupCheckboxElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -310,56 +772,83 @@ export const KupCheckbox: StencilReactComponent<KupCheckboxElement, KupCheckboxE
     events: {
         onKupCheckboxBlur: 'kup-checkbox-blur',
         onKupCheckboxChange: 'kup-checkbox-change',
-        onKupCheckboxFocus: 'kup-checkbox-focus'
+        onKupCheckboxFocus: 'kup-checkbox-focus',
     } as KupCheckboxEvents,
-    defineCustomElement: defineKupCheckbox
+    defineCustomElement: defineKupCheckbox,
 });
 
 type KupChipEvents = {
-    onKupChipBlur: EventName<KupChipCustomEvent<KupChipEventPayload>>,
-    onKupChipChange: EventName<KupChipCustomEvent<KupChipChangeEventPayload>>,
-    onKupChipClick: EventName<KupChipCustomEvent<KupChipEventPayload>>,
-    onKupChipFocus: EventName<KupChipCustomEvent<KupChipEventPayload>>,
-    onKupChipIconclick: EventName<KupChipCustomEvent<KupChipEventPayload>>
+    onKupChipBlur: EventName<KupChipCustomEvent<KupChipEventPayload>>;
+    onKupChipChange: EventName<KupChipCustomEvent<KupChipChangeEventPayload>>;
+    onKupChipClick: EventName<KupChipCustomEvent<KupChipEventPayload>>;
+    onKupChipFocus: EventName<KupChipCustomEvent<KupChipEventPayload>>;
+    onKupChipIconclick: EventName<KupChipCustomEvent<KupChipEventPayload>>;
 };
 
-export const KupChip: StencilReactComponent<KupChipElement, KupChipEvents> = /*@__PURE__*/ createComponent<KupChipElement, KupChipEvents>({
-    tagName: 'kup-chip',
-    elementClass: KupChipElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupChipBlur: 'kup-chip-blur',
-        onKupChipChange: 'kup-chip-change',
-        onKupChipClick: 'kup-chip-click',
-        onKupChipFocus: 'kup-chip-focus',
-        onKupChipIconclick: 'kup-chip-iconclick'
-    } as KupChipEvents,
-    defineCustomElement: defineKupChip
-});
+export const KupChip: StencilReactComponent<KupChipElement, KupChipEvents> =
+    /*@__PURE__*/ createComponent<KupChipElement, KupChipEvents>({
+        tagName: 'kup-chip',
+        elementClass: KupChipElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupChipBlur: 'kup-chip-blur',
+            onKupChipChange: 'kup-chip-change',
+            onKupChipClick: 'kup-chip-click',
+            onKupChipFocus: 'kup-chip-focus',
+            onKupChipIconclick: 'kup-chip-iconclick',
+        } as KupChipEvents,
+        defineCustomElement: defineKupChip,
+    });
 
-type KupColorPickerEvents = { onKupColorpickerChange: EventName<KupColorPickerCustomEvent<KupColorPickerEventPayload>> };
+type KupColorPickerEvents = {
+    onKupColorpickerChange: EventName<
+        KupColorPickerCustomEvent<KupColorPickerEventPayload>
+    >;
+};
 
-export const KupColorPicker: StencilReactComponent<KupColorPickerElement, KupColorPickerEvents> = /*@__PURE__*/ createComponent<KupColorPickerElement, KupColorPickerEvents>({
+export const KupColorPicker: StencilReactComponent<
+    KupColorPickerElement,
+    KupColorPickerEvents
+> = /*@__PURE__*/ createComponent<KupColorPickerElement, KupColorPickerEvents>({
     tagName: 'kup-color-picker',
     elementClass: KupColorPickerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: { onKupColorpickerChange: 'kup-colorpicker-change' } as KupColorPickerEvents,
-    defineCustomElement: defineKupColorPicker
+    events: {
+        onKupColorpickerChange: 'kup-colorpicker-change',
+    } as KupColorPickerEvents,
+    defineCustomElement: defineKupColorPicker,
 });
 
 type KupComboboxEvents = {
-    onKupComboboxClick: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxBlur: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxChange: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxFocus: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxInput: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>,
-    onKupComboboxIconclick: EventName<KupComboboxCustomEvent<KupComboboxIconClickEventPayload>>,
-    onKupComboboxItemclick: EventName<KupComboboxCustomEvent<KupComboboxEventPayload>>
+    onKupComboboxClick: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
+    onKupComboboxBlur: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
+    onKupComboboxChange: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
+    onKupComboboxFocus: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
+    onKupComboboxInput: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
+    onKupComboboxIconclick: EventName<
+        KupComboboxCustomEvent<KupComboboxIconClickEventPayload>
+    >;
+    onKupComboboxItemclick: EventName<
+        KupComboboxCustomEvent<KupComboboxEventPayload>
+    >;
 };
 
-export const KupCombobox: StencilReactComponent<KupComboboxElement, KupComboboxEvents> = /*@__PURE__*/ createComponent<KupComboboxElement, KupComboboxEvents>({
+export const KupCombobox: StencilReactComponent<
+    KupComboboxElement,
+    KupComboboxEvents
+> = /*@__PURE__*/ createComponent<KupComboboxElement, KupComboboxEvents>({
     tagName: 'kup-combobox',
     elementClass: KupComboboxElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -371,75 +860,147 @@ export const KupCombobox: StencilReactComponent<KupComboboxElement, KupComboboxE
         onKupComboboxFocus: 'kup-combobox-focus',
         onKupComboboxInput: 'kup-combobox-input',
         onKupComboboxIconclick: 'kup-combobox-iconclick',
-        onKupComboboxItemclick: 'kup-combobox-itemclick'
+        onKupComboboxItemclick: 'kup-combobox-itemclick',
     } as KupComboboxEvents,
-    defineCustomElement: defineKupCombobox
+    defineCustomElement: defineKupCombobox,
 });
 
 type KupCustomTaskListHeaderEvents = NonNullable<unknown>;
 
-export const KupCustomTaskListHeader: StencilReactComponent<KupCustomTaskListHeaderElement, KupCustomTaskListHeaderEvents> = /*@__PURE__*/ createComponent<KupCustomTaskListHeaderElement, KupCustomTaskListHeaderEvents>({
+export const KupCustomTaskListHeader: StencilReactComponent<
+    KupCustomTaskListHeaderElement,
+    KupCustomTaskListHeaderEvents
+> = /*@__PURE__*/ createComponent<
+    KupCustomTaskListHeaderElement,
+    KupCustomTaskListHeaderEvents
+>({
     tagName: 'kup-custom-task-list-header',
     elementClass: KupCustomTaskListHeaderElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupCustomTaskListHeaderEvents,
-    defineCustomElement: defineKupCustomTaskListHeader
+    defineCustomElement: defineKupCustomTaskListHeader,
 });
 
 type KupCustomTaskListTableEvents = NonNullable<unknown>;
 
-export const KupCustomTaskListTable: StencilReactComponent<KupCustomTaskListTableElement, KupCustomTaskListTableEvents> = /*@__PURE__*/ createComponent<KupCustomTaskListTableElement, KupCustomTaskListTableEvents>({
+export const KupCustomTaskListTable: StencilReactComponent<
+    KupCustomTaskListTableElement,
+    KupCustomTaskListTableEvents
+> = /*@__PURE__*/ createComponent<
+    KupCustomTaskListTableElement,
+    KupCustomTaskListTableEvents
+>({
     tagName: 'kup-custom-task-list-table',
     elementClass: KupCustomTaskListTableElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupCustomTaskListTableEvents,
-    defineCustomElement: defineKupCustomTaskListTable
+    defineCustomElement: defineKupCustomTaskListTable,
 });
 
-type KupDashboardEvents = { onKupDashboardSave: EventName<KupDashboardCustomEvent<KupDashboardEventPayload>> };
+type KupDashboardEvents = {
+    onKupDashboardSave: EventName<
+        KupDashboardCustomEvent<KupDashboardEventPayload>
+    >;
+};
 
-export const KupDashboard: StencilReactComponent<KupDashboardElement, KupDashboardEvents> = /*@__PURE__*/ createComponent<KupDashboardElement, KupDashboardEvents>({
+export const KupDashboard: StencilReactComponent<
+    KupDashboardElement,
+    KupDashboardEvents
+> = /*@__PURE__*/ createComponent<KupDashboardElement, KupDashboardEvents>({
     tagName: 'kup-dashboard',
     elementClass: KupDashboardElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupDashboardSave: 'kup-dashboard-save' } as KupDashboardEvents,
-    defineCustomElement: defineKupDashboard
+    defineCustomElement: defineKupDashboard,
 });
 
 type KupDataTableEvents = {
-    onKupDatatableDidunload: EventName<KupDataTableCustomEvent<KupEventPayload>>,
-    onKupDatatableDidload: EventName<KupDataTableCustomEvent<KupEventPayload>>,
-    onKupDatatableResetselectedrows: EventName<KupDataTableCustomEvent<KupEventPayload>>,
-    onKupDatatableRowselected: EventName<KupDataTableCustomEvent<KupDatatableRowSelectedEventPayload>>,
-    onKupDatatableClick: EventName<KupDataTableCustomEvent<KupDatatableClickEventPayload>>,
-    onKupDatatableContextmenu: EventName<KupDataTableCustomEvent<KupDatatableClickEventPayload>>,
-    onKupDatatableCellActionsMenu: EventName<KupDataTableCustomEvent<KupDatatableClickEventPayload>>,
-    onKupDatatableDblclick: EventName<KupDataTableCustomEvent<KupDatatableClickEventPayload>>,
-    onKupDatatableColumnmenu: EventName<KupDataTableCustomEvent<KupDatatableColumnMenuEventPayload>>,
-    onKupDatatableLoadmoreclick: EventName<KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>>,
-    onKupDatatableColumnmove: EventName<KupDataTableCustomEvent<KupDatatableColumnMoveEventPayload>>,
-    onKupDatatableColumnremove: EventName<KupDataTableCustomEvent<KupDatatableColumnRemoveEventPayload>>,
-    onKupDatatableDeleteRow: EventName<KupDataTableCustomEvent<KupDatatableDeleteRowEventPayload>>,
-    onKupDatatableSave: EventName<KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>>,
-    onKupDatatableInsertRow: EventName<KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>>,
-    onKupDatatableHistory: EventName<KupDataTableCustomEvent<KupDatatableHistoryEventPayload>>,
-    onKupDatatableRowactionItemClick: EventName<KupDataTableCustomEvent<KupDatatableRowActionItemClickEventPayload>>,
-    onKupDatatableCellActionIconClick: EventName<KupDataTableCustomEvent<KupDatatableClickEventPayload>>,
-    onKupDatatableUpdate: EventName<KupDataTableCustomEvent<KupDatatableUpdatePayload>>,
-    onKupDatatableCheck: EventName<KupDataTableCustomEvent<KupDatatableCellCheckPayload>>,
-    onKupDatatableCellClick: EventName<KupDataTableCustomEvent<FCellEventPayload>>,
-    onKupDatatableDrop: EventName<KupDataTableCustomEvent<KupDropEventPayload>>,
-    onKupDatatableCellIconclick: EventName<KupDataTableCustomEvent<FCellEventPayload>>,
-    onKupDatatableCellInput: EventName<KupDataTableCustomEvent<FCellEventPayload>>,
-    onKupDatatableObjectfieldSearchpayload: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>,
-    onKupDatatableObjectfieldOpensearchmenu: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>,
-    onKupDatatableObjectfieldSelectedmenuitem: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>
+    onKupDatatableDidunload: EventName<
+        KupDataTableCustomEvent<KupEventPayload>
+    >;
+    onKupDatatableDidload: EventName<KupDataTableCustomEvent<KupEventPayload>>;
+    onKupDatatableResetselectedrows: EventName<
+        KupDataTableCustomEvent<KupEventPayload>
+    >;
+    onKupDatatableRowselected: EventName<
+        KupDataTableCustomEvent<KupDatatableRowSelectedEventPayload>
+    >;
+    onKupDatatableClick: EventName<
+        KupDataTableCustomEvent<KupDatatableClickEventPayload>
+    >;
+    onKupDatatableContextmenu: EventName<
+        KupDataTableCustomEvent<KupDatatableClickEventPayload>
+    >;
+    onKupDatatableCellActionsMenu: EventName<
+        KupDataTableCustomEvent<KupDatatableClickEventPayload>
+    >;
+    onKupDatatableDblclick: EventName<
+        KupDataTableCustomEvent<KupDatatableClickEventPayload>
+    >;
+    onKupDatatableColumnmenu: EventName<
+        KupDataTableCustomEvent<KupDatatableColumnMenuEventPayload>
+    >;
+    onKupDatatableLoadmoreclick: EventName<
+        KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>
+    >;
+    onKupDatatableColumnmove: EventName<
+        KupDataTableCustomEvent<KupDatatableColumnMoveEventPayload>
+    >;
+    onKupDatatableColumnremove: EventName<
+        KupDataTableCustomEvent<KupDatatableColumnRemoveEventPayload>
+    >;
+    onKupDatatableDeleteRow: EventName<
+        KupDataTableCustomEvent<KupDatatableDeleteRowEventPayload>
+    >;
+    onKupDatatableSave: EventName<
+        KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>
+    >;
+    onKupDatatableInsertRow: EventName<
+        KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>
+    >;
+    onKupDatatableHistory: EventName<
+        KupDataTableCustomEvent<KupDatatableHistoryEventPayload>
+    >;
+    onKupDatatableRowactionItemClick: EventName<
+        KupDataTableCustomEvent<KupDatatableRowActionItemClickEventPayload>
+    >;
+    onKupDatatableCellActionIconClick: EventName<
+        KupDataTableCustomEvent<KupDatatableClickEventPayload>
+    >;
+    onKupDatatableUpdate: EventName<
+        KupDataTableCustomEvent<KupDatatableUpdatePayload>
+    >;
+    onKupDatatableCheck: EventName<
+        KupDataTableCustomEvent<KupDatatableCellCheckPayload>
+    >;
+    onKupDatatableCellClick: EventName<
+        KupDataTableCustomEvent<FCellEventPayload>
+    >;
+    onKupDatatableDrop: EventName<KupDataTableCustomEvent<KupDropEventPayload>>;
+    onKupDatatableCellIconclick: EventName<
+        KupDataTableCustomEvent<FCellEventPayload>
+    >;
+    onKupDatatableCellInput: EventName<
+        KupDataTableCustomEvent<FCellEventPayload>
+    >;
+    onKupDatatableObjectfieldSearchpayload: EventName<
+        KupDataTableCustomEvent<FObjectFieldEventPayload>
+    >;
+    onKupDatatableObjectfieldOpensearchmenu: EventName<
+        KupDataTableCustomEvent<FObjectFieldEventPayload>
+    >;
+    onKupDatatableObjectfieldSelectedmenuitem: EventName<
+        KupDataTableCustomEvent<FObjectFieldEventPayload>
+    >;
 };
 
-export const KupDataTable: StencilReactComponent<KupDataTableElement, KupDataTableEvents> = /*@__PURE__*/ createComponent<KupDataTableElement, KupDataTableEvents>({
+export const KupDataTable: StencilReactComponent<
+    KupDataTableElement,
+    KupDataTableEvents
+> = /*@__PURE__*/ createComponent<KupDataTableElement, KupDataTableEvents>({
     tagName: 'kup-data-table',
     elementClass: KupDataTableElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -462,33 +1023,58 @@ export const KupDataTable: StencilReactComponent<KupDataTableElement, KupDataTab
         onKupDatatableInsertRow: 'kup-datatable-insert-row',
         onKupDatatableHistory: 'kup-datatable-history',
         onKupDatatableRowactionItemClick: 'kup-datatable-rowaction-item-click',
-        onKupDatatableCellActionIconClick: 'kup-datatable-cell-action-icon-click',
+        onKupDatatableCellActionIconClick:
+            'kup-datatable-cell-action-icon-click',
         onKupDatatableUpdate: 'kup-datatable-update',
         onKupDatatableCheck: 'kup-datatable-check',
         onKupDatatableCellClick: 'kup-datatable-cell-click',
         onKupDatatableDrop: 'kup-datatable-drop',
         onKupDatatableCellIconclick: 'kup-datatable-cell-iconclick',
         onKupDatatableCellInput: 'kup-datatable-cell-input',
-        onKupDatatableObjectfieldSearchpayload: 'kup-datatable-objectfield-searchpayload',
-        onKupDatatableObjectfieldOpensearchmenu: 'kup-datatable-objectfield-opensearchmenu',
-        onKupDatatableObjectfieldSelectedmenuitem: 'kup-datatable-objectfield-selectedmenuitem'
+        onKupDatatableObjectfieldSearchpayload:
+            'kup-datatable-objectfield-searchpayload',
+        onKupDatatableObjectfieldOpensearchmenu:
+            'kup-datatable-objectfield-opensearchmenu',
+        onKupDatatableObjectfieldSelectedmenuitem:
+            'kup-datatable-objectfield-selectedmenuitem',
     } as KupDataTableEvents,
-    defineCustomElement: defineKupDataTable
+    defineCustomElement: defineKupDataTable,
 });
 
 type KupDatePickerEvents = {
-    onKupDatepickerBlur: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerChange: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerClick: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerFocus: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerInput: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerIconclick: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerItemclick: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerTextfieldsubmit: EventName<KupDatePickerCustomEvent<KupDatePickerEventPayload>>,
-    onKupDatepickerCleariconclick: EventName<KupDatePickerCustomEvent<KupEventPayload>>
+    onKupDatepickerBlur: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerChange: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerClick: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerFocus: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerInput: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerIconclick: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerItemclick: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerTextfieldsubmit: EventName<
+        KupDatePickerCustomEvent<KupDatePickerEventPayload>
+    >;
+    onKupDatepickerCleariconclick: EventName<
+        KupDatePickerCustomEvent<KupEventPayload>
+    >;
 };
 
-export const KupDatePicker: StencilReactComponent<KupDatePickerElement, KupDatePickerEvents> = /*@__PURE__*/ createComponent<KupDatePickerElement, KupDatePickerEvents>({
+export const KupDatePicker: StencilReactComponent<
+    KupDatePickerElement,
+    KupDatePickerEvents
+> = /*@__PURE__*/ createComponent<KupDatePickerElement, KupDatePickerEvents>({
     tagName: 'kup-date-picker',
     elementClass: KupDatePickerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -502,35 +1088,41 @@ export const KupDatePicker: StencilReactComponent<KupDatePickerElement, KupDateP
         onKupDatepickerIconclick: 'kup-datepicker-iconclick',
         onKupDatepickerItemclick: 'kup-datepicker-itemclick',
         onKupDatepickerTextfieldsubmit: 'kup-datepicker-textfieldsubmit',
-        onKupDatepickerCleariconclick: 'kup-datepicker-cleariconclick'
+        onKupDatepickerCleariconclick: 'kup-datepicker-cleariconclick',
     } as KupDatePickerEvents,
-    defineCustomElement: defineKupDatePicker
+    defineCustomElement: defineKupDatePicker,
 });
 
 type KupDialogEvents = {
-    onKupDialogClose: EventName<KupDialogCustomEvent<KupEventPayload>>,
-    onKupDialogReady: EventName<KupDialogCustomEvent<KupEventPayload>>
+    onKupDialogClose: EventName<KupDialogCustomEvent<KupEventPayload>>;
+    onKupDialogReady: EventName<KupDialogCustomEvent<KupEventPayload>>;
 };
 
-export const KupDialog: StencilReactComponent<KupDialogElement, KupDialogEvents> = /*@__PURE__*/ createComponent<KupDialogElement, KupDialogEvents>({
+export const KupDialog: StencilReactComponent<
+    KupDialogElement,
+    KupDialogEvents
+> = /*@__PURE__*/ createComponent<KupDialogElement, KupDialogEvents>({
     tagName: 'kup-dialog',
     elementClass: KupDialogElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupDialogClose: 'kup-dialog-close',
-        onKupDialogReady: 'kup-dialog-ready'
+        onKupDialogReady: 'kup-dialog-ready',
     } as KupDialogEvents,
-    defineCustomElement: defineKupDialog
+    defineCustomElement: defineKupDialog,
 });
 
 type KupDrawerEvents = {
-    onKupDrawerClose: EventName<KupDrawerCustomEvent<KupEventPayload>>,
-    onKupDrawerOpen: EventName<KupDrawerCustomEvent<KupEventPayload>>,
-    onKupDrawerReady: EventName<KupDrawerCustomEvent<KupEventPayload>>
+    onKupDrawerClose: EventName<KupDrawerCustomEvent<KupEventPayload>>;
+    onKupDrawerOpen: EventName<KupDrawerCustomEvent<KupEventPayload>>;
+    onKupDrawerReady: EventName<KupDrawerCustomEvent<KupEventPayload>>;
 };
 
-export const KupDrawer: StencilReactComponent<KupDrawerElement, KupDrawerEvents> = /*@__PURE__*/ createComponent<KupDrawerElement, KupDrawerEvents>({
+export const KupDrawer: StencilReactComponent<
+    KupDrawerElement,
+    KupDrawerEvents
+> = /*@__PURE__*/ createComponent<KupDrawerElement, KupDrawerEvents>({
     tagName: 'kup-drawer',
     elementClass: KupDrawerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -538,20 +1130,36 @@ export const KupDrawer: StencilReactComponent<KupDrawerElement, KupDrawerEvents>
     events: {
         onKupDrawerClose: 'kup-drawer-close',
         onKupDrawerOpen: 'kup-drawer-open',
-        onKupDrawerReady: 'kup-drawer-ready'
+        onKupDrawerReady: 'kup-drawer-ready',
     } as KupDrawerEvents,
-    defineCustomElement: defineKupDrawer
+    defineCustomElement: defineKupDrawer,
 });
 
 type KupDropdownButtonEvents = {
-    onKupDropdownbuttonBlur: EventName<KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>>,
-    onKupDropdownbuttonClick: EventName<KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>>,
-    onKupDropdownbuttonFocus: EventName<KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>>,
-    onKupDropdownbuttonChange: EventName<KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>>,
-    onKupDropdownbuttonItemclick: EventName<KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>>
+    onKupDropdownbuttonBlur: EventName<
+        KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>
+    >;
+    onKupDropdownbuttonClick: EventName<
+        KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>
+    >;
+    onKupDropdownbuttonFocus: EventName<
+        KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>
+    >;
+    onKupDropdownbuttonChange: EventName<
+        KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>
+    >;
+    onKupDropdownbuttonItemclick: EventName<
+        KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>
+    >;
 };
 
-export const KupDropdownButton: StencilReactComponent<KupDropdownButtonElement, KupDropdownButtonEvents> = /*@__PURE__*/ createComponent<KupDropdownButtonElement, KupDropdownButtonEvents>({
+export const KupDropdownButton: StencilReactComponent<
+    KupDropdownButtonElement,
+    KupDropdownButtonEvents
+> = /*@__PURE__*/ createComponent<
+    KupDropdownButtonElement,
+    KupDropdownButtonEvents
+>({
     tagName: 'kup-dropdown-button',
     elementClass: KupDropdownButtonElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -561,29 +1169,39 @@ export const KupDropdownButton: StencilReactComponent<KupDropdownButtonElement, 
         onKupDropdownbuttonClick: 'kup-dropdownbutton-click',
         onKupDropdownbuttonFocus: 'kup-dropdownbutton-focus',
         onKupDropdownbuttonChange: 'kup-dropdownbutton-change',
-        onKupDropdownbuttonItemclick: 'kup-dropdownbutton-itemclick'
+        onKupDropdownbuttonItemclick: 'kup-dropdownbutton-itemclick',
     } as KupDropdownButtonEvents,
-    defineCustomElement: defineKupDropdownButton
+    defineCustomElement: defineKupDropdownButton,
 });
 
-type KupEchartEvents = { onKupEchartClick: EventName<KupEchartCustomEvent<KupEchartClickEventPayload>> };
+type KupEchartEvents = {
+    onKupEchartClick: EventName<
+        KupEchartCustomEvent<KupEchartClickEventPayload>
+    >;
+};
 
-export const KupEchart: StencilReactComponent<KupEchartElement, KupEchartEvents> = /*@__PURE__*/ createComponent<KupEchartElement, KupEchartEvents>({
+export const KupEchart: StencilReactComponent<
+    KupEchartElement,
+    KupEchartEvents
+> = /*@__PURE__*/ createComponent<KupEchartElement, KupEchartEvents>({
     tagName: 'kup-echart',
     elementClass: KupEchartElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupEchartClick: 'kup-echart-click' } as KupEchartEvents,
-    defineCustomElement: defineKupEchart
+    defineCustomElement: defineKupEchart,
 });
 
 type KupEditorEvents = {
-    onKupEditorAutosave: EventName<KupEditorCustomEvent<KupEditorEventPayload>>,
-    onKupEditorReady: EventName<KupEditorCustomEvent<KupEventPayload>>,
-    onKupEditorSave: EventName<KupEditorCustomEvent<KupEditorEventPayload>>
+    onKupEditorAutosave: EventName<KupEditorCustomEvent<KupEditorEventPayload>>;
+    onKupEditorReady: EventName<KupEditorCustomEvent<KupEventPayload>>;
+    onKupEditorSave: EventName<KupEditorCustomEvent<KupEditorEventPayload>>;
 };
 
-export const KupEditor: StencilReactComponent<KupEditorElement, KupEditorEvents> = /*@__PURE__*/ createComponent<KupEditorElement, KupEditorEvents>({
+export const KupEditor: StencilReactComponent<
+    KupEditorElement,
+    KupEditorEvents
+> = /*@__PURE__*/ createComponent<KupEditorElement, KupEditorEvents>({
     tagName: 'kup-editor',
     elementClass: KupEditorElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -591,18 +1209,27 @@ export const KupEditor: StencilReactComponent<KupEditorElement, KupEditorEvents>
     events: {
         onKupEditorAutosave: 'kup-editor-autosave',
         onKupEditorReady: 'kup-editor-ready',
-        onKupEditorSave: 'kup-editor-save'
+        onKupEditorSave: 'kup-editor-save',
     } as KupEditorEvents,
-    defineCustomElement: defineKupEditor
+    defineCustomElement: defineKupEditor,
 });
 
 type KupFamilyTreeEvents = {
-    onKupFamilytreeClick: EventName<KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>>,
-    onKupFamilytreeContextmenu: EventName<KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>>,
-    onKupFamilytreeDblclick: EventName<KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>>
+    onKupFamilytreeClick: EventName<
+        KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>
+    >;
+    onKupFamilytreeContextmenu: EventName<
+        KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>
+    >;
+    onKupFamilytreeDblclick: EventName<
+        KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>
+    >;
 };
 
-export const KupFamilyTree: StencilReactComponent<KupFamilyTreeElement, KupFamilyTreeEvents> = /*@__PURE__*/ createComponent<KupFamilyTreeElement, KupFamilyTreeEvents>({
+export const KupFamilyTree: StencilReactComponent<
+    KupFamilyTreeElement,
+    KupFamilyTreeEvents
+> = /*@__PURE__*/ createComponent<KupFamilyTreeElement, KupFamilyTreeEvents>({
     tagName: 'kup-family-tree',
     elementClass: KupFamilyTreeElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -610,157 +1237,202 @@ export const KupFamilyTree: StencilReactComponent<KupFamilyTreeElement, KupFamil
     events: {
         onKupFamilytreeClick: 'kup-familytree-click',
         onKupFamilytreeContextmenu: 'kup-familytree-contextmenu',
-        onKupFamilytreeDblclick: 'kup-familytree-dblclick'
+        onKupFamilytreeDblclick: 'kup-familytree-dblclick',
     } as KupFamilyTreeEvents,
-    defineCustomElement: defineKupFamilyTree
+    defineCustomElement: defineKupFamilyTree,
 });
 
 type KupFileUploadEvents = {
-    onKupFileUploadReady: EventName<KupFileUploadCustomEvent<KupEventPayload>>,
-    onKupFileUploadUpload: EventName<KupFileUploadCustomEvent<KupFileUploadEventPayload>>
+    onKupFileUploadReady: EventName<KupFileUploadCustomEvent<KupEventPayload>>;
+    onKupFileUploadUpload: EventName<
+        KupFileUploadCustomEvent<KupFileUploadEventPayload>
+    >;
 };
 
-export const KupFileUpload: StencilReactComponent<KupFileUploadElement, KupFileUploadEvents> = /*@__PURE__*/ createComponent<KupFileUploadElement, KupFileUploadEvents>({
+export const KupFileUpload: StencilReactComponent<
+    KupFileUploadElement,
+    KupFileUploadEvents
+> = /*@__PURE__*/ createComponent<KupFileUploadElement, KupFileUploadEvents>({
     tagName: 'kup-file-upload',
     elementClass: KupFileUploadElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupFileUploadReady: 'kup-file-upload-ready',
-        onKupFileUploadUpload: 'kup-file-upload-upload'
+        onKupFileUploadUpload: 'kup-file-upload-upload',
     } as KupFileUploadEvents,
-    defineCustomElement: defineKupFileUpload
+    defineCustomElement: defineKupFileUpload,
 });
 
-type KupFormEvents = { onKupFormReady: EventName<KupFormCustomEvent<KupEventPayload>> };
+type KupFormEvents = {
+    onKupFormReady: EventName<KupFormCustomEvent<KupEventPayload>>;
+};
 
-export const KupForm: StencilReactComponent<KupFormElement, KupFormEvents> = /*@__PURE__*/ createComponent<KupFormElement, KupFormEvents>({
-    tagName: 'kup-form',
-    elementClass: KupFormElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupFormReady: 'kup-form-ready' } as KupFormEvents,
-    defineCustomElement: defineKupForm
-});
+export const KupForm: StencilReactComponent<KupFormElement, KupFormEvents> =
+    /*@__PURE__*/ createComponent<KupFormElement, KupFormEvents>({
+        tagName: 'kup-form',
+        elementClass: KupFormElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupFormReady: 'kup-form-ready' } as KupFormEvents,
+        defineCustomElement: defineKupForm,
+    });
 
 type KupGanttEvents = NonNullable<unknown>;
 
-export const KupGantt: StencilReactComponent<KupGanttElement, KupGanttEvents> = /*@__PURE__*/ createComponent<KupGanttElement, KupGanttEvents>({
-    tagName: 'kup-gantt',
-    elementClass: KupGanttElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {} as KupGanttEvents,
-    defineCustomElement: defineKupGantt
-});
+export const KupGantt: StencilReactComponent<KupGanttElement, KupGanttEvents> =
+    /*@__PURE__*/ createComponent<KupGanttElement, KupGanttEvents>({
+        tagName: 'kup-gantt',
+        elementClass: KupGanttElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {} as KupGanttEvents,
+        defineCustomElement: defineKupGantt,
+    });
 
 type KupGanttCalendarEvents = NonNullable<unknown>;
 
-export const KupGanttCalendar: StencilReactComponent<KupGanttCalendarElement, KupGanttCalendarEvents> = /*@__PURE__*/ createComponent<KupGanttCalendarElement, KupGanttCalendarEvents>({
+export const KupGanttCalendar: StencilReactComponent<
+    KupGanttCalendarElement,
+    KupGanttCalendarEvents
+> = /*@__PURE__*/ createComponent<
+    KupGanttCalendarElement,
+    KupGanttCalendarEvents
+>({
     tagName: 'kup-gantt-calendar',
     elementClass: KupGanttCalendarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupGanttCalendarEvents,
-    defineCustomElement: defineKupGanttCalendar
+    defineCustomElement: defineKupGanttCalendar,
 });
 
 type KupGaugeEvents = NonNullable<unknown>;
 
-export const KupGauge: StencilReactComponent<KupGaugeElement, KupGaugeEvents> = /*@__PURE__*/ createComponent<KupGaugeElement, KupGaugeEvents>({
-    tagName: 'kup-gauge',
-    elementClass: KupGaugeElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {} as KupGaugeEvents,
-    defineCustomElement: defineKupGauge
-});
+export const KupGauge: StencilReactComponent<KupGaugeElement, KupGaugeEvents> =
+    /*@__PURE__*/ createComponent<KupGaugeElement, KupGaugeEvents>({
+        tagName: 'kup-gauge',
+        elementClass: KupGaugeElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {} as KupGaugeEvents,
+        defineCustomElement: defineKupGauge,
+    });
 
 type KupGridEvents = NonNullable<unknown>;
 
-export const KupGrid: StencilReactComponent<KupGridElement, KupGridEvents> = /*@__PURE__*/ createComponent<KupGridElement, KupGridEvents>({
-    tagName: 'kup-grid',
-    elementClass: KupGridElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {} as KupGridEvents,
-    defineCustomElement: defineKupGrid
-});
+export const KupGrid: StencilReactComponent<KupGridElement, KupGridEvents> =
+    /*@__PURE__*/ createComponent<KupGridElement, KupGridEvents>({
+        tagName: 'kup-grid',
+        elementClass: KupGridElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {} as KupGridEvents,
+        defineCustomElement: defineKupGrid,
+    });
 
 type KupGridRendererEvents = NonNullable<unknown>;
 
-export const KupGridRenderer: StencilReactComponent<KupGridRendererElement, KupGridRendererEvents> = /*@__PURE__*/ createComponent<KupGridRendererElement, KupGridRendererEvents>({
+export const KupGridRenderer: StencilReactComponent<
+    KupGridRendererElement,
+    KupGridRendererEvents
+> = /*@__PURE__*/ createComponent<
+    KupGridRendererElement,
+    KupGridRendererEvents
+>({
     tagName: 'kup-grid-renderer',
     elementClass: KupGridRendererElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupGridRendererEvents,
-    defineCustomElement: defineKupGridRenderer
+    defineCustomElement: defineKupGridRenderer,
 });
 
 type KupHorizontalScrollEvents = NonNullable<unknown>;
 
-export const KupHorizontalScroll: StencilReactComponent<KupHorizontalScrollElement, KupHorizontalScrollEvents> = /*@__PURE__*/ createComponent<KupHorizontalScrollElement, KupHorizontalScrollEvents>({
+export const KupHorizontalScroll: StencilReactComponent<
+    KupHorizontalScrollElement,
+    KupHorizontalScrollEvents
+> = /*@__PURE__*/ createComponent<
+    KupHorizontalScrollElement,
+    KupHorizontalScrollEvents
+>({
     tagName: 'kup-horizontal-scroll',
     elementClass: KupHorizontalScrollElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupHorizontalScrollEvents,
-    defineCustomElement: defineKupHorizontalScroll
+    defineCustomElement: defineKupHorizontalScroll,
 });
 
-type KupHtmEvents = { onKupHtmReady: EventName<KupHtmCustomEvent<KupEventPayload>> };
-
-export const KupHtm: StencilReactComponent<KupHtmElement, KupHtmEvents> = /*@__PURE__*/ createComponent<KupHtmElement, KupHtmEvents>({
-    tagName: 'kup-htm',
-    elementClass: KupHtmElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupHtmReady: 'kup-htm-ready' } as KupHtmEvents,
-    defineCustomElement: defineKupHtm
-});
-
-type KupIframeEvents = {
-    onKupIframeError: EventName<KupIframeCustomEvent<KupEventPayload>>,
-    onKupIframeLoad: EventName<KupIframeCustomEvent<KupEventPayload>>
+type KupHtmEvents = {
+    onKupHtmReady: EventName<KupHtmCustomEvent<KupEventPayload>>;
 };
 
-export const KupIframe: StencilReactComponent<KupIframeElement, KupIframeEvents> = /*@__PURE__*/ createComponent<KupIframeElement, KupIframeEvents>({
+export const KupHtm: StencilReactComponent<KupHtmElement, KupHtmEvents> =
+    /*@__PURE__*/ createComponent<KupHtmElement, KupHtmEvents>({
+        tagName: 'kup-htm',
+        elementClass: KupHtmElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupHtmReady: 'kup-htm-ready' } as KupHtmEvents,
+        defineCustomElement: defineKupHtm,
+    });
+
+type KupIframeEvents = {
+    onKupIframeError: EventName<KupIframeCustomEvent<KupEventPayload>>;
+    onKupIframeLoad: EventName<KupIframeCustomEvent<KupEventPayload>>;
+};
+
+export const KupIframe: StencilReactComponent<
+    KupIframeElement,
+    KupIframeEvents
+> = /*@__PURE__*/ createComponent<KupIframeElement, KupIframeEvents>({
     tagName: 'kup-iframe',
     elementClass: KupIframeElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupIframeError: 'kup-iframe-error',
-        onKupIframeLoad: 'kup-iframe-load'
+        onKupIframeLoad: 'kup-iframe-load',
     } as KupIframeEvents,
-    defineCustomElement: defineKupIframe
+    defineCustomElement: defineKupIframe,
 });
 
 type KupImageEvents = {
-    onKupImageClick: EventName<KupImageCustomEvent<KupImageClickEventPayload>>,
-    onKupImageLoad: EventName<KupImageCustomEvent<KupImageClickEventPayload>>
+    onKupImageClick: EventName<KupImageCustomEvent<KupImageClickEventPayload>>;
+    onKupImageLoad: EventName<KupImageCustomEvent<KupImageClickEventPayload>>;
 };
 
-export const KupImage: StencilReactComponent<KupImageElement, KupImageEvents> = /*@__PURE__*/ createComponent<KupImageElement, KupImageEvents>({
-    tagName: 'kup-image',
-    elementClass: KupImageElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupImageClick: 'kup-image-click',
-        onKupImageLoad: 'kup-image-load'
-    } as KupImageEvents,
-    defineCustomElement: defineKupImage
-});
+export const KupImage: StencilReactComponent<KupImageElement, KupImageEvents> =
+    /*@__PURE__*/ createComponent<KupImageElement, KupImageEvents>({
+        tagName: 'kup-image',
+        elementClass: KupImageElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupImageClick: 'kup-image-click',
+            onKupImageLoad: 'kup-image-load',
+        } as KupImageEvents,
+        defineCustomElement: defineKupImage,
+    });
 
 type KupImageListEvents = {
-    onKupImagelistClick: EventName<KupImageListCustomEvent<KupImageListEventPayload>>,
-    onKupImagelistContextmenu: EventName<KupImageListCustomEvent<KupImageListEventPayload>>,
-    onKupImagelistDblclick: EventName<KupImageListCustomEvent<KupImageListEventPayload>>
+    onKupImagelistClick: EventName<
+        KupImageListCustomEvent<KupImageListEventPayload>
+    >;
+    onKupImagelistContextmenu: EventName<
+        KupImageListCustomEvent<KupImageListEventPayload>
+    >;
+    onKupImagelistDblclick: EventName<
+        KupImageListCustomEvent<KupImageListEventPayload>
+    >;
 };
 
-export const KupImageList: StencilReactComponent<KupImageListElement, KupImageListEvents> = /*@__PURE__*/ createComponent<KupImageListElement, KupImageListEvents>({
+export const KupImageList: StencilReactComponent<
+    KupImageListElement,
+    KupImageListEvents
+> = /*@__PURE__*/ createComponent<KupImageListElement, KupImageListEvents>({
     tagName: 'kup-image-list',
     elementClass: KupImageListElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -768,20 +1440,31 @@ export const KupImageList: StencilReactComponent<KupImageListElement, KupImageLi
     events: {
         onKupImagelistClick: 'kup-imagelist-click',
         onKupImagelistContextmenu: 'kup-imagelist-contextmenu',
-        onKupImagelistDblclick: 'kup-imagelist-dblclick'
+        onKupImagelistDblclick: 'kup-imagelist-dblclick',
     } as KupImageListEvents,
-    defineCustomElement: defineKupImageList
+    defineCustomElement: defineKupImageList,
 });
 
 type KupInputPanelEvents = {
-    onKupInputPanelReady: EventName<KupInputPanelCustomEvent<KupEventPayload>>,
-    onKupInputpanelContextmenu: EventName<KupInputPanelCustomEvent<KupInputPanelClickEventPayload>>,
-    onKupInputpanelObjectfieldSearchpayload: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>,
-    onKupInputpanelObjectfieldOpensearchmenu: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>,
-    onKupInputpanelObjectfieldSelectedmenuitem: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>
+    onKupInputPanelReady: EventName<KupInputPanelCustomEvent<KupEventPayload>>;
+    onKupInputpanelContextmenu: EventName<
+        KupInputPanelCustomEvent<KupInputPanelClickEventPayload>
+    >;
+    onKupInputpanelObjectfieldSearchpayload: EventName<
+        KupInputPanelCustomEvent<FObjectFieldEventPayload>
+    >;
+    onKupInputpanelObjectfieldOpensearchmenu: EventName<
+        KupInputPanelCustomEvent<FObjectFieldEventPayload>
+    >;
+    onKupInputpanelObjectfieldSelectedmenuitem: EventName<
+        KupInputPanelCustomEvent<FObjectFieldEventPayload>
+    >;
 };
 
-export const KupInputPanel: StencilReactComponent<KupInputPanelElement, KupInputPanelEvents> = /*@__PURE__*/ createComponent<KupInputPanelElement, KupInputPanelEvents>({
+export const KupInputPanel: StencilReactComponent<
+    KupInputPanelElement,
+    KupInputPanelEvents
+> = /*@__PURE__*/ createComponent<KupInputPanelElement, KupInputPanelEvents>({
     tagName: 'kup-input-panel',
     elementClass: KupInputPanelElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -789,95 +1472,135 @@ export const KupInputPanel: StencilReactComponent<KupInputPanelElement, KupInput
     events: {
         onKupInputPanelReady: 'kup-input-panel-ready',
         onKupInputpanelContextmenu: 'kup-inputpanel-contextmenu',
-        onKupInputpanelObjectfieldSearchpayload: 'kup-inputpanel-objectfield-searchpayload',
-        onKupInputpanelObjectfieldOpensearchmenu: 'kup-inputpanel-objectfield-opensearchmenu',
-        onKupInputpanelObjectfieldSelectedmenuitem: 'kup-inputpanel-objectfield-selectedmenuitem'
+        onKupInputpanelObjectfieldSearchpayload:
+            'kup-inputpanel-objectfield-searchpayload',
+        onKupInputpanelObjectfieldOpensearchmenu:
+            'kup-inputpanel-objectfield-opensearchmenu',
+        onKupInputpanelObjectfieldSelectedmenuitem:
+            'kup-inputpanel-objectfield-selectedmenuitem',
     } as KupInputPanelEvents,
-    defineCustomElement: defineKupInputPanel
+    defineCustomElement: defineKupInputPanel,
 });
 
-type KupLazyEvents = { onKupLazyLoaded: EventName<KupLazyCustomEvent<KupEventPayload>> };
-
-export const KupLazy: StencilReactComponent<KupLazyElement, KupLazyEvents> = /*@__PURE__*/ createComponent<KupLazyElement, KupLazyEvents>({
-    tagName: 'kup-lazy',
-    elementClass: KupLazyElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupLazyLoaded: 'kup-lazy-loaded' } as KupLazyEvents,
-    defineCustomElement: defineKupLazy
-});
-
-type KupListEvents = {
-    onKupListBlur: EventName<KupListCustomEvent<KupEventPayload>>,
-    onKupListFocus: EventName<KupListCustomEvent<KupEventPayload>>,
-    onKupListClick: EventName<KupListCustomEvent<KupListEventPayload>>
+type KupLazyEvents = {
+    onKupLazyLoaded: EventName<KupLazyCustomEvent<KupEventPayload>>;
 };
 
-export const KupList: StencilReactComponent<KupListElement, KupListEvents> = /*@__PURE__*/ createComponent<KupListElement, KupListEvents>({
-    tagName: 'kup-list',
-    elementClass: KupListElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupListBlur: 'kup-list-blur',
-        onKupListFocus: 'kup-list-focus',
-        onKupListClick: 'kup-list-click'
-    } as KupListEvents,
-    defineCustomElement: defineKupList
-});
+export const KupLazy: StencilReactComponent<KupLazyElement, KupLazyEvents> =
+    /*@__PURE__*/ createComponent<KupLazyElement, KupLazyEvents>({
+        tagName: 'kup-lazy',
+        elementClass: KupLazyElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupLazyLoaded: 'kup-lazy-loaded' } as KupLazyEvents,
+        defineCustomElement: defineKupLazy,
+    });
+
+type KupListEvents = {
+    onKupListBlur: EventName<KupListCustomEvent<KupEventPayload>>;
+    onKupListFocus: EventName<KupListCustomEvent<KupEventPayload>>;
+    onKupListClick: EventName<KupListCustomEvent<KupListEventPayload>>;
+};
+
+export const KupList: StencilReactComponent<KupListElement, KupListEvents> =
+    /*@__PURE__*/ createComponent<KupListElement, KupListEvents>({
+        tagName: 'kup-list',
+        elementClass: KupListElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupListBlur: 'kup-list-blur',
+            onKupListFocus: 'kup-list-focus',
+            onKupListClick: 'kup-list-click',
+        } as KupListEvents,
+        defineCustomElement: defineKupList,
+    });
 
 type KupMagicBoxEvents = NonNullable<unknown>;
 
-export const KupMagicBox: StencilReactComponent<KupMagicBoxElement, KupMagicBoxEvents> = /*@__PURE__*/ createComponent<KupMagicBoxElement, KupMagicBoxEvents>({
+export const KupMagicBox: StencilReactComponent<
+    KupMagicBoxElement,
+    KupMagicBoxEvents
+> = /*@__PURE__*/ createComponent<KupMagicBoxElement, KupMagicBoxEvents>({
     tagName: 'kup-magic-box',
     elementClass: KupMagicBoxElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupMagicBoxEvents,
-    defineCustomElement: defineKupMagicBox
+    defineCustomElement: defineKupMagicBox,
 });
 
 type KupMultiSelectEvents = NonNullable<unknown>;
 
-export const KupMultiSelect: StencilReactComponent<KupMultiSelectElement, KupMultiSelectEvents> = /*@__PURE__*/ createComponent<KupMultiSelectElement, KupMultiSelectEvents>({
+export const KupMultiSelect: StencilReactComponent<
+    KupMultiSelectElement,
+    KupMultiSelectEvents
+> = /*@__PURE__*/ createComponent<KupMultiSelectElement, KupMultiSelectEvents>({
     tagName: 'kup-multi-select',
     elementClass: KupMultiSelectElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupMultiSelectEvents,
-    defineCustomElement: defineKupMultiSelect
+    defineCustomElement: defineKupMultiSelect,
 });
 
 type KupNavBarEvents = {
-    onKupNavbarReady: EventName<KupNavBarCustomEvent<KupEventPayload>>,
-    onKupNavbarResize: EventName<KupNavBarCustomEvent<KupEventPayload>>
+    onKupNavbarReady: EventName<KupNavBarCustomEvent<KupEventPayload>>;
+    onKupNavbarResize: EventName<KupNavBarCustomEvent<KupEventPayload>>;
 };
 
-export const KupNavBar: StencilReactComponent<KupNavBarElement, KupNavBarEvents> = /*@__PURE__*/ createComponent<KupNavBarElement, KupNavBarEvents>({
+export const KupNavBar: StencilReactComponent<
+    KupNavBarElement,
+    KupNavBarEvents
+> = /*@__PURE__*/ createComponent<KupNavBarElement, KupNavBarEvents>({
     tagName: 'kup-nav-bar',
     elementClass: KupNavBarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupNavbarReady: 'kup-navbar-ready',
-        onKupNavbarResize: 'kup-navbar-resize'
+        onKupNavbarResize: 'kup-navbar-resize',
     } as KupNavBarEvents,
-    defineCustomElement: defineKupNavBar
+    defineCustomElement: defineKupNavBar,
 });
 
 type KupNumericPickerEvents = {
-    onKupNumericpickerBlur: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerChange: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerClick: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerFocus: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerInput: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerIconclick: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerItemclick: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerTextfieldsubmit: EventName<KupNumericPickerCustomEvent<KupNumericPickerEventPayload>>,
-    onKupNumericpickerCleariconclick: EventName<KupNumericPickerCustomEvent<KupEventPayload>>
+    onKupNumericpickerBlur: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerChange: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerClick: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerFocus: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerInput: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerIconclick: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerItemclick: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerTextfieldsubmit: EventName<
+        KupNumericPickerCustomEvent<KupNumericPickerEventPayload>
+    >;
+    onKupNumericpickerCleariconclick: EventName<
+        KupNumericPickerCustomEvent<KupEventPayload>
+    >;
 };
 
-export const KupNumericPicker: StencilReactComponent<KupNumericPickerElement, KupNumericPickerEvents> = /*@__PURE__*/ createComponent<KupNumericPickerElement, KupNumericPickerEvents>({
+export const KupNumericPicker: StencilReactComponent<
+    KupNumericPickerElement,
+    KupNumericPickerEvents
+> = /*@__PURE__*/ createComponent<
+    KupNumericPickerElement,
+    KupNumericPickerEvents
+>({
     tagName: 'kup-numeric-picker',
     elementClass: KupNumericPickerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -891,44 +1614,63 @@ export const KupNumericPicker: StencilReactComponent<KupNumericPickerElement, Ku
         onKupNumericpickerIconclick: 'kup-numericpicker-iconclick',
         onKupNumericpickerItemclick: 'kup-numericpicker-itemclick',
         onKupNumericpickerTextfieldsubmit: 'kup-numericpicker-textfieldsubmit',
-        onKupNumericpickerCleariconclick: 'kup-numericpicker-cleariconclick'
+        onKupNumericpickerCleariconclick: 'kup-numericpicker-cleariconclick',
     } as KupNumericPickerEvents,
-    defineCustomElement: defineKupNumericPicker
+    defineCustomElement: defineKupNumericPicker,
 });
 
 type KupObjectFieldEvents = NonNullable<unknown>;
 
-export const KupObjectField: StencilReactComponent<KupObjectFieldElement, KupObjectFieldEvents> = /*@__PURE__*/ createComponent<KupObjectFieldElement, KupObjectFieldEvents>({
+export const KupObjectField: StencilReactComponent<
+    KupObjectFieldElement,
+    KupObjectFieldEvents
+> = /*@__PURE__*/ createComponent<KupObjectFieldElement, KupObjectFieldEvents>({
     tagName: 'kup-object-field',
     elementClass: KupObjectFieldElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupObjectFieldEvents,
-    defineCustomElement: defineKupObjectField
+    defineCustomElement: defineKupObjectField,
 });
 
-type KupPdfEvents = { onKupPdfReady: EventName<KupPdfCustomEvent<KupEventPayload>> };
-
-export const KupPdf: StencilReactComponent<KupPdfElement, KupPdfEvents> = /*@__PURE__*/ createComponent<KupPdfElement, KupPdfEvents>({
-    tagName: 'kup-pdf',
-    elementClass: KupPdfElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupPdfReady: 'kup-pdf-ready' } as KupPdfEvents,
-    defineCustomElement: defineKupPdf
-});
-
-type KupPlannerEvents = {
-    onKupPlannerClick: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>,
-    onKupPlannerDblclick: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>,
-    onKupPlannerDatechange: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>,
-    onKupPlannerPhasedrop: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>,
-    onKupPlannerReady: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>,
-    onKupPlannerContextmenu: EventName<KupPlannerCustomEvent<KupPlannerClickEventPayload>>,
-    onKupPlannerDidunload: EventName<KupPlannerCustomEvent<KupPlannerUnloadEventPayload>>
+type KupPdfEvents = {
+    onKupPdfReady: EventName<KupPdfCustomEvent<KupEventPayload>>;
 };
 
-export const KupPlanner: StencilReactComponent<KupPlannerElement, KupPlannerEvents> = /*@__PURE__*/ createComponent<KupPlannerElement, KupPlannerEvents>({
+export const KupPdf: StencilReactComponent<KupPdfElement, KupPdfEvents> =
+    /*@__PURE__*/ createComponent<KupPdfElement, KupPdfEvents>({
+        tagName: 'kup-pdf',
+        elementClass: KupPdfElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupPdfReady: 'kup-pdf-ready' } as KupPdfEvents,
+        defineCustomElement: defineKupPdf,
+    });
+
+type KupPlannerEvents = {
+    onKupPlannerClick: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>;
+    onKupPlannerDblclick: EventName<
+        KupPlannerCustomEvent<KupPlannerEventPayload>
+    >;
+    onKupPlannerDatechange: EventName<
+        KupPlannerCustomEvent<KupPlannerEventPayload>
+    >;
+    onKupPlannerPhasedrop: EventName<
+        KupPlannerCustomEvent<KupPlannerEventPayload>
+    >;
+    onKupPlannerReady: EventName<KupPlannerCustomEvent<KupPlannerEventPayload>>;
+    onKupPlannerContextmenu: EventName<
+        KupPlannerCustomEvent<KupPlannerClickEventPayload>
+    >;
+    onKupPlannerDidunload: EventName<
+        KupPlannerCustomEvent<KupPlannerUnloadEventPayload>
+    >;
+};
+
+export const KupPlanner: StencilReactComponent<
+    KupPlannerElement,
+    KupPlannerEvents
+> = /*@__PURE__*/ createComponent<KupPlannerElement, KupPlannerEvents>({
     tagName: 'kup-planner',
     elementClass: KupPlannerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -940,131 +1682,173 @@ export const KupPlanner: StencilReactComponent<KupPlannerElement, KupPlannerEven
         onKupPlannerPhasedrop: 'kup-planner-phasedrop',
         onKupPlannerReady: 'kup-planner-ready',
         onKupPlannerContextmenu: 'kup-planner-contextmenu',
-        onKupPlannerDidunload: 'kup-planner-didunload'
+        onKupPlannerDidunload: 'kup-planner-didunload',
     } as KupPlannerEvents,
-    defineCustomElement: defineKupPlanner
+    defineCustomElement: defineKupPlanner,
 });
 
 type KupPlannerRendererEvents = NonNullable<unknown>;
 
-export const KupPlannerRenderer: StencilReactComponent<KupPlannerRendererElement, KupPlannerRendererEvents> = /*@__PURE__*/ createComponent<KupPlannerRendererElement, KupPlannerRendererEvents>({
+export const KupPlannerRenderer: StencilReactComponent<
+    KupPlannerRendererElement,
+    KupPlannerRendererEvents
+> = /*@__PURE__*/ createComponent<
+    KupPlannerRendererElement,
+    KupPlannerRendererEvents
+>({
     tagName: 'kup-planner-renderer',
     elementClass: KupPlannerRendererElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupPlannerRendererEvents,
-    defineCustomElement: defineKupPlannerRenderer
+    defineCustomElement: defineKupPlannerRenderer,
 });
 
 type KupProbeEvents = NonNullable<unknown>;
 
-export const KupProbe: StencilReactComponent<KupProbeElement, KupProbeEvents> = /*@__PURE__*/ createComponent<KupProbeElement, KupProbeEvents>({
-    tagName: 'kup-probe',
-    elementClass: KupProbeElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {} as KupProbeEvents,
-    defineCustomElement: defineKupProbe
-});
+export const KupProbe: StencilReactComponent<KupProbeElement, KupProbeEvents> =
+    /*@__PURE__*/ createComponent<KupProbeElement, KupProbeEvents>({
+        tagName: 'kup-probe',
+        elementClass: KupProbeElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {} as KupProbeEvents,
+        defineCustomElement: defineKupProbe,
+    });
 
 type KupProgressBarEvents = NonNullable<unknown>;
 
-export const KupProgressBar: StencilReactComponent<KupProgressBarElement, KupProgressBarEvents> = /*@__PURE__*/ createComponent<KupProgressBarElement, KupProgressBarEvents>({
+export const KupProgressBar: StencilReactComponent<
+    KupProgressBarElement,
+    KupProgressBarEvents
+> = /*@__PURE__*/ createComponent<KupProgressBarElement, KupProgressBarEvents>({
     tagName: 'kup-progress-bar',
     elementClass: KupProgressBarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupProgressBarEvents,
-    defineCustomElement: defineKupProgressBar
+    defineCustomElement: defineKupProgressBar,
 });
 
 type KupQlikEvents = NonNullable<unknown>;
 
-export const KupQlik: StencilReactComponent<KupQlikElement, KupQlikEvents> = /*@__PURE__*/ createComponent<KupQlikElement, KupQlikEvents>({
-    tagName: 'kup-qlik',
-    elementClass: KupQlikElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {} as KupQlikEvents,
-    defineCustomElement: defineKupQlik
-});
+export const KupQlik: StencilReactComponent<KupQlikElement, KupQlikEvents> =
+    /*@__PURE__*/ createComponent<KupQlikElement, KupQlikEvents>({
+        tagName: 'kup-qlik',
+        elementClass: KupQlikElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {} as KupQlikEvents,
+        defineCustomElement: defineKupQlik,
+    });
 
 type KupRadioEvents = {
-    onKupRadioBlur: EventName<KupRadioCustomEvent<KupEventPayload>>,
-    onKupRadioChange: EventName<KupRadioCustomEvent<KupRadioChangeEventPayload>>,
-    onKupRadioFocus: EventName<KupRadioCustomEvent<KupEventPayload>>
+    onKupRadioBlur: EventName<KupRadioCustomEvent<KupEventPayload>>;
+    onKupRadioChange: EventName<
+        KupRadioCustomEvent<KupRadioChangeEventPayload>
+    >;
+    onKupRadioFocus: EventName<KupRadioCustomEvent<KupEventPayload>>;
 };
 
-export const KupRadio: StencilReactComponent<KupRadioElement, KupRadioEvents> = /*@__PURE__*/ createComponent<KupRadioElement, KupRadioEvents>({
-    tagName: 'kup-radio',
-    elementClass: KupRadioElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupRadioBlur: 'kup-radio-blur',
-        onKupRadioChange: 'kup-radio-change',
-        onKupRadioFocus: 'kup-radio-focus'
-    } as KupRadioEvents,
-    defineCustomElement: defineKupRadio
-});
+export const KupRadio: StencilReactComponent<KupRadioElement, KupRadioEvents> =
+    /*@__PURE__*/ createComponent<KupRadioElement, KupRadioEvents>({
+        tagName: 'kup-radio',
+        elementClass: KupRadioElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupRadioBlur: 'kup-radio-blur',
+            onKupRadioChange: 'kup-radio-change',
+            onKupRadioFocus: 'kup-radio-focus',
+        } as KupRadioEvents,
+        defineCustomElement: defineKupRadio,
+    });
 
-type KupRatingEvents = { onKupRatingClick: EventName<KupRatingCustomEvent<KupRatingClickEventPayload>> };
+type KupRatingEvents = {
+    onKupRatingClick: EventName<
+        KupRatingCustomEvent<KupRatingClickEventPayload>
+    >;
+};
 
-export const KupRating: StencilReactComponent<KupRatingElement, KupRatingEvents> = /*@__PURE__*/ createComponent<KupRatingElement, KupRatingEvents>({
+export const KupRating: StencilReactComponent<
+    KupRatingElement,
+    KupRatingEvents
+> = /*@__PURE__*/ createComponent<KupRatingElement, KupRatingEvents>({
     tagName: 'kup-rating',
     elementClass: KupRatingElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupRatingClick: 'kup-rating-click' } as KupRatingEvents,
-    defineCustomElement: defineKupRating
+    defineCustomElement: defineKupRating,
 });
 
 type KupSnackbarEvents = {
-    onKupSnackbarActionclick: EventName<KupSnackbarCustomEvent<KupEventPayload>>,
-    onKupSnackbarTimeoutcomplete: EventName<KupSnackbarCustomEvent<KupEventPayload>>
+    onKupSnackbarActionclick: EventName<
+        KupSnackbarCustomEvent<KupEventPayload>
+    >;
+    onKupSnackbarTimeoutcomplete: EventName<
+        KupSnackbarCustomEvent<KupEventPayload>
+    >;
 };
 
-export const KupSnackbar: StencilReactComponent<KupSnackbarElement, KupSnackbarEvents> = /*@__PURE__*/ createComponent<KupSnackbarElement, KupSnackbarEvents>({
+export const KupSnackbar: StencilReactComponent<
+    KupSnackbarElement,
+    KupSnackbarEvents
+> = /*@__PURE__*/ createComponent<KupSnackbarElement, KupSnackbarEvents>({
     tagName: 'kup-snackbar',
     elementClass: KupSnackbarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupSnackbarActionclick: 'kup-snackbar-actionclick',
-        onKupSnackbarTimeoutcomplete: 'kup-snackbar-timeoutcomplete'
+        onKupSnackbarTimeoutcomplete: 'kup-snackbar-timeoutcomplete',
     } as KupSnackbarEvents,
-    defineCustomElement: defineKupSnackbar
+    defineCustomElement: defineKupSnackbar,
 });
 
-type KupSpinnerEvents = { onKupSpinnerReady: EventName<KupSpinnerCustomEvent<KupEventPayload>> };
+type KupSpinnerEvents = {
+    onKupSpinnerReady: EventName<KupSpinnerCustomEvent<KupEventPayload>>;
+};
 
-export const KupSpinner: StencilReactComponent<KupSpinnerElement, KupSpinnerEvents> = /*@__PURE__*/ createComponent<KupSpinnerElement, KupSpinnerEvents>({
+export const KupSpinner: StencilReactComponent<
+    KupSpinnerElement,
+    KupSpinnerEvents
+> = /*@__PURE__*/ createComponent<KupSpinnerElement, KupSpinnerEvents>({
     tagName: 'kup-spinner',
     elementClass: KupSpinnerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupSpinnerReady: 'kup-spinner-ready' } as KupSpinnerEvents,
-    defineCustomElement: defineKupSpinner
+    defineCustomElement: defineKupSpinner,
 });
 
 type KupStandardTooltipEvents = NonNullable<unknown>;
 
-export const KupStandardTooltip: StencilReactComponent<KupStandardTooltipElement, KupStandardTooltipEvents> = /*@__PURE__*/ createComponent<KupStandardTooltipElement, KupStandardTooltipEvents>({
+export const KupStandardTooltip: StencilReactComponent<
+    KupStandardTooltipElement,
+    KupStandardTooltipEvents
+> = /*@__PURE__*/ createComponent<
+    KupStandardTooltipElement,
+    KupStandardTooltipEvents
+>({
     tagName: 'kup-standard-tooltip',
     elementClass: KupStandardTooltipElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupStandardTooltipEvents,
-    defineCustomElement: defineKupStandardTooltip
+    defineCustomElement: defineKupStandardTooltip,
 });
 
 type KupSwitchEvents = {
-    onKupSwitchBlur: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>,
-    onKupSwitchChange: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>,
-    onKupSwitchFocus: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>
+    onKupSwitchBlur: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>;
+    onKupSwitchChange: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>;
+    onKupSwitchFocus: EventName<KupSwitchCustomEvent<KupSwitchEventPayload>>;
 };
 
-export const KupSwitch: StencilReactComponent<KupSwitchElement, KupSwitchEvents> = /*@__PURE__*/ createComponent<KupSwitchElement, KupSwitchEvents>({
+export const KupSwitch: StencilReactComponent<
+    KupSwitchElement,
+    KupSwitchEvents
+> = /*@__PURE__*/ createComponent<KupSwitchElement, KupSwitchEvents>({
     tagName: 'kup-switch',
     elementClass: KupSwitchElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -1072,31 +1856,41 @@ export const KupSwitch: StencilReactComponent<KupSwitchElement, KupSwitchEvents>
     events: {
         onKupSwitchBlur: 'kup-switch-blur',
         onKupSwitchChange: 'kup-switch-change',
-        onKupSwitchFocus: 'kup-switch-focus'
+        onKupSwitchFocus: 'kup-switch-focus',
     } as KupSwitchEvents,
-    defineCustomElement: defineKupSwitch
+    defineCustomElement: defineKupSwitch,
 });
 
 type KupSwitcherEvents = NonNullable<unknown>;
 
-export const KupSwitcher: StencilReactComponent<KupSwitcherElement, KupSwitcherEvents> = /*@__PURE__*/ createComponent<KupSwitcherElement, KupSwitcherEvents>({
+export const KupSwitcher: StencilReactComponent<
+    KupSwitcherElement,
+    KupSwitcherEvents
+> = /*@__PURE__*/ createComponent<KupSwitcherElement, KupSwitcherEvents>({
     tagName: 'kup-switcher',
     elementClass: KupSwitcherElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupSwitcherEvents,
-    defineCustomElement: defineKupSwitcher
+    defineCustomElement: defineKupSwitcher,
 });
 
 type KupTabBarEvents = {
-    onKupTabbarBlur: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
-    onKupTabbarClick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
-    onKupTabbarIconclick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
-    onKupTabbarFocus: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
-    onKupTabbarItemclick: EventName<KupTabBarCustomEvent<KupToolbarItemClickEventPayload>>
+    onKupTabbarBlur: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>;
+    onKupTabbarClick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>;
+    onKupTabbarIconclick: EventName<
+        KupTabBarCustomEvent<KupTabBarEventPayload>
+    >;
+    onKupTabbarFocus: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>;
+    onKupTabbarItemclick: EventName<
+        KupTabBarCustomEvent<KupToolbarItemClickEventPayload>
+    >;
 };
 
-export const KupTabBar: StencilReactComponent<KupTabBarElement, KupTabBarEvents> = /*@__PURE__*/ createComponent<KupTabBarElement, KupTabBarEvents>({
+export const KupTabBar: StencilReactComponent<
+    KupTabBarElement,
+    KupTabBarEvents
+> = /*@__PURE__*/ createComponent<KupTabBarElement, KupTabBarEvents>({
     tagName: 'kup-tab-bar',
     elementClass: KupTabBarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -1106,69 +1900,110 @@ export const KupTabBar: StencilReactComponent<KupTabBarElement, KupTabBarEvents>
         onKupTabbarClick: 'kup-tabbar-click',
         onKupTabbarIconclick: 'kup-tabbar-iconclick',
         onKupTabbarFocus: 'kup-tabbar-focus',
-        onKupTabbarItemclick: 'kup-tabbar-itemclick'
+        onKupTabbarItemclick: 'kup-tabbar-itemclick',
     } as KupTabBarEvents,
-    defineCustomElement: defineKupTabBar
+    defineCustomElement: defineKupTabBar,
 });
 
 type KupTaskGanttEvents = NonNullable<unknown>;
 
-export const KupTaskGantt: StencilReactComponent<KupTaskGanttElement, KupTaskGanttEvents> = /*@__PURE__*/ createComponent<KupTaskGanttElement, KupTaskGanttEvents>({
+export const KupTaskGantt: StencilReactComponent<
+    KupTaskGanttElement,
+    KupTaskGanttEvents
+> = /*@__PURE__*/ createComponent<KupTaskGanttElement, KupTaskGanttEvents>({
     tagName: 'kup-task-gantt',
     elementClass: KupTaskGanttElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupTaskGanttEvents,
-    defineCustomElement: defineKupTaskGantt
+    defineCustomElement: defineKupTaskGantt,
 });
 
 type KupTaskListEvents = NonNullable<unknown>;
 
-export const KupTaskList: StencilReactComponent<KupTaskListElement, KupTaskListEvents> = /*@__PURE__*/ createComponent<KupTaskListElement, KupTaskListEvents>({
+export const KupTaskList: StencilReactComponent<
+    KupTaskListElement,
+    KupTaskListEvents
+> = /*@__PURE__*/ createComponent<KupTaskListElement, KupTaskListEvents>({
     tagName: 'kup-task-list',
     elementClass: KupTaskListElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupTaskListEvents,
-    defineCustomElement: defineKupTaskList
+    defineCustomElement: defineKupTaskList,
 });
 
 type KupTaskListHeaderEvents = NonNullable<unknown>;
 
-export const KupTaskListHeader: StencilReactComponent<KupTaskListHeaderElement, KupTaskListHeaderEvents> = /*@__PURE__*/ createComponent<KupTaskListHeaderElement, KupTaskListHeaderEvents>({
+export const KupTaskListHeader: StencilReactComponent<
+    KupTaskListHeaderElement,
+    KupTaskListHeaderEvents
+> = /*@__PURE__*/ createComponent<
+    KupTaskListHeaderElement,
+    KupTaskListHeaderEvents
+>({
     tagName: 'kup-task-list-header',
     elementClass: KupTaskListHeaderElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupTaskListHeaderEvents,
-    defineCustomElement: defineKupTaskListHeader
+    defineCustomElement: defineKupTaskListHeader,
 });
 
 type KupTaskListTableEvents = NonNullable<unknown>;
 
-export const KupTaskListTable: StencilReactComponent<KupTaskListTableElement, KupTaskListTableEvents> = /*@__PURE__*/ createComponent<KupTaskListTableElement, KupTaskListTableEvents>({
+export const KupTaskListTable: StencilReactComponent<
+    KupTaskListTableElement,
+    KupTaskListTableEvents
+> = /*@__PURE__*/ createComponent<
+    KupTaskListTableElement,
+    KupTaskListTableEvents
+>({
     tagName: 'kup-task-list-table',
     elementClass: KupTaskListTableElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupTaskListTableEvents,
-    defineCustomElement: defineKupTaskListTable
+    defineCustomElement: defineKupTaskListTable,
 });
 
 type KupTextFieldEvents = {
-    onKupTextfieldBlur: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldChange: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldClick: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldFocus: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldInput: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldIconclick: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldCleariconclick: EventName<KupTextFieldCustomEvent<KupEventPayload>>,
-    onKupTextfieldSubmit: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldMinusclick: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>,
-    onKupTextfieldPlusclick: EventName<KupTextFieldCustomEvent<KupTextFieldEventPayload>>
+    onKupTextfieldBlur: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldChange: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldClick: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldFocus: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldInput: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldIconclick: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldCleariconclick: EventName<
+        KupTextFieldCustomEvent<KupEventPayload>
+    >;
+    onKupTextfieldSubmit: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldMinusclick: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
+    onKupTextfieldPlusclick: EventName<
+        KupTextFieldCustomEvent<KupTextFieldEventPayload>
+    >;
 };
 
-export const KupTextField: StencilReactComponent<KupTextFieldElement, KupTextFieldEvents> = /*@__PURE__*/ createComponent<KupTextFieldElement, KupTextFieldEvents>({
+export const KupTextField: StencilReactComponent<
+    KupTextFieldElement,
+    KupTextFieldEvents
+> = /*@__PURE__*/ createComponent<KupTextFieldElement, KupTextFieldEvents>({
     tagName: 'kup-text-field',
     elementClass: KupTextFieldElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -1183,24 +2018,45 @@ export const KupTextField: StencilReactComponent<KupTextFieldElement, KupTextFie
         onKupTextfieldCleariconclick: 'kup-textfield-cleariconclick',
         onKupTextfieldSubmit: 'kup-textfield-submit',
         onKupTextfieldMinusclick: 'kup-textfield-minusclick',
-        onKupTextfieldPlusclick: 'kup-textfield-plusclick'
+        onKupTextfieldPlusclick: 'kup-textfield-plusclick',
     } as KupTextFieldEvents,
-    defineCustomElement: defineKupTextField
+    defineCustomElement: defineKupTextField,
 });
 
 type KupTimePickerEvents = {
-    onKupTimepickerBlur: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerChange: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerClick: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerFocus: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerInput: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerIconclick: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerItemclick: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerTextfieldsubmit: EventName<KupTimePickerCustomEvent<KupTimePickerEventPayload>>,
-    onKupTimepickerCleariconclick: EventName<KupTimePickerCustomEvent<KupEventPayload>>
+    onKupTimepickerBlur: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerChange: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerClick: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerFocus: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerInput: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerIconclick: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerItemclick: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerTextfieldsubmit: EventName<
+        KupTimePickerCustomEvent<KupTimePickerEventPayload>
+    >;
+    onKupTimepickerCleariconclick: EventName<
+        KupTimePickerCustomEvent<KupEventPayload>
+    >;
 };
 
-export const KupTimePicker: StencilReactComponent<KupTimePickerElement, KupTimePickerEvents> = /*@__PURE__*/ createComponent<KupTimePickerElement, KupTimePickerEvents>({
+export const KupTimePicker: StencilReactComponent<
+    KupTimePickerElement,
+    KupTimePickerEvents
+> = /*@__PURE__*/ createComponent<KupTimePickerElement, KupTimePickerEvents>({
     tagName: 'kup-time-picker',
     elementClass: KupTimePickerElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -1214,86 +2070,127 @@ export const KupTimePicker: StencilReactComponent<KupTimePickerElement, KupTimeP
         onKupTimepickerIconclick: 'kup-timepicker-iconclick',
         onKupTimepickerItemclick: 'kup-timepicker-itemclick',
         onKupTimepickerTextfieldsubmit: 'kup-timepicker-textfieldsubmit',
-        onKupTimepickerCleariconclick: 'kup-timepicker-cleariconclick'
+        onKupTimepickerCleariconclick: 'kup-timepicker-cleariconclick',
     } as KupTimePickerEvents,
-    defineCustomElement: defineKupTimePicker
+    defineCustomElement: defineKupTimePicker,
 });
 
-type KupToolbarEvents = { onKupToolbarClick: EventName<KupToolbarCustomEvent<KupToolbarClickEventPayload>> };
+type KupToolbarEvents = {
+    onKupToolbarClick: EventName<
+        KupToolbarCustomEvent<KupToolbarClickEventPayload>
+    >;
+};
 
-export const KupToolbar: StencilReactComponent<KupToolbarElement, KupToolbarEvents> = /*@__PURE__*/ createComponent<KupToolbarElement, KupToolbarEvents>({
+export const KupToolbar: StencilReactComponent<
+    KupToolbarElement,
+    KupToolbarEvents
+> = /*@__PURE__*/ createComponent<KupToolbarElement, KupToolbarEvents>({
     tagName: 'kup-toolbar',
     elementClass: KupToolbarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: { onKupToolbarClick: 'kup-toolbar-click' } as KupToolbarEvents,
-    defineCustomElement: defineKupToolbar
+    defineCustomElement: defineKupToolbar,
 });
 
 type KupTooltipEvents = NonNullable<unknown>;
 
-export const KupTooltip: StencilReactComponent<KupTooltipElement, KupTooltipEvents> = /*@__PURE__*/ createComponent<KupTooltipElement, KupTooltipEvents>({
+export const KupTooltip: StencilReactComponent<
+    KupTooltipElement,
+    KupTooltipEvents
+> = /*@__PURE__*/ createComponent<KupTooltipElement, KupTooltipEvents>({
     tagName: 'kup-tooltip',
     elementClass: KupTooltipElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupTooltipEvents,
-    defineCustomElement: defineKupTooltip
+    defineCustomElement: defineKupTooltip,
 });
 
 type KupTreeEvents = {
-    onKupTreeNodecollapse: EventName<KupTreeCustomEvent<KupTreeNodeCollapseEventPayload>>,
-    onKupTreeNodeexpand: EventName<KupTreeCustomEvent<KupTreeNodeExpandEventPayload>>,
-    onKupTreeNodeselected: EventName<KupTreeCustomEvent<KupTreeNodeSelectedEventPayload>>,
-    onKupTreeButtonclick: EventName<KupTreeCustomEvent<KupTreeNodeButtonClickEventPayload>>,
-    onKupTreeContextmenu: EventName<KupTreeCustomEvent<KupTreeContextMenuEventPayload>>,
-    onKupTreeColumnmenu: EventName<KupTreeCustomEvent<KupTreeColumnMenuEventPayload>>,
-    onKupTreeDidload: EventName<KupTreeCustomEvent<KupEventPayload>>,
-    onKupTreeDidunload: EventName<KupTreeCustomEvent<KupEventPayload>>,
-    onKupTreeNodedblclick: EventName<KupTreeCustomEvent<KupTreeNodeCollapseEventPayload>>,
-    onKupTreeDynamicmassexpansion: EventName<KupTreeCustomEvent<KupTreeDynamicMassExpansionEventPayload>>,
-    onKupTreeColumnremove: EventName<KupTreeCustomEvent<KupTreeColumnRemoveEventPayload>>
+    onKupTreeNodecollapse: EventName<
+        KupTreeCustomEvent<KupTreeNodeCollapseEventPayload>
+    >;
+    onKupTreeNodeexpand: EventName<
+        KupTreeCustomEvent<KupTreeNodeExpandEventPayload>
+    >;
+    onKupTreeNodeselected: EventName<
+        KupTreeCustomEvent<KupTreeNodeSelectedEventPayload>
+    >;
+    onKupTreeButtonclick: EventName<
+        KupTreeCustomEvent<KupTreeNodeButtonClickEventPayload>
+    >;
+    onKupTreeContextmenu: EventName<
+        KupTreeCustomEvent<KupTreeContextMenuEventPayload>
+    >;
+    onKupTreeColumnmenu: EventName<
+        KupTreeCustomEvent<KupTreeColumnMenuEventPayload>
+    >;
+    onKupTreeDidload: EventName<KupTreeCustomEvent<KupEventPayload>>;
+    onKupTreeDidunload: EventName<KupTreeCustomEvent<KupEventPayload>>;
+    onKupTreeNodedblclick: EventName<
+        KupTreeCustomEvent<KupTreeNodeCollapseEventPayload>
+    >;
+    onKupTreeDynamicmassexpansion: EventName<
+        KupTreeCustomEvent<KupTreeDynamicMassExpansionEventPayload>
+    >;
+    onKupTreeColumnremove: EventName<
+        KupTreeCustomEvent<KupTreeColumnRemoveEventPayload>
+    >;
 };
 
-export const KupTree: StencilReactComponent<KupTreeElement, KupTreeEvents> = /*@__PURE__*/ createComponent<KupTreeElement, KupTreeEvents>({
-    tagName: 'kup-tree',
-    elementClass: KupTreeElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: {
-        onKupTreeNodecollapse: 'kup-tree-nodecollapse',
-        onKupTreeNodeexpand: 'kup-tree-nodeexpand',
-        onKupTreeNodeselected: 'kup-tree-nodeselected',
-        onKupTreeButtonclick: 'kup-tree-buttonclick',
-        onKupTreeContextmenu: 'kup-tree-contextmenu',
-        onKupTreeColumnmenu: 'kup-tree-columnmenu',
-        onKupTreeDidload: 'kup-tree-didload',
-        onKupTreeDidunload: 'kup-tree-didunload',
-        onKupTreeNodedblclick: 'kup-tree-nodedblclick',
-        onKupTreeDynamicmassexpansion: 'kup-tree-dynamicmassexpansion',
-        onKupTreeColumnremove: 'kup-tree-columnremove'
-    } as KupTreeEvents,
-    defineCustomElement: defineKupTree
-});
+export const KupTree: StencilReactComponent<KupTreeElement, KupTreeEvents> =
+    /*@__PURE__*/ createComponent<KupTreeElement, KupTreeEvents>({
+        tagName: 'kup-tree',
+        elementClass: KupTreeElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: {
+            onKupTreeNodecollapse: 'kup-tree-nodecollapse',
+            onKupTreeNodeexpand: 'kup-tree-nodeexpand',
+            onKupTreeNodeselected: 'kup-tree-nodeselected',
+            onKupTreeButtonclick: 'kup-tree-buttonclick',
+            onKupTreeContextmenu: 'kup-tree-contextmenu',
+            onKupTreeColumnmenu: 'kup-tree-columnmenu',
+            onKupTreeDidload: 'kup-tree-didload',
+            onKupTreeDidunload: 'kup-tree-didunload',
+            onKupTreeNodedblclick: 'kup-tree-nodedblclick',
+            onKupTreeDynamicmassexpansion: 'kup-tree-dynamicmassexpansion',
+            onKupTreeColumnremove: 'kup-tree-columnremove',
+        } as KupTreeEvents,
+        defineCustomElement: defineKupTree,
+    });
 
-type KupTxtEvents = { onKupTxtReady: EventName<KupTxtCustomEvent<KupEventPayload>> };
+type KupTxtEvents = {
+    onKupTxtReady: EventName<KupTxtCustomEvent<KupEventPayload>>;
+};
 
-export const KupTxt: StencilReactComponent<KupTxtElement, KupTxtEvents> = /*@__PURE__*/ createComponent<KupTxtElement, KupTxtEvents>({
-    tagName: 'kup-txt',
-    elementClass: KupTxtElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
-    react: React,
-    events: { onKupTxtReady: 'kup-txt-ready' } as KupTxtEvents,
-    defineCustomElement: defineKupTxt
-});
+export const KupTxt: StencilReactComponent<KupTxtElement, KupTxtEvents> =
+    /*@__PURE__*/ createComponent<KupTxtElement, KupTxtEvents>({
+        tagName: 'kup-txt',
+        elementClass: KupTxtElement,
+        // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+        react: React,
+        events: { onKupTxtReady: 'kup-txt-ready' } as KupTxtEvents,
+        defineCustomElement: defineKupTxt,
+    });
 
 type KupTypographyEvents = {
-    onKupTypographyIconclick: EventName<KupTypographyCustomEvent<KupTypographyIconClickEventPayload>>,
-    onKupTypographyClick: EventName<KupTypographyCustomEvent<KupTypographyClickEventPayload>>,
-    onKupTypographyItemclick: EventName<KupTypographyCustomEvent<KupToolbarItemClickEventPayload>>
+    onKupTypographyIconclick: EventName<
+        KupTypographyCustomEvent<KupTypographyIconClickEventPayload>
+    >;
+    onKupTypographyClick: EventName<
+        KupTypographyCustomEvent<KupTypographyClickEventPayload>
+    >;
+    onKupTypographyItemclick: EventName<
+        KupTypographyCustomEvent<KupToolbarItemClickEventPayload>
+    >;
 };
 
-export const KupTypography: StencilReactComponent<KupTypographyElement, KupTypographyEvents> = /*@__PURE__*/ createComponent<KupTypographyElement, KupTypographyEvents>({
+export const KupTypography: StencilReactComponent<
+    KupTypographyElement,
+    KupTypographyEvents
+> = /*@__PURE__*/ createComponent<KupTypographyElement, KupTypographyEvents>({
     tagName: 'kup-typography',
     elementClass: KupTypographyElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
@@ -1301,35 +2198,51 @@ export const KupTypography: StencilReactComponent<KupTypographyElement, KupTypog
     events: {
         onKupTypographyIconclick: 'kup-typography-iconclick',
         onKupTypographyClick: 'kup-typography-click',
-        onKupTypographyItemclick: 'kup-typography-itemclick'
+        onKupTypographyItemclick: 'kup-typography-itemclick',
     } as KupTypographyEvents,
-    defineCustomElement: defineKupTypography
+    defineCustomElement: defineKupTypography,
 });
 
 type KupTypographyListEvents = {
-    onKupTypographylistIconClick: EventName<KupTypographyListCustomEvent<KupTypographyListIconClickEventPayload>>,
-    onKupTypographylistClick: EventName<KupTypographyListCustomEvent<KupTypographyListClickEventPayload>>
+    onKupTypographylistIconClick: EventName<
+        KupTypographyListCustomEvent<KupTypographyListIconClickEventPayload>
+    >;
+    onKupTypographylistClick: EventName<
+        KupTypographyListCustomEvent<KupTypographyListClickEventPayload>
+    >;
 };
 
-export const KupTypographyList: StencilReactComponent<KupTypographyListElement, KupTypographyListEvents> = /*@__PURE__*/ createComponent<KupTypographyListElement, KupTypographyListEvents>({
+export const KupTypographyList: StencilReactComponent<
+    KupTypographyListElement,
+    KupTypographyListEvents
+> = /*@__PURE__*/ createComponent<
+    KupTypographyListElement,
+    KupTypographyListEvents
+>({
     tagName: 'kup-typography-list',
     elementClass: KupTypographyListElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onKupTypographylistIconClick: 'kup-typographylist-icon-click',
-        onKupTypographylistClick: 'kup-typographylist-click'
+        onKupTypographylistClick: 'kup-typographylist-click',
     } as KupTypographyListEvents,
-    defineCustomElement: defineKupTypographyList
+    defineCustomElement: defineKupTypographyList,
 });
 
 type KupVerticalScrollEvents = NonNullable<unknown>;
 
-export const KupVerticalScroll: StencilReactComponent<KupVerticalScrollElement, KupVerticalScrollEvents> = /*@__PURE__*/ createComponent<KupVerticalScrollElement, KupVerticalScrollEvents>({
+export const KupVerticalScroll: StencilReactComponent<
+    KupVerticalScrollElement,
+    KupVerticalScrollEvents
+> = /*@__PURE__*/ createComponent<
+    KupVerticalScrollElement,
+    KupVerticalScrollEvents
+>({
     tagName: 'kup-vertical-scroll',
     elementClass: KupVerticalScrollElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {} as KupVerticalScrollEvents,
-    defineCustomElement: defineKupVerticalScroll
+    defineCustomElement: defineKupVerticalScroll,
 });

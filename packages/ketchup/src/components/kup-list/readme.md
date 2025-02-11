@@ -2,25 +2,23 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property             | Attribute             | Description                                                                      | Type                                                                                                                                                                | Default                        |
-| -------------------- | --------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `customStyle`        | `custom-style`        | Custom style of the component.                                                   | `string`                                                                                                                                                            | `''`                           |
-| `data`               | --                    | The data of the list.                                                            | `KupListNode[]`                                                                                                                                                     | `[]`                           |
-| `displayMode`        | `display-mode`        | Selects how the items must display their label and how they can be filtered for. | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `filter`             | `filter`              | Keeps string for filtering elements when filter mode is active                   | `string`                                                                                                                                                            | `''`                           |
-| `hideText`           | `hide-text`           | Hides rows' text, ideally to display a list of icons only.                       | `boolean`                                                                                                                                                           | `false`                        |
-| `isMenu`             | `is-menu`             | Defines whether the list is a menu or not.                                       | `boolean`                                                                                                                                                           | `false`                        |
-| `keyboardNavigation` | `keyboard-navigation` | When true, enables items' navigation through arrow keys.                         | `boolean`                                                                                                                                                           | `true`                         |
-| `menuVisible`        | `menu-visible`        | Sets the status of the menu, when false it's hidden otherwise it's visible.      | `boolean`                                                                                                                                                           | `false`                        |
-| `roleType`           | `role-type`           | Defines the type of selection. Values accepted: listbox, radiogroup or group.    | `KupListRole.GROUP \| KupListRole.LISTBOX \| KupListRole.RADIOGROUP`                                                                                                | `KupListRole.LISTBOX`          |
-| `selectable`         | `selectable`          | Defines whether items are selectable or not.                                     | `boolean`                                                                                                                                                           | `true`                         |
-| `showFilter`         | `show-filter`         | Show filter for filter elements in list                                          | `boolean`                                                                                                                                                           | `false`                        |
-| `showIcons`          | `show-icons`          | Displays the icons associated to each row when set to true.                      | `boolean`                                                                                                                                                           | `false`                        |
-| `twoLine`            | `two-line`            | The list elements descriptions will be arranged in two lines.                    | `boolean`                                                                                                                                                           | `false`                        |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | The data of the list. | `KupListNode[]` | `[]` |
+| `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for. | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `filter` | `filter` | Keeps string for filtering elements when filter mode is active | `string` | `''` |
+| `hideText` | `hide-text` | Hides rows' text, ideally to display a list of icons only. | `boolean` | `false` |
+| `isMenu` | `is-menu` | Defines whether the list is a menu or not. | `boolean` | `false` |
+| `keyboardNavigation` | `keyboard-navigation` | When true, enables items' navigation through arrow keys. | `boolean` | `true` |
+| `menuVisible` | `menu-visible` | Sets the status of the menu, when false it's hidden otherwise it's visible. | `boolean` | `false` |
+| `roleType` | `role-type` | Defines the type of selection. Values accepted: listbox, radiogroup or group. | `KupListRole.GROUP \| KupListRole.LISTBOX \| KupListRole.RADIOGROUP` | `KupListRole.LISTBOX` |
+| `selectable` | `selectable` | Defines whether items are selectable or not. | `boolean` | `true` |
+| `showFilter` | `show-filter` | Show filter for filter elements in list | `boolean` | `false` |
+| `showIcons` | `show-icons` | Displays the icons associated to each row when set to true. | `boolean` | `false` |
+| `twoLine` | `two-line` | The list elements descriptions will be arranged in two lines. | `boolean` | `false` |
 
 ## Events
 
@@ -29,7 +27,6 @@
 | `kup-list-blur`  |             | `CustomEvent<KupEventPayload>`     |
 | `kup-list-click` |             | `CustomEvent<KupListEventPayload>` |
 | `kup-list-focus` |             | `CustomEvent<KupEventPayload>`     |
-
 
 ## Methods
 
@@ -41,8 +38,6 @@ Focuses the next element of the list.
 
 Type: `Promise<void>`
 
-
-
 ### `focusPrevious() => Promise<void>`
 
 Focuses the previous element of the list.
@@ -51,16 +46,14 @@ Focuses the previous element of the list.
 
 Type: `Promise<void>`
 
-
-
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -87,43 +80,31 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `select(index?: number) => Promise<void>`
 
 Calls handleSelection internal method to select the given item.
 
 #### Parameters
 
-| Name    | Type     | Description                                                                                                                  |
-| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `index` | `number` | - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
 ### `setBlur() => Promise<void>`
-
-
 
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setFocus() => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setProps(props: GenericObject) => Promise<void>`
 
@@ -131,59 +112,56 @@ Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                            | Description                                                                       |
-| ------------------------------- | --------------------------------------------------------------------------------- |
-| `--kup-list-background`         | Sets background of the list.                                                      |
-| `--kup-list-color`              | Sets text color of the list.                                                      |
-| `--kup-list-font-family`        | Sets font family of the component.                                                |
-| `--kup-list-font-size`          | Sets font size of the component.                                                  |
-| `--kup-list-font-weight`        | Sets font weight of the component.                                                |
-| `--kup-list-group-item-height`  | Sets height of each list item when the list contains radio buttons or checkboxes. |
-| `--kup-list-item-height`        | Sets height of each list item.                                                    |
-| `--kup-list-item-padding-left`  | Sets left padding of each list item.                                              |
-| `--kup-list-item-padding-right` | Sets right padding of each list item.                                             |
-| `--kup-list-max-height-as-menu` | Sets max height when list is menu.                                                |
-| `--kup-list-primary-color`      | Sets the primary color of the component.                                          |
-| `--kup-list-primary-color-rgb`  | Sets the RGB values of the primary color of the component (used for shaders).     |
-| `--kup-list-separator-color`    | Sets the color of separators.                                                     |
-| `--kup-list-transition`         | Transitions duration for text and background colors.                              |
-
+| Name | Description |
+| --- | --- |
+| `--kup-list-background` | Sets background of the list. |
+| `--kup-list-color` | Sets text color of the list. |
+| `--kup-list-font-family` | Sets font family of the component. |
+| `--kup-list-font-size` | Sets font size of the component. |
+| `--kup-list-font-weight` | Sets font weight of the component. |
+| `--kup-list-group-item-height` | Sets height of each list item when the list contains radio buttons or checkboxes. |
+| `--kup-list-item-height` | Sets height of each list item. |
+| `--kup-list-item-padding-left` | Sets left padding of each list item. |
+| `--kup-list-item-padding-right` | Sets right padding of each list item. |
+| `--kup-list-max-height-as-menu` | Sets max height when list is menu. |
+| `--kup-list-primary-color` | Sets the primary color of the component. |
+| `--kup-list-primary-color-rgb` | Sets the RGB values of the primary color of the component (used for shaders). |
+| `--kup-list-separator-color` | Sets the color of separators. |
+| `--kup-list-transition` | Transitions duration for text and background colors. |
 
 ## Dependencies
 
 ### Used by
 
- - [kup-autocomplete](../kup-autocomplete)
- - [kup-card](../kup-card)
- - [kup-combobox](../kup-combobox)
- - [kup-data-table](../kup-data-table)
- - [kup-dropdown-button](../kup-dropdown-button)
- - [kup-list](.)
- - [kup-time-picker](../kup-time-picker)
- - [kup-tree](../kup-tree)
+-   [kup-autocomplete](../kup-autocomplete)
+-   [kup-card](../kup-card)
+-   [kup-combobox](../kup-combobox)
+-   [kup-data-table](../kup-data-table)
+-   [kup-dropdown-button](../kup-dropdown-button)
+-   [kup-list](.)
+-   [kup-time-picker](../kup-time-picker)
+-   [kup-tree](../kup-tree)
 
 ### Depends on
 
-- [kup-list](.)
-- [kup-radio](../kup-radio)
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
+-   [kup-list](.)
+-   [kup-radio](../kup-radio)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
+-   [kup-badge](../kup-badge)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-list --> kup-list
@@ -289,6 +267,6 @@ graph TD;
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

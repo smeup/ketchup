@@ -2,35 +2,32 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property        | Attribute        | Description                                              | Type              | Default |
-| --------------- | ---------------- | -------------------------------------------------------- | ----------------- | ------- |
-| `columnsNumber` | `columns-number` | Sets the number of columns.                              | `number`          | `1`     |
-| `customStyle`   | `custom-style`   | Custom style of the component.                           | `string`          | `''`    |
-| `data`          | --               | Actual data of the component.                            | `KupCardListData` | `null`  |
-| `decvalueCol`   | `decvalue-col`   | Sets the decimal value column.                           | `string`          | `''`    |
-| `descrCol`      | `descr-col`      | Sets the description column.                             | `string`          | `''`    |
-| `fullWidth`     | `full-width`     | Sets whether the component occupies all available width. | `boolean`         | `true`  |
-| `horizontal`    | `horizontal`     | Sets whether the cards are placed horizontally or not.   | `boolean`         | `false` |
-| `iconCol`       | `icon-col`       | Sets the icon column.                                    | `string`          | `''`    |
-| `iconcolorCol`  | `iconcolor-col`  | Sets the icon color column.                              | `string`          | `''`    |
-| `intvalueCol`   | `intvalue-col`   | Sets the integer value column.                           | `string`          | `''`    |
-| `isClickable`   | `is-clickable`   | Sets whether a single card is clickable or not.          | `boolean`         | `false` |
-| `layoutCol`     | `layout-col`     | Sets the layout column.                                  | `string`          | `''`    |
-| `measureCol`    | `measure-col`    | Sets the unit of measure column.                         | `string`          | `''`    |
-| `textcolorCol`  | `textcolor-col`  | Sets the text color column.                              | `string`          | `''`    |
-| `valueCol`      | `value-col`      | Sets the value column.                                   | `string`          | `''`    |
-| `valuecolorCol` | `valuecolor-col` | Sets the value color column.                             | `string`          | `''`    |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `columnsNumber` | `columns-number` | Sets the number of columns. | `number` | `1` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | Actual data of the component. | `KupCardListData` | `null` |
+| `decvalueCol` | `decvalue-col` | Sets the decimal value column. | `string` | `''` |
+| `descrCol` | `descr-col` | Sets the description column. | `string` | `''` |
+| `fullWidth` | `full-width` | Sets whether the component occupies all available width. | `boolean` | `true` |
+| `horizontal` | `horizontal` | Sets whether the cards are placed horizontally or not. | `boolean` | `false` |
+| `iconCol` | `icon-col` | Sets the icon column. | `string` | `''` |
+| `iconcolorCol` | `iconcolor-col` | Sets the icon color column. | `string` | `''` |
+| `intvalueCol` | `intvalue-col` | Sets the integer value column. | `string` | `''` |
+| `isClickable` | `is-clickable` | Sets whether a single card is clickable or not. | `boolean` | `false` |
+| `layoutCol` | `layout-col` | Sets the layout column. | `string` | `''` |
+| `measureCol` | `measure-col` | Sets the unit of measure column. | `string` | `''` |
+| `textcolorCol` | `textcolor-col` | Sets the text color column. | `string` | `''` |
+| `valueCol` | `value-col` | Sets the value column. | `string` | `''` |
+| `valuecolorCol` | `valuecolor-col` | Sets the value color column. | `string` | `''` |
 
 ## Events
 
-| Event                | Description | Type                                        |
-| -------------------- | ----------- | ------------------------------------------- |
-| `kup-cardlist-click` |             | `CustomEvent<KupCardListClickEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-cardlist-click` |  | `CustomEvent<KupCardListClickEventPayload>` |
 
 ## Methods
 
@@ -40,8 +37,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -58,24 +55,19 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -86,16 +78,16 @@ Type: `Promise<void>`
 | `--kup-cardlist-cards-min-height` | Sets the min height of the cards. |
 | `--kup-cardlist-cards-min-width`  | Sets the min width of the cards.  |
 
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-grid](../kup-grid)
-- [kup-dialog](../kup-dialog)
+-   [kup-card](../kup-card)
+-   [kup-grid](../kup-grid)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-card-list --> kup-card
@@ -290,6 +282,6 @@ graph TD;
   style kup-card-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -2,29 +2,26 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property          | Attribute           | Description                                                                              | Type                     | Default |
-| ----------------- | ------------------- | ---------------------------------------------------------------------------------------- | ------------------------ | ------- |
-| `autofitOnExpand` | `autofit-on-expand` | The component will autofit everytime a node is expanded.                                 | `boolean`                | `true`  |
-| `autofitOnLoad`   | `autofit-on-load`   | The component's initial render will fit the container by invoking the runAutofit method. | `boolean`                | `true`  |
-| `cardData`        | --                  | Used to render the family tree boxes as kup-cards (through kup-box).                     | `GenericObject`          | `null`  |
-| `collapsible`     | `collapsible`       | Nodes can be expanded/collapsed.                                                         | `boolean`                | `true`  |
-| `customStyle`     | `custom-style`      | Custom style of the component.                                                           | `string`                 | `''`    |
-| `data`            | --                  | Actual data of the component.                                                            | `KupFamilyTreeData`      | `null`  |
-| `layout`          | `layout`            | Layout of the boxes.                                                                     | `KupBoxLayout \| number` | `null`  |
-| `stackedLeaves`   | `stacked-leaves`    | Child nodes that have no children are arranged vertically.                               | `boolean`                | `false` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `autofitOnExpand` | `autofit-on-expand` | The component will autofit everytime a node is expanded. | `boolean` | `true` |
+| `autofitOnLoad` | `autofit-on-load` | The component's initial render will fit the container by invoking the runAutofit method. | `boolean` | `true` |
+| `cardData` | -- | Used to render the family tree boxes as kup-cards (through kup-box). | `GenericObject` | `null` |
+| `collapsible` | `collapsible` | Nodes can be expanded/collapsed. | `boolean` | `true` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | Actual data of the component. | `KupFamilyTreeData` | `null` |
+| `layout` | `layout` | Layout of the boxes. | `KupBoxLayout \| number` | `null` |
+| `stackedLeaves` | `stacked-leaves` | Child nodes that have no children are arranged vertically. | `boolean` | `false` |
 
 ## Events
 
-| Event                        | Description | Type                                     |
-| ---------------------------- | ----------- | ---------------------------------------- |
-| `kup-familytree-click`       |             | `CustomEvent<KupFamilyTreeEventPayload>` |
-| `kup-familytree-contextmenu` |             | `CustomEvent<KupFamilyTreeEventPayload>` |
-| `kup-familytree-dblclick`    |             | `CustomEvent<KupFamilyTreeEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-familytree-click` |  | `CustomEvent<KupFamilyTreeEventPayload>` |
+| `kup-familytree-contextmenu` |  | `CustomEvent<KupFamilyTreeEventPayload>` |
+| `kup-familytree-dblclick` |  | `CustomEvent<KupFamilyTreeEventPayload>` |
 
 ## Methods
 
@@ -42,8 +39,6 @@ Collapses all nodes.
 
 Type: `Promise<void>`
 
-
-
 ### `expandAll(nodes?: KupFamilyTreeNode[]) => Promise<void>`
 
 Expands all nodes.
@@ -58,16 +53,14 @@ Expands all nodes.
 
 Type: `Promise<void>`
 
-
-
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -84,8 +77,6 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `runAutofit() => Promise<void>`
 
 This method causes the component to autofit its container's width.
@@ -94,48 +85,43 @@ This method causes the component to autofit its container's width.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                                     | Description                             |
-| ---------------------------------------- | --------------------------------------- |
+| Name | Description |
+| --- | --- |
 | `--kup-familytree-item-background-color` | Sets the background color of the items. |
-| `--kup-familytree-item-color`            | Sets the color of the items.            |
-| `--kup-familytree-item-h-padding`        | Sets the horizontal padding of items.   |
-| `--kup-familytree-item-height`           | Sets the height of the items.           |
-| `--kup-familytree-item-v-padding`        | Sets the vertical padding of items.     |
-| `--kup-familytree-item-width`            | Sets the width of the items.            |
-| `--kup-familytree-lines-color`           | Sets the color of the lines.            |
-
+| `--kup-familytree-item-color` | Sets the color of the items. |
+| `--kup-familytree-item-h-padding` | Sets the horizontal padding of items. |
+| `--kup-familytree-item-height` | Sets the height of the items. |
+| `--kup-familytree-item-v-padding` | Sets the vertical padding of items. |
+| `--kup-familytree-item-width` | Sets the width of the items. |
+| `--kup-familytree-lines-color` | Sets the color of the lines. |
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-box](../kup-box)
-- [kup-badge](../kup-badge)
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
+-   [kup-box](../kup-box)
+-   [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-family-tree --> kup-box
@@ -348,6 +334,6 @@ graph TD;
   style kup-family-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

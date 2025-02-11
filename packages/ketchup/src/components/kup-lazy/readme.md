@@ -2,24 +2,21 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property          | Attribute          | Description                                                                                                                             | Type                                                                  | Default              |
-| ----------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------- |
-| `componentName`   | `component-name`   | Sets the tag name of the component to be lazy loaded.                                                                                   | `string`                                                              | `null`               |
-| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                                          | `string`                                                              | `''`                 |
-| `data`            | --                 | Sets the data of the component to be lazy loaded.                                                                                       | `GenericObject`                                                       | `null`               |
-| `renderMode`      | `render-mode`      | Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport. | `KupLazyRender.BOTH \| KupLazyRender.PROPS \| KupLazyRender.VIEWPORT` | `KupLazyRender.BOTH` |
-| `showPlaceholder` | `show-placeholder` | Displays an animated SVG placeholder until the component is loaded.                                                                     | `boolean`                                                             | `true`               |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `componentName` | `component-name` | Sets the tag name of the component to be lazy loaded. | `string` | `null` |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | Sets the data of the component to be lazy loaded. | `GenericObject` | `null` |
+| `renderMode` | `render-mode` | Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport. | `KupLazyRender.BOTH \| KupLazyRender.PROPS \| KupLazyRender.VIEWPORT` | `KupLazyRender.BOTH` |
+| `showPlaceholder` | `show-placeholder` | Displays an animated SVG placeholder until the component is loaded. | `boolean` | `true` |
 
 ## Events
 
-| Event             | Description                             | Type                           |
-| ----------------- | --------------------------------------- | ------------------------------ |
+| Event | Description | Type |
+| --- | --- | --- |
 | `kup-lazy-loaded` | Triggered when the component is loaded. | `CustomEvent<KupEventPayload>` |
-
 
 ## Methods
 
@@ -39,8 +36,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name           | Type      | Description                                                                            |
-| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| --- | --- | --- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -57,45 +54,40 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type            | Description                                                  |
-| ------- | --------------- | ------------------------------------------------------------ |
+| Name | Type | Description |
+| --- | --- | --- |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                           | Description                                        |
-| ------------------------------ | -------------------------------------------------- |
-| `--kup-lazy-animation-time`    | Sets the duration of the animation.                |
-| `--kup-lazy-height`            | Sets the height of the component and subcomponent. |
-| `--kup-lazy-hor-alignment`     | Sets the horizontal alignment of the subcomponent. |
-| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon.                |
-| `--kup-lazy-ver-alignment`     | Sets the vertical alignment of the subcomponent.   |
-| `--kup-lazy-width`             | Sets the width of the component and subcomponent.  |
-
+| Name | Description |
+| --- | --- |
+| `--kup-lazy-animation-time` | Sets the duration of the animation. |
+| `--kup-lazy-height` | Sets the height of the component and subcomponent. |
+| `--kup-lazy-hor-alignment` | Sets the horizontal alignment of the subcomponent. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
+| `--kup-lazy-ver-alignment` | Sets the vertical alignment of the subcomponent. |
+| `--kup-lazy-width` | Sets the width of the component and subcomponent. |
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
+-   [kup-card](../kup-card)
+-   [kup-dialog](../kup-dialog)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-lazy --> kup-card
@@ -287,6 +279,6 @@ graph TD;
   style kup-lazy fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
