@@ -262,32 +262,23 @@ table {
 
 .density- {
   &dense {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-dense, var(--kup_fcell_padding_dense));
-    }
+    .header-cell__content,
     tbody > tr.group td {
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
+      padding: var(--kup-fcell-padding-dense, var(--kup_fcell_padding_dense));
     }
   }
 
   &medium {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-medium, var(--kup_fcell_padding_medium));
-    }
+    .header-cell__content,
     tbody > tr.group > td {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
+      padding: var(--kup-fcell-padding-medium, var(--kup_fcell_padding_medium));
     }
   }
 
   &wide {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-wide, var(--kup_fcell_padding_wide));
-    }
+    .header-cell__content,
     tbody > tr.group > td {
-      padding-top: 0.75em;
-      padding-bottom: 0.75em;
+      padding: var(--kup-fcell-padding-wide, var(--kup_fcell_padding_wide));
     }
   }
 }
@@ -445,8 +436,6 @@ tbody {
       }
 
       > td {
-        padding: 0.5em 0;
-
         .group-cell-content {
           .indent {
             float: left;
@@ -466,7 +455,7 @@ tbody {
         &.total {
           border-bottom: 1px solid var(--kup-border-subtle-selected);
           text-align: right;
-          padding: 0.5em var(--kup-space-03);
+          padding: 0 var(--kup-space-03) 0.25em var(--kup-space-03);
           font-family: var(--kup_datatable_font_family_monospace);
 
           &.negative-number {
