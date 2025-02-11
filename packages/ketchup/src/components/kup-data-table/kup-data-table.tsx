@@ -6531,7 +6531,10 @@ export class KupDataTable {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
                 bc?.blur();
-                this.#handleUpdateClick();
+
+                if (bc) {
+                    this.#handleUpdateClick();
+                }
             });
 
             if (this.hiddenSubmitButton) {
