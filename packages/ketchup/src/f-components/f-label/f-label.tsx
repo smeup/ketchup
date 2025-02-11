@@ -96,7 +96,7 @@ interface FLabelProps extends FComponent {
 // }
 
 type ParsedElement = {
-    class?: string;
+    tag?: string;
     content?: string;
     closed?: boolean;
 };
@@ -139,7 +139,7 @@ function getParsedElements(input: string): ParsedElement[] {
 
     parse(input, {
         onStartTag(tag) {
-            elements.push((lastElement = { class: tag }));
+            elements.push((lastElement = { tag: tag }));
         },
         onEndTag(tag) {
             if (!lastElement) {
@@ -164,7 +164,7 @@ function getNodes(input: string): VNode[] {
     const vNodes: VNode[] = [];
     getParsedElements(input).forEach((e) => {
         if (e.closed) {
-            vNodes.push(<span class={e.class}>{e.content}</span>);
+            vNodes.push(<span class={`G-${e.tag}`}>{e.content}</span>);
         } else {
             vNodes.push(<span>{e.content}</span>);
         }
