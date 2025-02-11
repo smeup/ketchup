@@ -464,14 +464,15 @@ export class KupColumnMenu {
                     'data-storage': {
                         column: column,
                     },
-                    fullWidth: true,
-                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
-                    initialValue: filterInitialValue,
                     isClearable: true,
-                    key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
+                    size: 30,
+                    maxLength: 100,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.SEARCH
                     ),
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                    initialValue: filterInitialValue,
+                    key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
                     trailingIcon: true,
                 });
             }
@@ -525,13 +526,14 @@ export class KupColumnMenu {
             'data-storage': {
                 column: column,
             },
-            fullWidth: true,
             helperWhenFocused: true,
+            isClearable: true,
+            size: 30,
+            maxLength: 100,
+            label: dom.ketchup.language.translate(KupLanguageSearch.SEARCH),
             id: KupColumnMenuIds.TEXTFIELD_FILTER,
             key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
             initialValue: filterInitialValue,
-            isClearable: true,
-            label: dom.ketchup.language.translate(KupLanguageSearch.SEARCH),
             trailingIcon: true,
         });
 
@@ -572,7 +574,7 @@ export class KupColumnMenu {
                     helperWhenFocused: true,
                     isClearable: true,
                     size: 30,
-                    maxLength: 30,
+                    maxLength: 100,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.SEARCH
                     ),
@@ -624,7 +626,7 @@ export class KupColumnMenu {
                     helperWhenFocused: true,
                     isClearable: true,
                     size: 30,
-                    maxLength: 30,
+                    maxLength: 100,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.SEARCH
                     ),
@@ -697,8 +699,6 @@ export class KupColumnMenu {
 
             //#region Filters handlers
             case KupColumnMenuIds.TEXTFIELD_FILTER:
-            case KupColumnMenuIds.TEXTFIELD_FROM:
-            case KupColumnMenuIds.TEXTFIELD_TO:
                 switch (compEvent.type) {
                     case 'kup-textfield-submit':
                     case 'kup-datepicker-textfieldsubmit':

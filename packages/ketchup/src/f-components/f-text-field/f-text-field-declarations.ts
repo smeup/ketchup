@@ -54,4 +54,9 @@ export interface FTextFieldProps extends FComponent {
     onClearIconClick?: (event: MouseEvent) => void;
     onMinusClick?: (event: MouseEvent) => void;
     onPlusClick?: (event: MouseEvent) => void;
+    // Callback to skip attaching of the helper section
+    // Return false to skip, true otherwise
+    // helperElement is the element created via
+    // setHelper method
+    attachHelperSection?: (helperElement: HTMLElement) => boolean;
 }

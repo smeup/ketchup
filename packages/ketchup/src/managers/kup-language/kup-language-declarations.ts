@@ -226,9 +226,8 @@ export enum KupLanguageRow {
  * Search decodes.
  */
 export enum KupLanguageSearch {
-    FROM = 'searchFrom',
     SEARCH = 'searchSearch',
-    TO = 'searchTo',
+    TOOLTIP = 'searchTooltip',
 }
 /**
  * Footer totals decodes (tree and data table).

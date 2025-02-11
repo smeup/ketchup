@@ -1755,7 +1755,11 @@ export class KupInputPanel {
 
             const visibleColumnsOptions = { ...options, rows: filteredRows };
 
-            const kupListData = cell.data?.data?.['kup-list'];
+            const kupListData =
+                cell.shape === FCellShapes.MULTI_AUTOCOMPLETE
+                    ? cell.slotData.data['kup-list']
+                    : cell.data?.data?.['kup-list'];
+
             if (kupListData) {
                 kupListData.data = filteredRows?.length
                     ? this.#optionsTreeComboAdapter(

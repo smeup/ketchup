@@ -111,6 +111,7 @@ export class Filters {
      * Determines if a value matches a given filter.
      *
      * Filter expressions follow the format `[operator]'filter'` with these rules:
+     * - filter = includes match
      * - 'filter' = exact phrase match
      * - '' = matches empty value
      * - 'filter%' = starts with "filter"
@@ -161,6 +162,7 @@ export class Filters {
      * - `%` at both: contains
      *
      * Examples:
+     * - `text`: includes match
      * - `'text'`: exact match
      * - `''`: matches empty
      * - `!''`: matches non-empty
