@@ -88,10 +88,12 @@
         outline: 2px solid var(--kup_tabindicator_border_bottom_color_active);
       }
 
-      .tab__icon + .tab__text-label {
-        padding-left: 8px;
-        padding-right: 0px;
+      .tab__text-label {
         @include kup-body-compact-01;
+        &.tab_icon {
+          padding-left: 8px;
+          padding-right: 0px;
+        }
       }
 
       .tab__icon .f-image__icon {

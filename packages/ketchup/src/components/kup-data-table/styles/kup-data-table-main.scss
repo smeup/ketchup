@@ -66,7 +66,7 @@
     --kup-fcell-line-height-extradense,
     14px
   );
-  --kup_fcell_font_size_extradense: var(--kup-fcell-font-size-extradense, 11px);
+  --kup_fcell_font_size_extradense: var(--kup-fcell-font-size-extradense, 12px);
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
     1px solid var(--kup-gray-color-30)
@@ -684,7 +684,7 @@ th.obj:hover span:not(.overlay-action) {
   th .header-cell__content {
     font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
-    font-size: 11px;
+    font-size: 12px;
     padding: var(--kup-extradense-legacy-look-padding);
   }
   .f-cell__text {

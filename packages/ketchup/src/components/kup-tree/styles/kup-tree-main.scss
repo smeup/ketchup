@@ -146,8 +146,6 @@
 
     tbody {
       background-color: var(--kup_tree_body_background_color);
-      tr {
-      }
 
       tr.kup-tree__node.kup-tree__node--first {
         td .cell-content {
@@ -367,7 +365,7 @@ tfoot {
 
   .density-extra_dense {
     .first-node:not(.grid-cell) {
-      padding: var(--kup-space-01) var(--kup-space-03);
+      padding: var(--kup-space-02) var(--kup-space-03);
     }
   }
 
@@ -408,9 +406,6 @@ tfoot {
     }
 
     &[data-is-expanded] {
-      .first-node {
-      }
-
       .#{$kup-icon-dropdown} {
         transform: rotate(180deg);
       }
@@ -442,11 +437,11 @@ tfoot {
 
     .#{$kup-icon-dropdown} {
       background-color: var(--kup_tree_icon_color);
-      height: 1.5em;
+      height: 1em;
       margin-left: auto;
       margin-right: 0;
-      min-width: 1.5em;
-      width: 1.5em;
+      min-width: 1em;
+      width: 1em;
       transition: transform 0.1s;
     }
   }
