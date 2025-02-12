@@ -188,6 +188,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
   kup-file-upload --> kup-dialog
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
   kup-button-list --> kup-dialog
@@ -202,7 +204,6 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
   kup-tab-bar --> kup-dialog
-  kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog
@@ -221,7 +222,6 @@ graph TD;
   kup-input-panel --> kup-dialog
   kup-lazy --> kup-dialog
   kup-magic-box --> kup-dialog
-  kup-multi-select --> kup-dialog
   kup-nav-bar --> kup-dialog
   kup-numeric-picker --> kup-dialog
   kup-object-field --> kup-dialog

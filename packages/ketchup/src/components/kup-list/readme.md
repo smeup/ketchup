@@ -222,6 +222,11 @@ graph TD;
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog
   kup-file-upload --> kup-badge
+  kup-multi-select --> kup-chip
+  kup-multi-select --> kup-tree
+  kup-multi-select --> kup-card
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-list
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-list
@@ -247,6 +252,7 @@ graph TD;
   kup-toolbar --> kup-combobox
   kup-toolbar --> kup-date-picker
   kup-toolbar --> kup-file-upload
+  kup-toolbar --> kup-multi-select
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
   kup-toolbar --> kup-button-list
@@ -273,6 +279,7 @@ graph TD;
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
   kup-form --> kup-file-upload
+  kup-form --> kup-multi-select
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-button-list
@@ -285,7 +292,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

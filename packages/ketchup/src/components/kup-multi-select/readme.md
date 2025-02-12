@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                         | Type            | Default |
-| ------------- | -------------- | ----------------------------------------------------------------------------------- | --------------- | ------- |
-| `customStyle` | `custom-style` |                                                                                     | `string`        | `''`    |
-| `data`        | --             | The json data used to populate the tree view: the basic, always visible tree nodes. | `KupTreeNode[]` | `[]`    |
-| `disabled`    | `disabled`     |                                                                                     | `boolean`       | `false` |
+| Property      | Attribute      | Description                                                                                                   | Type      | Default |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `customStyle` | `custom-style` |                                                                                                               | `string`  | `''`    |
+| `data`        | --             | Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips. | `any[]`   | `[]`    |
+| `disabled`    | `disabled`     |                                                                                                               | `boolean` | `false` |
 
 
 ## Methods
@@ -72,10 +72,21 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
+ - [kup-tree](../kup-tree)
+
 ### Depends on
 
 - [kup-chip](../kup-chip)
-- [kup-button](../kup-button)
 - [kup-tree](../kup-tree)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
@@ -84,58 +95,38 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-multi-select --> kup-chip
-  kup-multi-select --> kup-button
   kup-multi-select --> kup-tree
   kup-multi-select --> kup-card
   kup-multi-select --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
-  kup-card --> kup-autocomplete
-  kup-card --> kup-chip
-  kup-card --> kup-text-field
-  kup-card --> kup-color-picker
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-rating
-  kup-card --> kup-time-picker
-  kup-card --> kup-image
-  kup-card --> kup-button-list
-  kup-card --> kup-chart
-  kup-card --> kup-gauge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-badge
-  kup-card --> kup-toolbar
-  kup-card --> kup-card
-  kup-card --> kup-dialog
-  kup-card --> kup-button
-  kup-card --> kup-list
-  kup-card --> kup-spinner
-  kup-card --> kup-checkbox
-  kup-card --> kup-data-table
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-card --> kup-dropdown-button
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-autocomplete --> kup-dialog
-  kup-autocomplete --> kup-badge
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-text-field
-  kup-list --> kup-card
-  kup-list --> kup-dialog
-  kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
-  kup-radio --> kup-badge
+  kup-card --> kup-multi-select
+  kup-image --> kup-card
+  kup-image --> kup-image
+  kup-image --> kup-dialog
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-badge --> kup-dialog
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-dialog
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
   kup-text-field --> kup-badge
@@ -149,19 +140,16 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-card
-  kup-image --> kup-image
-  kup-image --> kup-dialog
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -176,94 +164,26 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
-  kup-toolbar --> kup-toolbar
+  kup-toolbar --> kup-multi-select
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-spinner
-  kup-data-table --> kup-form
-  kup-data-table --> kup-image
-  kup-data-table --> kup-dialog
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-dropdown-button
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-toolbar
+  kup-data-table --> kup-multi-select
   kup-switch --> kup-card
   kup-switch --> kup-dialog
-  kup-form --> kup-card
-  kup-form --> kup-dialog
-  kup-form --> kup-autocomplete
-  kup-form --> kup-chip
-  kup-form --> kup-text-field
-  kup-form --> kup-color-picker
-  kup-form --> kup-combobox
-  kup-form --> kup-date-picker
-  kup-form --> kup-rating
-  kup-form --> kup-time-picker
-  kup-form --> kup-image
-  kup-form --> kup-button-list
-  kup-form --> kup-chart
-  kup-form --> kup-gauge
-  kup-form --> kup-progress-bar
-  kup-form --> kup-badge
-  kup-form --> kup-toolbar
+  kup-form --> kup-multi-select
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-card
-  kup-tree --> kup-list
-  kup-tree --> kup-text-field
-  kup-tree --> kup-dialog
-  kup-tree --> kup-autocomplete
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-combobox
-  kup-tree --> kup-date-picker
-  kup-tree --> kup-rating
-  kup-tree --> kup-time-picker
-  kup-tree --> kup-image
-  kup-tree --> kup-button-list
-  kup-tree --> kup-chart
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-badge
-  kup-tree --> kup-toolbar
+  kup-tree --> kup-multi-select
+  kup-box --> kup-multi-select
+  kup-cell --> kup-multi-select
+  kup-image-list --> kup-multi-select
+  kup-input-panel --> kup-multi-select
   style kup-multi-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

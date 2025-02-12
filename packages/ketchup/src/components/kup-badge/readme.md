@@ -148,6 +148,11 @@ graph TD;
   kup-combobox --> kup-badge
   kup-date-picker --> kup-badge
   kup-file-upload --> kup-badge
+  kup-multi-select --> kup-chip
+  kup-multi-select --> kup-tree
+  kup-multi-select --> kup-card
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-badge
@@ -167,7 +172,6 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-badge
   kup-accordion --> kup-badge
   kup-activity-timeline --> kup-badge
   kup-box --> kup-badge

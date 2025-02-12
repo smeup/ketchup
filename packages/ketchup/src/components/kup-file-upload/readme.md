@@ -168,6 +168,11 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-multi-select --> kup-chip
+  kup-multi-select --> kup-tree
+  kup-multi-select --> kup-card
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-file-upload
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -203,7 +208,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-file-upload
   kup-box --> kup-file-upload
   kup-cell --> kup-file-upload
   kup-image-list --> kup-file-upload
