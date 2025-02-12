@@ -328,7 +328,22 @@ export class KupList {
 
     @Method()
     async setFocus(): Promise<void> {
-        this.#inputEl?.focus();
+        if (!this.#inputEl) return;
+        let attempts = 0;
+        const maxFocusAttempts = 100;
+        const attemptFocus = () => {
+            if (attempts >= maxFocusAttempts) return;
+            attempts++;
+
+            this.#inputEl.focus();
+            if (
+                document.activeElement !== this.rootElement &&
+                this.#isListOpened()
+            ) {
+                requestAnimationFrame(attemptFocus);
+            }
+        };
+        attemptFocus();
     }
 
     @Method()
@@ -658,6 +673,10 @@ export class KupList {
             }
         }
     };
+
+    #isListOpened(): boolean {
+        return this.menuVisible == true;
+    }
 
     onFilterValueChange(event) {
         if (event != null && event.target) {
