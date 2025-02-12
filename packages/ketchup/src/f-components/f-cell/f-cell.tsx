@@ -785,6 +785,7 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
                         selectMode={ItemsDisplayMode.CODE_AND_DESC}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -824,6 +825,7 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
                         selectMode={ItemsDisplayMode.CODE_AND_DESC}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
