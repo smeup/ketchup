@@ -92,7 +92,7 @@ export class KupMultiSelect {
             );
 
             // Deselect parent if not all children are selected
-            let parentNode = getParentNode(this.data['kup-tree'], selectedNode); // Using the library function
+            let parentNode = getParentNode(this.data['kup-tree'], selectedNode);
             while (parentNode) {
                 const parentChildren =
                     parentNode.children?.map((child) => child.value) || [];
@@ -106,7 +106,7 @@ export class KupMultiSelect {
                     );
                 }
 
-                parentNode = getParentNode(this.data['kup-tree'], parentNode); // Using the library function again
+                parentNode = getParentNode(this.data['kup-tree'], parentNode);
             }
         } else {
             // Select: Add nodes to kup-chip
@@ -117,7 +117,7 @@ export class KupMultiSelect {
             });
 
             // Check if parent can be selected
-            let parentNode = getParentNode(this.data['kup-tree'], selectedNode); // Using the library function
+            let parentNode = getParentNode(this.data['kup-tree'], selectedNode);
             while (parentNode) {
                 const parentChildren =
                     parentNode.children?.map((child) => child.value) || [];
@@ -138,7 +138,7 @@ export class KupMultiSelect {
                     }
                 }
 
-                parentNode = getParentNode(this.data['kup-tree'], parentNode); // Using the library function again
+                parentNode = getParentNode(this.data['kup-tree'], parentNode);
             }
         }
 

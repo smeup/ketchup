@@ -1203,9 +1203,15 @@ function setKupCell(
             );
         case FCellTypes.MULTI_AUTOCOMPLETE:
         case FCellTypes.MULTI_COMBOBOX:
-        case FCellTypes.MULTI_SELECT:
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
+        case FCellTypes.MULTI_SELECT:
+            return (
+                <kup-multi-select
+                    key={column.name + props.row.id}
+                    {...subcomponentProps}
+                ></kup-multi-select>
+            );
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
