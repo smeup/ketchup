@@ -87,6 +87,14 @@
   color: var(--kup_tree_text_color);
 }
 
+.density-extra_dense .wrapper .kup-tree,
+.density-extra_dense .wrapper .kup-tree {
+  td:not(.grid-cell),
+  th {
+    padding: var(--kup-space-02) var(--kup-space-03);
+  }
+}
+
 .density-dense .wrapper .kup-tree,
 .density-dense .wrapper .kup-tree {
   td:not(.grid-cell),
@@ -357,6 +365,12 @@ tfoot {
     }
   }
 
+  .density-extra_dense {
+    .first-node:not(.grid-cell) {
+      padding: var(--kup-space-01) var(--kup-space-03);
+    }
+  }
+
   .density-dense {
     .first-node:not(.grid-cell) {
       padding: 0.5em 1em;
@@ -417,7 +431,6 @@ tfoot {
     .kup-tree__icon {
       margin-left: 0;
       margin-right: var(--kup-space-03);
-      min-width: 1.5em;
     }
 
     .cell-content {
