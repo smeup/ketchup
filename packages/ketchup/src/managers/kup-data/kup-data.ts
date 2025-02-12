@@ -173,6 +173,8 @@ export class KupData {
                 return FCellTypes.TIME;
             } else if (dom.ketchup.objects.isVoCodver(obj)) {
                 return FCellTypes.ICON;
+            } else if (cell.data?.maxLength >= 256) {
+                return FCellTypes.MEMO;
             } else {
                 return FCellTypes.STRING;
             }
