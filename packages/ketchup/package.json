@@ -46,6 +46,7 @@
         "@material/form-field": "14.0.0",
         "@material/ripple": "14.0.0",
         "@material/textfield": "14.0.0",
+        "@sme.up/ketchup": "file:",
         "@toast-ui/editor": "2.5.4",
         "d3-shape": "^3.2.0",
         "dayjs": "^1.11.13",

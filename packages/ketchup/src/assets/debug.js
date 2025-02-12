@@ -1926,6 +1926,7 @@ const tableData = {
                                     visible: true,
                                 },
                             ],
+                            'kup-chip':[]
                         },
                     },
 
@@ -1946,12 +1947,6 @@ const tableData = {
                 
 const props = {
     data: tableData,
-    //column: column,
-    //component: KupMultiSelect,
-    //renderKup: true,
-    //row: row,
-    //setSizes: true,
-    //shape: 'MTS',
 };
 
 const wrapper = document.querySelector('#debug-wrapper');

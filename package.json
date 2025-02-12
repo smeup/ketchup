@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@sme.up/ketchup": "^11.0.0-SNAPSHOT",
+        "@sme.up/ketchup-root": "file:",
         "math-expression-evaluator": "^2.0.6"
     },
     "scripts": {

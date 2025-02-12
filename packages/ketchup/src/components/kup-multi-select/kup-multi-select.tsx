@@ -145,9 +145,9 @@ export class KupMultiSelect {
         // Assign new data prop to kup-chip component, triggering visual update
         this.#chips.data = [...this.data['kup-chip']];
 
-        // Log selected values for MongoDB query
+        // Log selected values for database query
         console.log(
-            'Selected values for MongoDB:',
+            'Selected values:',
             this.data['kup-chip'].map((chip) => chip.id)
         );
     }
