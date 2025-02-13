@@ -854,9 +854,7 @@ function setEditableCell(
         case FCellTypes.MULTI_SELECT:
             return (
                 <kup-multi-select
-                    //key={column.name + props.row.id}
-                    data={Array.isArray(cell.data) ? cell.data : []}
-                    //class={isFullWidth(props) ? 'kup-full-width' : ''}
+                    {...cell.data}
                     onKup-tree-nodeselected={(
                         e: CustomEvent<KupTreeNodeSelectedEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}

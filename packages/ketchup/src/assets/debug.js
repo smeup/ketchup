@@ -1,5 +1,5 @@
 // Replace the object below with yours.
-const compName = 'kup-data-table';
+const compName = 'kup-input-panel';
 
 // Replace the props below with yours.
 /*
@@ -1937,8 +1937,6 @@ const tableData = {
                     },
                     isEditable: true,
                     shape: 'MTS',
-                    value: 'CODE_1',
-                    options: false,
                 }
             }
         }
