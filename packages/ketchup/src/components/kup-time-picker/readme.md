@@ -189,6 +189,11 @@ graph TD;
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog
   kup-file-upload --> kup-badge
+  kup-multi-select --> kup-chip
+  kup-multi-select --> kup-tree
+  kup-multi-select --> kup-card
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-time-picker
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-button-list --> kup-dropdown-button
@@ -220,7 +225,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-time-picker
   kup-box --> kup-time-picker
   kup-cell --> kup-time-picker
   kup-image-list --> kup-time-picker

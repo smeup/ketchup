@@ -344,8 +344,7 @@ export class KupGantt {
               color: string;
           }
         | undefined;
-    
-    
+
     @State()
     taskListScrollWidth: number;
 
@@ -525,7 +524,7 @@ export class KupGantt {
             this.showSecondaryDates
         );
     }
- 
+
     @Watch('viewDate')
     @Watch('columnWidth')
     @Watch('dateSetup')
@@ -898,11 +897,11 @@ export class KupGantt {
 
     handleTaskListScrollX(event: UIEvent) {
         const currentTarget = event.currentTarget as HTMLDivElement;
-        this.taskListScrollX = currentTarget.scrollLeft
+        this.taskListScrollX = currentTarget.scrollLeft;
     }
 
     handlePhaseDragScroll(scrollY: number) {
-        this.scrollY = scrollY
+        this.scrollY = scrollY;
     }
 
     setFailedTask(task: KupPlannerBarTask | null) {
@@ -969,7 +968,7 @@ export class KupGantt {
             barDblClick: this.barDblClick,
             barContextMenu: this.barContextMenu,
             delete: this.delete,
-            phaseDrop: this.phaseDrop
+            phaseDrop: this.phaseDrop,
         };
 
         const tableProps: KupPlannerTaskListProps = {
@@ -989,7 +988,7 @@ export class KupGantt {
             setSelectedTask: this.handleSelectedTask.bind(this),
             expanderClick: this.handleExpanderClick.bind(this),
             TaskListHeader: this.TaskListHeader,
-            TaskListTable: this.TaskListTable
+            TaskListTable: this.TaskListTable,
         };
 
         return (
@@ -1017,7 +1016,7 @@ export class KupGantt {
                             scrollableTaskList={this.scrollableTaskList}
                             updateTaskListScrollX={this.ignoreScrollEvent}
                             ontaskListScrollWidth={(width) => {
-                                this.taskListScrollWidth = width
+                                this.taskListScrollWidth = width;
                             }}
                             taskListScrollX={this.taskListScrollX}
                             ref={(el) => (this.taskListTrueRef = el)}
@@ -1069,7 +1068,9 @@ export class KupGantt {
                         scrollNumber={this.scrollX}
                         rtl={this.rtl}
                         horizontalScroll={this.handleScrollX.bind(this)}
-                        horizontalTaskListScroll={this.handleTaskListScrollX.bind(this)}
+                        horizontalTaskListScroll={this.handleTaskListScrollX.bind(
+                            this
+                        )}
                         listCellWidth={this.listCellWidth}
                         scrollableTaskList={this.scrollableTaskList}
                         taskListScrollWidth={this.taskListScrollWidth}

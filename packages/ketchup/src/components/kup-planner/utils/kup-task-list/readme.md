@@ -1,7 +1,5 @@
 # kup-task-list-table
 
-
-
 <!-- Auto Generated Below -->
 
 

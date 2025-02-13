@@ -534,7 +534,8 @@ const props = {
                             t: '',
                         },
                         value: 'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
-                        displayedValue: 'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
+                        displayedValue:
+                            'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
                     },
                     'R£CDCL': {
                         data: {
@@ -2780,7 +2781,7 @@ const props = {
     taskNameCol: 'R£COMM',
     taskPrevDates: [],
     titleMess: '',
-    scrollableTaskList: true
+    scrollableTaskList: true,
 };
 
 if (props) {

@@ -1,7 +1,5 @@
 # kup-grid-renderer
 
-
-
 <!-- Auto Generated Below -->
 
 

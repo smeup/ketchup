@@ -99,18 +99,23 @@ export class HorizontalScroll {
 
     private setTaskListScrollLeft() {
         if (this.rootElement) {
-            const shadowElement = this.rootElement.shadowRoot.querySelector('div');
-            const taskListScrollBar = shadowElement.children.length == 2 ? shadowElement.children[0] : null;
-            taskListScrollBar && (taskListScrollBar.scrollLeft = this.taskListScrollNumber);
+            const shadowElement =
+                this.rootElement.shadowRoot.querySelector('div');
+            const taskListScrollBar =
+                shadowElement.children.length == 2
+                    ? shadowElement.children[0]
+                    : null;
+            taskListScrollBar &&
+                (taskListScrollBar.scrollLeft = this.taskListScrollNumber);
         }
     }
 
     render() {
         const w =
-        this.taskListTrueRef?.getBoundingClientRect().width + 24 * 1.5 ?? 0; // 24 * 2 is the sum of padding and margin for both list and gantt, multiplied by 1.5 cause we need to add the other half to the right
-        
+            this.taskListTrueRef?.getBoundingClientRect().width + 24 * 1.5 ?? 0; // 24 * 2 is the sum of padding and margin for both list and gantt, multiplied by 1.5 cause we need to add the other half to the right
+
         const width = +this.listCellWidth.replace('px', '');
-        
+
         return (
             <Fragment>
                 <div class="scroll-container">
@@ -141,8 +146,18 @@ export class HorizontalScroll {
                         dir="ltr"
                         style={{
                             margin: this.rtl
-                                ? `0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 40 : w}px 0px 12px`
-                                : `0px 12px 0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 40 : w}px`,
+                                ? `0px ${
+                                      this.scrollableTaskList &&
+                                      this.taskListScrollWidth > width
+                                          ? 40
+                                          : w
+                                  }px 0px 12px`
+                                : `0px 12px 0px ${
+                                      this.scrollableTaskList &&
+                                      this.taskListScrollWidth > width
+                                          ? 40
+                                          : w
+                                  }px`,
                         }}
                         class="scrollWrapper"
                         data-scrollx="true"

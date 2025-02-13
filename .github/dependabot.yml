@@ -1,12 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: 'devcontainers'
-    directory: '/'
-    schedule:
-      interval: weekly
-    ignore:
-      - dependency-name: '*'
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: weekly
+    - package-ecosystem: 'devcontainers'
+      directory: '/'
+      schedule:
+          interval: weekly
+      ignore:
+          - dependency-name: '*'
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: weekly

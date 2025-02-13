@@ -92,6 +92,7 @@ export const config: Config = {
                 { src: 'kuptooltip.html' },
                 { src: 'list.html' },
                 { src: 'magic-box.html' },
+                { src: 'multi-select.html' },
                 { src: 'nav-bar.html' },
                 { src: 'numeric-picker.html' },
                 { src: 'pdf.html' },

@@ -66,4 +66,4 @@ export const sortTasks = (taskA: KupPlannerTask, taskB: KupPlannerTask) => {
 
 export const createArrayFromNum = (number: number) => {
     return Array.from({ length: number }, (_, index) => index);
-}
+};

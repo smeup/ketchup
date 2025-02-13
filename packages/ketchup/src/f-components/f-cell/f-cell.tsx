@@ -67,6 +67,8 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+
+import { KupTreeNodeSelectedEventPayload } from '../../components/kup-tree/kup-tree-declarations';
 import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -848,6 +850,17 @@ function setEditableCell(
                     ></kup-combobox>
                 </kup-chip>
             );
+
+        case FCellTypes.MULTI_SELECT:
+            return (
+                <kup-multi-select
+                    {...cell.data}
+                    onKup-tree-nodeselected={(
+                        e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
+                />
+            );
+
         case FCellTypes.RADIO:
             return (
                 <FRadio
@@ -1199,6 +1212,13 @@ function setKupCell(
         case FCellTypes.MULTI_COMBOBOX:
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
+        case FCellTypes.MULTI_SELECT:
+            return (
+                <kup-multi-select
+                    key={column.name + props.row.id}
+                    {...subcomponentProps}
+                ></kup-multi-select>
+            );
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
@@ -1412,6 +1432,7 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
         case FCellTypes.CHIP:
         case FCellTypes.MULTI_AUTOCOMPLETE:
         case FCellTypes.MULTI_COMBOBOX:
+        case FCellTypes.MULTI_SELECT:
         case FCellTypes.RADIO:
             createDataset();
             break;
@@ -1480,6 +1501,7 @@ function cellEvent(
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
             case FCellTypes.MULTI_COMBOBOX:
+            case FCellTypes.MULTI_SELECT:
                 value = (e as CustomEvent<KupChipChangeEventPayload>).detail
                     .stringifiedValues;
                 if (cell.data) {

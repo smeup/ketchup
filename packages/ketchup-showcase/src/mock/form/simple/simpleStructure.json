@@ -1,5 +1,4 @@
 {
-
   "fields": {
     "aTextField": {
       "key": "aTextField",
@@ -16,6 +15,4 @@
   "sections": {},
 
   "extraMessages": []
-
-
 }

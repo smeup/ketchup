@@ -208,7 +208,7 @@ const convertToBar = (
                   columnWidth,
                   handleWidth,
                   rtl,
-                task.secondaryStartHour,
+                  task.secondaryStartHour,
                   task.secondaryEndHour
               )
             : { x1: undefined, x2: undefined };
@@ -247,7 +247,7 @@ const convertToBar = (
         height: taskHeight,
         barChildren: [],
         styles,
-        ySecondary: y
+        ySecondary: y,
     };
 };
 
@@ -347,7 +347,12 @@ const convertToTimeline = (
     };
 };
 
-const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number, hourString?: string) => {
+const taskXCoordinate = (
+    xDate: Date,
+    dates: Date[],
+    columnWidth: number,
+    hourString?: string
+) => {
     if (hourString) {
         const [hours, minutes, seconds] = hourString.split(':').map(Number);
         xDate.setHours(hours ?? 0);
@@ -491,11 +496,7 @@ const dateByX = (
     return newDate;
 };
 
-const hourStringFromDate = (
-    date: Date,
-    withSeconds: boolean
-): string => {
-
+const hourStringFromDate = (date: Date, withSeconds: boolean): string => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
@@ -504,17 +505,17 @@ const hourStringFromDate = (
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
 
-    const hourString = withSeconds ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}` : `${formattedHours}:${formattedMinutes}`;
+    const hourString = withSeconds
+        ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+        : `${formattedHours}:${formattedMinutes}`;
 
     return hourString;
-}
+};
 
-const hasSeconds = (
-    hourString: string
-) : boolean => {
-    return hourString.split(":").length === 3;
-}
- 
+const hasSeconds = (hourString: string): boolean => {
+    return hourString.split(':').length === 3;
+};
+
 /**
  * Method handles event in real time(mousemove) and on finish(mouseup)
  */
@@ -583,7 +584,11 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
-                    changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour)))
+                    changedTask.endHour &&
+                        (changedTask.endHour = hourStringFromDate(
+                            changedTask.end,
+                            hasSeconds(changedTask.endHour)
+                        ));
                 } else {
                     changedTask.start = dateByX(
                         newX1,
@@ -592,7 +597,11 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
-                    changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour)))
+                    changedTask.startHour &&
+                        (changedTask.startHour = hourStringFromDate(
+                            changedTask.start,
+                            hasSeconds(changedTask.startHour)
+                        ));
                 }
                 const [progressWidth, progressX] = progressWithByParams(
                     changedTask.x1,
@@ -618,7 +627,11 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
-                    changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour)))
+                    changedTask.startHour &&
+                        (changedTask.startHour = hourStringFromDate(
+                            changedTask.start,
+                            hasSeconds(changedTask.startHour)
+                        ));
                 } else {
                     changedTask.end = dateByX(
                         newX2,
@@ -627,7 +640,11 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
-                    changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour))) 
+                    changedTask.endHour &&
+                        (changedTask.endHour = hourStringFromDate(
+                            changedTask.end,
+                            hasSeconds(changedTask.endHour)
+                        ));
                 }
                 const [progressWidth, progressX] = progressWithByParams(
                     changedTask.x1,
@@ -662,8 +679,16 @@ const handleTaskBySVGMouseEventForBar = (
                     xStep,
                     timeStep
                 );
-                changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour))) 
-                changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour))) 
+                changedTask.startHour &&
+                    (changedTask.startHour = hourStringFromDate(
+                        changedTask.start,
+                        hasSeconds(changedTask.startHour)
+                    ));
+                changedTask.endHour &&
+                    (changedTask.endHour = hourStringFromDate(
+                        changedTask.end,
+                        hasSeconds(changedTask.endHour)
+                    ));
                 changedTask.x1 = newMoveX1;
                 changedTask.x2 = newMoveX2;
                 const [progressWidth, progressX] = progressWithByParams(
@@ -675,7 +700,7 @@ const handleTaskBySVGMouseEventForBar = (
                 changedTask.progressWidth = progressWidth;
                 changedTask.progressX = progressX;
                 if (changedTask.type === 'task') {
-                    changedTask.y = svgY
+                    changedTask.y = svgY;
                 }
             }
             break;

@@ -102,5 +102,5 @@ function escapeRegExp(s: string) {
  * @returns a promise which resolves after the given number of milliseconds
  */
 export function jestDelay(ms: number) {
-    return new Promise(res => setTimeout(res, ms));
+    return new Promise((res) => setTimeout(res, ms));
 }

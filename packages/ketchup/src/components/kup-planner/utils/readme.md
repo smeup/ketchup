@@ -1,7 +1,5 @@
 # kup-planner-renderer
 
-
-
 <!-- Auto Generated Below -->
 
 

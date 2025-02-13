@@ -3225,6 +3225,17 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KupMultiSelect {
+        "customStyle": string;
+        /**
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
+         */
+        "data": any[];
+        "disabled": boolean;
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "refresh": () => Promise<void>;
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -5726,6 +5737,12 @@ declare global {
         prototype: HTMLKupMagicBoxElement;
         new (): HTMLKupMagicBoxElement;
     };
+    interface HTMLKupMultiSelectElement extends Components.KupMultiSelect, HTMLStencilElement {
+    }
+    var HTMLKupMultiSelectElement: {
+        prototype: HTMLKupMultiSelectElement;
+        new (): HTMLKupMultiSelectElement;
+    };
     interface HTMLKupNavBarElementEventMap {
         "kup-navbar-ready": KupEventPayload;
         "kup-navbar-resize": KupEventPayload;
@@ -6191,6 +6208,7 @@ declare global {
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
+        "kup-multi-select": HTMLKupMultiSelectElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
@@ -8787,6 +8805,14 @@ declare namespace LocalJSX {
          */
         "data"?: KupDataDataset;
     }
+    interface KupMultiSelect {
+        "customStyle"?: string;
+        /**
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
+         */
+        "data"?: any[];
+        "disabled"?: boolean;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -10186,6 +10212,7 @@ declare namespace LocalJSX {
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
+        "kup-multi-select": KupMultiSelect;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
@@ -10265,6 +10292,7 @@ declare module "@stencil/core" {
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
+            "kup-multi-select": LocalJSX.KupMultiSelect & JSXBase.HTMLAttributes<HTMLKupMultiSelectElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;

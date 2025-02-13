@@ -122,6 +122,8 @@ export class KupData {
                         return FCellTypes.MULTI_AUTOCOMPLETE;
                     case FCellShapes.MULTI_COMBOBOX:
                         return FCellTypes.MULTI_COMBOBOX;
+                    case FCellShapes.MULTI_SELECT:
+                        return FCellTypes.MULTI_SELECT;
                     case FCellShapes.OBJECT:
                         return FCellTypes.OBJECT;
                     case FCellShapes.PROGRESS_BAR:

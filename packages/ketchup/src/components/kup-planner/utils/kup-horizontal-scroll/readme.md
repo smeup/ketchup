@@ -1,7 +1,5 @@
 # kup-horizontal-scroll
 
-
-
 <!-- Auto Generated Below -->
 
 

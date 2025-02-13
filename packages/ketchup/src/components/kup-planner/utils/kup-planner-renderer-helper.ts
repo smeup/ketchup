@@ -79,7 +79,9 @@ export const mergeTaskIntoProjects = (
     { id, start, end, startHour, endHour }: KupPlannerTask
 ): KupPlannerGanttTask[] =>
     projects.map((project) =>
-        project.id === id ? withNewDates(project, start, end, startHour, endHour) : project
+        project.id === id
+            ? withNewDates(project, start, end, startHour, endHour)
+            : project
     );
 
 export const mergeTaskIntoPhases = (
@@ -88,7 +90,9 @@ export const mergeTaskIntoPhases = (
 ): KupPlannerPhaseGantt[] | undefined => {
     if (phases) {
         return phases.map((phase) =>
-            phase.id === id ? withNewDates(phase, start, end, startHour, endHour) : phase
+            phase.id === id
+                ? withNewDates(phase, start, end, startHour, endHour)
+                : phase
         );
     }
     return undefined;
@@ -142,7 +146,7 @@ export const convertProjectToTasks = (
             startHour: item.startHour,
             endHour: item.endHour,
             secondaryStartHour: item.secondaryStartHour,
-            secondaryEndHour: item.secondaryEndHour
+            secondaryEndHour: item.secondaryEndHour,
         };
         const children1 = (row.phases ?? []).map(convertPhaseToTask);
         return [mainTask, ...children1];
@@ -354,10 +358,10 @@ export const ganttDateRangeFromGanttTask = (
         end: Date;
         secondaryStart?: Date;
         secondaryEnd?: Date;
-        startHour?: string,
-        endHour?: string,
-        secondaryStartHour?: string,
-        secondaryEndHour?: string
+        startHour?: string;
+        endHour?: string;
+        secondaryStartHour?: string;
+        secondaryEndHour?: string;
     }[] = [];
     const kupDates: KupDates = new KupDates();
     tasks.forEach((item) => {
@@ -368,8 +372,8 @@ export const ganttDateRangeFromGanttTask = (
             secondaryEnd: kupDates.parseToDayEnd(item.secondaryEndDate),
             startHour: item.startHour,
             endHour: item.endHour,
-            secondaryStartHour:  item.secondaryStartHour,
-            secondaryEndHour: item.secondaryEndHour
+            secondaryStartHour: item.secondaryStartHour,
+            secondaryEndHour: item.secondaryEndHour,
         });
         item.phases?.forEach((phase) => {
             dates.push({
@@ -382,7 +386,7 @@ export const ganttDateRangeFromGanttTask = (
                 startHour: item.startHour,
                 endHour: item.endHour,
                 secondaryStartHour: item.secondaryStartHour,
-                secondaryEndHour: item.secondaryEndHour
+                secondaryEndHour: item.secondaryEndHour,
             });
         });
     });
@@ -401,10 +405,10 @@ export const ganttDateRangeGeneric = (
         end: Date;
         secondaryStart?: Date;
         secondaryEnd?: Date;
-        startHour?: string,
-        endHour?: string,
-        secondaryStartHour?: string,
-        secondaryEndHour?: string
+        startHour?: string;
+        endHour?: string;
+        secondaryStartHour?: string;
+        secondaryEndHour?: string;
     }[],
     viewMode: KupPlannerViewMode,
     preStepsCount: number,
@@ -462,10 +466,10 @@ export const ganttDateRangeGeneric = (
             newEndDate = addToDate(newEndDate, 19, 'day');
             break;
         case 'hour':
-            newStartDate = startOfDate(newStartDate, "hour");
-            newStartDate = addToDate(newStartDate, -1 * preStepsCount, "hour");
-            newEndDate = startOfDate(newEndDate, "day");
-            newEndDate = addToDate(newEndDate, 1, "day");
+            newStartDate = startOfDate(newStartDate, 'hour');
+            newStartDate = addToDate(newStartDate, -1 * preStepsCount, 'hour');
+            newEndDate = startOfDate(newEndDate, 'day');
+            newEndDate = addToDate(newEndDate, 1, 'day');
             break;
         /*
         case ViewMode.QuarterDay:
@@ -502,10 +506,10 @@ export const ganttDateRangeFromDetail = (
         end: Date;
         secondaryStart?: Date;
         secondaryEnd?: Date;
-        startHour?: string,
-        endHour?: string,
-        secondaryStartHour?: string,
-        secondaryEndHour?: string
+        startHour?: string;
+        endHour?: string;
+        secondaryStartHour?: string;
+        secondaryEndHour?: string;
     }[] = [];
     const kupDates: KupDates = new KupDates();
     details.forEach((item) => {
@@ -597,10 +601,10 @@ export const ganttDateRangeFromTask = (
         end: Date;
         secondaryStart?: Date;
         secondaryEnd?: Date;
-        startHour?: string,
-        endHour?: string,
-        secondaryStartHour?: string,
-        secondaryEndHour?: string
+        startHour?: string;
+        endHour?: string;
+        secondaryStartHour?: string;
+        secondaryEndHour?: string;
     }[] = [];
 
     tasks.forEach((item) => {
@@ -609,10 +613,10 @@ export const ganttDateRangeFromTask = (
             end: item.end,
             secondaryStart: item.secondaryStart,
             secondaryEnd: item.secondaryEnd,
-            startHour:item.startHour,
+            startHour: item.startHour,
             endHour: item.endHour,
             secondaryStartHour: item.secondaryStartHour,
-            secondaryEndHour: item.secondaryEndHour
+            secondaryEndHour: item.secondaryEndHour,
         });
     });
     if (mainGanttStartDate && mainGanttEndDate) {
@@ -653,7 +657,7 @@ export const seedDates = (
                 currentDate = addToDate(currentDate, 1, 'day');
                 break;
             case 'hour':
-                currentDate = addToDate(currentDate, 1, "hour");
+                currentDate = addToDate(currentDate, 1, 'hour');
                 break;
             /*
             case ViewMode.HalfDay:

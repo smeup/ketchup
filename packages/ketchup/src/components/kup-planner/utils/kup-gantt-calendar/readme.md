@@ -1,7 +1,5 @@
 # kup-gantt-calendar
 
-
-
 <!-- Auto Generated Below -->
 
 
