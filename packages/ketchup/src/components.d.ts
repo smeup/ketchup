@@ -3018,10 +3018,6 @@ export namespace Components {
          */
         "inputPanelPosition": KupInputPanelPosition;
         /**
-          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
-         */
-        "legacyLook": boolean;
-        /**
           * Sets the callback function on loading options via FUN
           * @default null
          */
@@ -8648,10 +8644,6 @@ declare namespace LocalJSX {
           * @default COLUMNS
          */
         "inputPanelPosition"?: KupInputPanelPosition;
-        /**
-          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
-         */
-        "legacyLook"?: boolean;
         /**
           * When component load is complete
          */
