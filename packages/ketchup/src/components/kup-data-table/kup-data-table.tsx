@@ -576,7 +576,7 @@ export class KupDataTable {
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop() density: FCellPadding = FCellPadding.DENSE;
+    @Prop() density: FCellPadding = FCellPadding.EXTRA_DENSE;
     /**
      * Enables drag.
      */
@@ -876,7 +876,7 @@ export class KupDataTable {
     private openedCustomSettings: boolean = false;
 
     @State()
-    private fontsize: string = 'medium';
+    private fontsize: string = 'small';
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -4680,8 +4680,9 @@ export class KupDataTable {
                     }
                     style={style}
                 >
-                    <kup-checkbox
-                        onkup-checkbox-change={(e) => this.#onSelectAll(e)}
+                    <FCheckbox
+                        onChange={(e) => this.#onSelectAll(e)}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         title={
                             this.#kupManager.language.translate(
                                 KupLanguageRow.SELECTED
@@ -5533,6 +5534,7 @@ export class KupDataTable {
                     );
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
+                    sizing: KupComponentSizing.EXTRA_SMALL,
                     onChange: () => {
                         this.#handleRowSelect(row);
                     },
@@ -5690,6 +5692,10 @@ export class KupDataTable {
                 cell.data = {
                     ...cell.data,
                     legacyLook: this.legacyLook,
+                    sizing:
+                        this.density === 'extra_dense'
+                            ? 'extra-small'
+                            : cell.data?.sizing,
                 };
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
@@ -6141,6 +6147,9 @@ export class KupDataTable {
                 case 'Complete':
                     value = KupLanguageGrid.COMPLETE;
                     break;
+                case 'extra_dense':
+                    value = KupLanguageDensity.EXTRA_DENSE;
+                    break;
                 case 'dense':
                     value = KupLanguageDensity.DENSE;
                     break;
@@ -6237,7 +6246,12 @@ export class KupDataTable {
         );
     }
 
-    #DENSITY_DECODES: Array<string> = ['Dense', 'Medium', 'Wide'];
+    #DENSITY_DECODES: Array<string> = [
+        'Extra_Dense',
+        'Dense',
+        'Medium',
+        'Wide',
+    ];
     #DENSITY_ICONS: Array<string> = [
         'format-align-justify',
         'reorder-horizontal',
@@ -6246,6 +6260,7 @@ export class KupDataTable {
 
     #getDensityCodeFromDecode(decode: string): string {
         return this.#transcodeItem(decode, this.#DENSITY_DECODES, [
+            'extra_dense',
             'dense',
             'medium',
             'wide',
@@ -6254,7 +6269,7 @@ export class KupDataTable {
 
     #renderDensityPanel() {
         const listItems: KupListNode[] = this.#createListData(
-            ['dense', 'medium', 'wide'],
+            ['extra_dense', 'dense', 'medium', 'wide'],
             this.#DENSITY_ICONS,
             this.density
         );
@@ -6272,6 +6287,9 @@ export class KupDataTable {
         let text: KupLanguageDensity = null;
         switch (this.density) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
+            case 'extra_dense':
+                text = KupLanguageDensity.EXTRA_DENSE;
+                break;
             case 'dense':
                 text = KupLanguageDensity.DENSE;
                 break;
@@ -6513,7 +6531,10 @@ export class KupDataTable {
                 const bc = this.rootElement.shadowRoot
                     .activeElement as HTMLInputElement;
                 bc?.blur();
-                this.#handleUpdateClick();
+
+                if (bc) {
+                    this.#handleUpdateClick();
+                }
             });
 
             if (this.hiddenSubmitButton) {

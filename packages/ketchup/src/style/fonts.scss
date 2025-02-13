@@ -80,7 +80,7 @@
 // New mixins for header sizes.
 @mixin kup-heading-compact-01 {
   font-family: var(--kup-font-family);
-  font-size: 14px;
+  font-size: var(--kup-heading-compact-01-font-size, 14px);
   line-height: 18px;
   font-weight: 600;
   letter-spacing: 0.16px;
@@ -91,7 +91,7 @@
 
 @mixin kup-heading-01 {
   font-family: var(--kup-font-family);
-  font-size: 14px;
+  font-size: var(--kup-heading-01-font-size, 14px);
   line-height: 20px;
   font-weight: 600;
   letter-spacing: 0.16px;

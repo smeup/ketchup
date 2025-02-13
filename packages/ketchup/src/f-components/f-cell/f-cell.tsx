@@ -67,7 +67,9 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+
 import { KupTreeNodeSelectedEventPayload } from '../../components/kup-tree/kup-tree-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -102,12 +104,15 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
+    const sizing =
+        props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
     const subcomponentProps: unknown = {
         ...cell.data,
         ...(cell?.icon ? { resource: cell.icon } : {}),
         ...(cell?.placeholderIcon
             ? { placeholderResource: cell.placeholderIcon }
             : {}),
+        ...(sizing ? { sizing } : {}),
     };
 
     let cssClasses = cell.cssClass
@@ -573,10 +578,10 @@ function setCellSizeKup(
         case FCellTypes.CHIP:
             if (cell.style) {
                 if (!cell.style.height) {
-                    cell.style['minHeight'] = '40px';
+                    cell.style['minHeight'] = '18px';
                 }
             } else {
-                cell.style = { minHeight: '40px' };
+                cell.style = { minHeight: '18px' };
             }
             break;
         case FCellTypes.RADIO:
@@ -782,6 +787,7 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
                         selectMode={ItemsDisplayMode.CODE_AND_DESC}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -821,6 +827,7 @@ function setEditableCell(
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
                         selectMode={ItemsDisplayMode.CODE_AND_DESC}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.BLUR)}
@@ -984,7 +991,9 @@ function setEditableCell(
                         {...cell.data}
                         textArea={isTextArea}
                         sizing={
-                            isTextArea
+                            cell.data.sizing
+                                ? cell.data.sizing
+                                : isTextArea
                                 ? KupComponentSizing.EXTRA_LARGE
                                 : KupComponentSizing.SMALL
                         }

@@ -108,6 +108,7 @@ export enum KupLanguageDebug {
  * Density decodes (data table customization settings).
  */
 export enum KupLanguageDensity {
+    EXTRA_DENSE = 'extraDense',
     DENSE = 'densityDense',
     LABEL = 'densityLabel',
     MEDIUM = 'densityMedium',

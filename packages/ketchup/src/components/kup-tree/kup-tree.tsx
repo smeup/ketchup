@@ -246,7 +246,7 @@ export class KupTree {
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop() density: FCellPadding = FCellPadding.MEDIUM;
+    @Prop() density: FCellPadding = FCellPadding.EXTRA_DENSE;
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      *
@@ -2153,7 +2153,8 @@ export class KupTree {
 
         this.sizedColumns = this.getSizedColumns();
 
-        let wrapperClass: string = 'density-medium';
+        let wrapperClass: string = `density-${this.density}`;
+
         const wrapperStyle: Record<string, string> = {
             ...(this.treeHeight
                 ? {

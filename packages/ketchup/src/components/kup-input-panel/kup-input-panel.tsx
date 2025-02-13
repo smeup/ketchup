@@ -99,6 +99,7 @@ import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FLabel } from '../../f-components/f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -577,6 +578,11 @@ export class KupInputPanel {
             return customRender(cell, column, row.layout?.absolute);
         }
 
+        cell.data = {
+            ...cell.data,
+            sizing: 'extra-small',
+        };
+
         const cellProps: FCellProps = {
             cell,
             column,
@@ -700,7 +706,7 @@ export class KupInputPanel {
 
         return (
             <span class={`${baseClass}${additionalClass}`} id={column.name}>
-                {cell.value}
+                <FLabel text={cell.value} />
             </span>
         );
     }
