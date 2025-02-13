@@ -138,10 +138,11 @@ export class FiltersRows extends Filters {
         if (!this.hasFilters(filters, columns, columnFilters)) {
             return true;
         }
-
         // Filters must match for every key in filters
         return Object.keys(filters).every((key) => {
             const cell = cells[key];
+            const currentColumn = getColumnByName(columns, key);
+
             if (!cell) {
                 return false;
             }
@@ -151,18 +152,20 @@ export class FiltersRows extends Filters {
                 filters,
                 key
             );
+            const _filterIsNegative = this.filterIsNegative(filterValue);
 
-            const _filterIsNegative: boolean =
-                this.filterIsNegative(filterValue);
             let b1 =
-                (filterValue != '' &&
+                (filterValue !== '' &&
                     this.isFilterCompliantForCell(cell, filterValue)) ||
                 checkboxValues.some((f) =>
                     this.isFilterCompliantForCell(cell, f.value)
                 ) ||
                 checkboxValues.some((f) =>
                     this.isFilterCompliantForCell(cell, f.displayedValue)
-                );
+                ) ||
+                // There are no filters to check -> the element is valid
+                !columnFilters.hasFiltersForColumn(filters, currentColumn);
+
             let b2 = _filterIsNegative;
             if (
                 !kupObjects.isNumber(cell.obj) &&
@@ -171,11 +174,13 @@ export class FiltersRows extends Filters {
                 !kupObjects.isTimestamp(cell.obj)
             ) {
                 b2 =
-                    (filterValue != '' &&
+                    (filterValue !== '' &&
                         this.isFilterCompliantForCellObj(cell, filterValue)) ||
                     checkboxValues.some((f) =>
                         this.isFilterCompliantForCellObj(cell, f.value)
-                    );
+                    ) ||
+                    // There are no filters to check -> the element is valid
+                    !columnFilters.hasFiltersForColumn(filters, currentColumn);
             }
 
             if (_filterIsNegative) {
@@ -239,7 +244,6 @@ export class FiltersRows extends Filters {
         if (!rows || rows == null) {
             return [];
         }
-
         // There are rows to filter
         let filteredRows: Array<KupDataRow> = [];
         const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
@@ -339,7 +343,6 @@ export class FiltersRows extends Filters {
         for (let i = 0; i < checkboxes.length; i++) {
             values.push(checkboxes[i]);
         }
-
         return kupData.cell.getUnivocalValue({ rows: tmpRows }, column, true);
     }
 }
