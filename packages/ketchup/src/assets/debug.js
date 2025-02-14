@@ -20,14 +20,14 @@ const tableData = {
         {
             name: 'MULTI_SELECT',
             title: 'Multiselect',
-        }
-	],
-	rows: [
+        },
+    ],
+    rows: [
         {
             cells: {
                 MULTI_SELECT: {
-					data : {
-                        data:{
+                    data: {
+                        data: {
                             'kup-tree': [
                                 {
                                     children: [],
@@ -1926,7 +1926,7 @@ const tableData = {
                                     visible: true,
                                 },
                             ],
-                            'kup-chip':[]
+                            'kup-chip': [],
                         },
                     },
 
@@ -1935,16 +1935,13 @@ const tableData = {
                         p: '',
                         k: '',
                     },
-                    isEditable: true,
                     shape: 'MTS',
-                    value: 'CODE_1',
-                    options: false,
-                }
-            }
-        }
-    ]
-}
-                
+                },
+            },
+        },
+    ],
+};
+
 const props = {
     data: tableData,
 };
