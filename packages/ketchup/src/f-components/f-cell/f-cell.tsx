@@ -1247,7 +1247,7 @@ function setKupCell(
                     disabled={true}
                 ></FTextField>
             );
-        case FCellTypes.STRING:
+        case FCellTypes.LABEL:
             return <FLabel text={cell.value}></FLabel>;
     }
 }

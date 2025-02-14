@@ -138,6 +138,8 @@ export class KupData {
                         return FCellTypes.STRING;
                     case FCellShapes.TIME:
                         return FCellTypes.TIME;
+                    case FCellShapes.LABEL:
+                        return FCellTypes.LABEL;
                 }
             }
 
