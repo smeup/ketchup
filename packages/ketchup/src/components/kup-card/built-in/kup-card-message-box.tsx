@@ -11,8 +11,6 @@ const dom: KupDom = document.documentElement as KupDom;
 export function prepareMessageBox(component: KupCard): VNode[] {
     const options = component.data.options as KupCardBuiltInMessageBoxOptions;
     const confirmCancelButtonsExist = !!(options.cancelCb || options.confirmCb);
-    console.log(component);
-    console.log(component.data.options as KupCardBuiltInMessageBoxOptions);
     return (
         <div class="message-box">
             {options.text ? <div class="text">{options.text}</div> : null}
