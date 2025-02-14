@@ -1,13 +1,13 @@
 import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
-import { FLabelProps } from './f-label-declarations';
+import { FLabelProps, ParsedElement } from './f-label-declarations';
 import { getParsedElements } from '../../utils/label-utils';
 import {
     getGCellStyle,
     getGCellStyleAsString,
 } from '../../utils/g-cell-style-generator';
 
-function getVNodes(input: string): VNode[] {
-    return getParsedElements(input).map((e) => {
+function getVNodes(parsedElements: ParsedElement[]): VNode[] {
+    return parsedElements.map((e) => {
         const style = getGCellStyle(e.tag?.replace(/[_G]/g, ''));
         console.log('parsedElement', e);
         console.log('style', style);
@@ -20,5 +20,12 @@ function getVNodes(input: string): VNode[] {
 }
 
 export const FLabel: FunctionalComponent<FLabelProps> = ({ text }) => {
-    return <Fragment>{getVNodes(text)}</Fragment>;
+    const parsedElements = getParsedElements(text);
+    // To avoid creating unnecessary span in the text
+    // when there are no tags to format the content
+    if (parsedElements?.length > 1) {
+        return <span>{getVNodes(parsedElements)}</span>;
+    } else {
+        return <Fragment>{text}</Fragment>;
+    }
 };
