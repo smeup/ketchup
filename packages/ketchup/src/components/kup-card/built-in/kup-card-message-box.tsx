@@ -10,11 +10,11 @@ const dom: KupDom = document.documentElement as KupDom;
 
 export function prepareMessageBox(component: KupCard): VNode[] {
     const options = component.data.options as KupCardBuiltInMessageBoxOptions;
-    const confirmCancelButtonsExist = !!(options.cancelCb || options.confirmCb);
+    const buttonsExist = !!(options.cancelCb || options.confirmCb);
     return (
         <div class="message-box">
             {options.text ? <div class="text">{options.text}</div> : null}
-            {confirmCancelButtonsExist && (
+            {buttonsExist ? (
                 <div class="button-wrapper">
                     {options.cancelCb ? (
                         <FButton
@@ -44,7 +44,7 @@ export function prepareMessageBox(component: KupCard): VNode[] {
                         ></FButton>
                     ) : null}
                 </div>
-            )}
+            ) : null}
         </div>
     );
 }
