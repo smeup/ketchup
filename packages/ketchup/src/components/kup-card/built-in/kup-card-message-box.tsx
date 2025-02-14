@@ -10,18 +10,24 @@ const dom: KupDom = document.documentElement as KupDom;
 
 export function prepareMessageBox(component: KupCard): VNode[] {
     const options = component.data.options as KupCardBuiltInMessageBoxOptions;
-    const buttonsExist = !!(options.cancelCb || options.confirmCb);
+    const confirmCancelButtonsExist = !!(options.cancelCb || options.confirmCb);
+    console.log(component);
+    console.log(component.data.options as KupCardBuiltInMessageBoxOptions);
     return (
         <div class="message-box">
             {options.text ? <div class="text">{options.text}</div> : null}
-            {buttonsExist ? (
+            {confirmCancelButtonsExist && (
                 <div class="button-wrapper">
                     {options.cancelCb ? (
                         <FButton
                             icon="clear"
-                            label={dom.ketchup.language.translate(
-                                KupLanguageGeneric.ABORT
-                            )}
+                            label={
+                                options.cancelLabel
+                                    ? options.cancelLabel
+                                    : dom.ketchup.language.translate(
+                                          KupLanguageGeneric.ABORT
+                                      )
+                            }
                             onClick={options.cancelCb}
                             styling={FButtonStyling.FLAT}
                         ></FButton>
@@ -29,14 +35,18 @@ export function prepareMessageBox(component: KupCard): VNode[] {
                     {options.confirmCb ? (
                         <FButton
                             icon="check"
-                            label={dom.ketchup.language.translate(
-                                KupLanguageGeneric.CONFIRM
-                            )}
+                            label={
+                                options.confirmLabel
+                                    ? options.confirmLabel
+                                    : dom.ketchup.language.translate(
+                                          KupLanguageGeneric.CONFIRM
+                                      )
+                            }
                             onClick={options.confirmCb}
                         ></FButton>
                     ) : null}
                 </div>
-            ) : null}
+            )}
         </div>
     );
 }
