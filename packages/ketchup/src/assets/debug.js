@@ -1,5 +1,5 @@
 // Replace the object below with yours.
-const compName = 'kup-data-table';
+const compName = 'kup-input-panel';
 
 // Replace the props below with yours.
 /*
@@ -20,6 +20,7 @@ const tableData = {
         {
             name: 'MULTI_SELECT',
             title: 'Multiselect',
+            visible: true,
         },
     ],
     rows: [

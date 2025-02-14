@@ -62,6 +62,7 @@ export enum FCellEvents {
  * Supported cell padding.
  */
 export enum FCellPadding {
+    EXTRA_DENSE = 'extra_dense',
     DENSE = 'dense',
     MEDIUM = 'medium',
     NONE = '',

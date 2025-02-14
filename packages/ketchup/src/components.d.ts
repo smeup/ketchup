@@ -1227,7 +1227,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Sets the size of the chip
-          * @default FChipSize.MEDIUM
+          * @default FChipSize.SMALL
          */
         "sizing": FChipSize;
         /**
@@ -7212,7 +7212,7 @@ declare namespace LocalJSX {
         "onKup-chip-iconclick"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
         /**
           * Sets the size of the chip
-          * @default FChipSize.MEDIUM
+          * @default FChipSize.SMALL
          */
         "sizing"?: FChipSize;
         /**

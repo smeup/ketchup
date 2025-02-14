@@ -50,7 +50,7 @@ table.custom-size tfoot td {
 tr:hover .fixed-row,
 tr:hover .fixed-column,
 tr:hover .fixed-column-r {
-  background-color: var(--kup-gray-color-20);
+  background-color: var(--kup-gray-color-20-hover);
 }
 
 tr.selected .fixed-column,
@@ -102,11 +102,11 @@ thead tr .fixed-column,
 thead tr:hover:not(.group):not(.selected) .fixed-column,
 thead tr .fixed-column-r,
 thead tr:hover:not(.group):not(.selected) .fixed-column-r {
-  background-color: var(--kup-gray-color-20);
+  background-color: var(--kup-gray-color-20-hover);
 }
 
 tfoot tr:hover:not(.group):not(.selected) .fixed-row,
 tfoot tr:hover:not(.group):not(.selected) .fixed-column,
 tfoot tr:hover:not(.group):not(.selected) .fixed-column-r {
-  background-color: var(--kup-gray-color-20);
+  background-color: var(--kup-gray-color-20-hover);
 }
