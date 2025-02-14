@@ -44,10 +44,12 @@ export function getParsedElements(input: string): ParsedElement[] {
         onEndTag(tag) {
             if (!lastElement) {
                 elements.push((lastElement = { content: tag }));
-            } else {
+            } else if (lastElement.tag) {
                 lastElement.closed = true;
+                lastElement = null;
+            } else {
+                this.onContent(tag);
             }
-            lastElement = null;
         },
         onContent(content) {
             if (!lastElement) {

@@ -69,6 +69,8 @@ export interface KupCardBuiltInMessageBoxOptions {
     cancelCb?: (e: MouseEvent) => unknown;
     confirmCb?: (e: MouseEvent) => unknown;
     text?: string;
+    cancelLabel?: string;
+    confirmLabel?: string;
 }
 /**
  * Options of the built-in Open AI interface.
