@@ -93,7 +93,18 @@ export class KupDynamicPosition {
                 )
             ) {
                 self.addRepositionListeners(el);
-                self.run(el);
+                // Call self.run(el) only after the element's dimensions are valid
+                const ro = new ResizeObserver((entries) => {
+                    for (const entry of entries) {
+                        const newH = entry.contentRect.height;
+                        const newW = entry.contentRect.width;
+                        if (newH > 0 && newW > 0) {
+                            self.run(el);
+                            ro.unobserve(el);
+                        }
+                    }
+                });
+                ro.observe(el);
             }
         });
         mutObserver.observe(el, {

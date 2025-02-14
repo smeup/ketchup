@@ -25,7 +25,7 @@
 
     tr.selected {
       td {
-        background-color: var(--kup-gray-color-20);
+        background-color: var(--kup-gray-color-20-hover);
 
         &:first-of-type {
           box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);

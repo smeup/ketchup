@@ -56,7 +56,7 @@
     overflow: auto;
     padding: var(--kup_input_panel_padding);
     position: relative;
-    gap: 1rem;
+    gap: 8px;
 
     &__commands {
       display: flex;
@@ -160,6 +160,8 @@
       justify-content: flex-end;
       padding: var(--kup-space-02);
       max-height: var(--kup_input_panel_absolute_max_height);
+      --kup-textfield-extrasmall-height: 20px;
+      --kup-textfield-extrasmall-padding: 0 var(--kup-space-01);
 
       .input-panel-label {
         justify-content: start;

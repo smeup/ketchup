@@ -1,4 +1,4 @@
-import { FunctionalComponent, h, VNode } from '@stencil/core';
+import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
 import { FLabelProps } from './f-label-declarations';
 import { getParsedElements } from '../../utils/label-utils';
 import {
@@ -20,5 +20,5 @@ function getVNodes(input: string): VNode[] {
 }
 
 export const FLabel: FunctionalComponent<FLabelProps> = ({ text }) => {
-    return <span>{getVNodes(text)}</span>;
+    return <Fragment>{getVNodes(text)}</Fragment>;
 };

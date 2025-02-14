@@ -62,6 +62,11 @@
     --kup-datatable-font-size,
     var(--kup-font-size)
   );
+  --kup_fcell_line_height_extradense: var(
+    --kup-fcell-line-height-extradense,
+    14px
+  );
+  --kup_fcell_font_size_extradense: var(--kup-fcell-font-size-extradense, 12px);
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
     1px solid var(--kup-gray-color-30)
@@ -80,6 +85,10 @@
     var(--kup-text-primary)
   );
   --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_fcell_padding_extradense: var(
+    --kup-fcell-padding-dense,
+    var(--kup-space-01) var(--kup-space-01)
+  );
   --kup_fcell_padding_dense: var(
     --kup-fcell-padding-dense,
     var(--kup-space-01) var(--kup-space-03)
@@ -260,7 +269,25 @@ table {
   }
 }
 
+// WORK HERE
 .density- {
+  &extra_dense {
+    .header-cell__content,
+    tbody > tr.group td {
+      padding: var(
+        --kup-fcell-padding-extradense,
+        var(--kup_fcell_padding_extradense)
+      );
+    }
+    & .header-cell__title {
+      font-size: var(--kup_fcell_font_size_extradense);
+    }
+    & .group-cell-content > span.text {
+      font-size: var(--kup_fcell_font_size_extradense);
+      line-height: var(--kup_fcell_line_height_extradense);
+    }
+  }
+
   &dense {
     .header-cell__content,
     tbody > tr.group td {
@@ -517,6 +544,7 @@ thead {
   th {
     /** it doesn't work with fixed columns... !!! */
     position: relative;
+    box-sizing: content-box;
   }
 }
 
@@ -650,19 +678,23 @@ th.obj:hover span:not(.overlay-action) {
 :host([legacy-look]) {
   --kup-textfield-background-color: transparent;
   --kup-fcell-width: 100%;
-  --kup-fcell-padding-dense: 0px;
-  --kup-dense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
-  --kup-textfield-extrasmall-padding: var(--kup-dense-legacy-look-padding);
+  --kup-fcell-padding-extradense: 0px;
+  --kup-extradense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
+  --kup-textfield-extrasmall-padding: var(--kup-extradense-legacy-look-padding);
+  --kup-textfield-extrasmall-height: 20px;
   th .header-cell__content {
     font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
-    font-size: 11px;
-    padding: var(--kup-dense-legacy-look-padding);
+    font-size: 12px;
+    padding: var(--kup-extradense-legacy-look-padding);
   }
   .f-cell__text {
-    padding: var(--kup-dense-legacy-look-padding);
+    padding: var(--kup-extradense-legacy-look-padding);
   }
   .f-cell {
+    &.extra_dense {
+      min-height: var(--kup_fcell_extradense_min_height);
+    }
     &.dense {
       min-height: var(--kup_fcell_dense_min_height);
     }
