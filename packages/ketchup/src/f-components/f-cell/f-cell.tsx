@@ -139,10 +139,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (isEditable && editableTypes.includes(cellType)) {
         cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
-    } else if (
-        cell.data &&
-        (kupTypes.includes(cellType) || shape === FCellShapes.LABEL)
-    ) {
+    } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
             setCellSizeKup(cellType, subcomponentProps, cell);
         }
