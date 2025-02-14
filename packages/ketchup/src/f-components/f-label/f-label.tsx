@@ -5,7 +5,7 @@ import { getGCellStyle } from '../../utils/g-cell-style-generator';
 
 function getVNodes(parsedElements: ParsedElement[]): VNode[] {
     return parsedElements.map((e) => {
-        const style = getGCellStyle(e.tag?.replace(/[_G]/g, ''));
+        const style = getGCellStyle(e.tag?.replace(/[_]/g, '').slice(1));
         return e.closed ? (
             <span style={style}>{e.content}</span>
         ) : (
