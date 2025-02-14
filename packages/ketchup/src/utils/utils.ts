@@ -5,7 +5,9 @@ import { KupDataRow } from '../managers/kup-data/kup-data-declarations';
 export function identify(array: Array<KupBoxRow | KupDataRow>) {
     if (array) {
         for (let i = 0; i < array.length; i++) {
-            array[i].id = i.toString();
+            if (!array[i].id) {
+                array[i].id = i.toString();
+            }
         }
     }
 }
@@ -102,5 +104,5 @@ function escapeRegExp(s: string) {
  * @returns a promise which resolves after the given number of milliseconds
  */
 export function jestDelay(ms: number) {
-    return new Promise(res => setTimeout(res, ms));
+    return new Promise((res) => setTimeout(res, ms));
 }
