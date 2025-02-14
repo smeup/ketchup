@@ -3,9 +3,9 @@ import {
     ParsedElement,
 } from '../f-components/f-label/f-label-declarations';
 
-export function parse(input: string, listener: FormattingEventsListener): void {
+function parse(input: string, listener: FormattingEventsListener): void {
     const regex =
-        /((_\d{2}[A-Z0-9]\d{2}_|_\*(BOLD|ERROR|ITALIC|UNDERLINE)_)|_n_)/g;
+        /((_G\d{2}[A-Z0-9]\d{2}_|_G\*(BOLD|ERROR|ITALIC|UNDERLINE)_)|_n_)/g;
     let lastIndex = 0;
     let match: RegExpExecArray | null;
 
@@ -32,15 +32,18 @@ export function parse(input: string, listener: FormattingEventsListener): void {
 
 export function getParsedElements(input: string): ParsedElement[] {
     const elements: ParsedElement[] = [];
-    let lastElement: ParsedElement | null;
+    let lastElement: ParsedElement | null = null;
 
     parse(input, {
         onStartTag(tag) {
+            if (lastElement?.tag) {
+                lastElement.closed = true;
+            }
             elements.push((lastElement = { tag: tag, content: '' }));
         },
         onEndTag(tag) {
             if (!lastElement) {
-                elements.push((lastElement = { tag: '', content: tag }));
+                elements.push((lastElement = { content: tag }));
             } else {
                 lastElement.closed = true;
             }
@@ -48,11 +51,16 @@ export function getParsedElements(input: string): ParsedElement[] {
         },
         onContent(content) {
             if (!lastElement) {
-                elements.push((lastElement = { tag: '', content: content }));
+                elements.push((lastElement = { content: content }));
             } else {
                 lastElement.content += content;
             }
         },
     });
+
+    if (lastElement && (lastElement as ParsedElement).tag) {
+        (lastElement as ParsedElement).closed = true;
+    }
+
     return elements;
 }

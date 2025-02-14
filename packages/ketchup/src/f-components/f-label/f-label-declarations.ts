@@ -5,8 +5,8 @@ export interface FLabelProps extends FComponent {
 }
 
 export interface ParsedElement {
-    tag: string;
-    content: string;
+    tag?: string;
+    content?: string;
     closed?: boolean;
 }
 
