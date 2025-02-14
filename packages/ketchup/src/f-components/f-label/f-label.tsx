@@ -1,16 +1,11 @@
 import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
 import { FLabelProps, ParsedElement } from './f-label-declarations';
 import { getParsedElements } from '../../utils/label-utils';
-import {
-    getGCellStyle,
-    getGCellStyleAsString,
-} from '../../utils/g-cell-style-generator';
+import { getGCellStyle } from '../../utils/g-cell-style-generator';
 
 function getVNodes(parsedElements: ParsedElement[]): VNode[] {
     return parsedElements.map((e) => {
         const style = getGCellStyle(e.tag?.replace(/[_G]/g, ''));
-        console.log('parsedElement', e);
-        console.log('style', style);
         return e.closed ? (
             <span style={style}>{e.content}</span>
         ) : (

@@ -68,6 +68,7 @@ import {
     kupTypes,
 } from './f-cell-declarations';
 import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
+import { FLabel } from '../f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -138,7 +139,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (isEditable && editableTypes.includes(cellType)) {
         cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
-    } else if (cell.data && kupTypes.includes(cellType)) {
+    } else if (
+        cell.data &&
+        (kupTypes.includes(cellType) || shape === FCellShapes.LABEL)
+    ) {
         if (props.setSizes) {
             setCellSizeKup(cellType, subcomponentProps, cell);
         }
@@ -1243,6 +1247,8 @@ function setKupCell(
                     disabled={true}
                 ></FTextField>
             );
+        case FCellTypes.STRING:
+            return <FLabel text={cell.value}></FLabel>;
     }
 }
 
