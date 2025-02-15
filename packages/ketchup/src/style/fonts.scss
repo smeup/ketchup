@@ -35,7 +35,7 @@
 
 @mixin kup-label-01 {
   font-family: var(--kup-font-family);
-  font-size: 12px;
+  font-size: var(--kup-label-01-font-size, 12px);
   line-height: 16px;
   font-weight: 400;
   letter-spacing: 0.32px;

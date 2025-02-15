@@ -203,7 +203,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: var(--kup-space-03);
-    @include kup-label-01;
+    @include kup-body-compact-01;
   }
 }
 
