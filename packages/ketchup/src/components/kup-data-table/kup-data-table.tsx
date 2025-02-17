@@ -6890,6 +6890,7 @@ export class KupDataTable {
                                     label={this.#kupManager.language.translate(
                                         KupLanguageSearch.SEARCH
                                     )}
+                                    sizing={KupComponentSizing.EXTRA_SMALL}
                                     value={this.globalFilterValue}
                                     onInput={(event) => {
                                         const t: EventTarget = event.target;
