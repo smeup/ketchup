@@ -135,14 +135,18 @@ export class Filters {
         // Split multiple filters and trim each one
         const filters = filterValue.split(';').map((f) => f.trim());
         // All filters must match (AND condition)
-        return filters.every(
-            (filter) =>
-                value.toLowerCase().includes(filter.toLowerCase()) ||
-                this.matchSpecialFilter(
-                    value.toLowerCase(),
-                    filter.toLowerCase().match(FILTER_ANALYZER)
-                )
-        );
+        return filters.every((filter) => {
+            // if filter is '' it should be excluded since it is always included in every possible string and thus always leading to a match!
+            const valueIncludesFilter =
+                value.toLowerCase().includes(filter.toLowerCase()) &&
+                filter !== '';
+            const valueMatchesSpecialFilter = this.matchSpecialFilter(
+                value.toLowerCase(),
+                filter.toLowerCase().match(FILTER_ANALYZER)
+            );
+
+            return valueIncludesFilter || valueMatchesSpecialFilter;
+        });
     }
 
     /**
