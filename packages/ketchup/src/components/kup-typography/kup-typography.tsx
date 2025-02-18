@@ -61,6 +61,16 @@ export class KupTypography {
      */
     @Prop() customStyle: string = '';
     /**
+     * When enabled displays toolbar item inside each single tab.
+     * @default false
+     */
+    @Prop() infoIcon: boolean = false;
+    /**
+     * When enabled displays toolbar item inside each single tab.
+     * @default false
+     */
+    @Prop() infoIconData: KupDataNode[];
+    /**
      * Manage the toolbar icon. If true is visible, otherwise is not
      * @default null
      */
@@ -94,6 +104,7 @@ export class KupTypography {
      * Toolbar List.
      */
     private toolbarList: KupDynamicPositionElement;
+    private infoDataList: KupDynamicPositionElement;
     #dropDownActionCardAnchor: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -116,6 +127,17 @@ export class KupTypography {
     })
     kupClick: EventEmitter<KupTypographyClickEventPayload>;
 
+    /**
+     * Triggered when the info icon inside tab is clicked.
+     */
+    @Event({
+        eventName: 'kup-typography-infoiconclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInfoIconClick: EventEmitter<KupTypographyIconClickEventPayload>;
+
     @Event({
         eventName: 'kup-typography-itemclick',
         composed: true,
@@ -130,6 +152,15 @@ export class KupTypography {
             id: this.rootElement.id,
             value: this.value,
         });
+    }
+
+    onKupInfoIconClick(el: HTMLElement) {
+        this.#dropDownActionCardAnchor = el;
+        this.kupInfoIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.createDropDownInfoList();
     }
 
     onKupIconClick(el: HTMLElement) {
@@ -200,6 +231,52 @@ export class KupTypography {
         });
     }
 
+    /**
+     * Create dropdown list for tab info icon
+     */
+    createDropDownInfoList() {
+        if (this.infoDataList) {
+            this.closeInfoDataList();
+        }
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.infoIconData;
+        this.infoDataList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeInfoDataList();
+            },
+            el: this.infoDataList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.infoDataList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.infoDataList,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(this.infoDataList);
+        });
+    }
+
+    /**
+     * Destroy dropdown list for tab info icon
+     */
+    closeInfoDataList() {
+        if (this.infoDataList) {
+            this.kupManager.dynamicPosition.stop(
+                this.infoDataList as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.infoDataList.remove();
+            this.kupManager.dynamicPosition.unregister([this.infoDataList]);
+            this.infoDataList = null;
+        }
+    }
+
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -257,9 +334,17 @@ export class KupTypography {
             type: this.type,
         };
 
-        const propsFImage: FImageProps = {
+        const toolbarIcon: FImageProps = {
             color: 'var(--kup-gray-color-70)',
             resource: 'more_vert',
+            sizeX: '16px',
+            sizeY: '16px',
+            wrapperClass: 'image__iconToolbar',
+        };
+
+        const infoIcon: FImageProps = {
+            color: 'var(--kup-gray-color-70)',
+            resource: 'info_outline',
             sizeX: '16px',
             sizeY: '16px',
             wrapperClass: 'image__iconToolbar',
@@ -280,9 +365,20 @@ export class KupTypography {
                     onClick={() => this.onKupClick}
                 >
                     <FTypography {...props} />
+                    {this.infoIcon && (
+                        <FImage
+                            {...infoIcon}
+                            onClick={(event: MouseEvent) => {
+                                event.stopPropagation();
+                                this.onKupInfoIconClick(
+                                    event.currentTarget as HTMLElement
+                                );
+                            }}
+                        />
+                    )}
                     {this.toolbar && (
                         <FImage
-                            {...propsFImage}
+                            {...toolbarIcon}
                             onClick={(event: MouseEvent) => {
                                 event.stopPropagation();
                                 this.onKupIconClick(
@@ -299,6 +395,9 @@ export class KupTypography {
         this.kupManager.theme.unregister(this);
         if (this.toolbarList) {
             this.kupManager.dynamicPosition.unregister([this.toolbarList]);
+        }
+        if (this.infoDataList) {
+            this.kupManager.dynamicPosition.unregister([this.infoDataList]);
         }
     }
 }

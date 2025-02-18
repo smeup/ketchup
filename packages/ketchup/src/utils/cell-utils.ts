@@ -296,6 +296,7 @@ export const RADAdapter = (value: string, options: GenericObject) => ({
               value: option.id,
               label: option.label,
               checked: option.id == value,
+              icon: option.icon,
           }))
         : [],
 });

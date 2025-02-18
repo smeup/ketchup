@@ -4064,6 +4064,16 @@ export namespace Components {
          */
         "getSelectedNode": () => Promise<KupTabBarNode>;
         /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon": boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIconData": KupDataNode[];
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -4719,6 +4729,16 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon": boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIconData": KupDataNode[];
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -5945,6 +5965,7 @@ declare global {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-iconclick": KupTabBarEventPayload;
+        "kup-tabbar-infoiconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
         "kup-tabbar-itemclick": KupToolbarItemClickEventPayload;
     }
@@ -6107,6 +6128,7 @@ declare global {
     interface HTMLKupTypographyElementEventMap {
         "kup-typography-iconclick": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
+        "kup-typography-infoiconclick": KupTypographyIconClickEventPayload;
         "kup-typography-itemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTypographyElement extends Components.KupTypography, HTMLStencilElement {
@@ -9477,6 +9499,16 @@ declare namespace LocalJSX {
          */
         "dense"?: boolean;
         /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon"?: boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIconData"?: KupDataNode[];
+        /**
           * Triggered when the tab loses focus.
          */
         "onKup-tabbar-blur"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
@@ -9492,6 +9524,10 @@ declare namespace LocalJSX {
           * Triggered when the icon inside tab is clicked.
          */
         "onKup-tabbar-iconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when the icon inside tab is clicked.
+         */
+        "onKup-tabbar-infoiconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when a list item is clicked.
          */
@@ -10085,8 +10121,22 @@ declare namespace LocalJSX {
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon"?: boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIconData"?: KupDataNode[];
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-iconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
+        /**
+          * Triggered when the info icon inside tab is clicked.
+         */
+        "onKup-typography-infoiconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
         "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * Manage the toolbar icon. If true is visible, otherwise is not

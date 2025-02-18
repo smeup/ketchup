@@ -33,13 +33,27 @@
     font-size: 0.875em;
     font-weight: var(--kup_radio_font_weight);
     letter-spacing: 0.0178571429em;
-    display: inline-flex;
+    display: flex;
+    gap: var(--kup-space-03);
     align-items: center;
     vertical-align: middle;
 
+    &.form--chevron {
+      padding: var(--kup-space-03);
+      justify-content: space-between;
+      .label-wrapper {
+        display: flex;
+        gap: var(--kup-space-03);
+        order: 2;
+        align-items: center;
+      }
+      .radio--chevron {
+        order: 3;
+      }
+    }
+
     label {
       color: var(--kup_radio_text_color);
-      padding-left: var(--kup-space-03);
       order: 0;
       @include kup-body-compact-01;
     }
