@@ -63,6 +63,7 @@ import { KupListNode } from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -2210,6 +2211,7 @@ export class KupTree {
                         label={this.#kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         icon={KupThemeIconValues.SEARCH}
                         initialValue={this.globalFilterValue}
                         onkup-textfield-input={(event) => {

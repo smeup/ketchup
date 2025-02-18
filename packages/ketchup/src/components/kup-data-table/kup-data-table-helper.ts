@@ -1154,6 +1154,9 @@ export function decorateDataTable(data: KupDataTableDataset) {
                 [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
                 [FCellShapes.CHIP]: () => CHIAdapter(value, decode),
                 [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
+                [FCellShapes.MULTI_AUTOCOMPLETE]: () =>
+                    CHIAdapter(value, decode),
+                [FCellShapes.MULTI_COMBOBOX]: () => CHIAdapter(value, decode),
             };
 
             const adapterFunction = shapeAdapters[cell.shape];
