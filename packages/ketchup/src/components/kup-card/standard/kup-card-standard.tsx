@@ -1086,7 +1086,7 @@ export function create14(component: KupCard): VNode {
                                 ) ? (
                                     <div class="buttons">
                                         {buttonsIds.includes(
-                                            KupColumnMenuIds.BUTTON_SEARCH
+                                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
                                         ) ? (
                                             <kup-button
                                                 {...buttonArray.find(
