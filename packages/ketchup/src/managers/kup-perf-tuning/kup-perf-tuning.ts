@@ -31,4 +31,26 @@ export class KupPerfTuning {
             `perfIndex ${perfIndex}, maxCellsPerPage ${this.data.maxCellsPerPage}`
         );
     }
+
+    mark(checkpoint: string): void {
+        performance.mark(`${checkpoint} - Started`);
+    }
+
+    measure(
+        checkpoint: string,
+        track: string,
+        trackGroup = 'SmeUP Performance Tracking'
+    ): void {
+        performance.measure(`${checkpoint} - Completed`, {
+            start: `${checkpoint} - Started`,
+            detail: {
+                devtools: {
+                    dataType: 'track-entry',
+                    track: `${track} - Tasks`,
+                    trackGroup: trackGroup,
+                    color: 'tertiary-dark',
+                },
+            },
+        });
+    }
 }

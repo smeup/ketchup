@@ -2,6 +2,7 @@ import { FComponent } from '../../types/GenericTypes';
 
 export interface FLabelProps extends FComponent {
     text: string;
+    classes?: string;
 }
 
 export interface ParsedElement {
