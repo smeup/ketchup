@@ -99,9 +99,9 @@ export class KupCalendar {
                         ': ' +
                         state
                 );
+                this.initialDate = state.initialDate ?? this.initialDate;
+                this.viewType = state.viewType ?? this.viewType;
             }
-            this.initialDate = state.initialDate ?? this.initialDate;
-            this.viewType = state.viewType ?? this.viewType;
         }
     }
 
@@ -627,6 +627,7 @@ export class KupCalendar {
     private onToday() {
         this.calendar.today();
         this.updateCalendar();
+        this.emitNavEvent();
     }
 
     private emitNavEvent() {
