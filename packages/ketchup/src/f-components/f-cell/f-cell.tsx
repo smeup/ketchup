@@ -1245,7 +1245,7 @@ function setKupCell(
                 ></FTextField>
             );
         case FCellTypes.LABEL:
-            return <FLabel text={cell.value}></FLabel>;
+            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
     }
 }
 
