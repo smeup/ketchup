@@ -176,7 +176,8 @@ export class FiltersColumnMenu extends Filters {
         column: string,
         remFilter: string
     ): void {
-        if (!filters || !remFilter || !filters[column]) {
+        // if remFilter is '' it is a perfectly fine value, explicitly target undefined value
+        if (!filters || remFilter == undefined || !filters[column]) {
             return;
         }
 
