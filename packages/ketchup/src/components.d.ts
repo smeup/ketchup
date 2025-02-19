@@ -4063,16 +4063,12 @@ export namespace Components {
           * @returns Selected node.
          */
         "getSelectedNode": () => Promise<KupTabBarNode>;
+        "infoCallback": () => Promise<KupDataNode[]>;
         /**
           * When enabled displays toolbar item inside each single tab.
           * @default false
          */
         "infoIcon": boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "infoIconData": KupDataNode[];
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4725,16 +4721,12 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "infoCallBack": () => Promise<KupDataNode[]>;
         /**
           * When enabled displays toolbar item inside each single tab.
           * @default false
          */
         "infoIcon": boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "infoIconData": KupDataNode[];
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -9494,16 +9486,12 @@ declare namespace LocalJSX {
           * @default false
          */
         "dense"?: boolean;
+        "infoCallback"?: () => Promise<KupDataNode[]>;
         /**
           * When enabled displays toolbar item inside each single tab.
           * @default false
          */
         "infoIcon"?: boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "infoIconData"?: KupDataNode[];
         /**
           * Triggered when the tab loses focus.
          */
@@ -10113,16 +10101,12 @@ declare namespace LocalJSX {
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
+        "infoCallBack"?: () => Promise<KupDataNode[]>;
         /**
           * When enabled displays toolbar item inside each single tab.
           * @default false
          */
         "infoIcon"?: boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "infoIconData"?: KupDataNode[];
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-iconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
         /**
