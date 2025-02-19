@@ -333,22 +333,29 @@ export class KupInputPanel {
 
     @Listen('keydown')
     listenKeydown(e: KeyboardEvent) {
-        console.log('keydown in inp', e);
         switch (e.key) {
             case 'Enter':
                 e.preventDefault();
                 e.stopPropagation();
-                const rootActiveElement = this.rootElement.shadowRoot
-                    .activeElement as HTMLInputElement;
-                const keyPressed = e.key.toLowerCase();
-                if (keyPressed === 'enter' && rootActiveElement) {
-                    rootActiveElement?.blur();
-                    this.submitCb({
-                        value: {
-                            before: { ...this.#originalData },
-                            after: this.#reverseMapCells(),
-                        },
-                    });
+                const enterCommand = this.data.setup.commands.find(
+                    (e) => e.data?.keyShortcut === 'Enter'
+                );
+
+                if (enterCommand) {
+                    enterCommand.data?.onClick().bind(this);
+                } else {
+                    const rootActiveElement = this.rootElement.shadowRoot
+                        .activeElement as HTMLInputElement;
+                    const keyPressed = e.key.toLowerCase();
+                    if (keyPressed === 'enter' && rootActiveElement) {
+                        rootActiveElement?.blur();
+                        this.submitCb({
+                            value: {
+                                before: { ...this.#originalData },
+                                after: this.#reverseMapCells(),
+                            },
+                        });
+                    }
                 }
                 break;
         }
@@ -637,7 +644,7 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
-        return (
+        const renderedButton = (
             <FButton
                 icon={cell.icon}
                 id={name}
@@ -645,6 +652,7 @@ export class KupInputPanel {
                 wrapperClass="form__submit"
             ></FButton>
         );
+        return renderedButton;
     }
 
     #renderDropDownButton(cell: KupDataCell, data: GenericObject) {
