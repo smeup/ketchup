@@ -2,7 +2,10 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { KupTextFieldEventPayload } from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
-import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
+import {
+    KupChipChangeEventPayload,
+    KupChipNode,
+} from '../../components/kup-chip/kup-chip-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
@@ -854,7 +857,7 @@ function setEditableCell(
         case FCellTypes.MULTI_SELECT:
             return (
                 <kup-multi-select
-                    {...cell.data}
+                    data={{ 'kup-chip': [cell.data] }}
                     onKup-tree-nodeselected={(
                         e: CustomEvent<KupTreeNodeSelectedEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
@@ -1212,6 +1215,7 @@ function setKupCell(
         case FCellTypes.MULTI_COMBOBOX:
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
+        /*
         case FCellTypes.MULTI_SELECT:
             return (
                 <kup-multi-select
@@ -1219,6 +1223,7 @@ function setKupCell(
                     {...subcomponentProps}
                 ></kup-multi-select>
             );
+        */
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker

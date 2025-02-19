@@ -51,6 +51,7 @@ import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTree
 import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+import { MultiSelectData } from "./components/kup-multi-select/kup-multi-select";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -113,6 +114,7 @@ export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTree
 export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+export { MultiSelectData } from "./components/kup-multi-select/kup-multi-select";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 export { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -3230,7 +3232,7 @@ export namespace Components {
         /**
           * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
          */
-        "data": any[];
+        "data": MultiSelectData;
         "disabled": boolean;
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "refresh": () => Promise<void>;
@@ -8810,7 +8812,7 @@ declare namespace LocalJSX {
         /**
           * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
          */
-        "data"?: any[];
+        "data"?: MultiSelectData;
         "disabled"?: boolean;
     }
     interface KupNavBar {

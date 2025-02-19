@@ -19,6 +19,12 @@ import { KupTreeNodeSelectedEventPayload } from '../kup-tree/kup-tree-declaratio
 import { KupMultiSelectProps } from './kup-multi-select-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 import { getParentNode } from '../../managers/kup-data/kup-data-node-helper';
+import { KupChipNode } from '../kup-chip/kup-chip-declarations';
+
+export interface MultiSelectData {
+    'kup-chip'?: GenericObject[]; //should be KupChipNode[]
+    'kup-tree'?: KupDataNode[];
+}
 
 @Component({
     tag: 'kup-multi-select',
@@ -34,7 +40,7 @@ export class KupMultiSelect {
     /**
      * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
      */
-    @Prop({ mutable: true }) data: any[] = [];
+    @Prop({ mutable: true }) data: MultiSelectData = null;
 
     #chips: HTMLKupChipElement = null;
 
@@ -155,7 +161,7 @@ export class KupMultiSelect {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.data['kup-chip'] = [];
+        //this.data['kup-chip'] = [];
     }
 
     componentDidLoad() {
