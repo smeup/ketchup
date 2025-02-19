@@ -14,12 +14,12 @@ function getVNodes(parsedElements: ParsedElement[]): VNode[] {
     });
 }
 
-export const FLabel: FunctionalComponent<FLabelProps> = ({ text }) => {
+export const FLabel: FunctionalComponent<FLabelProps> = ({ text, classes }) => {
     const parsedElements = getParsedElements(text);
     // To avoid creating unnecessary span in the text
     // when there are no tags to format the content
-    if (parsedElements?.length > 1) {
-        return <span>{getVNodes(parsedElements)}</span>;
+    if (parsedElements.find((p) => p.tag !== undefined)) {
+        return <span class={classes}>{getVNodes(parsedElements)}</span>;
     } else {
         return <Fragment>{text}</Fragment>;
     }
