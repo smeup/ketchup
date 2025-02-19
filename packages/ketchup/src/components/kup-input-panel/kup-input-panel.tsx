@@ -145,7 +145,7 @@ export class KupInputPanel {
     @Prop() data: KupInputPanelData = null;
 
     /**
-     * Creates a hidden submit button in order to submit the form with enter.
+     * Creates a hidden submit button in order to submit the form with enter.``
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
@@ -527,6 +527,7 @@ export class KupInputPanel {
                     class={inputPanelClass}
                     ref={(el: HTMLFormElement) => (this.#formRef = el)}
                     onSubmit={(e: SubmitEvent) => {
+                        console.log('on submit ev', e);
                         e.preventDefault();
                         this.submitCb({
                             value: {
@@ -2111,6 +2112,23 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
+
+        document.addEventListener('keydown', (e) => {
+            const rootActiveElement = this.rootElement.shadowRoot
+                .activeElement as HTMLInputElement;
+            const keyPressed = e.key.toLowerCase();
+            if (keyPressed === 'enter' && rootActiveElement) {
+                console.log('key', keyPressed, rootActiveElement);
+                rootActiveElement?.blur();
+                this.submitCb({
+                    value: {
+                        before: { ...this.#originalData },
+                        after: this.#reverseMapCells(),
+                    },
+                });
+            }
+        });
+
         this.#setFocusOnInputElement();
         this.#kupManager.debug.logLoad(this, true);
     }
