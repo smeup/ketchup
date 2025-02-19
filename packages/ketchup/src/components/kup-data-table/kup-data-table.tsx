@@ -3171,7 +3171,7 @@ export class KupDataTable {
 
                         const rowId = row.id;
                         if (rowId) {
-                            this.setSelectedRows([row.id], true).then(() => {
+                            this.setSelectedRows([row.id], false).then(() => {
                                 dispatchSelection();
                             });
                         } else {
