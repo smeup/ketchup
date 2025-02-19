@@ -38,6 +38,7 @@ import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
+import { KupPerfMonitoring } from '../kup-perf-monitoring/kup-perf-monitoring';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -67,6 +68,7 @@ export class KupManager {
     keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
     perfTuning: KupPerfTuning;
+    perfMonitoring: KupPerfMonitoring;
     /**
      * Initializes KupManager.
      */
@@ -206,6 +208,7 @@ export class KupManager {
         this.perfTuning = new KupPerfTuning({
             maxCellsPerPage: Number.MAX_VALUE,
         });
+        this.perfMonitoring = new KupPerfMonitoring();
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
