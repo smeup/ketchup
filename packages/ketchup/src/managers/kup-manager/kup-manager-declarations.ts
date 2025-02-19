@@ -24,6 +24,7 @@ import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
+import { KupPerfMonitoring } from '../kup-perf-monitoring/kup-perf-monitoring';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -56,6 +57,7 @@ export interface KupManager {
     keysBinding: KupKeysBinding;
     utilities: KupManagerUtilities;
     perfTuning: KupPerfTuning;
+    perfMonitoring: KupPerfMonitoring;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
