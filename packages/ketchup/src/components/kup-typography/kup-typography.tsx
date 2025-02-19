@@ -155,7 +155,10 @@ export class KupTypography {
 
     onKupInfoIconClick(el: HTMLElement) {
         if (!el) {
-            console.warn('onKupIconClick: Element is null');
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
             return;
         }
         this.#dropDownActionCardAnchor = el;
@@ -164,7 +167,10 @@ export class KupTypography {
 
     onKupIconClick(el: HTMLElement) {
         if (!el) {
-            console.warn('onKupIconClick: Element is null');
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
             return;
         }
         this.#dropDownActionCardAnchor = el;
@@ -201,7 +207,10 @@ export class KupTypography {
      */
     createDropDownToolbarList() {
         if (!this.#dropDownActionCardAnchor) {
-            console.warn('createDropDownToolbarList: Anchor is null!');
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
             return;
         }
 
@@ -210,7 +219,10 @@ export class KupTypography {
         }
 
         if (this.toolbarState.length === 0) {
-            console.warn('No toolbar state available.');
+            this.kupManager.debug.logMessage(
+                this,
+                'No toolbar state available.'
+            );
             return;
         }
 
@@ -235,7 +247,10 @@ export class KupTypography {
         this.rootElement.shadowRoot.appendChild(this.toolbarList);
         requestAnimationFrame(() => {
             if (!this.#dropDownActionCardAnchor) {
-                console.warn('DropDown anchor is still null after delay!');
+                this.kupManager.debug.logMessage(
+                    this,
+                    'DropDown anchor is still null after delay!'
+                );
                 return;
             }
             this.kupManager.dynamicPosition.register(
@@ -256,14 +271,17 @@ export class KupTypography {
      */
     createDropDownInfoList() {
         if (!this.#dropDownActionCardAnchor) {
-            console.warn('createDropDownToolbarList: Anchor is null!');
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
             return;
         }
         if (this.infoList) {
             this.closeInfoDataList();
         }
         if (this.infoState.length === 0) {
-            console.warn('No infoicon available.');
+            this.kupManager.debug.logMessage(this, 'No infoicon available.');
             return;
         }
         const listEl = document.createElement('kup-list');
@@ -414,7 +432,8 @@ export class KupTypography {
                                 if (this.toolbarState.length > 0) {
                                     this.onKupIconClick(el);
                                 } else {
-                                    console.warn(
+                                    this.kupManager.debug.logMessage(
+                                        this,
                                         'Toolbar data is empty, not opening dropdown.'
                                     );
                                 }

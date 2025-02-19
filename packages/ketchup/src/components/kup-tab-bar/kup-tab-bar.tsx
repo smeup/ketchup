@@ -219,7 +219,10 @@ export class KupTabBar {
 
     onKupIconClick(el: HTMLElement) {
         if (!el) {
-            console.warn('onKupIconClick: Element is null');
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
             return;
         }
         this.#dropDownActionCardAnchor = el;
@@ -228,7 +231,10 @@ export class KupTabBar {
 
     onKupInfoIconClick(el: HTMLElement) {
         if (!el) {
-            console.warn('onKupIconClick: Element is null');
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
             return;
         }
         this.#dropDownActionCardAnchor = el;
@@ -336,14 +342,20 @@ export class KupTabBar {
      */
     createDropDownToolbarList() {
         if (!this.#dropDownActionCardAnchor) {
-            console.warn('createDropDownToolbarList: Anchor is null!');
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
             return;
         }
         if (this.toolbarList) {
             this.closeRowToolbarList();
         }
         if (this.infoState.length === 0) {
-            console.warn('No toolbar state available.');
+            this.kupManager.debug.logMessage(
+                this,
+                'No toolbar state available.'
+            );
             return;
         }
         const listEl = document.createElement('kup-toolbar');
@@ -377,14 +389,20 @@ export class KupTabBar {
      */
     createDropDownInfoList() {
         if (!this.#dropDownActionCardAnchor) {
-            console.warn('createDropDownToolbarList: Anchor is null!');
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
             return;
         }
         if (this.infoList) {
             this.closeInfoDataList();
         }
         if (this.infoState.length === 0) {
-            console.warn('No toolbar state available.');
+            this.kupManager.debug.logMessage(
+                this,
+                'No toolbar state available.'
+            );
             return;
         }
         const listEl = document.createElement('kup-list');
@@ -555,7 +573,8 @@ export class KupTabBar {
                                 if (this.toolbarState.length > 0) {
                                     this.onKupIconClick(el);
                                 } else {
-                                    console.warn(
+                                    this.kupManager.debug.logMessage(
+                                        this,
                                         'Toolbar data is empty, not opening dropdown.'
                                     );
                                 }
