@@ -4092,11 +4092,7 @@ export namespace Components {
           * @default false
          */
         "toolbar": boolean;
-        /**
-          * Display DataNode Toolbar.
-          * @default null
-         */
-        "toolbarData": KupDataNode[];
+        "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * List of elements.
           * @default KupTabbarStyling.FLAT
@@ -4754,10 +4750,10 @@ export namespace Components {
          */
         "toolbar": boolean;
         /**
-          * Display DataNode Toolbar.
-          * @default null
+          * This is the callback to retrieve toolbar's data
+          * @default [];
          */
-        "toolbarData": KupDataNode[];
+        "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT
@@ -9542,11 +9538,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "toolbar"?: boolean;
-        /**
-          * Display DataNode Toolbar.
-          * @default null
-         */
-        "toolbarData"?: KupDataNode[];
+        "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * List of elements.
           * @default KupTabbarStyling.FLAT
@@ -10144,10 +10136,10 @@ declare namespace LocalJSX {
          */
         "toolbar"?: boolean;
         /**
-          * Display DataNode Toolbar.
-          * @default null
+          * This is the callback to retrieve toolbar's data
+          * @default [];
          */
-        "toolbarData"?: KupDataNode[];
+        "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT

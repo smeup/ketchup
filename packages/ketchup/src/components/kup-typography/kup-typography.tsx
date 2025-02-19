@@ -76,11 +76,6 @@ export class KupTypography {
      */
     @Prop() toolbar: boolean = true;
     /**
-     * Display DataNode Toolbar.
-     * @default null
-     */
-    @Prop() toolbarData: KupDataNode[];
-    /**
      * Sets the sizing of the textfield
      * @default FTypographyType.BODY_COMPACT
      */
@@ -90,10 +85,17 @@ export class KupTypography {
      * @default null
      */
     @Prop() value: string = null;
+    /**
+     * This is the callback to retrieve toolbar's data
+     * @default [];
+     */
+    @Prop() toolbarCallback: () => Promise<KupDataNode[]>;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
+
+    toolbarState: KupDataNode[] = [];
 
     /**
      * Instance of the KupManager class.
@@ -156,19 +158,15 @@ export class KupTypography {
 
     onKupInfoIconClick(el: HTMLElement) {
         this.#dropDownActionCardAnchor = el;
-        this.kupInfoIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
         this.createDropDownInfoList();
     }
 
     onKupIconClick(el: HTMLElement) {
+        if (!el) {
+            console.warn('onKupIconClick: Element is null');
+            return;
+        }
         this.#dropDownActionCardAnchor = el;
-        this.kupIconClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
         this.createDropDownToolbarList();
     }
 
@@ -197,18 +195,33 @@ export class KupTypography {
         }
     }
 
+    /**
+     * Create dropdown list for toolbar
+     */
     createDropDownToolbarList() {
+        if (!this.#dropDownActionCardAnchor) {
+            console.warn('createDropDownToolbarList: Anchor is null!');
+            return;
+        }
+
         if (this.toolbarList) {
             this.closeRowToolbarList();
         }
+
+        if (this.toolbarState.length === 0) {
+            console.warn('No toolbar state available.');
+            return;
+        }
+
         const listEl = document.createElement('kup-toolbar');
-        listEl.data = this.toolbarData;
+        listEl.data = this.toolbarState;
         listEl.addEventListener('kup-toolbar-click', (e: CustomEvent) => {
             this.onKupToolbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();
             }, 0);
         });
+
         this.toolbarList = listEl;
         this.#clickCbDropCard = {
             cb: () => {
@@ -220,14 +233,20 @@ export class KupTypography {
         this.kupManager.addClickCallback(this.#clickCbDropCard, true);
         this.rootElement.shadowRoot.appendChild(this.toolbarList);
         requestAnimationFrame(() => {
+            if (!this.#dropDownActionCardAnchor) {
+                console.warn('DropDown anchor is still null after delay!');
+                return;
+            }
             this.kupManager.dynamicPosition.register(
-                this.toolbarList,
+                this.toolbarList as KupDynamicPositionElement,
                 this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
                 0,
                 KupDynamicPositionPlacement.AUTO,
                 true
             );
-            this.kupManager.dynamicPosition.start(this.toolbarList);
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as KupDynamicPositionElement
+            );
         });
     }
 
@@ -379,11 +398,18 @@ export class KupTypography {
                     {this.toolbar && (
                         <FImage
                             {...toolbarIcon}
-                            onClick={(event: MouseEvent) => {
+                            onClick={async (event: MouseEvent) => {
                                 event.stopPropagation();
-                                this.onKupIconClick(
-                                    event.currentTarget as HTMLElement
-                                );
+                                const el = event.currentTarget as HTMLElement;
+                                const data = await this.toolbarCallback();
+                                this.toolbarState = data;
+                                if (this.toolbarState.length > 0) {
+                                    this.onKupIconClick(el);
+                                } else {
+                                    console.warn(
+                                        'Toolbar data is empty, not opening dropdown.'
+                                    );
+                                }
                             }}
                         />
                     )}
