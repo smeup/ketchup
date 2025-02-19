@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -325,6 +326,33 @@ export class KupInputPanel {
         }
     }
     //#endregion
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        console.log('keydown in inp', e);
+        switch (e.key) {
+            case 'Enter':
+                e.preventDefault();
+                e.stopPropagation();
+                const rootActiveElement = this.rootElement.shadowRoot
+                    .activeElement as HTMLInputElement;
+                const keyPressed = e.key.toLowerCase();
+                if (keyPressed === 'enter' && rootActiveElement) {
+                    rootActiveElement?.blur();
+                    this.submitCb({
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
+                    });
+                }
+                break;
+        }
+    }
 
     //#region PUBLIC METHODS
     /*-------------------------------------------------*/
@@ -2112,22 +2140,6 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
-
-        document.addEventListener('keydown', (e) => {
-            const rootActiveElement = this.rootElement.shadowRoot
-                .activeElement as HTMLInputElement;
-            const keyPressed = e.key.toLowerCase();
-            if (keyPressed === 'enter' && rootActiveElement) {
-                console.log('key', keyPressed, rootActiveElement);
-                rootActiveElement?.blur();
-                this.submitCb({
-                    value: {
-                        before: { ...this.#originalData },
-                        after: this.#reverseMapCells(),
-                    },
-                });
-            }
-        });
 
         this.#setFocusOnInputElement();
         this.#kupManager.debug.logLoad(this, true);
