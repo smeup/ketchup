@@ -191,6 +191,7 @@ export enum FCellTypes {
     SWITCH = 'switch',
     TABLE = 'table',
     TIME = 'time',
+    LABEL = 'label',
 }
 export const editableTypes = [
     FCellTypes.AUTOCOMPLETE,
@@ -230,6 +231,7 @@ export const kupTypes = [
     FCellTypes.PROGRESS_BAR,
     FCellTypes.RADIO,
     FCellTypes.RATING,
+    FCellTypes.LABEL,
 ];
 /**
  * Payload of the event fired when a cell is updated.

@@ -1139,7 +1139,7 @@ export class KupInputPanel {
     ) {
         const defaultProps = {
             ...this.#mapData(cell, column, layout),
-            disabled: !cell.editable,
+            disabled: !cell.isEditable,
             id: column.name,
         };
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
@@ -1276,7 +1276,7 @@ export class KupInputPanel {
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (!cell.editable) {
+        if (!cell.isEditable) {
             return null;
         }
 
@@ -1284,7 +1284,7 @@ export class KupInputPanel {
             return {
                 trailingIcon: true,
                 label: col.title,
-                disabled: !cell.editable,
+                disabled: !cell.isEditable,
                 id: col.name,
                 fullWidth: false,
             };
@@ -1299,7 +1299,7 @@ export class KupInputPanel {
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
-                disabled: !cell.editable,
+                disabled: !cell.isEditable,
                 id: col.name,
             };
         }
@@ -1437,11 +1437,7 @@ export class KupInputPanel {
             ...cell.data,
         };
 
-        if (
-            this.autoSkip &&
-            (cell.isEditable || cell.editable) &&
-            cell.data?.maxLength
-        ) {
+        if (this.autoSkip && cell.isEditable && cell.data?.maxLength) {
             data.onInput = (event: InputEvent) => {
                 this.#setAutoSkip(id, event);
             };

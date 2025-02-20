@@ -1,21 +1,26 @@
 import { Fragment, FunctionalComponent, h, VNode } from '@stencil/core';
-import { FLabelProps } from './f-label-declarations';
+import { FLabelProps, ParsedElement } from './f-label-declarations';
 import { getParsedElements } from '../../utils/label-utils';
+import { getGCellStyle } from '../../utils/g-cell-style-generator';
 
-function getVNodes(input: string): VNode[] {
-    return getParsedElements(input).map((e) =>
-        e.closed ? (
-            <Fragment>
-                {' '}
-                class={`G-${e.tag.replace(/[_*]/g, '')}`}
-                {e.content}
-            </Fragment>
+function getVNodes(parsedElements: ParsedElement[]): VNode[] {
+    return parsedElements.map((e) => {
+        const style = getGCellStyle(e.tag?.replace(/[_]/g, '').slice(1));
+        return e.closed ? (
+            <span style={style}>{e.content}</span>
         ) : (
-            <Fragment>{`${e.tag}${e.content}`}</Fragment>
-        )
-    );
+            <span>{`${e.tag ?? ''}${e.content}`}</span>
+        );
+    });
 }
 
-export const FLabel: FunctionalComponent<FLabelProps> = ({ text }) => {
-    return <Fragment>{getVNodes(text)}</Fragment>;
+export const FLabel: FunctionalComponent<FLabelProps> = ({ text, classes }) => {
+    const parsedElements = getParsedElements(text);
+    // To avoid creating unnecessary span in the text
+    // when there are no tags to format the content
+    if (parsedElements.find((p) => p.tag !== undefined)) {
+        return <span class={classes}>{getVNodes(parsedElements)}</span>;
+    } else {
+        return <Fragment>{text}</Fragment>;
+    }
 };

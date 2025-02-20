@@ -49,7 +49,6 @@ export interface KupInputPanelRowCells {
 }
 
 export interface KupInputPanelCell extends KupDataCellOptions {
-    editable?: boolean;
     mandatory?: boolean;
     inputSettings?: GenericObject;
     fun?: string;

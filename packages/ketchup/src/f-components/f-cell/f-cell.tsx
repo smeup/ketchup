@@ -73,6 +73,7 @@ import {
 
 import { KupTreeNodeSelectedEventPayload } from '../../components/kup-tree/kup-tree-declarations';
 import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
+import { FLabel } from '../f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1268,6 +1269,8 @@ function setKupCell(
                     disabled={true}
                 ></FTextField>
             );
+        case FCellTypes.LABEL:
+            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
     }
 }
 

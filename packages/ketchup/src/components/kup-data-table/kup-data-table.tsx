@@ -2812,6 +2812,7 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        this.#kupManager.perfMonitoring.mark('componentDidRender');
         // If the component is not connected this method must not be executed
         if (!this.rootElement.isConnected) {
             return;
@@ -2853,9 +2854,14 @@ export class KupDataTable {
         // ***
         this.#oldWidth = this.rootElement.clientWidth;
         this.#kupManager.debug.logRender(this, true);
+        this.#kupManager.perfMonitoring.measure(
+            'componentDidRender',
+            'kup-data-table'
+        );
     }
 
     componentDidLoad() {
+        this.#kupManager.perfMonitoring.mark('componentDidLoad');
         this.#didLoadObservers();
         this.#didLoadEventHandling();
         this.#didLoadInteractables();
@@ -2863,6 +2869,10 @@ export class KupDataTable {
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.resize.observe(this.rootElement);
         this.#kupManager.debug.logLoad(this, true);
+        this.#kupManager.perfMonitoring.measure(
+            'componentDidLoad',
+            'kup-data-table'
+        );
     }
 
     //======== Utility methods ========
@@ -3171,7 +3181,7 @@ export class KupDataTable {
 
                         const rowId = row.id;
                         if (rowId) {
-                            this.setSelectedRows([row.id], true).then(() => {
+                            this.setSelectedRows([row.id], false).then(() => {
                                 dispatchSelection();
                             });
                         } else {
@@ -6612,6 +6622,7 @@ export class KupDataTable {
     }
 
     render() {
+        this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
         this.#rowsRefs = [];
         this.#renderedRows = [];
@@ -6890,6 +6901,7 @@ export class KupDataTable {
                                     label={this.#kupManager.language.translate(
                                         KupLanguageSearch.SEARCH
                                     )}
+                                    sizing={KupComponentSizing.EXTRA_SMALL}
                                     value={this.globalFilterValue}
                                     onInput={(event) => {
                                         const t: EventTarget = event.target;
@@ -7098,6 +7110,10 @@ export class KupDataTable {
                     {paginatorBottom}
                 </div>
             </Host>
+        );
+        this.#kupManager.perfMonitoring.measure(
+            'componentRender',
+            'kup-data-table'
         );
         return compCreated;
     }
