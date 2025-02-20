@@ -604,6 +604,8 @@ function setEditableCell(
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
+            console.log('Fcell value', cell.value);
+            console.log('Fcell decode', cell.decode);
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
@@ -1456,6 +1458,12 @@ function cellEvent(
         }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
+                console.log('Autocomplete update event', e);
+                if (cell.data) {
+                    cell.data['initialValue'] = value;
+                    cell.data['initialValueDecode'] = e.detail?.node?.value;
+                }
+                break;
             case FCellTypes.COMBOBOX:
             case FCellTypes.DATE:
             case FCellTypes.TIME:

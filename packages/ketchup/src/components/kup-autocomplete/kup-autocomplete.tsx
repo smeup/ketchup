@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import {
     KupManager,
@@ -269,6 +270,9 @@ export class KupAutocomplete {
     }
 
     onKupChange(value: string) {
+        console.log('------------------');
+        console.log('ON CHANGE');
+        console.log('------------------');
         this.#doConsistencyCheck = true;
         if (value) {
             const ret = this.#consistencyCheck(value, undefined, true);
@@ -313,6 +317,9 @@ export class KupAutocomplete {
     }
 
     onKupInput() {
+        console.log('--------------');
+        console.log('ON INPUT');
+        console.log('--------------');
         this.#doConsistencyCheck = true;
         const ret = this.#consistencyCheck(
             this.#textfieldEl.value,
@@ -363,6 +370,28 @@ export class KupAutocomplete {
             inputValue: this.#textfieldEl.value,
             node: e.detail.selected,
         });
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    // @Watch('initialValue')
+    // @Watch('initialValueDecode')
+    // updateValues() {
+    //     this.value = this.initialValue;
+    //     this.displayedValue = this.initialValueDecode;
+    // }
+
+    @Watch('initialValue')
+    initialValueChange(newValue: string) {
+        this.initialValueDecode = undefined;
+        this.setValue(newValue, undefined);
+    }
+
+    @Watch('initialValueDecode')
+    initialValueDecodeChange(newValue: string) {
+        this.setValue(this.initialValue, newValue);
     }
 
     /*-------------------------------------------------*/
@@ -464,6 +493,9 @@ export class KupAutocomplete {
      */
     @Method()
     async setValue(value: string, valueDecode?: string) {
+        console.log('---------------');
+        console.log('SET VALUE');
+        console.log('---------------');
         this.#doConsistencyCheck = true;
         this.#consistencyCheck(value, valueDecode, true);
     }
@@ -539,14 +571,25 @@ export class KupAutocomplete {
         idInDecode: string,
         eventShouldSetValue: boolean
     ): ValueDisplayedValue {
-        if (!this.#doConsistencyCheck) {
-            return;
-        }
+        // console.log('Do consistency check', this.#doConsistencyCheck);
+        // if (!this.#doConsistencyCheck) {
+        //     return;
+        // }
+        console.log('CONSISTENCY CHECK');
+        console.log('Value', this.value);
+        console.log('Displayed value', this.displayedValue);
+        console.log('idIn', idIn);
+        console.log('idInDecode', idInDecode);
+
         if (idIn && idInDecode) {
             this.displayedValue = getIdOfItemByDisplayMode(
                 { id: idIn, value: idInDecode },
                 this.displayMode,
                 ' - '
+            );
+            console.log(
+                'idIn && idInDecode | Displayed value ',
+                this.displayedValue
             );
         } else {
             this.#doConsistencyCheck = false;
@@ -557,6 +600,7 @@ export class KupAutocomplete {
                 this.selectMode,
                 this.displayMode
             );
+            console.log('Ret', ret);
             if (
                 (ret.exists || this.allowInconsistentValues) &&
                 eventShouldSetValue
@@ -566,9 +610,11 @@ export class KupAutocomplete {
             } else {
                 this.displayedValue = idIn;
             }
+
             if (this.#listEl != null && !this.serverHandledFilter) {
                 this.#listEl.filter = ret.value;
             }
+            console.log('Else | Displayed value', this.displayedValue);
             return ret;
         }
     }
@@ -625,6 +671,9 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
+        console.log('---------------');
+        console.log('DID LOAD');
+        console.log('---------------');
         this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
@@ -643,6 +692,10 @@ export class KupAutocomplete {
                 FTextFieldMDC(f);
             }
         }
+        console.log('---------------');
+        console.log('DID RENDER');
+        console.log('---------------');
+        this.getProps().then((props) => console.log('ACP props', props));
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -678,6 +731,8 @@ export class KupAutocomplete {
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
 
+        console.log('ACP value', this.value);
+        console.log('ACP displayed value', this.displayedValue);
         return (
             <Host
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
