@@ -45,8 +45,17 @@ export class KupPerfMonitoring {
         let entries = performance.getEntriesByType('measure');
         if (predicate) {
             return entries.filter((p) => predicate(p));
-        } else if (!name && name.trim() !== '') {
+        } else if (name?.trim() !== '') {
             return entries.filter((m) => m.name.includes(name));
         } else return entries;
+    }
+
+    toggle(): boolean {
+        this.active = !this.active;
+        if (!this.active) {
+            performance.clearMeasures();
+            performance.clearMarks();
+        }
+        return this.active;
     }
 }
