@@ -856,9 +856,18 @@ function setEditableCell(
             );
 
         case FCellTypes.MULTI_SELECT:
+            console.log('cell.data', cell.data);
             return (
                 <kup-multi-select
-                    data={{ 'kup-chip': [cell.data] }}
+                    data={{
+                        'kup-chip': cell.data['data'].map(
+                            (item: { value: string, id: string }) => ({
+                                value: item.value,
+                                id: item.id,
+                            })
+                        ),
+                    }}
+                    displayChipId={cell.data['displayMode'] === "Both"}
                     onKup-tree-nodeselected={(
                         e: CustomEvent<KupTreeNodeSelectedEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}

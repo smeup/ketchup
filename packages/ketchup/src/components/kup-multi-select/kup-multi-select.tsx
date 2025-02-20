@@ -22,7 +22,7 @@ import { getParentNode } from '../../managers/kup-data/kup-data-node-helper';
 import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 
 export interface MultiSelectData {
-    'kup-chip'?: GenericObject[]; //should be KupChipNode[]
+    'kup-chip'?: KupChipNode[]
     'kup-tree'?: KupDataNode[];
 }
 
@@ -41,6 +41,11 @@ export class KupMultiSelect {
      * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
      */
     @Prop({ mutable: true }) data: MultiSelectData = null;
+
+    /**
+     * When set to true, the chips will also display the IDs along with the values
+     */
+    @Prop() displayChipId: boolean = false;
 
     #chips: HTMLKupChipElement = null;
 
@@ -190,6 +195,8 @@ export class KupMultiSelect {
                             data={this.data['kup-chip']}
                             type={FChipType.STANDARD}
                             id="multi-select-chips"
+                            displayId={this.displayChipId}
+                            enableInput={true}
                             ref={(el) => (this.#chips = el)}
                         />
                     </div>

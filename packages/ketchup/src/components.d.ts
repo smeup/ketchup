@@ -3234,6 +3234,10 @@ export namespace Components {
          */
         "data": MultiSelectData;
         "disabled": boolean;
+        /**
+          * When set to true, the chips will also display the IDs along with the values
+         */
+        "displayChipId": boolean;
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "refresh": () => Promise<void>;
         "setProps": (props: GenericObject) => Promise<void>;
@@ -8814,6 +8818,10 @@ declare namespace LocalJSX {
          */
         "data"?: MultiSelectData;
         "disabled"?: boolean;
+        /**
+          * When set to true, the chips will also display the IDs along with the values
+         */
+        "displayChipId"?: boolean;
     }
     interface KupNavBar {
         /**

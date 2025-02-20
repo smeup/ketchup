@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                   | Type      | Default |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle` | `custom-style` |                                                                                                               | `string`  | `''`    |
-| `data`        | --             | Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips. | `any[]`   | `[]`    |
-| `disabled`    | `disabled`     |                                                                                                               | `boolean` | `false` |
+| Property      | Attribute      | Description                                                                                                   | Type              | Default |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- | ----------------- | ------- |
+| `customStyle` | `custom-style` |                                                                                                               | `string`          | `''`    |
+| `data`        | --             | Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips. | `MultiSelectData` | `null`  |
+| `disabled`    | `disabled`     |                                                                                                               | `boolean`         | `false` |
 
 
 ## Methods

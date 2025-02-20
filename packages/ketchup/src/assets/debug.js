@@ -91,7 +91,6 @@ const props = {
 
 const wrapper = document.querySelector('#debug-wrapper');
 if (props) {
-    console.log(props.data);
     const comp = document.createElement(compName);
     for (const key in props) {
         comp[key] = props[key];
