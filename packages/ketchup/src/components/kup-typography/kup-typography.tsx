@@ -413,11 +413,19 @@ export class KupTypography {
                     {this.infoIcon && (
                         <FImage
                             {...infoIcon}
-                            onClick={(event: MouseEvent) => {
+                            onClick={async (event: MouseEvent) => {
                                 event.stopPropagation();
-                                this.onKupInfoIconClick(
-                                    event.currentTarget as HTMLElement
-                                );
+                                const el = event.currentTarget as HTMLElement;
+                                const data = await this.infoCallBack();
+                                this.infoState = data;
+                                if (this.infoState.length > 0) {
+                                    this.onKupInfoIconClick(el);
+                                } else {
+                                    this.kupManager.debug.logMessage(
+                                        this,
+                                        'Toolbar data is empty, not opening dropdown.'
+                                    );
+                                }
                             }}
                         />
                     )}
