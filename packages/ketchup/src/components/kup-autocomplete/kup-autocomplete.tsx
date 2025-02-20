@@ -367,13 +367,6 @@ export class KupAutocomplete {
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
-    // @Watch('initialValue')
-    // @Watch('initialValueDecode')
-    // updateValues() {
-    //     this.value = this.initialValue;
-    //     this.displayedValue = this.initialValueDecode;
-    // }
-
     @Watch('initialValue')
     initialValueChange(newValue: string) {
         this.initialValueDecode = undefined;
