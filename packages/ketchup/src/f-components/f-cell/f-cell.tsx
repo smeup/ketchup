@@ -1118,6 +1118,8 @@ function setCell(
             }
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
+        case FCellTypes.LABEL:
+            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
         default:
             return (
                 <div class="f-cell__text">
@@ -1244,8 +1246,6 @@ function setKupCell(
                     disabled={true}
                 ></FTextField>
             );
-        case FCellTypes.LABEL:
-            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
     }
 }
 
