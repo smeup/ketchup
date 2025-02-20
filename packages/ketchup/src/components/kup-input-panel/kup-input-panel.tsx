@@ -337,26 +337,20 @@ export class KupInputPanel {
             case 'Enter':
                 e.preventDefault();
                 e.stopPropagation();
-                const enterCommand = this.data?.setup?.commands?.find(
-                    (e) => e.data.keyShortcut === 'Enter'
-                );
 
-                if (enterCommand) {
-                    enterCommand.data?.onClick().bind(this);
-                } else {
-                    const rootActiveElement = this.rootElement.shadowRoot
-                        .activeElement as HTMLInputElement;
-                    const keyPressed = e.key.toLowerCase();
-                    if (keyPressed === 'enter' && rootActiveElement) {
-                        rootActiveElement?.blur();
-                        this.submitCb({
-                            value: {
-                                before: { ...this.#originalData },
-                                after: this.#reverseMapCells(),
-                            },
-                        });
-                    }
+                const rootActiveElement = this.rootElement.shadowRoot
+                    .activeElement as HTMLInputElement;
+                const keyPressed = e.key.toLowerCase();
+                if (keyPressed === 'enter' && rootActiveElement) {
+                    rootActiveElement?.blur();
+                    this.submitCb({
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
+                    });
                 }
+
                 break;
         }
     }
