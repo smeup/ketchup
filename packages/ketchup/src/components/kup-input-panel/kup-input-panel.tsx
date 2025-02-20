@@ -337,8 +337,8 @@ export class KupInputPanel {
             case 'Enter':
                 e.preventDefault();
                 e.stopPropagation();
-                const enterCommand = this.data.setup.commands.find(
-                    (e) => e.data?.keyShortcut === 'Enter'
+                const enterCommand = this.data?.setup?.commands?.find(
+                    (e) => e.data.keyShortcut === 'Enter'
                 );
 
                 if (enterCommand) {
@@ -562,7 +562,6 @@ export class KupInputPanel {
                     class={inputPanelClass}
                     ref={(el: HTMLFormElement) => (this.#formRef = el)}
                     onSubmit={(e: SubmitEvent) => {
-                        console.log('on submit ev', e);
                         e.preventDefault();
                         this.submitCb({
                             value: {
