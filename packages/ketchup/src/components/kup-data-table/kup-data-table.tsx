@@ -1899,7 +1899,8 @@ export class KupDataTable {
         const id = rowIdentifier;
         const row = this.#getRow(id);
         if (row) {
-            const idx = this.#rows.indexOf(row) - 1;
+            const idx =
+                this.#rows.indexOf(row) - this.calculateScrollToRowOffset();
             if (idx >= 1) {
                 this.#rowsRefs[idx]?.scrollIntoView();
             }
@@ -6619,6 +6620,17 @@ export class KupDataTable {
                 <div class="commands">{commandButtons}</div>
             )
         );
+    }
+
+    calculateScrollToRowOffset(): number {
+        let maxNewlines = 0;
+
+        this.data.columns.forEach((column) => {
+            const newlineCount = (column.title.match(/\n/g) || []).length;
+            maxNewlines = Math.max(maxNewlines, newlineCount);
+        });
+
+        return maxNewlines + 1;
     }
 
     render() {
