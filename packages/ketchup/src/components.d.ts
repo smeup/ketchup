@@ -3008,7 +3008,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Creates a hidden submit button in order to submit the form with enter.
+          * Creates a hidden submit button in order to submit the form with enter.``
           * @default false
          */
         "hiddenSubmitButton": boolean;
@@ -8635,7 +8635,7 @@ declare namespace LocalJSX {
          */
         "data"?: KupInputPanelData;
         /**
-          * Creates a hidden submit button in order to submit the form with enter.
+          * Creates a hidden submit button in order to submit the form with enter.``
           * @default false
          */
         "hiddenSubmitButton"?: boolean;
