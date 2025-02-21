@@ -11,6 +11,7 @@ import {
     KupTooltipAnchor,
     KupTooltipCallbacks,
 } from './kup-tooltip-declarations';
+import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -137,16 +138,19 @@ export class KupTooltip {
                 anchor,
                 null,
                 null,
-                true
+                false
             );
         }
         dom.ketchup.dynamicPosition.start(this.element);
     }
     #create(options?: Partial<HTMLKupCardElement>) {
         this.element = document.createElement('kup-card');
-        this.element.id = 'kup-tooltip';
         this.element.isMenu = true;
-        this.element.layoutNumber = 15;
+        this.element.draggable = true;
+        this.element.layoutFamily = KupCardFamily.DIALOG;
+        this.element.id = 'kup-tooltip';
+        this.element.classList.add('dialog-unresizable');
+        this.element.layoutNumber = 8;
         this.element.sizeX = 'auto';
         this.element.sizeY = 'auto';
         if (options) {
