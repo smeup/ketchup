@@ -148,7 +148,7 @@ export class KupTooltip {
         this.element.isMenu = true;
         this.element.draggable = true;
         this.element.layoutFamily = KupCardFamily.DIALOG;
-        this.element.id = 'drag-handle';
+        this.element.id = 'kup-tooltip';
         this.element.classList.add('dialog-unresizable');
         this.element.layoutNumber = 15;
         this.element.sizeX = 'auto';
