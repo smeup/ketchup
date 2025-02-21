@@ -267,11 +267,11 @@ export function create7(component: KupCard): VNode {
     );
 }
 /**
- * 15th dialog card layout for fixed and draggable tooltip, a raw slot.
+ * 8th dialog card layout for fixed and draggable tooltip, a raw slot.
  * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
-export function create15(component: KupCard): VNode {
+export function create8(component: KupCard): VNode {
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -354,7 +354,7 @@ export function create15(component: KupCard): VNode {
         );
     };
     return (
-        <div class={`standard-layout-${component.layoutNumber}`}>
+        <div class={`dialog-layout-${component.layoutNumber}`}>
             <div class="section-1">
                 {imageArray[0] ? (
                     <FImage
