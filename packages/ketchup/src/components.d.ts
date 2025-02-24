@@ -4308,6 +4308,11 @@ export namespace Components {
     }
     interface KupTimePicker {
         /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection": boolean;
+        /**
           * When set to true, the drop down menu will display a clock.
           * @default true
          */
@@ -9672,6 +9677,11 @@ declare namespace LocalJSX {
         "trailingLabel"?: boolean;
     }
     interface KupTimePicker {
+        /**
+          * When set to true, the selected date will be appended to the current value instead of replacing it.
+          * @default false
+         */
+        "appendSelection"?: boolean;
         /**
           * When set to true, the drop down menu will display a clock.
           * @default true
