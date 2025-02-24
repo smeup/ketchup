@@ -3642,7 +3642,7 @@ export class KupDataTable {
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
-                this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
+                this.#totalMenuCoords = { x: e.pageX, y: e.pageY };
                 this.#onTotalMenuOpen(details.column);
                 return details;
             }
