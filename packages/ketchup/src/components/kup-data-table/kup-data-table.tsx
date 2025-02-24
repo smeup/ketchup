@@ -188,6 +188,7 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
+import { overflow } from 'html2canvas/dist/types/css/property-descriptors/overflow';
 
 @Component({
     tag: 'kup-data-table',
@@ -718,6 +719,10 @@ export class KupDataTable {
      * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
      */
     @Prop({ reflect: true }) legacyLook = false;
+    /**
+     * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+     */
+    @Prop({ reflect: true }) isDashboardMode = false;
     /**
      * Sets the possibility to remove the selected column.
      */
@@ -6770,7 +6775,7 @@ export class KupDataTable {
             elStyle = {
                 ...elStyle,
                 maxHeight: this.tableHeight,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
         }
 
@@ -6778,12 +6783,12 @@ export class KupDataTable {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
             actionWrapperWidth = {
                 ...actionWrapperWidth,
                 width: this.tableWidth,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
         }
 
