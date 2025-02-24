@@ -227,7 +227,6 @@ export const kupTypes = [
     FCellTypes.PROGRESS_BAR,
     FCellTypes.RADIO,
     FCellTypes.RATING,
-    FCellTypes.LABEL,
 ];
 /**
  * Payload of the event fired when a cell is updated.

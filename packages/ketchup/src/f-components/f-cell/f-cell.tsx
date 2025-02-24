@@ -1118,6 +1118,8 @@ function setCell(
             }
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
+        case FCellTypes.LABEL:
+            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
         default:
             return (
                 <div class="f-cell__text">
@@ -1244,8 +1246,6 @@ function setKupCell(
                     disabled={true}
                 ></FTextField>
             );
-        case FCellTypes.LABEL:
-            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
     }
 }
 
@@ -1456,6 +1456,11 @@ function cellEvent(
         }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
+                if (cell.data) {
+                    cell.data['initialValue'] = value;
+                    cell.data['initialValueDecode'] = e.detail?.node?.value;
+                }
+                break;
             case FCellTypes.COMBOBOX:
             case FCellTypes.DATE:
             case FCellTypes.TIME:

@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -145,7 +146,7 @@ export class KupInputPanel {
     @Prop() data: KupInputPanelData = null;
 
     /**
-     * Creates a hidden submit button in order to submit the form with enter.
+     * Creates a hidden submit button in order to submit the form with enter.``
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
@@ -325,6 +326,34 @@ export class KupInputPanel {
         }
     }
     //#endregion
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        switch (e.key) {
+            case 'Enter':
+                e.preventDefault();
+                e.stopPropagation();
+
+                const rootActiveElement = this.rootElement.shadowRoot
+                    .activeElement as HTMLInputElement;
+                const keyPressed = e.key.toLowerCase();
+                if (keyPressed === 'enter' && rootActiveElement) {
+                    rootActiveElement?.blur();
+                    this.submitCb({
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
+                    });
+                }
+
+                break;
+        }
+    }
 
     //#region PUBLIC METHODS
     /*-------------------------------------------------*/
@@ -608,7 +637,7 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
-        return (
+        const renderedButton = (
             <FButton
                 icon={cell.icon}
                 id={name}
@@ -616,6 +645,7 @@ export class KupInputPanel {
                 wrapperClass="form__submit"
             ></FButton>
         );
+        return renderedButton;
     }
 
     #renderDropDownButton(cell: KupDataCell, data: GenericObject) {
@@ -684,29 +714,24 @@ export class KupInputPanel {
         column: KupDataColumn,
         isAbsoluteLayout?: boolean
     ) {
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const isNumberType = dom.ketchup.objects.isNumber(cell.obj);
+        const isFormattableType =
+            isNumberType ||
+            dom.ketchup.objects.isDate(cell.obj) ||
+            dom.ketchup.objects.isTime(cell.obj) ||
+            dom.ketchup.objects.isTimestamp(cell.obj);
 
-        const baseClass = 'input-panel-label';
-        const additionalClass = isAbsoluteLayout
-            ? ' input-panel-label--legacy-look'
-            : '';
-        const numberClass =
-            cellType === FCellTypes.NUMBER ? ' input-panel-label-number' : '';
+        const classList = ['input-panel-label'];
+        if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
+        if (isNumberType) classList.push('input-panel-label-number');
 
-        if (cellType === FCellTypes.NUMBER) {
-            return (
-                <span
-                    class={`${baseClass}${additionalClass}${numberClass}`}
-                    id={column.name}
-                >
-                    {getCellValueForDisplay(column, cell)}
-                </span>
-            );
-        }
+        const value = isFormattableType
+            ? getCellValueForDisplay(column, cell)
+            : cell.value;
 
         return (
-            <span class={`${baseClass}${additionalClass}`} id={column.name}>
-                <FLabel text={cell.value} />
+            <span class={classList.join(' ')} id={column.name}>
+                <FLabel text={value} />
             </span>
         );
     }
@@ -1700,7 +1725,7 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: cells[value].value || cells[id].value,
+                value: value ? cells[value].value : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
@@ -2111,6 +2136,7 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
+
         this.#setFocusOnInputElement();
         this.#kupManager.debug.logLoad(this, true);
     }
