@@ -51,6 +51,7 @@ import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTree
 import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+import { MultiSelectData } from "./components/kup-multi-select/kup-multi-select";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -113,6 +114,7 @@ export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTree
 export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
+export { MultiSelectData } from "./components/kup-multi-select/kup-multi-select";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 export { KupObjectFieldData } from "./components/kup-object-field/kup-object-field-declarations";
@@ -3225,6 +3227,21 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KupMultiSelect {
+        "customStyle": string;
+        /**
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
+         */
+        "data": MultiSelectData;
+        "disabled": boolean;
+        /**
+          * When set to true, the chips will also display the IDs along with the values
+         */
+        "displayChipId": boolean;
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "refresh": () => Promise<void>;
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -5726,6 +5743,12 @@ declare global {
         prototype: HTMLKupMagicBoxElement;
         new (): HTMLKupMagicBoxElement;
     };
+    interface HTMLKupMultiSelectElement extends Components.KupMultiSelect, HTMLStencilElement {
+    }
+    var HTMLKupMultiSelectElement: {
+        prototype: HTMLKupMultiSelectElement;
+        new (): HTMLKupMultiSelectElement;
+    };
     interface HTMLKupNavBarElementEventMap {
         "kup-navbar-ready": KupEventPayload;
         "kup-navbar-resize": KupEventPayload;
@@ -6191,6 +6214,7 @@ declare global {
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
+        "kup-multi-select": HTMLKupMultiSelectElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
@@ -8787,6 +8811,18 @@ declare namespace LocalJSX {
          */
         "data"?: KupDataDataset;
     }
+    interface KupMultiSelect {
+        "customStyle"?: string;
+        /**
+          * Contains the data used to populate the tree view and the data used to visualize selected nodes via kup-chips.
+         */
+        "data"?: MultiSelectData;
+        "disabled"?: boolean;
+        /**
+          * When set to true, the chips will also display the IDs along with the values
+         */
+        "displayChipId"?: boolean;
+    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -10186,6 +10222,7 @@ declare namespace LocalJSX {
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
+        "kup-multi-select": KupMultiSelect;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
@@ -10265,6 +10302,7 @@ declare module "@stencil/core" {
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
+            "kup-multi-select": LocalJSX.KupMultiSelect & JSXBase.HTMLAttributes<HTMLKupMultiSelectElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;

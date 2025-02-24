@@ -1288,6 +1288,7 @@ export class KupInputPanel {
             [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
             [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
+            [FCellTypes.MULTI_SELECT, this.#CHIAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);

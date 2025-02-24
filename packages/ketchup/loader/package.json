@@ -1,11 +1,14 @@
 {
-  "name": "ketchup-loader",
-  "private": true,
-  "typings": "./index.d.ts",
-  "module": "./index.js",
-  "main": "./index.cjs.js",
-  "jsnext:main": "./index.es2017.js",
-  "es2015": "./index.es2017.js",
-  "es2017": "./index.es2017.js",
-  "unpkg": "./cdn.js"
+    "name": "ketchup-loader",
+    "private": true,
+    "typings": "./index.d.ts",
+    "module": "./index.js",
+    "main": "./index.cjs.js",
+    "jsnext:main": "./index.es2017.js",
+    "es2015": "./index.es2017.js",
+    "es2017": "./index.es2017.js",
+    "unpkg": "./cdn.js",
+    "dependencies": {
+        "ketchup-loader": "file:"
+    }
 }

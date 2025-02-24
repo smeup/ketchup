@@ -10,521 +10,509 @@ document.addEventListener('kup-button-click', () => {
 });
 
 const props = {
-    "customStyle": "",
-    "data": {
-        "columns": [
+    customStyle: '',
+    data: {
+        columns: [
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "R§DELI",
-                "obj": {
-                    "k": "",
-                    "p": "LS04",
-                    "t": "H3"
+                isEditable: false,
+                isKey: false,
+                name: 'R§DELI',
+                obj: {
+                    k: '',
+                    p: 'LS04',
+                    t: 'H3',
                 },
-                "title": "Deliverable",
-                "tooltip": true
+                title: 'Deliverable',
+                tooltip: true,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "DATSTA",
-                "obj": {
-                    "k": "",
-                    "p": "*YYMD",
-                    "t": "D8"
+                isEditable: false,
+                isKey: false,
+                name: 'DATSTA',
+                obj: {
+                    k: '',
+                    p: '*YYMD',
+                    t: 'D8',
                 },
-                "title": "Data Inizio.",
-                "tooltip": true
+                title: 'Data Inizio.',
+                tooltip: true,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "DATSTO",
-                "obj": {
-                    "k": "",
-                    "p": "*YYMD",
-                    "t": "D8"
+                isEditable: false,
+                isKey: false,
+                name: 'DATSTO',
+                obj: {
+                    k: '',
+                    p: '*YYMD',
+                    t: 'D8',
                 },
-                "title": "Data Fine Prevista",
-                "tooltip": true
+                title: 'Data Fine Prevista',
+                tooltip: true,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "DATCLO",
-                "obj": {
-                    "k": "",
-                    "p": "*YYMD",
-                    "t": "D8"
+                isEditable: false,
+                isKey: false,
+                name: 'DATCLO',
+                obj: {
+                    k: '',
+                    p: '*YYMD',
+                    t: 'D8',
                 },
-                "title": "Data Chiusura Effettiva",
-                "tooltip": true
+                title: 'Data Chiusura Effettiva',
+                tooltip: true,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "R£DESC",
-                "title": "Descrzione",
-                "tooltip": false
+                isEditable: false,
+                isKey: false,
+                name: 'R£DESC',
+                title: 'Descrzione',
+                tooltip: false,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "R§COMM",
-                "obj": {
-                    "k": "",
-                    "p": "",
-                    "t": "CM"
+                isEditable: false,
+                isKey: false,
+                name: 'R§COMM',
+                obj: {
+                    k: '',
+                    p: '',
+                    t: 'CM',
                 },
-                "title": "Commessa",
-                "tooltip": true
+                title: 'Commessa',
+                tooltip: true,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "R£COMM",
-                "title": "Des.",
-                "tooltip": false
+                isEditable: false,
+                isKey: false,
+                name: 'R£COMM',
+                title: 'Des.',
+                tooltip: false,
             },
             {
-                "isEditable": false,
-                "isKey": false,
-                "name": "PREPLA",
-                "obj": {
-                    "k": "",
-                    "p": "SI/NO",
-                    "t": "V2"
+                isEditable: false,
+                isKey: false,
+                name: 'PREPLA',
+                obj: {
+                    k: '',
+                    p: 'SI/NO',
+                    t: 'V2',
                 },
-                "title": "Presenza Planning",
-                "tooltip": false,
-                "visible": false
-            }
+                title: 'Presenza Planning',
+                tooltip: false,
+                visible: false,
+            },
         ],
-        "rows": [
+        rows: [
             {
-                "cells": {
-                    "DATSTO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                cells: {
+                    DATSTO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20240101",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20240101',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2024-01-01"
+                        value: '2024-01-01',
                     },
-                    "R£DESC": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£DESC': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "FORMAZIONE SU COMPONENTE PLANNER",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: 'FORMAZIONE SU COMPONENTE PLANNER',
+                            p: '',
+                            t: '',
                         },
-                        "value": "FORMAZIONE SU COMPONENTE PLANNER",
-                        "displayedValue": "FORMAZIONE SU COMPONENTE PLANNER"
+                        value: 'FORMAZIONE SU COMPONENTE PLANNER',
+                        displayedValue: 'FORMAZIONE SU COMPONENTE PLANNER',
                     },
-                    "PREPLA": {
-                        "data": {
-                            "size": 2,
-                            "helperEnabled": false,
-                            "checked": false,
-                            "hiddenCounter": true,
-                            "maxLength": 2
+                    PREPLA: {
+                        data: {
+                            size: 2,
+                            helperEnabled: false,
+                            checked: false,
+                            hiddenCounter: true,
+                            maxLength: 2,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "",
-                            "p": "SI/NO",
-                            "t": "V2"
+                        isEditable: false,
+                        obj: {
+                            k: '',
+                            p: 'SI/NO',
+                            t: 'V2',
                         },
-                        "value": ""
+                        value: '',
                     },
-                    "DATCLO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATCLO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20240112",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20240112',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2024-01-12"
+                        value: '2024-01-12',
                     },
-                    "R£COMM": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£COMM': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "1",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: '1',
+                            p: '',
+                            t: '',
                         },
-                        "value": "1"
+                        value: '1',
                     },
-                    "R§DELI": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§DELI': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "NW3000180",
-                            "p": "LS04",
-                            "t": "H3"
+                        isEditable: false,
+                        obj: {
+                            k: 'NW3000180',
+                            p: 'LS04',
+                            t: 'H3',
                         },
-                        "value": "NW3000180",
-                        "displayedValue": "NW3000180"
+                        value: 'NW3000180',
+                        displayedValue: 'NW3000180',
                     },
-                    "DATSTA": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATSTA: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20231120",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20231120',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-11-20"
+                        value: '2023-11-20',
                     },
-                    "R§COMM": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§COMM': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "FOR-S.001",
-                            "p": "",
-                            "t": "CM"
+                        isEditable: false,
+                        obj: {
+                            k: 'FOR-S.001',
+                            p: '',
+                            t: 'CM',
                         },
-                        "value": "FOR-S.001"
-                    }
+                        value: 'FOR-S.001',
+                    },
                 },
-                "id": "1",
-                "object": "",
-                "readOnly": true
+                id: '1',
+                object: '',
+                readOnly: true,
             },
             {
-                "cells": {
-                    "DATSTO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                cells: {
+                    DATSTO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230427",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230427',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-04-27"
+                        value: '2023-04-27',
                     },
-                    "R£DESC": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£DESC': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "SVILUPPO DEL COMPONENTE BTN",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: 'SVILUPPO DEL COMPONENTE BTN',
+                            p: '',
+                            t: '',
                         },
-                        "value": "SVILUPPO DEL COMPONENTE BTN",
-                        "displayedValue": "SVILUPPO DEL COMPONENTE BTN"
+                        value: 'SVILUPPO DEL COMPONENTE BTN',
+                        displayedValue: 'SVILUPPO DEL COMPONENTE BTN',
                     },
-                    "PREPLA": {
-                        "data": {
-                            "size": 2,
-                            "helperEnabled": false,
-                            "checked": false,
-                            "hiddenCounter": true,
-                            "maxLength": 2
+                    PREPLA: {
+                        data: {
+                            size: 2,
+                            helperEnabled: false,
+                            checked: false,
+                            hiddenCounter: true,
+                            maxLength: 2,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "",
-                            "p": "SI/NO",
-                            "t": "V2"
+                        isEditable: false,
+                        obj: {
+                            k: '',
+                            p: 'SI/NO',
+                            t: 'V2',
                         },
-                        "value": ""
+                        value: '',
                     },
-                    "DATCLO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATCLO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230427",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230427',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-04-27"
+                        value: '2023-04-27',
                     },
-                    "R£COMM": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£COMM': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "1",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: '1',
+                            p: '',
+                            t: '',
                         },
-                        "value": "1"
+                        value: '1',
                     },
-                    "R§DELI": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§DELI': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "NW3000181",
-                            "p": "LS04",
-                            "t": "H3"
+                        isEditable: false,
+                        obj: {
+                            k: 'NW3000181',
+                            p: 'LS04',
+                            t: 'H3',
                         },
-                        "value": "NW3000181",
-                        "displayedValue": "NW3000181"
+                        value: 'NW3000181',
+                        displayedValue: 'NW3000181',
                     },
-                    "DATSTA": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATSTA: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230407",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230407',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-04-07"
+                        value: '2023-04-07',
                     },
-                    "R§COMM": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§COMM': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "GRN.OR1.01",
-                            "p": "",
-                            "t": "CM"
+                        isEditable: false,
+                        obj: {
+                            k: 'GRN.OR1.01',
+                            p: '',
+                            t: 'CM',
                         },
-                        "value": "GRN.OR1.01"
-                    }
+                        value: 'GRN.OR1.01',
+                    },
                 },
-                "id": "2",
-                "object": "",
-                "readOnly": true
+                id: '2',
+                object: '',
+                readOnly: true,
             },
             {
-                "cells": {
-                    "DATSTO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                cells: {
+                    DATSTO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230530",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230530',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-05-30"
+                        value: '2023-05-30',
                     },
-                    "R£DESC": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£DESC': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "CORSO DI SICUREZZA",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: 'CORSO DI SICUREZZA',
+                            p: '',
+                            t: '',
                         },
-                        "value": "CORSO DI SICUREZZA",
-                        "displayedValue": "CORSO DI SICUREZZA"
+                        value: 'CORSO DI SICUREZZA',
+                        displayedValue: 'CORSO DI SICUREZZA',
                     },
-                    "PREPLA": {
-                        "data": {
-                            "size": 2,
-                            "helperEnabled": false,
-                            "checked": false,
-                            "hiddenCounter": true,
-                            "maxLength": 2
+                    PREPLA: {
+                        data: {
+                            size: 2,
+                            helperEnabled: false,
+                            checked: false,
+                            hiddenCounter: true,
+                            maxLength: 2,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "",
-                            "p": "SI/NO",
-                            "t": "V2"
+                        isEditable: false,
+                        obj: {
+                            k: '',
+                            p: 'SI/NO',
+                            t: 'V2',
                         },
-                        "value": ""
+                        value: '',
                     },
-                    "DATCLO": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATCLO: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230607",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230607',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-06-07"
+                        value: '2023-06-07',
                     },
-                    "R£COMM": {
-                        "data": {
-                            "size": 35,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 35
+                    'R£COMM': {
+                        data: {
+                            size: 35,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 35,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "0",
-                            "p": "",
-                            "t": ""
+                        isEditable: false,
+                        obj: {
+                            k: '0',
+                            p: '',
+                            t: '',
                         },
-                        "value": "0"
+                        value: '0',
                     },
-                    "R§DELI": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§DELI': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "NW3000182",
-                            "p": "LS04",
-                            "t": "H3"
+                        isEditable: false,
+                        obj: {
+                            k: 'NW3000182',
+                            p: 'LS04',
+                            t: 'H3',
                         },
-                        "value": "NW3000182",
-                        "displayedValue": "NW3000182"
+                        value: 'NW3000182',
+                        displayedValue: 'NW3000182',
                     },
-                    "DATSTA": {
-                        "data": {
-                            "size": 8,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 8
+                    DATSTA: {
+                        data: {
+                            size: 8,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 8,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "20230510",
-                            "p": "*YYMD",
-                            "t": "D8"
+                        isEditable: false,
+                        obj: {
+                            k: '20230510',
+                            p: '*YYMD',
+                            t: 'D8',
                         },
-                        "value": "2023-05-10"
+                        value: '2023-05-10',
                     },
-                    "R§COMM": {
-                        "data": {
-                            "size": 10,
-                            "helperEnabled": false,
-                            "hiddenCounter": true,
-                            "maxLength": 10
+                    'R§COMM': {
+                        data: {
+                            size: 10,
+                            helperEnabled: false,
+                            hiddenCounter: true,
+                            maxLength: 10,
                         },
-                        "isEditable": false,
-                        "obj": {
-                            "k": "FOR-S.001",
-                            "p": "",
-                            "t": "CM"
+                        isEditable: false,
+                        obj: {
+                            k: 'FOR-S.001',
+                            p: '',
+                            t: 'CM',
                         },
-                        "value": "FOR-S.001"
-                    }
+                        value: 'FOR-S.001',
+                    },
                 },
-                "id": "3",
-                "object": "",
-                "readOnly": true
-            }
-        ]
+                id: '3',
+                object: '',
+                readOnly: true,
+            },
+        ],
     },
-    "listCellWidth": "300px",
-    "maxWidth": "90vw",
-    "phaseColorCol": "COLFAS",
-    "phaseColumns": [
-        "DATDIC",
-        "DATFIN"
-    ],
-    "phaseColParDep": "",
-    "phaseDates": [
-        "DATDIC",
-        "DATFIN"
-    ],
-    "phaseIdCol": "CODFAS",
-    "phaseNameCol": "DESFAS",
-    "phasePrevDates": [],
-    "readOnly": false,
-    "showSecondaryDates": false,
-    "taskColumns": [
-        "R§DELI",
-        "R£DESC"
-    ],
-    "taskDates": [
-        "DATSTA",
-        "DATCLO"
-    ],
-    "taskIdCol": "R§DELI",
-    "taskNameCol": "R£DESC",
-    "taskPrevDates": [],
-    "titleMess": "",
-    "taskHeight": 100,
-    "detailHeight": 70,
+    listCellWidth: '300px',
+    maxWidth: '90vw',
+    phaseColorCol: 'COLFAS',
+    phaseColumns: ['DATDIC', 'DATFIN'],
+    phaseColParDep: '',
+    phaseDates: ['DATDIC', 'DATFIN'],
+    phaseIdCol: 'CODFAS',
+    phaseNameCol: 'DESFAS',
+    phasePrevDates: [],
+    readOnly: false,
+    showSecondaryDates: false,
+    taskColumns: ['R§DELI', 'R£DESC'],
+    taskDates: ['DATSTA', 'DATCLO'],
+    taskIdCol: 'R§DELI',
+    taskNameCol: 'R£DESC',
+    taskPrevDates: [],
+    titleMess: '',
+    taskHeight: 100,
+    detailHeight: 70,
 };
 
 if (props) {

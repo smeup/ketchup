@@ -2,7 +2,10 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { KupTextFieldEventPayload } from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
-import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
+import {
+    KupChipChangeEventPayload,
+    KupChipNode,
+} from '../../components/kup-chip/kup-chip-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
@@ -67,6 +70,8 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
+
+import { KupTreeNodeSelectedEventPayload } from '../../components/kup-tree/kup-tree-declarations';
 import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 import { FLabel } from '../f-label/f-label';
 
@@ -849,6 +854,26 @@ function setEditableCell(
                     ></kup-combobox>
                 </kup-chip>
             );
+
+        case FCellTypes.MULTI_SELECT:
+            console.log('cell.data', cell.data);
+            return (
+                <kup-multi-select
+                    data={{
+                        'kup-chip': cell.data['data'].map(
+                            (item: { value: string, id: string }) => ({
+                                value: item.value,
+                                id: item.id,
+                            })
+                        ),
+                    }}
+                    displayChipId={cell.data['displayMode'] === "Both"}
+                    onKup-tree-nodeselected={(
+                        e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ITEMCLICK)}
+                />
+            );
+
         case FCellTypes.RADIO:
             return (
                 <FRadio
@@ -1202,6 +1227,15 @@ function setKupCell(
         case FCellTypes.MULTI_COMBOBOX:
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
+        /*
+        case FCellTypes.MULTI_SELECT:
+            return (
+                <kup-multi-select
+                    key={column.name + props.row.id}
+                    {...subcomponentProps}
+                ></kup-multi-select>
+            );
+        */
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
@@ -1415,6 +1449,7 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
         case FCellTypes.CHIP:
         case FCellTypes.MULTI_AUTOCOMPLETE:
         case FCellTypes.MULTI_COMBOBOX:
+        case FCellTypes.MULTI_SELECT:
         case FCellTypes.RADIO:
             createDataset();
             break;
@@ -1488,6 +1523,7 @@ function cellEvent(
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
             case FCellTypes.MULTI_COMBOBOX:
+            case FCellTypes.MULTI_SELECT:
                 value = (e as CustomEvent<KupChipChangeEventPayload>).detail
                     .stringifiedValues;
                 if (cell.data) {

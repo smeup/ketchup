@@ -142,6 +142,7 @@ Type: `Promise<void>`
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-multi-select](../kup-multi-select)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
@@ -187,6 +188,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
   kup-file-upload --> kup-dialog
+  kup-multi-select --> kup-dialog
+  kup-tree --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
   kup-button-list --> kup-dialog
@@ -201,7 +204,6 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
   kup-tab-bar --> kup-dialog
-  kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog

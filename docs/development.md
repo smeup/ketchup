@@ -87,9 +87,9 @@ npm run build
 
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": ["vue", "html", "javascript", "tipescript"],
+  "eslint.validate": ["vue", "html", "javascript", "typescript"],
   "eslint.run": "onSave",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

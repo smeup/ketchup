@@ -1,47 +1,47 @@
 name: release
 
 on:
-  push:
-    tags: "*"
+    push:
+        tags: '*'
 
 env:
-  AWS_REGION: eu-south-1
+    AWS_REGION: eu-south-1
 
 jobs:
-  ketchup-release:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+    ketchup-release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "18.16.0"
-        cache: "yarn"
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.16.0'
+                  cache: 'yarn'
 
-    - name: Install dependencies
-      run: yarn install --immutable
+            - name: Install dependencies
+              run: yarn install --immutable
 
-    - name: Run Ketchup build
-      run: npm run k:build
+            - name: Run Ketchup build
+              run: npm run k:build
 
-    - name: Run Ketchup Showcase build
-      run: npm run ksc:build
+            - name: Run Ketchup Showcase build
+              run: npm run ksc:build
 
-    - name: Zip artifacts
-      run: |
-        cd packages/ketchup/dist
-        zip -qr /tmp/ketchup.zip *
-        zip -qr /tmp/ketchup-components.zip ketchup/*
+            - name: Zip artifacts
+              run: |
+                  cd packages/ketchup/dist
+                  zip -qr /tmp/ketchup.zip *
+                  zip -qr /tmp/ketchup-components.zip ketchup/*
 
-    - name: Setup AWS
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+            - name: Setup AWS
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ env.AWS_REGION }}
 
-    - name: Upload artifacts to AWS S3
-      run: |
-        aws s3 cp /tmp/ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup.zip
-        aws s3 cp /tmp/ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup-components.zip
+            - name: Upload artifacts to AWS S3
+              run: |
+                  aws s3 cp /tmp/ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup.zip
+                  aws s3 cp /tmp/ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup-components.zip

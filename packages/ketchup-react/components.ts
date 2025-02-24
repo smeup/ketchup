@@ -51,6 +51,7 @@ import { KupInputPanel as KupInputPanelElement, defineCustomElement as defineKup
 import { KupLazy as KupLazyElement, defineCustomElement as defineKupLazy } from "@sme.up/ketchup/dist/components/kup-lazy.js";
 import { KupList as KupListElement, defineCustomElement as defineKupList } from "@sme.up/ketchup/dist/components/kup-list.js";
 import { KupMagicBox as KupMagicBoxElement, defineCustomElement as defineKupMagicBox } from "@sme.up/ketchup/dist/components/kup-magic-box.js";
+import { KupMultiSelect as KupMultiSelectElement, defineCustomElement as defineKupMultiSelect } from "@sme.up/ketchup/dist/components/kup-multi-select.js";
 import { KupNavBar as KupNavBarElement, defineCustomElement as defineKupNavBar } from "@sme.up/ketchup/dist/components/kup-nav-bar.js";
 import { KupNumericPicker as KupNumericPickerElement, defineCustomElement as defineKupNumericPicker } from "@sme.up/ketchup/dist/components/kup-numeric-picker.js";
 import { KupObjectField as KupObjectFieldElement, defineCustomElement as defineKupObjectField } from "@sme.up/ketchup/dist/components/kup-object-field.js";
@@ -834,6 +835,17 @@ export const KupMagicBox: StencilReactComponent<KupMagicBoxElement, KupMagicBoxE
     react: React,
     events: {} as KupMagicBoxEvents,
     defineCustomElement: defineKupMagicBox
+});
+
+type KupMultiSelectEvents = NonNullable<unknown>;
+
+export const KupMultiSelect: StencilReactComponent<KupMultiSelectElement, KupMultiSelectEvents> = /*@__PURE__*/ createComponent<KupMultiSelectElement, KupMultiSelectEvents>({
+    tagName: 'kup-multi-select',
+    elementClass: KupMultiSelectElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {} as KupMultiSelectEvents,
+    defineCustomElement: defineKupMultiSelect
 });
 
 type KupNavBarEvents = {

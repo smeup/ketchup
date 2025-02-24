@@ -3,20 +3,20 @@
 name: ketchup-outsourcing-release
 
 on:
-  push:
-    branches:
-      - staging
+    push:
+        branches:
+            - staging
 
 jobs:
-  run-cicd:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    run-cicd:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Trigger jenkins workflow
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://webuptest.smeup.com/jenkins/job/WebupKetchupOutsourcingPipeline/build?token=${{ secrets.JENKINS_WEBHOOK_TOKEN }}'
-          method: 'GET'
-          username: ${{ secrets.JENKINS_WEBHOOK_USERNAME }}
-          password: ${{ secrets.JENKINS_WEBHOOK_PASSWORD }}
+            - name: Trigger jenkins workflow
+              uses: fjogeleit/http-request-action@v1
+              with:
+                  url: 'https://webuptest.smeup.com/jenkins/job/WebupKetchupOutsourcingPipeline/build?token=${{ secrets.JENKINS_WEBHOOK_TOKEN }}'
+                  method: 'GET'
+                  username: ${{ secrets.JENKINS_WEBHOOK_USERNAME }}
+                  password: ${{ secrets.JENKINS_WEBHOOK_PASSWORD }}

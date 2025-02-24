@@ -133,6 +133,7 @@ Type: `Promise<void>`
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-multi-select](../kup-multi-select)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-object-field](../kup-object-field)
@@ -165,6 +166,7 @@ Type: `Promise<void>`
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-file-upload](../kup-file-upload)
+- [kup-multi-select](../kup-multi-select)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-button-list](../kup-button-list)
@@ -202,6 +204,8 @@ graph TD;
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
   kup-file-upload --> kup-card
+  kup-multi-select --> kup-card
+  kup-tree --> kup-card
   kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-button-list --> kup-card
@@ -216,7 +220,6 @@ graph TD;
   kup-switch --> kup-card
   kup-form --> kup-card
   kup-tab-bar --> kup-card
-  kup-tree --> kup-card
   kup-accordion --> kup-card
   kup-activity-timeline --> kup-card
   kup-box --> kup-card

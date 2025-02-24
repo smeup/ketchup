@@ -1,7 +1,5 @@
 # kup-gantt
 
-
-
 <!-- Auto Generated Below -->
 
 
