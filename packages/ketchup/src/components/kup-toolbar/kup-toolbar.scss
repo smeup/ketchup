@@ -13,7 +13,7 @@
 .parent-class {
   position: relative;
   cursor: pointer;
-  width: 200px;
+  min-width: 175px;
   background-color: var(--kup-gray-color-10);
   display: flex;
   justify-content: space-between;
@@ -34,6 +34,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    @include kup-body-compact-01;
   }
 
   &:hover:not(.toolbar-item-disabled):not(:has(> .f-cell)) {
@@ -101,14 +102,6 @@
       }
       &:hover {
         background-color: var(--kup-gray-color-10-hover);
-      }
-      .radio {
-        padding: var(--kup-space-03) 0 var(--kup-space-03) var(--kup-space-03);
-      }
-      label {
-        width: 100%;
-        cursor: pointer;
-        padding: var(--kup-space-03);
       }
     }
   }
