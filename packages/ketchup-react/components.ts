@@ -1080,6 +1080,7 @@ type KupTabBarEvents = {
     onKupTabbarBlur: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarClick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarIconclick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
+    onKupTabbarInfoiconclick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarFocus: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarItemclick: EventName<KupTabBarCustomEvent<KupToolbarItemClickEventPayload>>
 };
@@ -1093,6 +1094,7 @@ export const KupTabBar: StencilReactComponent<KupTabBarElement, KupTabBarEvents>
         onKupTabbarBlur: 'kup-tabbar-blur',
         onKupTabbarClick: 'kup-tabbar-click',
         onKupTabbarIconclick: 'kup-tabbar-iconclick',
+        onKupTabbarInfoiconclick: 'kup-tabbar-infoiconclick',
         onKupTabbarFocus: 'kup-tabbar-focus',
         onKupTabbarItemclick: 'kup-tabbar-itemclick'
     } as KupTabBarEvents,
@@ -1278,6 +1280,7 @@ export const KupTxt: StencilReactComponent<KupTxtElement, KupTxtEvents> = /*@__P
 type KupTypographyEvents = {
     onKupTypographyIconclick: EventName<KupTypographyCustomEvent<KupTypographyIconClickEventPayload>>,
     onKupTypographyClick: EventName<KupTypographyCustomEvent<KupTypographyClickEventPayload>>,
+    onKupTypographyInfoiconclick: EventName<KupTypographyCustomEvent<KupTypographyIconClickEventPayload>>,
     onKupTypographyItemclick: EventName<KupTypographyCustomEvent<KupToolbarItemClickEventPayload>>
 };
 
@@ -1289,6 +1292,7 @@ export const KupTypography: StencilReactComponent<KupTypographyElement, KupTypog
     events: {
         onKupTypographyIconclick: 'kup-typography-iconclick',
         onKupTypographyClick: 'kup-typography-click',
+        onKupTypographyInfoiconclick: 'kup-typography-infoiconclick',
         onKupTypographyItemclick: 'kup-typography-itemclick'
     } as KupTypographyEvents,
     defineCustomElement: defineKupTypography

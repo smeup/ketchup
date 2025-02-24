@@ -21,6 +21,7 @@ export interface FRadioData {
     checked: boolean;
     label: string;
     value: string;
+    icon?: string;
 }
 
 export enum FRadioType {

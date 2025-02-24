@@ -4063,6 +4063,12 @@ export namespace Components {
           * @returns Selected node.
          */
         "getSelectedNode": () => Promise<KupTabBarNode>;
+        "infoCallback": () => Promise<KupDataNode[]>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4082,11 +4088,7 @@ export namespace Components {
           * @default false
          */
         "toolbar": boolean;
-        /**
-          * Display DataNode Toolbar.
-          * @default null
-         */
-        "toolbarData": KupDataNode[];
+        "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * List of elements.
           * @default KupTabbarStyling.FLAT
@@ -4719,6 +4721,12 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "infoCallBack": () => Promise<KupDataNode[]>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4734,10 +4742,10 @@ export namespace Components {
          */
         "toolbar": boolean;
         /**
-          * Display DataNode Toolbar.
-          * @default null
+          * This is the callback to retrieve toolbar's data
+          * @default [];
          */
-        "toolbarData": KupDataNode[];
+        "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT
@@ -5945,6 +5953,7 @@ declare global {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-iconclick": KupTabBarEventPayload;
+        "kup-tabbar-infoiconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
         "kup-tabbar-itemclick": KupToolbarItemClickEventPayload;
     }
@@ -6107,6 +6116,7 @@ declare global {
     interface HTMLKupTypographyElementEventMap {
         "kup-typography-iconclick": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
+        "kup-typography-infoiconclick": KupTypographyIconClickEventPayload;
         "kup-typography-itemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTypographyElement extends Components.KupTypography, HTMLStencilElement {
@@ -9476,6 +9486,12 @@ declare namespace LocalJSX {
           * @default false
          */
         "dense"?: boolean;
+        "infoCallback"?: () => Promise<KupDataNode[]>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon"?: boolean;
         /**
           * Triggered when the tab loses focus.
          */
@@ -9493,6 +9509,10 @@ declare namespace LocalJSX {
          */
         "onKup-tabbar-iconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
+          * Triggered when the icon inside tab is clicked.
+         */
+        "onKup-tabbar-infoiconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
           * Triggered when a list item is clicked.
          */
         "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupToolbarItemClickEventPayload>) => void;
@@ -9506,11 +9526,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "toolbar"?: boolean;
-        /**
-          * Display DataNode Toolbar.
-          * @default null
-         */
-        "toolbarData"?: KupDataNode[];
+        "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * List of elements.
           * @default KupTabbarStyling.FLAT
@@ -10085,8 +10101,18 @@ declare namespace LocalJSX {
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
+        "infoCallBack"?: () => Promise<KupDataNode[]>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default false
+         */
+        "infoIcon"?: boolean;
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-iconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
+        /**
+          * Triggered when the info icon inside tab is clicked.
+         */
+        "onKup-typography-infoiconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
         "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * Manage the toolbar icon. If true is visible, otherwise is not
@@ -10094,10 +10120,10 @@ declare namespace LocalJSX {
          */
         "toolbar"?: boolean;
         /**
-          * Display DataNode Toolbar.
-          * @default null
+          * This is the callback to retrieve toolbar's data
+          * @default [];
          */
-        "toolbarData"?: KupDataNode[];
+        "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT
