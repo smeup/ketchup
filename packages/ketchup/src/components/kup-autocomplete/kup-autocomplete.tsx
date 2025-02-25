@@ -583,7 +583,6 @@ export class KupAutocomplete {
     }
 
     #prepList() {
-        console.log('prep list', this.data);
         return (
             <kup-list
                 displayMode={
