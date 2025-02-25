@@ -182,8 +182,8 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
   kup-box --> kup-toolbar
   kup-cell --> kup-toolbar
   kup-image-list --> kup-toolbar
