@@ -1794,7 +1794,6 @@ export class KupInputPanel {
                       ) ?? []
                     : [];
                 kupListData.options = options.columns ?? [];
-                console.log('kupListData', kupListData);
             } else {
                 this.#kupManager.debug.logMessage(
                     this,
