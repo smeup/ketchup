@@ -5,26 +5,29 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type                                                  | Default                 |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------------------------------------------- | ----------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                              | `''`                    |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]`                                     | `null`                  |
-| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`                                             | `false`                 |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                 |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
-| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`                                       | `undefined`             |
-| `variant`     | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
+| Property          | Attribute      | Description                                                     | Type                                                  | Default                 |
+| ----------------- | -------------- | --------------------------------------------------------------- | ----------------------------------------------------- | ----------------------- |
+| `customStyle`     | `custom-style` | Custom style of the component.                                  | `string`                                              | `''`                    |
+| `data`            | --             | List of elements.                                               | `KupTabBarNode[]`                                     | `null`                  |
+| `dense`           | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`                                             | `false`                 |
+| `infoCallback`    | --             |                                                                 | `() => Promise<KupDataNode[]>`                        | `undefined`             |
+| `infoIcon`        | `info-icon`    | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
+| `ripple`          | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                 |
+| `toolbar`         | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
+| `toolbarCallback` | --             |                                                                 | `() => Promise<KupDataNode[]>`                        | `undefined`             |
+| `variant`         | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
 
 
 ## Events
 
-| Event                  | Description                                    | Type                                           |
-| ---------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `kup-tabbar-blur`      | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-click`     | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-focus`     | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-iconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
+| Event                      | Description                                    | Type                                           |
+| -------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `kup-tabbar-blur`          | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-click`         | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-focus`         | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-iconclick`     | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-infoiconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-itemclick`     | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
 
 
 ## Methods
@@ -105,6 +108,7 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-toolbar](../kup-toolbar)
+- [kup-list](../kup-list)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -113,6 +117,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

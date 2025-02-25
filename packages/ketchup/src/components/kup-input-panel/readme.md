@@ -16,7 +16,7 @@
 | `customStyle`              | `custom-style`         | Custom style of the component.                                                     | `string`                                                                                                                                                                                                     | `''`                                   |
 | `dashboardMode`            | `dashboard-mode`       | Sets verical layout if dashboardMode is true                                       | `boolean`                                                                                                                                                                                                    | `false`                                |
 | `data`                     | --                     | Actual data of the form.                                                           | `KupInputPanelData`                                                                                                                                                                                          | `null`                                 |
-| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter.             | `boolean`                                                                                                                                                                                                    | `false`                                |
+| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter.``           | `boolean`                                                                                                                                                                                                    | `false`                                |
 | `inputPanelPosition`       | `input-panel-position` | Dispositions of the whole input panel elements                                     | `KupInputPanelPosition.COLUMNS \| KupInputPanelPosition.INLINE \| KupInputPanelPosition.PLACEHOLDER \| KupInputPanelPosition.STRETCHED \| KupInputPanelPosition.UPCOLUMNS \| KupInputPanelPosition.UPINLINE` | `KupInputPanelPosition.COLUMNS`        |
 | `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                              | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>`                                                                                               | `null`                                 |
 | `submitCb`                 | --                     | Sets the callback function on submit form                                          | `(e: KupInputPanelSubmit) => unknown`                                                                                                                                                                        | `null`                                 |
@@ -316,6 +316,7 @@ graph TD;
   kup-form --> kup-badge
   kup-form --> kup-toolbar
   kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

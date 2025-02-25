@@ -76,7 +76,7 @@ function getFontColorCss(c: string): string {
             result = 'color: #3A539B !important;'; // blue
             break;
         case '3':
-            result = 'color: #C0392B !important;'; // red
+            result = 'color: var(--kup-danger-color-60) !important;'; // red
             break;
         case '4':
             result = 'color: #C0C0C0 !important;'; // dark grey
@@ -85,7 +85,7 @@ function getFontColorCss(c: string): string {
             result = 'color: #FFFFFF !important;'; // white
             break;
         case '6':
-            result = 'color: #26A65B !important;'; // green
+            result = 'color: var(--kup-success-color-60) !important;'; // green
             break;
         case '7':
             result = 'color: #9B59B6 !important;'; // purple
@@ -124,7 +124,7 @@ function getBackgroundColorCss(c: string) {
 
     switch (c) {
         case '0':
-            ris = `background: #FFFFFF;`;
+            ris = `background: transparent;`;
             break;
         case '1':
             ris = `background: #D5ECF7;`;

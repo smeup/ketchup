@@ -1899,7 +1899,8 @@ export class KupDataTable {
         const id = rowIdentifier;
         const row = this.#getRow(id);
         if (row) {
-            const idx = this.#rows.indexOf(row) - 1;
+            const idx =
+                this.#rows.indexOf(row) - this.calculateScrollToRowOffset();
             if (idx >= 1) {
                 this.#rowsRefs[idx]?.scrollIntoView();
             }
@@ -3929,7 +3930,7 @@ export class KupDataTable {
         const validFixedColumnR: boolean =
             this.fixedColumnsR &&
             Number.isInteger(this.fixedColumnsR) &&
-            columnCssIndexR >
+            columnCssIndexR >=
                 this.getVisibleColumns().length - this.fixedColumnsR;
         const validFixedRowIndex =
             Number.isInteger(this.fixedRows) &&
@@ -3954,16 +3955,13 @@ export class KupDataTable {
         }
 
         if (validFixedColumnR) {
-            const prog =
-                columnCssIndexR - (this.getVisibleColumns().length - 1);
-            const progIdx = prog - this.fixedColumnsR;
-            const absIdx = Math.abs(progIdx);
+            const idx = this.getVisibleColumns().length - columnCssIndexR;
             fixedCellClasses[FixedCellsClasses.columnsR] = validFixedColumnR;
             fixedCellClasses['show-column-separator'] =
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid;
             fixedCellStyle['right'] =
-                'var(' + (FixedCellsCSSVarsBase.columnsR + absIdx) + ')'; // right value assignment must be reversed
+                'var(' + (FixedCellsCSSVarsBase.columnsR + idx) + ')'; // right value assignment must be reversed
         }
 
         if (validFixedRowIndex) {
@@ -4638,7 +4636,7 @@ export class KupDataTable {
         // For fixed cells styles and classes
         const fixedCellStyle = this.#composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
-            columnIndex + 1,
+            columnIndex,
             0,
             extraCells
         );
@@ -5077,7 +5075,7 @@ export class KupDataTable {
             (column: KupDataColumn, columnIndex) => {
                 const fixedCellStyle = this.#composeFixedCellStyleAndClass(
                     columnIndex + 1 + extraCells,
-                    columnIndex + 1,
+                    columnIndex,
                     0,
                     extraCells
                 );
@@ -5539,6 +5537,7 @@ export class KupDataTable {
                 const selectionStyleAndClass =
                     this.#composeFixedCellStyleAndClass(
                         specialExtraCellsCount,
+                        0,
                         rowCssIndex,
                         specialExtraCellsCount - 1
                     );
@@ -5581,6 +5580,7 @@ export class KupDataTable {
                 const actionsStyleAndClass =
                     this.#composeFixedCellStyleAndClass(
                         specialExtraCellsCount,
+                        0,
                         rowCssIndex,
                         specialExtraCellsCount - 1
                     );
@@ -5748,7 +5748,7 @@ export class KupDataTable {
                 //-- For fixed cells --
                 const fixedStyles = this.#composeFixedCellStyleAndClass(
                     cellIndex + 1 + specialExtraCellsCount,
-                    cellIndex + 1,
+                    cellIndex,
                     rowCssIndex,
                     specialExtraCellsCount
                 );
@@ -6619,6 +6619,17 @@ export class KupDataTable {
                 <div class="commands">{commandButtons}</div>
             )
         );
+    }
+
+    calculateScrollToRowOffset(): number {
+        let maxNewlines = 0;
+
+        this.data.columns.forEach((column) => {
+            const newlineCount = (column.title.match(/\n/g) || []).length;
+            maxNewlines = Math.max(maxNewlines, newlineCount);
+        });
+
+        return maxNewlines + 1;
     }
 
     render() {

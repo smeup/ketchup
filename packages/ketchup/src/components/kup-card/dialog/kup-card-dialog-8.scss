@@ -1,0 +1,164 @@
+.dialog-layout-8 {
+    background: var(--kup-background-color);
+    border-radius: 3px;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+      0 1px 3px 0 rgb(0 0 0 / 12%);
+    color: var(--kup-text-color);
+    display: block;
+    font-size: var(--kup-font-size);
+    outline: none;
+  
+    .section-1 {
+      --kup-button-font-size: 0.75em;
+  
+      box-sizing: border-box;
+      display: flex;
+      padding: 1em;
+  
+      .sub-1 {
+        width: 100%;
+      }
+  
+      .top {
+        display: flex;
+        justify-content: space-between;
+      }
+  
+      .buttons {
+        display: flex;
+      }
+  
+      .sub-spinner {
+        height: 88px;
+        width: 88px;
+        margin: 0 10px;
+      }
+  
+      .f-image {
+        margin: 0 0.5em 0 0;
+      }
+  
+      .title {
+        align-items: flex-end;
+        display: flex;
+        font-size: 1.25em;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+        padding: 0 0.25em 0.25em;
+        text-align: left;
+  
+        .label {
+          cursor: pointer;
+          padding-right: 0.25em;
+          padding-top: 0.5em;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          @include kup-heading-02;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+  
+      .info {
+        display: flex;
+        padding: 0 0.25em 0.25em;
+        width: 100%;
+  
+        .label {
+          color: rgba(var(--kup-text-color-rgb), 0.75);
+          margin-right: 0.75em;
+          min-width: max-content;
+          width: auto;
+          @include kup-body-compact-01;
+        }
+  
+        .value {
+          font-weight: 600;
+          width: 100%;
+          @include kup-heading-compact-01;
+        }
+      }
+    }
+  
+    .section-2 {
+      border-top: 1px solid var(--kup-border-subtle);
+      box-sizing: border-box;
+      height: 180px;
+      opacity: 1;
+      overflow: auto;
+      transition: height 250ms ease-out, opacity 250ms ease-out;
+  
+      .info {
+        box-sizing: border-box;
+        height: 100%;
+        overflow: auto;
+        padding: 1.25em;
+      }
+  
+      .detail-row {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+  
+        &:not(:last-child) {
+          margin-bottom: 6px;
+        }
+  
+        &__label {
+          color: rgba(var(--kup-text-color-rgb), 0.5);
+          margin-top: 0.175em;
+          max-width: 320px;
+          padding-right: 1.25em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @include kup-body-compact-01;
+        }
+  
+        &__value {
+          color: var(--kup-text-color);
+          font-size: 105%;
+          font-weight: 600;
+          max-width: 320px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @include kup-heading-compact-01;
+        }
+      }
+  
+      kup-tree {
+        text-align: left;
+      }
+    }
+  
+    .section-3 {
+      border-top: 1px solid var(--kup-border-subtle);
+      display: flex;
+      justify-content: flex-end;
+      padding: 6px {
+        top: 2px;
+        bottom: 2px;
+      }
+  
+      kup-button {
+        margin: auto 0;
+      }
+    }
+  
+    #open-in-new,
+    #search,
+    #new {
+      margin: 0 0 0.5em 0;
+    }
+  }
+  
+  @media screen and (min-width: 678px) {
+    .dialog-layout-8 {
+      max-width: 40vw;
+    }
+  }
+  
