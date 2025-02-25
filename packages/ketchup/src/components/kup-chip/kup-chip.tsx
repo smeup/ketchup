@@ -40,6 +40,7 @@ import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupAutocompleteEventPayload } from '../kup-autocomplete/kup-autocomplete-declarations';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -92,6 +93,12 @@ export class KupChip {
      * @default FChipStyling.RAISED
      */
     @Prop() styling: FChipStyling = FChipStyling.RAISED;
+
+    /**
+     * When enabled, the chip's text will display both the id and description.
+     * @default ItemsDisplayMode.DESCRIPTION
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -384,6 +391,7 @@ export class KupChip {
                 : false,
             data: this.data,
             displayId: this.displayId,
+            displayMode: this.displayMode,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,

@@ -13,6 +13,7 @@ import {
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -191,14 +192,29 @@ function createChipList(
             }
 
             let chipText: string = '';
-            if (props.displayId) {
-                if (chip.value) {
-                    chipText = chip.id + ' - ' + chip.value;
-                } else {
+            // if (props.displayId) {
+            //     if (chip.value) {
+            //         chipText = chip.id + ' - ' + chip.value;
+            //     } else {
+            //         chipText = chip.id;
+            //     }
+            // } else {
+            //     chipText = chip.value;
+            // }
+
+            switch (props.displayMode) {
+                case ItemsDisplayMode.CODE:
                     chipText = chip.id;
-                }
-            } else {
-                chipText = chip.value;
+                    break;
+                case ItemsDisplayMode.DESCRIPTION:
+                    chipText = chip.value;
+                    break;
+                case ItemsDisplayMode.CODE_AND_DESC:
+                    chipText = chip.id + ' - ' + chip.value;
+                    break;
+                default:
+                    chipText = chip.value;
+                    break;
             }
 
             return (
