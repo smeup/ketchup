@@ -98,7 +98,7 @@ export class FiltersRows extends Filters {
 
                 for (let i = 0; i < columns.length; i++) {
                     if (
-                        (!columns[i].visible && !visibleColumns) ||
+                        (!columns[i].visible === false && !visibleColumns) ||
                         (visibleColumns?.length > 0 &&
                             !visibleColumns.includes(columns[i].name))
                     ) {

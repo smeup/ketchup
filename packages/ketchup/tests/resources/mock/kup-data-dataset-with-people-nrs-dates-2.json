@@ -3,8 +3,7 @@
         {
             "name": "FLD1",
             "title": "Column A",
-            "size": "",
-            "visible": true
+            "size": ""
         },
         {
             "name": "FLD2",
@@ -14,8 +13,7 @@
                 "t": "NR",
                 "p": "",
                 "k": ""
-            },
-            "visible": true
+            }
         },
         {
             "name": "FLD3",
@@ -25,8 +23,7 @@
                 "t": "NR",
                 "p": "",
                 "k": ""
-            },
-            "visible": true
+            }
         },
         {
             "name": "FLD4",
@@ -37,8 +34,7 @@
                 "p": "*YYMD",
                 "k": ""
             },
-            "icon": "calendar",
-            "visible": true
+            "icon": "calendar"
         }
     ],
 
