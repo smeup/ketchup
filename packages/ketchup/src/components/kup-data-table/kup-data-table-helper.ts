@@ -178,7 +178,8 @@ export function filterRows(
     globalFilter: string = '',
     columns: KupDataColumn[] = [],
     columnFilters?: FiltersColumnMenu,
-    filtersRows?: FiltersRows
+    filtersRows?: FiltersRows,
+    visibleColumns?: string[]
 ): Array<KupDataTableRow> {
     if (filtersRows == null) {
         filtersRows = new FiltersRows();
@@ -189,7 +190,8 @@ export function filterRows(
         filters,
         globalFilter,
         columns,
-        columnFilters
+        columnFilters,
+        visibleColumns
     );
 }
 
@@ -323,7 +325,6 @@ export function groupRows(
     adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
-
     return groupRows;
 }
 

@@ -66,7 +66,8 @@ export class FiltersRows extends Filters {
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): boolean {
         return this.areCellsCompliant(
             r.cells,
@@ -74,7 +75,8 @@ export class FiltersRows extends Filters {
             globalFilter,
             isUsingGlobalFilter,
             columns,
-            columnFilters
+            columnFilters,
+            visibleColumns
         );
     }
 
@@ -84,7 +86,8 @@ export class FiltersRows extends Filters {
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): boolean {
         if (isUsingGlobalFilter) {
             let retValue = true;
@@ -93,11 +96,15 @@ export class FiltersRows extends Filters {
                 retValue = false;
                 let _filterIsNegative = this.filterIsNegative(globalFilter);
 
-                // Search among all visible columns for the global filter
                 for (let i = 0; i < columns.length; i++) {
-                    if (columns[i].visible == false) {
+                    if (
+                        (!columns[i].visible === false && !visibleColumns) ||
+                        (visibleColumns?.length > 0 &&
+                            !visibleColumns.includes(columns[i].name))
+                    ) {
                         continue;
                     }
+
                     const cell = cells[columns[i].name];
                     if (cell == null) {
                         continue;
@@ -239,7 +246,8 @@ export class FiltersRows extends Filters {
         filters: GenericFilter = {},
         globalFilter: string = '',
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): Array<KupDataRow> {
         if (!rows || rows == null) {
             return [];
@@ -262,7 +270,8 @@ export class FiltersRows extends Filters {
                         globalFilter,
                         isUsingGlobalFilter,
                         columns,
-                        columnFilters
+                        columnFilters,
+                        visibleColumns
                     )
                 ) {
                     filteredRows[filteredRows.length] = r;
