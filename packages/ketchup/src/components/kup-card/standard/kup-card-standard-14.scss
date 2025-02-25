@@ -1,9 +1,11 @@
+$padding: 0.5em;
+
 .standard-layout-14 {
   background-color: var(--kup-background-color);
   box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
     0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
   color: var(--kup-text-color);
-  max-width: 40vw;
+  max-width: 35vw;
   min-width: 200px;
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -13,7 +15,7 @@
 
     box-sizing: border-box;
     display: flex;
-    padding: 1em;
+    padding: $padding;
 
     .sub-1 {
       width: 100%;
@@ -35,7 +37,7 @@
     }
 
     .f-image {
-      margin: 0 0.5em 0 0;
+      margin: 0 $padding 0 0;
     }
 
     .title {
@@ -43,14 +45,14 @@
       display: flex;
       font-size: 1.25em;
       font-weight: 600;
-      margin-bottom: 0.5em;
+      margin-bottom: $padding;
       padding: 0 0.25em 0.25em;
       text-align: left;
 
       .label {
         cursor: pointer;
         padding-right: 0.25em;
-        padding-top: 0.5em;
+        padding-top: $padding;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -85,7 +87,7 @@
 
   .section-2,
   .section-3 {
-    padding: 1em;
+    padding: $padding;
 
     .tooltip-container {
       position: absolute;
