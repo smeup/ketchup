@@ -98,12 +98,13 @@ export class FiltersRows extends Filters {
 
                 for (let i = 0; i < columns.length; i++) {
                     if (
-                        !columns[i].visible &&
-                        (!visibleColumns ||
+                        (!columns[i].visible && !visibleColumns) ||
+                        (visibleColumns?.length > 0 &&
                             !visibleColumns.includes(columns[i].name))
                     ) {
                         continue;
                     }
+
                     const cell = cells[columns[i].name];
                     if (cell == null) {
                         continue;
