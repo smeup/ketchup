@@ -720,7 +720,7 @@ export class KupDataTable {
      */
     @Prop({ reflect: true }) legacyLook = false;
     /**
-     * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+     * When enabled, the table wrapper won't have overflow in order to make the fixed column and footer adapt to the webupjs dsh mode
      */
     @Prop({ reflect: true }) isDashboardMode = false;
     /**
