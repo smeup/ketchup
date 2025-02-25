@@ -192,15 +192,6 @@ function createChipList(
             }
 
             let chipText: string = '';
-            // if (props.displayId) {
-            //     if (chip.value) {
-            //         chipText = chip.id + ' - ' + chip.value;
-            //     } else {
-            //         chipText = chip.id;
-            //     }
-            // } else {
-            //     chipText = chip.value;
-            // }
 
             switch (props.displayMode) {
                 case ItemsDisplayMode.CODE:
