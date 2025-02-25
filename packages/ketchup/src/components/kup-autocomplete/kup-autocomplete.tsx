@@ -585,11 +585,7 @@ export class KupAutocomplete {
     #prepList() {
         return (
             <kup-list
-                displayMode={
-                    this.data['kup-list'].options?.length === 1
-                        ? ItemsDisplayMode.CODE
-                        : ItemsDisplayMode.CODE_AND_DESC
-                }
+                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>

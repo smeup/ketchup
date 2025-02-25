@@ -1723,7 +1723,7 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: value ? cells[value].value : cells[id].value,
+                value: value ? cells[value].value : '',
                 selected: currentValue === cells[id].value,
             };
         });
@@ -1794,6 +1794,7 @@ export class KupInputPanel {
                       ) ?? []
                     : [];
                 kupListData.options = options.columns ?? [];
+                console.log('kupListData', kupListData);
             } else {
                 this.#kupManager.debug.logMessage(
                     this,
