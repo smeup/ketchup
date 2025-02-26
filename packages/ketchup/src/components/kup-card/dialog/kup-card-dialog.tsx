@@ -388,37 +388,6 @@ export function create8(component: KupCard): VNode {
                                     </span>
                                 </div>
                             ) : null}
-                            {buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                            ) ||
-                            buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_SEARCH
-                            ) ? (
-                                <div class="buttons">
-                                    {buttonsIds.includes(
-                                        KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                                    ) ? (
-                                        <kup-button
-                                            {...buttonArray.find(
-                                                (x) =>
-                                                    x.id ===
-                                                    KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                                            )}
-                                        />
-                                    ) : null}
-                                    {buttonsIds.includes(
-                                        KupColumnMenuIds.BUTTON_SEARCH
-                                    ) ? (
-                                        <kup-button
-                                            {...buttonArray.find(
-                                                (x) =>
-                                                    x.id ===
-                                                    KupColumnMenuIds.BUTTON_SEARCH
-                                            )}
-                                        />
-                                    ) : null}
-                                </div>
-                            ) : null}
                         </div>
                     ) : null}
                     {sectionOneArray[1] && sectionOneArray[2] ? (
@@ -434,6 +403,30 @@ export function create8(component: KupCard): VNode {
                         </div>
                     ) : null}
                 </div>
+                {buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
+                buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                    <div class="buttons">
+                        {buttonsIds.includes(
+                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                        ) ? (
+                            <kup-button
+                                {...buttonArray.find(
+                                    (x) =>
+                                        x.id ===
+                                        KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                )}
+                            />
+                        ) : null}
+                        {buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                            <kup-button
+                                {...buttonArray.find(
+                                    (x) =>
+                                        x.id === KupColumnMenuIds.BUTTON_SEARCH
+                                )}
+                            />
+                        ) : null}
+                    </div>
+                ) : null}
             </div>
             <div class="section-2">
                 <div
