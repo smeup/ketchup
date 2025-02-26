@@ -1014,6 +1014,7 @@ function setEditableCell(
                         integers={props.column.integers}
                         group={props.column.group}
                         value={cell.value}
+                        label={column.title}
                         onChange={onChange}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
