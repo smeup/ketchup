@@ -1723,7 +1723,7 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: value ? cells[value].value : '',
+                value: value ? cells[value].value : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
