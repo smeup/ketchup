@@ -22,10 +22,11 @@
     --kup-familytree-item-color,
     var(--kup-text-color)
   );
-  --kup_familytree_item_height: var(--kup-familytree-item-height, 80px);
+  --kup_familytree_item_minheight: var(--kup-familytree-item-minheight, 32px);
+  --kup_familytree_item_height: var(--kup-familytree-item-height, 100%);
   --kup_familytree_item_h_padding: var(
     --kup-familytree-item-h-padding,
-    var(--kup-space-03)
+    var(--kup-space-00)
   );
   --kup_familytree_item_v_padding: var(
     --kup-familytree-item-v-padding,
@@ -77,7 +78,7 @@
             0px -
               (
                 var(--kup_familytree_staffchildren) *
-                  var(--kup_familytree_item_height) +
+                  var(--kup_familytree_item_minheight) +
                   var(--kup_familytree_staffchildren) *
                   (var(--kup_familytree_item_v_padding) * 2)
               )
@@ -93,7 +94,7 @@
           content: '';
           position: absolute;
           transform: translateX(calc(100% + 2px))
-            translateY(calc(var(--kup_familytree_item_height) / 2));
+            translateY(calc(var(--kup_familytree_item_minheight) / 2));
           width: var(--kup_familytree_item_h_padding);
         }
       }
@@ -111,12 +112,13 @@
     }
 
     &--placeholder {
-      height: calc(var(--kup_familytree_item_height) / 2);
+      height: 32px;
     }
 
     &--staff {
       height: calc(
-        var(--kup_familytree_staffchildren) * var(--kup_familytree_item_height) +
+        var(--kup_familytree_staffchildren) *
+          var(--kup_familytree_item_minheight) +
           var(--kup_familytree_staffchildren) *
           (var(--kup_familytree_item_v_padding) * 2)
       );
@@ -143,12 +145,13 @@
 
     &__wrapper {
       margin: auto;
+      display: flex;
+      flex-direction: column;
 
       kup-box {
         margin: 0 auto;
         overflow: hidden;
-        padding: 0 18px;
-        width: var(--kup_familytree_item_width);
+        padding: 0 var(--kup-space-05);
         z-index: 1;
       }
 
@@ -173,7 +176,8 @@
       background-color: var(--kup_familytree_item_background_color);
       box-sizing: border-box;
       display: flex;
-      height: var(--kup_familytree_item_height);
+      height: (--kup_familytree_item_minheight);
+      min-height: 32px;
 
       margin: 0 18px;
       width: var(--kup_familytree_item_width);
