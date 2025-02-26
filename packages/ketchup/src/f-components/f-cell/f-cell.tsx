@@ -777,7 +777,9 @@ function setEditableCell(
         case FCellTypes.MULTI_AUTOCOMPLETE:
             return (
                 <kup-chip
-                    displayId={true}
+                    displayMode={
+                        cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
+                    }
                     {...cell.data}
                     type={FChipType.INPUT}
                     enableInput={true}
@@ -817,7 +819,9 @@ function setEditableCell(
         case FCellTypes.MULTI_COMBOBOX:
             return (
                 <kup-chip
-                    displayId={true}
+                    displayMode={
+                        cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
+                    }
                     {...cell.data}
                     type={FChipType.INPUT}
                     enableInput={true}
