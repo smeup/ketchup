@@ -611,7 +611,6 @@ export class KupInputPanel {
             ...cell.data,
             sizing: 'extra-small',
         };
-
         const cellProps: FCellProps = {
             cell,
             column,
@@ -1678,7 +1677,6 @@ export class KupInputPanel {
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {
         const adapter = this.#optionsAdapterMap.get(options.type);
-
         if (adapter) {
             return adapter(options, currentValue);
         } else {
@@ -1795,6 +1793,7 @@ export class KupInputPanel {
                           cell.value
                       ) ?? []
                     : [];
+                kupListData.options = options.columns ?? [];
             } else {
                 this.#kupManager.debug.logMessage(
                     this,
