@@ -166,8 +166,8 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-badge
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-badge
+  kup-tab-bar --> kup-badge
   kup-accordion --> kup-badge
   kup-activity-timeline --> kup-badge
   kup-box --> kup-badge

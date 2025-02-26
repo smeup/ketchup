@@ -1653,6 +1653,10 @@ export namespace Components {
          */
         "insertNewRow": (row: KupDataTableRow, unshift?: boolean) => Promise<void>;
         /**
+          * When enabled, the table wrapper won't have overflow in order to make the fixed column and footer adapt to the webupjs dsh mode
+         */
+        "isDashboardMode": boolean;
+        /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
          */
@@ -7504,6 +7508,10 @@ declare namespace LocalJSX {
           * @default '''
          */
         "insertMode"?: KupDataTableInsertMode;
+        /**
+          * When enabled, the table wrapper won't have overflow in order to make the fixed column and footer adapt to the webupjs dsh mode
+         */
+        "isDashboardMode"?: boolean;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false

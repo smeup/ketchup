@@ -184,10 +184,10 @@ graph TD;
   kup-card --> kup-spinner
   kup-card --> kup-checkbox
   kup-card --> kup-data-table
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
   kup-card --> kup-dropdown-button
+  kup-card --> kup-tree
+  kup-card --> kup-tab-bar
+  kup-card --> kup-switch
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -322,11 +322,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-list
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -346,6 +341,11 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   style kup-family-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

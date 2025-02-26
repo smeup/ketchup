@@ -199,12 +199,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-file-upload
+  kup-tree --> kup-file-upload
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-file-upload
   kup-box --> kup-file-upload
   kup-cell --> kup-file-upload
   kup-image-list --> kup-file-upload

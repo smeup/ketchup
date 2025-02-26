@@ -202,12 +202,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-date-picker
+  kup-tree --> kup-date-picker
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-date-picker
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker
   kup-image-list --> kup-date-picker
