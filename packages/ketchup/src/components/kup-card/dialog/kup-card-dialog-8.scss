@@ -148,7 +148,7 @@
   }
 
   .section-3 {
-    width: fit-content;
+    width: 100%;
     border-top: 1px solid var(--kup-border-subtle);
     display: flex;
     justify-content: flex-end;
@@ -171,6 +171,6 @@
 
 @media screen and (min-width: 678px) {
   .dialog-layout-8 {
-    max-width: 20vw;
+    max-width: 40vw;
   }
 }
