@@ -6640,6 +6640,16 @@ export class KupDataTable {
         return maxNewlines + 1;
     }
 
+    componentShouldUpdate(_newValue: any, _oldValue: any, propName: string) {
+        switch (propName) {
+            case 'columnMenuAnchor':
+                return false;
+
+            default:
+                return true;
+        }
+    }
+
     render() {
         this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
