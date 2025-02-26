@@ -148,16 +148,21 @@
   }
 
   .section-3 {
+    overflow-x: scroll;
     border-top: 1px solid var(--kup-border-subtle);
-    display: flex;
-    justify-content: flex-end;
-    padding: 6px {
-      top: 2px;
-      bottom: 2px;
-    }
 
-    kup-button {
-      margin: auto 0;
+    .buttons-list {
+      width: fit-content;
+      display: flex;
+      justify-content: flex-end;
+      padding: 6px {
+        top: 2px;
+        bottom: 2px;
+      }
+
+      kup-button {
+        margin: auto 0;
+      }
     }
   }
 
