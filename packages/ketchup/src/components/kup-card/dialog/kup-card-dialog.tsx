@@ -359,7 +359,6 @@ export function create8(component: KupCard): VNode {
             <div class="section-1">
                 {imageArray[0] ? (
                     <FImage
-                        id="image1"
                         {...imageArray[0]}
                         sizeX="84px"
                         sizeY="84px"
@@ -373,11 +372,11 @@ export function create8(component: KupCard): VNode {
                         />
                     </div>
                 )}
-                <div class="sub-1">
+                <div class="header">
                     {textArray[0] ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
-                        <div class="top">
+                        <div class="main">
                             {textArray[0] ? (
                                 <div class="title">
                                     <span
