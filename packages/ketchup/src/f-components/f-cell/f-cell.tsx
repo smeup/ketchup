@@ -747,6 +747,9 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+            const onEditorKeyDown = (e: KeyboardEvent) => {
+                e.stopPropagation();
+            };
             return (
                 <FTextField
                     {...cell.data}
@@ -766,6 +769,7 @@ function setEditableCell(
                     onBlur={(e: FocusEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.BLUR)
                     }
+                    onKeyDown={onEditorKeyDown}
                 />
             );
         case FCellTypes.FILE_UPLOAD:
@@ -938,15 +942,18 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (
-                    (!(
-                        cell.shape == 'MEMO' ||
-                        cell.data?.maxLength >= 256 ||
-                        cellType == FCellTypes.MEMO
-                    ) &&
-                        e.key === 'Enter') ||
-                    /^F[1-9]|F1[0-2]$/.test(e.key)
-                ) {
+
+                const isMemo =
+                    cell.shape === 'MEMO' ||
+                    cell.data?.maxLength >= 256 ||
+                    cellType === FCellTypes.MEMO;
+
+                if (isMemo) {
+                    e.stopPropagation();
+                    return;
+                }
+
+                if (e.key === 'Enter' || /^F[1-9]|F1[0-2]$/.test(e.key)) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
