@@ -355,6 +355,7 @@ export function create8(component: KupCard): VNode {
     };
     return (
         <div class={`dialog-layout-${component.layoutNumber}`}>
+            <div id={KupCardIds.DRAG_HANDLE} class="drag-handle"></div>
             <div class="section-1">
                 {imageArray[0] ? (
                     <FImage
@@ -455,18 +456,20 @@ export function create8(component: KupCard): VNode {
                 </div>
             </div>
             {genericButtons.length > 0 ? (
-                <div class="section-3">
-                    {compList(genericButtons.slice(0, 5), 'button')}
-                    {genericButtons.length > 5 ? createDropdown() : null}
-                    {treeArray[0] ? (
-                        <kup-button
-                            title={dom.ketchup.language.translate(
-                                KupLanguageGeneric.SHOW_ROW_OPTIONS
-                            )}
-                            id="view-selector"
-                            icon="menu"
-                        ></kup-button>
-                    ) : null}
+                <div style={{ 'overflow-x': 'scroll' }}>
+                    <div class="section-3">
+                        {compList(genericButtons.slice(0, 5), 'button')}
+                        {genericButtons.length > 5 ? createDropdown() : null}
+                        {treeArray[0] ? (
+                            <kup-button
+                                title={dom.ketchup.language.translate(
+                                    KupLanguageGeneric.SHOW_ROW_OPTIONS
+                                )}
+                                id="view-selector"
+                                icon="menu"
+                            ></kup-button>
+                        ) : null}
+                    </div>
                 </div>
             ) : null}
         </div>
