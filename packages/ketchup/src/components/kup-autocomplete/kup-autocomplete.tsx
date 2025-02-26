@@ -584,7 +584,6 @@ export class KupAutocomplete {
 
     #prepList() {
         const displayModeForList =
-            this.data['kup-list'].options &&
             this.data['kup-list'].options?.length === 1
                 ? ItemsDisplayMode.CODE
                 : ItemsDisplayMode.CODE_AND_DESC;
