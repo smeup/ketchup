@@ -203,12 +203,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-color-picker
+  kup-tree --> kup-color-picker
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-color-picker
   kup-box --> kup-color-picker
   kup-cell --> kup-color-picker
   kup-image-list --> kup-color-picker

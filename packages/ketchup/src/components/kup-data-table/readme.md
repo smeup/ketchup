@@ -61,6 +61,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `headerIsPersistent`        | `header-is-persistent`         | When set to true the header will stick on top of the table when scrolling.                                                                                                                                                                  | `boolean`                                                                                                         | `true`                               |
 | `hiddenSubmitButton`        | `hidden-submit-button`         | When set to true, the subimt button is hidden                                                                                                                                                                                               | `boolean`                                                                                                         | `false`                              |
 | `insertMode`                | `insert-mode`                  | Enables insert mode.                                                                                                                                                                                                                        | `"" \| "form" \| "row"`                                                                                           | `''`                                 |
+| `isDashboardMode`           | `is-dashboard-mode`            | When enabled, the table wrapper won't have overflow in order to make the fixed column and footer adapt to the webupjs dsh mode                                                                                                              | `boolean`                                                                                                         | `false`                              |
 | `isFocusable`               | `is-focusable`                 | When set to true, clicked-on rows will have a visual feedback.                                                                                                                                                                              | `boolean`                                                                                                         | `false`                              |
 | `lazyLoadRows`              | `lazy-load-rows`               | When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.                         | `boolean`                                                                                                         | `false`                              |
 | `legacyLook`                | `legacy-look`                  | When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.                                                                                                                                     | `boolean`                                                                                                         | `false`                              |
@@ -648,11 +649,6 @@ graph TD;
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-list
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -672,6 +668,11 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-card
