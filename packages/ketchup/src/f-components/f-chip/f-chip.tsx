@@ -204,7 +204,7 @@ function createChipList(
                     chipText = chip.id + ' - ' + chip.value;
                     break;
                 default:
-                    chipText = chip.value;
+                    chipText = chip.value ?? chip.id;
                     break;
             }
 
