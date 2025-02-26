@@ -180,10 +180,10 @@ Type: `Promise<void>`
 - [kup-spinner](../kup-spinner)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
-- [kup-tab-bar](../kup-tab-bar)
-- [kup-tree](../kup-tree)
-- [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
+- [kup-tree](../kup-tree)
+- [kup-tab-bar](../kup-tab-bar)
+- [kup-switch](../kup-switch)
 
 ### Graph
 ```mermaid
@@ -215,8 +215,8 @@ graph TD;
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
-  kup-tab-bar --> kup-card
   kup-tree --> kup-card
+  kup-tab-bar --> kup-card
   kup-accordion --> kup-card
   kup-activity-timeline --> kup-card
   kup-box --> kup-card

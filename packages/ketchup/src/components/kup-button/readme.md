@@ -228,11 +228,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-list
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -252,6 +247,11 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   kup-iframe --> kup-button
   kup-magic-box --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
