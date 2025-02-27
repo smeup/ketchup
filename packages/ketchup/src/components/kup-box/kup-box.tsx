@@ -2054,6 +2054,7 @@ export class KupBox {
                             ? this.currentRowsPerPage
                             : this.rowsPerPage
                     }
+                    maxRowsPerPage={Number.MAX_VALUE}
                     onLoadMore={
                         this.showLoadMore
                             ? () => {
