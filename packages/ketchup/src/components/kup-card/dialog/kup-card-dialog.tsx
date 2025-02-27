@@ -372,7 +372,7 @@ export function create8(component: KupCard): VNode {
                         />
                     </div>
                 )}
-                <div class="header">
+                <div class="sub-1">
                     {textArray[0] ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
@@ -449,7 +449,6 @@ export function create8(component: KupCard): VNode {
             </div>
             {genericButtons.length > 0 ? (
                 <div class="section-3">
-                    {/* <div class="buttons-list"> */}
                     {compList(genericButtons.slice(0, 5), 'button')}
                     {genericButtons.length > 5 ? createDropdown() : null}
                     {treeArray[0] ? (
@@ -461,7 +460,6 @@ export function create8(component: KupCard): VNode {
                             icon="menu"
                         ></kup-button>
                     ) : null}
-                    {/* </div> */}
                 </div>
             ) : null}
         </div>

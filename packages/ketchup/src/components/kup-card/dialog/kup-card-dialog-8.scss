@@ -29,7 +29,7 @@
     padding: 1em;
     gap: 0.5em;
 
-    .header {
+    .sub-1 {
       width: 100%;
 
       .main {
@@ -176,7 +176,7 @@
         order: 1;
       }
 
-      .header {
+      .sub-1 {
         order: 3;
         grid-column: span 2;
       }
