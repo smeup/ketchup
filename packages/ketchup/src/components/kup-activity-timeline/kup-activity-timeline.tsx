@@ -165,7 +165,7 @@ export class KupActivityTimeline {
             this.#kupManager.debug.logMessage(
                 this,
                 'Empty rows',
-                KupDebugCategory.WARNING
+                KupDebugCategory.ERROR
             );
             return [];
         }
@@ -176,8 +176,8 @@ export class KupActivityTimeline {
         if (!dateColumn && !timeColumn) {
             this.#kupManager.debug.logMessage(
                 this,
-                'Date column or Time column is not set',
-                KupDebugCategory.WARNING
+                'At least one of "dateColumn" or "timeColumn" must be set and exist in the dataset',
+                KupDebugCategory.ERROR
             );
             return [];
         }
@@ -279,22 +279,22 @@ export class KupActivityTimeline {
     activityItem(activity: KupActivityTimelineActivity) {
         return (
             <div class="atm-row">
-                {activity.cells.map((column: KupActivityTimelineData) => (
+                {activity.cells.map((cell: KupActivityTimelineData) => (
                     <div class="atm-col">
                         <div class="atm-inner-col">
-                            <h3>{column.title}:</h3>
+                            <h3>{cell.title}:</h3>
                         </div>
                         <div
                             class="atm-inner-col"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                this.onActivityClick(e, column);
+                                this.onActivityClick(e, cell);
                             }}
                             onContextMenu={(e) => {
-                                this.onActivityContextMenu(e, column);
+                                this.onActivityContextMenu(e, cell);
                             }}
                         >
-                            <p>{column.value}</p>
+                            <p>{cell.value}</p>
                         </div>
                     </div>
                 ))}
