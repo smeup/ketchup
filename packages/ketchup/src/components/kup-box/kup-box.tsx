@@ -428,7 +428,6 @@ export class KupBox {
 
     #loadMoreEventCounter: number = 0;
     #loadMoreEventPreviousQuantity: number = 0;
-    #maxRowsPerPage: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -533,26 +532,6 @@ export class KupBox {
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
-    }
-
-    @Watch('data')
-    computeMaxRowsPerPage() {
-        if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
-            const columnsNumber = this.data.columns.length;
-            const cellsNumber = this.data.rows.reduce(
-                (acc, r) => acc + Object.keys(r.cells).length,
-                0
-            );
-            const maxCellsNumberPerPage =
-                this.kupManager.perfTuning.data.maxCellsPerPage;
-            if (cellsNumber > maxCellsNumberPerPage) {
-                // Rounds a number up to the nearest multiple of ten.
-                this.#maxRowsPerPage =
-                    Math.ceil(maxCellsNumberPerPage / columnsNumber / 10) * 10;
-            }
-            if (this.rowsPerPage > this.#maxRowsPerPage)
-                this.rowsPerPage = this.#maxRowsPerPage;
-        }
     }
 
     @Watch('globalFilterValue')
@@ -1024,8 +1003,6 @@ export class KupBox {
     }
 
     private adjustPaginator() {
-        this.computeMaxRowsPerPage();
-
         const numberOfRows = this.rows.length;
 
         // check if current page is valid
@@ -1932,7 +1909,6 @@ export class KupBox {
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         }
-        this.computeMaxRowsPerPage();
         if (
             this.data &&
             this.data.rows &&
@@ -2078,9 +2054,7 @@ export class KupBox {
                             ? this.currentRowsPerPage
                             : this.rowsPerPage
                     }
-                    maxRowsPerPage={
-                        this.#maxRowsPerPage ?? this.filteredRows.length
-                    }
+                    maxRowsPerPage={Number.MAX_VALUE}
                     onLoadMore={
                         this.showLoadMore
                             ? () => {
