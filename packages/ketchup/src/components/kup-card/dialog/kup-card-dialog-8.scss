@@ -8,8 +8,7 @@
   font-size: var(--kup-font-size);
   outline: none;
   user-select: text;
-  min-width: 35vw;
-  max-width: 40vw;
+  width: 40vw;
 
   .drag-handle {
     position: absolute;
@@ -91,6 +90,7 @@
     .buttons {
       display: flex;
       justify-content: flex-end;
+      height: fit-content;
     }
 
     .sub-spinner {
