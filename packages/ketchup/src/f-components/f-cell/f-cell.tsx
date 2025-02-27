@@ -747,6 +747,18 @@ function setEditableCell(
             );
 
         case FCellTypes.EDITOR:
+            const onEditorKeyDown = (e: KeyboardEvent) => {
+                const isEnter = e.key === 'Enter';
+
+                if (isEnter) {
+                    e.stopPropagation();
+                    return;
+                }
+
+                if (/^F[1-9]|F1[0-2]$/.test(e.key)) {
+                    cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                }
+            };
             return (
                 <FTextField
                     {...cell.data}
@@ -766,6 +778,7 @@ function setEditableCell(
                     onBlur={(e: FocusEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.BLUR)
                     }
+                    onKeyDown={onEditorKeyDown}
                 />
             );
         case FCellTypes.FILE_UPLOAD:
@@ -942,15 +955,18 @@ function setEditableCell(
             };
             const onKeyDown = (e: KeyboardEvent) => {
                 cell.data?.onKeyDown?.(e); // call onKeyDown handler if it is set as prop
-                if (
-                    (!(
-                        cell.shape == 'MEMO' ||
-                        cell.data?.maxLength >= 256 ||
-                        cellType == FCellTypes.MEMO
-                    ) &&
-                        e.key === 'Enter') ||
-                    /^F[1-9]|F1[0-2]$/.test(e.key)
-                ) {
+                const isMemo =
+                    cell.shape === 'MEMO' ||
+                    cell.data?.maxLength >= 256 ||
+                    cellType === FCellTypes.MEMO;
+                const isEnter = e.key === 'Enter';
+
+                if (isMemo && isEnter) {
+                    e.stopPropagation();
+                    return;
+                }
+
+                if (isEnter || /^F[1-9]|F1[0-2]$/.test(e.key)) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -1011,6 +1027,7 @@ function setEditableCell(
                         integers={props.column.integers}
                         group={props.column.group}
                         value={cell.value}
+                        label={column.title}
                         onChange={onChange}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
