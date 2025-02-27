@@ -1201,10 +1201,10 @@ export namespace Components {
          */
         "data": KupChipNode[];
         /**
-          * When enabled, the chip's text will display both the id and the value.
-          * @default false
+          * When enabled, the chip's text will display both the id and description.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
-        "displayId": boolean;
+        "displayMode": ItemsDisplayMode;
         /**
           * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
           * @default false
@@ -7177,10 +7177,10 @@ declare namespace LocalJSX {
          */
         "data"?: KupChipNode[];
         /**
-          * When enabled, the chip's text will display both the id and the value.
-          * @default false
+          * When enabled, the chip's text will display both the id and description.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
-        "displayId"?: boolean;
+        "displayMode"?: ItemsDisplayMode;
         /**
           * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
           * @default false
