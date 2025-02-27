@@ -21,9 +21,10 @@
     --kup-button-font-size: 0.75em;
 
     box-sizing: border-box;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(84px, auto));
     padding: 1em;
-    overflow-x: scroll;
+    gap: 0.5em;
 
     .header {
       width: 100%;
@@ -81,6 +82,7 @@
 
     .buttons {
       display: flex;
+      justify-content: flex-end;
     }
 
     .sub-spinner {
@@ -153,6 +155,7 @@
       display: flex;
       justify-content: flex-end;
       padding: 6px 2px;
+      margin-left: auto;
 
       kup-button {
         margin: auto 0;
@@ -161,8 +164,16 @@
   }
 }
 
-@media screen and (min-width: 678px) {
-  .dialog-layout-8 {
-    max-width: 40vw;
-  }
-}
+// @media screen and (min-width: 678px) {
+//   .dialog-layout-8 {
+//     max-width: 40vw;
+//   }
+// }
+
+// @media screen and (min-width: 300px) and (max-width: 600px) {
+//   .dialog-layout-8 {
+//     .section-1 {
+//       display: flex;
+//     }
+//   }
+// }
