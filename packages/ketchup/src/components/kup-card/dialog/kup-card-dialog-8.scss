@@ -8,6 +8,8 @@
   font-size: var(--kup-font-size);
   outline: none;
   user-select: text;
+  min-width: 35vw;
+  max-width: 40vw;
 
   .drag-handle {
     position: absolute;
@@ -29,7 +31,6 @@
 
     .header {
       width: 100%;
-      overflow-x: scroll;
 
       .main {
         display: flex;
@@ -43,6 +44,7 @@
           margin-bottom: 0.5em;
           padding: 0 0.25em 0.25em;
           text-align: left;
+          width: 100%;
 
           .label {
             cursor: pointer;
@@ -76,6 +78,9 @@
         .value {
           font-weight: 600;
           width: 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
           @include kup-heading-compact-01;
         }
       }
@@ -148,18 +153,35 @@
   }
 
   .section-3 {
-    overflow-x: scroll;
     border-top: 1px solid var(--kup-border-subtle);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 6px 2px;
 
-    .buttons-list {
-      width: fit-content;
-      display: flex;
-      justify-content: flex-end;
-      padding: 6px 2px;
-      margin-left: auto;
+    kup-button {
+      margin: auto 0;
+    }
+  }
+}
 
-      kup-button {
-        margin: auto 0;
+@media screen and (max-width: 600px) {
+  .dialog-layout-8 {
+    min-width: 100vw;
+    max-width: 100vw;
+
+    .section-1 {
+      .f-image {
+        order: 1;
+      }
+
+      .header {
+        order: 3;
+        grid-column: span 2;
+      }
+
+      .buttons {
+        order: 2;
       }
     }
   }

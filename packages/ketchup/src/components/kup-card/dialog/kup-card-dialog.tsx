@@ -449,19 +449,19 @@ export function create8(component: KupCard): VNode {
             </div>
             {genericButtons.length > 0 ? (
                 <div class="section-3">
-                    <div class="buttons-list">
-                        {compList(genericButtons.slice(0, 5), 'button')}
-                        {genericButtons.length > 5 ? createDropdown() : null}
-                        {treeArray[0] ? (
-                            <kup-button
-                                title={dom.ketchup.language.translate(
-                                    KupLanguageGeneric.SHOW_ROW_OPTIONS
-                                )}
-                                id="view-selector"
-                                icon="menu"
-                            ></kup-button>
-                        ) : null}
-                    </div>
+                    {/* <div class="buttons-list"> */}
+                    {compList(genericButtons.slice(0, 5), 'button')}
+                    {genericButtons.length > 5 ? createDropdown() : null}
+                    {treeArray[0] ? (
+                        <kup-button
+                            title={dom.ketchup.language.translate(
+                                KupLanguageGeneric.SHOW_ROW_OPTIONS
+                            )}
+                            id="view-selector"
+                            icon="menu"
+                        ></kup-button>
+                    ) : null}
+                    {/* </div> */}
                 </div>
             ) : null}
         </div>
