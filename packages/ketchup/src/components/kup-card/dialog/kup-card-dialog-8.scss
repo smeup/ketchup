@@ -22,6 +22,7 @@
 
     box-sizing: border-box;
     display: grid;
+    // this allows auto column wrap when there is no horizontal space
     grid-template-columns: repeat(auto-fit, minmax(84px, auto));
     padding: 1em;
     gap: 0.5em;
@@ -163,17 +164,3 @@
     }
   }
 }
-
-// @media screen and (min-width: 678px) {
-//   .dialog-layout-8 {
-//     max-width: 40vw;
-//   }
-// }
-
-// @media screen and (min-width: 300px) and (max-width: 600px) {
-//   .dialog-layout-8 {
-//     .section-1 {
-//       display: flex;
-//     }
-//   }
-// }
