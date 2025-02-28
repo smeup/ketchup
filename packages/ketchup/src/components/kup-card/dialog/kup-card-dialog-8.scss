@@ -21,7 +21,9 @@
     --kup-button-font-size: 0.75em;
 
     box-sizing: border-box;
-    display: flex;
+    display: grid;
+    // this allows auto column wrap when there is no horizontal space
+    grid-template-columns: repeat(auto-fit, minmax(84px, auto));
     padding: 1em;
 
     .sub-1 {
@@ -44,7 +46,7 @@
     }
 
     .f-image {
-      margin: 0 0.5em 0 0;
+      margin: auto;
     }
 
     .title {
@@ -55,11 +57,13 @@
       margin-bottom: 0.5em;
       padding: 0 0.25em 0.25em;
       text-align: left;
+      min-width: 0;
 
       .label {
         cursor: pointer;
         padding-right: 0.25em;
         padding-top: 0.5em;
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -79,14 +83,19 @@
       .label {
         color: rgba(var(--kup-text-color-rgb), 0.75);
         margin-right: 0.75em;
-        min-width: max-content;
-        width: auto;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @include kup-body-compact-01;
       }
 
       .value {
         font-weight: 600;
         width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @include kup-heading-compact-01;
       }
     }
@@ -147,6 +156,7 @@
   }
 
   .section-3 {
+    overflow: hidden;
     border-top: 1px solid var(--kup-border-subtle);
     display: flex;
     justify-content: flex-end;

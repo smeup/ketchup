@@ -361,8 +361,8 @@ export function create8(component: KupCard): VNode {
                     <FImage
                         id="image1"
                         {...imageArray[0]}
-                        sizeX="84px"
-                        sizeY="84px"
+                        sizeX="64px"
+                        sizeY="64px"
                     ></FImage>
                 ) : (
                     <div class="sub-spinner">
