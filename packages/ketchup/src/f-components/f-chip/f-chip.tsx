@@ -14,6 +14,7 @@ import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -191,22 +192,11 @@ function createChipList(
                 );
             }
 
-            let chipText: string = '';
-
-            switch (props.displayMode) {
-                case ItemsDisplayMode.CODE:
-                    chipText = chip.id;
-                    break;
-                case ItemsDisplayMode.DESCRIPTION:
-                    chipText = chip.value;
-                    break;
-                case ItemsDisplayMode.CODE_AND_DESC:
-                    chipText = chip.id + ' - ' + chip.value;
-                    break;
-                default:
-                    chipText = chip.value ?? chip.id;
-                    break;
-            }
+            let chipText: string = getIdOfItemByDisplayMode(
+                chip,
+                chip.value == '' ? ItemsDisplayMode.CODE : this.displayMode,
+                ' - '
+            );
 
             return (
                 <div
