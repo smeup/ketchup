@@ -94,12 +94,12 @@ export class FiltersRows extends Filters {
         cells: KupDataRowCells,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu,
         visibleColumns?: string[]
     ): boolean {
-        if (isUsingGlobalFilter) {
+        if (isGlobalFilter) {
             let retValue = true;
             // There are no columns -> display element
             if (columns && columns != null && columns.length > 0) {
@@ -122,7 +122,7 @@ export class FiltersRows extends Filters {
                     retValue = this.isFilterCompliantForValue(
                         cell.value,
                         globalFilter,
-                        isUsingGlobalFilter
+                        isGlobalFilter
                     );
                     let displayedValue = getCellValueForDisplay(
                         columns[i],
@@ -134,7 +134,7 @@ export class FiltersRows extends Filters {
                             this.isFilterCompliantForValue(
                                 displayedValue,
                                 globalFilter,
-                                isUsingGlobalFilter
+                                isGlobalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {
