@@ -200,8 +200,8 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
-  kup-tab-bar --> kup-dialog
   kup-tree --> kup-dialog
+  kup-tab-bar --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog

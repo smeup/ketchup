@@ -55,6 +55,7 @@ import {
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
+    KupDataTableResetRowsPayload,
 } from './kup-data-table-declarations';
 import {
     getColumnByName,
@@ -188,6 +189,7 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
+import { overflow } from 'html2canvas/dist/types/css/property-descriptors/overflow';
 
 @Component({
     tag: 'kup-data-table',
@@ -719,6 +721,10 @@ export class KupDataTable {
      */
     @Prop({ reflect: true }) legacyLook = false;
     /**
+     * When enabled, the table wrapper won't have overflow in order to make the fixed column and footer adapt to the webupjs dsh mode
+     */
+    @Prop({ reflect: true }) isDashboardMode = false;
+    /**
      * Sets the possibility to remove the selected column.
      */
     @Prop() removableColumns: boolean = false;
@@ -1145,7 +1151,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupResetSelectedRows: EventEmitter<KupEventPayload>;
+    kupResetSelectedRows: EventEmitter<KupDataTableResetRowsPayload>;
 
     /**
      * When a row is selected
@@ -2878,10 +2884,14 @@ export class KupDataTable {
 
     //======== Utility methods ========
 
-    #resetSelectedRows() {
+    #resetSelectedRows(indirectEvent: boolean = true) {
         if (this.getRows().length === 0) return;
         this.selectedRows = [];
-        this.kupResetSelectedRows.emit({ comp: this, id: this.rootElement.id });
+        this.kupResetSelectedRows.emit({
+            comp: this,
+            id: this.rootElement.id,
+            indirectEvent,
+        });
     }
 
     resetCurrentPage() {
@@ -3642,7 +3652,7 @@ export class KupDataTable {
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
-                this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
+                this.#totalMenuCoords = { x: e.pageX, y: e.pageY };
                 this.#onTotalMenuOpen(details.column);
                 return details;
             }
@@ -3772,7 +3782,10 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns()
+            this.getColumns(),
+            undefined,
+            undefined,
+            this.visibleColumns
         );
         this.#rowsLength = this.#rowsPointLength();
     }
@@ -4289,7 +4302,7 @@ export class KupDataTable {
             });
         } else {
             // deselect all rows
-            this.#resetSelectedRows();
+            this.#resetSelectedRows(false);
         }
     }
 
@@ -6632,6 +6645,16 @@ export class KupDataTable {
         return maxNewlines + 1;
     }
 
+    componentShouldUpdate(_newValue: any, _oldValue: any, propName: string) {
+        switch (propName) {
+            case 'columnMenuAnchor':
+                return false;
+
+            default:
+                return true;
+        }
+    }
+
     render() {
         this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
@@ -6770,7 +6793,7 @@ export class KupDataTable {
             elStyle = {
                 ...elStyle,
                 maxHeight: this.tableHeight,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
         }
 
@@ -6778,12 +6801,12 @@ export class KupDataTable {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
             actionWrapperWidth = {
                 ...actionWrapperWidth,
                 width: this.tableWidth,
-                overflow: 'auto',
+                ...(!this.isDashboardMode ? { overflow: 'auto' } : {}),
             };
         }
 

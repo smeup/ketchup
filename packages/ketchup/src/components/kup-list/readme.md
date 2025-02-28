@@ -283,8 +283,8 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-list
   kup-tree --> kup-list
+  kup-tab-bar --> kup-list
   kup-typography --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
