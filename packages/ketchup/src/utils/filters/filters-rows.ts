@@ -123,8 +123,7 @@ export class FiltersRows extends Filters {
                             retValue ||
                             this.isFilterCompliantForValue(
                                 displayedValue,
-                                globalFilter,
-                                isUsingGlobalFilter
+                                globalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {

@@ -144,7 +144,7 @@ export class Filters {
             const valueIncludesFilter = isGlobalFilter
                 ? value.toLowerCase().includes(filter.toLowerCase()) &&
                   filter !== ''
-                : value.toLowerCase() === filter.toLowerCase();
+                : value.toLowerCase() == filter.toLowerCase();
             const valueMatchesSpecialFilter = this.matchSpecialFilter(
                 value.toLowerCase(),
                 filter.toLowerCase().match(FILTER_ANALYZER)
