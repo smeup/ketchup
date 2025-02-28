@@ -800,7 +800,6 @@ function setEditableCell(
                         class="kup-full-width"
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
-                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
@@ -842,7 +841,6 @@ function setEditableCell(
                         class="kup-full-width"
                         slot="field"
                         displayMode={ItemsDisplayMode.CODE_AND_DESC}
-                        selectMode={ItemsDisplayMode.CODE_AND_DESC}
                         sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>

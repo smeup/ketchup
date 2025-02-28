@@ -523,7 +523,7 @@ export class KupCombobox {
     #prepList() {
         return (
             <kup-list
-                displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                displayMode={this.selectMode}
                 {...this.data['kup-list']}
                 is-menu
                 showFilter={
