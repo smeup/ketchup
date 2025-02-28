@@ -74,7 +74,7 @@ export class FiltersRows extends Filters {
         r: KupDataRow,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu,
         visibleColumns?: string[]
@@ -83,7 +83,7 @@ export class FiltersRows extends Filters {
             r.cells,
             filters,
             globalFilter,
-            isUsingGlobalFilter,
+            isGlobalFilter,
             columns,
             columnFilters,
             visibleColumns
@@ -270,11 +270,11 @@ export class FiltersRows extends Filters {
         }
         // There are rows to filter
         let filteredRows: Array<KupDataRow> = [];
-        const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
+        const isGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
             this.hasFilters(filters, columns, columnFilters) ||
-            isUsingGlobalFilter
+            isGlobalFilter
         ) {
             for (let i = 0; i < rows.length; i++) {
                 let r: KupDataRow = rows[i];
@@ -284,7 +284,7 @@ export class FiltersRows extends Filters {
                         r,
                         filters,
                         globalFilter,
-                        isUsingGlobalFilter,
+                        isGlobalFilter,
                         columns,
                         columnFilters,
                         visibleColumns
