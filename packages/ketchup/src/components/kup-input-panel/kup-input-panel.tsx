@@ -1317,6 +1317,13 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
+            const adapter = this.#CMBandACPAdapter(
+                cell.options,
+                col.title,
+                null
+            );
+            const { label, ...textFieldWithoutLabel } =
+                adapter.data['kup-text-field'];
             return {
                 showDropDownIcon: true,
                 class: '',
