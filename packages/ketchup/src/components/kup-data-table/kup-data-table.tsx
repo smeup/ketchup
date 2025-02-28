@@ -2884,12 +2884,14 @@ export class KupDataTable {
     //======== Utility methods ========
 
     #resetSelectedRows(emit: boolean = false) {
-        if (this.getRows().length === 0 || !emit) return;
+        if (this.getRows().length === 0) return;
         this.selectedRows = [];
-        this.kupResetSelectedRows.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
+        if (emit) {
+            this.kupResetSelectedRows.emit({
+                comp: this,
+                id: this.rootElement.id,
+            });
+        }
     }
 
     resetCurrentPage() {
