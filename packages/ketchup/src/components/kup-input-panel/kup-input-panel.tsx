@@ -1324,7 +1324,15 @@ export class KupInputPanel {
             );
             const { label, ...textFieldWithoutLabel } =
                 adapter.data['kup-text-field'];
+
             return {
+                data: {
+                    ...adapter.data,
+                    'kup-text-field': textFieldWithoutLabel,
+                    'kup-list': adapter.data['kup-list'],
+                },
+                initialValue: adapter.initialValue,
+                label: adapter.label,
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
