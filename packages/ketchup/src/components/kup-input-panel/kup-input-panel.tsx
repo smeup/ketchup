@@ -1402,7 +1402,6 @@ export class KupInputPanel {
         currentValue: string
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-        console.log('macp adapt slotdata', configCMandACP, rawOptions);
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
