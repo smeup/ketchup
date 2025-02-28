@@ -34,7 +34,11 @@ const kupData: KupData = dom.ketchup ? dom.ketchup.data : new KupData();
  * @todo Should contain EVERY row-specific filtering method.
  */
 export class FiltersRows extends Filters {
-    isFilterCompliantForCell(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCell(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isTextFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -42,11 +46,16 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.value,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isTextFilter
         );
     }
 
-    isFilterCompliantForCellObj(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCellObj(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isTextFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -56,7 +65,8 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.obj.k,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isTextFilter
         );
     }
 
@@ -123,7 +133,8 @@ export class FiltersRows extends Filters {
                             retValue ||
                             this.isFilterCompliantForValue(
                                 displayedValue,
-                                globalFilter
+                                globalFilter,
+                                isUsingGlobalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {
@@ -164,7 +175,7 @@ export class FiltersRows extends Filters {
 
             let b1 =
                 (filterValue !== '' &&
-                    this.isFilterCompliantForCell(cell, filterValue)) ||
+                    this.isFilterCompliantForCell(cell, filterValue, true)) ||
                 checkboxValues.some((f) =>
                     this.isFilterCompliantForCell(cell, f.value)
                 ) ||
@@ -183,7 +194,11 @@ export class FiltersRows extends Filters {
             ) {
                 b2 =
                     (filterValue !== '' &&
-                        this.isFilterCompliantForCellObj(cell, filterValue)) ||
+                        this.isFilterCompliantForCellObj(
+                            cell,
+                            filterValue,
+                            true
+                        )) ||
                     checkboxValues.some((f) =>
                         this.isFilterCompliantForCellObj(cell, f.value)
                     ) ||
