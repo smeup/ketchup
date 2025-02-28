@@ -2884,13 +2884,13 @@ export class KupDataTable {
 
     //======== Utility methods ========
 
-    #resetSelectedRows(indirectEvent: boolean = true) {
-        if (this.getRows().length === 0) return;
+    #resetSelectedRows(emit: boolean = false) {
+        if (this.getRows().length === 0 || !emit) return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit({
             comp: this,
             id: this.rootElement.id,
-            indirectEvent,
+            indirectEvent: emit,
         });
     }
 
@@ -4302,7 +4302,7 @@ export class KupDataTable {
             });
         } else {
             // deselect all rows
-            this.#resetSelectedRows(false);
+            this.#resetSelectedRows(true);
         }
     }
 
