@@ -37,7 +37,7 @@ export class FiltersRows extends Filters {
     isFilterCompliantForCell(
         cellValue: KupDataCell,
         filterValue: string,
-        isTextFilter?: boolean
+        isGlobalFilter?: boolean
     ) {
         if (!cellValue) {
             return false;
@@ -47,14 +47,14 @@ export class FiltersRows extends Filters {
             cellValue.value,
             cellValue.obj,
             filterValue,
-            isTextFilter
+            isGlobalFilter
         );
     }
 
     isFilterCompliantForCellObj(
         cellValue: KupDataCell,
         filterValue: string,
-        isTextFilter?: boolean
+        isGlobalFilter?: boolean
     ) {
         if (!cellValue) {
             return false;
@@ -66,7 +66,7 @@ export class FiltersRows extends Filters {
             cellValue.obj.k,
             cellValue.obj,
             filterValue,
-            isTextFilter
+            isGlobalFilter
         );
     }
 

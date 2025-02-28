@@ -248,7 +248,7 @@ export class Filters {
         valueToCheck: string,
         obj: any,
         filterValue: string,
-        isTextFilter?: boolean
+        isGlobalFilter?: boolean
     ) {
         if (valueToCheck == null) {
             return false;
@@ -392,7 +392,7 @@ export class Filters {
                 return this.isFilterCompliantForValue(
                     value,
                     normalizedFilter,
-                    isTextFilter
+                    isGlobalFilter
                 );
             }
             return true;
