@@ -1217,7 +1217,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Show a label
+          * When set,will be shown a label on the chips
           * @default null
          */
         "label": string;
@@ -7188,7 +7188,7 @@ declare namespace LocalJSX {
          */
         "enableInput"?: boolean;
         /**
-          * Show a label
+          * When set,will be shown a label on the chips
           * @default null
          */
         "label"?: string;
