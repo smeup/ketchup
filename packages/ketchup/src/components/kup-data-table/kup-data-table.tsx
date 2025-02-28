@@ -55,7 +55,6 @@ import {
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
-    KupDataTableResetRowsPayload,
 } from './kup-data-table-declarations';
 import {
     getColumnByName,
@@ -1151,7 +1150,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupResetSelectedRows: EventEmitter<KupDataTableResetRowsPayload>;
+    kupResetSelectedRows: EventEmitter<KupEventPayload>;
 
     /**
      * When a row is selected
@@ -2890,7 +2889,6 @@ export class KupDataTable {
         this.kupResetSelectedRows.emit({
             comp: this,
             id: this.rootElement.id,
-            indirectEvent: emit,
         });
     }
 
