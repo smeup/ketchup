@@ -98,7 +98,7 @@ export class FiltersRows extends Filters {
 
                 for (let i = 0; i < columns.length; i++) {
                     if (
-                        (!columns[i].visible === false && !visibleColumns) ||
+                        (columns[i].visible === false && !visibleColumns) ||
                         (visibleColumns?.length > 0 &&
                             !visibleColumns.includes(columns[i].name))
                     ) {
@@ -111,7 +111,8 @@ export class FiltersRows extends Filters {
                     }
                     retValue = this.isFilterCompliantForValue(
                         cell.value,
-                        globalFilter
+                        globalFilter,
+                        isUsingGlobalFilter
                     );
                     let displayedValue = getCellValueForDisplay(
                         columns[i],
@@ -122,7 +123,8 @@ export class FiltersRows extends Filters {
                             retValue ||
                             this.isFilterCompliantForValue(
                                 displayedValue,
-                                globalFilter
+                                globalFilter,
+                                isUsingGlobalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {

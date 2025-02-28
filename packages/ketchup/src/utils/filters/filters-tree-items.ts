@@ -84,7 +84,11 @@ export class FiltersTreeItems extends FiltersRows {
         }
 
         if (isUsingGlobalFilter == true) {
-            retValue = this.isFilterCompliantForValue(node.value, globalFilter);
+            retValue = this.isFilterCompliantForValue(
+                node.value,
+                globalFilter,
+                isUsingGlobalFilter
+            );
         }
 
         return retValue;

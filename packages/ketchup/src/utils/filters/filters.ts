@@ -127,7 +127,11 @@ export class Filters {
      * @param filterValue - Filter to apply
      * @returns Whether the value matches the filter
      */
-    isFilterCompliantForValue(value: string, filterValue: string): boolean {
+    isFilterCompliantForValue(
+        value: string,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ): boolean {
         if (value == null || filterValue == null) {
             return false;
         }
@@ -137,9 +141,10 @@ export class Filters {
         // All filters must match (AND condition)
         return filters.every((filter) => {
             // if filter is '' it should be excluded since it is always included in every possible string and thus always leading to a match!
-            const valueIncludesFilter =
-                value.toLowerCase().includes(filter.toLowerCase()) &&
-                filter !== '';
+            const valueIncludesFilter = isGlobalFilter
+                ? value.toLowerCase().includes(filter.toLowerCase()) &&
+                  filter !== ''
+                : value.toLowerCase() === filter.toLowerCase();
             const valueMatchesSpecialFilter = this.matchSpecialFilter(
                 value.toLowerCase(),
                 filter.toLowerCase().match(FILTER_ANALYZER)
