@@ -355,6 +355,7 @@ export function create8(component: KupCard): VNode {
     };
     return (
         <div class={`dialog-layout-${component.layoutNumber}`}>
+            <div id={KupCardIds.DRAG_HANDLE} class="drag-handle"></div>
             <div class="section-1">
                 {imageArray[0] ? (
                     <FImage
