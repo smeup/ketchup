@@ -55,7 +55,6 @@ import {
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
-    KupDataTableResetRowsPayload,
 } from './kup-data-table-declarations';
 import {
     getColumnByName,
@@ -1151,7 +1150,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupResetSelectedRows: EventEmitter<KupDataTableResetRowsPayload>;
+    kupResetSelectedRows: EventEmitter<KupEventPayload>;
 
     /**
      * When a row is selected
@@ -2884,14 +2883,15 @@ export class KupDataTable {
 
     //======== Utility methods ========
 
-    #resetSelectedRows(indirectEvent: boolean = true) {
+    #resetSelectedRows(emit: boolean = false) {
         if (this.getRows().length === 0) return;
         this.selectedRows = [];
-        this.kupResetSelectedRows.emit({
-            comp: this,
-            id: this.rootElement.id,
-            indirectEvent,
-        });
+        if (emit) {
+            this.kupResetSelectedRows.emit({
+                comp: this,
+                id: this.rootElement.id,
+            });
+        }
     }
 
     resetCurrentPage() {
@@ -3192,7 +3192,8 @@ export class KupDataTable {
 
                         const rowId = row.id;
                         if (rowId) {
-                            this.setSelectedRows([row.id], false).then(() => {
+                            this.setSelectedRows([row.id], true).then(() => {
+                                // event should be dispatched
                                 dispatchSelection();
                             });
                         } else {
@@ -4302,7 +4303,7 @@ export class KupDataTable {
             });
         } else {
             // deselect all rows
-            this.#resetSelectedRows(false);
+            this.#resetSelectedRows(true);
         }
     }
 
