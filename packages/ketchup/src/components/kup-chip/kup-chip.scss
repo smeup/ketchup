@@ -16,6 +16,4 @@
 * @prop --kup-chip-text-color-rgb: Sets text color RGB values of the component (used for shaders).
 */
 
-:host {
-  display: block;
-}
+@import url('./styles/kup-chip-main.scss');

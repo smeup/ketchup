@@ -34,7 +34,11 @@ const kupData: KupData = dom.ketchup ? dom.ketchup.data : new KupData();
  * @todo Should contain EVERY row-specific filtering method.
  */
 export class FiltersRows extends Filters {
-    isFilterCompliantForCell(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCell(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -42,11 +46,16 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.value,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isGlobalFilter
         );
     }
 
-    isFilterCompliantForCellObj(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCellObj(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -56,7 +65,8 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.obj.k,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isGlobalFilter
         );
     }
 
@@ -64,7 +74,7 @@ export class FiltersRows extends Filters {
         r: KupDataRow,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu,
         visibleColumns?: string[]
@@ -73,7 +83,7 @@ export class FiltersRows extends Filters {
             r.cells,
             filters,
             globalFilter,
-            isUsingGlobalFilter,
+            isGlobalFilter,
             columns,
             columnFilters,
             visibleColumns
@@ -84,12 +94,12 @@ export class FiltersRows extends Filters {
         cells: KupDataRowCells,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu,
         visibleColumns?: string[]
     ): boolean {
-        if (isUsingGlobalFilter) {
+        if (isGlobalFilter) {
             let retValue = true;
             // There are no columns -> display element
             if (columns && columns != null && columns.length > 0) {
@@ -98,7 +108,7 @@ export class FiltersRows extends Filters {
 
                 for (let i = 0; i < columns.length; i++) {
                     if (
-                        (!columns[i].visible === false && !visibleColumns) ||
+                        (columns[i].visible === false && !visibleColumns) ||
                         (visibleColumns?.length > 0 &&
                             !visibleColumns.includes(columns[i].name))
                     ) {
@@ -111,7 +121,8 @@ export class FiltersRows extends Filters {
                     }
                     retValue = this.isFilterCompliantForValue(
                         cell.value,
-                        globalFilter
+                        globalFilter,
+                        isGlobalFilter
                     );
                     let displayedValue = getCellValueForDisplay(
                         columns[i],
@@ -122,7 +133,8 @@ export class FiltersRows extends Filters {
                             retValue ||
                             this.isFilterCompliantForValue(
                                 displayedValue,
-                                globalFilter
+                                globalFilter,
+                                isGlobalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {
@@ -163,7 +175,7 @@ export class FiltersRows extends Filters {
 
             let b1 =
                 (filterValue !== '' &&
-                    this.isFilterCompliantForCell(cell, filterValue)) ||
+                    this.isFilterCompliantForCell(cell, filterValue, true)) ||
                 checkboxValues.some((f) =>
                     this.isFilterCompliantForCell(cell, f.value)
                 ) ||
@@ -182,7 +194,11 @@ export class FiltersRows extends Filters {
             ) {
                 b2 =
                     (filterValue !== '' &&
-                        this.isFilterCompliantForCellObj(cell, filterValue)) ||
+                        this.isFilterCompliantForCellObj(
+                            cell,
+                            filterValue,
+                            true
+                        )) ||
                     checkboxValues.some((f) =>
                         this.isFilterCompliantForCellObj(cell, f.value)
                     ) ||
@@ -254,11 +270,11 @@ export class FiltersRows extends Filters {
         }
         // There are rows to filter
         let filteredRows: Array<KupDataRow> = [];
-        const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
+        const isGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
             this.hasFilters(filters, columns, columnFilters) ||
-            isUsingGlobalFilter
+            isGlobalFilter
         ) {
             for (let i = 0; i < rows.length; i++) {
                 let r: KupDataRow = rows[i];
@@ -268,7 +284,7 @@ export class FiltersRows extends Filters {
                         r,
                         filters,
                         globalFilter,
-                        isUsingGlobalFilter,
+                        isGlobalFilter,
                         columns,
                         columnFilters,
                         visibleColumns

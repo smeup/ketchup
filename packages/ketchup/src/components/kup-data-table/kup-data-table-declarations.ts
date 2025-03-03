@@ -280,7 +280,6 @@ export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
     clickedRow: KupDataRow;
     clickedColumn: string;
 }
-
 export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;
 }
