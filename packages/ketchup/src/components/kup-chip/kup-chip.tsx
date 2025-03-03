@@ -100,6 +100,11 @@ export class KupChip {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
 
+    /**
+     * When set,will be shown a label on the chips
+     * @default null
+     */
+    @Prop() label: string = null;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -459,6 +464,11 @@ export class KupChip {
                     )}
                 </style>
                 <div id={componentWrapperId}>
+                    {this.label ? (
+                        <div class="mdc-text-field__label-container">
+                            <label>{this.label}</label>
+                        </div>
+                    ) : null}
                     {this.data?.length > 0 ? <FChip {...props} /> : null}
                     <slot name="field"></slot>
                 </div>

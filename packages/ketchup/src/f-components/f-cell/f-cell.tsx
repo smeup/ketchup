@@ -783,13 +783,14 @@ function setEditableCell(
             );
         case FCellTypes.FILE_UPLOAD:
             return <kup-file-upload {...cell.data} />;
-        case FCellTypes.MULTI_AUTOCOMPLETE:
+        case FCellTypes.MULTI_AUTOCOMPLETE: {
             return (
                 <kup-chip
                     displayMode={
                         cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
                     }
                     {...cell.data}
+                    label={cell.slotData?.label ?? ''}
                     type={FChipType.INPUT}
                     enableInput={true}
                     onKup-chip-change={(
@@ -817,14 +818,18 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
-                        showDropDownIcon={false}
-                        {...cell.slotData}
-                        disabled={cell.data.disabled}
+                        data={cell.slotData?.data}
+                        initialValue={cell.slotData?.initialValue}
+                        showDropDownIcon={cell.slotData?.showDropDownIcon}
+                        style={cell.slotData?.style}
+                        disabled={cell.slotData?.disabled}
+                        id={cell.slotData?.id}
                         error={cell.data.error}
                         showMarker={cell.tooltip ?? false}
                     ></kup-autocomplete>
                 </kup-chip>
             );
+        }
         case FCellTypes.MULTI_COMBOBOX:
             return (
                 <kup-chip
