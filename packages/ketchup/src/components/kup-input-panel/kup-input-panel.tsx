@@ -1388,7 +1388,6 @@ export class KupInputPanel {
         currentValue: string
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
@@ -1785,7 +1784,6 @@ export class KupInputPanel {
                 cell.shape === FCellShapes.MULTI_AUTOCOMPLETE
                     ? cell.slotData.data['kup-list']
                     : cell.data?.data?.['kup-list'];
-
             if (kupListData) {
                 kupListData.data = filteredRows?.length
                     ? this.#optionsTreeComboAdapter(
