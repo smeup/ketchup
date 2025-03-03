@@ -32,10 +32,10 @@ export class FiltersTreeItems extends FiltersRows {
             return [];
         }
 
-        const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
+        const isGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
-            !isUsingGlobalFilter &&
+            !isGlobalFilter &&
             !this.hasFilters(filters, columns, columnFilters)
         ) {
             this.setAllVisible(items);
@@ -47,7 +47,7 @@ export class FiltersTreeItems extends FiltersRows {
                     items[i],
                     filters,
                     globalFilter,
-                    isUsingGlobalFilter,
+                    isGlobalFilter,
                     columns,
                     columnFilters
                 )
@@ -61,7 +61,7 @@ export class FiltersTreeItems extends FiltersRows {
         node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
@@ -77,14 +77,18 @@ export class FiltersTreeItems extends FiltersRows {
                 cellsHolder,
                 filters,
                 globalFilter,
-                isUsingGlobalFilter,
+                isGlobalFilter,
                 columns,
                 columnFilters
             );
         }
 
-        if (isUsingGlobalFilter == true) {
-            retValue = this.isFilterCompliantForValue(node.value, globalFilter);
+        if (isGlobalFilter == true) {
+            retValue = this.isFilterCompliantForValue(
+                node.value,
+                globalFilter,
+                isGlobalFilter
+            );
         }
 
         return retValue;
@@ -94,7 +98,7 @@ export class FiltersTreeItems extends FiltersRows {
         node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string,
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
@@ -105,13 +109,13 @@ export class FiltersTreeItems extends FiltersRows {
             node,
             filters,
             globalFilter,
-            isUsingGlobalFilter,
+            isGlobalFilter,
             columns,
             columnFilters
         );
         if (node.disabled != true && node.expandable == true) {
             /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
-            if (visibility == true && isUsingGlobalFilter) {
+            if (visibility == true && isGlobalFilter) {
                 this.setAllVisible(node.children);
             } else {
                 if (node.children) {
@@ -121,7 +125,7 @@ export class FiltersTreeItems extends FiltersRows {
                                 node.children[i],
                                 filters,
                                 globalFilter,
-                                isUsingGlobalFilter,
+                                isGlobalFilter,
                                 columns,
                                 columnFilters
                             )
