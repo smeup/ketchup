@@ -1217,6 +1217,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * When set,will be shown a label on the chips
+          * @default null
+         */
+        "label": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -7186,6 +7191,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "enableInput"?: boolean;
+        /**
+          * When set,will be shown a label on the chips
+          * @default null
+         */
+        "label"?: string;
         /**
           * Triggered when a chip loses focus.
          */
