@@ -170,8 +170,16 @@ export class KupActivityTimeline {
             return [];
         }
 
-        const dateColumn = columns.find((col) => col.name === this.dateColumn);
-        const timeColumn = columns.find((col) => col.name === this.timeColumn);
+        const dateColumn = columns.find(
+            (col) =>
+                this.#kupManager.objects.isDate(col.obj) &&
+                col.name === this.dateColumn
+        );
+        const timeColumn = columns.find(
+            (col) =>
+                this.#kupManager.objects.isTime(col.obj) &&
+                col.name === this.timeColumn
+        );
 
         if (!dateColumn && !timeColumn) {
             this.#kupManager.debug.logMessage(
