@@ -615,8 +615,8 @@ export class KupInputPanel {
             cell,
             column,
             row,
-            component: this,
             editable: true,
+            component: this,
             renderKup: true,
             setSizes: true,
         };
@@ -1166,6 +1166,7 @@ export class KupInputPanel {
             disabled: !cell.isEditable,
             id: column.name,
         };
+
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
         const { data, ...noDataProps } = cell.data || {};
 
@@ -1298,10 +1299,6 @@ export class KupInputPanel {
 
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-        if (!cell.isEditable) {
-            return null;
-        }
 
         if (cellType === FCellTypes.CHIP) {
             return {

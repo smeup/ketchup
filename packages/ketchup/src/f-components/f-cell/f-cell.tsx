@@ -819,6 +819,7 @@ function setEditableCell(
                         }
                         showDropDownIcon={false}
                         {...cell.slotData}
+                        disabled={cell.data.disabled}
                         error={cell.data.error}
                         showMarker={cell.tooltip ?? false}
                     ></kup-autocomplete>

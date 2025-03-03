@@ -29,6 +29,9 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     if (!props.type) {
         props.type = FChipType.STANDARD;
     }
+    if (!props.displayMode) {
+        props.displayMode = ItemsDisplayMode.DESCRIPTION;
+    }
 
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
     const isFilter = props.type.toLowerCase() === FChipType.FILTER;
@@ -89,6 +92,7 @@ function createChipList(
             const indentStyle = {
                 ['--kup_chip_indent_offset']: indent.toString(),
             };
+            const isDisabled = props.disabled;
 
             chipGroup.push(
                 <div
@@ -133,7 +137,7 @@ function createChipList(
                             wrapperClass="dropdown-icon"
                         ></FImage>
                     ) : null}
-                    {createChip(chip)}
+                    {createChip(chip, isDisabled)}
                 </div>
             );
             if (showChildren) {
@@ -145,11 +149,11 @@ function createChipList(
             }
         }
 
-        function createChip(chip: KupChipNode): VNode {
+        function createChip(chip: KupChipNode, disabled: boolean): VNode {
             const onlyIcon = !!(chip.icon && !chip.value);
             let componentClass: string = `chip ${
                 onlyIcon ? 'chip--only-icon' : ''
-            }`;
+            } ${disabled && 'chip--disabled'}`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
@@ -194,7 +198,7 @@ function createChipList(
 
             let chipText: string = getIdOfItemByDisplayMode(
                 chip,
-                chip.value == '' ? ItemsDisplayMode.CODE : this.displayMode,
+                chip.value == '' ? ItemsDisplayMode.CODE : props.displayMode,
                 ' - '
             );
 

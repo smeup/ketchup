@@ -3,6 +3,14 @@
     --kup-chip-background-color,
     var(--kup-layer-3)
   );
+  --kup_chip_background_color_disabled: var(
+    --kup-chip-background-color-disabled,
+    var(--kup-layer-2)
+  );
+  --kup_chip_font_color_disabled: var(
+    --kup-chip-font-color-disabled,
+    var(--kup-layer-3)
+  );
   --kup_chip_border_color: var(
     --kup-chip-border-color,
     var(--kup-border-strong)
@@ -185,6 +193,14 @@
         outline: none;
         .chip__text {
           white-space: nowrap;
+        }
+      }
+
+      &--disabled {
+        background-color: var(--kup_chip_background_color_disabled);
+        color: var(--kup_chip_font_color_disabled);
+        & .kup-icon {
+          background: var(--kup_chip_font_color_disabled);
         }
       }
     }

@@ -1201,6 +1201,11 @@ export namespace Components {
          */
         "data": KupChipNode[];
         /**
+          * When true, the chip cannot be edited, nor removed.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
           * When enabled, the chip's text will display both the id and description.
           * @default ItemsDisplayMode.DESCRIPTION
          */
@@ -7176,6 +7181,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupChipNode[];
+        /**
+          * When true, the chip cannot be edited, nor removed.
+          * @default false
+         */
+        "disabled"?: boolean;
         /**
           * When enabled, the chip's text will display both the id and description.
           * @default ItemsDisplayMode.DESCRIPTION

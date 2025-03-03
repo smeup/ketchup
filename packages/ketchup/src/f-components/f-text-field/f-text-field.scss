@@ -233,6 +233,7 @@
         border: unset;
         .#{$kup-icon} {
           pointer-events: none;
+          background-color: var(--kup-text-disabled);
         }
       }
 

@@ -16,6 +16,7 @@ export interface FChipsProps extends FComponent {
     sizing?: FChipSize;
     styling?: FChipStyling;
     type?: FChipType;
+    disabled?: boolean;
 }
 /**
  * Types of the f-chip component.
