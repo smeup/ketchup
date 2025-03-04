@@ -459,7 +459,7 @@ export class KupChip {
                 <div id={componentWrapperId}>
                     {this.label ? (
                         <div class="mdc-text-field__label-container">
-                            <label>{this.label}</label>
+                            <label class="mdc-label">{this.label}</label>
                         </div>
                     ) : null}
                     {this.data?.length > 0 ? <FChip {...props} /> : null}
