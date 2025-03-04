@@ -246,10 +246,6 @@ export namespace Components {
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayListMode": ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -303,6 +299,10 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode": ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -1340,10 +1340,6 @@ export namespace Components {
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
-        "displayListMode": ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
         "displayMode": ItemsDisplayMode;
         /**
           * Set error message
@@ -1393,6 +1389,10 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode": ItemsDisplayMode;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -6345,10 +6345,6 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayListMode"?: ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -6391,6 +6387,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode"?: ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -7311,10 +7311,6 @@ declare namespace LocalJSX {
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
-        "displayListMode"?: ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Set error message
@@ -7353,6 +7349,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode"?: ItemsDisplayMode;
         "onKup-combobox-blur"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
