@@ -1153,6 +1153,8 @@ export function decorateDataTable(data: KupDataTableDataset) {
                     CMBandACPAdapter(value, '', options),
                 [FCellShapes.RADIO]: () => RADAdapter(value, options),
                 [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
+                [FCellShapes.MULTI_AUTOCOMPLETE]: () =>
+                    CHIAdapter(value, decode),
                 [FCellShapes.CHIP]: () => CHIAdapter(value, decode),
                 [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
                 [FCellShapes.MULTI_AUTOCOMPLETE]: () =>
