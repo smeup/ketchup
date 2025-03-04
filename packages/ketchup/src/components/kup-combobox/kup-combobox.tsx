@@ -87,6 +87,10 @@ export class KupCombobox {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+     */
+    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    /**
      * Set error message
      * @default '''
      */
@@ -523,7 +527,7 @@ export class KupCombobox {
     #prepList() {
         return (
             <kup-list
-                displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                displayMode={this.listDisplayMode}
                 {...this.data['kup-list']}
                 is-menu
                 showFilter={
