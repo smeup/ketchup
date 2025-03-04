@@ -98,6 +98,10 @@ export class KupAutocomplete {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+     */
+    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    /**
      * Set error message
      * @default '''
      */
@@ -583,14 +587,9 @@ export class KupAutocomplete {
     }
 
     #prepList() {
-        const displayModeForList =
-            this.data['kup-list'].options?.length === 1
-                ? ItemsDisplayMode.CODE
-                : ItemsDisplayMode.CODE_AND_DESC;
-
         return (
             <kup-list
-                displayMode={displayModeForList}
+                displayMode={this.listDisplayMode}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>

@@ -22,10 +22,10 @@ export interface FCellProps extends FComponent {
     column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
-    editable?: boolean;
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
+    editable?: boolean;
     row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
