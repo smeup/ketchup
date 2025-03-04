@@ -100,7 +100,7 @@ export class KupAutocomplete {
     /**
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
-    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
     /**
      * Set error message
      * @default '''
