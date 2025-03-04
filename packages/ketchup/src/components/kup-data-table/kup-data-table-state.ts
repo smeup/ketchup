@@ -36,7 +36,7 @@ export class KupDataTableState implements KupState {
     sortableColumnsMutateData: boolean = true;
     pageSelected: number = 1;
     selectRow: number;
-    selectRowsById: string;
+    selectRowsById: string = '';
     dragEnabled: boolean = false;
     dropEnabled: boolean = false;
     showFooter: boolean = false;

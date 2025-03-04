@@ -131,6 +131,7 @@ export class KupTree {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
+            this.state.load = true;
             const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.density = state.density;
@@ -146,71 +147,7 @@ export class KupTree {
 
     persistState(): void {
         if (this.store && this.stateId) {
-            let somethingChanged = false;
-
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.filters,
-                    this.filters
-                )
-            ) {
-                this.state.filters = { ...this.filters };
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.density,
-                    this.density
-                )
-            ) {
-                this.state.density = this.density;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.showFilters,
-                    this.showFilters
-                )
-            ) {
-                this.state.showFilters = this.showFilters;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.showFooter,
-                    this.showFooter
-                )
-            ) {
-                this.state.showFooter = this.showFooter;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.totals,
-                    this.totals
-                )
-            ) {
-                this.state.totals = { ...this.totals };
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.globalFilter,
-                    this.globalFilter
-                )
-            ) {
-                this.state.globalFilter = this.globalFilter;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.globalFilterValue,
-                    this.globalFilterValue
-                )
-            ) {
-                this.state.globalFilterValue = this.globalFilterValue;
-                somethingChanged = true;
-            }
+            let somethingChanged = this.#checkUpdateState();
             if (!this.state.load) {
                 this.state.load = true;
                 return;
@@ -221,6 +158,71 @@ export class KupTree {
         }
     }
 
+    #checkUpdateState(): boolean {
+        let somethingChanged = false;
+
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.filters,
+                this.filters
+            )
+        ) {
+            this.state.filters = { ...this.filters };
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.density,
+                this.density
+            )
+        ) {
+            this.state.density = this.density;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.showFilters,
+                this.showFilters
+            )
+        ) {
+            this.state.showFilters = this.showFilters;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.showFooter,
+                this.showFooter
+            )
+        ) {
+            this.state.showFooter = this.showFooter;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(this.state.totals, this.totals)
+        ) {
+            this.state.totals = { ...this.totals };
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.globalFilter,
+                this.globalFilter
+            )
+        ) {
+            this.state.globalFilter = this.globalFilter;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.globalFilterValue,
+                this.globalFilterValue
+            )
+        ) {
+            this.state.globalFilterValue = this.globalFilterValue;
+            somethingChanged = true;
+        }
+        return somethingChanged;
+    }
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
