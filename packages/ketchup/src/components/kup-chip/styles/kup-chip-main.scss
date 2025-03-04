@@ -4,4 +4,13 @@
 
 .mdc-text-field__label-container {
   padding-bottom: 4px;
+
+  label {
+    font-family: var(--kup-font-family);
+    font-size: var(--kup-label-01-font-size, 12px);
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    color: var(--kup-text-secondary);
+  }
 }
