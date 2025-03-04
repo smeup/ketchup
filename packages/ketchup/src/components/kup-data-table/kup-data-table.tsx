@@ -243,6 +243,12 @@ export class KupDataTable {
                 this.visibleColumns = state.visibleColumns
                     ? [...state.visibleColumns]
                     : undefined;
+            } else {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'Persisting initial stateId ' + this.stateId
+                );
+                this.store.persistState(this.stateId, this.state);
             }
         }
     }
