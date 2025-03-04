@@ -106,9 +106,7 @@
   .section-2 {
     border-top: 1px solid var(--kup-border-subtle);
     box-sizing: border-box;
-    min-height: 180px;
-    height: fit-content;
-    max-height: 280px;
+    height: 200px;
     opacity: 1;
     overflow: auto;
     transition: height 250ms ease-out, opacity 250ms ease-out;
