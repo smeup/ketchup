@@ -160,41 +160,86 @@ export class KupActivityTimeline {
 
     #toTimeline(data: KupDataDataset): KupActivityTimelineDatapoint[] {
         const { columns, rows } = data;
-        const dateColumn = columns.find((col) => col.name === this.dateColumn);
-        const timeColumn = columns.find((col) => col.name === this.timeColumn);
 
-        if (!dateColumn || !timeColumn) return [];
+        if (!rows) {
+            this.#kupManager.debug.logMessage(
+                this,
+                'Empty rows',
+                KupDebugCategory.ERROR
+            );
+            return [];
+        }
 
-        const activitiesByDate = sortRows(rows, this.sort).reduce(
-            (acc, row) => {
-                const date = getCellValueForDisplay(
-                    dateColumn,
-                    row.cells[dateColumn.name]
-                );
-                const time = getCellValueForDisplay(
-                    timeColumn,
-                    row.cells[timeColumn.name]
-                );
-                const key = `${date} ${time}`;
+        const dateColumn = columns.find(
+            (col) =>
+                this.#kupManager.objects.isDate(col.obj) &&
+                col.name === this.dateColumn
+        );
+        const timeColumn = columns.find(
+            (col) =>
+                this.#kupManager.objects.isTime(col.obj) &&
+                col.name === this.timeColumn
+        );
 
-                acc[key] = acc[key] || [];
-                acc[key].push({
-                    columns: columns
-                        .filter((col) => col.visible !== false)
-                        .map((col) => ({
-                            title: col.title,
-                            value: getCellValueForDisplay(
-                                col,
-                                row.cells[col.name]
-                            ),
-                            columnName: col.name,
-                            rowId: row.id,
-                        })),
-                } as KupActivityTimelineActivity);
+        if (!dateColumn && !timeColumn) {
+            this.#kupManager.debug.logMessage(
+                this,
+                'At least one of "dateColumn" or "timeColumn" must be set and exist in the dataset',
+                KupDebugCategory.ERROR
+            );
+            return [];
+        }
 
-                return acc;
+        const filteredSort = this.sort.filter(({ column }) =>
+            // Filter only the existing columns
+            columns.some((col) => col.name === column)
+        );
+
+        const activitiesByDate = sortRows(rows, filteredSort).reduce<
+            Record<string, KupActivityTimelineActivity[]>
+        >(
+            (activitiesByDate, row) => {
+                const dateValue = dateColumn
+                    ? getCellValueForDisplay(
+                          dateColumn,
+                          row.cells[dateColumn.name]
+                      )
+                    : '';
+                const timeValue = timeColumn
+                    ? getCellValueForDisplay(
+                          timeColumn,
+                          row.cells[timeColumn.name]
+                      )
+                    : '';
+                const key = `${dateValue} ${timeValue}`.trim();
+
+                activitiesByDate[key].push({
+                    cells: columns
+                        .filter((col) => col.visible)
+                        .map(
+                            (col): KupActivityTimelineData => ({
+                                title: col.title,
+                                value: getCellValueForDisplay(
+                                    col,
+                                    row.cells[col.name]
+                                ),
+                                columnName: col.name,
+                                rowId: row.id,
+                            })
+                        ),
+                });
+
+                return activitiesByDate;
             },
-            {}
+            new Proxy(
+                {},
+                {
+                    get: (target, key: string) => {
+                        // Set default value if it doesn't exist yet
+                        return target[key] ?? (target[key] = []);
+                    },
+                }
+            )
         );
 
         return Object.entries(activitiesByDate).map(([date, activities]) => ({
@@ -242,22 +287,22 @@ export class KupActivityTimeline {
     activityItem(activity: KupActivityTimelineActivity) {
         return (
             <div class="atm-row">
-                {activity.columns.map((column: KupActivityTimelineData) => (
+                {activity.cells.map((cell: KupActivityTimelineData) => (
                     <div class="atm-col">
                         <div class="atm-inner-col">
-                            <h3>{column.title}:</h3>
+                            <h3>{cell.title}:</h3>
                         </div>
                         <div
                             class="atm-inner-col"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                this.onActivityClick(e, column);
+                                this.onActivityClick(e, cell);
                             }}
                             onContextMenu={(e) => {
-                                this.onActivityContextMenu(e, column);
+                                this.onActivityContextMenu(e, cell);
                             }}
                         >
-                            <p>{column.value}</p>
+                            <p>{cell.value}</p>
                         </div>
                     </div>
                 ))}
