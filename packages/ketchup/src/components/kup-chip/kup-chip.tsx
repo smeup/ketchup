@@ -74,6 +74,11 @@ export class KupChip {
      */
     @Prop() enableInput = false;
     /**
+     * When true, the chip cannot be edited, nor removed.
+     * @default false
+     */
+    @Prop() disabled: boolean = false;
+    /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
      */
@@ -414,7 +419,9 @@ export class KupChip {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            disabled: this.disabled,
         };
+
         for (let j = 0; this.data && j < this.data.length; j++) {
             props.onBlur.push((chip) => this.onKupBlur(chip));
             props.onClick.push((chip) => this.onKupClick(chip));

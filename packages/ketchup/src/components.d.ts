@@ -246,6 +246,10 @@ export namespace Components {
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "displayListMode": ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -1201,6 +1205,11 @@ export namespace Components {
          */
         "data": KupChipNode[];
         /**
+          * When true, the chip cannot be edited, nor removed.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
           * When enabled, the chip's text will display both the id and description.
           * @default ItemsDisplayMode.DESCRIPTION
          */
@@ -1328,6 +1337,10 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "displayListMode": ItemsDisplayMode;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
@@ -6332,6 +6345,10 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "displayListMode"?: ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -7182,6 +7199,11 @@ declare namespace LocalJSX {
          */
         "data"?: KupChipNode[];
         /**
+          * When true, the chip cannot be edited, nor removed.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
           * When enabled, the chip's text will display both the id and description.
           * @default ItemsDisplayMode.DESCRIPTION
          */
@@ -7286,6 +7308,10 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "displayListMode"?: ItemsDisplayMode;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
