@@ -67,7 +67,6 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 import { FLabel } from '../f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -101,7 +100,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     cell.data = mapData(cell, column) ?? cell.data;
 
-    const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
+    const valueToDisplay =
+        props.previousValue !== cell.value ? cell.value : cell.obj?.k;
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
@@ -287,7 +287,7 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const fieldLabel = cell.data?.hasOwnProperty('label')
         ? cell.data.label
         : column.title;
-    const currentValue = cell.value;
+    const currentValue = cell.obj?.k ?? '';
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
@@ -311,7 +311,7 @@ const MainCHIAdapter = (
     cell: KupInputPanelCell
 ) => {
     if (!cell.data?.data) {
-        return CHIAdapter(cell.value, cell.decode);
+        return CHIAdapter(cell.obj?.k, cell.value);
     } else {
         return {
             ...cell.data,
@@ -607,8 +607,8 @@ function setEditableCell(
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
-                    initialValue={cell.value}
-                    initialValueDecode={cell.decode}
+                    initialValue={cell.obj.k}
+                    initialValueDecode={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-autocomplete-change={(
@@ -637,8 +637,8 @@ function setEditableCell(
                 return (
                     <input
                         checked={
-                            cell.value.toLowerCase() === 'on' ||
-                            cell.value === '1'
+                            cell.obj?.k.toLowerCase() === 'on' ||
+                            cell.obj?.k === '1'
                                 ? true
                                 : false
                         }
@@ -690,7 +690,7 @@ function setEditableCell(
             return (
                 <kup-color-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.value}
+                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     disabled={false}
@@ -703,8 +703,8 @@ function setEditableCell(
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
-                    initialValue={cell.value}
-                    initialValueDecode={cell.decode}
+                    initialValue={cell.obj.k}
+                    initialValueDecode={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-combobox-change={(
@@ -728,7 +728,7 @@ function setEditableCell(
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.value}
+                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-datepicker-change={(
@@ -767,7 +767,7 @@ function setEditableCell(
                     label={column.title}
                     fullWidth={isFullWidth(props) ? true : false}
                     maxLength={cell.data.maxLength}
-                    value={cell.value}
+                    value={cell.obj.k}
                     onChange={(e: InputEvent) => {
                         cellEvent(e, props, cellType, FCellEvents.UPDATE);
                     }}
@@ -920,7 +920,7 @@ function setEditableCell(
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.value}
+                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-timepicker-change={(
@@ -940,7 +940,7 @@ function setEditableCell(
                     cell={cell}
                     column={props.column}
                     row={props.row}
-                    inputValue={cell.value}
+                    inputValue={cell.obj.k}
                     onChange={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.UPDATE)
                     }
@@ -978,9 +978,9 @@ function setEditableCell(
 
             if (cell.shape === FCellShapes.INPUT_FIELD) {
                 const value =
-                    cellType === FCellTypes.NUMBER && cell.value
+                    cellType === FCellTypes.NUMBER && cell.obj.k
                         ? getCellValueForDisplay(column, cell)
-                        : cell.value;
+                        : cell.obj.k;
                 return (
                     <input
                         class={'input-field'}
@@ -1030,7 +1030,7 @@ function setEditableCell(
                         decimals={props.column.decimals}
                         integers={props.column.integers}
                         group={props.column.group}
-                        value={cell.value}
+                        value={cell.obj.k}
                         label={column.title}
                         onChange={onChange}
                         onInput={onInput}
@@ -1097,7 +1097,7 @@ function setCell(
             );
         case FCellTypes.EDITOR:
         case FCellTypes.MEMO:
-            return <div innerHTML={cell.value}></div>;
+            return <div innerHTML={cell.obj.k}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -1119,13 +1119,13 @@ function setCell(
         case FCellTypes.LINK:
             return (
                 <a href={content as string} target="_blank">
-                    {cell.value}
+                    {cell.obj.k}
                 </a>
             );
         case FCellTypes.NUMBER:
             if (content && content != '') {
                 const cellValueNumber = dom.ketchup.math.numberifySafe(
-                    cell.value
+                    cell.obj.k
                 );
                 const cellValue = getCellValueForDisplay(column, cell);
                 if (cellValueNumber < 0) {
@@ -1144,7 +1144,12 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         case FCellTypes.LABEL:
-            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
+            return (
+                <FLabel
+                    text={cell.value ? cell.value : cell.obj.k}
+                    classes="f-cell__text"
+                ></FLabel>
+            );
         default:
             return (
                 <div class="f-cell__text">
@@ -1240,7 +1245,7 @@ function setKupCell(
             return (
                 <kup-gauge
                     key={column.name + props.row.id}
-                    value={dom.ketchup.math.numberifySafe(cell.value)}
+                    value={dom.ketchup.math.numberifySafe(cell.obj.k)}
                     width-component="280px"
                     {...subcomponentProps}
                 ></kup-gauge>
@@ -1391,7 +1396,7 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
     cell.data = {};
 
     const createDataset = () => {
-        const parts = cell.value?.split(';');
+        const parts = cell.obj?.k?.split(';');
         if (parts?.[parts.length - 1].trim() === '') {
             parts.pop();
         }
@@ -1409,11 +1414,11 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
     switch (cellType) {
         case FCellTypes.CHECKBOX:
         case FCellTypes.SWITCH:
-            cell.data.checked = cell.value === '1' ? true : false;
+            cell.data.checked = cell.obj.k === '1' ? true : false;
             break;
 
         case FCellTypes.BAR:
-            if (isShapeMarker(cell.value)) {
+            if (isShapeMarker(cell.obj.k)) {
                 cell.data.isCanvas = true;
                 cell.data.resource = cell.value;
             } else {
@@ -1422,7 +1427,7 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
             break;
 
         case FCellTypes.BUTTON:
-            cell.data.label = cell.value;
+            cell.data.label = cell.value ? cell.value : cell.obj.k;
             break;
 
         case FCellTypes.CHART:
@@ -1445,19 +1450,19 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
             break;
 
         case FCellTypes.COLOR_PICKER:
-            cell.data.initialValue = cell.value;
+            cell.data.initialValue = cell.obj.k;
             break;
 
         case FCellTypes.GAUGE:
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
         case FCellTypes.RATING:
-            cell.data.value = parseInt(cell.value);
+            cell.data.value = parseInt(cell.obj.k);
             break;
 
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
-            cell.data.resource = cell.value;
+            cell.data.resource = cell.obj.k;
             break;
     }
 }
@@ -1525,7 +1530,6 @@ function cellEvent(
         if (cell.obj) {
             cell.obj.k = value?.toString();
         }
-        cell.value = value?.toString();
         cell.displayedValue = null;
         cell.displayedValue = getCellValueForDisplay(column, cell);
     }
