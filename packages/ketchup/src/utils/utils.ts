@@ -5,9 +5,7 @@ import { KupDataRow } from '../managers/kup-data/kup-data-declarations';
 export function identify(array: Array<KupBoxRow | KupDataRow>) {
     if (array) {
         for (let i = 0; i < array.length; i++) {
-            if (!array[i].id) {
-                array[i].id = i.toString();
-            }
+            array[i].id = i.toString();
         }
     }
 }
