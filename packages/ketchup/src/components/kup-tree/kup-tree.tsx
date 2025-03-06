@@ -59,7 +59,10 @@ import {
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
-import { KupListNode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListNode,
+} from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -360,6 +363,8 @@ export class KupTree {
      * Defines the current totals options.
      */
     @Prop({ mutable: true }) totals: TotalsMap;
+
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -1690,6 +1695,20 @@ export class KupTree {
         }
 
         let treeNodeCell = null;
+        let nodeValue: string;
+        switch (this.displayMode) {
+            case ItemsDisplayMode.CODE:
+                nodeValue = treeNodeData.obj?.k ?? '';
+                break;
+            case ItemsDisplayMode.DESCRIPTION:
+                nodeValue = treeNodeData.value ?? '';
+                break;
+            default:
+                nodeValue = `${treeNodeData.obj?.k ?? ''}: ${
+                    treeNodeData.value ?? ''
+                }`;
+                break;
+        }
         if (this.isTreeColumnVisible()) {
             let content = '';
             if (KupGlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
@@ -1705,7 +1724,7 @@ export class KupTree {
                         class="cell-content"
                         title={this.preventXScroll ? treeNodeData.value : null}
                     >
-                        {treeNodeData.value}
+                        {nodeValue}
                     </span>
                 );
             }
