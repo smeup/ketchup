@@ -391,7 +391,7 @@ export class KupList {
             this.#previouslySelectedItemReached = false;
             this.#previouslySelectedItemIndex = this.focused;
             // If id is null to emit  the event is useless because there aren't items selected
-            if (id) {
+            if (id !== null) {
                 this.kupClick.emit({
                     comp: this,
                     id: this.rootElement.id,
