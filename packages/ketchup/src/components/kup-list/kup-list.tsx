@@ -203,6 +203,14 @@ export class KupList {
     /*-------------------------------------------------*/
 
     /**
+     * Focuses the first element of the list.
+     */
+    @Method()
+    async setFocusOnFirstEl() {
+        this.focused = 0;
+    }
+
+    /**
      * Focuses the next element of the list.
      */
     @Method()
