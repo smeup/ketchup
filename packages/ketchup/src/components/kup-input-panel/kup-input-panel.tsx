@@ -48,7 +48,6 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -102,7 +101,6 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FLabel } from '../../f-components/f-label/f-label';
-import { fontFamily } from 'html2canvas/dist/types/css/property-descriptors/font-family';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -1072,7 +1070,6 @@ export class KupInputPanel {
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
             legacyLook: hasTableShape,
-            // sizing: KupComponentSizing.EXTRA_SMALL,
             helperEnabled: false,
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
