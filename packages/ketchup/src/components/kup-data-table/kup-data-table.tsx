@@ -69,7 +69,6 @@ import {
     paginateRows,
     sortRows,
     getDiffData,
-    decorateDataTable,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -918,7 +917,6 @@ export class KupDataTable {
     @Watch('data')
     decorateAndInitForUpdTable() {
         if (this.data['type'] === 'SmeupDataTable') {
-            decorateDataTable(this.data);
             this.#lastFocusedRow = this.data.rows[0];
         }
         if (this.updatableData) {

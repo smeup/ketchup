@@ -6,10 +6,7 @@ import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-de
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
-import {
-    DataAdapterFn,
-    KupInputPanelCell,
-} from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { KupInputPanelCell } from '../../components/kup-input-panel/kup-input-panel-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
@@ -32,12 +29,9 @@ import {
 } from '../../types/GenericTypes';
 import {
     adaptContentToDisplayMode,
-    CHIAdapter,
-    CMBandACPAdapter,
     getCellValueForDisplay,
     isForceLowercase,
     isForceUppercase,
-    RADAdapter,
 } from '../../utils/cell-utils';
 import { FButton } from '../f-button/f-button';
 import { type FButtonProps } from '../f-button/f-button-declarations';
@@ -68,6 +62,7 @@ import {
     kupTypes,
 } from './f-cell-declarations';
 import { FLabel } from '../f-label/f-label';
+import { adaptCell } from './f-cell-adapter';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -85,10 +80,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-          ? cell.shape
-          : column.shape
-            ? column.shape
-            : null;
+        ? cell.shape
+        : column.shape
+        ? column.shape
+        : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -98,7 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     }
     isEditable = isEditable && props.editable;
 
-    cell.data = mapData(cell, column) ?? cell.data;
+    cell.data = adaptCell(cell);
 
     const valueToDisplay =
         props.previousValue !== cell.value ? cell.value : cell.obj?.k;
@@ -117,8 +112,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-          ? column?.cssClass
-          : '';
+        ? column?.cssClass
+        : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -279,192 +274,6 @@ const handleMouseLeave = (event: MouseEvent) => {
     }
 };
 
-const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
-    if (!cell) {
-        return null;
-    }
-    const options = cell.options;
-    const fieldLabel = cell.data?.hasOwnProperty('label')
-        ? cell.data.label
-        : column.title;
-    const currentValue = cell.obj?.k ?? '';
-    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-    const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-        [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
-        [FCellTypes.STRING, MainITXAdapter.bind(this)],
-        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
-        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
-        [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
-        [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
-        [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
-        [FCellTypes.CHIP, MainCHIAdapter.bind(this)],
-    ]);
-
-    const adapter = dataAdapterMap.get(cellType);
-    return adapter ? adapter(options, fieldLabel, currentValue, cell) : null;
-};
-
-const MainCHIAdapter = (
-    _options: CellOptions[],
-    _fieldLabel: string,
-    _currentValue: string,
-    cell: KupInputPanelCell
-) => {
-    if (!cell.data?.data) {
-        return CHIAdapter(cell.obj?.k, cell.value);
-    } else {
-        return {
-            ...cell.data,
-        };
-    }
-};
-
-const MainObjectAdapter = (
-    _options: CellOptions[],
-    fieldLabel: string,
-    currentValue: string,
-    cell: KupInputPanelCell,
-    _id: string
-) => ({
-    ...cell.data,
-    data: {
-        initialValue: currentValue || '',
-        label: fieldLabel || '',
-        value: currentValue || '',
-    },
-});
-
-const MainCHKAdapter = (
-    _options: CellOptions[],
-    fieldLabel: string,
-    currentValue: string,
-    cell: KupDataCellOptions
-) => ({
-    ...cell.data,
-    checked: currentValue === 'on' || currentValue === '1',
-    label: fieldLabel,
-});
-
-const MainBTNAdapter = (
-    _options: CellOptions[],
-    _fieldLabel: string,
-    currentValue: string,
-    cell: KupDataCellOptions
-) => ({
-    data: [
-        {
-            ...cell.data,
-            icon: cell.icon,
-            value: currentValue,
-        },
-    ],
-});
-
-const MainITXAdapter = (
-    _options: CellOptions[],
-    fieldLabel: string,
-    _currentValue: string,
-    cell: KupDataCellOptions
-) => ({
-    ...cell.data,
-    label: fieldLabel,
-});
-
-const MainRADAdapter = (
-    options: CellOptions[],
-    _fieldLabel: string,
-    currentValue: string,
-    cell?: KupDataCellOptions
-) => {
-    const newData = RADAdapter(currentValue, options);
-    return { ...cell.data, ...newData };
-};
-
-const MainCMBandACPAdapter = (
-    options: CellOptions[],
-    fieldLabel: string,
-    currentValue: string,
-    cell: KupDataCellOptions,
-    _id: string
-) => {
-    if (!cell.data?.data && options) {
-        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-        configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
-            options,
-            currentValue
-        );
-        return configCMandACP;
-    }
-};
-
-const optionsTreeComboAdapter = (options: any, currentValue: string) => {
-    const adapter = optionsAdapterMap.get(options.type);
-
-    if (adapter) {
-        return adapter(options, currentValue);
-    } else {
-        return options.map((option) => ({
-            value: option.label,
-            id: option.id,
-            selected: currentValue === option.id,
-        }));
-    }
-};
-
-const treeOptionsNodeAdapter = (
-    options: any,
-    currentValue: string
-): GenericObject[] => {
-    return options.children.map((child) => ({
-        id: child.content.codice,
-        value: child.content.testo,
-        selected: currentValue === child.content.codice,
-        children: child.children?.length
-            ? treeOptionsNodeAdapter(child, currentValue)
-            : [],
-    }));
-};
-
-const dataTreeOptionsChildrenAdapter = (
-    options: any,
-    currentValue: string
-): GenericObject[] => {
-    return options.children.map((child) => ({
-        id: child.obj.k,
-        value: child.value,
-        selected: currentValue === child.obj.k,
-        children: child.children?.length
-            ? dataTreeOptionsChildrenAdapter(child, currentValue)
-            : [],
-    }));
-};
-
-const tableOptionsAdapter = (
-    options: any,
-    currentValue: string
-): GenericObject[] => {
-    return options.rows.map((row) => {
-        const cells = row.fields || row.cells;
-        const [id, value] = Object.keys(cells);
-
-        return {
-            id: cells[id].value,
-            value: cells[value]?.value || cells[id].value,
-            selected: currentValue === cells[id].value,
-        };
-    });
-};
-
-const optionsAdapterMap = new Map<
-    string,
-    (options: any, currentValue: string) => GenericObject[]
->([
-    ['SmeupTreeNode', treeOptionsNodeAdapter.bind(this)],
-    ['SmeupDataTree', dataTreeOptionsChildrenAdapter.bind(this)],
-    ['SmeupTable', tableOptionsAdapter.bind(this)],
-    ['SmeupDataTable', tableOptionsAdapter.bind(this)],
-]);
-
 function setCellSize(
     cellType: string,
     subcomponentProps: unknown,
@@ -607,8 +416,6 @@ function setEditableCell(
             return (
                 <kup-autocomplete
                     key={column.name + props.row.id}
-                    initialValue={cell.obj.k}
-                    initialValueDecode={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-autocomplete-change={(
@@ -728,7 +535,6 @@ function setEditableCell(
             return (
                 <kup-date-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-datepicker-change={(
@@ -908,7 +714,6 @@ function setEditableCell(
             return (
                 <FSwitch
                     {...cell.data}
-                    disabled={false}
                     onChange={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.UPDATE)
                     }
@@ -921,7 +726,6 @@ function setEditableCell(
             return (
                 <kup-time-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-timepicker-change={(
@@ -1005,8 +809,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                  ? KupComponentSizing.EXTRA_LARGE
-                                  : KupComponentSizing.SMALL
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1023,10 +827,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                  ? cell.icon
-                                  : column.icon
-                                    ? column.icon
-                                    : null
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}

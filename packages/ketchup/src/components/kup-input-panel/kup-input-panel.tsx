@@ -51,12 +51,8 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
-    CHIAdapter,
-    CHKAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
-    RADAdapter,
-    SWTAdapter,
 } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -1270,31 +1266,30 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-            [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter.bind(this)],
             [FCellTypes.BUTTON_LIST, this.#BTNAdapter.bind(this)],
-            [FCellTypes.CHART, this.#GRAAdapter.bind(this)],
-            [FCellTypes.CHIP, this.#CHIAdapter.bind(this)],
-            [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
-            [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
-            [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
-            [FCellTypes.EDITOR, this.#EDTAdapter.bind(this)],
-            [FCellTypes.MULTI_AUTOCOMPLETE, this.#CHIAdapter.bind(this)],
-            [FCellTypes.MULTI_COMBOBOX, this.#CHIAdapter.bind(this)],
-            [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
-            [FCellTypes.DATE, this.#DateAdapter.bind(this)],
-            [FCellTypes.OBJECT, this.#ObjectAdapter.bind(this)],
-            [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
-            [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
-            [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
 
-        return adapter
-            ? adapter(options, fieldLabel, currentValue, cell, col.name, layout)
-            : null;
+        if (adapter) {
+            return {
+                label: col.title,
+                ...adapter(
+                    options,
+                    fieldLabel,
+                    currentValue,
+                    cell,
+                    col.name,
+                    layout
+                ),
+            };
+        } else {
+            return {
+                label: col.title,
+            };
+        }
     }
 
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
@@ -1325,30 +1320,6 @@ export class KupInputPanel {
         }
 
         return null;
-    }
-
-    #CHIAdapter(
-        _options: GenericObject,
-        _fieldLabel: string,
-        currentValue: string,
-        cell: KupInputPanelCell
-    ) {
-        return CHIAdapter(currentValue, cell.decode);
-    }
-
-    #GRAAdapter() {
-        //TODO: definire mapping
-        return {
-            data: {
-                sizeX: '50px',
-                offlineMode: {
-                    value: '8;4;5',
-                },
-                id: 'i1012_GREF_0',
-                cellId: 'i1012_GREF_0',
-                sizeY: '50px',
-            },
-        };
     }
 
     #BTNAdapter(
@@ -1409,38 +1380,6 @@ export class KupInputPanel {
         }
     }
 
-    #CHKAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        currentValue: string
-    ) {
-        return CHKAdapter(currentValue, fieldLabel);
-    }
-
-    #CLPAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        _currentValue: string
-    ) {
-        return {
-            data: {
-                'kup-text-field': {
-                    label: fieldLabel,
-                },
-            },
-        };
-    }
-
-    #EDTAdapter(
-        _options: GenericObject,
-        _fieldLabel: string,
-        currentValue: string
-    ) {
-        return {
-            initialValue: currentValue,
-        };
-    }
-
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
@@ -1463,72 +1402,6 @@ export class KupInputPanel {
         }
 
         return data;
-    }
-
-    #RADAdapter(
-        options: GenericObject,
-        _fieldLabel: string,
-        currentValue: string
-    ) {
-        return RADAdapter(currentValue, options);
-    }
-
-    #SWTAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        currentValue: string
-    ) {
-        return SWTAdapter(currentValue, fieldLabel);
-    }
-
-    #DateAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        currentValue: string
-    ) {
-        return {
-            data: {
-                'kup-text-field': {
-                    label: fieldLabel,
-                },
-            },
-            initialValue: currentValue ?? '',
-        };
-    }
-
-    #ObjectAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        currentValue: string
-    ) {
-        return {
-            initialValue: currentValue || '',
-            label: fieldLabel || ' ',
-            value: currentValue || '',
-        };
-    }
-
-    #TimeAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        currentValue: string
-    ) {
-        return {
-            data: {
-                'kup-text-field': {
-                    label: fieldLabel,
-                },
-            },
-            initialValue: currentValue,
-        };
-    }
-
-    #NumberAdapter(
-        _options: GenericObject,
-        fieldLabel: string,
-        _currentValue: string
-    ) {
-        return { label: fieldLabel };
     }
 
     #DataTableAdapter(

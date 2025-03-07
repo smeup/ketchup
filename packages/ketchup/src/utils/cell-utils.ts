@@ -263,7 +263,6 @@ export function isNegativeNumber(value: string): boolean {
 // -------------
 // ADAPTERS from SmeupDataTable to FCell data attribute
 // -------------
-
 export const CMBandACPAdapter = (
     value: string,
     label: string,
@@ -288,50 +287,6 @@ export const CMBandACPAdapter = (
     initialValue: value,
     label,
 });
-
-export const SWTAdapter = (value: string, label: string) => ({
-    checked: !!value,
-    label,
-    leadingLabel: true,
-});
-
-export const RADAdapter = (value: string, options: GenericObject) => ({
-    data: options?.length
-        ? options?.map((option) => ({
-              value: option.id,
-              label: option.label,
-              checked: option.id == value,
-              icon: option.icon,
-          }))
-        : [],
-});
-
-export const CHKAdapter = (value: string, label: string) => ({
-    checked: value === 'on' || value === '1',
-    label,
-});
-
-export const CHIAdapter = (value: string, decode: string) => {
-    if (!value?.length) {
-        return { data: null };
-    }
-
-    const chipNodes: KupChipNode[] = [];
-    const values = value?.length ? value.split(';') : [];
-    // if cell has decode use it else use values as decode
-    const decodes = decode?.length ? decode.split(';') : undefined;
-
-    for (let i = 0; i < values.length; i++) {
-        chipNodes.push({
-            id: values[i],
-            value: decodes ? decodes[i] : values[i],
-        });
-    }
-
-    return {
-        data: chipNodes.filter((value) => !!value),
-    };
-};
 
 export const submitPositionAdapter = (position: KupCellElementsPosition) => {
     const positionAdapterMap = new Map<KupCellElementsPosition, string>([

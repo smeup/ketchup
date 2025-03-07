@@ -8,6 +8,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
+    GenericObject,
     KupEventPayload,
     KupTagNames,
 } from '../../types/GenericTypes';
@@ -246,3 +247,5 @@ export interface InputSettingsProps {
     checkObject?: boolean;
     checkValueOnExit?: boolean;
 }
+
+export type CellAdapterFn = (cell: KupDataCellOptions) => GenericObject;
