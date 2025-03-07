@@ -820,7 +820,12 @@ export class KupEchart {
                     treatedCells[title] = cell;
                 }
                 if (treatedCells[0]) {
-                    x.push(treatedCells[0].value);
+                    x.push(
+                        // supports decode
+                        treatedCells[0].value
+                            ? treatedCells[0].value
+                            : treatedCells[0].obj.k
+                    );
                 }
             }
         } else {
@@ -829,7 +834,12 @@ export class KupEchart {
                 const treatedCells: KupDataRowCells = {};
                 const title = getColumnByName(dataset.columns, this.axis).title;
                 treatedCells[title] = cells[this.axis];
-                x.push(treatedCells[title].value);
+                x.push(
+                    // supports decode
+                    treatedCells[title].value
+                        ? treatedCells[title].value
+                        : treatedCells[title].obj.k
+                );
             }
         }
         return x;
@@ -842,7 +852,7 @@ export class KupEchart {
                 for (const key of Object.keys(row.cells)) {
                     if (key != this.axis) {
                         const cell = row.cells[key];
-                        const value = cell.value;
+                        const value = cell.obj.k;
                         const column = getColumnByName(this.data.columns, key);
                         if (column) {
                             const name = column.name;
@@ -859,7 +869,7 @@ export class KupEchart {
                 for (const key of Object.keys(row.cells)) {
                     if (key !== this.axis) {
                         const cell = row.cells[key];
-                        const value = cell.value;
+                        const value = cell.obj.k;
                         const column = getColumnByName(this.data.columns, key);
                         if (column) {
                             const name = column.name;

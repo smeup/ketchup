@@ -313,10 +313,10 @@ export class KupCalendar {
                 if (this.iconCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
-                    if (cell?.value) {
+                    if (cell?.obj.k) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('icon-wrapper');
-                        cell.value.split(';').forEach((icon) => {
+                        cell.obj.k.split(';').forEach((icon) => {
                             if (icon) {
                                 const span = document.createElement('span');
                                 span.className = 'custom-icon';
@@ -336,11 +336,11 @@ export class KupCalendar {
                 if (this.imageCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.imageCol];
-                    if (cell && cell.value) {
+                    if (cell && cell.obj.k) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('image-wrapper');
 
-                        cell.value.split(';').forEach((icon) => {
+                        cell.obj.k.split(';').forEach((icon) => {
                             const img = document.createElement('img');
                             img.src = icon;
                             wrapper.appendChild(img);
@@ -524,8 +524,8 @@ export class KupCalendar {
             events = this.getRows().map((row) => {
                 const cell = row.cells[this.dateCol];
                 if (cell) {
-                    let startDate = this.kupManager.dates.toDayjs(cell.value);
-                    let endDate = this.kupManager.dates.toDayjs(cell.value);
+                    let startDate = this.kupManager.dates.toDayjs(cell.obj.k);
+                    let endDate = this.kupManager.dates.toDayjs(cell.obj.k);
 
                     if (isHourRange) {
                         const startCell = row.cells[this.startCol];
@@ -533,11 +533,11 @@ export class KupCalendar {
 
                         if (startCell && endCell) {
                             const dayjsStart = this.kupManager.dates.toDayjs(
-                                startCell.value,
+                                startCell.obj.k,
                                 KupDatesFormats.ISO_TIME
                             );
                             const dayjsEnd = this.kupManager.dates.toDayjs(
-                                endCell.value,
+                                endCell.obj.k,
                                 KupDatesFormats.ISO_TIME
                             );
 
@@ -560,11 +560,11 @@ export class KupCalendar {
                                     `error while converting hour range: [${
                                         dayjsStart
                                             ? `start hour: ${dayjsStart}`
-                                            : `invalid start hour: ${startCell.value}`
+                                            : `invalid start hour: ${startCell.obj.k}`
                                     }, ${
                                         dayjsEnd
                                             ? `end hour: ${dayjsEnd}`
-                                            : `invalid end hour: ${endCell.value}`
+                                            : `invalid end hour: ${endCell.obj.k}`
                                     }]`,
                                     KupDebugCategory.WARNING
                                 );
@@ -581,7 +581,10 @@ export class KupCalendar {
                                 row,
                             },
                             start: startDate.toISOString(),
-                            title: row.cells[this.descrCol].value,
+                            // display cell.value otherwise cell.obj.k
+                            title: row.cells[this.descrCol].value
+                                ? row.cells[this.descrCol].value
+                                : row.cells[this.descrCol].obj.k,
                         };
                         return el;
                     } else {
@@ -590,11 +593,11 @@ export class KupCalendar {
                             `error while converting dates: [${
                                 startDate
                                     ? `start date: ${startDate}`
-                                    : `invalid start date: ${cell.value}`
+                                    : `invalid start date: ${cell.obj.k}`
                             }. ${
                                 endDate
                                     ? `end date: ${endDate}`
-                                    : `invalid end date: ${cell.value}`
+                                    : `invalid end date: ${cell.obj.k}`
                             }]`,
                             KupDebugCategory.WARNING
                         );

@@ -27,7 +27,11 @@ export function getCellValueForDisplay(
             return cell.displayedValue;
         }
     }
-    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
+    let formattedValue = _getCellValueForDisplay(
+        cell.value ? cell.value : cell.obj.k,
+        column,
+        cell
+    );
     if (cell != null) {
         cell.displayedValue = formattedValue;
     }
@@ -167,8 +171,9 @@ export function compareValues(
         return compare * sm;
     }
 
-    let s1: string = value1;
-    let s2: string = value2;
+    // compare based on value or obj.k
+    let s1: string = value1 ? value1 : obj1.k;
+    let s2: string = value2 ? value2 : obj2.k;
 
     if (s1 == s2) {
         return 0;
