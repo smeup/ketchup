@@ -80,7 +80,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         props.label &&
         !props.leadingLabel &&
         !props.trailingLabel &&
-        !props.legacyLook // do not show label in input panel absolute ( legacy mode )
+        !props.legacySize // do not show label in input panel absolute ( legacy mode )
     ) {
         labelEl = (
             <div class="mdc-text-field__label-container">
@@ -200,7 +200,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let value = props.value;
     let inputType = props.quantityButtons
         ? 'number'
-        : props.inputType ?? 'text';
+        : (props.inputType ?? 'text');
     let persManageForNumberFormat = false;
     if (props.inputType === 'number') {
         inputType = 'text';
