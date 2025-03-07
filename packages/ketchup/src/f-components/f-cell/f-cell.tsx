@@ -85,10 +85,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-        ? cell.shape
-        : column.shape
-        ? column.shape
-        : null;
+          ? cell.shape
+          : column.shape
+            ? column.shape
+            : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -117,8 +117,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-        ? column?.cssClass
-        : '';
+          ? column?.cssClass
+          : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -826,6 +826,7 @@ function setEditableCell(
                         id={cell.slotData?.id}
                         error={cell.data.error}
                         showMarker={cell.tooltip ?? false}
+                        listDisplayMode={cell.data.listDisplayMode}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -1004,8 +1005,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                ? KupComponentSizing.EXTRA_LARGE
-                                : KupComponentSizing.SMALL
+                                  ? KupComponentSizing.EXTRA_LARGE
+                                  : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1022,10 +1023,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                ? cell.icon
-                                : column.icon
-                                ? column.icon
-                                : null
+                                  ? cell.icon
+                                  : column.icon
+                                    ? column.icon
+                                    : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}

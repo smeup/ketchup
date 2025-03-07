@@ -203,6 +203,14 @@ export class KupList {
     /*-------------------------------------------------*/
 
     /**
+     * Focuses the first element of the list.
+     */
+    @Method()
+    async setFocusOnFirstEl() {
+        this.focused = 0;
+    }
+
+    /**
      * Focuses the next element of the list.
      */
     @Method()
@@ -391,7 +399,7 @@ export class KupList {
             this.#previouslySelectedItemReached = false;
             this.#previouslySelectedItemIndex = this.focused;
             // If id is null to emit  the event is useless because there aren't items selected
-            if (id) {
+            if (id !== null) {
                 this.kupClick.emit({
                     comp: this,
                     id: this.rootElement.id,

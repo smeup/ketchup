@@ -3203,6 +3203,10 @@ export namespace Components {
         "setBlur": () => Promise<void>;
         "setFocus": () => Promise<void>;
         /**
+          * Focuses the first element of the list.
+         */
+        "setFocusOnFirstEl": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
