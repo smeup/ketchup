@@ -1070,6 +1070,7 @@ export class KupInputPanel {
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
             legacyLook: hasTableShape,
+            legacySize: true,
             helperEnabled: false,
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
