@@ -6,14 +6,11 @@ import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-de
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
-import { KupInputPanelCell } from '../../components/kup-input-panel/kup-input-panel-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
 import {
-    CellOptions,
     KupDataCell,
-    KupDataCellOptions,
     KupDataColumn,
     KupDataNode,
     KupDataRow,

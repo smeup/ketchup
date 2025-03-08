@@ -618,6 +618,7 @@ export class KupInputPanel {
         };
 
         const label = this.#getLabelComponent(cell, column.title);
+        console.log('LABEL', label);
 
         if (label) {
             return (
@@ -722,7 +723,9 @@ export class KupInputPanel {
 
         const value = isFormattableType
             ? getCellValueForDisplay(column, cell)
-            : cell.value;
+            : cell.value
+            ? cell.value
+            : cell.obj.k;
 
         return (
             <span class={classList.join(' ')} id={column.name}>

@@ -3,7 +3,6 @@ import {
     FButtonProps,
     GenericObject,
     KupChipNode,
-    KupDataColumn,
 } from '../../components';
 import { KupDataCellOptions } from '../../managers/kup-data/kup-data-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
