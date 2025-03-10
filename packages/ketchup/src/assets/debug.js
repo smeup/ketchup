@@ -3,7 +3,7 @@ const compName = 'kup-input-panel';
 
 // Replace the props below with yours.
 const props = {
-    //updatableData: true,
+    updatableData: true,
     customStyle: '',
     data: {
         type: 'SmeupDataTable',

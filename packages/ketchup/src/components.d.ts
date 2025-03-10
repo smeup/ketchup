@@ -1936,6 +1936,10 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Define the label of the date picker
+         */
+        "label": string;
+        /**
           * When enabled, font will be set to monospace and sizing will be extra-small .
           * @default false
          */
@@ -4454,6 +4458,10 @@ export namespace Components {
           * @default ""
          */
         "initialValue": string;
+        /**
+          * Define the label of the date picker
+         */
+        "label": string;
         /**
           * Manage seconds.
           * @default true
@@ -7831,6 +7839,10 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         /**
+          * Define the label of the date picker
+         */
+        "label"?: string;
+        /**
           * When enabled, font will be set to monospace and sizing will be extra-small .
           * @default false
          */
@@ -9918,6 +9930,10 @@ declare namespace LocalJSX {
           * @default ""
          */
         "initialValue"?: string;
+        /**
+          * Define the label of the date picker
+         */
+        "label"?: string;
         /**
           * Manage seconds.
           * @default true

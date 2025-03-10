@@ -40,7 +40,6 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { getProps } from '../../utils/utils';
-import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -95,6 +94,10 @@ export class KupDatePicker {
      * @default ""
      */
     @Prop() initialValue: string = '';
+    /**
+     * Define the label of the date picker
+     */
+    @Prop() label: string;
     /**
      * When set to true, the component will be rendered as an outlined field.
      * @default false
@@ -644,6 +647,7 @@ export class KupDatePicker {
             outlined: this.outlined,
             showIcon: this.showIcon,
             legacyLook: this.legacyLook,
+            label: this.label,
             error: this.error,
             showMarker: this.showMarker,
         };

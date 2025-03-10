@@ -114,6 +114,10 @@ export class KupTimePicker {
      * @default false
      */
     @Prop() showMarker: boolean = false;
+    /**
+     * Define the label of the date picker
+     */
+    @Prop() label: string;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -570,6 +574,7 @@ export class KupTimePicker {
                 onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}
                 showMarker={this.showMarker}
+                label={this.label}
             >
                 {this.prepTimePicker()}
             </FTextField>

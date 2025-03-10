@@ -18,6 +18,7 @@ export const adaptCell = (cell: KupDataCellOptions): GenericObject => {
     const dataAdapterMap = new Map<FCellTypes, CellAdapterFn>([
         [FCellTypes.AUTOCOMPLETE, ACPandCMBAdapter.bind(this)],
         [FCellTypes.BUTTON, BTNAdapter.bind(this)],
+        [FCellTypes.COLOR_PICKER, CLPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, ACPandCMBAdapter.bind(this)],
         [FCellTypes.CHECKBOX, CHKAdapter.bind(this)],
         [FCellTypes.CHIP, CHIAdapter.bind(this)],
@@ -112,5 +113,11 @@ const DATAdapter: CellAdapterFn = (
     cell
 ): Partial<Components.KupDatePicker> => ({
     ...cell.data,
+    initialValue: cell.obj.k,
+});
+
+const CLPAdapter: CellAdapterFn = (
+    cell
+): Partial<Components.KupColorPicker> => ({
     initialValue: cell.obj.k,
 });

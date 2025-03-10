@@ -494,7 +494,6 @@ function setEditableCell(
             return (
                 <kup-color-picker
                     key={column.name + props.row.id}
-                    initialValue={cell.obj.k}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     disabled={false}
@@ -507,8 +506,6 @@ function setEditableCell(
             return (
                 <kup-combobox
                     key={column.name + props.row.id}
-                    initialValue={cell.obj.k}
-                    initialValueDecode={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-combobox-change={(
@@ -593,7 +590,6 @@ function setEditableCell(
                         cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
                     }
                     {...cell.data}
-                    label={cell.slotData?.label ?? ''}
                     type={FChipType.INPUT}
                     enableInput={true}
                     onKup-chip-change={(
