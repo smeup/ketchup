@@ -708,11 +708,7 @@ export class KupInputPanel {
         );
     }
 
-    #renderLabel(
-        cell: KupDataCell,
-        column: KupDataColumn,
-        isAbsoluteLayout?: boolean
-    ) {
+    #renderLabel(cell: KupDataCell, column: KupDataColumn) {
         const isNumberType = dom.ketchup.objects.isNumber(cell.obj);
         const isFormattableType =
             isNumberType ||
@@ -721,7 +717,7 @@ export class KupInputPanel {
             dom.ketchup.objects.isTimestamp(cell.obj);
 
         const classList = ['input-panel-label'];
-        if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
+        // if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
         if (isNumberType) classList.push('input-panel-label-number');
 
         const value = isFormattableType
@@ -855,12 +851,17 @@ export class KupInputPanel {
                 this.#renderAbsoluteSection(cells, innerSection)
             );
         } else if (section.content?.length) {
-            content = section.content.map((field) =>
-                this.#renderAbsoluteField(cells, field)
+            const hasTableShape = section.content.some(
+                (field) => field.id === 'VDSFL'
             );
+
+            // Assicuriamoci che map restituisca l'output di renderAbsoluteField
+            content = section.content.map((field) => {
+                return this.#renderAbsoluteField(cells, field, hasTableShape);
+            });
         }
 
-        //If width is not specified the div in the return at the end can be removed
+        // Se width non è specificato, rimuovere il div
         if (getAbsoluteWidth(section.absoluteWidth) == null) {
             return content;
         }
@@ -976,8 +977,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -987,8 +988,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1011,7 +1012,8 @@ export class KupInputPanel {
 
     #renderAbsoluteField(
         cells: InputPanelCells,
-        field: KupInputPanelLayoutField
+        field: KupInputPanelLayoutField,
+        hasTableShape: boolean = false
     ) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
@@ -1058,7 +1060,8 @@ export class KupInputPanel {
                 absoluteLeft !== null
                     ? `${getAbsoluteLeft(field.absoluteColumn)}px`
                     : null,
-            overflow: 'auto',
+            overflow: 'hidden',
+            fontFamily: hasTableShape ? 'monospace' : '',
         };
 
         fieldCell.cell.data = {
@@ -1066,7 +1069,8 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
-            legacyLook: true,
+            legacyLook: hasTableShape,
+            legacySize: true,
             helperEnabled: false,
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
@@ -1783,10 +1787,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? this.#optionsTreeComboAdapter(
+                    ? (this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? []
+                      ) ?? [])
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {
