@@ -1058,7 +1058,7 @@ export class KupInputPanel {
                 absoluteLeft !== null
                     ? `${getAbsoluteLeft(field.absoluteColumn)}px`
                     : null,
-            overflow: 'auto',
+            overflow: 'hidden',
         };
 
         fieldCell.cell.data = {
