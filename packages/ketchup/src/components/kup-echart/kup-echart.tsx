@@ -1277,7 +1277,11 @@ export class KupEchart {
                     data: data,
                     radius: '60%',
                     label: {
-                        show: false,
+                        show: true,
+                        position: 'inner',
+                        formatter: (value) => {
+                            return `${value.percent}%`;
+                        },
                     },
                     emphasis: {
                         itemStyle: {
