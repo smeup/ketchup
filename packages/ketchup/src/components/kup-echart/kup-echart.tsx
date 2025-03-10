@@ -1277,18 +1277,13 @@ export class KupEchart {
                     const tooltipWidth = (dom as HTMLDivElement).offsetWidth;
                     const tooltipHeight = (dom as HTMLDivElement).offsetHeight;
 
-                    if (dx >= 0 && dy < 0) {
-                        return [point[0] + 15, point[1] - tooltipHeight - 10];
-                    } else if (dx < 0 && dy < 0) {
-                        return [
-                            point[0] - tooltipWidth - 15,
-                            point[1] - tooltipHeight - 10,
-                        ];
-                    } else if (dx < 0 && dy >= 0) {
-                        return [point[0] - tooltipWidth - 15, point[1] + 10];
-                    } else {
-                        return [point[0] + 15, point[1] + 10];
-                    }
+                    const x =
+                        dx >= 0 ? point[0] + 15 : point[0] - tooltipWidth - 15;
+
+                    const y =
+                        dy < 0 ? point[1] - tooltipHeight - 10 : point[1] + 10;
+
+                    return [x, y];
                 },
             },
             series: [
