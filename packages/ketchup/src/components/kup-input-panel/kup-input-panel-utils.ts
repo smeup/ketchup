@@ -1,7 +1,7 @@
 import { KupInputPanelLayout } from './kup-input-panel-declarations';
 
 export const CHAR_WIDTH = 10;
-export const ROW_HEIGHT = 22;
+export const ROW_HEIGHT = 20;
 
 export const getAbsoluteWidth = (length: number) => {
     if (length == 0) {
@@ -19,7 +19,7 @@ export const getAbsoluteWidth = (length: number) => {
     return length * CHAR_WIDTH;
 };
 
-export const FONT_SIZE = 12;
+export const FONT_SIZE = 14;
 export const FONT_SIZE_TO_WIDTH_RATIO = 1.666666666666667;
 export const SINGLE_CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO;
 
@@ -52,7 +52,7 @@ export const getAbsoluteTop = (row: number) => {
         return null;
     }
 
-    return (row - 1) * ROW_HEIGHT;
+    return (row - 1) * ROW_HEIGHT + row - 1;
 };
 
 export const getAbsoluteLeft = (col: number) => {
