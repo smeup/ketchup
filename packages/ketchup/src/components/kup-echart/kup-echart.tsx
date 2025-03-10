@@ -1267,6 +1267,29 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)',
+                confine: false,
+                appendTo: 'body',
+                position: (point, _params, dom, _rect, size) => {
+                    const centerX = size.viewSize[0] / 2;
+                    const centerY = size.viewSize[1] / 2;
+                    const dx = point[0] - centerX;
+                    const dy = point[1] - centerY;
+                    const tooltipWidth = (dom as HTMLDivElement).offsetWidth;
+                    const tooltipHeight = (dom as HTMLDivElement).offsetHeight;
+
+                    if (dx >= 0 && dy < 0) {
+                        return [point[0] + 15, point[1] - tooltipHeight - 10];
+                    } else if (dx < 0 && dy < 0) {
+                        return [
+                            point[0] - tooltipWidth - 15,
+                            point[1] - tooltipHeight - 10,
+                        ];
+                    } else if (dx < 0 && dy >= 0) {
+                        return [point[0] - tooltipWidth - 15, point[1] + 10];
+                    } else {
+                        return [point[0] + 15, point[1] + 10];
+                    }
+                },
             },
             series: [
                 {
