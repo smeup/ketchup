@@ -141,6 +141,16 @@ export class KupEchart {
      * @default null
      */
     @Prop() yAxis: KupEchartYAxis = null;
+    /**
+     * Minimum for the y Axis.
+     * @default null
+     */
+    @Prop() axisYMin: string = null;
+    /**
+     * Maximum for the y Axis.
+     * @default null
+     */
+    @Prop() axisYMax: string = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -1667,6 +1677,8 @@ export class KupEchart {
                 axisLabel: {
                     formatter: axisLabelFormatter,
                 },
+                min: this.axisYMin ?? null,
+                max: this.axisYMax ?? null,
                 ...this.yAxis,
             },
             grid: { show: true, containLabel: true },

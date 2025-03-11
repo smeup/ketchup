@@ -2203,6 +2203,16 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Maximum for the y Axis.
+          * @default null
+         */
+        "axisYMax": string;
+        /**
+          * Minimum for the y Axis.
+          * @default null
+         */
+        "axisYMin": string;
+        /**
           * Title of the graph.
           * @default null
          */
@@ -8049,6 +8059,16 @@ declare namespace LocalJSX {
           * @default ""
          */
         "axis"?: string;
+        /**
+          * Maximum for the y Axis.
+          * @default null
+         */
+        "axisYMax"?: string;
+        /**
+          * Minimum for the y Axis.
+          * @default null
+         */
+        "axisYMin"?: string;
         /**
           * Title of the graph.
           * @default null
