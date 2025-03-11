@@ -1677,8 +1677,8 @@ export class KupEchart {
                 axisLabel: {
                     formatter: axisLabelFormatter,
                 },
-                min: this.axisYMin ?? null,
-                max: this.axisYMax ?? null,
+                min: this.axisYMin,
+                max: this.axisYMax,
                 ...this.yAxis,
             },
             grid: { show: true, containLabel: true },
