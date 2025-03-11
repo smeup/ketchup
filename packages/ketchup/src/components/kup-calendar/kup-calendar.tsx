@@ -285,8 +285,8 @@ export class KupCalendar {
                     this.viewType === KupCalendarViewTypes.MONTH &&
                     date.getDate() > 1
                 ) {
-                    date.setMonth(date.getMonth() + 1);
                     date.setDate(1);
+                    date.setMonth(date.getMonth() + 1);
                     this.initialDate = date.toISOString().substring(0, 10);
                 } else {
                     this.initialDate = isoDate;

@@ -125,6 +125,16 @@ Type: `Promise<void>`
 
 
 
+### `setFocusOnFirstEl() => Promise<void>`
+
+Focuses the first element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.

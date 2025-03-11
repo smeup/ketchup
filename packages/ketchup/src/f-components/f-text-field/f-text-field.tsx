@@ -200,7 +200,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let value = props.value;
     let inputType = props.quantityButtons
         ? 'number'
-        : props.inputType ?? 'text';
+        : (props.inputType ?? 'text');
     let persManageForNumberFormat = false;
     if (props.inputType === 'number') {
         inputType = 'text';

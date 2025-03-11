@@ -246,10 +246,6 @@ export namespace Components {
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayListMode": ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
@@ -303,6 +299,10 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode": ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -721,6 +721,10 @@ export namespace Components {
           * @default true
          */
         "showSelection": boolean;
+        /**
+          * When set to false buttons don't show the text, only the icon if it is present.
+         */
+        "showText": boolean;
         /**
           * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
           * @default KupComponentSizing.SMALL
@@ -1340,10 +1344,6 @@ export namespace Components {
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
-        "displayListMode": ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
         "displayMode": ItemsDisplayMode;
         /**
           * Set error message
@@ -1393,6 +1393,10 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode": ItemsDisplayMode;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -3199,6 +3203,10 @@ export namespace Components {
         "setBlur": () => Promise<void>;
         "setFocus": () => Promise<void>;
         /**
+          * Focuses the first element of the list.
+         */
+        "setFocusOnFirstEl": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -4560,6 +4568,7 @@ export namespace Components {
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
         "density": FCellPadding;
+        "displayMode": ItemsDisplayMode;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
@@ -6345,10 +6354,6 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayListMode"?: ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
@@ -6391,6 +6396,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode"?: ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -6776,6 +6785,10 @@ declare namespace LocalJSX {
           * @default true
          */
         "showSelection"?: boolean;
+        /**
+          * When set to false buttons don't show the text, only the icon if it is present.
+         */
+        "showText"?: boolean;
         /**
           * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
           * @default KupComponentSizing.SMALL
@@ -7311,10 +7324,6 @@ declare namespace LocalJSX {
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
-        "displayListMode"?: ItemsDisplayMode;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Set error message
@@ -7353,6 +7362,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "listDisplayMode"?: ItemsDisplayMode;
         "onKup-combobox-blur"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
@@ -9989,6 +10002,7 @@ declare namespace LocalJSX {
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
         "density"?: FCellPadding;
+        "displayMode"?: ItemsDisplayMode;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion

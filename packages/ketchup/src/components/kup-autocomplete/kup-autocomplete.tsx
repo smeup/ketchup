@@ -509,6 +509,7 @@ export class KupAutocomplete {
         const topOffset = hasError || hasAlert ? -20 : 0;
         this.#textfieldWrapper.classList.add('toggled');
         this.#listEl.menuVisible = true;
+        this.#listEl.setFocusOnFirstEl();
         const elStyle = this.#listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.#textfieldWrapper.clientWidth + 'px';

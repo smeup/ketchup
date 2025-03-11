@@ -976,8 +976,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -987,8 +987,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1058,7 +1058,7 @@ export class KupInputPanel {
                 absoluteLeft !== null
                     ? `${getAbsoluteLeft(field.absoluteColumn)}px`
                     : null,
-            overflow: 'auto',
+            overflow: 'hidden',
         };
 
         fieldCell.cell.data = {
@@ -1783,10 +1783,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? this.#optionsTreeComboAdapter(
+                    ? (this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? []
+                      ) ?? [])
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {

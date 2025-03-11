@@ -77,7 +77,6 @@ import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
-import { FPaginatorMode } from '../../f-components/f-paginator/f-paginator-declarations';
 import {
     pageChange,
     rowsPerPageChange,
@@ -126,6 +125,7 @@ export class KupBox {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
+            this.state.load = true;
             const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.kupManager.debug.logMessage(
@@ -149,102 +149,98 @@ export class KupBox {
 
     persistState(): void {
         if (this.store && this.stateId) {
-            let somethingChanged = false;
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.sortBy,
-                    this.sortBy
-                )
-            ) {
-                this.state.sortBy = this.sortBy;
-                somethingChanged = true;
-            }
-
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.globalFilterValue,
-                    this.globalFilterValue
-                )
-            ) {
-                this.state.globalFilterValue = this.globalFilterValue;
-                somethingChanged = true;
-            }
-
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.pageSelected,
-                    this.currentPage
-                )
-            ) {
-                this.state.pageSelected = this.currentPage;
-                somethingChanged = true;
-            }
-
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.rowsPerPage,
-                    this.currentRowsPerPage
-                )
-            ) {
-                this.state.rowsPerPage = this.currentRowsPerPage;
-                somethingChanged = true;
-            }
-
-            const selectedRowsState = this.selectedRows.reduce(
-                (accumulator, row, currentIndex) => {
-                    const prefix = currentIndex > 0 ? ';' : '';
-                    return accumulator + prefix + row.id;
-                },
-                ''
-            );
-
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.selectedRowsState,
-                    selectedRowsState
-                )
-            ) {
-                this.state.selectedRowsState = selectedRowsState;
-                somethingChanged = true;
-            }
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.loadMoreLimit,
-                    this.loadMoreLimit
-                )
-            ) {
-                this.state.loadMoreLimit = this.loadMoreLimit;
-                somethingChanged = true;
-            }
-
-            if (
-                !this.kupManager.objects.deepEqual(
-                    this.state.showLoadMore,
-                    this.showLoadMore
-                )
-            ) {
-                this.state.showLoadMore = this.showLoadMore;
-                somethingChanged = true;
-            }
-
+            let somethingChanged = this.#checkUpdateState();
             if (!this.state.load) {
                 this.state.load = true;
                 return;
             }
-
             if (somethingChanged) {
                 this.kupManager.debug.logMessage(
                     this,
-                    'Persisting state for stateId ' +
-                        this.stateId +
-                        ': ' +
-                        this.state
+                    'Persisting stateId ' + this.stateId
                 );
                 this.store.persistState(this.stateId, this.state);
             }
         }
     }
 
+    #checkUpdateState(): boolean {
+        let somethingChanged = false;
+        if (
+            !this.kupManager.objects.deepEqual(this.state.sortBy, this.sortBy)
+        ) {
+            this.state.sortBy = this.sortBy;
+            somethingChanged = true;
+        }
+
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.globalFilterValue,
+                this.globalFilterValue
+            )
+        ) {
+            this.state.globalFilterValue = this.globalFilterValue;
+            somethingChanged = true;
+        }
+
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.pageSelected,
+                this.currentPage
+            )
+        ) {
+            this.state.pageSelected = this.currentPage;
+            somethingChanged = true;
+        }
+
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.rowsPerPage,
+                this.currentRowsPerPage
+            )
+        ) {
+            this.state.rowsPerPage = this.currentRowsPerPage;
+            somethingChanged = true;
+        }
+
+        const selectedRowsState = this.selectedRows.reduce(
+            (accumulator, row, currentIndex) => {
+                const prefix = currentIndex > 0 ? ';' : '';
+                return accumulator + prefix + row.id;
+            },
+            ''
+        );
+
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.selectedRowsState,
+                selectedRowsState
+            )
+        ) {
+            this.state.selectedRowsState = selectedRowsState;
+            somethingChanged = true;
+        }
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.loadMoreLimit,
+                this.loadMoreLimit
+            )
+        ) {
+            this.state.loadMoreLimit = this.loadMoreLimit;
+            somethingChanged = true;
+        }
+
+        if (
+            !this.kupManager.objects.deepEqual(
+                this.state.showLoadMore,
+                this.showLoadMore
+            )
+        ) {
+            this.state.showLoadMore = this.showLoadMore;
+            somethingChanged = true;
+        }
+        return somethingChanged;
+    }
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/

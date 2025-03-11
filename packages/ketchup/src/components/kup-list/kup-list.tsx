@@ -203,6 +203,14 @@ export class KupList {
     /*-------------------------------------------------*/
 
     /**
+     * Focuses the first element of the list.
+     */
+    @Method()
+    async setFocusOnFirstEl() {
+        this.focused = 0;
+    }
+
+    /**
      * Focuses the next element of the list.
      */
     @Method()
@@ -363,7 +371,12 @@ export class KupList {
         if (index !== null && index !== undefined && !isNaN(index)) {
             const listItems: NodeListOf<HTMLElement> =
                 this.rootElement.shadowRoot.querySelectorAll('.list-item');
-            const id: string = listItems[index].dataset.id;
+            // If the index is out of bounds do nothing.
+            // The index could be out of bounds when the user
+            // types something in the filter field, there aren't items
+            // and the user presses enter
+            const id: string =
+                listItems.length > index ? listItems[index].dataset.id : null;
             const dataEl = this.data.find((x: KupListNode) => x.id === id);
             switch (this.roleType) {
                 case KupListRole.GROUP:
@@ -385,12 +398,15 @@ export class KupList {
 
             this.#previouslySelectedItemReached = false;
             this.#previouslySelectedItemIndex = this.focused;
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                selected: dataEl,
-                index,
-            });
+            // If id is null to emit  the event is useless because there aren't items selected
+            if (id !== null) {
+                this.kupClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    selected: dataEl,
+                    index,
+                });
+            }
         }
     }
 

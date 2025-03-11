@@ -1332,6 +1332,14 @@
             ></kup-image>
             <div class="icon-label">chrome_reader_mode</div>
           </div>
+          <div class="icon-wrapper" title="circle">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="circle"
+            ></kup-image>
+            <div class="icon-label">circle</div>
+          </div>
           <div class="icon-wrapper" title="class">
             <kup-image size-x="48px" size-y="48px" resource="class"></kup-image>
             <div class="icon-label">class</div>
@@ -6635,6 +6643,10 @@
               size-y="48px"
               resource="update"
             ></kup-image>
+            <div class="icon-wrapper" title="up">
+              <kup-image size-x="48px" size-y="48px" resource="up"></kup-image>
+              <div class="icon-label">up</div>
+            </div>
             <div class="icon-label">update</div>
           </div>
           <div class="icon-wrapper" title="usb">

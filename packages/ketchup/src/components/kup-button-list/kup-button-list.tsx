@@ -110,6 +110,10 @@ export class KupButtonList {
      * @default FButtonStyling.RAISED
      */
     @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
+    /**
+     * When set to false buttons don't show the text, only the icon if it is present.
+     */
+    @Prop() showText: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -231,7 +235,7 @@ export class KupButtonList {
             iconOff: data.iconOff,
             placeholderIcon: data.placeholderIcon,
             id: data.id,
-            label: data.label,
+            label: this.showText ? data.label : undefined,
             large: data.large,
             neutral: this.rootElement.classList.contains('kup-neutral')
                 ? true
@@ -323,7 +327,7 @@ export class KupButtonList {
             data.placeholderIcon = node.placeholderIcon;
         }
         if (data.label == null) {
-            data.label = node.value;
+            data.label = node.value ? node.value : node.obj?.k;
         }
         data.fullHeight = this.rootElement.classList.contains('kup-full-height')
             ? true

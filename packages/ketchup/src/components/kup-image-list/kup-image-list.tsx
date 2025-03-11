@@ -43,7 +43,6 @@ import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -67,6 +66,7 @@ export class KupImageList {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
+            this.state.load = true;
             const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.currentNode =
@@ -80,19 +80,7 @@ export class KupImageList {
 
     persistState(): void {
         if (this.store && this.stateId) {
-            let somethingChanged = false;
-            let cNodeRowId = this.currentNode ? this.currentNode.id : '';
-
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.selectedTreeNodePath,
-                    cNodeRowId
-                )
-            ) {
-                this.state.selectedTreeNodePath = cNodeRowId;
-                somethingChanged = true;
-            }
-
+            let somethingChanged = this.#checkUpdateState();
             if (!this.state.load) {
                 this.state.load = true;
                 return;
@@ -101,6 +89,22 @@ export class KupImageList {
                 this.store.persistState(this.stateId, this.state);
             }
         }
+    }
+
+    #checkUpdateState(): boolean {
+        let somethingChanged = false;
+        let cNodeRowId = this.currentNode ? this.currentNode.id : '';
+
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.selectedTreeNodePath,
+                cNodeRowId
+            )
+        ) {
+            this.state.selectedTreeNodePath = cNodeRowId;
+            somethingChanged = true;
+        }
+        return somethingChanged;
     }
 
     /*-------------------------------------------------*/
