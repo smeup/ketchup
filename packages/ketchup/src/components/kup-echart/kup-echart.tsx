@@ -305,7 +305,6 @@ export class KupEchart {
                 break;
             default:
                 options = this.#setOptions();
-                console.log('options', options);
 
                 break;
         }
