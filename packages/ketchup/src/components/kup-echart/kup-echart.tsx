@@ -305,6 +305,8 @@ export class KupEchart {
                 break;
             default:
                 options = this.#setOptions();
+                console.log('options', options);
+
                 break;
         }
         this.#chartEl.setOption(options, true);
@@ -927,9 +929,9 @@ export class KupEchart {
                 color: this.#themeText,
                 fontFamily: this.#themeFont,
             },
-            axisLine: { lineStyle: { color: this.#themeText } },
-            axisTick: { lineStyle: { color: this.#themeBorder } },
-            splitLine: { lineStyle: { color: this.#themeBorder } },
+            axisLine: { lineStyle: { color: this.#themeText ?? '' } },
+            axisTick: { lineStyle: { color: this.#themeBorder ?? '' } },
+            splitLine: { lineStyle: { color: this.#themeBorder ?? '' } },
         } as echarts.XAXisComponentOption | echarts.YAXisComponentOption;
     }
 
@@ -1668,7 +1670,7 @@ export class KupEchart {
                 },
                 ...this.yAxis,
             },
-            grid: { containLabel: true },
+            grid: { show: true, containLabel: true },
         } as echarts.EChartsOption;
     }
 
