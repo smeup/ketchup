@@ -708,7 +708,11 @@ export class KupInputPanel {
         );
     }
 
-    #renderLabel(cell: KupDataCell, column: KupDataColumn) {
+    #renderLabel(
+        cell: KupDataCell,
+        column: KupDataColumn,
+        isAbsoluteLayout?: boolean
+    ) {
         const isNumberType = dom.ketchup.objects.isNumber(cell.obj);
         const isFormattableType =
             isNumberType ||
@@ -717,7 +721,7 @@ export class KupInputPanel {
             dom.ketchup.objects.isTimestamp(cell.obj);
 
         const classList = ['input-panel-label'];
-        // if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
+        if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
         if (isNumberType) classList.push('input-panel-label-number');
 
         const value = isFormattableType
@@ -851,17 +855,12 @@ export class KupInputPanel {
                 this.#renderAbsoluteSection(cells, innerSection)
             );
         } else if (section.content?.length) {
-            const hasTableShape = section.content.some(
-                (field) => field.id === 'VDSFL'
+            content = section.content.map((field) =>
+                this.#renderAbsoluteField(cells, field)
             );
-
-            // Assicuriamoci che map restituisca l'output di renderAbsoluteField
-            content = section.content.map((field) => {
-                return this.#renderAbsoluteField(cells, field, hasTableShape);
-            });
         }
 
-        // Se width non è specificato, rimuovere il div
+        //If width is not specified the div in the return at the end can be removed
         if (getAbsoluteWidth(section.absoluteWidth) == null) {
             return content;
         }
@@ -1012,8 +1011,7 @@ export class KupInputPanel {
 
     #renderAbsoluteField(
         cells: InputPanelCells,
-        field: KupInputPanelLayoutField,
-        hasTableShape: boolean = false
+        field: KupInputPanelLayoutField
     ) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
@@ -1061,7 +1059,6 @@ export class KupInputPanel {
                     ? `${getAbsoluteLeft(field.absoluteColumn)}px`
                     : null,
             overflow: 'hidden',
-            fontFamily: hasTableShape ? 'monospace' : '',
         };
 
         fieldCell.cell.data = {
@@ -1069,8 +1066,7 @@ export class KupInputPanel {
             customStyle:
                 (fieldCell.cell.data.customStyle || '') +
                 '.mdc-text-field {height: unset !important;}',
-            legacyLook: hasTableShape,
-            legacySize: true,
+            legacyLook: true,
             helperEnabled: false,
             ...(fieldCell.cell.shape === FCellShapes.TABLE && {
                 rowsPerPage: fieldCell.cell.data.data.rows.length,
