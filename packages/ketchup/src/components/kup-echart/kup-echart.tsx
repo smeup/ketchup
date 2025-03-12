@@ -1683,7 +1683,6 @@ export class KupEchart {
                   max: this.axisYMax,
                   ...this.yAxis,
               };
-        console.log('yAxis', yAxis);
 
         return {
             color,
