@@ -2255,6 +2255,11 @@ export namespace Components {
          */
         "map": KupEchartMaps | string | GeoJSON;
         /**
+          * Multiple axes for y
+          * @default null
+         */
+        "multipleYAxes": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -8105,6 +8110,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "map"?: KupEchartMaps | string | GeoJSON;
+        /**
+          * Multiple axes for y
+          * @default null
+         */
+        "multipleYAxes"?: string;
         "onKup-echart-click"?: (event: KupEchartCustomEvent<KupEchartClickEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.

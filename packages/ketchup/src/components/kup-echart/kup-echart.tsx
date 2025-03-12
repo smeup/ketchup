@@ -151,6 +151,11 @@ export class KupEchart {
      * @default null
      */
     @Prop() axisYMax: string = null;
+    /**
+     * Multiple axes for y
+     * @default null
+     */
+    @Prop() multipleYAxes: string = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -315,7 +320,6 @@ export class KupEchart {
                 break;
             default:
                 options = this.#setOptions();
-
                 break;
         }
         this.#chartEl.setOption(options, true);
@@ -1621,6 +1625,9 @@ export class KupEchart {
                     type = KupEchartTypes.LINE;
                 }
                 this.#addSeries(type, series, values, key, color[i]);
+                if (this.multipleYAxes) {
+                    (series[i] as echarts.LineSeriesOption).yAxisIndex = i;
+                }
                 i++;
             }
         }
@@ -1652,6 +1659,32 @@ export class KupEchart {
             name: this.data.columns.find((col) => col.name === s.name).title,
         }));
 
+        const multipleYAxesLenght = this.multipleYAxes.match(/Y\d/g).length;
+        const yAxis = multipleYAxesLenght
+            ? Array.from({ length: multipleYAxesLenght }, () => ({
+                  ...this.#setAxisColors(),
+                  data: isHorizontal ? x : undefined,
+                  type: isHorizontal ? 'category' : 'value',
+                  axisLabel: {
+                      formatter: axisLabelFormatter,
+                  },
+                  min: this.axisYMin,
+                  max: this.axisYMax,
+                  ...this.yAxis,
+              }))
+            : {
+                  ...this.#setAxisColors(),
+                  data: isHorizontal ? x : undefined,
+                  type: isHorizontal ? 'category' : 'value',
+                  axisLabel: {
+                      formatter: axisLabelFormatter,
+                  },
+                  min: this.axisYMin,
+                  max: this.axisYMax,
+                  ...this.yAxis,
+              };
+        console.log('yAxis', yAxis);
+
         return {
             color,
             legend: this.#setLegend(y),
@@ -1673,17 +1706,7 @@ export class KupEchart {
                 },
                 ...this.xAxis,
             },
-            yAxis: {
-                ...this.#setAxisColors(),
-                data: isHorizontal ? x : undefined,
-                type: isHorizontal ? 'category' : 'value',
-                axisLabel: {
-                    formatter: axisLabelFormatter,
-                },
-                min: this.axisYMin,
-                max: this.axisYMax,
-                ...this.yAxis,
-            },
+            yAxis,
             grid: { show: true, containLabel: true },
         } as echarts.EChartsOption;
     }
