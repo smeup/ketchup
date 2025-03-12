@@ -1661,7 +1661,7 @@ export class KupEchart {
 
         const multipleYAxesLenght = this.multipleYAxes.match(/Y\d/g).length;
         const yAxis = multipleYAxesLenght
-            ? Array.from({ length: multipleYAxesLenght }, () => ({
+            ? Array.from({ length: multipleYAxesLenght }, (_el, i) => ({
                   ...this.#setAxisColors(),
                   data: isHorizontal ? x : undefined,
                   type: isHorizontal ? 'category' : 'value',
@@ -1670,6 +1670,7 @@ export class KupEchart {
                   },
                   min: this.axisYMin,
                   max: this.axisYMax,
+                  offset: Math.floor(i / 2) * 60,
                   ...this.yAxis,
               }))
             : {
