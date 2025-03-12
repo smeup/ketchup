@@ -1659,7 +1659,7 @@ export class KupEchart {
             name: this.data.columns.find((col) => col.name === s.name).title,
         }));
 
-        const multipleYAxesLenght = this.multipleYAxes.match(/Y\d/g).length;
+        const multipleYAxesLenght = this.multipleYAxes?.match(/Y\d/g).length;
         const yAxis = multipleYAxesLenght
             ? Array.from({ length: multipleYAxesLenght }, (_el, i) => ({
                   ...this.#setAxisColors(),
