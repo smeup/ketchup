@@ -1615,6 +1615,7 @@ export class KupEchart {
         let i: number = 0;
         const series: echarts.SeriesOption[] = [];
         const color = this.#setColors(Object.keys(y).length);
+        const multipleYAxes = this.multipleYAxes?.replace(/Y/g, '').split('|');
         for (const key in y) {
             if (this.series.includes(key)) {
                 const values: string[] = y[key];
@@ -1626,7 +1627,8 @@ export class KupEchart {
                 }
                 this.#addSeries(type, series, values, key, color[i]);
                 if (this.multipleYAxes) {
-                    (series[i] as echarts.LineSeriesOption).yAxisIndex = i;
+                    (series[i] as echarts.LineSeriesOption).yAxisIndex =
+                        +multipleYAxes[i];
                 }
                 i++;
             }
@@ -1658,32 +1660,31 @@ export class KupEchart {
             ...s,
             name: this.data.columns.find((col) => col.name === s.name).title,
         }));
-
-        const multipleYAxesLenght = this.multipleYAxes?.match(/Y\d/g).length;
-        const yAxis = multipleYAxesLenght
-            ? Array.from({ length: multipleYAxesLenght }, (_el, i) => ({
-                  ...this.#setAxisColors(),
-                  data: isHorizontal ? x : undefined,
-                  type: isHorizontal ? 'category' : 'value',
-                  axisLabel: {
-                      formatter: axisLabelFormatter,
-                  },
-                  min: this.axisYMin,
-                  max: this.axisYMax,
-                  offset: Math.floor(i / 2) * 60,
-                  ...this.yAxis,
-              }))
-            : {
-                  ...this.#setAxisColors(),
-                  data: isHorizontal ? x : undefined,
-                  type: isHorizontal ? 'category' : 'value',
-                  axisLabel: {
-                      formatter: axisLabelFormatter,
-                  },
-                  min: this.axisYMin,
-                  max: this.axisYMax,
-                  ...this.yAxis,
-              };
+        const yAxis =
+            multipleYAxes?.length === renamedSeries.length
+                ? Array.from({ length: renamedSeries.length }, (_el, i) => ({
+                      ...this.#setAxisColors(),
+                      data: isHorizontal ? x : undefined,
+                      type: isHorizontal ? 'category' : 'value',
+                      axisLabel: {
+                          formatter: axisLabelFormatter,
+                      },
+                      min: this.axisYMin,
+                      max: this.axisYMax,
+                      offset: Math.floor(i / 2) * 60,
+                      ...this.yAxis,
+                  }))
+                : {
+                      ...this.#setAxisColors(),
+                      data: isHorizontal ? x : undefined,
+                      type: isHorizontal ? 'category' : 'value',
+                      axisLabel: {
+                          formatter: axisLabelFormatter,
+                      },
+                      min: this.axisYMin,
+                      max: this.axisYMax,
+                      ...this.yAxis,
+                  };
 
         return {
             color,
