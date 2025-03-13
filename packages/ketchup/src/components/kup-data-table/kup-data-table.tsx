@@ -6,6 +6,7 @@ import {
     forceUpdate,
     h,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -1917,6 +1918,27 @@ export class KupDataTable {
     async getLastFocusedRow(): Promise<KupDataTableRow> {
         return this.#lastFocusedRow;
     }
+
+    //#region LISTENERS
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenEnterKeydown(e: KeyboardEvent) {
+        if (this.updatableData && e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const bc = this.rootElement.shadowRoot
+                .activeElement as HTMLInputElement;
+            if (bc) {
+                bc.blur();
+                this.#handleUpdateClick();
+            }
+        }
+    }
+    //#endregion
 
     #closeDropCard() {
         this.#kupManager.dynamicPosition.stop(
@@ -6542,16 +6564,6 @@ export class KupDataTable {
         };
 
         const addConfirmButton = () => {
-            this.#kupManager.keysBinding.register('enter', () => {
-                const bc = this.rootElement.shadowRoot
-                    .activeElement as HTMLInputElement;
-                bc?.blur();
-
-                if (bc) {
-                    this.#handleUpdateClick();
-                }
-            });
-
             if (this.hiddenSubmitButton) {
                 return;
             }
