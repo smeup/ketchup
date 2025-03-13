@@ -19,7 +19,7 @@ export const getAbsoluteWidth = (length: number) => {
     return length * CHAR_WIDTH;
 };
 
-export const FONT_SIZE = 14;
+export const FONT_SIZE = 12;
 export const FONT_SIZE_TO_WIDTH_RATIO = 1.666666666666667;
 export const SINGLE_CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO;
 
@@ -47,12 +47,23 @@ export const getAbsoluteHeight = (height: number) => {
     return height * ROW_HEIGHT;
 };
 
-export const getAbsoluteTop = (row: number) => {
+export const getAbsoluteTop = (row: number, absoluteTblData?: any) => {
     if (!row) {
         return null;
     }
 
-    return (row - 1) * ROW_HEIGHT + row - 1;
+    if (row > absoluteTblData?.absoluteRow) {
+        const beforeTableHeight =
+            (absoluteTblData?.absoluteRow - 1) * ROW_HEIGHT +
+            (absoluteTblData?.absoluteRow - 1) * 2;
+        const tableHeight = getAbsoluteHeight(absoluteTblData.absoluteHeight);
+        const tableFinalRow =
+            absoluteTblData?.absoluteRow + absoluteTblData?.absoluteHeight - 1;
+        return (
+            beforeTableHeight + tableHeight + (row - tableFinalRow) * ROW_HEIGHT
+        );
+    }
+    return (row - 1) * ROW_HEIGHT + (row - 1) * 2;
 };
 
 export const getAbsoluteLeft = (col: number) => {
@@ -60,7 +71,7 @@ export const getAbsoluteLeft = (col: number) => {
         return null;
     }
 
-    return col * CHAR_WIDTH;
+    return (col - 1) * CHAR_WIDTH;
 };
 
 export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {

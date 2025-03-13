@@ -87,6 +87,7 @@ export interface KupInputPanelLayoutSection {
 
 export interface KupInputPanelLayoutField {
     id: string;
+    shape: FCellShapes;
     // Span is referred to start
     colSpan?: number;
     colStart?: number;
