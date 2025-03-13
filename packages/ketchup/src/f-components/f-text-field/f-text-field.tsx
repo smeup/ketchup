@@ -80,7 +80,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         props.label &&
         !props.leadingLabel &&
         !props.trailingLabel &&
-        !props.legacySize // do not show label in input panel absolute ( legacy mode )
+        !props.legacyLook // do not show label in input panel absolute ( legacy mode )
     ) {
         labelEl = (
             <div class="mdc-text-field__label-container">
