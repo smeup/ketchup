@@ -67,7 +67,6 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 import { FLabel } from '../f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -1193,9 +1192,16 @@ function setKupCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
+            const buttonProps: FButtonProps = {
+                label: cell.value,
+                icon: cell.icon,
+                placeholderIcon: cell.placeholderIcon,
+                ...subcomponentProps,
+            };
+            delete cell.icon;
             return (
                 <FButton
-                    {...subcomponentProps}
+                    {...buttonProps}
                     onClick={(e) =>
                         cellEvent(e, props, cellType, FCellEvents.CLICK)
                     }
