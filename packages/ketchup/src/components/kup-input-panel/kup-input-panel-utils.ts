@@ -53,15 +53,14 @@ export const getAbsoluteTop = (row: number, absoluteTblData?: any) => {
     }
 
     if (row > absoluteTblData?.absoluteRow) {
-        const beforeTableHeight =
+        const tableTop =
             (absoluteTblData?.absoluteRow - 1) * ROW_HEIGHT +
             (absoluteTblData?.absoluteRow - 1) * 2;
         const tableHeight = getAbsoluteHeight(absoluteTblData.absoluteHeight);
         const tableFinalRow =
             absoluteTblData?.absoluteRow + absoluteTblData?.absoluteHeight - 1;
-        return (
-            beforeTableHeight + tableHeight + (row - tableFinalRow) * ROW_HEIGHT
-        );
+        console.log(tableTop, tableHeight, (row - tableFinalRow) * ROW_HEIGHT);
+        return tableTop + tableHeight + (row - tableFinalRow - 1) * ROW_HEIGHT;
     }
     return (row - 1) * ROW_HEIGHT + (row - 1) * 2;
 };
