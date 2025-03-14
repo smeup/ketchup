@@ -86,10 +86,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-          ? cell.shape
-          : column.shape
-            ? column.shape
-            : null;
+        ? cell.shape
+        : column.shape
+        ? column.shape
+        : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -117,8 +117,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-          ? column?.cssClass
-          : '';
+        ? column?.cssClass
+        : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -1005,8 +1005,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                  ? KupComponentSizing.EXTRA_LARGE
-                                  : KupComponentSizing.SMALL
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1023,10 +1023,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                  ? cell.icon
-                                  : column.icon
-                                    ? column.icon
-                                    : null
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
@@ -1248,13 +1248,12 @@ function setKupCell(
             );
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
-            return subcomponentProps.customStyle ? (
+            return (
                 <kup-progress-bar
                     key={column.name + props.row.id}
                     {...subcomponentProps}
+                    value={dom.ketchup.math.numberifySafe(cell.value)}
                 ></kup-progress-bar>
-            ) : (
-                <FProgressBar {...subcomponentProps}></FProgressBar>
             );
         case FCellTypes.RADIO:
             if (isAutoCentered(props)) {
