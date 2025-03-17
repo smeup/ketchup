@@ -1,4 +1,7 @@
-import { KupInputPanelLayout } from './kup-input-panel-declarations';
+import {
+    AbsoluteTblPositioningData,
+    KupInputPanelLayout,
+} from './kup-input-panel-declarations';
 
 export const CHAR_WIDTH = 10;
 export const ROW_HEIGHT = 20;
@@ -47,18 +50,25 @@ export const getAbsoluteHeight = (height: number) => {
     return height * ROW_HEIGHT;
 };
 
-export const getAbsoluteTop = (row: number, absoluteTblData?: any) => {
+export const getAbsoluteTop = (
+    row: number,
+    absoluteTblPositioningData?: AbsoluteTblPositioningData
+) => {
     if (!row) {
         return null;
     }
 
-    if (row > absoluteTblData?.absoluteRow) {
+    if (row > absoluteTblPositioningData?.absoluteRow) {
         const tableTop =
-            (absoluteTblData?.absoluteRow - 1) * ROW_HEIGHT +
-            (absoluteTblData?.absoluteRow - 1) * 2;
-        const tableHeight = getAbsoluteHeight(absoluteTblData.absoluteHeight);
+            (absoluteTblPositioningData?.absoluteRow - 1) * ROW_HEIGHT +
+            (absoluteTblPositioningData?.absoluteRow - 1) * 2;
+        const tableHeight = getAbsoluteHeight(
+            absoluteTblPositioningData.absoluteHeight
+        );
         const tableFinalRow =
-            absoluteTblData?.absoluteRow + absoluteTblData?.absoluteHeight - 1;
+            absoluteTblPositioningData?.absoluteRow +
+            absoluteTblPositioningData?.absoluteHeight -
+            1;
         return tableTop + tableHeight + (row - tableFinalRow - 1) * ROW_HEIGHT;
     }
     return (row - 1) * ROW_HEIGHT + (row - 1) * 2;

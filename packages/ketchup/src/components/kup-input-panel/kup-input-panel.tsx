@@ -61,6 +61,7 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    AbsoluteTblPositioningData,
     CheckConditionsByEventType,
     CheckTriggeringEvents,
     DataAdapterFn,
@@ -858,14 +859,19 @@ export class KupInputPanel {
             const firstTBL = section.content.find(
                 (item) => item.shape === FCellShapes.TABLE
             );
-            const absoluteTblData = firstTBL
-                ? {
-                      absoluteRow: firstTBL.absoluteRow,
-                      absoluteHeight: firstTBL.absoluteHeight,
-                  }
-                : {};
+            const absoluteTblPositioningData: AbsoluteTblPositioningData =
+                firstTBL
+                    ? {
+                          absoluteRow: firstTBL.absoluteRow,
+                          absoluteHeight: firstTBL.absoluteHeight,
+                      }
+                    : {};
             content = section.content.map((field) =>
-                this.#renderAbsoluteField(cells, field, absoluteTblData)
+                this.#renderAbsoluteField(
+                    cells,
+                    field,
+                    absoluteTblPositioningData
+                )
             );
         }
 
@@ -1021,7 +1027,7 @@ export class KupInputPanel {
     #renderAbsoluteField(
         cells: InputPanelCells,
         field: KupInputPanelLayoutField,
-        absoluteTblData: any
+        absoluteTblPositioningData: AbsoluteTblPositioningData
     ) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
@@ -1047,7 +1053,10 @@ export class KupInputPanel {
                 ? getLabelAbsoluteWidth(length)
                 : getAbsoluteWidth(length);
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
-        const absoluteTop = getAbsoluteTop(field.absoluteRow, absoluteTblData);
+        const absoluteTop = getAbsoluteTop(
+            field.absoluteRow,
+            absoluteTblPositioningData
+        );
         const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {

@@ -248,3 +248,8 @@ export const CheckConditionsByEventType = {
         );
     },
 };
+
+export interface AbsoluteTblPositioningData {
+    absoluteRow?: number;
+    absoluteHeight?: number;
+}
