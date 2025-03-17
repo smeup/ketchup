@@ -18,5 +18,8 @@
   .value {
     font-weight: bold;
     @include kup-heading-compact-01;
+    .knob-cell {
+      min-width: 12rem;
+    }
   }
 }
