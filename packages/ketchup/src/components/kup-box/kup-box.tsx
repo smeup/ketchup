@@ -1213,14 +1213,16 @@ export class KupBox {
             ) {
                 boxContent.push(this.renderSectionAsCard(row));
             } else {
-                boxContent.push(
-                    this.renderSection(
-                        sections[cnt++],
-                        parent,
-                        row,
-                        visibleColumns
-                    )
-                );
+                while (size-- > 0) {
+                    boxContent.push(
+                        this.renderSection(
+                            sections[cnt++],
+                            parent,
+                            row,
+                            visibleColumns
+                        )
+                    );
+                }
             }
         }
 
