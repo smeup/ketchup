@@ -682,6 +682,7 @@ th.obj:hover span:not(.overlay-action) {
   --kup-extradense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
   --kup-textfield-extrasmall-padding: var(--kup-extradense-legacy-look-padding);
   --kup-textfield-extrasmall-height: 20px;
+
   th .header-cell__content {
     font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
@@ -704,5 +705,9 @@ th.obj:hover span:not(.overlay-action) {
     &.wide {
       min-height: var(--kup_fcell_wide_min_height);
     }
+  }
+  table.row-separation > tbody > tr > td {
+    box-shadow: 0px 1px var(--kup-border-subtle);
+    border-bottom: 0px;
   }
 }

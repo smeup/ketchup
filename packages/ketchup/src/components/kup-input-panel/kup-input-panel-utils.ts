@@ -1,7 +1,10 @@
-import { KupInputPanelLayout } from './kup-input-panel-declarations';
+import {
+    AbsoluteTblPositioningData,
+    KupInputPanelLayout,
+} from './kup-input-panel-declarations';
 
 export const CHAR_WIDTH = 10;
-export const ROW_HEIGHT = 22;
+export const ROW_HEIGHT = 20;
 
 export const getAbsoluteWidth = (length: number) => {
     if (length == 0) {
@@ -47,12 +50,28 @@ export const getAbsoluteHeight = (height: number) => {
     return height * ROW_HEIGHT;
 };
 
-export const getAbsoluteTop = (row: number) => {
+export const getAbsoluteTop = (
+    row: number,
+    absoluteTblPositioningData?: AbsoluteTblPositioningData
+) => {
     if (!row) {
         return null;
     }
 
-    return (row - 1) * ROW_HEIGHT;
+    if (row > absoluteTblPositioningData?.absoluteRow) {
+        const tableTop =
+            (absoluteTblPositioningData?.absoluteRow - 1) * ROW_HEIGHT +
+            (absoluteTblPositioningData?.absoluteRow - 1) * 2;
+        const tableHeight = getAbsoluteHeight(
+            absoluteTblPositioningData.absoluteHeight
+        );
+        const tableFinalRow =
+            absoluteTblPositioningData?.absoluteRow +
+            absoluteTblPositioningData?.absoluteHeight -
+            1;
+        return tableTop + tableHeight + (row - tableFinalRow - 1) * ROW_HEIGHT;
+    }
+    return (row - 1) * ROW_HEIGHT + (row - 1) * 2;
 };
 
 export const getAbsoluteLeft = (col: number) => {
@@ -60,7 +79,7 @@ export const getAbsoluteLeft = (col: number) => {
         return null;
     }
 
-    return col * CHAR_WIDTH;
+    return (col - 1) * CHAR_WIDTH;
 };
 
 export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
