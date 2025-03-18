@@ -1646,9 +1646,6 @@ export class KupEchart {
                 );
             }
 
-            if (this.#kupManager.dates.isIsoDate(value)) {
-                return this.#kupManager.dates.toDayjs(value).format('MMM');
-            }
             return value;
         };
 
