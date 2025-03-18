@@ -24,6 +24,9 @@
   .value {
     @include kup-heading-compact-01;
     padding-bottom: 1.25em;
+    .knob-cell {
+      min-width: 12rem;
+    }
   }
 
   tr:last-child {
