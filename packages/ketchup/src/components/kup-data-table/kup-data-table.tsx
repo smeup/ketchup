@@ -1095,6 +1095,7 @@ export class KupDataTable {
     #columnDropCardAnchor: HTMLElement = null;
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
+    #lastFocusedCell: KupDataTableCell = null;
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
 
@@ -3575,6 +3576,11 @@ export class KupDataTable {
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
+
+        const { cell } = details;
+        this.#lastFocusedCell = cell;
+        console.log('Last focused cell is: ', this.#lastFocusedCell);
+
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
@@ -4071,6 +4077,53 @@ export class KupDataTable {
     }
 
     //======== Event Listeners ========
+    #horNav = (isRight: boolean) => {
+        if (this.selectedColumn) {
+            const columns = this.getVisibleColumns();
+            const index = columns.findIndex(
+                (column) => column.name === this.selectedColumn
+            );
+            if (index >= 0) {
+                const newIndex = isRight ? index + 1 : index - 1;
+                if (newIndex >= 0 && newIndex < columns.length) {
+                    this.selectedColumn = columns[newIndex].name;
+                }
+            }
+        }
+    };
+
+    #verNav = (isDown: boolean) => {
+        if (this.#lastFocusedRow) {
+            const rows = this.getRows();
+            const index = rows.findIndex(
+                (row) => row.id === this.#lastFocusedRow.id
+            );
+            if (index >= 0) {
+                const newIndex = isDown ? index + 1 : index - 1;
+                if (newIndex >= 0 && newIndex < rows.length) {
+                    this.#lastFocusedRow = rows[newIndex];
+                }
+            }
+        }
+    };
+
+    #onKupKeyDown = (e: KeyboardEvent) => {
+        const isHorizontal = e.key === 'ArrowLeft' || e.key === 'ArrowRight';
+        const isVertical = e.key === 'ArrowDown' || e.key === 'ArrowUp';
+
+        // If horizontal navigation, select next/previous column
+        if (isHorizontal) {
+            e.preventDefault();
+            this.#horNav(e.key === 'ArrowRight');
+        }
+
+        // If vertical navigation, select next/previous row
+        if (isVertical) {
+            e.preventDefault();
+            this.#verNav(e.key === 'ArrowDown');
+        }
+    };
+
     #onColumnSort({ ctrlKey }: PointerEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -6917,7 +6970,11 @@ export class KupDataTable {
                     )}
                 </style>
                 {this.updatableData ? this.#renderUpdateButtons() : null}
-                <div id={componentWrapperId} class={wrapClass}>
+                <div
+                    id={componentWrapperId}
+                    class={wrapClass}
+                    onKeyDown={(e) => this.#onKupKeyDown(e)}
+                >
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
                         {useGlobalFilter ? (
