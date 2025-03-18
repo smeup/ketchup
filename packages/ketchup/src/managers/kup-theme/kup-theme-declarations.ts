@@ -18,6 +18,7 @@ export const fButtonUsers = [
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
     KupTagNames.FAMILY_TREE,
+    KupTagNames.TREE,
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.IMAGE_LIST,
