@@ -1636,6 +1636,10 @@ export class KupEchart {
         const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
 
         const axisLabelFormatter = (value) => {
+            if (this.#kupManager.dates.isIsoDate(value)) {
+                return this.#kupManager.dates.format(value);
+            }
+
             const numberValue =
                 typeof value === 'string' ? Number(value) : value;
 
@@ -1646,9 +1650,6 @@ export class KupEchart {
                 );
             }
 
-            if (this.#kupManager.dates.isIsoDate(value)) {
-                return this.#kupManager.dates.toDayjs(value).format('MMM');
-            }
             return value;
         };
 
