@@ -141,6 +141,21 @@ export class KupEchart {
      * @default null
      */
     @Prop() yAxis: KupEchartYAxis = null;
+    /**
+     * Minimum for the y Axis.
+     * @default null
+     */
+    @Prop() axisYMin: string = null;
+    /**
+     * Maximum for the y Axis.
+     * @default null
+     */
+    @Prop() axisYMax: string = null;
+    /**
+     * Multiple axes for y
+     * @default null
+     */
+    @Prop() multipleYAxes: string = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -927,9 +942,9 @@ export class KupEchart {
                 color: this.#themeText,
                 fontFamily: this.#themeFont,
             },
-            axisLine: { lineStyle: { color: this.#themeText } },
-            axisTick: { lineStyle: { color: this.#themeBorder } },
-            splitLine: { lineStyle: { color: this.#themeBorder } },
+            axisLine: { lineStyle: { color: this.#themeText ?? '' } },
+            axisTick: { lineStyle: { color: this.#themeBorder ?? '' } },
+            splitLine: { lineStyle: { color: this.#themeBorder ?? '' } },
         } as echarts.XAXisComponentOption | echarts.YAXisComponentOption;
     }
 
@@ -1267,6 +1282,24 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)',
+                confine: false,
+                appendTo: 'body',
+                position: (point, _params, dom, _rect, size) => {
+                    const centerX = size.viewSize[0] / 2;
+                    const centerY = size.viewSize[1] / 2;
+                    const dx = point[0] - centerX;
+                    const dy = point[1] - centerY;
+                    const tooltipWidth = (dom as HTMLDivElement).offsetWidth;
+                    const tooltipHeight = (dom as HTMLDivElement).offsetHeight;
+
+                    const x =
+                        dx >= 0 ? point[0] + 15 : point[0] - tooltipWidth - 15;
+
+                    const y =
+                        dy < 0 ? point[1] - tooltipHeight - 10 : point[1] + 10;
+
+                    return [x, y];
+                },
             },
             series: [
                 {
@@ -1277,7 +1310,11 @@ export class KupEchart {
                     data: data,
                     radius: '60%',
                     label: {
-                        show: false,
+                        show: true,
+                        position: 'inner',
+                        formatter: (value) => {
+                            return `${value.percent}%`;
+                        },
                     },
                     emphasis: {
                         itemStyle: {
@@ -1578,6 +1615,7 @@ export class KupEchart {
         let i: number = 0;
         const series: echarts.SeriesOption[] = [];
         const color = this.#setColors(Object.keys(y).length);
+        const multipleYAxes = this.multipleYAxes?.replace(/Y/g, '').split('|');
         for (const key in y) {
             if (this.series.includes(key)) {
                 const values: string[] = y[key];
@@ -1588,12 +1626,20 @@ export class KupEchart {
                     type = KupEchartTypes.LINE;
                 }
                 this.#addSeries(type, series, values, key, color[i]);
+                if (this.multipleYAxes) {
+                    (series[i] as echarts.LineSeriesOption).yAxisIndex =
+                        +multipleYAxes[i];
+                }
                 i++;
             }
         }
         const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
 
-        const axisLabelFormatter = function (value) {
+        const axisLabelFormatter = (value) => {
+            if (this.#kupManager.dates.isIsoDate(value)) {
+                return this.#kupManager.dates.format(value);
+            }
+
             const numberValue =
                 typeof value === 'string' ? Number(value) : value;
 
@@ -1615,6 +1661,31 @@ export class KupEchart {
             ...s,
             name: this.data.columns.find((col) => col.name === s.name).title,
         }));
+        const yAxis =
+            multipleYAxes?.length === renamedSeries.length
+                ? Array.from({ length: renamedSeries.length }, (_el, i) => ({
+                      ...this.#setAxisColors(),
+                      data: isHorizontal ? x : undefined,
+                      type: isHorizontal ? 'category' : 'value',
+                      axisLabel: {
+                          formatter: axisLabelFormatter,
+                      },
+                      min: this.axisYMin,
+                      max: this.axisYMax,
+                      offset: Math.floor(i / 2) * 60,
+                      ...this.yAxis,
+                  }))
+                : {
+                      ...this.#setAxisColors(),
+                      data: isHorizontal ? x : undefined,
+                      type: isHorizontal ? 'category' : 'value',
+                      axisLabel: {
+                          formatter: axisLabelFormatter,
+                      },
+                      min: this.axisYMin,
+                      max: this.axisYMax,
+                      ...this.yAxis,
+                  };
 
         return {
             color,
@@ -1637,16 +1708,8 @@ export class KupEchart {
                 },
                 ...this.xAxis,
             },
-            yAxis: {
-                ...this.#setAxisColors(),
-                data: isHorizontal ? x : undefined,
-                type: isHorizontal ? 'category' : 'value',
-                axisLabel: {
-                    formatter: axisLabelFormatter,
-                },
-                ...this.yAxis,
-            },
-            grid: { containLabel: true },
+            yAxis,
+            grid: { show: true, containLabel: true },
         } as echarts.EChartsOption;
     }
 

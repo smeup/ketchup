@@ -21,7 +21,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         props.styling.toLowerCase() === FButtonStyling.ICON ||
         (props.styling.toLowerCase() === FButtonStyling.RAISED &&
             props.icon &&
-            (props.label === null || props.label === undefined))
+            (props.label === null || props.label === undefined || props.label === ""))
     );
     const classObj: Record<string, boolean> = {
         'f-button': true,

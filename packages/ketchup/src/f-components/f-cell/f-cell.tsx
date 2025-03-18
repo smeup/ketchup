@@ -67,7 +67,6 @@ import {
     fullWidthFieldsComps,
     kupTypes,
 } from './f-cell-declarations';
-import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 import { FLabel } from '../f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -86,10 +85,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-          ? cell.shape
-          : column.shape
-            ? column.shape
-            : null;
+        ? cell.shape
+        : column.shape
+        ? column.shape
+        : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -117,8 +116,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-          ? column?.cssClass
-          : '';
+        ? column?.cssClass
+        : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -748,14 +747,15 @@ function setEditableCell(
 
         case FCellTypes.EDITOR:
             const onEditorKeyDown = (e: KeyboardEvent) => {
-                const isEnter = e.key === 'Enter';
+                const isPlainEnter = e.key === 'Enter' && !e.ctrlKey;
+                const isSubmit = e.key === 'Enter' && e.ctrlKey;
 
-                if (isEnter) {
+                if (isPlainEnter) {
                     e.stopPropagation();
                     return;
                 }
 
-                if (/^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (isSubmit || /^F[1-9]|F1[0-2]$/.test(e.key)) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -964,14 +964,15 @@ function setEditableCell(
                     cell.shape === 'MEMO' ||
                     cell.data?.maxLength >= 256 ||
                     cellType === FCellTypes.MEMO;
-                const isEnter = e.key === 'Enter';
+                const isSubmit = e.key === 'Enter' && e.ctrlKey;
+                const isPlainEnter = e.key === 'Enter' && !e.ctrlKey;
 
-                if (isMemo && isEnter) {
+                if (isMemo && isPlainEnter) {
                     e.stopPropagation();
                     return;
                 }
 
-                if (isEnter || /^F[1-9]|F1[0-2]$/.test(e.key)) {
+                if (isSubmit || /^F[1-9]|F1[0-2]$/.test(e.key)) {
                     cellEvent(e, props, cellType, FCellEvents.UPDATE);
                 }
             };
@@ -1005,8 +1006,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                  ? KupComponentSizing.EXTRA_LARGE
-                                  : KupComponentSizing.SMALL
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1023,10 +1024,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                  ? cell.icon
-                                  : column.icon
-                                    ? column.icon
-                                    : null
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
@@ -1191,9 +1192,16 @@ function setKupCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
+            const buttonProps: FButtonProps = {
+                label: cell.value,
+                icon: cell.icon,
+                placeholderIcon: cell.placeholderIcon,
+                ...subcomponentProps,
+            };
+            delete cell.icon;
             return (
                 <FButton
-                    {...subcomponentProps}
+                    {...buttonProps}
                     onClick={(e) =>
                         cellEvent(e, props, cellType, FCellEvents.CLICK)
                     }
@@ -1248,13 +1256,12 @@ function setKupCell(
             );
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
-            return subcomponentProps.customStyle ? (
+            return (
                 <kup-progress-bar
                     key={column.name + props.row.id}
                     {...subcomponentProps}
+                    value={dom.ketchup.math.numberifySafe(cell.value)}
                 ></kup-progress-bar>
-            ) : (
-                <FProgressBar {...subcomponentProps}></FProgressBar>
             );
         case FCellTypes.RADIO:
             if (isAutoCentered(props)) {

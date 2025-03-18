@@ -248,9 +248,9 @@
         background-color: var(--kup_tree_tr_background_color_hover);
         color: var(--kup_tree_text_hover_color);
 
-        .#{$kup-icon} {
+        /*.#{$kup-icon} {
           background-color: var(--kup_tree_text_hover_color);
-        }
+        }*/
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
