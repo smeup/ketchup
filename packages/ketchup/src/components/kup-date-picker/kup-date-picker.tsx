@@ -352,6 +352,12 @@ export class KupDatePicker {
         }
     }
 
+    @Watch('initialValue')
+    watchInitialValue() {
+        this.setValue(this.initialValue);
+        this.refresh();
+    }
+
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
