@@ -25,6 +25,9 @@
   }
 
   .value {
+    .knob-cell {
+      min-width: 12rem;
+    }
     @include kup-heading-compact-01;
   }
 

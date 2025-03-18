@@ -61,6 +61,7 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    AbsoluteTblPositioningData,
     CheckConditionsByEventType,
     CheckTriggeringEvents,
     DataAdapterFn,
@@ -857,8 +858,22 @@ export class KupInputPanel {
                 this.#renderAbsoluteSection(cells, innerSection)
             );
         } else if (section.content?.length) {
+            const firstTBL = section.content.find(
+                (item) => item.shape === FCellShapes.TABLE
+            );
+            const absoluteTblPositioningData: AbsoluteTblPositioningData =
+                firstTBL
+                    ? {
+                          absoluteRow: firstTBL.absoluteRow,
+                          absoluteHeight: firstTBL.absoluteHeight,
+                      }
+                    : {};
             content = section.content.map((field) =>
-                this.#renderAbsoluteField(cells, field)
+                this.#renderAbsoluteField(
+                    cells,
+                    field,
+                    absoluteTblPositioningData
+                )
             );
         }
 
@@ -1013,7 +1028,8 @@ export class KupInputPanel {
 
     #renderAbsoluteField(
         cells: InputPanelCells,
-        field: KupInputPanelLayoutField
+        field: KupInputPanelLayoutField,
+        absoluteTblPositioningData: AbsoluteTblPositioningData
     ) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
@@ -1039,27 +1055,22 @@ export class KupInputPanel {
                 ? getLabelAbsoluteWidth(length)
                 : getAbsoluteWidth(length);
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
-        const absoluteTop = getAbsoluteTop(field.absoluteRow);
+        const absoluteTop = getAbsoluteTop(
+            field.absoluteRow,
+            absoluteTblPositioningData
+        );
         const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {
             position: 'absolute',
-            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            'min-height':
-                absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            'max-height':
-                absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            top:
-                absoluteTop !== null
-                    ? `${getAbsoluteTop(field.absoluteRow)}px`
-                    : null,
-            left:
-                absoluteLeft !== null
-                    ? `${getAbsoluteLeft(field.absoluteColumn)}px`
-                    : null,
+            width: absoluteWidth != null ? `${absoluteWidth}px` : null,
+            'min-width': absoluteWidth != null ? `${absoluteWidth}px` : null,
+            'max-width': absoluteWidth != null ? `${absoluteWidth}px` : null,
+            height: absoluteHeight != null ? `${absoluteHeight}px` : null,
+            'min-height': absoluteHeight != null ? `${absoluteHeight}px` : null,
+            'max-height': absoluteHeight != null ? `${absoluteHeight}px` : null,
+            top: absoluteTop != null ? `${absoluteTop}px` : null,
+            left: absoluteLeft != null ? `${absoluteLeft}px` : null,
             overflow: 'hidden',
         };
 

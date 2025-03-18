@@ -2203,6 +2203,16 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Maximum for the y Axis.
+          * @default null
+         */
+        "axisYMax": string;
+        /**
+          * Minimum for the y Axis.
+          * @default null
+         */
+        "axisYMin": string;
+        /**
           * Title of the graph.
           * @default null
          */
@@ -2244,6 +2254,11 @@ export namespace Components {
           * @default null
          */
         "map": KupEchartMaps | string | GeoJSON;
+        /**
+          * Multiple axes for y
+          * @default null
+         */
+        "multipleYAxes": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -8050,6 +8065,16 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Maximum for the y Axis.
+          * @default null
+         */
+        "axisYMax"?: string;
+        /**
+          * Minimum for the y Axis.
+          * @default null
+         */
+        "axisYMin"?: string;
+        /**
           * Title of the graph.
           * @default null
          */
@@ -8085,6 +8110,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "map"?: KupEchartMaps | string | GeoJSON;
+        /**
+          * Multiple axes for y
+          * @default null
+         */
+        "multipleYAxes"?: string;
         "onKup-echart-click"?: (event: KupEchartCustomEvent<KupEchartClickEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.

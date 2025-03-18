@@ -18,6 +18,9 @@
   .value {
     padding-top: 0.5em;
     @include kup-heading-compact-01;
+    .knob-cell {
+      min-width: 12rem;
+    }
   }
 
   .f-cell.c-centered .f-cell__content img,

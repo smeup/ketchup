@@ -1206,14 +1206,14 @@ export class KupBox {
                 horizontal: horizontal,
             };
 
-            while (size-- > 0) {
-                if (
-                    this.cardData !== null &&
-                    this.cardData !== undefined &&
-                    typeof this.cardData === 'object'
-                ) {
-                    boxContent.push(this.renderSectionAsCard(row));
-                } else {
+            if (
+                this.cardData !== null &&
+                this.cardData !== undefined &&
+                typeof this.cardData === 'object'
+            ) {
+                boxContent.push(this.renderSectionAsCard(row));
+            } else {
+                while (size-- > 0) {
                     boxContent.push(
                         this.renderSection(
                             sections[cnt++],

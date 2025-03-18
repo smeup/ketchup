@@ -1256,13 +1256,12 @@ function setKupCell(
             );
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
-            return subcomponentProps.customStyle ? (
+            return (
                 <kup-progress-bar
                     key={column.name + props.row.id}
                     {...subcomponentProps}
+                    value={dom.ketchup.math.numberifySafe(cell.value)}
                 ></kup-progress-bar>
-            ) : (
-                <FProgressBar {...subcomponentProps}></FProgressBar>
             );
         case FCellTypes.RADIO:
             if (isAutoCentered(props)) {
