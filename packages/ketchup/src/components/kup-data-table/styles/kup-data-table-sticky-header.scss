@@ -13,7 +13,7 @@ sticky-header {
     pointer-events: none;
     position: fixed;
     top: 0;
-    transition: opacity 0.25s ease-in-out;
+    //transition: opacity 0.25s ease-in-out;
     z-index: 10;
 
     &.activated {

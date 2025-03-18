@@ -515,8 +515,7 @@ tbody {
         cursor: pointer;
         margin-left: 0.75em;
         display: inline-block;
-        opacity: 1;
-        transition: 0.25s ease-in-out;
+        opacity: 1;        
         &:hover {
           opacity: 0.5;
         }
@@ -556,8 +555,7 @@ th.obj:hover span:not(.overlay-action) {
   span {
     color: transparent;
     position: relative;
-    text-overflow: ellipsis;
-    transition: color 200ms;
+    text-overflow: ellipsis;    
     &:hover {
       color: var(--kup-text-secondary);
     }
