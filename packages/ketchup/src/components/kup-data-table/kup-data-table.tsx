@@ -3855,6 +3855,7 @@ export class KupDataTable {
                 currRow.cells[column.name].value = cell.value;
                 currRow.cells[column.name].obj = cell.obj;
                 currRow.cells[column.name].decode = cell.decode;
+                currRow.cells[column.name].data = cell.data;
             }
             return currRow;
         });
