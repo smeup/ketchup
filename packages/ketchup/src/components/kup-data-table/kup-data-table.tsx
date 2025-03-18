@@ -1938,6 +1938,25 @@ export class KupDataTable {
             }
         }
     }
+
+    @Listen('keydown')
+    listenCopyCellValueInColumnListener(e: KeyboardEvent) {
+        if (
+            this.updatableData &&
+            e.key.toLowerCase() === 'd' &&
+            e.ctrlKey === true
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const input = this.rootElement.shadowRoot.activeElement;
+            if (input) {
+                (input as HTMLInputElement).blur();
+                this.#copyCellValueInColumnHandler(input);
+            }
+        }
+    }
+
     //#endregion
 
     #closeDropCard() {
@@ -3822,6 +3841,24 @@ export class KupDataTable {
 
     #hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
+    }
+
+    #copyCellValueInColumnHandler(el: Element) {
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(el, this.rootElement)
+        );
+
+        const { cell, column, row } = details;
+
+        this.data.rows = this.data.rows.map((currRow) => {
+            if (currRow.id !== row.id) {
+                currRow.cells[column.name].value = cell.value;
+                currRow.cells[column.name].obj = cell.obj;
+                currRow.cells[column.name].decode = cell.decode;
+            }
+            return currRow;
+        });
+        this.refresh();
     }
 
     /**
