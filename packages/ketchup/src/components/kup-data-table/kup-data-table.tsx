@@ -161,6 +161,7 @@ import {
     FCellClasses,
     FCellEventPayload,
     FCellPadding,
+    FCellProps,
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -4078,49 +4079,80 @@ export class KupDataTable {
 
     //======== Event Listeners ========
     #horNav = (isRight: boolean) => {
-        if (this.selectedColumn) {
-            const columns = this.getVisibleColumns();
-            const index = columns.findIndex(
-                (column) => column.name === this.selectedColumn
-            );
-            if (index >= 0) {
-                const newIndex = isRight ? index + 1 : index - 1;
-                if (newIndex >= 0 && newIndex < columns.length) {
-                    this.selectedColumn = columns[newIndex].name;
-                }
-            }
+        if (!this.#lastFocusedCell) {
+            return;
         }
+
+        this.#resetSelectedRows(true);
+
+        const tr = this.#lastFocusedCell.element.closest('tr');
+        const cells = tr.querySelectorAll('.f-cell');
+
+        const oldIndex = Array.from(cells).indexOf(
+            this.#lastFocusedCell.element
+        );
+
+        let newIndex = isRight ? oldIndex + 1 : oldIndex - 1;
+        if (newIndex < 0) {
+            newIndex = cells.length - 1;
+        } else if (newIndex >= cells.length) {
+            newIndex = 0;
+        }
+
+        const focused = cells[newIndex];
+        const focusedProps: FCellProps = focused['kup-get-cell-props']();
+
+        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#lastFocusedCell = focusedProps.cell;
     };
 
     #verNav = (isDown: boolean) => {
-        if (this.#lastFocusedRow) {
-            const rows = this.getRows();
-            const index = rows.findIndex(
-                (row) => row.id === this.#lastFocusedRow.id
-            );
-            if (index >= 0) {
-                const newIndex = isDown ? index + 1 : index - 1;
-                if (newIndex >= 0 && newIndex < rows.length) {
-                    this.#lastFocusedRow = rows[newIndex];
-                }
-            }
+        if (!this.#lastFocusedCell) {
+            return;
         }
+
+        this.#resetSelectedRows(true);
+
+        const tr = this.#lastFocusedCell.element.closest('tr');
+        const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
+            this.#lastFocusedCell.element
+        );
+        const rows = tr.parentElement.querySelectorAll('tr');
+        const index = Array.from(rows).indexOf(tr);
+
+        let newIndex = isDown ? index + 1 : index - 1;
+        if (newIndex < 0) {
+            newIndex = rows.length - 1;
+        } else if (newIndex >= rows.length) {
+            newIndex = 0;
+        }
+
+        const focusedRow = rows[newIndex];
+        const focusedCells = focusedRow.querySelectorAll('.f-cell');
+        const focused = focusedCells[cellXIndex];
+        const focusedProps: FCellProps = focused['kup-get-cell-props']();
+        this.#lastFocusedCell = focusedProps.cell;
+
+        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
     };
 
     #onKupKeyDown = (e: KeyboardEvent) => {
         const isHorizontal = e.key === 'ArrowLeft' || e.key === 'ArrowRight';
         const isVertical = e.key === 'ArrowDown' || e.key === 'ArrowUp';
 
-        // If horizontal navigation, select next/previous column
-        if (isHorizontal) {
-            e.preventDefault();
-            this.#horNav(e.key === 'ArrowRight');
-        }
+        // Only for non-editable matrix
+        if (!this.editableData && !this.updatableData) {
+            // If horizontal navigation, select next/previous column
+            if (isHorizontal) {
+                e.preventDefault();
+                this.#horNav(e.key === 'ArrowRight');
+            }
 
-        // If vertical navigation, select next/previous row
-        if (isVertical) {
-            e.preventDefault();
-            this.#verNav(e.key === 'ArrowDown');
+            // If vertical navigation, select next/previous row
+            if (isVertical) {
+                e.preventDefault();
+                this.#verNav(e.key === 'ArrowDown');
+            }
         }
     };
 
@@ -5855,6 +5887,7 @@ export class KupDataTable {
 
                 return (
                     <td
+                        tabIndex={0}
                         title={title}
                         colSpan={
                             cell.span && cell.span.col ? cell.span.col : null
@@ -6970,11 +7003,7 @@ export class KupDataTable {
                     )}
                 </style>
                 {this.updatableData ? this.#renderUpdateButtons() : null}
-                <div
-                    id={componentWrapperId}
-                    class={wrapClass}
-                    onKeyDown={(e) => this.#onKupKeyDown(e)}
-                >
+                <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
                         {useGlobalFilter ? (
@@ -7153,6 +7182,7 @@ export class KupDataTable {
                             ref={(el: HTMLTableElement) =>
                                 (this.#tableRef = el)
                             }
+                            onKeyDown={(e) => this.#onKupKeyDown(e)}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
                             }}
