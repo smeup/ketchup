@@ -241,6 +241,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTab
 
 
 
+### `getLastFocusedCell() => Promise<KupDataTableCell>`
+
+This method is used to retrieve last focused cell
+
+#### Returns
+
+Type: `Promise<KupDataTableCell>`
+
+
+
 ### `getLastFocusedRow() => Promise<KupDataTableRow>`
 
 This method is used to retrieve last focused row or the first if there's no row focused

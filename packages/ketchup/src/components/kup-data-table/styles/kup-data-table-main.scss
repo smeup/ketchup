@@ -417,6 +417,7 @@ tbody {
     padding: 0;
     @include kup-body-compact-01;
     font-size: 13px; // this for space performance
+    outline: none;
 
     & > * {
       border: none !important;
