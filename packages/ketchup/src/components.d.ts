@@ -1625,6 +1625,10 @@ export namespace Components {
          */
         "getLastFocusedCell": () => Promise<KupDataTableCell>;
         /**
+          * This method is used to retrieve last focused column
+         */
+        "getLastFocusedColumn": () => Promise<KupDataColumn>;
+        /**
           * This method is used to retrieve last focused row or the first if there's no row focused
          */
         "getLastFocusedRow": () => Promise<KupDataTableRow>;
@@ -1864,6 +1868,10 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
+        /**
+          * This method is used to force tooltip request for current focused cell
+         */
+        "tooltipRequest": () => Promise<void>;
         /**
           * Defines the current totals options
          */
