@@ -4113,7 +4113,7 @@ export class KupDataTable {
 
         this.#resetSelectedRows(true);
 
-        const tr = this.#lastFocusedCell.element.closest('tr');
+        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cells = tr.querySelectorAll('.f-cell');
 
         const oldIndex = Array.from(cells).indexOf(
@@ -4141,11 +4141,11 @@ export class KupDataTable {
 
         this.#resetSelectedRows(true);
 
-        const tr = this.#lastFocusedCell.element.closest('tr');
+        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
             this.#lastFocusedCell.element
         );
-        const rows = tr.parentElement.querySelectorAll('tr');
+        const rows = tr.parentElement.querySelectorAll('tr:not(.group)');
         const index = Array.from(rows).indexOf(tr);
 
         let newIndex = isDown ? index + 1 : index - 1;
