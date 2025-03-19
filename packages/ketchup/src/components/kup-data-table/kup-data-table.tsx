@@ -3609,7 +3609,6 @@ export class KupDataTable {
 
         const { cell } = details;
         this.#lastFocusedCell = cell;
-        console.log('Last focused cell is: ', this.#lastFocusedCell);
 
         if (details.area === 'header') {
             if (details.th && details.column) {
