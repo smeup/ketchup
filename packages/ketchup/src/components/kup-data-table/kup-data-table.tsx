@@ -1920,6 +1920,13 @@ export class KupDataTable {
     async getLastFocusedRow(): Promise<KupDataTableRow> {
         return this.#lastFocusedRow;
     }
+    /**
+     * This method is used to retrieve last focused cell
+     */
+    @Method()
+    async getLastFocusedCell(): Promise<KupDataTableCell> {
+        return this.#lastFocusedCell;
+    }
 
     //#region LISTENERS
     /*-------------------------------------------------*/
@@ -5909,7 +5916,7 @@ export class KupDataTable {
 
                 return (
                     <td
-                        tabIndex={0}
+                        tabIndex={-1}
                         title={title}
                         colSpan={
                             cell.span && cell.span.col ? cell.span.col : null
