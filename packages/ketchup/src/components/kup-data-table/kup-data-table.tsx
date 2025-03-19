@@ -162,6 +162,7 @@ import {
     FCellClasses,
     FCellEventPayload,
     FCellPadding,
+    FCellProps,
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -1096,6 +1097,7 @@ export class KupDataTable {
     #columnDropCardAnchor: HTMLElement = null;
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
+    #lastFocusedCell: KupDataTableCell = null;
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
 
@@ -1917,6 +1919,13 @@ export class KupDataTable {
     @Method()
     async getLastFocusedRow(): Promise<KupDataTableRow> {
         return this.#lastFocusedRow;
+    }
+    /**
+     * This method is used to retrieve last focused cell
+     */
+    @Method()
+    async getLastFocusedCell(): Promise<KupDataTableCell> {
+        return this.#lastFocusedCell;
     }
 
     //#region LISTENERS
@@ -3597,6 +3606,10 @@ export class KupDataTable {
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
+
+        const { cell } = details;
+        this.#lastFocusedCell = cell;
+
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
@@ -4093,6 +4106,84 @@ export class KupDataTable {
     }
 
     //======== Event Listeners ========
+    #horNav = (isRight: boolean) => {
+        if (!this.#lastFocusedCell) {
+            return;
+        }
+
+        this.#resetSelectedRows(true);
+
+        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
+        const cells = tr.querySelectorAll('.f-cell');
+
+        const oldIndex = Array.from(cells).indexOf(
+            this.#lastFocusedCell.element
+        );
+
+        let newIndex = isRight ? oldIndex + 1 : oldIndex - 1;
+        if (newIndex < 0) {
+            newIndex = cells.length - 1;
+        } else if (newIndex >= cells.length) {
+            newIndex = 0;
+        }
+
+        const focused = cells[newIndex];
+        const focusedProps: FCellProps = focused['kup-get-cell-props']();
+
+        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#lastFocusedCell = focusedProps.cell;
+    };
+
+    #verNav = (isDown: boolean) => {
+        if (!this.#lastFocusedCell) {
+            return;
+        }
+
+        this.#resetSelectedRows(true);
+
+        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
+        const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
+            this.#lastFocusedCell.element
+        );
+        const rows = tr.parentElement.querySelectorAll('tr:not(.group)');
+        const index = Array.from(rows).indexOf(tr);
+
+        let newIndex = isDown ? index + 1 : index - 1;
+        if (newIndex < 0) {
+            newIndex = rows.length - 1;
+        } else if (newIndex >= rows.length) {
+            newIndex = 0;
+        }
+
+        const focusedRow = rows[newIndex];
+        const focusedCells = focusedRow.querySelectorAll('.f-cell');
+        const focused = focusedCells[cellXIndex];
+        const focusedProps: FCellProps = focused['kup-get-cell-props']();
+        this.#lastFocusedCell = focusedProps.cell;
+
+        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+    };
+
+    #onKupKeyDown = (e: KeyboardEvent) => {
+        const isHorizontal = e.key === 'ArrowLeft' || e.key === 'ArrowRight';
+        const isVertical = e.key === 'ArrowDown' || e.key === 'ArrowUp';
+
+        // Only for non-editable matrix
+        if (!this.editableData && !this.updatableData) {
+            // If horizontal navigation, select next/previous column
+            if (isHorizontal) {
+                e.preventDefault();
+                this.#horNav(e.key === 'ArrowRight');
+            }
+
+            // If vertical navigation, select next/previous row
+            if (isVertical) {
+                e.preventDefault();
+                this.#verNav(e.key === 'ArrowDown');
+            }
+        }
+    };
+
     #onColumnSort({ ctrlKey }: PointerEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -5824,6 +5915,7 @@ export class KupDataTable {
 
                 return (
                     <td
+                        tabIndex={-1}
                         title={title}
                         colSpan={
                             cell.span && cell.span.col ? cell.span.col : null
@@ -7108,6 +7200,7 @@ export class KupDataTable {
                             ref={(el: HTMLTableElement) =>
                                 (this.#tableRef = el)
                             }
+                            onKeyDown={(e) => this.#onKupKeyDown(e)}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
                             }}
