@@ -365,7 +365,6 @@ export const TypesToDuplicate: FCellTypes[] = [
     FCellTypes.AUTOCOMPLETE,
     FCellTypes.COMBOBOX,
     FCellTypes.DATE,
-    FCellTypes.DATETIME,
     FCellTypes.NUMBER,
     FCellTypes.STRING,
     FCellTypes.TIME,
