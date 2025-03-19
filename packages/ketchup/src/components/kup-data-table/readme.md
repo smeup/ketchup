@@ -251,6 +251,16 @@ Type: `Promise<KupDataTableCell>`
 
 
 
+### `getLastFocusedColumn() => Promise<KupDataColumn>`
+
+This method is used to retrieve last focused column
+
+#### Returns
+
+Type: `Promise<KupDataColumn>`
+
+
+
 ### `getLastFocusedRow() => Promise<KupDataTableRow>`
 
 This method is used to retrieve last focused row or the first if there's no row focused
@@ -473,6 +483,16 @@ This method will set the selected rows of the component.
 | `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
 | `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
 | `scrollIntoView`  | `boolean`              | - If true, the component will scroll to the first selected row.      |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `tooltipRequest() => Promise<void>`
+
+This method is used to force tooltip request for current focused cell
 
 #### Returns
 

@@ -67,7 +67,6 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupCalendarState } from './kup-calendar-state';
-import { pseudoRandomBytes } from 'crypto';
 
 @Component({
     tag: 'kup-calendar',

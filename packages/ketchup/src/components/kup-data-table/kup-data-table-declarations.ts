@@ -245,7 +245,7 @@ export const totalMenuOpenID = 'TOMEOPID';
  * Contains all the data of an event.
  */
 export interface KupDatatableEventHandlerDetails {
-    area: string;
+    area: 'header' | 'body' | 'footer';
     cell: KupDataTableCell;
     column: KupDataColumn;
     filterRemove: HTMLElement;

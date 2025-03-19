@@ -1097,6 +1097,7 @@ export class KupDataTable {
     #columnDropCardAnchor: HTMLElement = null;
     #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
+    #lastFocusedColumn: KupDataColumn = null;
     #lastFocusedCell: KupDataTableCell = null;
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
@@ -1926,6 +1927,30 @@ export class KupDataTable {
     @Method()
     async getLastFocusedCell(): Promise<KupDataTableCell> {
         return this.#lastFocusedCell;
+    }
+
+    /**
+     * This method is used to retrieve last focused column
+     */
+    @Method()
+    async getLastFocusedColumn(): Promise<KupDataColumn> {
+        return this.#lastFocusedColumn;
+    }
+
+    /**
+     * This method is used to force tooltip request for current focused cell
+     */
+    @Method()
+    async tooltipRequest(): Promise<void> {
+        if (!this.#lastFocusedCell && !this.#lastFocusedColumn) {
+            return;
+        }
+
+        this.kupDataTableContextMenu.emit({
+            comp: this,
+            id: this.rootElement.id,
+            details: this.#tooltipRequestHandler(),
+        });
     }
 
     //#region LISTENERS
@@ -3601,14 +3626,107 @@ export class KupDataTable {
         };
     }
 
+    #getEventDetailsForCurrentSelection(): KupDatatableEventHandlerDetails {
+        let isHeader: boolean,
+            isBody: boolean,
+            isFooter: boolean,
+            td: HTMLElement,
+            textfield: HTMLElement,
+            th: HTMLElement,
+            tr: HTMLElement,
+            filterRemove: HTMLSpanElement;
+
+        isBody =
+            !!this.#lastFocusedRow &&
+            !!this.#lastFocusedCell &&
+            !!this.#lastFocusedColumn;
+        isHeader =
+            !this.#lastFocusedRow &&
+            !!this.#lastFocusedCell &&
+            !!this.#lastFocusedColumn;
+        isFooter =
+            !this.#lastFocusedRow &&
+            !this.#lastFocusedCell &&
+            !!this.#lastFocusedColumn;
+
+        let cell: KupDataTableCell = null,
+            column: KupDataColumn = null,
+            isGroupRow: boolean = false,
+            row: KupDataTableRow = null;
+        if (isBody) {
+            row = this.#lastFocusedRow;
+        }
+        if (isHeader || isBody) {
+            cell = this.#lastFocusedCell;
+        }
+        if (isHeader || isBody || isFooter) {
+            const columnName = this.#lastFocusedColumn.name;
+            if (columnName) {
+                column = getColumnByName(this.getColumns(), columnName);
+            }
+        }
+
+        return {
+            area: isHeader
+                ? 'header'
+                : isBody
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
+            cell: cell ? cell : null,
+            column: column ? column : null,
+            filterRemove: filterRemove ? filterRemove : null,
+            isGroupRow: isGroupRow,
+            originalEvent: undefined,
+            row: row ? row : null,
+            td: td ? td : null,
+            textfield: textfield ? textfield : null,
+            th: th ? th : null,
+            tr: tr ? tr : null,
+        };
+    }
+
+    #getSourceElementCoordsForCurrentSelection(
+        details: KupDatatableEventHandlerDetails
+    ): KupDynamicPositionCoordinates {
+        let x = 0,
+            y = 0;
+
+        if (details.area == 'footer') {
+            const elCoords = this.#tableRef
+                .querySelector(
+                    `tfoot tr td[data-column='${details.column.name}']`
+                )
+                ?.getBoundingClientRect() ?? {
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0,
+            };
+            x = elCoords.x + elCoords.width / 2;
+            y = elCoords.y + elCoords.height / 2;
+        } else {
+            const elCoords = details.cell?.element?.getBoundingClientRect() ?? {
+                x: 0,
+                y: 0,
+            };
+            x = elCoords.x;
+            y = elCoords.y;
+        }
+        return { x, y };
+    }
+
     #clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
 
-        const { cell } = details;
+        const { cell, column } = details;
         this.#lastFocusedCell = cell;
+        this.#lastFocusedColumn = column;
+        this.#lastFocusedRow = undefined;
 
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -3621,6 +3739,7 @@ export class KupDataTable {
                 }
             }
         } else if (details.area === 'body') {
+            this.#lastFocusedRow = details.row;
             if (
                 (this.isFocusable || e.ctrlKey || e.metaKey) &&
                 details.tr &&
@@ -3645,7 +3764,6 @@ export class KupDataTable {
                 this.#onRowClick(details.row, details.td, true);
                 return details;
             }
-            this.#lastFocusedRow = details.row;
         }
         return details;
     }
@@ -3672,14 +3790,35 @@ export class KupDataTable {
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
+        return this.#contextMenuHandlerDetailsManager(details, {
+            x: e.pageX,
+            y: e.pageY,
+        });
+    }
+
+    #tooltipRequestHandler(): KupDatatableEventHandlerDetails {
+        const details: KupDatatableEventHandlerDetails =
+            this.#getEventDetailsForCurrentSelection();
+        const elCoords =
+            this.#getSourceElementCoordsForCurrentSelection(details);
+        return this.#contextMenuHandlerDetailsManager(details, {
+            x: elCoords.x,
+            y: elCoords.y,
+        });
+    }
+
+    #contextMenuHandlerDetailsManager(
+        details: KupDatatableEventHandlerDetails,
+        eventCoords: KupDynamicPositionCoordinates
+    ): KupDatatableEventHandlerDetails {
         if (details.area === DataTableAreasEnum.HEADER) {
-            if (details.th && details.column) {
+            if (details.column) {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
-            if (details.td && details.column) {
-                this.#totalMenuCoords = { x: e.pageX, y: e.pageY };
+            if (details.column) {
+                this.#totalMenuCoords = eventCoords;
                 this.#onTotalMenuOpen(details.column);
                 return details;
             }
@@ -6752,7 +6891,6 @@ export class KupDataTable {
     }
 
     render() {
-        console.log('ketchup kup-data-table render');
         this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
         this.#rowsRefs = [];
