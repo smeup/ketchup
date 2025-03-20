@@ -19,9 +19,13 @@ export function prepareMessageBox(component: KupCard): VNode[] {
                     {options.cancelCb ? (
                         <FButton
                             icon="clear"
-                            label={dom.ketchup.language.translate(
-                                KupLanguageGeneric.ABORT
-                            )}
+                            label={
+                                options.cancelLabel
+                                    ? options.cancelLabel
+                                    : dom.ketchup.language.translate(
+                                          KupLanguageGeneric.ABORT
+                                      )
+                            }
                             onClick={options.cancelCb}
                             styling={FButtonStyling.FLAT}
                         ></FButton>
@@ -29,9 +33,13 @@ export function prepareMessageBox(component: KupCard): VNode[] {
                     {options.confirmCb ? (
                         <FButton
                             icon="check"
-                            label={dom.ketchup.language.translate(
-                                KupLanguageGeneric.CONFIRM
-                            )}
+                            label={
+                                options.confirmLabel
+                                    ? options.confirmLabel
+                                    : dom.ketchup.language.translate(
+                                          KupLanguageGeneric.CONFIRM
+                                      )
+                            }
                             onClick={options.confirmCb}
                         ></FButton>
                     ) : null}

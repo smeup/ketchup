@@ -62,6 +62,11 @@
     --kup-datatable-font-size,
     var(--kup-font-size)
   );
+  --kup_fcell_line_height_extradense: var(
+    --kup-fcell-line-height-extradense,
+    14px
+  );
+  --kup_fcell_font_size_extradense: var(--kup-fcell-font-size-extradense, 12px);
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
     1px solid var(--kup-gray-color-30)
@@ -80,6 +85,10 @@
     var(--kup-text-primary)
   );
   --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_fcell_padding_extradense: var(
+    --kup-fcell-padding-dense,
+    var(--kup-space-01) var(--kup-space-01)
+  );
   --kup_fcell_padding_dense: var(
     --kup-fcell-padding-dense,
     var(--kup-space-01) var(--kup-space-03)
@@ -260,34 +269,43 @@ table {
   }
 }
 
+// WORK HERE
 .density- {
-  &dense {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-dense, var(--kup_fcell_padding_dense));
-    }
+  &extra_dense {
+    .header-cell__content,
     tbody > tr.group td {
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
+      padding: var(
+        --kup-fcell-padding-extradense,
+        var(--kup_fcell_padding_extradense)
+      );
+    }
+    & .header-cell__title {
+      font-size: var(--kup_fcell_font_size_extradense);
+    }
+    & .group-cell-content > span.text {
+      font-size: var(--kup_fcell_font_size_extradense);
+      line-height: var(--kup_fcell_line_height_extradense);
+    }
+  }
+
+  &dense {
+    .header-cell__content,
+    tbody > tr.group td {
+      padding: var(--kup-fcell-padding-dense, var(--kup_fcell_padding_dense));
     }
   }
 
   &medium {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-medium, var(--kup_fcell_padding_medium));
-    }
+    .header-cell__content,
     tbody > tr.group > td {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
+      padding: var(--kup-fcell-padding-medium, var(--kup_fcell_padding_medium));
     }
   }
 
   &wide {
-    .header-cell__content {
-      padding: var(--kup-fcell-padding-wide, var(--kup_fcell_padding_wide));
-    }
+    .header-cell__content,
     tbody > tr.group > td {
-      padding-top: 0.75em;
-      padding-bottom: 0.75em;
+      padding: var(--kup-fcell-padding-wide, var(--kup_fcell_padding_wide));
     }
   }
 }
@@ -399,6 +417,7 @@ tbody {
     padding: 0;
     @include kup-body-compact-01;
     font-size: 13px; // this for space performance
+    outline: none;
 
     & > * {
       border: none !important;
@@ -445,8 +464,6 @@ tbody {
       }
 
       > td {
-        padding: 0.5em 0;
-
         .group-cell-content {
           .indent {
             float: left;
@@ -466,7 +483,7 @@ tbody {
         &.total {
           border-bottom: 1px solid var(--kup-border-subtle-selected);
           text-align: right;
-          padding: 0.5em var(--kup-space-03);
+          padding: 0 var(--kup-space-03) 0.25em var(--kup-space-03);
           font-family: var(--kup_datatable_font_family_monospace);
 
           &.negative-number {
@@ -528,6 +545,7 @@ thead {
   th {
     /** it doesn't work with fixed columns... !!! */
     position: relative;
+    box-sizing: content-box;
   }
 }
 
@@ -556,6 +574,10 @@ th.obj:hover span:not(.overlay-action) {
   @include kup-heading-compact-01;
   font-size: 13px;
   font-family: var(--kup_datatable_font_family_monospace);
+
+  &.danger-text {
+    color: var(--kup-danger-color-60) !important;
+  }
 }
 
 .settings-trigger {
@@ -657,19 +679,24 @@ th.obj:hover span:not(.overlay-action) {
 :host([legacy-look]) {
   --kup-textfield-background-color: transparent;
   --kup-fcell-width: 100%;
-  --kup-fcell-padding-dense: 0px;
-  --kup-dense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
-  --kup-textfield-extrasmall-padding: var(--kup-dense-legacy-look-padding);
+  --kup-fcell-padding-extradense: 0px;
+  --kup-extradense-legacy-look-padding: var(--kup-space-00) var(--kup-space-03);
+  --kup-textfield-extrasmall-padding: var(--kup-extradense-legacy-look-padding);
+  --kup-textfield-extrasmall-height: 20px;
+
   th .header-cell__content {
     font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
-    font-size: 11px;
-    padding: var(--kup-dense-legacy-look-padding);
+    font-size: 12px;
+    padding: var(--kup-extradense-legacy-look-padding);
   }
   .f-cell__text {
-    padding: var(--kup-dense-legacy-look-padding);
+    padding: var(--kup-extradense-legacy-look-padding);
   }
   .f-cell {
+    &.extra_dense {
+      min-height: var(--kup_fcell_extradense_min_height);
+    }
     &.dense {
       min-height: var(--kup_fcell_dense_min_height);
     }
@@ -679,5 +706,9 @@ th.obj:hover span:not(.overlay-action) {
     &.wide {
       min-height: var(--kup_fcell_wide_min_height);
     }
+  }
+  table.row-separation > tbody > tr > td {
+    box-shadow: 0px 1px var(--kup-border-subtle);
+    border-bottom: 0px;
   }
 }

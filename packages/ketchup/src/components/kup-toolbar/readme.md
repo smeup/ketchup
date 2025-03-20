@@ -93,6 +93,7 @@ Type: `Promise<void>`
 - [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
+- [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-button-list](../kup-button-list)
@@ -147,6 +148,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -177,8 +182,8 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
   kup-box --> kup-toolbar
   kup-cell --> kup-toolbar
   kup-image-list --> kup-toolbar

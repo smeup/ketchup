@@ -25,6 +25,8 @@ import {
     KupDialogProps,
 } from './kup-dialog-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import type { EdgeOptions } from '@interactjs/types/index';
+import { ResizeEvent } from '@interactjs/types';
 
 @Component({
     tag: 'kup-dialog',
@@ -67,6 +69,21 @@ export class KupDialog {
      * @default "true"
      */
     @Prop() resizable = true;
+    /**
+     * Sets anchor position ("none", "left", "top", "right", "bottom").
+     * @default "none"
+     */
+    @Prop() anchor: 'none' | 'left' | 'top' | 'right' | 'bottom' = 'none';
+    /**
+     * The min width of the dialog.
+     * @default "auto"
+     */
+    @Prop() minSizeX = '20dvw';
+    /**
+     * The min height of the dialog.
+     * @default "auto"
+     */
+    @Prop() minSizeY = '20dvh';
     /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
@@ -208,6 +225,138 @@ export class KupDialog {
         this.#kupManager.theme.unregister(this);
     }
 
+    #getMinMaxDimensions(element: Element): {
+        min: { width: number; height: number };
+        max: { width: number; height: number };
+    } {
+        const minWidth = getComputedStyle(element).minWidth.replace('px', '');
+        const minHeight = getComputedStyle(element).minHeight.replace('px', '');
+        const maxWidth = getComputedStyle(element).maxWidth.replace('px', '');
+        const maxHeight = getComputedStyle(element).maxHeight.replace('px', '');
+
+        return {
+            min: {
+                width: parseFloat(minWidth),
+                height: parseFloat(minHeight),
+            },
+            max: {
+                width: parseFloat(maxWidth),
+                height: parseFloat(maxHeight),
+            },
+        };
+    }
+
+    #onResize(e: ResizeEvent) {
+        let { width, height } = e.rect;
+        const target = e.target;
+
+        const dim = this.#getMinMaxDimensions(this.rootElement);
+        const isDetatched = this.anchor == 'none';
+
+        const isHorizontalShiftAllowed =
+            width >= dim.min.width - 1 &&
+            width <= dim.max.width + 1 &&
+            isDetatched;
+        const isVerticalShiftAllowed =
+            height >= dim.min.height - 1 &&
+            height <= dim.max.height + 1 &&
+            isDetatched;
+
+        if (e.edges.left && isHorizontalShiftAllowed) {
+            target.style.left = `${
+                parseFloat(target.style.left || '0') + e.deltaRect.left
+            }px`;
+        }
+
+        if (e.edges.top && isVerticalShiftAllowed) {
+            target.style.top = `${
+                parseFloat(target.style.top || '0') + e.deltaRect.top
+            }px`;
+        }
+
+        if (e.edges.right && isHorizontalShiftAllowed) {
+            target.style.right = `${
+                parseFloat(target.style.right || '0') - e.deltaRect.right
+            }px`;
+        }
+
+        if (e.edges.bottom && isVerticalShiftAllowed) {
+            target.style.bottom = `${
+                parseFloat(target.style.bottom || '0') - e.deltaRect.bottom
+            }px`;
+        }
+    }
+
+    #dialogify() {
+        const isDetatched = this.anchor == 'none';
+        this.#kupManager.interact.dialogify(
+            this.rootElement,
+            this.#header ? this.#header : null,
+            {
+                isResizable: this.resizable || !isDetatched,
+                isDraggable: isDetatched,
+                onResize: this.#onResize.bind(this),
+                resizeConstraints: this.#getMinMaxDimensions(this.rootElement),
+                edges: this.#getEdgeOptions(),
+            }
+        );
+    }
+
+    #undialogify() {
+        this.#kupManager.interact.undialogify(this.rootElement);
+    }
+
+    #getEdgeOptions(): EdgeOptions {
+        switch (this.anchor) {
+            case 'none':
+                return { left: true, top: true, right: true, bottom: true };
+            case 'left':
+                return { left: false, top: false, right: true, bottom: false };
+            case 'top':
+                return { left: false, top: false, right: false, bottom: true };
+            case 'right':
+                return { left: true, top: false, right: false, bottom: false };
+            case 'bottom':
+                return { left: false, top: true, right: false, bottom: false };
+        }
+    }
+
+    #getStyles(): { [k: string]: string } {
+        const minHeight = '--kup_dialog_min_height';
+        const minWidth = '--kup_dialog_min_width';
+        const height = '--kup_dialog_height';
+        const width = '--kup_dialog_width';
+        const maxHeight = '--kup_dialog_max_height';
+        const maxWidth = '--kup_dialog_max_width';
+
+        const styles = {};
+        if (this.anchor == 'none') {
+            styles[minHeight] = this.minSizeY ? this.minSizeY : '20dvh';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : '20dvw';
+
+            styles[height] = this.sizeY ? this.sizeY : 'auto';
+            styles[width] = this.sizeX ? this.sizeX : 'auto';
+
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '90dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '90dvw';
+        }
+        if (this.anchor == 'left' || this.anchor == 'right') {
+            styles[minHeight] = '100dvh';
+            styles[minWidth] = this.minSizeX ? this.minSizeX : '20dvw';
+
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '100dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '80dvw';
+        }
+        if (this.anchor == 'top' || this.anchor == 'bottom') {
+            styles[minHeight] = this.minSizeY ? this.minSizeY : '20dvh';
+            styles[minWidth] = '100dvw';
+
+            styles[maxHeight] = this.maxSizeY ? this.maxSizeY : '80dvh';
+            styles[maxWidth] = this.maxSizeX ? this.maxSizeX : '100dvw';
+        }
+        return styles;
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -218,12 +367,9 @@ export class KupDialog {
     }
 
     componentDidLoad() {
-        this.#kupManager.interact.dialogify(
-            this.rootElement,
-            this.#header ? this.#header : null,
-            !this.resizable
-        );
-        if (this.autoCenter?.onReady) {
+        this.#dialogify();
+
+        if (this.autoCenter?.onReady && this.anchor == 'none') {
             this.recalcPosition();
         } else {
             this.rootElement.removeAttribute('fade-in');
@@ -244,6 +390,14 @@ export class KupDialog {
         this.#kupManager.debug.logLoad(this, true);
     }
 
+    componentDidUpdate() {
+        // unregister dialog
+        this.#undialogify();
+
+        // register it again
+        this.#dialogify();
+    }
+
     componentWillRender() {
         this.#kupManager.debug.logRender(this, false);
     }
@@ -253,12 +407,7 @@ export class KupDialog {
     }
 
     render() {
-        const style = {
-            '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
-            '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
-            '--kup_dialog_max_width': this.maxSizeX ? this.maxSizeX : '90dvw',
-            '--kup_dialog_max_height': this.maxSizeY ? this.maxSizeY : '90dvh',
-        };
+        let style: { [k: string]: string } = this.#getStyles();
 
         const headerSlot = this.rootElement.querySelector('[slot="header"]');
         if (headerSlot) {
@@ -266,7 +415,11 @@ export class KupDialog {
         }
 
         return (
-            <Host fade-in style={style}>
+            <Host
+                fade-in
+                style={style}
+                data-anchor={this.anchor?.toString() || 'none'}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

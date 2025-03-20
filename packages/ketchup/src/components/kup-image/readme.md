@@ -135,6 +135,12 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -159,8 +165,6 @@ graph TD;
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
@@ -168,11 +172,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-image
+  kup-tree --> kup-image
   kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-image
   kup-box --> kup-image
   kup-cell --> kup-image
   kup-image-list --> kup-image

@@ -39,6 +39,7 @@
     align-items: center;
     vertical-align: middle;
     display: inline-flex;
+    justify-content: center;
 
     label {
       margin-left: 0px;
@@ -218,9 +219,10 @@
     }
   }
 
-  .checkbox--legacy-look {
+  .checkbox--legacy-look,
+  .checkbox--extra-small {
     padding: 0;
-    flex: 0;
+    flex: unset;
     height: var(--kup_checkbox_legacy_size);
     width: var(--kup_checkbox_legacy_size);
 

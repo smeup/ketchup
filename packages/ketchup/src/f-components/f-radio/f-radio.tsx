@@ -33,7 +33,12 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                 class={`form-field 
                   ${props.leadingLabel ? ' form-field--align-end' : ''} ${
                     props.disabled ? 'radio--disabled' : ''
-                }`}
+                } ${radioType === FRadioType.CHEVRON ? 'form--chevron' : ''}`}
+                onClick={
+                    props.onChange
+                        ? props.onChange.bind(props.onChange, i)
+                        : null
+                }
             >
                 <div class={classObj}>
                     {radioType === FRadioType.RADIO ? (
@@ -45,11 +50,12 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                             checked={data.checked}
                             disabled={props.disabled}
                             onBlur={props.onBlur}
-                            onChange={
-                                props.onChange
-                                    ? props.onChange.bind(props.onChange, i)
-                                    : null
-                            }
+                            onChange={(e) => {
+                                if (props.onChange) {
+                                    props.onChange(i, e);
+                                }
+                                e.stopPropagation();
+                            }}
                             onFocus={props.onFocus}
                         ></input>
                     ) : (
@@ -64,14 +70,12 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                                 <FImage
                                     sizeX="14px"
                                     sizeY="14px"
-                                    onClick={
-                                        props.onChange
-                                            ? props.onChange.bind(
-                                                  props.onChange,
-                                                  i
-                                              )
-                                            : null
-                                    }
+                                    onClick={(e) => {
+                                        if (props.onChange) {
+                                            props.onChange(i, e);
+                                        }
+                                        e.stopPropagation();
+                                    }}
                                 ></FImage>
                             )}
                         </Fragment>
@@ -83,16 +87,27 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                         </div>
                     )}
                 </div>
-                <label
-                    htmlFor={'radio-element'}
-                    onClick={
-                        props.onChange
-                            ? props.onChange.bind(props.onChange, i)
-                            : null
-                    }
+
+                <div
+                    class="label-wrapper"
+                    onClick={(e) => {
+                        if (props.onChange) {
+                            props.onChange(i, e);
+                        }
+                        e.stopPropagation();
+                    }}
                 >
-                    {data.label ? data.label : ''}
-                </label>
+                    {radioType === FRadioType.CHEVRON && (
+                        <FImage
+                            resource={data.icon}
+                            sizeX="14px"
+                            sizeY="14px"
+                        />
+                    )}
+                    <label htmlFor={'radio-element'}>
+                        {data.label ? data.label : ''}
+                    </label>
+                </div>
             </div>
         );
     }

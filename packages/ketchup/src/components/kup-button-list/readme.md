@@ -14,6 +14,7 @@
 | `data`          | --               | Props of the sub-components.                                                                                         | `KupButtonListNode[]`                                                                                                                                   | `[]`                       |
 | `disabled`      | `disabled`       | When set to true, the sub-components are disabled.                                                                   | `boolean`                                                                                                                                               | `false`                    |
 | `showSelection` | `show-selection` | When set to true, highlights the selected button with the secondary color of KupTheme.                               | `boolean`                                                                                                                                               | `true`                     |
+| `showText`      | `show-text`      | When set to false buttons don't show the text, only the icon if it is present.                                       | `boolean`                                                                                                                                               | `true`                     |
 | `sizing`        | `sizing`         | Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
 | `styling`       | `styling`        | Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).                  | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                             | `FButtonStyling.RAISED`    |
 
@@ -158,6 +159,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -181,11 +186,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-button-list
+  kup-tree --> kup-button-list
   kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-button-list
   kup-box --> kup-button-list
   kup-cell --> kup-button-list
   kup-image-list --> kup-button-list

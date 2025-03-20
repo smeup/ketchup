@@ -21,6 +21,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
         'checkbox--disabled': props.disabled ? true : false,
         'checkbox--indeterminate': props.indeterminate ? true : false,
         'checkbox--legacy-look': props.legacyLook ? true : false,
+        [`checkbox--${props.sizing || 'small'}`]: true,
     };
 
     const propsFImage: FImageProps = {

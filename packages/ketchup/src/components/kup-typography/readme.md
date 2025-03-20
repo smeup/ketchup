@@ -5,22 +5,25 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                   | Type                                                                                                                                                                                                                   | Default                        |
-| ------------- | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `customStyle` | `custom-style` | Custom style of the component.                                | `string`                                                                                                                                                                                                               | `''`                           |
-| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `true`                         |
-| `toolbarData` | --             | Display DataNode Toolbar.                                     | `KupDataNode[]`                                                                                                                                                                                                        | `undefined`                    |
-| `type`        | `type`         | Sets the sizing of the textfield                              | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
-| `value`       | `value`        | This is the content of the text                               | `string`                                                                                                                                                                                                               | `null`                         |
+| Property          | Attribute      | Description                                                   | Type                                                                                                                                                                                                                   | Default                        |
+| ----------------- | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle`     | `custom-style` | Custom style of the component.                                | `string`                                                                                                                                                                                                               | `''`                           |
+| `infoCallBack`    | --             |                                                               | `() => Promise<KupDataNode[]>`                                                                                                                                                                                         | `undefined`                    |
+| `infoIcon`        | `info-icon`    | When enabled displays toolbar item inside each single tab.    | `boolean`                                                                                                                                                                                                              | `false`                        |
+| `toolbar`         | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `true`                         |
+| `toolbarCallback` | --             | This is the callback to retrieve toolbar's data               | `() => Promise<KupDataNode[]>`                                                                                                                                                                                         | `undefined`                    |
+| `type`            | `type`         | Sets the sizing of the textfield                              | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
+| `value`           | `value`        | This is the content of the text                               | `string`                                                                                                                                                                                                               | `null`                         |
 
 
 ## Events
 
-| Event                      | Description | Type                                              |
-| -------------------------- | ----------- | ------------------------------------------------- |
-| `kup-typography-click`     |             | `CustomEvent<KupTypographyClickEventPayload>`     |
-| `kup-typography-iconclick` |             | `CustomEvent<KupTypographyIconClickEventPayload>` |
-| `kup-typography-itemclick` |             | `CustomEvent<KupToolbarItemClickEventPayload>`    |
+| Event                          | Description                                         | Type                                              |
+| ------------------------------ | --------------------------------------------------- | ------------------------------------------------- |
+| `kup-typography-click`         |                                                     | `CustomEvent<KupTypographyClickEventPayload>`     |
+| `kup-typography-iconclick`     |                                                     | `CustomEvent<KupTypographyIconClickEventPayload>` |
+| `kup-typography-infoiconclick` | Triggered when the info icon inside tab is clicked. | `CustomEvent<KupTypographyIconClickEventPayload>` |
+| `kup-typography-itemclick`     |                                                     | `CustomEvent<KupToolbarItemClickEventPayload>`    |
 
 
 ## Methods
@@ -73,6 +76,7 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-toolbar](../kup-toolbar)
+- [kup-list](../kup-list)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -81,6 +85,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-typography --> kup-toolbar
+  kup-typography --> kup-list
   kup-typography --> kup-card
   kup-typography --> kup-dialog
   kup-typography --> kup-badge
@@ -94,6 +99,7 @@ graph TD;
   kup-toolbar --> kup-color-picker
   kup-toolbar --> kup-combobox
   kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-file-upload
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
   kup-toolbar --> kup-button-list
@@ -108,6 +114,7 @@ graph TD;
   kup-card --> kup-color-picker
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
+  kup-card --> kup-file-upload
   kup-card --> kup-rating
   kup-card --> kup-time-picker
   kup-card --> kup-button-list
@@ -123,10 +130,10 @@ graph TD;
   kup-card --> kup-spinner
   kup-card --> kup-checkbox
   kup-card --> kup-data-table
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
   kup-card --> kup-dropdown-button
+  kup-card --> kup-tree
+  kup-card --> kup-tab-bar
+  kup-card --> kup-switch
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -168,6 +175,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
@@ -211,6 +222,7 @@ graph TD;
   kup-data-table --> kup-text-field
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-date-picker
+  kup-data-table --> kup-file-upload
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
   kup-data-table --> kup-button-list
@@ -229,6 +241,7 @@ graph TD;
   kup-form --> kup-color-picker
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
+  kup-form --> kup-file-upload
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-button-list
@@ -237,10 +250,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -251,6 +260,7 @@ graph TD;
   kup-tree --> kup-color-picker
   kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
+  kup-tree --> kup-file-upload
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
   kup-tree --> kup-button-list
@@ -259,6 +269,11 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
   kup-tree --> kup-toolbar
+  kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   style kup-typography fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

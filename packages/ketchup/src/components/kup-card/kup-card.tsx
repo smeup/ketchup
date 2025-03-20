@@ -373,14 +373,18 @@ export class KupCard {
             const dragHandle: HTMLElement = root.querySelector(
                 '#' + KupCardIds.DRAG_HANDLE
             );
-            const unresizable: boolean = !!root.querySelector(
-                '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
+            const isResizable: boolean = !card.classList.contains(
+                KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
+
             if (!this.kupManager.interact.isRegistered(card)) {
                 this.kupManager.interact.dialogify(
                     card,
                     dragHandle ? dragHandle : null,
-                    unresizable
+                    {
+                        isResizable: isResizable,
+                        isDraggable: true,
+                    }
                 );
             }
         }

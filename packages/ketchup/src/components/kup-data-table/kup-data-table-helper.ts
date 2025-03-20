@@ -178,7 +178,8 @@ export function filterRows(
     globalFilter: string = '',
     columns: KupDataColumn[] = [],
     columnFilters?: FiltersColumnMenu,
-    filtersRows?: FiltersRows
+    filtersRows?: FiltersRows,
+    visibleColumns?: string[]
 ): Array<KupDataTableRow> {
     if (filtersRows == null) {
         filtersRows = new FiltersRows();
@@ -189,7 +190,8 @@ export function filterRows(
         filters,
         globalFilter,
         columns,
-        columnFilters
+        columnFilters,
+        visibleColumns
     );
 }
 
@@ -323,7 +325,6 @@ export function groupRows(
     adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
-
     return groupRows;
 }
 
@@ -1142,6 +1143,7 @@ export function decorateDataTable(data: KupDataTableDataset) {
             let cell: KupDataTableCell = row.cells[cellKey];
 
             const value = cell.value;
+            const decode = cell.decode;
             const options = cell['options'];
             cell.isEditable = cell.isEditable ?? cell['editable'];
             const shapeAdapters = {
@@ -1151,8 +1153,11 @@ export function decorateDataTable(data: KupDataTableDataset) {
                     CMBandACPAdapter(value, '', options),
                 [FCellShapes.RADIO]: () => RADAdapter(value, options),
                 [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
-                [FCellShapes.CHIP]: () => CHIAdapter(value),
+                [FCellShapes.CHIP]: () => CHIAdapter(value, decode),
                 [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
+                [FCellShapes.MULTI_AUTOCOMPLETE]: () =>
+                    CHIAdapter(value, decode),
+                [FCellShapes.MULTI_COMBOBOX]: () => CHIAdapter(value, decode),
             };
 
             const adapterFunction = shapeAdapters[cell.shape];

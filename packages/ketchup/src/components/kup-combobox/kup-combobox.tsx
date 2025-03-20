@@ -87,6 +87,10 @@ export class KupCombobox {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+     */
+    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    /**
      * Set error message
      * @default '''
      */
@@ -254,6 +258,7 @@ export class KupCombobox {
     onKupIconClick() {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
+            this.#listEl?.setBlur();
         } else {
             this.#openList();
             this.kupIconClick.emit({
@@ -263,6 +268,7 @@ export class KupCombobox {
                 inputValue: this.#textfieldEl.value,
                 open: this.#textfieldWrapper.classList.contains('toggled'),
             });
+            this.#listEl?.setFocus();
         }
     }
 
@@ -473,7 +479,6 @@ export class KupCombobox {
             };
         }
         this.#kupManager.addClickCallback(this.#clickCb, true);
-        window.setTimeout(() => this.#listEl.setFocus(), 100);
     }
 
     #closeList() {
@@ -481,7 +486,6 @@ export class KupCombobox {
         this.#listEl.menuVisible = false;
         this.#kupManager.dynamicPosition.stop(this.#listEl);
         this.#kupManager.removeClickCallback(this.#clickCb);
-        window.setTimeout(() => this.#listEl.setBlur(), 100);
     }
 
     #isListOpened(): boolean {
@@ -523,13 +527,12 @@ export class KupCombobox {
     #prepList() {
         return (
             <kup-list
+                displayMode={this.listDisplayMode}
                 {...this.data['kup-list']}
-                displayMode={ItemsDisplayMode.CODE_AND_DESC}
                 is-menu
                 showFilter={
                     this.data['kup-list']?.data?.length >= 10 ? true : false
                 }
-                filter={''}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }

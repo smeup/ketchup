@@ -5,7 +5,7 @@ export enum KupActivityTimelineProps {
     data = 'Dataset containing the activities list',
     dateColumn = 'Column containing dates',
     timeColumn = 'Column containing times',
-    sortOrder = 'Order for sorting',
+    sort = 'Order for sorting',
 }
 
 export interface KupActivityTimelineData {
@@ -16,7 +16,7 @@ export interface KupActivityTimelineData {
 }
 
 export interface KupActivityTimelineActivity {
-    columns: KupActivityTimelineData[];
+    cells: KupActivityTimelineData[];
 }
 
 export interface KupActivityTimelineDatapoint {

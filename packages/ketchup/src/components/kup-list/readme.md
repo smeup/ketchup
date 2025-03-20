@@ -125,6 +125,16 @@ Type: `Promise<void>`
 
 
 
+### `setFocusOnFirstEl() => Promise<void>`
+
+Focuses the first element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -172,8 +182,10 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-list](.)
+ - [kup-tab-bar](../kup-tab-bar)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
 
 ### Depends on
 
@@ -218,6 +230,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-list
@@ -242,6 +258,7 @@ graph TD;
   kup-toolbar --> kup-color-picker
   kup-toolbar --> kup-combobox
   kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-file-upload
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
   kup-toolbar --> kup-button-list
@@ -267,6 +284,7 @@ graph TD;
   kup-form --> kup-color-picker
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
+  kup-form --> kup-file-upload
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-button-list
@@ -275,11 +293,9 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-form --> kup-toolbar
-  kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
   kup-tree --> kup-list
+  kup-tab-bar --> kup-list
+  kup-typography --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -34,7 +34,11 @@ const kupData: KupData = dom.ketchup ? dom.ketchup.data : new KupData();
  * @todo Should contain EVERY row-specific filtering method.
  */
 export class FiltersRows extends Filters {
-    isFilterCompliantForCell(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCell(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -42,11 +46,16 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.value,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isGlobalFilter
         );
     }
 
-    isFilterCompliantForCellObj(cellValue: KupDataCell, filterValue: string) {
+    isFilterCompliantForCellObj(
+        cellValue: KupDataCell,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ) {
         if (!cellValue) {
             return false;
         }
@@ -56,7 +65,8 @@ export class FiltersRows extends Filters {
         return this.isFilterCompliantForSimpleValue(
             cellValue.obj.k,
             cellValue.obj,
-            filterValue
+            filterValue,
+            isGlobalFilter
         );
     }
 
@@ -64,17 +74,19 @@ export class FiltersRows extends Filters {
         r: KupDataRow,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): boolean {
         return this.areCellsCompliant(
             r.cells,
             filters,
             globalFilter,
-            isUsingGlobalFilter,
+            isGlobalFilter,
             columns,
-            columnFilters
+            columnFilters,
+            visibleColumns
         );
     }
 
@@ -82,29 +94,35 @@ export class FiltersRows extends Filters {
         cells: KupDataRowCells,
         filters: GenericFilter = {},
         globalFilter: string = '',
-        isUsingGlobalFilter: boolean = false,
+        isGlobalFilter: boolean = false,
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): boolean {
-        if (isUsingGlobalFilter) {
+        if (isGlobalFilter) {
             let retValue = true;
             // There are no columns -> display element
             if (columns && columns != null && columns.length > 0) {
                 retValue = false;
                 let _filterIsNegative = this.filterIsNegative(globalFilter);
 
-                // Search among all visible columns for the global filter
                 for (let i = 0; i < columns.length; i++) {
-                    if (columns[i].visible == false) {
+                    if (
+                        (columns[i].visible === false && !visibleColumns) ||
+                        (visibleColumns?.length > 0 &&
+                            !visibleColumns.includes(columns[i].name))
+                    ) {
                         continue;
                     }
+
                     const cell = cells[columns[i].name];
                     if (cell == null) {
                         continue;
                     }
                     retValue = this.isFilterCompliantForValue(
                         cell.value,
-                        globalFilter
+                        globalFilter,
+                        isGlobalFilter
                     );
                     let displayedValue = getCellValueForDisplay(
                         columns[i],
@@ -115,7 +133,8 @@ export class FiltersRows extends Filters {
                             retValue ||
                             this.isFilterCompliantForValue(
                                 displayedValue,
-                                globalFilter
+                                globalFilter,
+                                isGlobalFilter
                             );
                     }
                     if (retValue == true && !_filterIsNegative) {
@@ -138,22 +157,34 @@ export class FiltersRows extends Filters {
         if (!this.hasFilters(filters, columns, columnFilters)) {
             return true;
         }
-
-        let keys = Object.keys(filters);
-        // Filters
-        for (let i = 0; i < keys.length; i++) {
-            let key: string = keys[i];
-
+        // Filters must match for every key in filters
+        return Object.keys(filters).every((key) => {
             const cell = cells[key];
+            const currentColumn = getColumnByName(columns, key);
+
             if (!cell) {
                 return false;
             }
 
             let filterValue = columnFilters.getTextFilterValue(filters, key);
+            let checkboxValues = columnFilters.getCheckBoxFilterValues(
+                filters,
+                key
+            );
+            const _filterIsNegative = this.filterIsNegative(filterValue);
 
-            const _filterIsNegative: boolean =
-                this.filterIsNegative(filterValue);
-            let b1 = this.isFilterCompliantForCell(cell, filterValue);
+            let b1 =
+                (filterValue !== '' &&
+                    this.isFilterCompliantForCell(cell, filterValue, true)) ||
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.value)
+                ) ||
+                checkboxValues.some((f) =>
+                    this.isFilterCompliantForCell(cell, f.displayedValue)
+                ) ||
+                // There are no filters to check -> the element is valid
+                !columnFilters.hasFiltersForColumn(filters, currentColumn);
+
             let b2 = _filterIsNegative;
             if (
                 !kupObjects.isNumber(cell.obj) &&
@@ -161,56 +192,26 @@ export class FiltersRows extends Filters {
                 !kupObjects.isTime(cell.obj) &&
                 !kupObjects.isTimestamp(cell.obj)
             ) {
-                b2 = this.isFilterCompliantForCellObj(cell, filterValue);
+                b2 =
+                    (filterValue !== '' &&
+                        this.isFilterCompliantForCellObj(
+                            cell,
+                            filterValue,
+                            true
+                        )) ||
+                    checkboxValues.some((f) =>
+                        this.isFilterCompliantForCellObj(cell, f.value)
+                    ) ||
+                    // There are no filters to check -> the element is valid
+                    !columnFilters.hasFiltersForColumn(filters, currentColumn);
             }
 
             if (_filterIsNegative) {
-                if (!b1 || !b2) {
-                    return false;
-                }
+                return b1 && b2;
             } else {
-                if (!b1 && !b2) {
-                    return false;
-                }
+                return b1 || b2;
             }
-
-            let filterValues = columnFilters.getCheckBoxFilterValues(
-                filters,
-                key
-            );
-            if (filterValues.length == 0) {
-                continue;
-            }
-            let retValue = false;
-            for (let i = 0; i < filterValues.length; i++) {
-                let fv = filterValues[i];
-                if (fv == null || fv.value == null) {
-                    continue;
-                }
-                if (cell.value != null) {
-                    if (
-                        cell.value.toLowerCase().trim() ==
-                        fv.value.toLowerCase().trim()
-                    ) {
-                        retValue = true;
-                        break;
-                    }
-                }
-                if (cell.obj != null) {
-                    if (
-                        cell.obj.k.toLowerCase().trim() ==
-                        fv.value.toLowerCase().trim()
-                    ) {
-                        retValue = true;
-                        break;
-                    }
-                }
-            }
-            if (!retValue) {
-                return false;
-            }
-        }
-        return true;
+        });
     }
 
     hasFilters(
@@ -261,19 +262,19 @@ export class FiltersRows extends Filters {
         filters: GenericFilter = {},
         globalFilter: string = '',
         columns: KupDataColumn[] = [],
-        columnFilters?: FiltersColumnMenu
+        columnFilters?: FiltersColumnMenu,
+        visibleColumns?: string[]
     ): Array<KupDataRow> {
         if (!rows || rows == null) {
             return [];
         }
-
         // There are rows to filter
         let filteredRows: Array<KupDataRow> = [];
-        const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
+        const isGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
             this.hasFilters(filters, columns, columnFilters) ||
-            isUsingGlobalFilter
+            isGlobalFilter
         ) {
             for (let i = 0; i < rows.length; i++) {
                 let r: KupDataRow = rows[i];
@@ -283,9 +284,10 @@ export class FiltersRows extends Filters {
                         r,
                         filters,
                         globalFilter,
-                        isUsingGlobalFilter,
+                        isGlobalFilter,
                         columns,
-                        columnFilters
+                        columnFilters,
+                        visibleColumns
                     )
                 ) {
                     filteredRows[filteredRows.length] = r;
@@ -366,7 +368,6 @@ export class FiltersRows extends Filters {
         for (let i = 0; i < checkboxes.length; i++) {
             values.push(checkboxes[i]);
         }
-
         return kupData.cell.getUnivocalValue({ rows: tmpRows }, column, true);
     }
 }

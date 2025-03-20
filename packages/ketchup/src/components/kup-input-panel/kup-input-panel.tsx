@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -60,6 +61,7 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
+    AbsoluteTblPositioningData,
     CheckConditionsByEventType,
     CheckTriggeringEvents,
     DataAdapterFn,
@@ -97,9 +99,9 @@ import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import {
     KupDataColumn,
-    KupDataCommand,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FLabel } from '../../f-components/f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -145,7 +147,7 @@ export class KupInputPanel {
     @Prop() data: KupInputPanelData = null;
 
     /**
-     * Creates a hidden submit button in order to submit the form with enter.
+     * Creates a hidden submit button in order to submit the form with enter.``
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
@@ -254,19 +256,6 @@ export class KupInputPanel {
 
     #originalData: KupInputPanelData = null;
 
-    #eventNames = new Map<FCellTypes, string[]>([
-        [
-            FCellTypes.AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [
-            FCellTypes.MULTI_AUTOCOMPLETE,
-            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
-        ],
-        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
-        [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
-    ]);
-
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
@@ -335,6 +324,36 @@ export class KupInputPanel {
         }
         if (this.data) {
             this.#mapCells(this.data);
+        }
+    }
+    //#endregion
+
+    //#region LISTENERS
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        switch (e.key) {
+            case 'Enter':
+                e.preventDefault();
+                e.stopPropagation();
+
+                const rootActiveElement = this.rootElement.shadowRoot
+                    .activeElement as HTMLInputElement;
+                const keyPressed = e.key.toLowerCase();
+                if (keyPressed === 'enter' && rootActiveElement) {
+                    rootActiveElement?.blur();
+                    this.submitCb({
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
+                    });
+                }
+
+                break;
         }
     }
     //#endregion
@@ -591,12 +610,16 @@ export class KupInputPanel {
             return customRender(cell, column, row.layout?.absolute);
         }
 
+        cell.data = {
+            ...cell.data,
+            sizing: 'extra-small',
+        };
         const cellProps: FCellProps = {
             cell,
             column,
             row,
-            component: this,
             editable: true,
+            component: this,
             renderKup: true,
             setSizes: true,
         };
@@ -616,7 +639,7 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
-        return (
+        const renderedButton = (
             <FButton
                 icon={cell.icon}
                 id={name}
@@ -624,6 +647,7 @@ export class KupInputPanel {
                 wrapperClass="form__submit"
             ></FButton>
         );
+        return renderedButton;
     }
 
     #renderDropDownButton(cell: KupDataCell, data: GenericObject) {
@@ -692,29 +716,24 @@ export class KupInputPanel {
         column: KupDataColumn,
         isAbsoluteLayout?: boolean
     ) {
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const isNumberType = dom.ketchup.objects.isNumber(cell.obj);
+        const isFormattableType =
+            isNumberType ||
+            dom.ketchup.objects.isDate(cell.obj) ||
+            dom.ketchup.objects.isTime(cell.obj) ||
+            dom.ketchup.objects.isTimestamp(cell.obj);
 
-        const baseClass = 'input-panel-label';
-        const additionalClass = isAbsoluteLayout
-            ? ' input-panel-label--legacy-look'
-            : '';
-        const numberClass =
-            cellType === FCellTypes.NUMBER ? ' input-panel-label-number' : '';
+        const classList = ['input-panel-label'];
+        if (isAbsoluteLayout) classList.push('input-panel-label--legacy-look');
+        if (isNumberType) classList.push('input-panel-label-number');
 
-        if (cellType === FCellTypes.NUMBER) {
-            return (
-                <span
-                    class={`${baseClass}${additionalClass}${numberClass}`}
-                    id={column.name}
-                >
-                    {getCellValueForDisplay(column, cell)}
-                </span>
-            );
-        }
+        const value = isFormattableType
+            ? getCellValueForDisplay(column, cell)
+            : cell.value;
 
         return (
-            <span class={`${baseClass}${additionalClass}`} id={column.name}>
-                {cell.value}
+            <span class={classList.join(' ')} id={column.name}>
+                <FLabel text={value} />
             </span>
         );
     }
@@ -839,8 +858,22 @@ export class KupInputPanel {
                 this.#renderAbsoluteSection(cells, innerSection)
             );
         } else if (section.content?.length) {
+            const firstTBL = section.content.find(
+                (item) => item.shape === FCellShapes.TABLE
+            );
+            const absoluteTblPositioningData: AbsoluteTblPositioningData =
+                firstTBL
+                    ? {
+                          absoluteRow: firstTBL.absoluteRow,
+                          absoluteHeight: firstTBL.absoluteHeight,
+                      }
+                    : {};
             content = section.content.map((field) =>
-                this.#renderAbsoluteField(cells, field)
+                this.#renderAbsoluteField(
+                    cells,
+                    field,
+                    absoluteTblPositioningData
+                )
             );
         }
 
@@ -995,7 +1028,8 @@ export class KupInputPanel {
 
     #renderAbsoluteField(
         cells: InputPanelCells,
-        field: KupInputPanelLayoutField
+        field: KupInputPanelLayoutField,
+        absoluteTblPositioningData: AbsoluteTblPositioningData
     ) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
@@ -1021,28 +1055,23 @@ export class KupInputPanel {
                 ? getLabelAbsoluteWidth(length)
                 : getAbsoluteWidth(length);
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
-        const absoluteTop = getAbsoluteTop(field.absoluteRow);
+        const absoluteTop = getAbsoluteTop(
+            field.absoluteRow,
+            absoluteTblPositioningData
+        );
         const absoluteLeft = getAbsoluteLeft(field.absoluteColumn);
 
         const styleObj = {
             position: 'absolute',
-            width: absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'min-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            'max-width': absoluteWidth !== null ? `${absoluteWidth}px` : null,
-            height: absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            'min-height':
-                absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            'max-height':
-                absoluteHeight !== null ? `${absoluteHeight}px` : null,
-            top:
-                absoluteTop !== null
-                    ? `${getAbsoluteTop(field.absoluteRow)}px`
-                    : null,
-            left:
-                absoluteLeft !== null
-                    ? `${getAbsoluteLeft(field.absoluteColumn)}px`
-                    : null,
-            overflow: 'auto',
+            width: absoluteWidth != null ? `${absoluteWidth}px` : null,
+            'min-width': absoluteWidth != null ? `${absoluteWidth}px` : null,
+            'max-width': absoluteWidth != null ? `${absoluteWidth}px` : null,
+            height: absoluteHeight != null ? `${absoluteHeight}px` : null,
+            'min-height': absoluteHeight != null ? `${absoluteHeight}px` : null,
+            'max-height': absoluteHeight != null ? `${absoluteHeight}px` : null,
+            top: absoluteTop != null ? `${absoluteTop}px` : null,
+            left: absoluteLeft != null ? `${absoluteLeft}px` : null,
+            overflow: 'hidden',
         };
 
         fieldCell.cell.data = {
@@ -1147,9 +1176,10 @@ export class KupInputPanel {
     ) {
         const defaultProps = {
             ...this.#mapData(cell, column, layout),
-            disabled: !cell.editable,
+            disabled: !cell.isEditable,
             id: column.name,
         };
+
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
         const { data, ...noDataProps } = cell.data || {};
 
@@ -1283,15 +1313,11 @@ export class KupInputPanel {
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (!cell.editable) {
-            return null;
-        }
-
         if (cellType === FCellTypes.CHIP) {
             return {
                 trailingIcon: true,
                 label: col.title,
-                disabled: !cell.editable,
+                disabled: !cell.isEditable,
                 id: col.name,
                 fullWidth: false,
             };
@@ -1306,7 +1332,7 @@ export class KupInputPanel {
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
-                disabled: !cell.editable,
+                disabled: !cell.isEditable,
                 id: col.name,
             };
         }
@@ -1317,9 +1343,10 @@ export class KupInputPanel {
     #CHIAdapter(
         _options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell
     ) {
-        return CHIAdapter(currentValue);
+        return CHIAdapter(currentValue, cell.decode);
     }
 
     #GRAAdapter() {
@@ -1371,7 +1398,6 @@ export class KupInputPanel {
         currentValue: string
     ) {
         const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
@@ -1443,11 +1469,7 @@ export class KupInputPanel {
             ...cell.data,
         };
 
-        if (
-            this.autoSkip &&
-            (cell.isEditable || cell.editable) &&
-            cell.data?.maxLength
-        ) {
+        if (this.autoSkip && cell.isEditable && cell.data?.maxLength) {
             data.onInput = (event: InputEvent) => {
                 this.#setAutoSkip(id, event);
             };
@@ -1664,7 +1686,6 @@ export class KupInputPanel {
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {
         const adapter = this.#optionsAdapterMap.get(options.type);
-
         if (adapter) {
             return adapter(options, currentValue);
         } else {
@@ -1711,7 +1732,7 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: cells[value].value || cells[id].value,
+                value: value ? cells[value].value : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
@@ -1769,7 +1790,10 @@ export class KupInputPanel {
 
             const visibleColumnsOptions = { ...options, rows: filteredRows };
 
-            const kupListData = cell.data?.data?.['kup-list'];
+            const kupListData =
+                cell.shape === FCellShapes.MULTI_AUTOCOMPLETE
+                    ? cell.slotData.data['kup-list']
+                    : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
                     ? this.#optionsTreeComboAdapter(
@@ -1777,6 +1801,7 @@ export class KupInputPanel {
                           cell.value
                       ) ?? []
                     : [];
+                kupListData.options = options.columns ?? [];
             } else {
                 this.#kupManager.debug.logMessage(
                     this,
@@ -2118,6 +2143,7 @@ export class KupInputPanel {
     componentDidLoad() {
         this.#didLoadInteractables();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
+
         this.#setFocusOnInputElement();
         this.#kupManager.debug.logLoad(this, true);
     }

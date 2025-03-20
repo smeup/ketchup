@@ -1,0 +1,85 @@
+:host {
+  --kup_upload_icon_color: var(--kup-upload-icon-color, var(--kup-icon-color));
+  --kup_upload_border_color: var(
+    --kup-upload-border-color,
+    var(--kup-gray-color-30)
+  );
+  flex: 1;
+
+  .file-upload-spinner > * {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .file-upload-spinner > file-upload__spinner-container {
+    opacity: 1;
+  }
+
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: 2px dashed var(--kup_upload_border_color);
+    border-radius: 4px;
+    padding: 1em;
+    position: relative;
+
+    &__buttons {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+      justify-content: center;
+      .spinner {
+        height: 48px;
+        margin: auto;
+        width: 48px;
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+
+      &__item {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+
+        &__preview {
+          height: 3em;
+          width: 3em;
+          display: flex;
+          align-items: center;
+        }
+
+        &__desc {
+          width: 14em;
+        }
+
+        &__clear {
+          background-color: var(--kup_upload_icon_color);
+          cursor: pointer;
+          height: 16px;
+          width: 16px;
+          min-width: 16px;
+          min-height: 16px;
+          outline: none;
+          pointer-events: all;
+          -webkit-mask: var(--kup-clear-icon);
+          mask: var(--kup-clear-icon);
+
+          &:hover {
+            background-color: var(--kup-danger-color-60);
+          }
+        }
+      }
+    }
+
+    &__spinner-container {
+      height: calc(100% - 2em);
+      width: 20%;
+      position: absolute;
+      left: 40%;
+    }
+  }
+}

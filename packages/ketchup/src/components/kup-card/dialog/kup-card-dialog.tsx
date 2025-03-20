@@ -4,12 +4,18 @@ import type { GenericObject } from '../../../types/GenericTypes';
 import type { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
-import { KupLanguageRow } from '../../../managers/kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageRow,
+} from '../../../managers/kup-language/kup-language-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import {
     KupDataColumn,
     KupDataDataset,
 } from '../../../managers/kup-data/kup-data-declarations';
+import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
+import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
+import { KupDropdownButton } from '../../kup-dropdown-button/kup-dropdown-button';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -257,6 +263,213 @@ export function create7(component: KupCard): VNode {
         <div class={`dialog-layout-${component.layoutNumber}`}>
             {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
             {slots.length > 0 ? compList(slots, 'slot') : null}
+        </div>
+    );
+}
+/**
+ * 8th dialog card layout for fixed and draggable tooltip, a raw slot.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create8(component: KupCard): VNode {
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    const treeArray: GenericObject[] = component.data['tree']
+        ? component.data['tree']
+        : [];
+
+    // Setting up currently visible view.
+    const viewIndex: number = 1;
+
+    const sectionOneArray: string[] = textArray.slice(0, 5);
+
+    // Setting up section 2
+    const sectionTwoArray: string[] = textArray.slice(5);
+    const sectionTwoDetails: VNode[] = [];
+    const labels: string[] = [];
+    const values: string[] = [];
+    for (let index = 0; index < sectionTwoArray.length; index++) {
+        if (index % 2 === 0) {
+            labels.push(sectionTwoArray[index]);
+        } else {
+            values.push(sectionTwoArray[index]);
+        }
+    }
+    for (let index = 0; index < labels.length; index++) {
+        sectionTwoDetails.push(
+            <div class="detail-row">
+                <div class="detail-row__label ellipsis">{labels[index]}</div>
+                <div class="detail-row__value ellipsis">{values[index]}</div>
+            </div>
+        );
+    }
+
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    const genericButtons: GenericObject[] = [];
+    const isReservedID = (id: string) => {
+        return (
+            id === KupColumnMenuIds.BUTTON_OPEN_IN_NEW ||
+            id === KupColumnMenuIds.BUTTON_SEARCH
+        );
+    };
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
+        }
+        if (!isReservedID(button['id'])) {
+            genericButtons.push(button);
+        }
+    }
+    const createDropdown = () => {
+        const props: Partial<KupDropdownButton> = {
+            data: { 'kup-list': { data: [], showIcons: true } },
+            dropdownOnly: true,
+            icon: 'more_vert',
+            styling: FButtonStyling.ICON,
+        };
+        for (let index = 5; index < genericButtons.length; index++) {
+            const button: Partial<HTMLKupButtonElement> = genericButtons[index];
+            props.data['kup-list'].data.push({
+                ...button,
+                value: button.title,
+            });
+        }
+        return (
+            <kup-dropdown-button
+                {...props}
+                id="options"
+                title={dom.ketchup.language.translate(
+                    KupLanguageGeneric.OPTIONS
+                )}
+            ></kup-dropdown-button>
+        );
+    };
+    return (
+        <div class={`dialog-layout-${component.layoutNumber}`}>
+            <div id={KupCardIds.DRAG_HANDLE} class="drag-handle"></div>
+            <div class="section-1">
+                {imageArray[0] ? (
+                    <FImage
+                        id="image1"
+                        {...imageArray[0]}
+                        sizeX="44px"
+                        sizeY="44px"
+                    ></FImage>
+                ) : (
+                    <div class="sub-spinner">
+                        <kup-spinner
+                            active={true}
+                            dimensions="7px"
+                            layout={14}
+                        />
+                    </div>
+                )}
+                <div class="sub-1">
+                    {textArray[0] ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                        <div class="top">
+                            {textArray[0] ? (
+                                <div class="title">
+                                    <span
+                                        class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                        id="title-link"
+                                    >
+                                        {textArray[0]}
+                                    </span>
+                                </div>
+                            ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                            ) ||
+                            buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_SEARCH
+                            ) ? (
+                                <div class="buttons">
+                                    {buttonsIds.includes(
+                                        KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                    ) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) =>
+                                                    x.id ===
+                                                    KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                            )}
+                                        />
+                                    ) : null}
+                                    {buttonsIds.includes(
+                                        KupColumnMenuIds.BUTTON_SEARCH
+                                    ) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) =>
+                                                    x.id ===
+                                                    KupColumnMenuIds.BUTTON_SEARCH
+                                            )}
+                                        />
+                                    ) : null}
+                                </div>
+                            ) : null}
+                        </div>
+                    ) : null}
+                    {sectionOneArray[1] && sectionOneArray[2] ? (
+                        <div class="info">
+                            <span class="label">{sectionOneArray[1]}</span>
+                            <span class="value">{sectionOneArray[2]}</span>
+                        </div>
+                    ) : null}
+                    {sectionOneArray[3] && sectionOneArray[4] ? (
+                        <div class="info">
+                            <span class="label">{sectionOneArray[3]}</span>
+                            <span class="value">{sectionOneArray[4]}</span>
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+            <div class="section-2">
+                <div
+                    class={`${KupCardCSSClasses.CARD_VIEW} ${KupCardCSSClasses.VIEW_PREFIX}${viewIndex} ${KupCardCSSClasses.VISIBLE}`}
+                >
+                    <div class="info">
+                        {sectionTwoDetails.length > 0
+                            ? sectionTwoDetails
+                            : null}
+                    </div>
+                </div>
+                <div
+                    class={`${KupCardCSSClasses.CARD_VIEW} ${
+                        KupCardCSSClasses.VIEW_PREFIX
+                    }${viewIndex + 1}`}
+                >
+                    {treeArray[0] ? (
+                        <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    ) : null}
+                </div>
+            </div>
+            {genericButtons.length > 0 ? (
+                <div class="section-3">
+                    {compList(genericButtons.slice(0, 5), 'button')}
+                    {genericButtons.length > 5 ? createDropdown() : null}
+                    {treeArray[0] ? (
+                        <kup-button
+                            title={dom.ketchup.language.translate(
+                                KupLanguageGeneric.SHOW_ROW_OPTIONS
+                            )}
+                            id="view-selector"
+                            icon="menu"
+                        ></kup-button>
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     );
 }

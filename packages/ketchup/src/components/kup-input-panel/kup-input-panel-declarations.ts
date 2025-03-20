@@ -49,7 +49,6 @@ export interface KupInputPanelRowCells {
 }
 
 export interface KupInputPanelCell extends KupDataCellOptions {
-    editable?: boolean;
     mandatory?: boolean;
     inputSettings?: GenericObject;
     fun?: string;
@@ -88,6 +87,7 @@ export interface KupInputPanelLayoutSection {
 
 export interface KupInputPanelLayoutField {
     id: string;
+    shape: FCellShapes;
     // Span is referred to start
     colSpan?: number;
     colStart?: number;
@@ -248,3 +248,8 @@ export const CheckConditionsByEventType = {
         );
     },
 };
+
+export interface AbsoluteTblPositioningData {
+    absoluteRow?: number;
+    absoluteHeight?: number;
+}

@@ -40,6 +40,7 @@ import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupAutocompleteEventPayload } from '../kup-autocomplete/kup-autocomplete-declarations';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -68,15 +69,15 @@ export class KupChip {
      */
     @Prop({ mutable: true }) data: KupChipNode[] = [];
     /**
-     * When enabled, the chip's text will display both the id and the value.
-     * @default false
-     */
-    @Prop() displayId = false;
-    /**
      * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
      * @default false
      */
     @Prop() enableInput = false;
+    /**
+     * When true, the chip cannot be edited, nor removed.
+     * @default false
+     */
+    @Prop() disabled: boolean = false;
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -84,15 +85,26 @@ export class KupChip {
     @Prop() type: FChipType = FChipType.STANDARD;
     /**
      * Sets the size of the chip
-     * @default FChipSize.MEDIUM
+     * @default FChipSize.SMALL
      */
-    @Prop() sizing: FChipSize = FChipSize.MEDIUM;
+    @Prop() sizing: FChipSize = FChipSize.SMALL;
     /**
      * Sets the style of the chip
      * @default FChipStyling.RAISED
      */
     @Prop() styling: FChipStyling = FChipStyling.RAISED;
 
+    /**
+     * When enabled, the chip's text will display both the id and description.
+     * @default ItemsDisplayMode.DESCRIPTION
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * When set,will be shown a label on the chips
+     * @default null
+     */
+    @Prop() label: string = null;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -270,34 +282,58 @@ export class KupChip {
         >
     ) {
         e.stopPropagation();
-        const value = e.detail?.value;
-        const listNode = (e.detail as KupAutocompleteEventPayload).node;
-        if (value) {
-            const node = this.data?.find((node) => node.id === value);
-            if (!node) {
-                const data = this.data && this.data.length ? this.data : [];
+        const data = this.data && this.data.length ? this.data : [];
+        // check event type
+        if ('node' in e.detail) {
+            // autocomplete and combobox handler
+            const node = (
+                e.detail as
+                    | KupAutocompleteEventPayload
+                    | KupComboboxEventPayload
+            ).node;
+            // check if node isn't presents in data
+            if (!this.data?.find((n) => n.id === node.id)) {
                 this.data = [
                     ...data,
                     {
-                        id: listNode ? listNode.id : value,
-                        value: listNode ? listNode.value : value,
+                        id: node.id,
+                        value: node.value,
                     },
                 ];
-                const slot:
-                    | HTMLKupAutocompleteElement
-                    | HTMLKupComboboxElement
-                    | HTMLKupTextFieldElement =
-                    this.rootElement.querySelector('[slot=field]');
-                await slot.setValue('');
-                await slot.refresh();
-                await slot.setFocus();
-                this.kupChange.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    stringifiedValues: this.#stringifiedValues(),
-                });
+                await this.#performChangeEvent();
+            }
+        } else {
+            // texfield handler
+            const value = e.detail?.value;
+            if (value) {
+                // check if value isn't already present in data
+                if (!this.data?.find((n) => n.id === value)) {
+                    this.data = [
+                        ...data,
+                        {
+                            id: value,
+                        },
+                    ];
+                    await this.#performChangeEvent();
+                }
             }
         }
+    }
+
+    async #performChangeEvent() {
+        const slot:
+            | HTMLKupAutocompleteElement
+            | HTMLKupComboboxElement
+            | HTMLKupTextFieldElement =
+            this.rootElement.querySelector('[slot=field]');
+        await slot.setValue('');
+        await slot.refresh();
+        await slot.setFocus();
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            stringifiedValues: this.#stringifiedValues(),
+        });
     }
 
     #stringifiedValues() {
@@ -359,7 +395,7 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
-            displayId: this.displayId,
+            displayMode: this.displayMode,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
@@ -383,7 +419,9 @@ export class KupChip {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            disabled: this.disabled,
         };
+
         for (let j = 0; this.data && j < this.data.length; j++) {
             props.onBlur.push((chip) => this.onKupBlur(chip));
             props.onClick.push((chip) => this.onKupClick(chip));
@@ -426,6 +464,11 @@ export class KupChip {
                     )}
                 </style>
                 <div id={componentWrapperId}>
+                    {this.label ? (
+                        <div class="mdc-text-field__label-container">
+                            <label class="mdc-label">{this.label}</label>
+                        </div>
+                    ) : null}
                     {this.data?.length > 0 ? <FChip {...props} /> : null}
                     <slot name="field"></slot>
                 </div>

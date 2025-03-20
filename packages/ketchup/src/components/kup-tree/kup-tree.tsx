@@ -45,7 +45,11 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-import { getColumnByName, getValueForDisplay } from '../../utils/cell-utils';
+import {
+    getColumnByName,
+    getValueForDisplay,
+    isNegativeNumber,
+} from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -55,10 +59,14 @@ import {
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
-import { KupListNode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListNode,
+} from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -78,6 +86,7 @@ import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarati
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -125,6 +134,7 @@ export class KupTree {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
+            this.state.load = true;
             const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.density = state.density;
@@ -140,71 +150,7 @@ export class KupTree {
 
     persistState(): void {
         if (this.store && this.stateId) {
-            let somethingChanged = false;
-
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.filters,
-                    this.filters
-                )
-            ) {
-                this.state.filters = { ...this.filters };
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.density,
-                    this.density
-                )
-            ) {
-                this.state.density = this.density;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.showFilters,
-                    this.showFilters
-                )
-            ) {
-                this.state.showFilters = this.showFilters;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.showFooter,
-                    this.showFooter
-                )
-            ) {
-                this.state.showFooter = this.showFooter;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.totals,
-                    this.totals
-                )
-            ) {
-                this.state.totals = { ...this.totals };
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.globalFilter,
-                    this.globalFilter
-                )
-            ) {
-                this.state.globalFilter = this.globalFilter;
-                somethingChanged = true;
-            }
-            if (
-                !this.#kupManager.objects.deepEqual(
-                    this.state.globalFilterValue,
-                    this.globalFilterValue
-                )
-            ) {
-                this.state.globalFilterValue = this.globalFilterValue;
-                somethingChanged = true;
-            }
+            let somethingChanged = this.#checkUpdateState();
             if (!this.state.load) {
                 this.state.load = true;
                 return;
@@ -215,6 +161,71 @@ export class KupTree {
         }
     }
 
+    #checkUpdateState(): boolean {
+        let somethingChanged = false;
+
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.filters,
+                this.filters
+            )
+        ) {
+            this.state.filters = { ...this.filters };
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.density,
+                this.density
+            )
+        ) {
+            this.state.density = this.density;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.showFilters,
+                this.showFilters
+            )
+        ) {
+            this.state.showFilters = this.showFilters;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.showFooter,
+                this.showFooter
+            )
+        ) {
+            this.state.showFooter = this.showFooter;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(this.state.totals, this.totals)
+        ) {
+            this.state.totals = { ...this.totals };
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.globalFilter,
+                this.globalFilter
+            )
+        ) {
+            this.state.globalFilter = this.globalFilter;
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.globalFilterValue,
+                this.globalFilterValue
+            )
+        ) {
+            this.state.globalFilterValue = this.globalFilterValue;
+            somethingChanged = true;
+        }
+        return somethingChanged;
+    }
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
@@ -241,7 +252,7 @@ export class KupTree {
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop() density: FCellPadding = FCellPadding.MEDIUM;
+    @Prop() density: FCellPadding = FCellPadding.EXTRA_DENSE;
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      *
@@ -352,6 +363,8 @@ export class KupTree {
      * Defines the current totals options.
      */
     @Prop({ mutable: true }) totals: TotalsMap;
+
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -1682,6 +1695,20 @@ export class KupTree {
         }
 
         let treeNodeCell = null;
+        let nodeValue: string;
+        switch (this.displayMode) {
+            case ItemsDisplayMode.CODE:
+                nodeValue = treeNodeData.obj?.k ?? '';
+                break;
+            case ItemsDisplayMode.DESCRIPTION:
+                nodeValue = treeNodeData.value ?? '';
+                break;
+            default:
+                nodeValue = `${treeNodeData.obj?.k ?? ''}: ${
+                    treeNodeData.value ?? ''
+                }`;
+                break;
+        }
         if (this.isTreeColumnVisible()) {
             let content = '';
             if (KupGlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
@@ -1697,7 +1724,7 @@ export class KupTree {
                         class="cell-content"
                         title={this.preventXScroll ? treeNodeData.value : null}
                     >
-                        {treeNodeData.value}
+                        {nodeValue}
                     </span>
                 );
             }
@@ -1906,7 +1933,7 @@ export class KupTree {
                     );
                 }
 
-                const value =
+                const totalValue =
                     this.footer[column.name] != null
                         ? getValueForDisplay(
                               this.footer[column.name],
@@ -1914,15 +1941,20 @@ export class KupTree {
                               column.decimals
                           )
                         : '';
+                const totalsClass = `totals-value ${
+                    isNegativeNumber(this.footer[column.name])
+                        ? FCellClasses.TEXT_DANGER
+                        : ''
+                }`;
 
                 return (
                     <td data-column={column.name}>
                         {totalMenu}
                         <span
-                            class="totals-value"
+                            class={totalsClass}
                             title={translation[menuLabel]}
                         >
-                            {value}
+                            {totalValue}
                         </span>
                     </td>
                 );
@@ -2143,7 +2175,8 @@ export class KupTree {
 
         this.sizedColumns = this.getSizedColumns();
 
-        let wrapperClass: string = 'density-medium';
+        let wrapperClass: string = `density-${this.density}`;
+
         const wrapperStyle: Record<string, string> = {
             ...(this.treeHeight
                 ? {
@@ -2199,6 +2232,7 @@ export class KupTree {
                         label={this.#kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
+                        sizing={KupComponentSizing.EXTRA_SMALL}
                         icon={KupThemeIconValues.SEARCH}
                         initialValue={this.globalFilterValue}
                         onkup-textfield-input={(event) => {
