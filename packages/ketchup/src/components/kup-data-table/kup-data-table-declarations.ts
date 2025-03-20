@@ -10,6 +10,7 @@ import {
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FCellTypes } from '../../f-components/f-cell/f-cell-declarations';
 
 /**
  * Props of the kup-data-table component.
@@ -356,3 +357,15 @@ export interface KupDatatableCellCheckPayload extends KupEventPayload {
     updatedData: KupDataTableDataset;
     cell?: KupDataCell;
 }
+
+/**
+ * List of types that can duplicate value in all column's cell
+ */
+export const TypesToDuplicate: FCellTypes[] = [
+    FCellTypes.AUTOCOMPLETE,
+    FCellTypes.COMBOBOX,
+    FCellTypes.DATE,
+    FCellTypes.NUMBER,
+    FCellTypes.STRING,
+    FCellTypes.TIME,
+];

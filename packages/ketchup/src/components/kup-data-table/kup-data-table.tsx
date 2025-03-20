@@ -56,6 +56,7 @@ import {
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
+    TypesToDuplicate,
 } from './kup-data-table-declarations';
 import {
     getColumnByName,
@@ -157,7 +158,10 @@ import {
     KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupDom,
+    KupManagerClickCb,
+} from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellClasses,
     FCellEventPayload,
@@ -191,6 +195,7 @@ import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
 
+const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -1972,6 +1977,22 @@ export class KupDataTable {
             }
         }
     }
+
+    @Listen('keydown')
+    listenCopyCellValueInColumnListener(e: KeyboardEvent) {
+        if (
+            this.updatableData &&
+            e.key.toLowerCase() === 'd' &&
+            e.ctrlKey === true
+        ) {
+            const input = this.rootElement.shadowRoot
+                .activeElement as HTMLInputElement;
+            if (input) {
+                this.#copyCellValueInColumnHandler(e, input);
+            }
+        }
+    }
+
     //#endregion
 
     #closeDropCard() {
@@ -3974,6 +3995,35 @@ export class KupDataTable {
 
     #hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
+    }
+
+    #copyCellValueInColumnHandler(e: KeyboardEvent, el: HTMLInputElement) {
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(el, this.rootElement)
+        );
+
+        const { cell, column, row } = details;
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        if (!TypesToDuplicate.includes(cellType)) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        el.blur();
+
+        const filteredRowIds = this.#rows.map((row) => row.id);
+        this.data.rows = this.data.rows.map((currRow) => {
+            if (filteredRowIds.includes(currRow.id) && currRow.id !== row.id) {
+                currRow.cells[column.name].value = cell.value;
+                currRow.cells[column.name].obj = cell.obj;
+                currRow.cells[column.name].decode = cell.decode;
+                currRow.cells[column.name].data = cell.data;
+            }
+            return currRow;
+        });
+        this.refresh();
     }
 
     /**

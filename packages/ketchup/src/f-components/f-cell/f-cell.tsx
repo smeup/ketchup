@@ -1489,12 +1489,14 @@ function cellEvent(
         }
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
+                cell.decode = e.detail?.node?.value;
                 if (cell.data) {
                     cell.data['initialValue'] = value;
                     cell.data['initialValueDecode'] = e.detail?.node?.value;
                 }
                 break;
             case FCellTypes.COMBOBOX:
+                cell.decode = e.detail?.node?.value;
             case FCellTypes.DATE:
             case FCellTypes.TIME:
                 if (cell.data) {
