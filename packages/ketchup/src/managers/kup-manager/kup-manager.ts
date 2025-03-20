@@ -39,6 +39,7 @@ import { KupOpenAI } from '../kup-openai/kup-openai';
 import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 import { KupPerfMonitoring } from '../kup-perf-monitoring/kup-perf-monitoring';
+import { KupPerfTuningPriority } from '../kup-perf-tuning/kup-perf-tuning-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -207,6 +208,8 @@ export class KupManager {
         );
         this.perfTuning = new KupPerfTuning({
             maxCellsPerPage: Number.MAX_VALUE,
+            maxRowsPerPage: 1000,
+            priority: KupPerfTuningPriority.ROWS_PER_PAGE,
         });
         this.perfMonitoring = new KupPerfMonitoring();
         document.addEventListener('pointerdown', (e) => {
