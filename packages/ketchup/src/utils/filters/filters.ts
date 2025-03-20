@@ -62,12 +62,12 @@ export class Filters {
                     manageSeconds
                 )
             ) {
-                return dom.ketchup.dates.formattedStringToCustomDateTime(
+                return dom.ketchup.dates.timeStringToFormattedString(
                     value,
+                    manageSeconds,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
-                    manageSeconds
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
@@ -111,6 +111,7 @@ export class Filters {
      * Determines if a value matches a given filter.
      *
      * Filter expressions follow the format `[operator]'filter'` with these rules:
+     * - filter = includes match
      * - 'filter' = exact phrase match
      * - '' = matches empty value
      * - 'filter%' = starts with "filter"
@@ -126,23 +127,30 @@ export class Filters {
      * @param filterValue - Filter to apply
      * @returns Whether the value matches the filter
      */
-    isFilterCompliantForValue(value: string, filterValue: string): boolean {
+    isFilterCompliantForValue(
+        value: string,
+        filterValue: string,
+        isGlobalFilter?: boolean
+    ): boolean {
         if (value == null || filterValue == null) {
             return false;
         }
-
         // Split multiple filters and trim each one
         const filters = filterValue.split(';').map((f) => f.trim());
-
         // All filters must match (AND condition)
-        return filters.every(
-            (filter) =>
-                value.toLowerCase().includes(filter.toLowerCase()) ||
-                this.matchSpecialFilter(
-                    value.toLowerCase(),
-                    filter.toLowerCase().match(FILTER_ANALYZER)
-                )
-        );
+        return filters.every((filter) => {
+            // if filter is '' it should be excluded since it is always included in every possible string and thus always leading to a match!
+            const valueIncludesFilter = isGlobalFilter
+                ? value.toLowerCase().includes(filter.toLowerCase()) &&
+                  filter !== ''
+                : value.toLowerCase() == filter.toLowerCase();
+            const valueMatchesSpecialFilter = this.matchSpecialFilter(
+                value.toLowerCase(),
+                filter.toLowerCase().match(FILTER_ANALYZER)
+            );
+
+            return valueIncludesFilter || valueMatchesSpecialFilter;
+        });
     }
 
     /**
@@ -161,6 +169,7 @@ export class Filters {
      * - `%` at both: contains
      *
      * Examples:
+     * - `text`: includes match
      * - `'text'`: exact match
      * - `''`: matches empty
      * - `!''`: matches non-empty
@@ -238,7 +247,8 @@ export class Filters {
     isFilterCompliantForSimpleValue(
         valueToCheck: string,
         obj: any,
-        filterValue: string
+        filterValue: string,
+        isGlobalFilter?: boolean
     ) {
         if (valueToCheck == null) {
             return false;
@@ -252,7 +262,6 @@ export class Filters {
             const rawFilter = filter;
             const normalizedFilter = this.normalizeValue(filter, obj);
             let value = valueToCheck;
-
             let checkByRegularExpression = true;
 
             if (dom.ketchup.objects.isNumber(obj)) {
@@ -325,7 +334,7 @@ export class Filters {
                 const normValue = this.normalizeValue(value, obj);
                 let valueDate: Date = null;
                 if (normValue != null) {
-                    valueDate = dom.ketchup.dates.toDate(value);
+                    valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
                 }
 
                 if (filterMatch && valueDate) {
@@ -369,6 +378,10 @@ export class Filters {
                     ) &&
                     !dom.ketchup.dates.isValidFormattedStringDate(
                         normalizedFilter
+                    ) &&
+                    !dom.ketchup.dates.isValidFormattedStringTime(
+                        value,
+                        dom.ketchup.objects.isTimeWithSeconds(obj)
                     )
                 ) {
                     value = dom.ketchup.dates.format(value);
@@ -376,7 +389,11 @@ export class Filters {
             }
 
             if (checkByRegularExpression) {
-                return this.isFilterCompliantForValue(value, normalizedFilter);
+                return this.isFilterCompliantForValue(
+                    value,
+                    normalizedFilter,
+                    isGlobalFilter
+                );
             }
             return true;
         });

@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import {
     KupManager,
@@ -96,6 +97,10 @@ export class KupAutocomplete {
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    /**
+     * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+     */
+    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
     /**
      * Set error message
      * @default '''
@@ -185,7 +190,6 @@ export class KupAutocomplete {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #doConsistencyCheck: boolean = true;
     #elStyle: any = undefined;
     #listEl: HTMLKupListElement = null;
     /**
@@ -269,7 +273,6 @@ export class KupAutocomplete {
     }
 
     onKupChange(value: string) {
-        this.#doConsistencyCheck = true;
         if (value) {
             const ret = this.#consistencyCheck(value, undefined, true);
             if (ret.exists || this.allowInconsistentValues) {
@@ -313,7 +316,6 @@ export class KupAutocomplete {
     }
 
     onKupInput() {
-        this.#doConsistencyCheck = true;
         const ret = this.#consistencyCheck(
             this.#textfieldEl.value,
             undefined,
@@ -363,6 +365,21 @@ export class KupAutocomplete {
             inputValue: this.#textfieldEl.value,
             node: e.detail.selected,
         });
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('initialValue')
+    initialValueChange(newValue: string) {
+        this.initialValueDecode = undefined;
+        this.setValue(newValue, undefined);
+    }
+
+    @Watch('initialValueDecode')
+    initialValueDecodeChange(newValue: string) {
+        this.setValue(this.initialValue, newValue);
     }
 
     /*-------------------------------------------------*/
@@ -464,7 +481,6 @@ export class KupAutocomplete {
      */
     @Method()
     async setValue(value: string, valueDecode?: string) {
-        this.#doConsistencyCheck = true;
         this.#consistencyCheck(value, valueDecode, true);
     }
     /**
@@ -493,6 +509,7 @@ export class KupAutocomplete {
         const topOffset = hasError || hasAlert ? -20 : 0;
         this.#textfieldWrapper.classList.add('toggled');
         this.#listEl.menuVisible = true;
+        this.#listEl.setFocusOnFirstEl();
         const elStyle = this.#listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.#textfieldWrapper.clientWidth + 'px';
@@ -539,9 +556,6 @@ export class KupAutocomplete {
         idInDecode: string,
         eventShouldSetValue: boolean
     ): ValueDisplayedValue {
-        if (!this.#doConsistencyCheck) {
-            return;
-        }
         if (idIn && idInDecode) {
             this.displayedValue = getIdOfItemByDisplayMode(
                 { id: idIn, value: idInDecode },
@@ -549,7 +563,6 @@ export class KupAutocomplete {
                 ' - '
             );
         } else {
-            this.#doConsistencyCheck = false;
             const ret = consistencyCheck(
                 idIn,
                 this.data['kup-list'],
@@ -566,6 +579,7 @@ export class KupAutocomplete {
             } else {
                 this.displayedValue = idIn;
             }
+
             if (this.#listEl != null && !this.serverHandledFilter) {
                 this.#listEl.filter = ret.value;
             }
@@ -576,7 +590,7 @@ export class KupAutocomplete {
     #prepList() {
         return (
             <kup-list
-                displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                displayMode={this.listDisplayMode}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
@@ -614,7 +628,6 @@ export class KupAutocomplete {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
-        this.#doConsistencyCheck = true;
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {

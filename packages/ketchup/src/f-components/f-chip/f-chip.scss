@@ -3,6 +3,14 @@
     --kup-chip-background-color,
     var(--kup-layer-3)
   );
+  --kup_chip_background_color_disabled: var(
+    --kup-chip-background-color-disabled,
+    var(--kup-layer-2)
+  );
+  --kup_chip_font_color_disabled: var(
+    --kup-chip-font-color-disabled,
+    var(--kup-layer-3)
+  );
   --kup_chip_border_color: var(
     --kup-chip-border-color,
     var(--kup-border-strong)
@@ -15,8 +23,12 @@
   --kup_chip_font_size: var(--kup-chip-font-size, var(--kup-font-size));
   --kup_chip_font_weight: var(--kup-chip-font-weight, var(--kup-font-weight));
   --kup_chip_height: var(--kup-chip-height, 32px);
-  --kup_chip_small_height: var(--kup-chip-small-height, var(--kup-space-05));
-  --kup_chip_medium_height: var(--kup-chip-medium-height, var(--kup-space-06));
+  --kup_chip_extra_small_height: var(
+    --kup-chip-extra-small-height,
+    var(--kup-space-05)
+  );
+  --kup_chip_small_height: var(--kup-chip-small-height, var(--kup-space-06));
+  --kup_chip_medium_height: var(--kup-chip-medium-height, var(--kup-space-07));
   --kup_chip_indent_multiplier: var(--kup-chip-indent-multiplier, 10);
   --kup_chip_padding: var(--kup-chip-padding, var(--kup-space-03));
   --kup_chip_primary_color: var(
@@ -76,6 +88,10 @@
         var(--kup_chip_margin) * var(--kup_chip_indent_offset) *
           var(--kup_chip_indent_multiplier)
       );
+    }
+
+    &.chip--extra-small .chip {
+      height: var(--kup_chip_extra_small_height);
     }
 
     &.chip--small .chip {
@@ -177,6 +193,14 @@
         outline: none;
         .chip__text {
           white-space: nowrap;
+        }
+      }
+
+      &--disabled {
+        background-color: var(--kup_chip_background_color_disabled);
+        color: var(--kup_chip_font_color_disabled);
+        & .kup-icon {
+          background: var(--kup_chip_font_color_disabled);
         }
       }
     }

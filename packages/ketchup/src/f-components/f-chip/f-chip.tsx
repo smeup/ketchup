@@ -13,6 +13,8 @@ import {
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
+import { getIdOfItemByDisplayMode } from '../../components/kup-list/kup-list-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -26,6 +28,9 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     }
     if (!props.type) {
         props.type = FChipType.STANDARD;
+    }
+    if (!props.displayMode) {
+        props.displayMode = ItemsDisplayMode.DESCRIPTION;
     }
 
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
@@ -41,7 +46,7 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
         'chip-set--input': isInput ? true : false,
         'chip--outlined': isOutlined ? true : false,
         'chip--raised': isRaised ? true : false,
-        [`chip--${props.sizing}`]: props.sizing ? true : false,
+        [`chip--${props.sizing || 'extra-small'}`]: true,
     };
 
     return (
@@ -87,6 +92,7 @@ function createChipList(
             const indentStyle = {
                 ['--kup_chip_indent_offset']: indent.toString(),
             };
+            const isDisabled = props.disabled;
 
             chipGroup.push(
                 <div
@@ -131,7 +137,7 @@ function createChipList(
                             wrapperClass="dropdown-icon"
                         ></FImage>
                     ) : null}
-                    {createChip(chip)}
+                    {createChip(chip, isDisabled)}
                 </div>
             );
             if (showChildren) {
@@ -143,11 +149,11 @@ function createChipList(
             }
         }
 
-        function createChip(chip: KupChipNode): VNode {
+        function createChip(chip: KupChipNode, disabled: boolean): VNode {
             const onlyIcon = !!(chip.icon && !chip.value);
             let componentClass: string = `chip ${
                 onlyIcon ? 'chip--only-icon' : ''
-            }`;
+            } ${disabled && 'chip--disabled'}`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
@@ -189,6 +195,13 @@ function createChipList(
                     </span>
                 );
             }
+
+            let chipText: string = getIdOfItemByDisplayMode(
+                chip,
+                chip.value == '' ? ItemsDisplayMode.CODE : props.displayMode,
+                ' - '
+            );
+
             return (
                 <div
                     class={componentClass}
@@ -228,11 +241,7 @@ function createChipList(
                                     : null
                             }
                         >
-                            <span class="chip__text">
-                                {props.displayId
-                                    ? chip.id + ' - ' + chip.value
-                                    : chip.value}
-                            </span>
+                            <span class="chip__text">{chipText}</span>
                         </span>
                     </span>
                     {isInput ? (

@@ -10,6 +10,7 @@ import {
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FCellTypes } from '../../f-components/f-cell/f-cell-declarations';
 
 /**
  * Props of the kup-data-table component.
@@ -77,6 +78,7 @@ export enum KupDataTableProps {
     totals = 'Defines the current totals options.',
     transpose = 'Transposes the data of the data table.',
     updatableData = 'When set to true, editable cells will be rendered using input components and update button will appair below the matrix',
+    updateOnClick = 'When set to true, editable checkbox will call update',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
@@ -244,7 +246,7 @@ export const totalMenuOpenID = 'TOMEOPID';
  * Contains all the data of an event.
  */
 export interface KupDatatableEventHandlerDetails {
-    area: string;
+    area: 'header' | 'body' | 'footer';
     cell: KupDataTableCell;
     column: KupDataColumn;
     filterRemove: HTMLElement;
@@ -279,7 +281,6 @@ export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
     clickedRow: KupDataRow;
     clickedColumn: string;
 }
-
 export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;
 }
@@ -356,3 +357,15 @@ export interface KupDatatableCellCheckPayload extends KupEventPayload {
     updatedData: KupDataTableDataset;
     cell?: KupDataCell;
 }
+
+/**
+ * List of types that can duplicate value in all column's cell
+ */
+export const TypesToDuplicate: FCellTypes[] = [
+    FCellTypes.AUTOCOMPLETE,
+    FCellTypes.COMBOBOX,
+    FCellTypes.DATE,
+    FCellTypes.NUMBER,
+    FCellTypes.STRING,
+    FCellTypes.TIME,
+];

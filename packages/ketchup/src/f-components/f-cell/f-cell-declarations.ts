@@ -22,10 +22,10 @@ export interface FCellProps extends FComponent {
     column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
-    editable?: boolean;
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
+    editable?: boolean;
     row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
@@ -62,6 +62,7 @@ export enum FCellEvents {
  * Supported cell padding.
  */
 export enum FCellPadding {
+    EXTRA_DENSE = 'extra_dense',
     DENSE = 'dense',
     MEDIUM = 'medium',
     NONE = '',
@@ -128,9 +129,10 @@ export const FCellShapes = {
     COMBOBOX: 'CMB',
     DATE: 'CAL',
     EDITOR: 'EDT',
+    FILE_UPLOAD: 'FUP',
     GAUGE: 'GAU',
-    IMAGE: 'IMG',
     ICON: 'ICO',
+    IMAGE: 'IMG',
     INPUT_CHECKBOX: 'INC',
     INPUT_FIELD: 'INF',
     KNOB: 'KNB',
@@ -169,6 +171,7 @@ export enum FCellTypes {
     DATE = 'date',
     DATETIME = 'datetime',
     EDITOR = 'editor',
+    FILE_UPLOAD = 'file-upload',
     GAUGE = 'gauge',
     ICON = 'icon',
     IMAGE = 'image',
@@ -186,6 +189,7 @@ export enum FCellTypes {
     SWITCH = 'switch',
     TABLE = 'table',
     TIME = 'time',
+    LABEL = 'label',
 }
 export const editableTypes = [
     FCellTypes.AUTOCOMPLETE,
@@ -206,6 +210,7 @@ export const editableTypes = [
     FCellTypes.SWITCH,
     FCellTypes.TIME,
     FCellTypes.EDITOR,
+    FCellTypes.FILE_UPLOAD,
 ];
 export const kupTypes = [
     FCellTypes.BAR,

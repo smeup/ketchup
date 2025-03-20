@@ -6,7 +6,7 @@ import {
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
-import { GenericObject } from '../components';
+import { GenericObject, KupChipNode } from '../components';
 import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
 import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
@@ -251,6 +251,10 @@ function localCompareAsInJava(t1: string, t2: string): number {
     return t1Length - t2Length;
 }
 
+export function isNegativeNumber(value: string): boolean {
+    return dom.ketchup.math.numberifySafe(value) < 0;
+}
+
 // -------------
 // ADAPTERS from SmeupDataTable to FCell data attribute
 // -------------
@@ -292,6 +296,7 @@ export const RADAdapter = (value: string, options: GenericObject) => ({
               value: option.id,
               label: option.label,
               checked: option.id == value,
+              icon: option.icon,
           }))
         : [],
 });
@@ -301,14 +306,27 @@ export const CHKAdapter = (value: string, label: string) => ({
     label,
 });
 
-export const CHIAdapter = (value: string) => ({
-    data: value?.length
-        ? value
-              .split(';')
-              .map((v) => ({ id: v, value: v }))
-              .filter((value) => !!value)
-        : null,
-});
+export const CHIAdapter = (value: string, decode: string) => {
+    if (!value?.length) {
+        return { data: null };
+    }
+
+    const chipNodes: KupChipNode[] = [];
+    const values = value?.length ? value.split(';') : [];
+    // if cell has decode use it else use values as decode
+    const decodes = decode?.length ? decode.split(';') : undefined;
+
+    for (let i = 0; i < values.length; i++) {
+        chipNodes.push({
+            id: values[i],
+            value: decodes ? decodes[i] : values[i],
+        });
+    }
+
+    return {
+        data: chipNodes.filter((value) => !!value),
+    };
+};
 
 export const submitPositionAdapter = (position: KupCellElementsPosition) => {
     const positionAdapterMap = new Map<KupCellElementsPosition, string>([

@@ -27,8 +27,13 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-shaped': props.shaped,
         'kup-success': props.success,
         'kup-warning': props.warning,
+        [`f-text-field--${props.sizing || 'small'}`]: true,
         [props.wrapperClass]: !!props.wrapperClass,
     };
+    const helper = setHelper(props);
+    const attachHelperSection: boolean =
+        props.attachHelperSection?.(helper) ?? true;
+
     return (
         <div
             class={classObj}
@@ -44,12 +49,12 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
                 >
                     {[
                         setContent(props),
-                        setHelper(props),
+                        attachHelperSection ? helper : null,
                         <label>{props.label}</label>,
                     ]}
                 </div>
             ) : (
-                [setContent(props), setHelper(props)]
+                [setContent(props), attachHelperSection ? helper : null]
             )}
             {children}
         </div>
@@ -71,7 +76,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         props.textArea = true;
     }
 
-    if (props.label && !props.leadingLabel && !props.trailingLabel) {
+    if (
+        props.label &&
+        !props.leadingLabel &&
+        !props.trailingLabel &&
+        !props.legacyLook // do not show label in input panel absolute ( legacy mode )
+    ) {
         labelEl = (
             <div class="mdc-text-field__label-container">
                 <label class="mdc-label" htmlFor="kup-input">
@@ -190,7 +200,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let value = props.value;
     let inputType = props.quantityButtons
         ? 'number'
-        : props.inputType ?? 'text';
+        : (props.inputType ?? 'text');
     let persManageForNumberFormat = false;
     if (props.inputType === 'number') {
         inputType = 'text';
@@ -205,14 +215,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             integer: (props.integers ?? 0) - (props.decimals ?? 0),
         };
         value = formatValue(value, options, false);
-    }
-
-    if (props.textArea) {
-        try {
-            value = JSON.parse(`"${value}"`);
-        } catch (e) {
-            value = JSON.parse(JSON.stringify(value));
-        }
     }
 
     return (

@@ -1,11 +1,12 @@
 import type { FComponent } from '../../types/GenericTypes';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
+import { ItemsDisplayMode } from '../../components';
 /**
  * Props of the f-chip component.
  */
 export interface FChipsProps extends FComponent {
     data?: KupChipNode[];
-    displayId?: boolean;
+    displayMode?: ItemsDisplayMode;
     onBlur?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onExpansionClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
@@ -15,6 +16,7 @@ export interface FChipsProps extends FComponent {
     sizing?: FChipSize;
     styling?: FChipStyling;
     type?: FChipType;
+    disabled?: boolean;
 }
 /**
  * Types of the f-chip component.

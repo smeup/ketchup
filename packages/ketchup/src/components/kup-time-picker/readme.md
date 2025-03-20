@@ -5,17 +5,18 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                                     | Type      | Default |
-| ----------------- | ------------------- | --------------------------------------------------------------- | --------- | ------- |
-| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.      | `boolean` | `true`  |
-| `customStyle`     | `custom-style`      | Custom style of the component.                                  | `string`  | `''`    |
-| `data`            | --                  | Props of the sub-components (time input text field)             | `Object`  | `{}`    |
-| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
-| `error`           | `error`             | Set error message                                               | `string`  | `''`    |
-| `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
-| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `true`  |
-| `showMarker`      | `show-marker`       | When true shows a small marker on the component.                | `boolean` | `false` |
-| `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
+| Property          | Attribute           | Description                                                                                        | Type      | Default |
+| ----------------- | ------------------- | -------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `appendSelection` | `append-selection`  | When set to true, the selected date will be appended to the current value instead of replacing it. | `boolean` | `false` |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.                                         | `boolean` | `true`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                                                     | `string`  | `''`    |
+| `data`            | --                  | Props of the sub-components (time input text field)                                                | `Object`  | `{}`    |
+| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled.                                    | `boolean` | `false` |
+| `error`           | `error`             | Set error message                                                                                  | `string`  | `''`    |
+| `initialValue`    | `initial-value`     | Sets the initial value of the component.                                                           | `string`  | `''`    |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                                                    | `boolean` | `true`  |
+| `showMarker`      | `show-marker`       | When true shows a small marker on the component.                                                   | `boolean` | `false` |
+| `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                                                      | `number`  | `10`    |
 
 
 ## Events
@@ -184,6 +185,10 @@ graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-file-upload --> kup-spinner
+  kup-file-upload --> kup-card
+  kup-file-upload --> kup-dialog
+  kup-file-upload --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-button-list --> kup-dropdown-button
@@ -211,11 +216,12 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-time-picker
+  kup-tree --> kup-time-picker
   kup-tab-bar --> kup-toolbar
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-time-picker
   kup-box --> kup-time-picker
   kup-cell --> kup-time-picker
   kup-image-list --> kup-time-picker

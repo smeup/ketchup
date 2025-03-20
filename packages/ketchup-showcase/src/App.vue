@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.1.0"
-            >v10.1.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.2.0"
+            >v10.2.0</a
           ></div
         ></div
       >
@@ -582,6 +582,16 @@ export default {
                 },
                 icon: 'play_for_work',
                 value: 'Dropdown button',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'fileupload',
+                  },
+                },
+                icon: 'upload',
+                value: 'File Upload',
                 visible: true,
               },
               {

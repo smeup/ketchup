@@ -15,6 +15,7 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import interact from 'interactjs';
 import {
     kupDialogAttribute,
+    KupDialogifyOptions,
     kupDialogResizableClass,
     KupDragCallbacks,
     KupDragEffect,
@@ -415,13 +416,13 @@ export class KupInteract {
      * This method gives the element dialog-like features, by activating moving on drag and, optionally, the resize.
      * @param {HTMLElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
-     * @param {boolean} unresizable - When true, the dialog can't be resized.
+     * @param {KupDialogifyOptions} options - Sets the options for dialogify.
      * @param {RectResolvable<[number, number, Interaction<keyof ActionMap>]>} restrictContainer - When present, it will set the constraint of "el": it can't be moved outside this container.
      */
     dialogify(
         el: HTMLElement,
         handleEl?: HTMLElement,
-        unresizable?: boolean,
+        options?: KupDialogifyOptions,
         restrictContainer?: RectResolvable<
             [number, number, Interaction<keyof ActionMap>]
         >
@@ -434,45 +435,68 @@ export class KupInteract {
                 el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
             },
         };
-        this.draggable(
-            el,
-            {
-                allowFrom: handleEl ? handleEl : null,
-                modifiers: [
-                    interact.modifiers.restrictRect({
-                        restriction: restrictContainer
-                            ? restrictContainer
-                            : dom.ketchup.interact.restrictContainer,
-                        endOnly: true,
-                    }),
-                ],
-            },
-            null,
-            KupDragEffect.MOVE,
-            callbacks
-        );
-        if (!unresizable) {
-            el.classList.add(kupDialogResizableClass);
-            this.resizable(
+        if (options?.isDraggable) {
+            this.draggable(
                 el,
                 {
-                    edges: {
-                        left: true,
-                        right: true,
-                        bottom: true,
-                        top: false,
-                    },
+                    allowFrom: handleEl ? handleEl : null,
                     modifiers: [
-                        interact.modifiers.restrictSize({
-                            min: { width: 100, height: 100 },
+                        interact.modifiers.restrictRect({
+                            restriction: restrictContainer
+                                ? restrictContainer
+                                : dom.ketchup.interact.restrictContainer,
+                            endOnly: true,
                         }),
                     ],
                 },
                 null,
-                true,
+                KupDragEffect.MOVE,
+                callbacks
+            );
+        }
+        if (options?.isResizable) {
+            el.classList.add(kupDialogResizableClass);
+            this.resizable(
+                el,
+                {
+                    edges: options.edges,
+                    modifiers: [
+                        interact.modifiers.restrictSize(
+                            options?.resizeConstraints ?? {
+                                min: { width: 100, height: 100 },
+                            }
+                        ),
+                    ],
+                },
+                {
+                    move(e: ResizeEvent) {
+                        if (options.onResize) {
+                            options.onResize(e);
+                        }
+                    },
+                },
+                options?.onResize ? false : true,
                 true
             );
         }
+    }
+    /**
+     * Undialogify element
+     */
+    undialogify(el: HTMLElement) {
+        // unregister dialog
+        this.unregister([el]);
+
+        // reset Interact.js properties to prevent switch to a wrong position when changing anchor
+        el.style.removeProperty('left');
+        el.style.removeProperty('top');
+        el.style.removeProperty('right');
+        el.style.removeProperty('bottom');
+        el.style.removeProperty('width');
+        el.style.removeProperty('height');
+        el.style.removeProperty('transform');
+        el.removeAttribute('data-x');
+        el.removeAttribute('data-y');
     }
     /**
      * Hides the modal's backdrop.

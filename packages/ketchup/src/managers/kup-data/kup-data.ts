@@ -104,6 +104,8 @@ export class KupData {
                         return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
+                    case FCellShapes.FILE_UPLOAD:
+                        return FCellTypes.FILE_UPLOAD;
                     case FCellShapes.GAUGE:
                         return FCellTypes.GAUGE;
                     case FCellShapes.IMAGE:
@@ -136,6 +138,8 @@ export class KupData {
                         return FCellTypes.STRING;
                     case FCellShapes.TIME:
                         return FCellTypes.TIME;
+                    case FCellShapes.LABEL:
+                        return FCellTypes.LABEL;
                 }
             }
 
@@ -173,6 +177,8 @@ export class KupData {
                 return FCellTypes.TIME;
             } else if (dom.ketchup.objects.isVoCodver(obj)) {
                 return FCellTypes.ICON;
+            } else if (cell.data?.maxLength >= 256) {
+                return FCellTypes.MEMO;
             } else {
                 return FCellTypes.STRING;
             }

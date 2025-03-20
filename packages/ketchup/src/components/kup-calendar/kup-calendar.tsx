@@ -67,7 +67,6 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupCalendarState } from './kup-calendar-state';
-import { pseudoRandomBytes } from 'crypto';
 
 @Component({
     tag: 'kup-calendar',
@@ -99,9 +98,9 @@ export class KupCalendar {
                         ': ' +
                         state
                 );
+                this.initialDate = state.initialDate ?? this.initialDate;
+                this.viewType = state.viewType ?? this.viewType;
             }
-            this.initialDate = state.initialDate ?? this.initialDate;
-            this.viewType = state.viewType ?? this.viewType;
         }
     }
 
@@ -285,8 +284,8 @@ export class KupCalendar {
                     this.viewType === KupCalendarViewTypes.MONTH &&
                     date.getDate() > 1
                 ) {
-                    date.setMonth(date.getMonth() + 1);
                     date.setDate(1);
+                    date.setMonth(date.getMonth() + 1);
                     this.initialDate = date.toISOString().substring(0, 10);
                 } else {
                     this.initialDate = isoDate;
@@ -627,6 +626,7 @@ export class KupCalendar {
     private onToday() {
         this.calendar.today();
         this.updateCalendar();
+        this.emitNavEvent();
     }
 
     private emitNavEvent() {

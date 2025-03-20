@@ -5,17 +5,20 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                 | Type                  | Default                          |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------------------- |
-| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                         | `KupDialogAutoCenter` | `{ onReady: true }`              |
-| `customStyle` | `custom-style` | Custom style of the component.                                                              | `string`              | `''`                             |
-| `header`      | --             | Header options.                                                                             | `KupDialogHeader`     | `{ icons: { close: true } }`     |
-| `maxSizeX`    | `max-size-x`   | The max width of the dialog, defaults to 90dvw.                                             | `string`              | `'90dvw'`                        |
-| `maxSizeY`    | `max-size-y`   | The max height of the dialog, defaults to 90dvh.                                            | `string`              | `'90dvh'`                        |
-| `modal`       | --             | Set of options to display the dialog as a modal.                                            | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
-| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                                | `boolean`             | `true`                           |
-| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).  | `string`              | `'auto'`                         |
-| `sizeY`       | `size-y`       | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string`              | `'auto'`                         |
+| Property      | Attribute      | Description                                                                                 | Type                                               | Default                          |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- |
+| `anchor`      | `anchor`       | Sets anchor position ("none", "left", "top", "right", "bottom").                            | `"bottom" \| "left" \| "none" \| "right" \| "top"` | `'none'`                         |
+| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                         | `KupDialogAutoCenter`                              | `{ onReady: true }`              |
+| `customStyle` | `custom-style` | Custom style of the component.                                                              | `string`                                           | `''`                             |
+| `header`      | --             | Header options.                                                                             | `KupDialogHeader`                                  | `{ icons: { close: true } }`     |
+| `maxSizeX`    | `max-size-x`   | The max width of the dialog, defaults to 90dvw.                                             | `string`                                           | `'90dvw'`                        |
+| `maxSizeY`    | `max-size-y`   | The max height of the dialog, defaults to 90dvh.                                            | `string`                                           | `'90dvh'`                        |
+| `minSizeX`    | `min-size-x`   | The min width of the dialog.                                                                | `string`                                           | `'20dvw'`                        |
+| `minSizeY`    | `min-size-y`   | The min height of the dialog.                                                               | `string`                                           | `'20dvh'`                        |
+| `modal`       | --             | Set of options to display the dialog as a modal.                                            | `KupDialogModal`                                   | `{ closeOnBackdropClick: true }` |
+| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                                | `boolean`                                          | `true`                           |
+| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).  | `string`                                           | `'auto'`                         |
+| `sizeY`       | `size-y`       | The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.). | `string`                                           | `'auto'`                         |
 
 
 ## Events
@@ -127,6 +130,7 @@ Type: `Promise<void>`
  - [kup-echart](../kup-echart)
  - [kup-editor](../kup-editor)
  - [kup-family-tree](../kup-family-tree)
+ - [kup-file-upload](../kup-file-upload)
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
@@ -182,6 +186,7 @@ graph TD;
   kup-color-picker --> kup-dialog
   kup-combobox --> kup-dialog
   kup-date-picker --> kup-dialog
+  kup-file-upload --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
   kup-button-list --> kup-dialog
@@ -195,8 +200,8 @@ graph TD;
   kup-data-table --> kup-dialog
   kup-switch --> kup-dialog
   kup-form --> kup-dialog
-  kup-tab-bar --> kup-dialog
   kup-tree --> kup-dialog
+  kup-tab-bar --> kup-dialog
   kup-accordion --> kup-dialog
   kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog
