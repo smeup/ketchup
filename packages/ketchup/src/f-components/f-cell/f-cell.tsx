@@ -176,6 +176,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (!isEditable && (column.icon || cell.icon)) {
         if (
             content &&
+            cellType != FCellTypes.BUTTON &&
+            cellType != FCellTypes.BUTTON_LIST &&
             cellType != FCellTypes.IMAGE &&
             cellType != FCellTypes.ICON
         ) {
@@ -1198,7 +1200,6 @@ function setKupCell(
                 placeholderIcon: cell.placeholderIcon,
                 ...subcomponentProps,
             };
-            delete cell.icon;
             return (
                 <FButton
                     {...buttonProps}
