@@ -4333,7 +4333,7 @@ export class KupDataTable {
         const focused = cells[newIndex];
         const focusedProps: FCellProps = focused['kup-get-cell-props']();
 
-        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
         this.#lastFocusedCell = focusedProps.cell;
     };
 
@@ -4364,7 +4364,7 @@ export class KupDataTable {
         const focusedProps: FCellProps = focused['kup-get-cell-props']();
         this.#lastFocusedCell = focusedProps.cell;
 
-        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
     };
 
     #onKupKeyDown = (e: KeyboardEvent) => {
@@ -4474,7 +4474,12 @@ export class KupDataTable {
         }
     }
 
-    #onRowClick(row: KupDataTableRow, td: HTMLElement, emitEvent?: boolean) {
+    #onRowClick(
+        row: KupDataTableRow,
+        td: HTMLElement,
+        emitEvent?: boolean,
+        isKeyboardNav = false
+    ) {
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -4519,6 +4524,7 @@ export class KupDataTable {
                     selectedRows: this.selectedRows,
                     clickedRow: row,
                     clickedColumn,
+                    isKeyboardNav,
                 });
             }
         }
