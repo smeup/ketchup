@@ -7,6 +7,7 @@ import {
     GroupLabelDisplayMode,
     TotalsMap,
     SelectionMode,
+    PaginatorPos,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -43,6 +44,7 @@ export class KupDataTableState implements KupState {
     totals: TotalsMap;
     load: boolean = false;
     visibleColumns: string[] = undefined;
+    paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
     public toDebugString() {
         // TODO

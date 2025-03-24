@@ -251,6 +251,7 @@ export class KupDataTable {
                 this.visibleColumns = state.visibleColumns
                     ? [...state.visibleColumns]
                     : undefined;
+                this.paginatorPos = state.paginatorPos;
             }
         }
     }
@@ -550,6 +551,15 @@ export class KupDataTable {
             )
         ) {
             this.state.visibleColumns = [...this.visibleColumns];
+            somethingChanged = true;
+        }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.paginatorPos,
+                this.paginatorPos
+            )
+        ) {
+            this.state.paginatorPos = this.paginatorPos;
             somethingChanged = true;
         }
         return somethingChanged;
