@@ -1123,13 +1123,20 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
-                this.kupTreeNodeSelected.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    treeNodePath: this.selectedNode,
-                    treeNode: treeNodeData,
-                    columnName: td ? td.dataset.column : null,
-                });
+                const columnName = td ? td.dataset.column : null;
+                const column = this.columns?.find((c) => c.name == columnName);
+                if (
+                    !columnName ||
+                    !this.#kupManager.objects.isButton(column?.obj)
+                ) {
+                    this.kupTreeNodeSelected.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        treeNodePath: this.selectedNode,
+                        treeNode: treeNodeData,
+                        columnName,
+                    });
+                }
             }
         }
 
