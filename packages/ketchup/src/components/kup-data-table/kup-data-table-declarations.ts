@@ -280,6 +280,7 @@ export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
     selectedRows: Array<KupDataRow>;
     clickedRow: KupDataRow;
     clickedColumn: string;
+    isKeyboardNav?: boolean;
 }
 export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;

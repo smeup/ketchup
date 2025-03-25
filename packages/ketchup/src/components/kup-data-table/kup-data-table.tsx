@@ -4316,11 +4316,13 @@ export class KupDataTable {
 
     //======== Event Listeners ========
     #horNav = (isRight: boolean) => {
-        if (!this.#lastFocusedCell) {
+        if (
+            !this.#lastFocusedCell ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
             return;
         }
-
-        this.#resetSelectedRows(true);
+        //this.#resetSelectedRows(true);
 
         const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cells = tr.querySelectorAll('.f-cell');
@@ -4339,16 +4341,18 @@ export class KupDataTable {
         const focused = cells[newIndex];
         const focusedProps: FCellProps = focused['kup-get-cell-props']();
 
-        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
         this.#lastFocusedCell = focusedProps.cell;
     };
 
     #verNav = (isDown: boolean) => {
-        if (!this.#lastFocusedCell) {
+        if (
+            !this.#lastFocusedCell ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
             return;
         }
-
-        this.#resetSelectedRows(true);
+        //this.#resetSelectedRows(true);
 
         const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
@@ -4370,7 +4374,7 @@ export class KupDataTable {
         const focusedProps: FCellProps = focused['kup-get-cell-props']();
         this.#lastFocusedCell = focusedProps.cell;
 
-        this.#onRowClick(focusedProps.row, focused.closest('td'), false);
+        this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
     };
 
     #onKupKeyDown = (e: KeyboardEvent) => {
@@ -4480,7 +4484,12 @@ export class KupDataTable {
         }
     }
 
-    #onRowClick(row: KupDataTableRow, td: HTMLElement, emitEvent?: boolean) {
+    #onRowClick(
+        row: KupDataTableRow,
+        td: HTMLElement,
+        emitEvent?: boolean,
+        isKeyboardNav = false
+    ) {
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -4525,6 +4534,7 @@ export class KupDataTable {
                     selectedRows: this.selectedRows,
                     clickedRow: row,
                     clickedColumn,
+                    isKeyboardNav,
                 });
             }
         }
@@ -4581,7 +4591,6 @@ export class KupDataTable {
             this.selectedRows.splice(index, 1);
             this.selectedRows = [...this.selectedRows];
         }
-
         this.kupRowSelected.emit({
             comp: this,
             id: this.rootElement.id,
