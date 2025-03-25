@@ -4310,11 +4310,13 @@ export class KupDataTable {
 
     //======== Event Listeners ========
     #horNav = (isRight: boolean) => {
-        if (!this.#lastFocusedCell) {
+        if (
+            !this.#lastFocusedCell ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
             return;
         }
-
-        this.#resetSelectedRows(true);
+        //this.#resetSelectedRows(true);
 
         const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cells = tr.querySelectorAll('.f-cell');
@@ -4338,11 +4340,13 @@ export class KupDataTable {
     };
 
     #verNav = (isDown: boolean) => {
-        if (!this.#lastFocusedCell) {
+        if (
+            !this.#lastFocusedCell ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
             return;
         }
-
-        this.#resetSelectedRows(true);
+        //this.#resetSelectedRows(true);
 
         const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
         const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
@@ -4581,7 +4585,6 @@ export class KupDataTable {
             this.selectedRows.splice(index, 1);
             this.selectedRows = [...this.selectedRows];
         }
-
         this.kupRowSelected.emit({
             comp: this,
             id: this.rootElement.id,
