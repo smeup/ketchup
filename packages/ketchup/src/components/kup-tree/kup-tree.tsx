@@ -87,6 +87,7 @@ import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-d
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellClasses,
+    FCellEventPayload,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -522,6 +523,14 @@ export class KupTree {
         bubbles: true,
     })
     kupColumnRemove: EventEmitter<KupTreeColumnRemoveEventPayload>;
+
+    @Event({
+        eventName: 'kup-tree-cell-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeCellClick: EventEmitter<FCellEventPayload>;
 
     /**
      * This method will get the selected nodes of the component.
@@ -2255,7 +2264,11 @@ export class KupTree {
         }
 
         return (
-            <Host>
+            <Host
+                onKup-cell-click={(e: CustomEvent<FCellEventPayload>) => {
+                    this.kupTreeCellClick.emit(e.detail);
+                }}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

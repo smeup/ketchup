@@ -15,13 +15,13 @@ import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } fro
 import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
+import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
-import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -77,13 +77,13 @@ export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } fro
 export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
+export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
-export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 export { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -5153,6 +5153,7 @@ declare global {
         "kup-box-didunload": KupEventPayload;
         "kup-box-contextmenu": KupBoxContextMenuEventPayload;
         "kup-box-loadmoreclick": KupBoxLoadMoreClickEventPayload;
+        "kup-box-cell-click": FCellEventPayload;
     }
     interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupBoxElementEventMap>(type: K, listener: (this: HTMLKupBoxElement, ev: KupBoxCustomEvent<HTMLKupBoxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6139,6 +6140,7 @@ declare global {
         "kup-tree-nodedblclick": KupTreeNodeCollapseEventPayload;
         "kup-tree-dynamicmassexpansion": KupTreeDynamicMassExpansionEventPayload;
         "kup-tree-columnremove": KupTreeColumnRemoveEventPayload;
+        "kup-tree-cell-click": FCellEventPayload;
     }
     interface HTMLKupTreeElement extends Components.KupTree, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTreeElementEventMap>(type: K, listener: (this: HTMLKupTreeElement, ev: KupTreeCustomEvent<HTMLKupTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6600,6 +6602,7 @@ declare namespace LocalJSX {
           * Triggered when a box is auto selected via selectBox prop
          */
         "onKup-box-autoselect"?: (event: KupBoxCustomEvent<KupBoxAutoSelectEventPayload>) => void;
+        "onKup-box-cell-click"?: (event: KupBoxCustomEvent<FCellEventPayload>) => void;
         /**
           * Triggered when a box is clicked
          */
@@ -10088,6 +10091,7 @@ declare namespace LocalJSX {
          */
         "globalFilterValue"?: string;
         "onKup-tree-buttonclick"?: (event: KupTreeCustomEvent<KupTreeNodeButtonClickEventPayload>) => void;
+        "onKup-tree-cell-click"?: (event: KupTreeCustomEvent<FCellEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.
          */

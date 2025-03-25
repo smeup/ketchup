@@ -1419,6 +1419,9 @@ export class KupDataTable {
      */
     @Method()
     async collapseAll(): Promise<void> {
+        if (!this.expandGroups) {
+            this.expandGroupsHandler();
+        }
         this.expandGroups = false;
     }
     /**
@@ -1543,6 +1546,9 @@ export class KupDataTable {
      */
     @Method()
     async expandAll(): Promise<void> {
+        if (this.expandGroups) {
+            this.expandGroupsHandler();
+        }
         this.expandGroups = true;
     }
     /**

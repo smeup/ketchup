@@ -74,7 +74,10 @@ import {
     KupPointerEventTypes,
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellEventPayload,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
@@ -520,6 +523,14 @@ export class KupBox {
         bubbles: true,
     })
     kupLoadMoreClick: EventEmitter<KupBoxLoadMoreClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-box-cell-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxCellClick: EventEmitter<FCellEventPayload>;
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -2117,7 +2128,11 @@ export class KupBox {
         }
 
         return (
-            <Host>
+            <Host
+                onKup-cell-click={(e: CustomEvent<FCellEventPayload>) => {
+                    this.kupBoxCellClick.emit(e.detail);
+                }}
+            >
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
