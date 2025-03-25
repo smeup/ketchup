@@ -45,6 +45,7 @@
 | Event                        | Description                                               | Type                                            |
 | ---------------------------- | --------------------------------------------------------- | ----------------------------------------------- |
 | `kup-box-autoselect`         | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<KupBoxAutoSelectEventPayload>`     |
+| `kup-box-cell-click`         |                                                           | `CustomEvent<FCellEventPayload>`                |
 | `kup-box-click`              | Triggered when a box is clicked                           | `CustomEvent<KupBoxClickEventPayload>`          |
 | `kup-box-contextmenu`        | Generic right click event on box.                         | `CustomEvent<KupBoxContextMenuEventPayload>`    |
 | `kup-box-didload`            |                                                           | `CustomEvent<KupEventPayload>`                  |
