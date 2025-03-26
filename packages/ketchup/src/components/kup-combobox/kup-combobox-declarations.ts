@@ -19,6 +19,7 @@ export enum KupComboboxProps {
     label = 'When set, its content will be shown as a label.',
     leadingLabel = 'When set to true, the label will be on the left of the component.',
     showMarker = 'When true shows a small marker on the component',
+    legacyLook = 'Enables legacy aspect for the cmb',
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {

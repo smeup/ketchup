@@ -389,7 +389,12 @@ const MainCMBandACPAdapter = (
     _id: string
 ) => {
     if (!cell.data?.data && options) {
-        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+        const configCMandACP = CMBandACPAdapter(
+            currentValue,
+            fieldLabel,
+            [],
+            cell.data
+        );
         configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
             options,
             currentValue

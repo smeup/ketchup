@@ -18,6 +18,7 @@ export enum KupAutocompleteProps {
     serverHandledFilter = 'When true, the items filter is managed server side, otherwise items filter is done client side.',
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
     showMarker = 'When true shows a small marker on the component',
+    legacyLook = 'Enables legacy aspect for acp component',
 }
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {

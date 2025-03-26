@@ -102,6 +102,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FLabel } from '../../f-components/f-label/f-label';
+import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -1328,7 +1329,7 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
             return {
-                ...this.#CMBandACPAdapter(cell.options, col.title, null),
+                ...this.#CMBandACPAdapter(cell.options, col.title, null, cell),
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
@@ -1395,9 +1396,15 @@ export class KupInputPanel {
     #CMBandACPAdapter(
         rawOptions: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupDataCell
     ) {
-        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+        const configCMandACP = CMBandACPAdapter(
+            currentValue,
+            fieldLabel,
+            [],
+            cell.data
+        );
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);

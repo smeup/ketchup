@@ -185,6 +185,11 @@ export class KupAutocomplete {
      * @default "Type code or description"
      */
     @Prop() placeholder: string = 'Type code or description';
+    /**
+     * Sets autocomplete legacyLook prop
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -621,6 +626,11 @@ export class KupAutocomplete {
         }
     }
 
+    #calcMaxLength() {
+        // Setting maxLength only if found in subComponent props
+        return this.data['kup-text-field']?.maxLength as number;
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -686,11 +696,12 @@ export class KupAutocomplete {
                 : false,
             showMarker: this.showMarker,
             size: this.#calcSize(),
+            maxLength: this.#calcMaxLength(),
+            legacyLook: this.legacyLook,
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
-
         return (
             <Host
                 class={`${fullHeight ? 'kup-full-height' : ''} ${

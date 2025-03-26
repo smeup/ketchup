@@ -79,6 +79,7 @@ export enum KupDataTableProps {
     transpose = 'Transposes the data of the data table.',
     updatableData = 'When set to true, editable cells will be rendered using input components and update button will appair below the matrix',
     updateOnClick = 'When set to true, editable checkbox will call update',
+    visibleColumns = 'The list of the data-table columns that the user can view, order-dependant. Acts as a col filtering and ordering',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];

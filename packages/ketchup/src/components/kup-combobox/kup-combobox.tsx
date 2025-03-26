@@ -156,7 +156,11 @@ export class KupCombobox {
      * @default false
      */
     @Prop() showMarker: boolean = false;
-
+    /**
+     * When true enables legacyLook aspect.
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
     /**
      * Instance of the KupManager class.
      */
@@ -605,6 +609,7 @@ export class KupCombobox {
                 ? true
                 : false,
             showMarker: this.showMarker,
+            legacyLook: this.legacyLook,
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
