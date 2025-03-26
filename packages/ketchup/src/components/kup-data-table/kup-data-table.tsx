@@ -525,6 +525,11 @@ export class KupDataTable {
             this.state.totals = { ...this.totals };
             somethingChanged = true;
         }
+        console.log(
+            'checkUpdateState',
+            this.state.selectRowsById,
+            this.selectedRows
+        );
         if (
             !this.#kupManager.objects.deepEqual(
                 this.state.selectRowsById,
@@ -1929,8 +1934,7 @@ export class KupDataTable {
             const index = this.#rows.indexOf(row) % (end - start);
 
             const idx = index - this.calculateScrollToRowOffset();
-            console.log('scrollToRow', idx);
-
+            console.log('scrollToRow', idx, this.#rowsRefs, this.selectedRows);
             if (idx >= 1) {
                 this.#rowsRefs[idx]?.scrollIntoView();
             }
@@ -2854,6 +2858,7 @@ export class KupDataTable {
     }
 
     componentWillLoad() {
+        console.log('componentWillLoad');
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
@@ -2911,6 +2916,7 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        console.log('componentDidRender');
         this.#kupManager.perfMonitoring.mark('componentDidRender');
         // If the component is not connected this method must not be executed
         if (!this.rootElement.isConnected) {
@@ -2938,6 +2944,13 @@ export class KupDataTable {
         this.#didRenderObservers();
         this.#didRenderInteractables();
         this.#hideShowColumnDropArea(false);
+        if (this.state.rowsPerPage != this.currentRowsPerPage) {
+            this.#paginatedRows.forEach((row) => {
+                if (this.selectedRows.includes(row)) {
+                    this.scrollToRow(row.id);
+                }
+            });
+        }
 
         if (
             this.headerIsPersistent &&
@@ -2989,7 +3002,7 @@ export class KupDataTable {
 
     resetCurrentPage() {
         this.currentPage = 1;
-        this.#resetSelectedRows();
+        // this.#resetSelectedRows();
     }
 
     getColumns(): Array<KupDataColumn> {
@@ -4493,6 +4506,15 @@ export class KupDataTable {
         if (newRows) {
             this.currentRowsPerPage = newRows;
             this.#adjustPaginator();
+
+            console.log('handleRowsPerPageChange', this.#paginatedRows);
+            console.log('handleRowsPerPageChange', this.selectedRows);
+            // scroll to row if current page contains selected rows
+            // this.#paginatedRows.forEach((row) => {
+            //     if (this.selectedRows.includes(row)) {
+            //         this.scrollToRow(row.id);
+            //     }
+            // });
         }
     }
 
@@ -6982,6 +7004,7 @@ export class KupDataTable {
     }
 
     render() {
+        console.log('render');
         this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
         this.#rowsRefs = [];
