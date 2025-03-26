@@ -261,6 +261,10 @@
         }
       }
 
+      &.mdc-text-field--legacy-look {
+        gap: 0px;
+      }
+
       &.mdc-text-field--small {
         height: var(--kup_textfield_small_height) !important;
       }

@@ -93,6 +93,7 @@ import {
     getAbsoluteWidth,
     getInpComponentAbsoluteHeight,
     getLabelAbsoluteWidth,
+    isGraphicForm,
     ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -1050,10 +1051,18 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
+        if (
+            fieldCell.column.isEditable === false &&
+            isGraphicForm(fieldCell.cell.shape)
+        ) {
+            // Changing cell shape when an ACP or CMB is not editable
+            fieldCell.cell.shape = 'ITX';
+        }
+
         const absoluteWidth =
             fieldCell.cell.shape === FCellShapes.LABEL
                 ? getLabelAbsoluteWidth(length)
-                : getAbsoluteWidth(length);
+                : getAbsoluteWidth(length, isGraphicForm(fieldCell.cell.shape));
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(
             field.absoluteRow,

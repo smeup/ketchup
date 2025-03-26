@@ -6,7 +6,7 @@ import {
 export const CHAR_WIDTH = 10;
 export const ROW_HEIGHT = 20;
 
-export const getAbsoluteWidth = (length: number) => {
+export const getAbsoluteWidth = (length: number, isGraphicForm?: boolean) => {
     if (length == 0) {
         return CHAR_WIDTH / 2;
     }
@@ -19,7 +19,7 @@ export const getAbsoluteWidth = (length: number) => {
         return 1.5 * CHAR_WIDTH;
     }
 
-    return length * CHAR_WIDTH;
+    return length * CHAR_WIDTH * (isGraphicForm ? 1.35 : 1);
 };
 
 export const FONT_SIZE = 12;
@@ -79,7 +79,7 @@ export const getAbsoluteLeft = (col: number) => {
         return null;
     }
 
-    return (col - 1) * CHAR_WIDTH;
+    return (col - 1) * CHAR_WIDTH * 1.19;
 };
 
 export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
@@ -96,4 +96,8 @@ export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
         });
     });
     return inpRowHeight;
+};
+
+export const isGraphicForm = (shape: string) => {
+    return shape === 'ACP' || shape === 'CMB';
 };
