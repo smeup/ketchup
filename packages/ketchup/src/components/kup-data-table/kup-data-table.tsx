@@ -3986,6 +3986,7 @@ export class KupDataTable {
         this.#groupRows();
         this.#sortRows();
         this.#adjustPaginator();
+        this.#resetSelectedRows();
 
         this.#paginatedRows = paginateRows(
             this.#rows,
