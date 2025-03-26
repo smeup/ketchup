@@ -94,7 +94,7 @@ import {
     getInpComponentAbsoluteHeight,
     getLabelAbsoluteWidth,
     isGraphicForm,
-    ROW_HEIGHT,
+    SPACED_ROW_HEIGHT,
 } from './kup-input-panel-utils';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
@@ -492,7 +492,8 @@ export class KupInputPanel {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
                 // 12px is added due to the chance that the horizontal scrollbar will be rendered
                 styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT + 12
+                    getInpComponentAbsoluteHeight(layout) * SPACED_ROW_HEIGHT +
+                    12
                 }px`;
             } else {
                 if (!layout.sectionsType) {
