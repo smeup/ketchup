@@ -6784,7 +6784,6 @@ export class KupDataTable {
             <kup-button
                 styling={styling}
                 onKup-button-click={() => this.#handleUpdateClick(commandObj)}
-                keyShortcut={commandObj.data?.keyShortcut}
                 icon={commandObj.icon}
                 label={commandObj.value}
             />
@@ -6978,9 +6977,6 @@ export class KupDataTable {
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
-        if (this.updatableData) {
-            this.#kupManager.keysBinding.unregister('enter');
-        }
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
             rows = (

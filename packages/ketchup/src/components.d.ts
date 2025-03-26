@@ -623,7 +623,6 @@ export namespace Components {
           * @default null
          */
         "iconOff": string;
-        "keyShortcut": string;
         /**
           * When set, the button will show this text.
           * @default null
@@ -3089,6 +3088,10 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
+        /**
+          * @param cellId - When provided, will trigger onclick event of cell instead of *UPDATE
+         */
+        "update": (cellId?: string) => Promise<void>;
         /**
           * When set to true, checkbox will call update
           * @default false
@@ -6728,7 +6731,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "iconOff"?: string;
-        "keyShortcut"?: string;
         /**
           * When set, the button will show this text.
           * @default null

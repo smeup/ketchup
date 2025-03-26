@@ -22,7 +22,6 @@ import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
-import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 import { KupPerfMonitoring } from '../kup-perf-monitoring/kup-perf-monitoring';
 /**
@@ -54,7 +53,6 @@ export interface KupManager {
     theme: KupTheme;
     toolbar: KupToolbar;
     tooltip: KupTooltip;
-    keysBinding: KupKeysBinding;
     utilities: KupManagerUtilities;
     perfTuning: KupPerfTuning;
     perfMonitoring: KupPerfMonitoring;
