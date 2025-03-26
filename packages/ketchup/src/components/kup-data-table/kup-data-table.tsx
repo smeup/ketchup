@@ -2996,7 +2996,6 @@ export class KupDataTable {
 
     resetCurrentPage() {
         this.currentPage = 1;
-        // this.#resetSelectedRows();
     }
 
     getColumns(): Array<KupDataColumn> {
