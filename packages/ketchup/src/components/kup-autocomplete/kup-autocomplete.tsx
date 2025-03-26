@@ -187,7 +187,7 @@ export class KupAutocomplete {
     @Prop() placeholder: string = 'Type code or description';
     /**
      * Allows legacyLook in ACP
-     * @default "Type code or description"
+     * @default false
      */
     @Prop() legacyLook: boolean = false;
 
