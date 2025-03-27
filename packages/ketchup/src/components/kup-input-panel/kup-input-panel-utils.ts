@@ -10,11 +10,11 @@ export const ROW_HEIGHT = 20; // Used for the ACTUAL row height calculations (no
 export const SPACED_ROW_HEIGHT = 22; // Used for the INP total height calculations (accounting for row spacing)
 
 // LABEL SIZES
-export const FONT_SIZE_TO_WIDTH_RATIO = 1.666666666666667; // FontSize to SingleCharWidth ratio
+export const FONT_SIZE_TO_WIDTH_RATIO = 1.764705882352941; // FontSize to SingleCharWidth ratio
 export const SINGLE_CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO; // Single monospace char width
 
 // INP CONSTANTS FOR GRAPHIC FORMs
-export const LEFT_MULTIPLIER = 1.19;
+export const LEFT_MULTIPLIER = 1.15;
 export const GRAPHIC_FORM_WIDTH_MULTIPLIER = 1.35;
 
 export const getAbsoluteWidth = (length: number, isGraphicForm?: boolean) => {
