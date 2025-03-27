@@ -500,6 +500,22 @@ Type: `Promise<void>`
 
 
 
+### `update(commandId?: string) => Promise<void>`
+
+
+
+#### Parameters
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| `commandId` | `string` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `waitForReady() => Promise<void>`
 
 Public method to wait until the component is fully ready.

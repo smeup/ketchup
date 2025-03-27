@@ -1977,6 +1977,29 @@ export class KupDataTable {
             details: this.#tooltipRequestHandler(),
         });
     }
+    /**
+     * Trigger update from outside
+     * @param {string} commandId - When provided, will trigger onclick event of command instead of *UPDATE
+     */
+    @Method()
+    async update(commandId?: string): Promise<void> {
+        if (!commandId) {
+            this.#handleUpdateClick();
+        }
+
+        const command =
+            this.data?.setup?.commands?.find(
+                (cmd) => cmd.obj?.k === commandId
+            ) ??
+            this.data?.setup?.commands
+                ?.flatMap((cmd) => cmd.children)
+                .find((child) => child?.obj?.k === commandId) ??
+            null;
+
+        if (command) {
+            this.#handleUpdateClick(command);
+        }
+    }
 
     //#region LISTENERS
     /*-------------------------------------------------*/
