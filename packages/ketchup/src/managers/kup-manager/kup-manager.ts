@@ -36,7 +36,6 @@ import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
-import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 import { KupPerfTuning } from '../kup-perf-tuning/kup-perf-tuning';
 import { KupPerfMonitoring } from '../kup-perf-monitoring/kup-perf-monitoring';
 import { KupPerfTuningPriority } from '../kup-perf-tuning/kup-perf-tuning-declarations';
@@ -66,7 +65,6 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
-    keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
     perfTuning: KupPerfTuning;
     perfMonitoring: KupPerfMonitoring;
@@ -200,7 +198,6 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
-        this.keysBinding = new KupKeysBinding();
         this.tooltip = new KupTooltip(
             tooltipDelay,
             tooltipFCellCallbacks,

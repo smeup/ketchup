@@ -349,12 +349,6 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
   },
   {
-    path: `/kup-keys-binding`,
-    name: 'kup-keys-binding',
-    component: () =>
-      import(`@/views/framework/kup-keys-binding/KupKeysBinding.vue`),
-  },
-  {
     path: `/kup-math`,
     name: 'kup-math',
     component: () => import(`@/views/framework/kup-math/KupMath.vue`),
