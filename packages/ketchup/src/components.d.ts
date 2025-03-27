@@ -1884,6 +1884,7 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        "update": (commandId?: string) => Promise<void>;
         /**
           * When set to true, editable checkbox will call update
           * @default false
@@ -3089,6 +3090,7 @@ export namespace Components {
          */
         "submitCb": (e: KupInputPanelSubmit) => unknown;
         /**
+          * Trigger update from outside
           * @param cellId - When provided, will trigger onclick event of cell instead of *UPDATE
          */
         "update": (cellId?: string) => Promise<void>;
