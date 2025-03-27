@@ -1924,8 +1924,11 @@ export class KupDataTable {
         const id = rowIdentifier;
         const row = this.#getRow(id);
         if (row) {
-            const idx =
-                this.#rows.indexOf(row) - this.calculateScrollToRowOffset();
+            const start = (this.currentPage - 1) * this.currentRowsPerPage;
+            const end = this.currentPage * this.currentRowsPerPage;
+            const index = this.#rows.indexOf(row) % (end - start);
+
+            const idx = index - this.calculateScrollToRowOffset();
             if (idx >= 1) {
                 this.#rowsRefs[idx]?.scrollIntoView();
             }
@@ -1976,6 +1979,29 @@ export class KupDataTable {
             id: this.rootElement.id,
             details: this.#tooltipRequestHandler(),
         });
+    }
+    /**
+     * Trigger update from outside
+     * @param {string} commandId - When provided, will trigger onclick event of command instead of *UPDATE
+     */
+    @Method()
+    async update(commandId?: string): Promise<void> {
+        if (!commandId) {
+            this.#handleUpdateClick();
+        }
+
+        const command =
+            this.data?.setup?.commands?.find(
+                (cmd) => cmd.obj?.k === commandId
+            ) ??
+            this.data?.setup?.commands
+                ?.flatMap((cmd) => cmd.children)
+                .find((child) => child?.obj?.k === commandId) ??
+            null;
+
+        if (command) {
+            this.#handleUpdateClick(command);
+        }
     }
 
     //#region LISTENERS
@@ -2933,6 +2959,15 @@ export class KupDataTable {
         this.#didRenderObservers();
         this.#didRenderInteractables();
         this.#hideShowColumnDropArea(false);
+
+        // scroll to row if current page contains selected rows
+        if (this.state.rowsPerPage != this.currentRowsPerPage) {
+            this.#paginatedRows.forEach((row) => {
+                if (this.selectedRows.includes(row)) {
+                    this.scrollToRow(row.id);
+                }
+            });
+        }
 
         if (
             this.headerIsPersistent &&
@@ -4122,7 +4157,6 @@ export class KupDataTable {
         if (this.currentPage > numberOfPages) {
             // reset page
             this.currentPage = 1;
-            this.resetCurrentPage();
         }
     }
 
@@ -4473,6 +4507,13 @@ export class KupDataTable {
         );
         if (newPage) {
             this.currentPage = newPage;
+
+            // scroll to row if current page contains selected rows
+            this.#paginatedRows.forEach((row) => {
+                if (this.selectedRows.includes(row)) {
+                    this.scrollToRow(row.id);
+                }
+            });
         }
     }
 
