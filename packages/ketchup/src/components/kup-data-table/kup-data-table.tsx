@@ -1924,8 +1924,11 @@ export class KupDataTable {
         const id = rowIdentifier;
         const row = this.#getRow(id);
         if (row) {
-            const idx =
-                this.#rows.indexOf(row) - this.calculateScrollToRowOffset();
+            const start = (this.currentPage - 1) * this.currentRowsPerPage;
+            const end = this.currentPage * this.currentRowsPerPage;
+            const index = this.#rows.indexOf(row) % (end - start);
+
+            const idx = index - this.calculateScrollToRowOffset();
             if (idx >= 1) {
                 this.#rowsRefs[idx]?.scrollIntoView();
             }
@@ -2956,6 +2959,15 @@ export class KupDataTable {
         this.#didRenderObservers();
         this.#didRenderInteractables();
         this.#hideShowColumnDropArea(false);
+
+        // scroll to row if current page contains selected rows
+        if (this.state.rowsPerPage != this.currentRowsPerPage) {
+            this.#paginatedRows.forEach((row) => {
+                if (this.selectedRows.includes(row)) {
+                    this.scrollToRow(row.id);
+                }
+            });
+        }
 
         if (
             this.headerIsPersistent &&
@@ -4145,7 +4157,6 @@ export class KupDataTable {
         if (this.currentPage > numberOfPages) {
             // reset page
             this.currentPage = 1;
-            this.resetCurrentPage();
         }
     }
 
@@ -4496,6 +4507,13 @@ export class KupDataTable {
         );
         if (newPage) {
             this.currentPage = newPage;
+
+            // scroll to row if current page contains selected rows
+            this.#paginatedRows.forEach((row) => {
+                if (this.selectedRows.includes(row)) {
+                    this.scrollToRow(row.id);
+                }
+            });
         }
     }
 
