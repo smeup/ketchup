@@ -1945,7 +1945,7 @@ export class KupDataTable {
 
                 scrollableContainer.scrollTo({
                     top: scrollOffset,
-                    behavior: 'smooth',
+                    behavior: 'instant',
                 });
             }
         }
