@@ -1923,14 +1923,30 @@ export class KupDataTable {
     async scrollToRow(rowIdentifier: string | number): Promise<void> {
         const id = rowIdentifier;
         const row = this.#getRow(id);
+
         if (row) {
             const start = (this.currentPage - 1) * this.currentRowsPerPage;
             const end = this.currentPage * this.currentRowsPerPage;
             const index = this.#rows.indexOf(row) % (end - start);
+            const scrollableContainer = this.#tableAreaRef;
+            const target = this.#rowsRefs[index];
 
-            const idx = index - this.calculateScrollToRowOffset();
-            if (idx >= 1) {
-                this.#rowsRefs[idx]?.scrollIntoView();
+            if (index >= 1) {
+                const headerHeight = parseInt(
+                    getComputedStyle(this.#theadRef).height.replace('px', '')
+                );
+                const targetRect = target.getBoundingClientRect();
+                const scrollableContainerRect =
+                    scrollableContainer.getBoundingClientRect();
+                const scrollOffset =
+                    scrollableContainer.scrollTop -
+                    headerHeight +
+                    (targetRect.top - scrollableContainerRect.top);
+
+                scrollableContainer.scrollTo({
+                    top: scrollOffset,
+                    behavior: 'smooth',
+                });
             }
         }
     }

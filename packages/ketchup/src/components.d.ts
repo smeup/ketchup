@@ -1884,6 +1884,10 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        /**
+          * Trigger update from outside
+          * @param commandId - When provided, will trigger onclick event of command instead of *UPDATE
+         */
         "update": (commandId?: string) => Promise<void>;
         /**
           * When set to true, editable checkbox will call update
