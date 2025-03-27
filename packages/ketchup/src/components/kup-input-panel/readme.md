@@ -80,7 +80,7 @@ Type: `Promise<void>`
 
 ### `update(cellId?: string) => Promise<void>`
 
-
+Trigger update from outside
 
 #### Parameters
 
