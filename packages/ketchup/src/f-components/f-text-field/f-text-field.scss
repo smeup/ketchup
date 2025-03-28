@@ -702,6 +702,7 @@
       }
       .mdc-text-field__input {
         color: var(--kup-text-disabled);
+        cursor: not-allowed;
       }
     }
   }

@@ -12,7 +12,7 @@ export const ADDITIONAL_WIDTH_WITH_ICON = 18; // Additional width added to accou
 
 // Char sizes
 export const FONT_SIZE = 12; // Monospace font size of the INP
-export const FONT_SIZE_TO_WIDTH_RATIO = 1.464705882352941; // FontSize to SingleCharWidth ratio
+export const FONT_SIZE_TO_WIDTH_RATIO = 1.6; // FontSize to SingleCharWidth ratio
 export const CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO; // Used for field width and left attribute
 
 export const getAbsoluteWidth = (
@@ -33,7 +33,8 @@ export const getAbsoluteWidth = (
 
     return (
         length * CHAR_WIDTH +
-        (graphicShapeHasIcon ? ADDITIONAL_WIDTH_WITH_ICON : 0)
+        (graphicShapeHasIcon ? ADDITIONAL_WIDTH_WITH_ICON : 0) +
+        4 // Additional size to include padding
     );
 };
 
