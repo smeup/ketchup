@@ -1586,6 +1586,10 @@ export class KupDataTable {
             this.visibleColumns = this.visibleColumns.filter(
                 (colName) => colName != column.name
             );
+        } else {
+            this.visibleColumns = this.data.columns
+                .filter((col) => col.name != column.name && col.visible)
+                .map((col) => col.name);
         }
         this.kupColumnRemove.emit({
             comp: this,
