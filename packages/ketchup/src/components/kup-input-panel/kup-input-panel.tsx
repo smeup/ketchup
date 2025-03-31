@@ -1098,6 +1098,9 @@ export class KupInputPanel {
                 showFooter: false,
                 tableHeight: `${absoluteHeight}px`,
             }),
+            ...(fieldCell.cell.shape === FCellShapes.AUTOCOMPLETE && {
+                allowInconsistentValues: true,
+            }),
         };
 
         return (
