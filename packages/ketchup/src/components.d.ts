@@ -300,6 +300,11 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * Allows legacyLook in ACP
+          * @default false
+         */
+        "legacyLook": boolean;
+        /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode": ItemsDisplayMode;
@@ -1392,6 +1397,11 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * Allows legacyLook aspect in CMB.
+          * @default false
+         */
+        "legacyLook": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
@@ -6435,6 +6445,11 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         /**
+          * Allows legacyLook in ACP
+          * @default false
+         */
+        "legacyLook"?: boolean;
+        /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode"?: ItemsDisplayMode;
@@ -7400,6 +7415,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Allows legacyLook aspect in CMB.
+          * @default false
+         */
+        "legacyLook"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
