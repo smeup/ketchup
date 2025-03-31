@@ -185,6 +185,11 @@ export class KupAutocomplete {
      * @default "Type code or description"
      */
     @Prop() placeholder: string = 'Type code or description';
+    /**
+     * Allows legacyLook in ACP
+     * @default false
+     */
+    @Prop() legacyLook: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -686,6 +691,7 @@ export class KupAutocomplete {
                 : false,
             showMarker: this.showMarker,
             size: this.#calcSize(),
+            legacyLook: this.legacyLook,
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');

@@ -99,7 +99,8 @@ import {
     getAbsoluteWidth,
     getInpComponentAbsoluteHeight,
     getLabelAbsoluteWidth,
-    ROW_HEIGHT,
+    graphicShapeHasIcon,
+    SPACED_ROW_HEIGHT,
 } from './kup-input-panel-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -497,7 +498,8 @@ export class KupInputPanel {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
                 // 12px is added due to the chance that the horizontal scrollbar will be rendered
                 styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT + 12
+                    getInpComponentAbsoluteHeight(layout) * SPACED_ROW_HEIGHT +
+                    12
                 }px`;
             } else {
                 if (!layout.sectionsType) {
@@ -1059,7 +1061,10 @@ export class KupInputPanel {
         const absoluteWidth =
             fieldCell.cell.shape === FCellShapes.LABEL
                 ? getLabelAbsoluteWidth(length)
-                : getAbsoluteWidth(length);
+                : getAbsoluteWidth(
+                      length,
+                      graphicShapeHasIcon(fieldCell.cell.shape)
+                  );
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(
             field.absoluteRow,
