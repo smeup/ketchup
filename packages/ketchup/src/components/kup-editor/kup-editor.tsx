@@ -479,8 +479,13 @@ export class KupEditor {
     }
 
     onEditorSave() {
-        this.editor.getUI().getToolbar().removeItem(this.#unsavedChangesIndex);
-        this.#hasChanges = false;
+        if (this.#hasChanges) {
+            this.editor
+                .getUI()
+                .getToolbar()
+                .removeItem(this.#unsavedChangesIndex);
+            this.#hasChanges = false;
+        }
         this.kupSave.emit(this.getSaveAndAutoSaveProps());
     }
 
