@@ -75,7 +75,7 @@ export class KupAutocomplete {
      * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
      * @default false
      */
-    @Prop() allowInconsistentValues: boolean = false;
+    @Prop() allowInconsistentValues: boolean = true;
     /**
      * Custom style of the component.
      * @default ""
