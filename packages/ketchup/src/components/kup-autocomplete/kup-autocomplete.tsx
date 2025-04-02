@@ -424,7 +424,7 @@ export class KupAutocomplete {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.#openList(false);
+                    this.#openList(true);
                     this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
@@ -509,6 +509,17 @@ export class KupAutocomplete {
             this.#closeList();
             return false;
         }
+
+        if (forceOpen && !this.data['kup-list']?.data?.length) {
+            this.kupIconClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+                inputValue: this.#textfieldEl.value,
+                open: true,
+            });
+        }
+
         const hasError = this.error?.trim().length > 0;
         const hasAlert = this.alert?.trim().length > 0;
         const topOffset = hasError || hasAlert ? -20 : 0;
