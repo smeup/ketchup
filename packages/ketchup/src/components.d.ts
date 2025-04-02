@@ -300,6 +300,11 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * Allows legacyLook in ACP
+          * @default false
+         */
+        "legacyLook": boolean;
+        /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode": ItemsDisplayMode;
@@ -1393,6 +1398,11 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * Allows legacyLook aspect in CMB.
+          * @default false
+         */
+        "legacyLook": boolean;
+        /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode": ItemsDisplayMode;
@@ -1884,6 +1894,10 @@ export namespace Components {
           * @default false
          */
         "updatableData": boolean;
+        /**
+          * Trigger update from outside
+          * @param commandId - When provided, will trigger onclick event of command instead of *UPDATE
+         */
         "update": (commandId?: string) => Promise<void>;
         /**
           * When set to true, editable checkbox will call update
@@ -6431,6 +6445,11 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         /**
+          * Allows legacyLook in ACP
+          * @default false
+         */
+        "legacyLook"?: boolean;
+        /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode"?: ItemsDisplayMode;
@@ -7396,6 +7415,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * Allows legacyLook aspect in CMB.
+          * @default false
+         */
+        "legacyLook"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */

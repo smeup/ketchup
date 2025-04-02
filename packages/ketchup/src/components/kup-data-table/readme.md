@@ -502,13 +502,13 @@ Type: `Promise<void>`
 
 ### `update(commandId?: string) => Promise<void>`
 
-
+Trigger update from outside
 
 #### Parameters
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| `commandId` | `string` |             |
+| Name        | Type     | Description                                                               |
+| ----------- | -------- | ------------------------------------------------------------------------- |
+| `commandId` | `string` | - When provided, will trigger onclick event of command instead of *UPDATE |
 
 #### Returns
 
