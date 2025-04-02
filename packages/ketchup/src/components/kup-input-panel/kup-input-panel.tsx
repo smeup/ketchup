@@ -1339,7 +1339,7 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
             return {
-                ...this.#CMBandACPAdapter(cell.options, col.title, null),
+                ...this.#CMBandACPAdapter(cell.options, col.title, null, cell),
                 showDropDownIcon: true,
                 class: '',
                 style: { width: '100%' },
@@ -1398,9 +1398,15 @@ export class KupInputPanel {
     #CMBandACPAdapter(
         rawOptions: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupDataCell
     ) {
-        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+        const configCMandACP = CMBandACPAdapter(
+            currentValue,
+            fieldLabel,
+            [],
+            cell.data
+        );
         if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
