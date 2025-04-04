@@ -403,7 +403,7 @@ export class KupBox {
     /**
      * List of the visible columns
      */
-    @Prop({ mutable: true }) visibleColumns: string[];
+    @Prop() visibleColumns: string[];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
