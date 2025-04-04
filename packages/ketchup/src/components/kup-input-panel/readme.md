@@ -78,6 +78,22 @@ Type: `Promise<void>`
 
 
 
+### `update(cellId?: string) => Promise<void>`
+
+Trigger update from outside
+
+#### Parameters
+
+| Name     | Type     | Description                                                            |
+| -------- | -------- | ---------------------------------------------------------------------- |
+| `cellId` | `string` | - When provided, will trigger onclick event of cell instead of *UPDATE |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `waitForReady() => Promise<void>`
 
 Public method to wait until the component is fully ready.

@@ -3,6 +3,8 @@ import {
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
+    h,
     Host,
     Listen,
     Method,
@@ -10,8 +12,6 @@ import {
     State,
     VNode,
     Watch,
-    forceUpdate,
-    h,
 } from '@stencil/core';
 import {
     FObjectFieldEventPayload,
@@ -33,18 +33,25 @@ import {
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
+import { FLabel } from '../../f-components/f-label/f-label';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FTypography } from '../../f-components/f-typography/f-typography';
+import {
+    FTypographyProps,
+    FTypographyType,
+} from '../../f-components/f-typography/f-typography-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    FTypographyProps,
-    FTypographyType,
-} from '../../f-components/f-typography/f-typography-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -69,7 +76,6 @@ import {
     InputPanelCells,
     InputPanelCheckValidObjCallback,
     InputPanelCheckValidValueCallback,
-    InputPanelKeyCommands,
     InputPanelOptionsHandler,
     KupInputPanelButtonsPositions,
     KupInputPanelCell,
@@ -93,15 +99,9 @@ import {
     getAbsoluteWidth,
     getInpComponentAbsoluteHeight,
     getLabelAbsoluteWidth,
-    ROW_HEIGHT,
+    graphicShapeHasIcon,
+    SPACED_ROW_HEIGHT,
 } from './kup-input-panel-utils';
-import { FTypography } from '../../f-components/f-typography/f-typography';
-import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import {
-    KupDataColumn,
-    KupDataRow,
-} from '../../managers/kup-data/kup-data-declarations';
-import { FLabel } from '../../f-components/f-label/f-label';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -316,12 +316,6 @@ export class KupInputPanel {
             this.#listeners = [];
         }
 
-        if (this.#keysShortcut.length) {
-            this.#keysShortcut.map((key) => {
-                this.#kupManager.keysBinding.unregister(key);
-            });
-            this.#keysShortcut = [];
-        }
         if (this.data) {
             this.#mapCells(this.data);
         }
@@ -395,6 +389,15 @@ export class KupInputPanel {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupInputPanelProps, props);
     }
+
+    /**
+     * Trigger update from outside
+     * @param {string} cellId - When provided, will trigger onclick event of cell instead of *UPDATE
+     */
+    @Method()
+    async update(cellId?: string): Promise<void> {
+        this.#getFunctionOnClickBTN(this.#getCell(cellId), cellId);
+    }
     //#endregion
 
     //#region EVENTS
@@ -455,6 +458,10 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #getCell(id: string) {
+        if (!id) {
+            return null;
+        }
+
         return this.inputPanelCells.reduce<KupDataCell | null>(
             (cell, { cells }) => {
                 if (!cell) {
@@ -491,7 +498,8 @@ export class KupInputPanel {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
                 // 12px is added due to the chance that the horizontal scrollbar will be rendered
                 styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * ROW_HEIGHT + 12
+                    getInpComponentAbsoluteHeight(layout) * SPACED_ROW_HEIGHT +
+                    12
                 }px`;
             } else {
                 if (!layout.sectionsType) {
@@ -1053,7 +1061,10 @@ export class KupInputPanel {
         const absoluteWidth =
             fieldCell.cell.shape === FCellShapes.LABEL
                 ? getLabelAbsoluteWidth(length)
-                : getAbsoluteWidth(length);
+                : getAbsoluteWidth(
+                      length,
+                      graphicShapeHasIcon(fieldCell.cell.shape)
+                  );
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(
             field.absoluteRow,
@@ -1376,14 +1387,6 @@ export class KupInputPanel {
         cell.data.onClick = () => {
             this.#getFunctionOnClickBTN(cell, id);
         };
-
-        if (cell.data?.keyShortcut && !cell.data?.disabled) {
-            this.#keysShortcut.push(cell.data?.keyShortcut);
-            this.#kupManager.keysBinding.register(
-                cell.data?.keyShortcut,
-                cell.data.onClick.bind(this)
-            );
-        }
 
         return {
             label: cell.value,
@@ -1739,14 +1742,6 @@ export class KupInputPanel {
     }
 
     #commandAdapter(cell: KupDataCell): KupDataCell {
-        if (
-            cell.data &&
-            !cell.data.keyShortcut &&
-            this.#kupManager.objects.isJ1Key(cell.obj ? cell.obj : {})
-        ) {
-            cell.data.keyShortcut = InputPanelKeyCommands[cell.obj.k];
-        }
-
         const buttonCell = {
             ...cell,
             data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),
@@ -1947,7 +1942,7 @@ export class KupInputPanel {
     }
 
     #getFunctionOnClickBTN(cell: KupInputPanelCell, id: string) {
-        cell.fun
+        cell?.fun
             ? this.customButtonClickHandler({
                   fun: cell.fun,
                   cellId: id,
@@ -2235,10 +2230,6 @@ export class KupInputPanel {
     disconnectedCallback() {
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
-
-        this.#keysShortcut.forEach((keyEvent) => {
-            this.#kupManager.keysBinding.unregister(keyEvent);
-        });
     }
     //#endregion
 }
