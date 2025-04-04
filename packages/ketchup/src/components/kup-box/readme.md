@@ -38,6 +38,7 @@
 | `stateId`           | `state-id`            |                                                                                                                                                         | `string`                                                                                         | `''`                                 |
 | `store`             | --                    |                                                                                                                                                         | `KupStore`                                                                                       | `undefined`                          |
 | `swipeDisabled`     | `swipe-disabled`      | Disable swipe                                                                                                                                           | `boolean`                                                                                        | `false`                              |
+| `visibleColumns`    | --                    | List of the visible columns                                                                                                                             | `string[]`                                                                                       | `undefined`                          |
 
 
 ## Events
