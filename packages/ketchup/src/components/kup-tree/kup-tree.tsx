@@ -87,6 +87,7 @@ import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-d
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellClasses,
+    FCellEventPayload,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -522,6 +523,14 @@ export class KupTree {
         bubbles: true,
     })
     kupColumnRemove: EventEmitter<KupTreeColumnRemoveEventPayload>;
+
+    @Event({
+        eventName: 'kup-tree-cell-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeCellClick: EventEmitter<FCellEventPayload>;
 
     /**
      * This method will get the selected nodes of the component.
@@ -1123,13 +1132,20 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
-                this.kupTreeNodeSelected.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    treeNodePath: this.selectedNode,
-                    treeNode: treeNodeData,
-                    columnName: td ? td.dataset.column : null,
-                });
+                const columnName = td ? td.dataset.column : null;
+                const column = this.columns?.find((c) => c.name == columnName);
+                if (
+                    !columnName ||
+                    !this.#kupManager.objects.isButton(column?.obj)
+                ) {
+                    this.kupTreeNodeSelected.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        treeNodePath: this.selectedNode,
+                        treeNode: treeNodeData,
+                        columnName,
+                    });
+                }
             }
         }
 
@@ -1656,6 +1672,8 @@ export class KupTree {
                     const cell = treeNodeData.cells[column.name]
                         ? treeNodeData.cells[column.name]
                         : null;
+
+                    cell.style = treeNodeData.style && null;
                     const cellProps: FCellProps = {
                         cell: cell,
                         column: column,
@@ -2248,7 +2266,11 @@ export class KupTree {
         }
 
         return (
-            <Host>
+            <Host
+                onKup-cell-click={(e: CustomEvent<FCellEventPayload>) => {
+                    this.kupTreeCellClick.emit(e.detail);
+                }}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

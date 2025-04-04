@@ -1,12 +1,44 @@
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     AbsoluteTblPositioningData,
     KupInputPanelLayout,
 } from './kup-input-panel-declarations';
 
-export const CHAR_WIDTH = 10;
-export const ROW_HEIGHT = 20;
+// General INP constants
+export const ROW_HEIGHT = 20; // Used for the ACTUAL row height calculations (no spacing)
+export const SPACED_ROW_HEIGHT = 22; // Used for the INP total height calculations (accounting for row spacing)
+export const LEFT_MULTIPLIER = 1.15; // Multiplier commanding the left attribute "scale"
+export const ADDITIONAL_WIDTH_WITH_ICON = 18; // Additional width added to account for the shape's icon (ACP,CAL,CMB)
 
-export const getAbsoluteWidth = (length: number) => {
+// Char sizes
+export const FONT_SIZE = 12; // Monospace font size of the INP
+export const FONT_SIZE_TO_WIDTH_RATIO = 1.6; // FontSize to SingleCharWidth ratio
+export const CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO; // Used for field width and left attribute
+
+export const getAbsoluteWidth = (
+    length: number,
+    graphicShapeHasIcon?: boolean
+) => {
+    if (length == 0) {
+        return CHAR_WIDTH / 2;
+    }
+
+    if (!length) {
+        return null;
+    }
+
+    if (length === 1) {
+        return 1.5 * CHAR_WIDTH;
+    }
+
+    return (
+        length * CHAR_WIDTH +
+        (graphicShapeHasIcon ? ADDITIONAL_WIDTH_WITH_ICON : 0) +
+        4 // Additional size to include padding
+    );
+};
+
+export const getLabelAbsoluteWidth = (length: number) => {
     if (length == 0) {
         return CHAR_WIDTH / 2;
     }
@@ -20,26 +52,6 @@ export const getAbsoluteWidth = (length: number) => {
     }
 
     return length * CHAR_WIDTH;
-};
-
-export const FONT_SIZE = 12;
-export const FONT_SIZE_TO_WIDTH_RATIO = 1.666666666666667;
-export const SINGLE_CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO;
-
-export const getLabelAbsoluteWidth = (length: number) => {
-    if (length == 0) {
-        return SINGLE_CHAR_WIDTH / 2;
-    }
-
-    if (!length) {
-        return null;
-    }
-
-    if (length === 1) {
-        return 1.5 * SINGLE_CHAR_WIDTH;
-    }
-
-    return length * SINGLE_CHAR_WIDTH;
 };
 
 export const getAbsoluteHeight = (height: number) => {
@@ -79,7 +91,7 @@ export const getAbsoluteLeft = (col: number) => {
         return null;
     }
 
-    return (col - 1) * CHAR_WIDTH;
+    return (col - 1) * 10 * LEFT_MULTIPLIER;
 };
 
 export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
@@ -96,4 +108,12 @@ export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
         });
     });
     return inpRowHeight;
+};
+
+export const graphicShapeHasIcon = (shape: string) => {
+    return (
+        shape === FCellShapes.AUTOCOMPLETE ||
+        shape === FCellShapes.COMBOBOX ||
+        shape === FCellShapes.DATE
+    );
 };

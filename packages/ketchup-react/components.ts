@@ -162,7 +162,8 @@ type KupBoxEvents = {
     onKupBoxDidload: EventName<KupBoxCustomEvent<KupEventPayload>>,
     onKupBoxDidunload: EventName<KupBoxCustomEvent<KupEventPayload>>,
     onKupBoxContextmenu: EventName<KupBoxCustomEvent<KupBoxContextMenuEventPayload>>,
-    onKupBoxLoadmoreclick: EventName<KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>>
+    onKupBoxLoadmoreclick: EventName<KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>>,
+    onKupBoxCellClick: EventName<KupBoxCustomEvent<FCellEventPayload>>
 };
 
 export const KupBox: StencilReactComponent<KupBoxElement, KupBoxEvents> = /*@__PURE__*/ createComponent<KupBoxElement, KupBoxEvents>({
@@ -179,7 +180,8 @@ export const KupBox: StencilReactComponent<KupBoxElement, KupBoxEvents> = /*@__P
         onKupBoxDidload: 'kup-box-didload',
         onKupBoxDidunload: 'kup-box-didunload',
         onKupBoxContextmenu: 'kup-box-contextmenu',
-        onKupBoxLoadmoreclick: 'kup-box-loadmoreclick'
+        onKupBoxLoadmoreclick: 'kup-box-loadmoreclick',
+        onKupBoxCellClick: 'kup-box-cell-click'
     } as KupBoxEvents,
     defineCustomElement: defineKupBox
 });
@@ -1242,7 +1244,8 @@ type KupTreeEvents = {
     onKupTreeDidunload: EventName<KupTreeCustomEvent<KupEventPayload>>,
     onKupTreeNodedblclick: EventName<KupTreeCustomEvent<KupTreeNodeCollapseEventPayload>>,
     onKupTreeDynamicmassexpansion: EventName<KupTreeCustomEvent<KupTreeDynamicMassExpansionEventPayload>>,
-    onKupTreeColumnremove: EventName<KupTreeCustomEvent<KupTreeColumnRemoveEventPayload>>
+    onKupTreeColumnremove: EventName<KupTreeCustomEvent<KupTreeColumnRemoveEventPayload>>,
+    onKupTreeCellClick: EventName<KupTreeCustomEvent<FCellEventPayload>>
 };
 
 export const KupTree: StencilReactComponent<KupTreeElement, KupTreeEvents> = /*@__PURE__*/ createComponent<KupTreeElement, KupTreeEvents>({
@@ -1261,7 +1264,8 @@ export const KupTree: StencilReactComponent<KupTreeElement, KupTreeEvents> = /*@
         onKupTreeDidunload: 'kup-tree-didunload',
         onKupTreeNodedblclick: 'kup-tree-nodedblclick',
         onKupTreeDynamicmassexpansion: 'kup-tree-dynamicmassexpansion',
-        onKupTreeColumnremove: 'kup-tree-columnremove'
+        onKupTreeColumnremove: 'kup-tree-columnremove',
+        onKupTreeCellClick: 'kup-tree-cell-click'
     } as KupTreeEvents,
     defineCustomElement: defineKupTree
 });

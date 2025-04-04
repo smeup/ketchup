@@ -500,6 +500,22 @@ Type: `Promise<void>`
 
 
 
+### `update(commandId?: string) => Promise<void>`
+
+Trigger update from outside
+
+#### Parameters
+
+| Name        | Type     | Description                                                               |
+| ----------- | -------- | ------------------------------------------------------------------------- |
+| `commandId` | `string` | - When provided, will trigger onclick event of command instead of *UPDATE |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `waitForReady() => Promise<void>`
 
 Public method to wait until the component is fully ready.

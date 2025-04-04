@@ -3146,11 +3146,14 @@ __metadata:
   dependencies:
     "@sme.up/ketchup": 10.2.0
     "@stencil/core": ^4
-    "@stencil/react-output-target": ^0.7
-    react: ^18
-    react-dom: ^18
+    "@stencil/react-output-target": ^0.8
+    react: ^19.0.0
+    react-dom: ^19.0.0
     rimraf: ^6
     typescript: ^5
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
   languageName: unknown
   linkType: soft
 
@@ -3214,7 +3217,7 @@ __metadata:
     "@material/ripple": 14.0.0
     "@material/textfield": 14.0.0
     "@stencil/core": 4.20.0
-    "@stencil/react-output-target": ^0.7
+    "@stencil/react-output-target": ^0.8
     "@stencil/sass": ^3
     "@toast-ui/editor": 2.5.4
     d3-shape: ^3.2.0
@@ -3282,21 +3285,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/react-output-target@npm:^0.7":
-  version: 0.7.4
-  resolution: "@stencil/react-output-target@npm:0.7.4"
+"@stencil/react-output-target@npm:^0.8":
+  version: 0.8.2
+  resolution: "@stencil/react-output-target@npm:0.8.2"
   dependencies:
     "@lit/react": ^1.0.4
     html-react-parser: ^5.1.10
-    react-dom: ^18.3.1
     style-object-to-css-string: ^1.0.0
     ts-morph: ^22.0.0
   peerDependencies:
     "@stencil/core": ">=3 || >= 4.0.0-beta.0 || >= 4.0.0"
+    react: ^18 || ^19
+    react-dom: ^18 || ^19
   peerDependenciesMeta:
     "@stencil/core":
       optional: false
-  checksum: f5a2f71d90e3423550df309f4594528ea0b932cb9fff311037abef64dea3c64702bd835aead9c95b971ed862bddbb0381e67a6d6655afda6d9b3ba83d024c936
+    react:
+      optional: false
+    react-dom:
+      optional: false
+  checksum: 280b91834701ef7c6a6c3a86bfe1bdb75d57dfe143c8d2ea0877fde732a69e2daa394cf710df6d5b6a9339f7d5bb162be82772e4edeb47e26c0261fe8effb0a4
   languageName: node
   linkType: hard
 
@@ -10415,7 +10423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
+"js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
   checksum: 8a95213a5a77deb6cbe94d86340e8d9ace2b93bc367790b260101d2f36a2eaf4e4e22d9fa9cf459b38af3a32fb4190e638024cf82ec95ef708680e405ea7cc78
@@ -10981,17 +10989,6 @@ __metadata:
     cli-cursor: ^2.0.0
     wrap-ansi: ^3.0.1
   checksum: 84fd8e93bfc316eb6ca479a37743f2edcb7563fe5b9161205ce2980f0b3c822717b8f8f1871369697fcb0208521d7b8d00750c594edc3f8a8273dd8b48dd14a3
-  languageName: node
-  linkType: hard
-
-"loose-envify@npm:^1.1.0":
-  version: 1.4.0
-  resolution: "loose-envify@npm:1.4.0"
-  dependencies:
-    js-tokens: ^3.0.0 || ^4.0.0
-  bin:
-    loose-envify: cli.js
-  checksum: 6517e24e0cad87ec9888f500c5b5947032cdfe6ef65e1c1936a0c48a524b81e65542c9c3edc91c97d5bddc806ee2a985dbc79be89215d613b1de5db6d1cfe6f4
   languageName: node
   linkType: hard
 
@@ -13496,15 +13493,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18, react-dom@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react-dom@npm:18.3.1"
+"react-dom@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "react-dom@npm:19.0.0"
   dependencies:
-    loose-envify: ^1.1.0
-    scheduler: ^0.23.2
+    scheduler: ^0.25.0
   peerDependencies:
-    react: ^18.3.1
-  checksum: 298954ecd8f78288dcaece05e88b570014d8f6dce5db6f66e6ee91448debeb59dcd31561dddb354eee47e6c1bb234669459060deb238ed0213497146e555a0b9
+    react: ^19.0.0
+  checksum: 009cc6e575263a0d1906f9dd4aa6532d2d3d0d71e4c2b7777c8fe4de585fa06b5b77cdc2e0fbaa2f3a4a5e5d3305c189ba152153f358ee7da4d9d9ba5d3a8975
   languageName: node
   linkType: hard
 
@@ -13529,12 +13525,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
+"react@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 86de15d85b2465feb40297a90319c325cb07cf27191a361d47bcfe8c6126c973d660125aa67b8f4cbbe39f15a2f32efd0c814e98196d8e5b68c567ba40a399c6
   languageName: node
   linkType: hard
 
@@ -14045,12 +14039,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.2":
-  version: 0.23.2
-  resolution: "scheduler@npm:0.23.2"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 3e82d1f419e240ef6219d794ff29c7ee415fbdc19e038f680a10c067108e06284f1847450a210b29bbaf97b9d8a97ced5f624c31c681248ac84c80d56ad5a2c4
+"scheduler@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "scheduler@npm:0.25.0"
+  checksum: b7bb9fddbf743e521e9aaa5198a03ae823f5e104ebee0cb9ec625392bb7da0baa1c28ab29cee4b1e407a94e76acc6eee91eeb749614f91f853efda2613531566
   languageName: node
   linkType: hard
 
