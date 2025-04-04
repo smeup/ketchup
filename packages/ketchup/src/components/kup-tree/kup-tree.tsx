@@ -1672,6 +1672,11 @@ export class KupTree {
                     const cell = treeNodeData.cells[column.name]
                         ? treeNodeData.cells[column.name]
                         : null;
+
+                    if (treeNodeData.style) {
+                        cell.style = treeNodeData.style;
+                    }
+
                     const cellProps: FCellProps = {
                         cell: cell,
                         column: column,

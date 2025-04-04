@@ -400,6 +400,10 @@ export class KupBox {
      * @default false
      */
     @Prop() swipeDisabled: boolean = false;
+    /**
+     * List of the visible columns
+     */
+    @Prop() visibleColumns: string[];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -410,7 +414,6 @@ export class KupBox {
      */
     private kupManager: KupManager = kupManagerInstance();
     private boxLayout: KupBoxLayout;
-    private visibleColumns: KupDataColumn[] = [];
     private rows: KupBoxRow[] = [];
     private filteredRows: KupBoxRow[] = [];
     private globalFilterTimeout: number;
@@ -554,7 +557,6 @@ export class KupBox {
     @Watch('data')
     onDataChanged() {
         identify(this.getRows());
-        this.initVisibleColumns();
         this.initRows();
         this.checkLayout();
     }
@@ -616,14 +618,28 @@ export class KupBox {
             : [{ title: '', name: '', size: undefined }];
     }
 
-    private initVisibleColumns(): void {
-        this.visibleColumns = this.getColumns().filter((column) => {
-            if (column.hasOwnProperty('visible')) {
-                return column.visible;
-            }
+    getVisibleColumns(): Array<KupDataColumn> {
+        // Starting columns filter
+        let resultVisibleColumns = this.getColumns().filter((col) => {
+            const isNotCodVer = !this.kupManager.data.column.isCodVer(col);
 
-            return true;
+            if (this.visibleColumns) {
+                // if visible columns is specified, include only those columns
+                return isNotCodVer && this.visibleColumns.includes(col.name);
+            } else {
+                return isNotCodVer && (!('visible' in col) || col.visible);
+            }
         });
+
+        // order based on `visibleColumns`
+        if (this.visibleColumns) {
+            resultVisibleColumns = resultVisibleColumns.sort(
+                (a, b) =>
+                    this.visibleColumns.indexOf(a.name) -
+                    this.visibleColumns.indexOf(b.name)
+            );
+        }
+        return resultVisibleColumns;
     }
 
     private getRows(): KupBoxRow[] {
@@ -639,6 +655,9 @@ export class KupBox {
                 this.filteredRows,
                 null,
                 this.globalFilterValue,
+                this.getColumns(),
+                undefined,
+                undefined,
                 this.visibleColumns
             );
         }
@@ -712,7 +731,7 @@ export class KupBox {
         };
 
         // adding box objects to section
-        const visibleColumns = this.visibleColumns;
+        const visibleColumns = this.getVisibleColumns();
         let size = visibleColumns.length;
         let content = [];
 
@@ -733,7 +752,7 @@ export class KupBox {
     }
 
     private onSortChange(e: CustomEvent) {
-        let column = getColumnByName(this.visibleColumns, e.detail.value);
+        let column = getColumnByName(this.getVisibleColumns(), e.detail.value);
         this.sortBy = column.name;
     }
 
@@ -816,7 +835,7 @@ export class KupBox {
                 cell = boxObject['data-cell'];
                 row = boxObject['data-row'];
                 column = getColumnByName(
-                    this.visibleColumns,
+                    this.getVisibleColumns(),
                     boxObject.dataset.column
                 );
             }
@@ -1032,8 +1051,9 @@ export class KupBox {
             text: [],
         };
 
-        for (let index = 0; index < this.data.columns.length; index++) {
-            const column = this.data.columns[index];
+        const visibleColumns = this.getVisibleColumns();
+        for (let index = 0; index < visibleColumns.length; index++) {
+            const column = visibleColumns[index];
             if (column.visible !== false) {
                 cardData.cell.push(row.cells[column.name]);
                 cardData.columns.push(column);
@@ -1187,7 +1207,7 @@ export class KupBox {
     }
 
     private renderRow(row: KupBoxRow) {
-        const visibleColumns = [...this.visibleColumns];
+        const visibleColumns = [...this.getVisibleColumns()];
 
         let boxContent = null;
 
@@ -1748,7 +1768,7 @@ export class KupBox {
                     return {
                         cell: cellEl['data-cell'],
                         column: getColumnByName(
-                            this.visibleColumns,
+                            this.getVisibleColumns(),
                             cellEl.dataset.column
                         ),
                         id: this.rootElement.id,
@@ -1988,14 +2008,16 @@ export class KupBox {
         let sortPanel = null;
         if (this.sortEnabled) {
             // creating items
-            const visibleColumnsItems = this.visibleColumns.map((column) => {
-                const item = {
-                    value: column.title,
-                    id: column.name,
-                    selected: column.name === this.sortBy,
-                };
-                return item;
-            });
+            const visibleColumnsItems = this.getVisibleColumns().map(
+                (column) => {
+                    const item = {
+                        value: column.title,
+                        id: column.name,
+                        selected: column.name === this.sortBy,
+                    };
+                    return item;
+                }
+            );
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 label: this.kupManager.language.translate(

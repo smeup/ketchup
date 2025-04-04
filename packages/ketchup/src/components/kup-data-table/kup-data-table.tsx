@@ -6505,7 +6505,6 @@ export class KupDataTable {
 
     #handleColumnGroup(column2group: KupDataColumn) {
         // Get sorted column current position
-        this.getVisibleColumns();
         const columnX = this.getVisibleColumns().find(
             (col) =>
                 col.name === column2group.name &&
