@@ -308,6 +308,10 @@ export class KupCalendar {
                     row: event.extendedProps.row,
                 });
             },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+            },
             eventDidMount: (info) => {
                 if (this.iconCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
@@ -360,6 +364,19 @@ export class KupCalendar {
                         });
                     }
                 }
+            },
+            eventContent: function (arg) {
+                const timeText = arg.timeText;
+                const title = arg.event.title;
+
+                return {
+                    html: `
+                    <div style="display: flex; flex-direction: column;">
+                      <div style="font-weight: bold;">${timeText}</div>
+                      <div>${title}</div>
+                    </div>
+                  `,
+                };
             },
             eventDrop: ({ event, oldEvent }) => {
                 this.kupCalendarEventDrop.emit({
