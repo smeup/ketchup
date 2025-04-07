@@ -6109,6 +6109,13 @@ export class KupDataTable {
                             ? 'extra-small'
                             : cell.data?.sizing,
                 };
+                if (!cell.isEditable) {
+                    cell.cssClass =
+                        this.#kupManager.data.cell.getObjectRelatedStyleClasses(
+                            cell.obj,
+                            cell.cssClass
+                        );
+                }
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
                         cell,
