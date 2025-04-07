@@ -1554,6 +1554,13 @@ export class KupBox {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
             }
+            if (!cell.isEditable) {
+                cell.cssClass =
+                    this.kupManager.data.cell.getObjectRelatedStyleClasses(
+                        cell.obj,
+                        cell.cssClass
+                    );
+            }
         }
         const cellProps: FCellProps = {
             cell: cell,
