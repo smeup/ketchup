@@ -71,7 +71,7 @@ describe('KupManager.data.cell.getObjectRelatedStyleClasses', () => {
         expect(result).toContain(expectedClass);
     });
 
-    it('should return an empty array if no matching CSS class is found', () => {
+    it('should return an empty string if no matching CSS class is found', () => {
         const result = kupManager.data.cell.getObjectRelatedStyleClasses({
             t: 'XX',
             p: 'XXX',
@@ -81,19 +81,36 @@ describe('KupManager.data.cell.getObjectRelatedStyleClasses', () => {
         expect(result).toEqual('');
     });
 
+    it('should return the custom class passed in input, nothing else if no matching CSS class is found', () => {
+        const result = kupManager.data.cell.getObjectRelatedStyleClasses(
+            {
+                t: 'XX',
+                p: 'XXX',
+                k: 'value1',
+            },
+            'custom-class'
+        );
+
+        expect(result).toEqual('custom-class');
+    });
+
     it('should return multiple CSS classes if both maps have matching entries', () => {
         const expectedClasses = [
             'c-fitted',
             'c-shaped',
             'c-hor-padded',
             'c-orange-bg',
+            'custom-class',
         ];
 
-        const result = kupManager.data.cell.getObjectRelatedStyleClasses({
-            t: 'TA',
-            p: 'B£W',
-            k: '70',
-        });
+        const result = kupManager.data.cell.getObjectRelatedStyleClasses(
+            {
+                t: 'TA',
+                p: 'B£W',
+                k: '70',
+            },
+            'custom-class'
+        );
 
         expectedClasses.forEach((cls) => {
             expect(result).toContain(cls);
