@@ -650,6 +650,7 @@ export class KupInputPanel {
         const renderedButton = (
             <FButton
                 icon={cell.icon}
+                placeholderIcon={cell.placeholderIcon}
                 id={name}
                 {...cell.data}
                 wrapperClass="form__submit"
