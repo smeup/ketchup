@@ -356,6 +356,7 @@ const MainBTNAdapter = (
         {
             ...cell.data,
             icon: cell.icon,
+            placeholderIcon: cell.placeholderIcon,
             value: currentValue,
         },
     ],
