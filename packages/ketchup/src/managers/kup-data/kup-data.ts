@@ -305,6 +305,86 @@ export class KupData {
                 this.cell.isActionCell(command, cell)
             );
         },
+        /**
+         * Gets css styles for cell, depending on cell's obj
+         * @param obj
+         * @param cssClass
+         * @returns
+         */
+        getObjectRelatedStyleClasses(
+            obj: {
+                t: string;
+                p: string;
+                k: string;
+            },
+            cssClass?: string
+        ) {
+            interface ParameterRelatedStyle {
+                [type: string]: {
+                    [parameter: string]: string[];
+                };
+            }
+            interface CodeRelatedStyle {
+                [type: string]: {
+                    [parameter: string]: {
+                        [key: string]: string[];
+                    };
+                };
+            }
+
+            const ParameterRelatedStylesMap: ParameterRelatedStyle = {
+                TA: {
+                    'B£W': ['c-fitted', 'c-shaped', 'c-hor-padded'],
+                    'B§A': ['strong-text'],
+                },
+            };
+
+            const CodeRelatedStylesMap: CodeRelatedStyle = {
+                TA: {
+                    'B£W': {
+                        '10': ['c-teal-bg'],
+                        '13': ['c-teal-bg'],
+                        '20': ['c-green-bg'],
+                        '70': ['c-orange-bg'],
+                        '80': ['c-grey-bg'],
+                        '90': ['c-purple-bg'],
+                    },
+                    'B§A': {
+                        '§': ['purple-text'],
+                        A: ['danger-text'],
+                        B: ['warning-text'],
+                        C: ['success-text'],
+                    },
+                },
+            };
+
+            if (!obj) return '';
+            const { t, p, k } = obj;
+
+            const stylesSet = new Set<string>();
+            if (cssClass) {
+                cssClass
+                    .split(' ')
+                    .forEach((singleClass) => stylesSet.add(singleClass));
+            }
+
+            const parameterKey = Object.keys(
+                ParameterRelatedStylesMap[t] || {}
+            ).find((param) => p.includes(param));
+            if (parameterKey) {
+                ParameterRelatedStylesMap[t][parameterKey].forEach((style) =>
+                    stylesSet.add(style)
+                );
+
+                if (CodeRelatedStylesMap[t][parameterKey][k]) {
+                    CodeRelatedStylesMap[t][parameterKey][k].forEach((style) =>
+                        stylesSet.add(style)
+                    );
+                }
+            }
+
+            return Array.from(stylesSet).join(' ');
+        },
     };
     column = {
         find(

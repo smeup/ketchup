@@ -287,6 +287,11 @@ export class KupImageList {
                     icon: node.icon,
                     placeholderIcon: node.placeholderIcon,
                     obj: node.obj,
+                    cssClass:
+                        this.#kupManager.data.cell.getObjectRelatedStyleClasses(
+                            node.obj,
+                            node.cssClass
+                        ),
                 }}
                 column={{ name: 'IMAGE', title: 'Image' }}
                 component={this}
