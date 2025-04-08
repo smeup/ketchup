@@ -314,6 +314,20 @@ export class KupCalendar {
                 minute: '2-digit',
             },
             eventDidMount: (info) => {
+                // In the calendar component, we handle two cases:
+                // if the '.fc-event-main' div exists, the event don't has start/end time;
+
+                const content = document.createElement('div');
+                const mainEvent = info.el.querySelector('.fc-event-main');
+                if (!mainEvent) {
+                    const title = info.el.querySelector('.fc-event-title');
+                    const time = info.el.querySelector('.fc-event-time');
+                    content.append(time, title);
+                    content.style.display = 'flex';
+                    content.style.flexDirection = 'column';
+                    info.el.appendChild(content);
+                }
+
                 if (this.iconCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
@@ -335,7 +349,9 @@ export class KupCalendar {
                         );
 
                         wrapper.appendChild(fImage);
-                        info.el.appendChild(wrapper);
+                        mainEvent
+                            ? mainEvent.appendChild(wrapper)
+                            : info.el.appendChild(wrapper);
                     }
                 }
 
@@ -367,19 +383,6 @@ export class KupCalendar {
                         });
                     }
                 }
-            },
-            eventContent: function (arg) {
-                const timeText = arg.timeText;
-                const title = arg.event.title;
-
-                return {
-                    html: `
-                    <div style="display: flex; flex-direction: column;">
-                      <div style="font-weight: bold;">${timeText}</div>
-                      <div>${title}</div>
-                    </div>
-                  `,
-                };
             },
             eventDrop: ({ event, oldEvent }) => {
                 this.kupCalendarEventDrop.emit({

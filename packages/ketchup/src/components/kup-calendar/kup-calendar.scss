@@ -207,16 +207,15 @@
   }
 
   .fc-event {
-    display: flex;
-    justify-content: space-between;
     padding: 0.5rem;
   }
 
   .fc-event-main {
     color: inherit;
+    display: flex;
   }
 
-  .fc-event-title {
+  .fc-event-title .fc-event-time{
     padding: 0.25em;
   }
 
