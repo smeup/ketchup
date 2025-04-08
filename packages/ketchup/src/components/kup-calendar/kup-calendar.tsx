@@ -67,6 +67,7 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupCalendarState } from './kup-calendar-state';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -319,19 +320,21 @@ export class KupCalendar {
                     if (cell?.value) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('icon-wrapper');
-                        cell.value.split(';').forEach((icon) => {
-                            if (icon) {
-                                const span = document.createElement('span');
-                                span.className = 'custom-icon';
-                                const path: string = getAssetPath(
-                                    `./assets/svg/${icon}.svg`
-                                );
-                                span.style.mask = `url('${path}') no-repeat center`;
-                                span.style.webkitMask = `url('${path}') no-repeat center`;
-                                wrapper.appendChild(span);
-                            }
-                        });
 
+                        const propsFImage: FImageProps = {
+                            resource: cell.value,
+                            placeholderResource: cell.placeholderIcon,
+                            sizeX: '1.5em',
+                            sizeY: '1.5em',
+                            wrapperClass: 'custom-icon',
+                        };
+
+                        const fImage = document.createElement('kup-image');
+                        Object.keys(propsFImage).forEach(
+                            (prop) => (fImage[prop] = propsFImage[prop])
+                        );
+
+                        wrapper.appendChild(fImage);
                         info.el.appendChild(wrapper);
                     }
                 }
