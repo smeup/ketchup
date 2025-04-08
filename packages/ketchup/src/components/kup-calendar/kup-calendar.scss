@@ -206,6 +206,12 @@
     color: var(--kup_calendar_event_color);
   }
 
+  .fc-event {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+
   .fc-event-main {
     color: inherit;
   }
