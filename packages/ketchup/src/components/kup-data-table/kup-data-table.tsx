@@ -6857,6 +6857,7 @@ export class KupDataTable {
                 styling={styling}
                 onKup-button-click={() => this.#handleUpdateClick(commandObj)}
                 icon={commandObj.icon}
+                placeholderIcon={commandObj.placeholderIcon}
                 label={commandObj.value}
             />
         );
