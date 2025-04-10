@@ -576,14 +576,15 @@ export class KupInputPanel {
                         }
                     }}
                 >
-                    {layout?.sections?.length == 1 && (
-                        <div class="input-panel__typography">
-                            <FTypography
-                                value={layout.sections[0]?.title}
-                                type={FTypographyType.HEADING1}
-                            />
-                        </div>
-                    )}
+                    {layout?.sections?.length == 1 &&
+                        layout?.sections[0]?.title && (
+                            <div class="input-panel__typography">
+                                <FTypography
+                                    value={layout.sections[0].title}
+                                    type={FTypographyType.HEADING1}
+                                />
+                            </div>
+                        )}
                     <div class={classObj} style={styleObj}>
                         {rowContent}
                     </div>
