@@ -576,10 +576,10 @@ export class KupInputPanel {
                         }
                     }}
                 >
-                    {layout?.sections.length == 1 && (
+                    {layout?.sections?.length == 1 && (
                         <div class="input-panel__typography">
                             <FTypography
-                                value={layout?.sections[0]?.title}
+                                value={layout.sections[0]?.title}
                                 type={FTypographyType.HEADING1}
                             />
                         </div>
