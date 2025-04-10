@@ -359,6 +359,14 @@
             <kup-image size-x="48px" size-y="48px" resource="bug"></kup-image>
             <div class="icon-label">bug</div>
           </div>
+          <div class="icon-wrapper" title="bullseye-arrow">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="bullseye-arrow"
+            ></kup-image>
+            <div class="icon-label">bullseye-arrow</div>
+          </div>
           <div class="icon-wrapper" title="calculator">
             <kup-image
               size-x="48px"
@@ -860,6 +868,14 @@
             ></kup-image>
             <div class="icon-label">email-open</div>
           </div>
+          <div class="icon-wrapper" title="email-stacked">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="email-stacked"
+            ></kup-image>
+            <div class="icon-label">email-stacked</div>
+          </div>
           <div class="icon-wrapper" title="emoticon">
             <kup-image
               size-x="48px"
@@ -1067,6 +1083,14 @@
               resource="filter-remove"
             ></kup-image>
             <div class="icon-label">filter-remove</div>
+          </div>
+          <div class="icon-wrapper" title="filter-off">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="filter-off"
+            ></kup-image>
+            <div class="icon-label">filter-off</div>
           </div>
           <div class="icon-wrapper" title="fitness_center">
             <kup-image
@@ -1780,6 +1804,14 @@
             ></kup-image>
             <div class="icon-label">puzzle</div>
           </div>
+          <div class="icon-wrapper" title="purchase">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="purchase"
+            ></kup-image>
+            <div class="icon-label">purchase</div>
+          </div>
           <div class="icon-wrapper" title="PWD">
             <kup-image size-x="48px" size-y="48px" resource="PWD"></kup-image>
             <div class="icon-label">PWD</div>
@@ -2031,6 +2063,14 @@
               resource="star-outline"
             ></kup-image>
             <div class="icon-label">star-outline</div>
+          </div>
+          <div class="icon-wrapper" title="status">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="status"
+            ></kup-image>
+            <div class="icon-label">status</div>
           </div>
           <div class="icon-wrapper" title="table">
             <kup-image size-x="48px" size-y="48px" resource="table"></kup-image>
@@ -2331,6 +2371,14 @@
               resource="volume-medium"
             ></kup-image>
             <div class="icon-label">volume-medium</div>
+          </div>
+          <div class="icon-wrapper" title="warehouse">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="warehouse"
+            ></kup-image>
+            <div class="icon-label">warehouse</div>
           </div>
           <div class="icon-wrapper" title="water">
             <kup-image size-x="48px" size-y="48px" resource="water"></kup-image>
