@@ -108,6 +108,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-image](../kup-image)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -115,9 +116,15 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-calendar --> kup-image
   kup-calendar --> kup-card
   kup-calendar --> kup-dialog
   kup-calendar --> kup-badge
+  kup-image --> kup-card
+  kup-image --> kup-image
+  kup-image --> kup-dialog
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-card --> kup-image
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -145,19 +152,6 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-tab-bar
   kup-card --> kup-switch
-  kup-image --> kup-card
-  kup-image --> kup-image
-  kup-image --> kup-dialog
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-dialog --> kup-badge
-  kup-dialog --> kup-card
-  kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
-  kup-spinner --> kup-card
-  kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
@@ -170,6 +164,12 @@ graph TD;
   kup-radio --> kup-card
   kup-radio --> kup-dialog
   kup-radio --> kup-badge
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
@@ -190,6 +190,8 @@ graph TD;
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog
   kup-file-upload --> kup-badge
+  kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
