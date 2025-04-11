@@ -97,7 +97,7 @@ import {
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
-    getInpComponentAbsoluteHeight,
+    getInpComponentHeight,
     getLabelAbsoluteWidth,
     graphicShapeHasIcon,
     SPACED_ROW_HEIGHT,
@@ -496,11 +496,7 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
-                // 12px is added due to the chance that the horizontal scrollbar will be rendered
-                styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * SPACED_ROW_HEIGHT +
-                    12
-                }px`;
+                styleObj.height = `${getInpComponentHeight(layout)}px`;
             } else {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
