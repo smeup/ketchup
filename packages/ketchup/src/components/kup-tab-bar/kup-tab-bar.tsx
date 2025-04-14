@@ -122,6 +122,8 @@ export class KupTabBar {
     private toolbarList: KupDynamicPositionElement;
     private infoList: KupDynamicPositionElement;
 
+    #dropDownActionCardAnchor: HTMLElement = null;
+
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
@@ -184,14 +186,12 @@ export class KupTabBar {
      * Triggered when a list item is clicked.
      */
     @Event({
-        eventName: 'kup-tabbar-itemclick',
+        eventName: 'kup-tabbar-toolbaritemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<KupToolbarItemClickEventPayload>;
-
-    #dropDownActionCardAnchor: HTMLElement = null;
+    kupToolbarItemClick: EventEmitter<KupToolbarItemClickEventPayload>;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -251,7 +251,7 @@ export class KupTabBar {
     }
 
     onKupToolbarItemClick(e: CustomEvent) {
-        this.kupItemClick.emit({
+        this.kupToolbarItemClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
@@ -537,7 +537,7 @@ export class KupTabBar {
                 <f-button
                     class={tabClass}
                     role="tab"
-                    aria-selected={this.data[i].active ? true : false}
+                    aria-selected={node.active ? true : false}
                     tabIndex={i}
                     title={node.title ? node.title : null}
                     onBlur={() => this.onKupBlur(i, node)}
@@ -554,9 +554,7 @@ export class KupTabBar {
                             />
                         ) : null}
                         {node.value ? (
-                            <span class="tab__text-label">
-                                {this.data[i].value}
-                            </span>
+                            <span class="tab__text-label">{node.value}</span>
                         ) : null}
                     </span>
                     {this.infoIcon && (

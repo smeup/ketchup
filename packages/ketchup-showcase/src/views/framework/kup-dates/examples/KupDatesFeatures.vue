@@ -249,70 +249,68 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'setLocale',
-          },
-          {
-            name: '3',
-            title: 'getLocale',
-          },
-          {
-            name: '4',
-            title: 'getLocales',
-          },
-          {
-            name: '5',
-            title: 'format',
-          },
-          {
-            name: '6',
-            title: 'isValid',
-          },
-          {
-            name: '7',
-            title: 'toDate',
-          },
-          {
-            name: '8',
-            title: 'normalize',
-          },
-          {
-            name: '9',
-            title: 'min',
-          },
-          {
-            name: '10',
-            title: 'max',
-          },
-          {
-            name: '11',
-            title: 'add',
-          },
-          {
-            name: '12',
-            title: 'subtract',
-          },
-          {
-            name: '13',
-            title: 'unregister',
-          },
-          {
-            name: '14',
-            title: 'sortDates',
-          },
-          {
-            name: '15',
-            title: 'sortTimes',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'setLocale',
+        },
+        {
+          id: '3',
+          value: 'getLocale',
+        },
+        {
+          id: '4',
+          value: 'getLocales',
+        },
+        {
+          id: '5',
+          value: 'format',
+        },
+        {
+          id: '6',
+          value: 'isValid',
+        },
+        {
+          id: '7',
+          value: 'toDate',
+        },
+        {
+          id: '8',
+          value: 'normalize',
+        },
+        {
+          id: '9',
+          value: 'min',
+        },
+        {
+          id: '10',
+          value: 'max',
+        },
+        {
+          id: '11',
+          value: 'add',
+        },
+        {
+          id: '12',
+          value: 'subtract',
+        },
+        {
+          id: '13',
+          value: 'unregister',
+        },
+        {
+          id: '14',
+          value: 'sortDates',
+        },
+        {
+          id: '15',
+          value: 'sortTimes',
+        },
+      ];
       const locales: string[] = dom.ketchup.dates.getLocales();
       const localesChipData: KupChipNode[] = [];
       const localesListData: KupListNode[] = [];

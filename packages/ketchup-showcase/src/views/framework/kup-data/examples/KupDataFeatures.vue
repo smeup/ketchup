@@ -371,82 +371,80 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'distinct',
-          },
-          {
-            name: '2',
-            title: 'new',
-          },
-          {
-            name: '3',
-            title: 'rangedDistinct',
-          },
-          {
-            name: '3b',
-            title: 'sort',
-          },
-          {
-            name: '4',
-            title: 'transpose',
-          },
-          {
-            name: '5',
-            title: 'cell.find',
-          },
-          {
-            name: '6',
-            title: 'cell.getValue',
-          },
-          {
-            name: '7',
-            title: 'cell.replace',
-          },
-          {
-            name: '8',
-            title: 'column.find',
-          },
-          {
-            name: '9',
-            title: 'column.hide',
-          },
-          {
-            name: '10',
-            title: 'column.new',
-          },
-          {
-            name: '11',
-            title: 'node.getMaxChildren',
-          },
-          {
-            name: '12',
-            title: 'node.getParent',
-          },
-          {
-            name: '13',
-            title: 'node.remove',
-          },
-          {
-            name: '14',
-            title: 'node.setProperties',
-          },
-          {
-            name: '15',
-            title: 'node.toStream',
-          },
-          {
-            name: '16',
-            title: 'row.find',
-          },
-          {
-            name: '17',
-            title: 'row.toNode',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'distinct',
+        },
+        {
+          id: '2',
+          value: 'new',
+        },
+        {
+          id: '3',
+          value: 'rangedDistinct',
+        },
+        {
+          id: '3b',
+          value: 'sort',
+        },
+        {
+          id: '4',
+          value: 'transpose',
+        },
+        {
+          id: '5',
+          value: 'cell.find',
+        },
+        {
+          id: '6',
+          value: 'cell.getValue',
+        },
+        {
+          id: '7',
+          value: 'cell.replace',
+        },
+        {
+          id: '8',
+          value: 'column.find',
+        },
+        {
+          id: '9',
+          value: 'column.hide',
+        },
+        {
+          id: '10',
+          value: 'column.new',
+        },
+        {
+          id: '11',
+          value: 'node.getMaxChildren',
+        },
+        {
+          id: '12',
+          value: 'node.getParent',
+        },
+        {
+          id: '13',
+          value: 'node.remove',
+        },
+        {
+          id: '14',
+          value: 'node.setProperties',
+        },
+        {
+          id: '15',
+          value: 'node.toStream',
+        },
+        {
+          id: '16',
+          value: 'row.find',
+        },
+        {
+          id: '17',
+          value: 'row.toNode',
+        },
+      ];
       accordion.expandAll();
       this.toggleDistinct();
       this.toggleNew();

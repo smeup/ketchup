@@ -153,15 +153,9 @@ export default {
           type: 'SCH',
           loaded: true,
         },
-        loginData1: {
-          columns: [{ name: 'C1', title: 'Login for develop environment' }],
-        },
-        loginData2: {
-          columns: [{ name: 'C1', title: 'Login for staging environment' }],
-        },
-        loginData3: {
-          columns: [{ name: 'C1', title: 'Login for production environment' }],
-        },
+        loginData1: [{ id: 'C1', value: 'Login for develop environment' }],
+        loginData2: [{ id: 'C1', value: 'Login for staging environment' }],
+        loginData3: [{ name: 'C1', value: 'Login for production environment' }],
       },
       sampleData2: {
         data: {

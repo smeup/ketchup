@@ -150,12 +150,6 @@ dashboard1.data = data1;
 dashboard2.data = data2;
 dashboard3.data = data1;
 dashboard4.data = data4;
-loginSample1.data = {
-    columns: [{ name: 'C1', title: 'Login for develop environment' }],
-};
-loginSample2.data = {
-    columns: [{ name: 'C1', title: 'Login for staging environment' }],
-};
-loginSample3.data = {
-    columns: [{ name: 'C1', title: 'Login for production environment' }],
-};
+loginSample1.data = [{ id: 'C1', value: 'Login for develop environment' }];
+loginSample2.data = [{ id: 'C1', value: 'Login for staging environment' }];
+loginSample3.data = [{ id: 'C1', value: 'Login for production environment' }];

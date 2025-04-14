@@ -5,19 +5,28 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type                                                                                                                                                    | Default                    |
-| ------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                                                                                                                                | `''`                       |
-| `data`        | --             | Data of the accordion.                                          | `KupAccordionData`                                                                                                                                      | `null`                     |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                                                               | `false`                    |
-| `sizing`      | `sizing`       | Sets the type of the button                                     | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
+| Property          | Attribute      | Description                                                     | Type                                                                                                                                                    | Default                    |
+| ----------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `customStyle`     | `custom-style` | Custom style of the component.                                  | `string`                                                                                                                                                | `''`                       |
+| `data`            | --             | Data of the accordion.                                          | `KupAccordionNode[]`                                                                                                                                    | `null`                     |
+| `infoCallback`    | --             |                                                                 | `() => Promise<KupDataNode[]>`                                                                                                                          | `undefined`                |
+| `infoIcon`        | `info-icon`    | When true, it will show the info activation icon.               | `boolean`                                                                                                                                               | `false`                    |
+| `ripple`          | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                                                               | `false`                    |
+| `sizing`          | `sizing`       | Sets the type of the component sizing                           | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
+| `toolbar`         | `toolbar`      | When true, it will show the toolbar activation icon.            | `boolean`                                                                                                                                               | `false`                    |
+| `toolbarCallback` | --             |                                                                 | `() => Promise<KupDataNode[]>`                                                                                                                          | `undefined`                |
 
 
 ## Events
 
-| Event                        | Description                     | Type                                                |
-| ---------------------------- | ------------------------------- | --------------------------------------------------- |
-| `kup-accordion-itemselected` | Fired when an item is selected. | `CustomEvent<KupAccordionItemSelectedEventPayload>` |
+| Event                            | Description                                          | Type                                    |
+| -------------------------------- | ---------------------------------------------------- | --------------------------------------- |
+| `kup-accordion-blur`             | Triggered when the accordion loses focus.            | `CustomEvent<KupAccordionEventPayload>` |
+| `kup-accordion-click`            | Triggered when an item is selected.                  | `CustomEvent<KupAccordionEventPayload>` |
+| `kup-accordion-focus`            | Triggered when the accordion is focused.             | `CustomEvent<KupAccordionEventPayload>` |
+| `kup-accordion-iconclick`        | Triggered when the icon inside accordion is clicked. | `CustomEvent<KupAccordionEventPayload>` |
+| `kup-accordion-infoiconclick`    | Triggered when the icon inside accordion is clicked. | `CustomEvent<KupAccordionEventPayload>` |
+| `kup-accordion-toolbaritemclick` | Triggered when a list item is clicked.               | `CustomEvent<KupAccordionEventPayload>` |
 
 
 ## Methods
@@ -84,15 +93,15 @@ Type: `Promise<void>`
 
 
 
-### `toggleItem(itemName: string) => Promise<void>`
+### `toggleItem(node: KupAccordionNode) => Promise<void>`
 
 This method activates or deactivates an item
 
 #### Parameters
 
-| Name       | Type     | Description         |
-| ---------- | -------- | ------------------- |
-| `itemName` | `string` | - Name of the item. |
+| Name   | Type               | Description |
+| ------ | ------------------ | ----------- |
+| `node` | `KupAccordionNode` |             |
 
 #### Returns
 
@@ -125,6 +134,8 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-toolbar](../kup-toolbar)
+- [kup-list](../kup-list)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -132,9 +143,29 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-accordion --> kup-toolbar
+  kup-accordion --> kup-list
   kup-accordion --> kup-card
   kup-accordion --> kup-dialog
   kup-accordion --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-file-upload
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
+  kup-toolbar --> kup-toolbar
   kup-card --> kup-image
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -227,24 +258,6 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-file-upload
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
-  kup-toolbar --> kup-toolbar
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge

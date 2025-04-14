@@ -119,34 +119,32 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'getLanguages',
-          },
-          {
-            name: '3',
-            title: 'set',
-          },
-          {
-            name: '4',
-            title: 'decodeLanguage',
-          },
-          {
-            name: '5',
-            title: 'translate',
-          },
-          {
-            name: '6',
-            title: 'unregister',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'getLanguages',
+        },
+        {
+          id: '3',
+          value: 'set',
+        },
+        {
+          id: '4',
+          value: 'decodeLanguage',
+        },
+        {
+          id: '5',
+          value: 'translate',
+        },
+        {
+          id: '6',
+          value: 'unregister',
+        },
+      ];
       const languages: string[] = dom.ketchup.language.getLanguages();
       const keys = Object.keys(dom.ketchup.language.list['english'].keys);
       const languagesChipData: KupChipNode[] = [];
