@@ -554,11 +554,6 @@ export class KupInputPanel {
             [`input-panel__commands--${this.buttonPosition}`]: true,
         };
 
-        const props: FTypographyProps = {
-            value: layout?.sections[0]?.title,
-            type: FTypographyType.HEADING1,
-        };
-
         return (
             <div>
                 <form
@@ -581,9 +576,15 @@ export class KupInputPanel {
                         }
                     }}
                 >
-                    <div class="input-panel__typography">
-                        <FTypography {...props} />
-                    </div>
+                    {layout?.sections?.length == 1 &&
+                        layout?.sections[0]?.title && (
+                            <div class="input-panel__typography">
+                                <FTypography
+                                    value={layout.sections[0].title}
+                                    type={FTypographyType.HEADING1}
+                                />
+                            </div>
+                        )}
                     <div class={classObj} style={styleObj}>
                         {rowContent}
                     </div>
@@ -650,6 +651,7 @@ export class KupInputPanel {
         const renderedButton = (
             <FButton
                 icon={cell.icon}
+                placeholderIcon={cell.placeholderIcon}
                 id={name}
                 {...cell.data}
                 wrapperClass="form__submit"
@@ -1001,8 +1003,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1012,8 +1014,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1791,10 +1793,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? this.#optionsTreeComboAdapter(
+                    ? (this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? []
+                      ) ?? [])
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {

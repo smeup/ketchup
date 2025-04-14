@@ -1673,7 +1673,17 @@ export class KupTree {
                         ? treeNodeData.cells[column.name]
                         : null;
 
-                    cell.style = treeNodeData.style && null;
+                    if (treeNodeData.style) {
+                        cell.style = treeNodeData.style;
+                    }
+
+                    if (!cell.isEditable) {
+                        cell.cssClass =
+                            this.#kupManager.data.cell.getObjectRelatedStyleClasses(
+                                cell.obj,
+                                cell.cssClass
+                            );
+                    }
                     const cellProps: FCellProps = {
                         cell: cell,
                         column: column,
