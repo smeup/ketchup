@@ -176,6 +176,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-accordion](../kup-accordion)
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-card](../kup-card)
  - [kup-combobox](../kup-combobox)
@@ -295,6 +296,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tree --> kup-list
   kup-tab-bar --> kup-list
+  kup-accordion --> kup-list
   kup-typography --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

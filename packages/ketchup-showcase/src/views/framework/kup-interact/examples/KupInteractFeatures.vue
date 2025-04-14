@@ -223,38 +223,36 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'draggable',
-          },
-          {
-            name: '2',
-            title: 'dropzone',
-          },
-          {
-            name: '3',
-            title: 'resizable',
-          },
-          {
-            name: '4',
-            title: 'on',
-          },
-          {
-            name: '5',
-            title: 'isRegistered',
-          },
-          {
-            name: '6',
-            title: 'dialogify',
-          },
-          {
-            name: '7',
-            title: 'unregister',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'draggable',
+        },
+        {
+          id: '2',
+          value: 'dropzone',
+        },
+        {
+          id: '3',
+          value: 'resizable',
+        },
+        {
+          id: '4',
+          value: 'on',
+        },
+        {
+          id: '5',
+          value: 'isRegistered',
+        },
+        {
+          id: '6',
+          value: 'dialogify',
+        },
+        {
+          id: '7',
+          value: 'unregister',
+        },
+      ];
       const dragEffectsListData: KupListNode[] = [];
       for (const key in KupDragEffect) {
         if (Object.prototype.hasOwnProperty.call(KupDragEffect, key)) {

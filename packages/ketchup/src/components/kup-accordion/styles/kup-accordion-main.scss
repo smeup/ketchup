@@ -99,6 +99,7 @@
     outline-offset: -2px;
     padding-left: 16px;
     padding-right: 16px;
+    gap: var(--kup-space-03);
 
     &:focus {
       outline: 2px solid var(--kup_accordion_item_outline_color_active);
@@ -125,6 +126,17 @@
         transform: rotate(-180deg);
       }
     }
+
+    .f-image {
+      margin: 0;
+    }
+
+    .accordion-rigtbuttons {
+      margin-left: auto;
+      margin-right: 0;
+      display: flex;
+      gap: var(--kup-space-03);
+    }
   }
 
   &__text {
@@ -147,8 +159,8 @@
   &__dropdown {
     background-color: var(--kup_accordion_dropdown_icon_color);
     height: 1.5em;
-    margin-left: auto;
-    margin-right: 0;
+    // margin-left: auto;
+    // margin-right: 0;
     min-width: 1.5em;
     width: 1.5em;
     transition: transform var(--kup_accordion_transition);

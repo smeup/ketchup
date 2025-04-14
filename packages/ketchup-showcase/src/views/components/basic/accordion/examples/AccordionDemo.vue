@@ -65,8 +65,28 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-accordion-itemselected',
-          type: 'CustomEvent',
+          name: 'kup-accordion-blur',
+          type: 'blur',
+        },
+        {
+          name: 'kup-accordion-click',
+          type: 'click',
+        },
+        {
+          name: 'kup-accordion-focus',
+          type: 'focus',
+        },
+        {
+          name: 'kup-accordion-iconclick',
+          type: 'iconclick',
+        },
+        {
+          name: 'kup-accordion-infoiconclick',
+          type: 'iconclick',
+        },
+        {
+          name: 'kup-accordion-itemclick',
+          type: 'itemclick',
         },
       ],
       demoMethods: [
@@ -110,9 +130,16 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the component',
-          type: 'KupAccordionData',
+          type: 'KupAccordionNode[]',
           default: 'null',
           try: 'json',
+        },
+        {
+          prop: 'infoIcon',
+          description: 'When true, it will show the info activation icon.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'ripple',
@@ -121,6 +148,35 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'sizing',
+          description:
+            'Sets the type of the component sizing. Supported values: "extra-small", "small", "medium", "large", "extra-large".',
+          type: 'string',
+          default: 'small',
+          try: 'switch',
+        },
+        {
+          prop: 'toolbar',
+          description: 'When true, it will show the toolbar activation icon.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'toolbarCallback',
+          description: 'Callback function called on click on toolbar icon.',
+          type: '() => Promise<KupDataNode[]>',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
+          prop: 'infoCallback',
+          description: 'Callback function called on click on info icon.',
+          type: '() => Promise<KupDataNode[]>',
+          default: 'undefined',
+          try: 'json',
         },
       ],
     };

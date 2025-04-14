@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { KupAccordionEventPayload, KupAccordionNode } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDataTableCell, KupDatatableCellCheckPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -67,7 +67,7 @@ import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
-export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+export { KupAccordionEventPayload, KupAccordionNode } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { GroupLabelDisplayMode, GroupObject, KupDataTableCell, KupDatatableCellCheckPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -145,7 +145,7 @@ export namespace Components {
           * Data of the accordion.
           * @default null
          */
-        "data": KupAccordionData;
+        "data": KupAccordionNode[];
         /**
           * This method expands all expandible items.
          */
@@ -156,6 +156,12 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "infoCallback": () => Promise<KupDataNode[]>;
+        /**
+          * When true, it will show the info activation icon.
+          * @default false
+         */
+        "infoIcon": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -171,7 +177,7 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Sets the type of the button
+          * Sets the type of the component sizing
           * @default KupComponentSizing.SMALL
          */
         "sizing": KupComponentSizing;
@@ -179,7 +185,13 @@ export namespace Components {
           * This method activates or deactivates an item
           * @param itemName - Name of the item.
          */
-        "toggleItem": (itemName: string) => Promise<void>;
+        "toggleItem": (node: KupAccordionNode) => Promise<void>;
+        /**
+          * When true, it will show the toolbar activation icon.
+          * @default false
+         */
+        "toolbar": boolean;
+        "toolbarCallback": () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
         /**
@@ -5091,7 +5103,12 @@ export interface KupTypographyListCustomEvent<T> extends CustomEvent<T> {
 }
 declare global {
     interface HTMLKupAccordionElementEventMap {
-        "kup-accordion-itemselected": KupAccordionItemSelectedEventPayload;
+        "kup-accordion-blur": KupAccordionEventPayload;
+        "kup-accordion-click": KupAccordionEventPayload;
+        "kup-accordion-iconclick": KupAccordionEventPayload;
+        "kup-accordion-infoiconclick": KupAccordionEventPayload;
+        "kup-accordion-focus": KupAccordionEventPayload;
+        "kup-accordion-toolbaritemclick": KupAccordionEventPayload;
     }
     interface HTMLKupAccordionElement extends Components.KupAccordion, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupAccordionElementEventMap>(type: K, listener: (this: HTMLKupAccordionElement, ev: KupAccordionCustomEvent<HTMLKupAccordionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6037,7 +6054,7 @@ declare global {
         "kup-tabbar-iconclick": KupTabBarEventPayload;
         "kup-tabbar-infoiconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
-        "kup-tabbar-itemclick": KupToolbarItemClickEventPayload;
+        "kup-tabbar-toolbaritemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6328,21 +6345,53 @@ declare namespace LocalJSX {
           * Data of the accordion.
           * @default null
          */
-        "data"?: KupAccordionData;
+        "data"?: KupAccordionNode[];
+        "infoCallback"?: () => Promise<KupDataNode[]>;
         /**
-          * Fired when an item is selected.
+          * When true, it will show the info activation icon.
+          * @default false
          */
-        "onKup-accordion-itemselected"?: (event: KupAccordionCustomEvent<KupAccordionItemSelectedEventPayload>) => void;
+        "infoIcon"?: boolean;
+        /**
+          * Triggered when the accordion loses focus.
+         */
+        "onKup-accordion-blur"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
+        /**
+          * Triggered when an item is selected.
+         */
+        "onKup-accordion-click"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
+        /**
+          * Triggered when the accordion is focused.
+         */
+        "onKup-accordion-focus"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
+        /**
+          * Triggered when the icon inside accordion is clicked.
+         */
+        "onKup-accordion-iconclick"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
+        /**
+          * Triggered when the icon inside accordion is clicked.
+         */
+        "onKup-accordion-infoiconclick"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
+        /**
+          * Triggered when a list item is clicked.
+         */
+        "onKup-accordion-toolbaritemclick"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
          */
         "ripple"?: boolean;
         /**
-          * Sets the type of the button
+          * Sets the type of the component sizing
           * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
+        /**
+          * When true, it will show the toolbar activation icon.
+          * @default false
+         */
+        "toolbar"?: boolean;
+        "toolbarCallback"?: () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
         /**
@@ -9653,7 +9702,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a list item is clicked.
          */
-        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupToolbarItemClickEventPayload>) => void;
+        "onKup-tabbar-toolbaritemclick"?: (event: KupTabBarCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
