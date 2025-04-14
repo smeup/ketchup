@@ -67,6 +67,7 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupCalendarState } from './kup-calendar-state';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -308,27 +309,49 @@ export class KupCalendar {
                     row: event.extendedProps.row,
                 });
             },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+            },
             eventDidMount: (info) => {
+                // In the calendar component, we handle two cases:
+                // if the '.fc-event-main' div exists, the event don't has start/end time;
+
+                const content = document.createElement('div');
+                const mainEvent = info.el.querySelector('.fc-event-main');
+                if (!mainEvent) {
+                    const title = info.el.querySelector('.fc-event-title');
+                    const time = info.el.querySelector('.fc-event-time');
+                    content.append(time, title);
+                    content.style.display = 'flex';
+                    content.style.flexDirection = 'column';
+                    info.el.appendChild(content);
+                }
+
                 if (this.iconCol) {
                     const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
                     if (cell?.value) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('icon-wrapper');
-                        cell.value.split(';').forEach((icon) => {
-                            if (icon) {
-                                const span = document.createElement('span');
-                                span.className = 'custom-icon';
-                                const path: string = getAssetPath(
-                                    `./assets/svg/${icon}.svg`
-                                );
-                                span.style.mask = `url('${path}') no-repeat center`;
-                                span.style.webkitMask = `url('${path}') no-repeat center`;
-                                wrapper.appendChild(span);
-                            }
-                        });
 
-                        info.el.appendChild(wrapper);
+                        const propsFImage: FImageProps = {
+                            resource: cell.value,
+                            placeholderResource: cell.placeholderIcon,
+                            sizeX: '1.5em',
+                            sizeY: '1.5em',
+                            wrapperClass: 'custom-icon',
+                        };
+
+                        const fImage = document.createElement('kup-image');
+                        Object.keys(propsFImage).forEach(
+                            (prop) => (fImage[prop] = propsFImage[prop])
+                        );
+
+                        wrapper.appendChild(fImage);
+                        mainEvent
+                            ? mainEvent.appendChild(wrapper)
+                            : info.el.appendChild(wrapper);
                     }
                 }
 

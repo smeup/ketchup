@@ -1927,14 +1927,30 @@ export class KupDataTable {
     async scrollToRow(rowIdentifier: string | number): Promise<void> {
         const id = rowIdentifier;
         const row = this.#getRow(id);
+
         if (row) {
             const start = (this.currentPage - 1) * this.currentRowsPerPage;
             const end = this.currentPage * this.currentRowsPerPage;
             const index = this.#rows.indexOf(row) % (end - start);
+            const scrollableContainer = this.#tableAreaRef;
+            const target = this.#rowsRefs[index];
 
-            const idx = index - this.calculateScrollToRowOffset();
-            if (idx >= 1) {
-                this.#rowsRefs[idx]?.scrollIntoView();
+            if (index >= 1) {
+                const headerHeight = parseInt(
+                    getComputedStyle(this.#theadRef).height.replace('px', '')
+                );
+                const targetRect = target.getBoundingClientRect();
+                const scrollableContainerRect =
+                    scrollableContainer.getBoundingClientRect();
+                const scrollOffset =
+                    scrollableContainer.scrollTop -
+                    headerHeight +
+                    (targetRect.top - scrollableContainerRect.top);
+
+                scrollableContainer.scrollTo({
+                    top: scrollOffset,
+                    behavior: 'instant',
+                });
             }
         }
     }
@@ -6093,6 +6109,13 @@ export class KupDataTable {
                             ? 'extra-small'
                             : cell.data?.sizing,
                 };
+                if (!cell.isEditable) {
+                    cell.cssClass =
+                        this.#kupManager.data.cell.getObjectRelatedStyleClasses(
+                            cell.obj,
+                            cell.cssClass
+                        );
+                }
                 const fcell = {
                     ...this.#kupManager.data.cell.buildFCell(
                         cell,
@@ -6489,7 +6512,6 @@ export class KupDataTable {
 
     #handleColumnGroup(column2group: KupDataColumn) {
         // Get sorted column current position
-        this.getVisibleColumns();
         const columnX = this.getVisibleColumns().find(
             (col) =>
                 col.name === column2group.name &&
@@ -6835,6 +6857,7 @@ export class KupDataTable {
                 styling={styling}
                 onKup-button-click={() => this.#handleUpdateClick(commandObj)}
                 icon={commandObj.icon}
+                placeholderIcon={commandObj.placeholderIcon}
                 label={commandObj.value}
             />
         );

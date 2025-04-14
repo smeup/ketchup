@@ -131,7 +131,7 @@ export class KupBox {
             this.state.load = true;
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                this.kupManager.debug.logMessage(
+                this.#kupManager.debug.logMessage(
                     this,
                     'Initialize with state for stateId ' +
                         this.stateId +
@@ -158,7 +158,7 @@ export class KupBox {
                 return;
             }
             if (somethingChanged) {
-                this.kupManager.debug.logMessage(
+                this.#kupManager.debug.logMessage(
                     this,
                     'Persisting stateId ' + this.stateId
                 );
@@ -170,14 +170,14 @@ export class KupBox {
     #checkUpdateState(): boolean {
         let somethingChanged = false;
         if (
-            !this.kupManager.objects.deepEqual(this.state.sortBy, this.sortBy)
+            !this.#kupManager.objects.deepEqual(this.state.sortBy, this.sortBy)
         ) {
             this.state.sortBy = this.sortBy;
             somethingChanged = true;
         }
 
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.globalFilterValue,
                 this.globalFilterValue
             )
@@ -187,7 +187,7 @@ export class KupBox {
         }
 
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.pageSelected,
                 this.currentPage
             )
@@ -197,7 +197,7 @@ export class KupBox {
         }
 
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.rowsPerPage,
                 this.currentRowsPerPage
             )
@@ -215,7 +215,7 @@ export class KupBox {
         );
 
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.selectedRowsState,
                 selectedRowsState
             )
@@ -224,7 +224,7 @@ export class KupBox {
             somethingChanged = true;
         }
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.loadMoreLimit,
                 this.loadMoreLimit
             )
@@ -234,7 +234,7 @@ export class KupBox {
         }
 
         if (
-            !this.kupManager.objects.deepEqual(
+            !this.#kupManager.objects.deepEqual(
                 this.state.showLoadMore,
                 this.showLoadMore
             )
@@ -400,6 +400,10 @@ export class KupBox {
      * @default false
      */
     @Prop() swipeDisabled: boolean = false;
+    /**
+     * List of the visible columns
+     */
+    @Prop() visibleColumns: string[];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -408,9 +412,8 @@ export class KupBox {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
     private boxLayout: KupBoxLayout;
-    private visibleColumns: KupDataColumn[] = [];
     private rows: KupBoxRow[] = [];
     private filteredRows: KupBoxRow[] = [];
     private globalFilterTimeout: number;
@@ -554,7 +557,6 @@ export class KupBox {
     @Watch('data')
     onDataChanged() {
         identify(this.getRows());
-        this.initVisibleColumns();
         this.initRows();
         this.checkLayout();
     }
@@ -616,14 +618,28 @@ export class KupBox {
             : [{ title: '', name: '', size: undefined }];
     }
 
-    private initVisibleColumns(): void {
-        this.visibleColumns = this.getColumns().filter((column) => {
-            if (column.hasOwnProperty('visible')) {
-                return column.visible;
-            }
+    getVisibleColumns(): Array<KupDataColumn> {
+        // Starting columns filter
+        let resultVisibleColumns = this.getColumns().filter((col) => {
+            const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
 
-            return true;
+            if (this.visibleColumns) {
+                // if visible columns is specified, include only those columns
+                return isNotCodVer && this.visibleColumns.includes(col.name);
+            } else {
+                return isNotCodVer && (!('visible' in col) || col.visible);
+            }
         });
+
+        // order based on `visibleColumns`
+        if (this.visibleColumns) {
+            resultVisibleColumns = resultVisibleColumns.sort(
+                (a, b) =>
+                    this.visibleColumns.indexOf(a.name) -
+                    this.visibleColumns.indexOf(b.name)
+            );
+        }
+        return resultVisibleColumns;
     }
 
     private getRows(): KupBoxRow[] {
@@ -639,6 +655,9 @@ export class KupBox {
                 this.filteredRows,
                 null,
                 this.globalFilterValue,
+                this.getColumns(),
+                undefined,
+                undefined,
                 this.visibleColumns
             );
         }
@@ -684,14 +703,16 @@ export class KupBox {
     private checkScrollOnHover() {
         if (this.boxContainer) {
             if (
-                !this.kupManager.scrollOnHover.isRegistered(this.boxContainer)
+                !this.#kupManager.scrollOnHover.isRegistered(this.boxContainer)
             ) {
                 if (this.scrollOnHover) {
-                    this.kupManager.scrollOnHover.register(this.boxContainer);
+                    this.#kupManager.scrollOnHover.register(this.boxContainer);
                 }
             } else {
                 if (!this.scrollOnHover) {
-                    this.kupManager.scrollOnHover.unregister(this.boxContainer);
+                    this.#kupManager.scrollOnHover.unregister(
+                        this.boxContainer
+                    );
                 }
             }
         }
@@ -712,7 +733,7 @@ export class KupBox {
         };
 
         // adding box objects to section
-        const visibleColumns = this.visibleColumns;
+        const visibleColumns = this.getVisibleColumns();
         let size = visibleColumns.length;
         let content = [];
 
@@ -733,7 +754,7 @@ export class KupBox {
     }
 
     private onSortChange(e: CustomEvent) {
-        let column = getColumnByName(this.visibleColumns, e.detail.value);
+        let column = getColumnByName(this.getVisibleColumns(), e.detail.value);
         this.sortBy = column.name;
     }
 
@@ -816,7 +837,7 @@ export class KupBox {
                 cell = boxObject['data-cell'];
                 row = boxObject['data-row'];
                 column = getColumnByName(
-                    this.visibleColumns,
+                    this.getVisibleColumns(),
                     boxObject.dataset.column
                 );
             }
@@ -834,7 +855,7 @@ export class KupBox {
 
     private clickHandler(e: PointerEvent): KupBoxEventHandlerDetails {
         const details = this.getEventDetails(
-            this.kupManager.getEventPath(e.target, this.rootElement),
+            this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
         if (details.row) {
@@ -849,7 +870,7 @@ export class KupBox {
 
     private contextMenuHandler(e: PointerEvent): KupBoxEventHandlerDetails {
         const details = this.getEventDetails(
-            this.kupManager.getEventPath(e.target, this.rootElement),
+            this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
         return details;
@@ -1032,8 +1053,9 @@ export class KupBox {
             text: [],
         };
 
-        for (let index = 0; index < this.data.columns.length; index++) {
-            const column = this.data.columns[index];
+        const visibleColumns = this.getVisibleColumns();
+        for (let index = 0; index < visibleColumns.length; index++) {
+            const column = visibleColumns[index];
             if (column.visible !== false) {
                 cardData.cell.push(row.cells[column.name]);
                 cardData.columns.push(column);
@@ -1187,7 +1209,7 @@ export class KupBox {
     }
 
     private renderRow(row: KupBoxRow) {
-        const visibleColumns = [...this.visibleColumns];
+        const visibleColumns = [...this.getVisibleColumns()];
 
         let boxContent = null;
 
@@ -1448,11 +1470,11 @@ export class KupBox {
             if (section.title) {
                 headerTitle = section.title;
             } else if (sectionExpanded) {
-                headerTitle = this.kupManager.language.translate(
+                headerTitle = this.#kupManager.language.translate(
                     KupLanguageGeneric.COLLAPSE
                 );
             } else {
-                headerTitle = this.kupManager.language.translate(
+                headerTitle = this.#kupManager.language.translate(
                     KupLanguageGeneric.EXPAND
                 );
             }
@@ -1528,11 +1550,18 @@ export class KupBox {
         }
         const cell = row.cells[boxObject.column];
         let title: string = undefined;
-        if (cell && !this.kupManager.objects.isEmptyKupObj(cell.obj)) {
+        if (cell && !this.#kupManager.objects.isEmptyKupObj(cell.obj)) {
             classObj['is-obj'] = true;
-            if (this.kupManager.debug.isDebug()) {
+            if (this.#kupManager.debug.isDebug()) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
+            if (!cell.isEditable) {
+                cell.cssClass =
+                    this.#kupManager.data.cell.getObjectRelatedStyleClasses(
+                        cell.obj,
+                        cell.cssClass
+                    );
             }
         }
         const cellProps: FCellProps = {
@@ -1570,7 +1599,7 @@ export class KupBox {
     kanbanMode(): { jsx: VNode[]; style: { [index: string]: string } } {
         // Testing whether there are columns to group by
         if (!this.kanban.columns || this.kanban.columns.length === 0) {
-            this.kupManager.debug.logMessage(
+            this.#kupManager.debug.logMessage(
                 this,
                 'No columns to group by detected.',
                 KupDebugCategory.ERROR
@@ -1581,7 +1610,7 @@ export class KupBox {
                         <div
                             ref={(el: HTMLElement) => this.rowsRefs.push(el)}
                         ></div>
-                        {this.kupManager.language.translate(
+                        {this.#kupManager.language.translate(
                             KupLanguageGeneric.EMPTY_DATA
                         )}
                     </div>
@@ -1608,7 +1637,7 @@ export class KupBox {
                         this.rows[index].cells[this.kanban.columns[j]].value
                     );
                 } catch (error) {
-                    this.kupManager.debug.logMessage(
+                    this.#kupManager.debug.logMessage(
                         this,
                         error,
                         KupDebugCategory.WARNING
@@ -1725,12 +1754,12 @@ export class KupBox {
                 });
             }
         };
-        this.kupManager.interact.on(
+        this.#kupManager.interact.on(
             this.boxContainer,
             KupPointerEventTypes.TAP,
             tapCb
         );
-        this.kupManager.interact.on(
+        this.#kupManager.interact.on(
             this.boxContainer,
             KupPointerEventTypes.HOLD,
             holdCb
@@ -1748,7 +1777,7 @@ export class KupBox {
                     return {
                         cell: cellEl['data-cell'],
                         column: getColumnByName(
-                            this.visibleColumns,
+                            this.getVisibleColumns(),
                             cellEl.dataset.column
                         ),
                         id: this.rootElement.id,
@@ -1759,7 +1788,7 @@ export class KupBox {
                 };
                 if (row && !this.interactableDrag.includes(row)) {
                     this.interactableDrag.push(row);
-                    this.kupManager.interact.draggable(
+                    this.#kupManager.interact.draggable(
                         row,
                         {
                             allowFrom: '.box-object',
@@ -1780,14 +1809,14 @@ export class KupBox {
                 const cell =
                     this.rootElement.shadowRoot.querySelector('.box:hover');
                 if (!cell) {
-                    this.kupManager.debug.logMessage(
+                    this.#kupManager.debug.logMessage(
                         this,
                         "Couldn't find cell hovered to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
                     return;
                 }
-                const path = this.kupManager.getEventPath(
+                const path = this.#kupManager.getEventPath(
                     cell,
                     this.rootElement
                 );
@@ -1801,7 +1830,7 @@ export class KupBox {
             };
             if (!this.interactableDrop.includes(this.sectionRef)) {
                 this.interactableDrop.push(this.sectionRef);
-                this.kupManager.interact.dropzone(
+                this.#kupManager.interact.dropzone(
                     this.sectionRef,
                     {
                         accept: `[${kupDraggableAttr}]`,
@@ -1816,7 +1845,7 @@ export class KupBox {
                 const row = this.rowsRefs[index];
                 if (row && !this.interactableDrop.includes(row)) {
                     this.interactableDrop.push(row);
-                    this.kupManager.interact.dropzone(
+                    this.#kupManager.interact.dropzone(
                         row,
                         {
                             accept: `[${kupDraggableAttr}]`,
@@ -1849,7 +1878,7 @@ export class KupBox {
         ) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    this.kupManager.debug.logMessage(
+                    this.#kupManager.debug.logMessage(
                         this,
                         'Last row entering the viewport, loading more elements.'
                     );
@@ -1912,7 +1941,7 @@ export class KupBox {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
+        this.#kupManager.debug.logLoad(this, false);
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         }
@@ -1923,8 +1952,8 @@ export class KupBox {
         ) {
             this.currentRowsPerPage = this.data.rows.length;
         }
-        this.kupManager.language.register(this);
-        this.kupManager.theme.register(this);
+        this.#kupManager.language.register(this);
+        this.#kupManager.theme.register(this);
         this.initWithPersistedState();
         this.onDataChanged();
         this.adjustPaginator();
@@ -1957,11 +1986,11 @@ export class KupBox {
         }
         this.didLoadInteractables();
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -1977,7 +2006,7 @@ export class KupBox {
         this.persistState();
         this.didRenderInteractables();
         this.#didRenderObservers();
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -1988,17 +2017,19 @@ export class KupBox {
         let sortPanel = null;
         if (this.sortEnabled) {
             // creating items
-            const visibleColumnsItems = this.visibleColumns.map((column) => {
-                const item = {
-                    value: column.title,
-                    id: column.name,
-                    selected: column.name === this.sortBy,
-                };
-                return item;
-            });
+            const visibleColumnsItems = this.getVisibleColumns().map(
+                (column) => {
+                    const item = {
+                        value: column.title,
+                        id: column.name,
+                        selected: column.name === this.sortBy,
+                    };
+                    return item;
+                }
+            );
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
             let textfieldData = {
-                label: this.kupManager.language.translate(
+                label: this.#kupManager.language.translate(
                     KupLanguageGeneric.SORT_BY
                 ),
                 trailingIcon: true,
@@ -2029,7 +2060,7 @@ export class KupBox {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        label={this.kupManager.language.translate(
+                        label={this.#kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
                         icon={KupThemeIconValues.SEARCH}
@@ -2096,7 +2127,7 @@ export class KupBox {
                         class="box"
                         ref={(el: HTMLElement) => this.rowsRefs.push(el)}
                     >
-                        {this.kupManager.language.translate(
+                        {this.#kupManager.language.translate(
                             KupLanguageGeneric.EMPTY_DATA
                         )}
                     </div>
@@ -2134,7 +2165,7 @@ export class KupBox {
                 }}
             >
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
@@ -2167,13 +2198,13 @@ export class KupBox {
     }
 
     disconnectedCallback() {
-        this.kupManager.interact.unregister(
+        this.#kupManager.interact.unregister(
             this.interactableDrag.concat(this.interactableDrop)
         );
-        this.kupManager.language.unregister(this);
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.language.unregister(this);
+        this.#kupManager.theme.unregister(this);
         if (this.scrollOnHover) {
-            this.kupManager.scrollOnHover.unregister(this.boxContainer);
+            this.#kupManager.scrollOnHover.unregister(this.boxContainer);
         }
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));

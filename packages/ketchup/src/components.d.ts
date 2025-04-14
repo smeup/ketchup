@@ -579,6 +579,10 @@ export namespace Components {
           * @default false
          */
         "swipeDisabled": boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns": string[];
     }
     interface KupButton {
         /**
@@ -6709,6 +6713,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "swipeDisabled"?: boolean;
+        /**
+          * List of the visible columns
+         */
+        "visibleColumns"?: string[];
     }
     interface KupButton {
         /**
