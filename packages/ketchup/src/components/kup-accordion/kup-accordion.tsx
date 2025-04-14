@@ -206,7 +206,7 @@ export class KupAccordion {
     }
 
     onKupClick(i: number, node: KupAccordionNode) {
-        this.data[i].active = !this.data[i].active;
+        this.data[i].contentVisible = !this.data[i].contentVisible;
         this.updateSelectedItems();
 
         this.kupClick.emit({
@@ -368,7 +368,7 @@ export class KupAccordion {
         const ids: string[] = [];
         for (let i = 0; i < this.data.length; i++) {
             const node = this.data[i];
-            if (node.active) {
+            if (node.contentVisible) {
                 ids.push(node.id);
             }
         }

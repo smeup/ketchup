@@ -23,6 +23,7 @@ export enum KupAccordionProps {
  */
 export interface KupAccordionNode extends KupDataNode {
     active?: boolean;
+    contentVisible?: boolean;
     danger?: boolean;
 }
 

@@ -34,6 +34,7 @@ export enum KupTabbarStyling {
  */
 export interface KupTabBarNode extends KupDataNode {
     active?: boolean;
+    contentVisible?: boolean;
     danger?: boolean;
 }
 
