@@ -1582,15 +1582,10 @@ export class KupDataTable {
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
-        if (this.visibleColumns?.length) {
-            this.visibleColumns = this.visibleColumns.filter(
-                (colName) => colName != column.name
-            );
-        } else {
-            this.visibleColumns = this.data.columns
-                .filter((col) => col.name != column.name && col.visible)
-                .map((col) => col.name);
-        }
+        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        this.visibleColumns = this.visibleColumns.filter(
+            (colName) => colName != column.name
+        );
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1715,8 +1710,38 @@ export class KupDataTable {
             type,
             options
         );
+        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        if (typeof result !== 'string') {
+            if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'New column [' +
+                        result.name +
+                        '] not present in visibleColumns!',
+                    KupDebugCategory.WARNING
+                );
+                const previousColumnIndex = this.visibleColumns.findIndex(
+                    (c) => c == options.columns[1]
+                );
+                if (previousColumnIndex >= 0) {
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'New column [' +
+                            result.name +
+                            '] added in visibleColumns at index [' +
+                            (previousColumnIndex + 1) +
+                            ']!',
+                        KupDebugCategory.WARNING
+                    );
+                    this.visibleColumns.splice(
+                        previousColumnIndex + 1,
+                        0,
+                        result.name
+                    );
+                }
+            }
+        }
         this.refresh();
-
         return result;
     }
     /**
@@ -4909,10 +4934,8 @@ export class KupDataTable {
             const sortedName = this.visibleColumns.splice(sIdx, 1)[0];
             this.visibleColumns.splice(rIdx, 0, sortedName);
         } else {
-            // // Adds the sorted column to visibleColumns to preserve the current column order.
-            this.visibleColumns = this.data.columns
-                .filter((col) => col.visible)
-                .map((col) => col.name);
+            // Adds the sorted column to visibleColumns to preserve the current column order.
+            this.visibleColumns = this.getVisibleColumns().map((c) => c.name);
         }
     }
 
