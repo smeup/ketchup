@@ -1710,37 +1710,7 @@ export class KupDataTable {
             type,
             options
         );
-        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
-        if (typeof result !== 'string') {
-            if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
-                this.#kupManager.debug.logMessage(
-                    this,
-                    'New column [' +
-                        result.name +
-                        '] not present in visibleColumns!',
-                    KupDebugCategory.WARNING
-                );
-                const previousColumnIndex = this.visibleColumns.findIndex(
-                    (c) => c == options.columns[1]
-                );
-                if (previousColumnIndex >= 0) {
-                    this.#kupManager.debug.logMessage(
-                        this,
-                        'New column [' +
-                            result.name +
-                            '] added in visibleColumns at index [' +
-                            (previousColumnIndex + 1) +
-                            ']!',
-                        KupDebugCategory.WARNING
-                    );
-                    this.visibleColumns.splice(
-                        previousColumnIndex + 1,
-                        0,
-                        result.name
-                    );
-                }
-            }
-        }
+        this.#insertNewColumnInVisibleColumnsList(result, options.columns[1]);
         this.refresh();
         return result;
     }
@@ -2086,6 +2056,43 @@ export class KupDataTable {
 
     //#endregion
 
+    #insertNewColumnInVisibleColumnsList(
+        result: string | KupDataColumn,
+        afterColumn: string
+    ) {
+        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        if (typeof result !== 'string') {
+            if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'New column [' +
+                        result.name +
+                        '] not present in visibleColumns!',
+                    KupDebugCategory.WARNING
+                );
+                const previousColumnIndex = this.visibleColumns.findIndex(
+                    (c) => c == afterColumn
+                );
+                if (previousColumnIndex >= 0) {
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'New column [' +
+                            result.name +
+                            '] added in visibleColumns at index [' +
+                            (previousColumnIndex + 1) +
+                            ']!',
+                        KupDebugCategory.WARNING
+                    );
+                    this.visibleColumns.splice(
+                        previousColumnIndex + 1,
+                        0,
+                        result.name
+                    );
+                }
+            }
+        }
+    }
+
     #closeDropCard() {
         this.#kupManager.dynamicPosition.stop(
             this.#columnDropCard as KupDynamicPositionElement
@@ -2108,7 +2115,11 @@ export class KupDataTable {
                 enableMove: this.enableSortableColumns,
                 receivingColumn: receiving,
                 starterColumn: starter,
-                formulaCb: () => {
+                formulaCb: (result) => {
+                    this.#insertNewColumnInVisibleColumnsList(
+                        result,
+                        starter.name
+                    );
                     this.#closeDropCard();
                     this.refresh();
                 },

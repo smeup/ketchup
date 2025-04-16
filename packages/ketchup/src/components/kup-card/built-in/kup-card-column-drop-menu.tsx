@@ -225,7 +225,7 @@ async function applyFormula(component: KupCard) {
             ? (parts[1].trim() as KupLanguageTotals)
             : valueString;
         if (premadeFormulas.includes(value)) {
-            dom.ketchup.data.column.new(
+            const result = dom.ketchup.data.column.new(
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {
@@ -240,7 +240,7 @@ async function applyFormula(component: KupCard) {
                 }
             );
             if (options.formulaCb !== undefined) {
-                options.formulaCb();
+                options.formulaCb(result);
             }
         } else {
             const result = dom.ketchup.data.column.new(
@@ -258,7 +258,7 @@ async function applyFormula(component: KupCard) {
                 combobox.data['kup-text-field'].helper = result as string;
                 combobox.refresh();
             } else if (options.formulaCb !== undefined) {
-                options.formulaCb();
+                options.formulaCb(result);
             }
         }
     }
