@@ -6,11 +6,6 @@ import {
     KupDataColumn,
     KupDataDataset,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
-import {
-    KupButtonClickEventPayload,
-    KupTextFieldCustomEvent,
-} from '../../components';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -110,7 +105,7 @@ export interface KupCardColumnDropMenuOptions {
     enableMove: boolean;
     receivingColumn?: KupDataColumn;
     starterColumn?: KupDataColumn;
-    formulaCb?: () => void;
+    formulaCb?: (result: string | KupDataColumn) => void;
     mergeCb?: () => void;
     moveCb?: () => void;
 }
