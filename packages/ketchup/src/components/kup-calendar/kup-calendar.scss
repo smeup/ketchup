@@ -215,7 +215,7 @@
     display: flex;
   }
 
-  .fc-event-title .fc-event-time{
+  .fc-event-title .fc-event-time {
     padding: 0.25em;
   }
 
@@ -244,6 +244,20 @@
     height: 100%;
     .fc-view-harness {
       min-height: 450px;
+    }
+  }
+
+  .fc-event {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2rem;
+    gap: var(--kup-space-03);
+    .fc-event-main {
+      display: flex;
+      flex-direction: column;
+    }
+    .fc-daygrid-event-dot {
+      display: none;
     }
   }
 
