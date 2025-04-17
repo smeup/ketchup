@@ -274,6 +274,19 @@ export class KupAccordion {
         }
     }
 
+    @Watch('data')
+    updateSelectedItems() {
+        const ids: string[] = [];
+        if (this.data?.length) {
+            for (let i = 0; i < this.data.length; i++) {
+                const node = this.data[i];
+                if (node.contentVisible) {
+                    ids.push(node.id);
+                }
+            }
+        }
+        this.selectedItems = ids;
+    }
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -363,17 +376,6 @@ export class KupAccordion {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
-
-    private updateSelectedItems() {
-        const ids: string[] = [];
-        for (let i = 0; i < this.data.length; i++) {
-            const node = this.data[i];
-            if (node.contentVisible) {
-                ids.push(node.id);
-            }
-        }
-        this.selectedItems = ids;
-    }
 
     private isItemExpandible(itemName: string): boolean {
         return this.slotsNames.includes(itemName);
