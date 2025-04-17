@@ -390,10 +390,10 @@ export class KupDynamicPosition {
         } as const;
 
         const subMenuElementList: NodeListOf<HTMLElement> =
-            parentElement.shadowRoot.querySelectorAll<HTMLElement>(
+            parentElement?.shadowRoot?.querySelectorAll<HTMLElement>(
                 `.${SubMenuClass.MAIN}`
             );
-        if (!subMenuElementList.length) {
+        if (!subMenuElementList?.length) {
             return;
         }
 
@@ -417,8 +417,10 @@ export class KupDynamicPosition {
 
             subMenuElement.classList.add(
                 isOverflowRight
-                    ? SubMenuClass.ALIGN_LEFT
-                    : SubMenuClass.ALIGN_RIGHT
+                    ? // Render on the left side of the menu
+                      SubMenuClass.ALIGN_LEFT
+                    : // Render on the right side of the menu
+                      SubMenuClass.ALIGN_RIGHT
             );
         });
     }
