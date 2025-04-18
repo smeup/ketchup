@@ -408,8 +408,8 @@ export class KupDynamicPosition {
             const subMenuRightEdge = menuRect.right + subMenuRect.width;
             const isOverflowRight = subMenuRightEdge > window.innerWidth;
 
-            const nestedLeftEdge = menuRect.left - subMenuRect.width;
-            const isOverflowLeft = nestedLeftEdge < 0;
+            const subMenuLeftEdge = menuRect.left - subMenuRect.width;
+            const isOverflowLeft = subMenuLeftEdge < 0;
 
             if (isOverflowRight && isOverflowLeft) {
                 return;
