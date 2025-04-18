@@ -53,14 +53,34 @@
   > .nested-class {
     position: absolute;
     top: 0;
-    left: 100%;
-    display: none;
+    left: 100%; // align right default
+    visibility: hidden;
+    opacity: 0;
     z-index: 10;
-    transition: display 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     background-color: var(--kup-gray-color-10);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
     width: inherit;
     max-width: 200px;
+    pointer-events: none;
+  }
+
+  > .nested-class.align-left {
+    left: auto;
+    right: 100%;
+  }
+
+  > .nested-class.align-right {
+    left: 100%;
+    right: auto;
+  }
+
+  &:hover:not(.toolbar-item-disabled) {
+    > .nested-class {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   .chevron-right {
@@ -68,12 +88,6 @@
     margin: 0;
     margin-left: var(--kup-space-03);
     @include kup-caption-01;
-  }
-
-  &:hover:not(.toolbar-item-disabled) {
-    > .nested-class {
-      display: block;
-    }
   }
 }
 

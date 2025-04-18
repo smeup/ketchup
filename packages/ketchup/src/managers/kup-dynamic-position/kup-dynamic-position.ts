@@ -289,6 +289,8 @@ export class KupDynamicPosition {
                 el.style.left = `${left}px`;
             }
         }
+
+        this.#setSubMenuPosition(el);
     }
 
     reposition(el: KupDynamicPositionElement): void {
@@ -378,5 +380,48 @@ export class KupDynamicPosition {
             this.anchorIsHTMLElement(el.kupDynamicPosition.anchor)
             ? (el.kupDynamicPosition.anchor as HTMLElement).parentElement
             : undefined;
+    }
+
+    #setSubMenuPosition(parentElement: HTMLElement): void {
+        const SubMenuClass = {
+            MAIN: 'nested-class',
+            ALIGN_RIGHT: 'align-right',
+            ALIGN_LEFT: 'align-left',
+        } as const;
+
+        const subMenuElementList: NodeListOf<HTMLElement> =
+            parentElement?.shadowRoot?.querySelectorAll<HTMLElement>(
+                `.${SubMenuClass.MAIN}`
+            );
+        if (!subMenuElementList?.length) {
+            return;
+        }
+
+        const menuRect: DOMRect = parentElement.getBoundingClientRect();
+        subMenuElementList.forEach((subMenuElement: HTMLElement) => {
+            subMenuElement.classList.remove(
+                SubMenuClass.ALIGN_LEFT,
+                SubMenuClass.ALIGN_RIGHT
+            );
+            const subMenuRect: DOMRect = subMenuElement.getBoundingClientRect();
+
+            const subMenuRightEdge = menuRect.right + subMenuRect.width;
+            const isOverflowRight = subMenuRightEdge > window.innerWidth;
+
+            const subMenuLeftEdge = menuRect.left - subMenuRect.width;
+            const isOverflowLeft = subMenuLeftEdge < 0;
+
+            if (isOverflowRight && isOverflowLeft) {
+                return;
+            }
+
+            subMenuElement.classList.add(
+                isOverflowRight
+                    ? // Render on the left side of the menu
+                      SubMenuClass.ALIGN_LEFT
+                    : // Render on the right side of the menu
+                      SubMenuClass.ALIGN_RIGHT
+            );
+        });
     }
 }
