@@ -1,4 +1,3 @@
-import { getEventListeners } from 'events';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     kupDynamicPositionActiveClass,
@@ -8,7 +7,6 @@ import {
     KupDynamicPositionElement,
 } from './kup-dynamic-position-declarations';
 import { KupDynamicPositionPlacement } from './kup-dynamic-position-declarations';
-import { an } from '@fullcalendar/core/internal-common';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -346,7 +344,6 @@ export class KupDynamicPosition {
 
         const repositionListener = () => this.reposition(el);
 
-        console.log('add reposition listener on window');
         window.addEventListener('resize', repositionListener);
         window.addEventListener('scroll', repositionListener);
 
