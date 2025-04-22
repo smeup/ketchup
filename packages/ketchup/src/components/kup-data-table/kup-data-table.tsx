@@ -3398,6 +3398,7 @@ export class KupDataTable {
         );
         this.#kupManager.dynamicPosition.unregister([this.#columnMenuCard]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#columnMenuInstance.close(this.#columnMenuCard);
         this.#columnMenuCard.remove();
         this.#columnMenuCard = null;
     }
