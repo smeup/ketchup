@@ -340,6 +340,10 @@ export class KupDynamicPosition {
     }
 
     addRepositionListeners(el: KupDynamicPositionElement): void {
+        if ((el as any)._repositionListener) {
+            return;
+        }
+
         const repositionListener = () => this.reposition(el);
 
         window.addEventListener('resize', repositionListener);
@@ -354,7 +358,6 @@ export class KupDynamicPosition {
                 }
             });
         }
-
         (el as any)._repositionListener = repositionListener;
     }
 
@@ -368,10 +371,11 @@ export class KupDynamicPosition {
             let container = this.getAnchorContainer(el);
 
             this.updateEventListenerOnAncestors(container, (el) => {
-                el.removeEventListener('scroll', repositionListener);
+                if (this.isScrollable(el)) {
+                    el.removeEventListener('scroll', repositionListener);
+                }
             });
         }
-
         delete (el as any)._repositionListener;
     }
 
