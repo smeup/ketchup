@@ -390,3 +390,30 @@ export function adaptContentToDisplayMode(
             return content ?? code ?? '';
     }
 }
+
+export function getSizeOfInputElement(
+    data: Object,
+    displayMode: ItemsDisplayMode,
+    size: number
+) {
+    if (data['kup-text-field']?.size) {
+        return data['kup-text-field']?.size as number;
+    } else {
+        switch (displayMode) {
+            case ItemsDisplayMode.CODE:
+                if (size) {
+                    return size;
+                } else {
+                    return 15;
+                }
+            case ItemsDisplayMode.DESCRIPTION:
+                return 35;
+            case ItemsDisplayMode.CODE_AND_DESC:
+            case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
+            case ItemsDisplayMode.DESC_AND_CODE:
+                return 50;
+            default:
+                return 35;
+        }
+    }
+}

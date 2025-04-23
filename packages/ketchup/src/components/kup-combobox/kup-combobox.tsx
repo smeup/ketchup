@@ -43,6 +43,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { getSizeOfInputElement } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-combobox',
@@ -161,6 +162,10 @@ export class KupCombobox {
      * @default false
      */
     @Prop() legacyLook: boolean = false;
+    /**
+     * Sets the size of the input element
+     */
+    @Prop() size: number;
 
     /**
      * Instance of the KupManager class.
@@ -611,6 +616,7 @@ export class KupCombobox {
                 : false,
             showMarker: this.showMarker,
             legacyLook: this.legacyLook,
+            size: getSizeOfInputElement(this.data, this.displayMode, this.size),
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
