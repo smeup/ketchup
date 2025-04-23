@@ -622,30 +622,6 @@ export class KupAutocomplete {
         );
     }
 
-    #calcSize() {
-        // Explicitly setting size from sub-components props, if present
-        if (this.data['kup-text-field']?.size) {
-            return this.data['kup-text-field']?.size as number;
-        } else {
-            switch (this.displayMode) {
-                case ItemsDisplayMode.CODE:
-                    if (this.size) {
-                        return this.size;
-                    } else {
-                        return 15;
-                    }
-                case ItemsDisplayMode.DESCRIPTION:
-                    return 35;
-                case ItemsDisplayMode.CODE_AND_DESC:
-                case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
-                case ItemsDisplayMode.DESC_AND_CODE:
-                    return 50;
-                default:
-                    return 35;
-            }
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
