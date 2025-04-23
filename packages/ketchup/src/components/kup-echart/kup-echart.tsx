@@ -219,8 +219,10 @@ export class KupEchart {
                 const xMax = this.rootElement.clientWidth + 5;
                 const yMin = this.rootElement.clientHeight - 5;
                 const yMax = this.rootElement.clientHeight + 5;
-                const x = this.#chartEl.getWidth();
-                const y = this.#chartEl.getHeight();
+                const x =
+                    this.data?.rows?.length > 0 ? this.#chartEl.getWidth() : 0;
+                const y =
+                    this.data?.rows?.length > 0 ? this.#chartEl.getHeight() : 0;
                 if (x < xMin || x > xMax || y < yMin || y > yMax) {
                     this.#chartEl.resize();
                 }

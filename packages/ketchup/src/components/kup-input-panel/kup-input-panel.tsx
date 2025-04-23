@@ -36,10 +36,7 @@ import {
 import { FLabel } from '../../f-components/f-label/f-label';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTypography } from '../../f-components/f-typography/f-typography';
-import {
-    FTypographyProps,
-    FTypographyType,
-} from '../../f-components/f-typography/f-typography-declarations';
+import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
 import {
     KupDataColumn,
     KupDataRow,
@@ -100,7 +97,6 @@ import {
     getInpComponentHeight,
     getLabelAbsoluteWidth,
     graphicShapeHasIcon,
-    SPACED_ROW_HEIGHT,
 } from './kup-input-panel-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -999,8 +995,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1010,8 +1006,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1789,10 +1785,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? (this.#optionsTreeComboAdapter(
+                    ? this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? [])
+                      ) ?? []
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {
