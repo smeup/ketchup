@@ -20,6 +20,7 @@ export enum KupComboboxProps {
     leadingLabel = 'When set to true, the label will be on the left of the component.',
     showMarker = 'When true shows a small marker on the component',
     legacyLook = 'When true enables the monospaced look for the CMB component',
+    size = 'Sets the size of the input element',
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {

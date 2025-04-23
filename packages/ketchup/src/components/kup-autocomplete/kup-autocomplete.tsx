@@ -43,6 +43,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { getSizeOfInputElement } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -190,6 +191,10 @@ export class KupAutocomplete {
      * @default false
      */
     @Prop() legacyLook: boolean = false;
+    /**
+     * Sets the size of the input element
+     */
+    @Prop() size: number;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -617,26 +622,6 @@ export class KupAutocomplete {
         );
     }
 
-    #calcSize() {
-        // Explicitly setting size from sub-components props, if present
-        if (this.data['kup-text-field']?.size) {
-            return this.data['kup-text-field']?.size as number;
-        } else {
-            switch (this.displayMode) {
-                case ItemsDisplayMode.CODE:
-                    return 15;
-                case ItemsDisplayMode.DESCRIPTION:
-                    return 35;
-                case ItemsDisplayMode.CODE_AND_DESC:
-                case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
-                case ItemsDisplayMode.DESC_AND_CODE:
-                    return 50;
-                default:
-                    return 35;
-            }
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -701,8 +686,8 @@ export class KupAutocomplete {
                 ? true
                 : false,
             showMarker: this.showMarker,
-            size: this.#calcSize(),
             legacyLook: this.legacyLook,
+            size: getSizeOfInputElement(this.data, this.displayMode, this.size),
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');

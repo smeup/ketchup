@@ -379,6 +379,10 @@ export namespace Components {
          */
         "showMarker": boolean;
         /**
+          * Sets the size of the input element
+         */
+        "size": number;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -1463,6 +1467,10 @@ export namespace Components {
           * @default false
          */
         "showMarker": boolean;
+        /**
+          * Sets the size of the input element
+         */
+        "size": number;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
@@ -6549,6 +6557,10 @@ declare namespace LocalJSX {
          */
         "showMarker"?: boolean;
         /**
+          * Sets the size of the input element
+         */
+        "size"?: number;
+        /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
          */
@@ -7506,6 +7518,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "showMarker"?: boolean;
+        /**
+          * Sets the size of the input element
+         */
+        "size"?: number;
         /**
           * Sets the type of the button
           * @default KupComponentSizing.SMALL
