@@ -683,6 +683,7 @@ export class KupDatePicker {
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
                         maxLength={textfieldData.maxLength ?? 10}
+                        size={10}
                         id={this.rootElement.id + '_text-field'}
                         value={this.getDateForOutput()}
                         onBlur={() => this.onKupBlur()}
