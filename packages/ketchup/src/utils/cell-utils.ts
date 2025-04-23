@@ -401,11 +401,7 @@ export function getSizeOfInputElement(
     } else {
         switch (displayMode) {
             case ItemsDisplayMode.CODE:
-                if (size) {
-                    return size;
-                } else {
-                    return 15;
-                }
+                return size || 15;
             case ItemsDisplayMode.DESCRIPTION:
                 return 35;
             case ItemsDisplayMode.CODE_AND_DESC:
