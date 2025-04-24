@@ -256,7 +256,8 @@
             "genericRequiredValue": "This field is required",
             "genericUpload": "Upload",
             "genericChoose": "Choose",
-            "fileUploadSuccess": "Upload complete"
+            "fileUploadSuccess": "Upload complete",
+            "genericTypeCodeOrDescr": "Type code or description"
         }
     },
     "french": {
@@ -516,7 +517,8 @@
             "genericRequiredValue": "Valore obbligatorio",
             "genericUpload": "Carica",
             "genericChoose": "Scegli",
-            "fileUploadSuccess": "Caricamento completato"
+            "fileUploadSuccess": "Caricamento completato",
+            "genericTypeCodeOrDescr": "Digita codice o descrizione"
         },
         "variants": {
             "smeup": {

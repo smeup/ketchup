@@ -327,7 +327,6 @@ export namespace Components {
         "minimumChars": number;
         /**
           * Set custom placeholder / watermark for text field
-          * @default "Type code or description"
          */
         "placeholder": string;
         /**
@@ -6528,7 +6527,6 @@ declare namespace LocalJSX {
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Set custom placeholder / watermark for text field
-          * @default "Type code or description"
          */
         "placeholder"?: string;
         /**
