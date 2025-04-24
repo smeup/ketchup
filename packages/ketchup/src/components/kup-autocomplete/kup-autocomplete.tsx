@@ -183,7 +183,8 @@ export class KupAutocomplete {
      */
     @Prop() trailingIcon: boolean = false;
     /**
-     * Set custom placeholder / watermark for text field
+     * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
+     * @default 'Type code or description'
      */
     @Prop() placeholder: string = null;
     /**
