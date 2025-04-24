@@ -326,7 +326,8 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
-          * Set custom placeholder / watermark for text field
+          * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
+          * @default 'Type code or description'
          */
         "placeholder": string;
         /**
@@ -6526,7 +6527,8 @@ declare namespace LocalJSX {
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         /**
-          * Set custom placeholder / watermark for text field
+          * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
+          * @default 'Type code or description'
          */
         "placeholder"?: string;
         /**
