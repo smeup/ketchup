@@ -44,6 +44,7 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { getSizeOfInputElement } from '../../utils/cell-utils';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -182,10 +183,10 @@ export class KupAutocomplete {
      */
     @Prop() trailingIcon: boolean = false;
     /**
-     * Set custom placeholder / watermark for text field
-     * @default "Type code or description"
+     * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
+     * @default 'Type code or description'
      */
-    @Prop() placeholder: string = 'Type code or description';
+    @Prop() placeholder: string = null;
     /**
      * Allows legacyLook in ACP
      * @default false
@@ -636,6 +637,10 @@ export class KupAutocomplete {
                 'kup-text-field': {},
             };
         }
+
+        this.placeholder ||= this.#kupManager.language.translate(
+            KupLanguageGeneric.TYPE_CODE_OR_DESCR
+        );
     }
 
     componentDidLoad() {

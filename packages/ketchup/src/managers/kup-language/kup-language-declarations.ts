@@ -183,6 +183,7 @@ export enum KupLanguageGeneric {
     REQUIRED_VALUE = 'genericRequiredValue',
     UPLOAD = 'genericUpload',
     CHOOSE = 'genericChoose',
+    TYPE_CODE_OR_DESCR = 'genericTypeCodeOrDescr',
 }
 /**
  * Grid decodes (data table customization settings).
