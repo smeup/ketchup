@@ -41,4 +41,14 @@
       margin-right: auto;
     }
   }
+
+  .sub-filters-warning {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--kup-space-05);
+
+    label {
+      font-size: var(--kup-label-01-font-size, 12px);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { h, VNode } from '@stencil/core';
+import { Fragment, h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
@@ -16,8 +16,10 @@ import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-decla
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupDropdownButton } from '../../kup-dropdown-button/kup-dropdown-button';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
+import { kupManagerInstance } from '../../../managers/kup-manager/kup-manager';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupManager = kupManagerInstance();
 
 /**
  * 1st standard card layout, inspired by Material Design.
@@ -852,6 +854,9 @@ export function create12(component: KupCard): VNode {
             buttonsIds.push(button['id']);
         }
     }
+
+    const filtersMaxLen: number = kupManager.perfTuning.data.filtersMaxLength;
+
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ||
@@ -904,9 +909,12 @@ export function create12(component: KupCard): VNode {
                     : null}
             </div>
             {checkboxArray.length > 0 ? (
-                <div class="section-3">
-                    {compList(checkboxArray, 'checkbox')}
-                </div>
+                <Fragment>
+                    {getFiltersWarningElement(checkboxArray, filtersMaxLen)}
+                    <div class="section-3">
+                        {compList(checkboxArray, 'checkbox', filtersMaxLen)}
+                    </div>
+                </Fragment>
             ) : null}
         </div>
     );
@@ -1040,6 +1048,8 @@ export function create14(component: KupCard): VNode {
     const tooltipText = dom.ketchup.language.translate(
         KupLanguageSearch.TOOLTIP
     );
+
+    const filtersMaxLen: number = kupManager.perfTuning.data.filtersMaxLength;
 
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
@@ -1177,9 +1187,19 @@ export function create14(component: KupCard): VNode {
                                 : null}
                         </div>
                         {checkboxArray.length > 0 ? (
-                            <div class="sub-checkbox">
-                                {compList(checkboxArray, 'checkbox')}
-                            </div>
+                            <Fragment>
+                                {getFiltersWarningElement(
+                                    checkboxArray,
+                                    filtersMaxLen
+                                )}
+                                <div class="sub-checkbox">
+                                    {compList(
+                                        checkboxArray,
+                                        'checkbox',
+                                        filtersMaxLen
+                                    )}
+                                </div>
+                            </Fragment>
                         ) : null}
                     </div>
                 ) : null}
@@ -1620,4 +1640,19 @@ export function create17(component: KupCard): VNode {
             </div>
         </div>
     );
+}
+
+function getFiltersWarningElement(
+    checkboxArray: GenericObject[],
+    filtersMaxLength: number
+): VNode {
+    return checkboxArray.length > filtersMaxLength ? (
+        <div class={'sub-filters-warning'}>
+            <label>
+                {kupManager.language.translate(
+                    KupLanguageGeneric.PARTIAL_FILTERS_LIST
+                )}
+            </label>
+        </div>
+    ) : null;
 }
