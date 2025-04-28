@@ -617,6 +617,7 @@ export class KupCombobox {
             showMarker: this.showMarker,
             legacyLook: this.legacyLook,
             size: getSizeOfInputElement(this.data, this.displayMode, this.size),
+            title: this.displayedValue ?? '',
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
