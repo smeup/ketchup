@@ -292,7 +292,6 @@ export class KupInputPanel {
     >([
         [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
     ]);
-    #keysShortcut: string[] = [];
     #readyPromise: Promise<void>;
     #readyResolve: () => void;
     //#endregion
@@ -479,7 +478,6 @@ export class KupInputPanel {
         const layout = inputPanelCell.row.layout;
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
-        const styleTypographyObj: GenericObject = {};
 
         let rowContent: VNode[];
 

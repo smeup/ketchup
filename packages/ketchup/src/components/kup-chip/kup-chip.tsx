@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -28,11 +27,7 @@ import {
     KupChipNode,
     KupChipProps,
 } from './kup-chip-declarations';
-import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -337,8 +332,7 @@ export class KupChip {
     }
 
     #stringifiedValues() {
-        let stringifiedValues = '';
-        this.data.forEach((node) => (stringifiedValues += node.id + ';'));
+        let stringifiedValues = this.data.map((node) => node.id).join(';');
         return stringifiedValues;
     }
 
