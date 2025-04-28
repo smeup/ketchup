@@ -194,7 +194,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
-import { KupPerfTuningPriority } from '../../managers/kup-perf-tuning/kup-perf-tuning-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -952,29 +951,16 @@ export class KupDataTable {
     computeMaxRowsPerPage() {
         if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
             const columnsNumber = this.data.columns.length;
-            const perfTuningData = this.#kupManager.perfTuning.data;
+            const rowsNumber = this.data.rows.length;
+            const perfTuning = this.#kupManager.perfTuning;
 
-            switch (perfTuningData.priority) {
-                case KupPerfTuningPriority.ROWS_PER_PAGE:
-                    this.#maxRowsPerPage = perfTuningData.maxRowsPerPage;
-                    break;
-
-                case KupPerfTuningPriority.CELLS_PER_PAGE:
-                    const cellsNumber = this.data.rows.reduce(
-                        (acc, r) => acc + Object.keys(r.cells).length,
-                        0
-                    );
-                    const maxCellsNumberPerPage =
-                        perfTuningData.maxCellsPerPage;
-                    if (cellsNumber > maxCellsNumberPerPage) {
-                        // Rounds a number up to the nearest multiple of ten.
-                        this.#maxRowsPerPage =
-                            Math.ceil(
-                                maxCellsNumberPerPage / columnsNumber / 10
-                            ) * 10;
-                    }
-                    break;
-            }
+            perfTuning.maxRowsPerPageProvider(
+                columnsNumber,
+                rowsNumber,
+                (maxRows) => {
+                    this.#maxRowsPerPage = maxRows;
+                }
+            );
 
             if (this.rowsPerPage > this.#maxRowsPerPage)
                 this.rowsPerPage = this.#maxRowsPerPage;
