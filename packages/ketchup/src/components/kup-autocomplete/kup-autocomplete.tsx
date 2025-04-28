@@ -693,6 +693,7 @@ export class KupAutocomplete {
             showMarker: this.showMarker,
             legacyLook: this.legacyLook,
             size: getSizeOfInputElement(this.data, this.displayMode, this.size),
+            title: this.displayedValue ?? '',
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
