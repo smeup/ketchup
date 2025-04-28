@@ -194,8 +194,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
-import { KupPerfTuningPriority } from '../../managers/kup-perf-tuning/kup-perf-tuning-declarations';
-import { max } from 'dayjs';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
