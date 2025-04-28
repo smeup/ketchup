@@ -184,6 +184,7 @@ export enum KupLanguageGeneric {
     UPLOAD = 'genericUpload',
     CHOOSE = 'genericChoose',
     TYPE_CODE_OR_DESCR = 'genericTypeCodeOrDescr',
+    PARTIAL_FILTERS_LIST = 'genericPartialFiltersList',
 }
 /**
  * Grid decodes (data table customization settings).

@@ -257,7 +257,8 @@
             "genericUpload": "Upload",
             "genericChoose": "Choose",
             "fileUploadSuccess": "Upload complete",
-            "genericTypeCodeOrDescr": "Type code or description"
+            "genericTypeCodeOrDescr": "Type code or description",
+            "genericPartialFiltersList": "Partial filters list"
         }
     },
     "french": {
@@ -518,7 +519,8 @@
             "genericUpload": "Carica",
             "genericChoose": "Scegli",
             "fileUploadSuccess": "Caricamento completato",
-            "genericTypeCodeOrDescr": "Digita codice o descrizione"
+            "genericTypeCodeOrDescr": "Digita codice o descrizione",
+            "genericPartialFiltersList": "Lista filtri parziale"
         },
         "variants": {
             "smeup": {
