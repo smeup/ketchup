@@ -744,7 +744,7 @@ export class KupDataTable {
     /**
      * Activates the scroll on hover function.
      */
-    @Prop() scrollOnHover: boolean = false;
+    @Prop() scrollOnHover: boolean = true;
     /**
      * Set the type of the rows selection.
      */
@@ -2847,19 +2847,11 @@ export class KupDataTable {
 
     #checkScrollOnHover() {
         if (!this.#kupManager.scrollOnHover.isRegistered(this.#tableAreaRef)) {
-            if (
-                this.scrollOnHover &&
-                this.tableHeight === undefined &&
-                this.tableWidth === undefined
-            ) {
+            if (this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.register(this.#tableAreaRef);
             }
         } else {
-            if (
-                !this.scrollOnHover &&
-                (this.tableHeight !== undefined ||
-                    this.tableWidth !== undefined)
-            ) {
+            if (!this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.unregister(this.#tableAreaRef);
             }
         }
