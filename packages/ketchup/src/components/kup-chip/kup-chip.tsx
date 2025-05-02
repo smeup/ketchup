@@ -332,8 +332,7 @@ export class KupChip {
     }
 
     #stringifiedValues() {
-        let stringifiedValues = this.data.map((node) => node.id).join(';');
-        return stringifiedValues;
+        return this.data.map((node) => node.id).join(';');
     }
 
     /*-------------------------------------------------*/
@@ -447,6 +446,11 @@ export class KupChip {
                     this.#changeHandler(e);
                 }}
                 onKup-textfield-change={(
+                    e: CustomEvent<KupTextFieldEventPayload>
+                ) => {
+                    this.#changeHandler(e);
+                }}
+                onKup-textfield-submit={(
                     e: CustomEvent<KupTextFieldEventPayload>
                 ) => {
                     this.#changeHandler(e);
