@@ -744,7 +744,7 @@ export class KupDataTable {
     /**
      * Activates the scroll on hover function.
      */
-    @Prop() scrollOnHover: boolean = true;
+    @Prop() scrollOnHover: boolean = false;
     /**
      * Set the type of the rows selection.
      */
