@@ -214,15 +214,13 @@ export class KupEchart {
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.#resizeTimeout);
         this.#resizeTimeout = window.setTimeout(() => {
-            if (this.#chartEl) {
+            if (this.#chartEl && this.#chartEl.getZr()) {
                 const xMin = this.rootElement.clientWidth - 5;
                 const xMax = this.rootElement.clientWidth + 5;
                 const yMin = this.rootElement.clientHeight - 5;
                 const yMax = this.rootElement.clientHeight + 5;
-                const x =
-                    this.data?.rows?.length > 0 ? this.#chartEl.getWidth() : 0;
-                const y =
-                    this.data?.rows?.length > 0 ? this.#chartEl.getHeight() : 0;
+                const x = this.#chartEl.getWidth();
+                const y = this.#chartEl.getHeight();
                 if (x < xMin || x > xMax || y < yMin || y > yMax) {
                     this.#chartEl.resize();
                 }
@@ -1948,7 +1946,7 @@ export class KupEchart {
     }
 
     disconnectedCallback() {
-        this.#chartEl.dispose();
+        this.#chartEl?.dispose();
         this.#kupManager.theme.unregister(this);
         this.#kupManager.resize.unobserve(this.rootElement);
     }

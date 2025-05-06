@@ -2847,19 +2847,11 @@ export class KupDataTable {
 
     #checkScrollOnHover() {
         if (!this.#kupManager.scrollOnHover.isRegistered(this.#tableAreaRef)) {
-            if (
-                this.scrollOnHover &&
-                this.tableHeight === undefined &&
-                this.tableWidth === undefined
-            ) {
+            if (this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.register(this.#tableAreaRef);
             }
         } else {
-            if (
-                !this.scrollOnHover &&
-                (this.tableHeight !== undefined ||
-                    this.tableWidth !== undefined)
-            ) {
+            if (!this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.unregister(this.#tableAreaRef);
             }
         }
