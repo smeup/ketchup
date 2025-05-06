@@ -2247,12 +2247,7 @@ export class KupTree {
         const visibleHeader = this.showHeader && this.showColumns;
 
         let filterField = null;
-        if (
-            this.globalFilter &&
-            this.data &&
-            this.data.length &&
-            this.data.length > 0
-        ) {
+        if (this.globalFilter) {
             filterField = (
                 <div id="global-filter">
                     <kup-text-field
