@@ -295,6 +295,7 @@ export const RADAdapter = (value: string, options: GenericObject) => ({
         ? options?.map((option) => ({
               value: option.id,
               label: option.label,
+              shortcutLabel: option.shortcutLabel,
               checked: option.id == value,
               icon: option.icon,
           }))
