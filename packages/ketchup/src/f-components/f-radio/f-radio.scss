@@ -23,6 +23,22 @@
     --kup-radio-text-color-disabled,
     var(--kup-text-disabled)
   );
+  --kup_radio_shortcut_background_color: var(
+    --kup-radio-shortcut-background-color,
+    #e0e0e0
+  );
+  --kup_radio_shortcut_text_color: var(
+    --kup-radio-shortcut-text-color,
+    #525252
+  );
+  --kup_radio_shortcut_border_color: var(
+    --kup-radio-shortcut-border-color,
+    #d0d0d0
+  );
+  --kup_radio_shortcut_border_radius: var(
+    --kup-radio-shortcut-border-radius,
+    var(--kup-radius-01)
+  );
 
   font-family: var(--kup_radio_font_family);
   font-size: var(--kup_radio_font_size);
@@ -46,6 +62,17 @@
         gap: var(--kup-space-03);
         order: 2;
         align-items: center;
+        min-width: max-content;
+
+        .shortcut {
+          background-color: var(--kup_radio_shortcut_background_color);
+          color: var(--kup_radio_shortcut_text_color);
+          padding: var(--kup-space-02) var(--kup-space-03);
+          border: 1px solid var(--kup_radio_shortcut_border_color);
+          border-radius: var(--kup_radio_shortcut_border_radius);
+          user-select: none;
+          @include kup-caption-01;
+        }
       }
       .radio--chevron {
         order: 3;
