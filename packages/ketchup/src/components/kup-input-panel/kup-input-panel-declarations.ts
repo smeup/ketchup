@@ -163,6 +163,7 @@ export enum KupInputPanelProps {
     inputPanelPosition = 'Manage the global layout of the input panel fields. The default is COLUMNS.',
     autoSkip = 'Sets the auto skip between input text fields when the value reaches the max length.',
     autoFocus = 'Sets whether the first input should receive focus.',
+    fieldReset = 'Create e Reset button for the form'
 }
 
 export interface KupInputPanelEventHandlerDetails {
