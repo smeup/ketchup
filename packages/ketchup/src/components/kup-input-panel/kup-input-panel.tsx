@@ -203,6 +203,12 @@ export class KupInputPanel {
      */
     @Prop() updateOnClick: boolean = false;
 
+    /**
+     * When set to true, will render a reset button
+     * @default false
+     */
+    @Prop() fieldReset: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -560,6 +566,10 @@ export class KupInputPanel {
                             },
                         });
                     }}
+                    onReset={(e: SubmitEvent) => {
+                        e.preventDefault();
+                        this.onFormReset();
+                    }}
                     onContextMenu={(e: MouseEvent) => {
                         if (this.#findTraversedFCell(e) != null) {
                             e.preventDefault();
@@ -587,11 +597,57 @@ export class KupInputPanel {
                             wrapperClass="form__submit"
                             invisible={this.hiddenSubmitButton}
                         ></FButton>
+                        {this.fieldReset && (
+                            <FButton
+                                buttonType="reset"
+                                label="Reset"
+                                wrapperClass="form__submit"
+                                icon="broom"
+                            ></FButton>
+                        )}
                         {this.inputPanelCommands}
                     </div>
                 </form>
             </div>
         );
+    }
+
+    onFormReset() {
+        for (const col of this.data.columns) {
+            const initialCell = this.#originalData.rows[0].cells[col.name];
+            const {
+                value: initialValue,
+                data: initData,
+                decode: initDecode,
+            } = initialCell;
+            const initDisplay = initialCell.data?.displayMode;
+            const cell = this.#getCell(col.name);
+
+            if (
+                (cell.shape === FCellShapes.MULTI_AUTOCOMPLETE ||
+                    cell.shape === FCellShapes.MULTI_COMBOBOX) &&
+                cell.data?.data
+            ) {
+                // return chips at original state
+                cell.data = this.#mapData(initialCell, col);
+            }
+            cell.value = initialValue;
+            cell.obj.k = initialValue;
+
+            if (initDisplay !== undefined) {
+                cell.data.displayMode = initDisplay;
+            }
+
+            if (initData.initialValue !== undefined || cell.data.initialValue) {
+                cell.data.initialValue = initialValue;
+            }
+
+            if (initDecode !== undefined) {
+                cell.decode = initDecode;
+            }
+        }
+
+        this.refresh();
     }
 
     #renderCell(

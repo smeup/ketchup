@@ -3093,6 +3093,11 @@ export namespace Components {
          */
         "data": KupInputPanelData;
         /**
+          * When set to true, will render a reset button
+          * @default false
+         */
+        "fieldReset": boolean;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -8847,6 +8852,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupInputPanelData;
+        /**
+          * When set to true, will render a reset button
+          * @default false
+         */
+        "fieldReset"?: boolean;
         /**
           * Creates a hidden submit button in order to submit the form with enter.``
           * @default false
