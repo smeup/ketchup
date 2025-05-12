@@ -124,7 +124,6 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
             : '',
     };
 
-    console.log('FRadio props', props);
     return (
         <div
             class={`f-radio radio-wrapper
