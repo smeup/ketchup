@@ -97,6 +97,7 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                         e.stopPropagation();
                     }}
                 >
+                    {/* Icon */}
                     {radioType === FRadioType.CHEVRON && (
                         <FImage
                             resource={data.icon}
@@ -104,9 +105,14 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
                             sizeY="14px"
                         />
                     )}
+                    {/* Label */}
                     <label htmlFor={'radio-element'}>
                         {data.label ? data.label : ''}
                     </label>
+                    {/* Shortcut */}
+                    {data.shortcutLabel && (
+                        <div class="shortcut">{data.shortcutLabel}</div>
+                    )}
                 </div>
             </div>
         );
