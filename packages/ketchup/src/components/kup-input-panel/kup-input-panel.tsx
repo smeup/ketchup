@@ -614,13 +614,6 @@ export class KupInputPanel {
 
     onFormReset() {
         for (const col of this.data.columns) {
-            const initialCell = this.#originalData.rows[0].cells[col.name];
-            const {
-                value: initialValue,
-                data: initData,
-                decode: initDecode,
-            } = initialCell;
-            const initDisplay = initialCell.data?.displayMode;
             const cell = this.#getCell(col.name);
 
             if (
@@ -628,22 +621,15 @@ export class KupInputPanel {
                     cell.shape === FCellShapes.MULTI_COMBOBOX) &&
                 cell.data?.data
             ) {
-                // return chips at original state
-                cell.data = this.#mapData(initialCell, col);
+                // reset chips array
+                cell.data = [];
             }
-            cell.value = initialValue;
-            cell.obj.k = initialValue;
+            cell.value = '';
+            cell.obj.k = '';
+            cell.decode = '';
 
-            if (initDisplay !== undefined) {
-                cell.data.displayMode = initDisplay;
-            }
-
-            if (initData.initialValue !== undefined || cell.data.initialValue) {
-                cell.data.initialValue = initialValue;
-            }
-
-            if (initDecode !== undefined) {
-                cell.decode = initDecode;
+            if (cell.data.initialValue) {
+                cell.data.initialValue = '';
             }
         }
 
