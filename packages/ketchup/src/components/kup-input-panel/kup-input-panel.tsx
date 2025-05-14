@@ -622,7 +622,7 @@ export class KupInputPanel {
                 cell.data?.data
             ) {
                 // reset chips array
-                cell.data = [];
+                cell.data.data = [];
             }
             cell.value = '';
             cell.obj.k = '';
