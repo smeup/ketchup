@@ -470,7 +470,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         <button onClick={props.onPlusClick}>{plusEl}</button>
                     </div>
                 )}
-                {props.isClearable ? (
+                {props.isClearable && props.value ? (
                     <span
                         class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
                             '--',

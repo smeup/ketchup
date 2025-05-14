@@ -378,6 +378,19 @@ export class KupAutocomplete {
         });
     }
 
+    onKupClearIconClick() {
+        this.value = '';
+        this.displayedValue = '';
+        this.#textfieldEl.value = '';
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            node: { value: '' },
+        });
+        this.#closeList();
+    }
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -739,6 +752,7 @@ export class KupAutocomplete {
                             );
                         }}
                         onIconClick={() => this.onKupIconClick()}
+                        onClearIconClick={() => this.onKupClearIconClick()}
                     ></FTextField>
                 </div>
                 {this.#prepList()}
