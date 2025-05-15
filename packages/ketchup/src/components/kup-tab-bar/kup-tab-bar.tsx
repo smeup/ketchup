@@ -563,17 +563,20 @@ export class KupTabBar {
                             sizeX="16px"
                             sizeY="16px"
                             onClick={async (event: MouseEvent) => {
-                                event.stopPropagation();
-                                const el = event.currentTarget as HTMLElement;
-                                const data = await this.infoCallback();
-                                this.infoState = data;
-                                if (this.infoState.length > 0) {
-                                    this.onKupInfoIconClick(el);
-                                } else {
-                                    this.kupManager.debug.logMessage(
-                                        this,
-                                        'InfoIcon data is empty, not opening dropdown.'
-                                    );
+                                if (node.active) {
+                                    event.stopPropagation();
+                                    const el =
+                                        event.currentTarget as HTMLElement;
+                                    const data = await this.infoCallback();
+                                    this.infoState = data;
+                                    if (this.infoState.length > 0) {
+                                        this.onKupInfoIconClick(el);
+                                    } else {
+                                        this.kupManager.debug.logMessage(
+                                            this,
+                                            'InfoIcon data is empty, not opening dropdown.'
+                                        );
+                                    }
                                 }
                             }}
                             wrapperClass="tab__iconToolbar iconInfo"
@@ -585,17 +588,20 @@ export class KupTabBar {
                             sizeX="16px"
                             sizeY="16px"
                             onClick={async (event: MouseEvent) => {
-                                event.stopPropagation();
-                                const el = event.currentTarget as HTMLElement;
-                                const data = await this.toolbarCallback();
-                                this.toolbarState = data;
-                                if (this.toolbarState.length > 0) {
-                                    this.onKupIconClick(el);
-                                } else {
-                                    this.kupManager.debug.logMessage(
-                                        this,
-                                        'Toolbar data is empty, not opening dropdown.'
-                                    );
+                                if (node.active) {
+                                    event.stopPropagation();
+                                    const el =
+                                        event.currentTarget as HTMLElement;
+                                    const data = await this.toolbarCallback();
+                                    this.toolbarState = data;
+                                    if (this.toolbarState.length > 0) {
+                                        this.onKupIconClick(el);
+                                    } else {
+                                        this.kupManager.debug.logMessage(
+                                            this,
+                                            'Toolbar data is empty, not opening dropdown.'
+                                        );
+                                    }
                                 }
                             }}
                             wrapperClass="tab__iconToolbar iconToolbar"
