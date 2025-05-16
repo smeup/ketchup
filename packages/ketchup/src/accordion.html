@@ -43,6 +43,22 @@
                     ullamco laboris nisi.</p
                 ><kup-button slot="FLD2" label="FLD2"></kup-button
             ></kup-accordion>
+
+            <h1>Accordion with accordion inside</h1>
+            <kup-accordion id="accordionIntoAnother-main">
+                <kup-accordion
+                    id="accordionIntoAnother-main-second"
+                    slot="main-second"
+                >
+                    <p slot="child-first" label="child-first"
+                        >Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi.</p
+                    >
+                    <p slot="child-second" label="child-second">Other text </p>
+                </kup-accordion>
+            </kup-accordion>
         </div>
     </body>
     <script src="/assets/accordion.js"></script>
