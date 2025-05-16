@@ -1705,12 +1705,65 @@ export class KupDataTable {
      * @param {string} column - Name of the column.
      */
     @Method()
-    async openColumnMenu(column: string): Promise<void> {
-        this.#createCardColumnContextMenu(column);
+    async openColumnMenu(
+        columnName: string,
+        wrapperClass: string
+    ): Promise<void> {
+        if (this.#columnMenuCard) {
+            this.#closeColumnMenuCard();
+        }
+
+        this.#columnMenuCard = document.createElement('kup-card');
+        this.#columnMenuCard.isMenu = true;
+        this.#columnMenuCard.layoutNumber = 12;
+        this.#columnMenuCard.sizeX = 'auto';
+        this.#columnMenuCard.sizeY = 'auto';
+        this.#columnMenuCard.addEventListener(
+            'kup-card-click',
+            (e: CustomEvent<KupEventPayload>) => {
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+
+        this.#columnMenuCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                this.#columnMenuInstance.eventHandlers(e, this);
+                this.kupDataTableColumnMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    card: this.#columnMenuCard,
+                    event: e,
+                    open: this.#columnMenuCard.menuVisible,
+                });
+            }
+        );
+
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.#closeColumnMenuCard();
+            },
+            el: this.#columnMenuCard,
+        };
+
+        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
+
+        this.#columnMenuCard.setAttribute('data-column', columnName);
+        this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getColumns(), columnName)
+        );
+        this.#columnMenuInstance.open(this, columnName);
         this.#columnMenuInstance.reposition(
             this,
             this.#columnMenuCard,
-            'th[data-column="' + column + '"]'
+            wrapperClass
         );
         this.kupDataTableColumnMenu.emit({
             comp: this,
@@ -3879,7 +3932,8 @@ export class KupDataTable {
     ): KupDatatableEventHandlerDetails {
         if (details.area === DataTableAreasEnum.HEADER) {
             if (details.column) {
-                this.openColumnMenu(details.column.name);
+                const colName = details.column.name;
+                this.openColumnMenu(colName, `th[data-column="${colName}"]`);
                 return details;
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
@@ -6831,67 +6885,11 @@ export class KupDataTable {
         );
     }
 
-    #createCardColumnContextMenu(columnName: string) {
-        if (this.#columnMenuCard) {
-            this.#closeColumnMenuCard();
-        }
-
-        this.#columnMenuCard = document.createElement('kup-card');
-        this.#columnMenuCard.isMenu = true;
-        this.#columnMenuCard.layoutNumber = 12;
-        this.#columnMenuCard.sizeX = 'auto';
-        this.#columnMenuCard.sizeY = 'auto';
-        this.#columnMenuCard.addEventListener(
-            'kup-card-click',
-            (e: CustomEvent<KupEventPayload>) => {
-                this.kupDataTableColumnMenu.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    card: this.#columnMenuCard,
-                    event: e,
-                    open: this.#columnMenuCard.menuVisible,
-                });
-            }
-        );
-
-        this.#columnMenuCard.addEventListener(
-            'kup-card-event',
-            (e: CustomEvent<KupCardEventPayload>) => {
-                this.#columnMenuInstance.eventHandlers(e, this);
-                this.kupDataTableColumnMenu.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    card: this.#columnMenuCard,
-                    event: e,
-                    open: this.#columnMenuCard.menuVisible,
-                });
-            }
-        );
-
-        this.#clickCbDropCard = {
-            cb: () => {
-                this.#closeColumnMenuCard();
-            },
-            el: this.#columnMenuCard,
-        };
-
-        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
-
-        this.#columnMenuCard.setAttribute('data-column', columnName);
-        this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
-            this,
-            getColumnByName(this.getVisibleColumns(), columnName)
-        );
-        this.#columnMenuInstance.open(this, columnName);
-    }
-
     #handleChipsContextMenu(chipColumnName: string, e) {
         e.preventDefault();
 
-        this.#createCardColumnContextMenu(chipColumnName);
-        this.#columnMenuInstance.reposition(
-            this,
-            this.#columnMenuCard,
+        this.openColumnMenu(
+            chipColumnName,
             `.chip[data-value="${chipColumnName}"]`
         );
     }
