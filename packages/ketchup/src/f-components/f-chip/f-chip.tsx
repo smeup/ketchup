@@ -211,6 +211,14 @@ function createChipList(
                             ? props.onClick[i].bind(props.onClick[i], chip)
                             : null
                     }
+                    onContextMenu={
+                        props.onContextMenu && props.onContextMenu[i]
+                            ? props.onContextMenu[i].bind(
+                                  props.onContextMenu[i],
+                                  chip
+                              )
+                            : null
+                    }
                     role="row"
                     title={chip.title ? chip.title : ''}
                 >

@@ -9,6 +9,7 @@ export interface FChipsProps extends FComponent {
     displayMode?: ItemsDisplayMode;
     onBlur?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
+    onContextMenu?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onExpansionClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onFocus?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onIconClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
