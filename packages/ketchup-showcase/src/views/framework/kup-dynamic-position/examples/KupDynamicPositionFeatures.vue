@@ -159,34 +159,32 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'start',
-          },
-          {
-            name: '3',
-            title: 'stop',
-          },
-          {
-            name: '4',
-            title: 'changeAnchor',
-          },
-          {
-            name: '5',
-            title: 'isRegistered',
-          },
-          {
-            name: '6',
-            title: 'unregister',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'start',
+        },
+        {
+          id: '3',
+          value: 'stop',
+        },
+        {
+          id: '4',
+          value: 'changeAnchor',
+        },
+        {
+          id: '5',
+          value: 'isRegistered',
+        },
+        {
+          id: '6',
+          value: 'unregister',
+        },
+      ];
       accordion.expandAll();
     },
     /**

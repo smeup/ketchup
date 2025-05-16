@@ -1,4 +1,8 @@
-import { KupPerfTuningData } from './kup-perf-tuning-declarations';
+import { number } from 'echarts';
+import {
+    KupPerfTuningData,
+    KupPerfTuningPriority,
+} from './kup-perf-tuning-declarations';
 
 export class KupPerfTuning {
     data: KupPerfTuningData;
@@ -30,5 +34,37 @@ export class KupPerfTuning {
         console.log(
             `perfIndex ${perfIndex}, maxCellsPerPage ${this.data.maxCellsPerPage}`
         );
+    }
+
+    maxRowsPerPageProvider(
+        columnsNumber: number,
+        rowsNumber: number,
+        maxRowsConsumer: (maxRows: number) => void
+    ): void {
+        switch (this.data.priority) {
+            case KupPerfTuningPriority.ROWS_PER_PAGE:
+                maxRowsConsumer(this.data.maxRowsPerPage);
+                break;
+
+            case KupPerfTuningPriority.CELLS_PER_PAGE:
+                computeRowCount(this.data.maxCellsPerPage);
+                break;
+            case KupPerfTuningPriority.DYNAMIC_ROWS_PER_PAGE:
+                if (columnsNumber <= 25) {
+                    maxRowsConsumer(this.data.maxRowsPerPage);
+                } else {
+                    computeRowCount(this.data.maxCellsPerPage);
+                }
+        }
+
+        function computeRowCount(maxCellsNumberPerPage: number) {
+            const cellsNumber = columnsNumber * rowsNumber;
+            if (cellsNumber > maxCellsNumberPerPage) {
+                // Rounds a number up to the nearest multiple of ten.
+                maxRowsConsumer(
+                    Math.ceil(maxCellsNumberPerPage / columnsNumber / 10) * 10
+                );
+            }
+        }
     }
 }

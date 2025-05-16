@@ -1,7 +1,5 @@
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
-import { KupListNode } from '../kup-list/kup-list-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-tab-bar component.
@@ -10,9 +8,13 @@ import { KupListNode } from '../kup-list/kup-list-declarations';
 export enum KupTabBarProps {
     customStyle = 'Custom style of the component.',
     data = 'List of elements.',
+    dense = 'When true, the component will be more compact.',
+    infoIcon = 'Icon to be shown in the info button',
     ripple = "When enabled displays Material's ripple effect on item headers.",
     toolbar = 'when true, it will show the toolbar activation icon',
     variant = 'Variant of the component. It is either flat or contained',
+    toolbarCallback = 'Callback to be called when the toolbar icon is clicked',
+    infoCallback = 'Callback to be called when the info icon is clicked',
 }
 
 /**
@@ -32,6 +34,7 @@ export enum KupTabbarStyling {
  */
 export interface KupTabBarNode extends KupDataNode {
     active?: boolean;
+    contentVisible?: boolean;
     danger?: boolean;
 }
 

@@ -204,9 +204,10 @@ export class KupManager {
             tooltipModal
         );
         this.perfTuning = new KupPerfTuning({
-            maxCellsPerPage: Number.MAX_VALUE,
+            maxCellsPerPage: 25000,
             maxRowsPerPage: 1000,
-            priority: KupPerfTuningPriority.ROWS_PER_PAGE,
+            filtersMaxLength: 200,
+            priority: KupPerfTuningPriority.DYNAMIC_ROWS_PER_PAGE,
         });
         this.perfMonitoring = new KupPerfMonitoring();
         document.addEventListener('pointerdown', (e) => {

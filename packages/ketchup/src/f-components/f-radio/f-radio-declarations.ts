@@ -22,6 +22,7 @@ export interface FRadioData {
     label: string;
     value: string;
     icon?: string;
+    shortcutLabel?: string;
 }
 
 export enum FRadioType {

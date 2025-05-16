@@ -1,3 +1,5 @@
+import { table } from 'console';
+import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     AbsoluteTblPositioningData,
@@ -94,20 +96,36 @@ export const getAbsoluteLeft = (col: number) => {
     return (col - 1) * 10 * LEFT_MULTIPLIER;
 };
 
-export const getInpComponentAbsoluteHeight = (layout: KupInputPanelLayout) => {
-    let inpRowHeight = 0;
-    layout.sections.forEach((section) => {
-        section.content.forEach((layoutField) => {
-            if (layoutField.absoluteRow > inpRowHeight) {
-                inpRowHeight =
-                    layoutField.absoluteRow +
-                    (layoutField.absoluteHeight > 1
-                        ? layoutField.absoluteHeight
-                        : 0);
-            }
-        });
-    });
-    return inpRowHeight;
+export const getInpComponentHeight = (layout: KupInputPanelLayout) => {
+    if (!layout) return 0;
+
+    const tblHeight =
+        layout.sections
+            .flatMap((section) => section.content)
+            .find((field) => field.shape === FCellShapes.TABLE)
+            ?.absoluteHeight ?? null;
+
+    const maxRow = Math.max(
+        0,
+        ...layout.sections.flatMap((section) =>
+            section.content.map(
+                // -1 because if the absolute height is 1 the sum will result in a field with height 2
+                // A field with absoluteRow 1 and height 1 is only on row 1, not 1+1
+                (field) => field.absoluteRow + (field.absoluteHeight - 1)
+            )
+        )
+    );
+
+    if (!tblHeight) {
+        // No TBL, all the rows have height 22
+        return maxRow * SPACED_ROW_HEIGHT;
+    } else {
+        // There is a TBL, with a rows height of 20
+        // All the non-TBL rows still have height 22
+        return (
+            (maxRow - tblHeight) * SPACED_ROW_HEIGHT + tblHeight * ROW_HEIGHT
+        );
+    }
 };
 
 export const graphicShapeHasIcon = (shape: string) => {

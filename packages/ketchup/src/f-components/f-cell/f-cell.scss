@@ -105,7 +105,7 @@
     .f-cell__content {
       margin: 0;
       overflow: hidden;
-
+      white-space: pre-wrap;
       > * {
         max-width: 100%;
         word-break: normal;

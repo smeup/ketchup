@@ -194,7 +194,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
-import { KupPerfTuningPriority } from '../../managers/kup-perf-tuning/kup-perf-tuning-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -952,29 +951,16 @@ export class KupDataTable {
     computeMaxRowsPerPage() {
         if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
             const columnsNumber = this.data.columns.length;
-            const perfTuningData = this.#kupManager.perfTuning.data;
+            const rowsNumber = this.data.rows.length;
+            const perfTuning = this.#kupManager.perfTuning;
 
-            switch (perfTuningData.priority) {
-                case KupPerfTuningPriority.ROWS_PER_PAGE:
-                    this.#maxRowsPerPage = perfTuningData.maxRowsPerPage;
-                    break;
-
-                case KupPerfTuningPriority.CELLS_PER_PAGE:
-                    const cellsNumber = this.data.rows.reduce(
-                        (acc, r) => acc + Object.keys(r.cells).length,
-                        0
-                    );
-                    const maxCellsNumberPerPage =
-                        perfTuningData.maxCellsPerPage;
-                    if (cellsNumber > maxCellsNumberPerPage) {
-                        // Rounds a number up to the nearest multiple of ten.
-                        this.#maxRowsPerPage =
-                            Math.ceil(
-                                maxCellsNumberPerPage / columnsNumber / 10
-                            ) * 10;
-                    }
-                    break;
-            }
+            perfTuning.maxRowsPerPageProvider(
+                columnsNumber,
+                rowsNumber,
+                (maxRows) => {
+                    this.#maxRowsPerPage = maxRows;
+                }
+            );
 
             if (this.rowsPerPage > this.#maxRowsPerPage)
                 this.rowsPerPage = this.#maxRowsPerPage;
@@ -1582,15 +1568,10 @@ export class KupDataTable {
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
-        if (this.visibleColumns?.length) {
-            this.visibleColumns = this.visibleColumns.filter(
-                (colName) => colName != column.name
-            );
-        } else {
-            this.visibleColumns = this.data.columns
-                .filter((col) => col.name != column.name && col.visible)
-                .map((col) => col.name);
-        }
+        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        this.visibleColumns = this.visibleColumns.filter(
+            (colName) => colName != column.name
+        );
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1715,8 +1696,8 @@ export class KupDataTable {
             type,
             options
         );
+        this.#insertNewColumnInVisibleColumnsList(result, options.columns[1]);
         this.refresh();
-
         return result;
     }
     /**
@@ -2061,6 +2042,43 @@ export class KupDataTable {
 
     //#endregion
 
+    #insertNewColumnInVisibleColumnsList(
+        result: string | KupDataColumn,
+        afterColumn: string
+    ) {
+        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        if (typeof result !== 'string') {
+            if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'New column [' +
+                        result.name +
+                        '] not present in visibleColumns!',
+                    KupDebugCategory.WARNING
+                );
+                const previousColumnIndex = this.visibleColumns.findIndex(
+                    (c) => c == afterColumn
+                );
+                if (previousColumnIndex >= 0) {
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'New column [' +
+                            result.name +
+                            '] added in visibleColumns at index [' +
+                            (previousColumnIndex + 1) +
+                            ']!',
+                        KupDebugCategory.WARNING
+                    );
+                    this.visibleColumns.splice(
+                        previousColumnIndex + 1,
+                        0,
+                        result.name
+                    );
+                }
+            }
+        }
+    }
+
     #closeDropCard() {
         this.#kupManager.dynamicPosition.stop(
             this.#columnDropCard as KupDynamicPositionElement
@@ -2083,7 +2101,11 @@ export class KupDataTable {
                 enableMove: this.enableSortableColumns,
                 receivingColumn: receiving,
                 starterColumn: starter,
-                formulaCb: () => {
+                formulaCb: (result) => {
+                    this.#insertNewColumnInVisibleColumnsList(
+                        result,
+                        starter.name
+                    );
                     this.#closeDropCard();
                     this.refresh();
                 },
@@ -2825,19 +2847,11 @@ export class KupDataTable {
 
     #checkScrollOnHover() {
         if (!this.#kupManager.scrollOnHover.isRegistered(this.#tableAreaRef)) {
-            if (
-                this.scrollOnHover &&
-                this.tableHeight === undefined &&
-                this.tableWidth === undefined
-            ) {
+            if (this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.register(this.#tableAreaRef);
             }
         } else {
-            if (
-                !this.scrollOnHover &&
-                (this.tableHeight !== undefined ||
-                    this.tableWidth !== undefined)
-            ) {
+            if (!this.scrollOnHover) {
                 this.#kupManager.scrollOnHover.unregister(this.#tableAreaRef);
             }
         }
@@ -3396,7 +3410,9 @@ export class KupDataTable {
         this.#kupManager.dynamicPosition.stop(
             this.#columnMenuCard as KupDynamicPositionElement
         );
+        this.#kupManager.dynamicPosition.unregister([this.#columnMenuCard]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#columnMenuInstance.close(this.#columnMenuCard);
         this.#columnMenuCard.remove();
         this.#columnMenuCard = null;
     }
@@ -4909,10 +4925,8 @@ export class KupDataTable {
             const sortedName = this.visibleColumns.splice(sIdx, 1)[0];
             this.visibleColumns.splice(rIdx, 0, sortedName);
         } else {
-            // // Adds the sorted column to visibleColumns to preserve the current column order.
-            this.visibleColumns = this.data.columns
-                .filter((col) => col.visible)
-                .map((col) => col.name);
+            // Adds the sorted column to visibleColumns to preserve the current column order.
+            this.visibleColumns = this.getVisibleColumns().map((c) => c.name);
         }
     }
 

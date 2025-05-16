@@ -137,6 +137,16 @@ $padding: 0.5em;
     }
   }
 
+  .sub-filters-warning {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--kup-space-05);
+
+    label {
+      font-size: var(--kup-label-01-font-size, 12px);
+    }
+  }
+
   .sub-formula {
     padding: 0.5em 0;
   }

@@ -19,6 +19,8 @@ export enum KupAutocompleteProps {
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
     showMarker = 'When true shows a small marker on the component',
     legacyLook = 'When true enables the monospaces look for the ACP component',
+    size = 'Sets the size of the input element',
+    placeholder = 'Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.',
 }
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {
