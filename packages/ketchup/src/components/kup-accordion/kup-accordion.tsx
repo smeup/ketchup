@@ -165,17 +165,6 @@ export class KupAccordion {
     kupIconClick: EventEmitter<KupAccordionEventPayload>;
 
     /**
-     * Triggered when the icon inside accordion is clicked.
-     */
-    @Event({
-        eventName: 'kup-accordion-infoiconclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInfoIconClick: EventEmitter<KupAccordionEventPayload>;
-
-    /**
      * Triggered when the accordion is focused.
      */
     @Event({
@@ -199,17 +188,6 @@ export class KupAccordion {
 
     onKupBlur(node: KupAccordionNode) {
         this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            node: node,
-        });
-    }
-
-    onKupClick(i: number, node: KupAccordionNode) {
-        this.data[i].contentVisible = !this.data[i].contentVisible;
-        this.updateSelectedItems();
-
-        this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
             node: node,
@@ -280,6 +258,9 @@ export class KupAccordion {
         if (this.data?.length) {
             for (let i = 0; i < this.data.length; i++) {
                 const node = this.data[i];
+                if (node.contentVisible === undefined) {
+                    node.contentVisible = true;
+                }
                 if (node.contentVisible) {
                     ids.push(node.id);
                 }
@@ -300,12 +281,8 @@ export class KupAccordion {
 
         for (let i = 0; i < this.data.length; i++) {
             const node = this.data[i];
-            const itemName = node.id;
-            if (
-                !this.isItemExpandible(itemName) &&
-                this.isItemSelected(itemName)
-            ) {
-                ids.push(itemName);
+            if (!this.isItemExpandible(node) && this.isItemSelected(node)) {
+                ids.push(node.id);
             }
         }
 
@@ -320,9 +297,8 @@ export class KupAccordion {
 
         for (let i = 0; i < this.data.length; i++) {
             const node = this.data[i];
-            const itemName = node.id;
-            if (this.isItemExpandible(itemName)) {
-                ids.push(itemName);
+            if (this.isItemExpandible(node)) {
+                ids.push(node.id);
             }
         }
 
@@ -358,13 +334,14 @@ export class KupAccordion {
      */
     @Method()
     async toggleItem(node: KupAccordionNode) {
-        const ids: string[] = [...this.selectedItems];
-        if (ids.includes(node.id)) {
-            ids.splice(ids.indexOf(node.id), 1);
-        } else {
-            ids.push(node.id);
+        if (!this.isItemExpandible(node)) {
+            return;
         }
-        this.selectedItems = ids;
+        if (node.contentVisible === undefined) {
+            node.contentVisible = true;
+        }
+        node.contentVisible = !node.contentVisible;
+        this.updateSelectedItems();
 
         this.kupClick.emit({
             comp: this,
@@ -377,12 +354,12 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private isItemExpandible(itemName: string): boolean {
-        return this.slotsNames.includes(itemName);
+    private isItemExpandible(item: KupAccordionNode): boolean {
+        return item.expandable || this.slotsNames.includes(item.id);
     }
 
-    private isItemSelected(itemName: string): boolean {
-        return this.selectedItems.includes(itemName);
+    private isItemSelected(item: KupAccordionNode): boolean {
+        return this.selectedItems.includes(item.id);
     }
 
     private renderItems(): VNode[] {
@@ -399,9 +376,8 @@ export class KupAccordion {
 
         for (let i = 0; i < this.data.length; i++) {
             const node: KupAccordionNode = this.data[i];
-            const itemName: string = node.id;
-            const isItemSelected: boolean = this.isItemSelected(itemName);
-            const isItemExpandible: boolean = this.isItemExpandible(itemName);
+            const isItemSelected: boolean = this.isItemSelected(node);
+            const isItemExpandible: boolean = this.isItemExpandible(node);
 
             const itemHeaderClass: GenericObject = {
                 'accordion-item__header': true,
@@ -422,7 +398,7 @@ export class KupAccordion {
 
             const wrapper = (
                 <div class="accordion-rigtbuttons">
-                    {this.infoIcon && (
+                    {this.infoIcon && this.infoCallback && (
                         <FImage
                             resource="info_outline"
                             sizeX="16px"
@@ -430,8 +406,7 @@ export class KupAccordion {
                             onClick={async (event: MouseEvent) => {
                                 event.stopPropagation();
                                 const el = event.currentTarget as HTMLElement;
-                                const data = await this.infoCallback();
-                                this.infoState = data;
+                                this.infoState = await this.infoCallback();
                                 if (this.infoState.length > 0) {
                                     this.onKupInfoIconClick(el);
                                 } else {
@@ -444,7 +419,7 @@ export class KupAccordion {
                             wrapperClass="tab__iconToolbar iconInfo"
                         />
                     )}
-                    {this.toolbar && (
+                    {this.toolbar && this.toolbarCallback && (
                         <FImage
                             resource="more_vert"
                             sizeX="16px"
@@ -452,9 +427,9 @@ export class KupAccordion {
                             onClick={async (event: MouseEvent) => {
                                 event.stopPropagation();
                                 const el = event.currentTarget as HTMLElement;
-                                const data = await this.toolbarCallback();
-                                this.toolbarState = data;
-                                if (this.toolbarState.length > 0) {
+                                this.toolbarState =
+                                    await this.toolbarCallback();
+                                if (this.toolbarState?.length > 0) {
                                     this.onKupIconClick(el);
                                 } else {
                                     this.kupManager.debug.logMessage(
@@ -483,9 +458,11 @@ export class KupAccordion {
                         tabindex={i}
                         title={node.title ?? null}
                         class={itemHeaderClass}
-                        onClick={() => this.toggleItem(node)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            this.toggleItem(node);
+                        }}
                         onBlur={() => this.onKupBlur(node)}
-                        // onClick={() => this.onKupClick(i, node)}
                         onFocus={() => this.onKupFocus(node)}
                     >
                         {node.icon ? (

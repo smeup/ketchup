@@ -89,7 +89,6 @@ type KupAccordionEvents = {
     onKupAccordionBlur: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>,
     onKupAccordionClick: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>,
     onKupAccordionIconclick: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>,
-    onKupAccordionInfoiconclick: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>,
     onKupAccordionFocus: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>,
     onKupAccordionToolbaritemclick: EventName<KupAccordionCustomEvent<KupAccordionEventPayload>>
 };
@@ -103,7 +102,6 @@ export const KupAccordion: StencilReactComponent<KupAccordionElement, KupAccordi
         onKupAccordionBlur: 'kup-accordion-blur',
         onKupAccordionClick: 'kup-accordion-click',
         onKupAccordionIconclick: 'kup-accordion-iconclick',
-        onKupAccordionInfoiconclick: 'kup-accordion-infoiconclick',
         onKupAccordionFocus: 'kup-accordion-focus',
         onKupAccordionToolbaritemclick: 'kup-accordion-toolbaritemclick'
     } as KupAccordionEvents,
@@ -1096,7 +1094,6 @@ type KupTabBarEvents = {
     onKupTabbarBlur: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarClick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarIconclick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
-    onKupTabbarInfoiconclick: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarFocus: EventName<KupTabBarCustomEvent<KupTabBarEventPayload>>,
     onKupTabbarToolbaritemclick: EventName<KupTabBarCustomEvent<KupToolbarItemClickEventPayload>>
 };
@@ -1110,7 +1107,6 @@ export const KupTabBar: StencilReactComponent<KupTabBarElement, KupTabBarEvents>
         onKupTabbarBlur: 'kup-tabbar-blur',
         onKupTabbarClick: 'kup-tabbar-click',
         onKupTabbarIconclick: 'kup-tabbar-iconclick',
-        onKupTabbarInfoiconclick: 'kup-tabbar-infoiconclick',
         onKupTabbarFocus: 'kup-tabbar-focus',
         onKupTabbarToolbaritemclick: 'kup-tabbar-toolbaritemclick'
     } as KupTabBarEvents,

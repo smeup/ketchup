@@ -5119,7 +5119,6 @@ declare global {
         "kup-accordion-blur": KupAccordionEventPayload;
         "kup-accordion-click": KupAccordionEventPayload;
         "kup-accordion-iconclick": KupAccordionEventPayload;
-        "kup-accordion-infoiconclick": KupAccordionEventPayload;
         "kup-accordion-focus": KupAccordionEventPayload;
         "kup-accordion-toolbaritemclick": KupAccordionEventPayload;
     }
@@ -6065,7 +6064,6 @@ declare global {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-iconclick": KupTabBarEventPayload;
-        "kup-tabbar-infoiconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
         "kup-tabbar-toolbaritemclick": KupToolbarItemClickEventPayload;
     }
@@ -6381,10 +6379,6 @@ declare namespace LocalJSX {
           * Triggered when the icon inside accordion is clicked.
          */
         "onKup-accordion-iconclick"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
-        /**
-          * Triggered when the icon inside accordion is clicked.
-         */
-        "onKup-accordion-infoiconclick"?: (event: KupAccordionCustomEvent<KupAccordionEventPayload>) => void;
         /**
           * Triggered when a list item is clicked.
          */
@@ -9721,10 +9715,6 @@ declare namespace LocalJSX {
           * Triggered when the icon inside tab is clicked.
          */
         "onKup-tabbar-iconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
-        /**
-          * Triggered when the icon inside tab is clicked.
-         */
-        "onKup-tabbar-infoiconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when a list item is clicked.
          */

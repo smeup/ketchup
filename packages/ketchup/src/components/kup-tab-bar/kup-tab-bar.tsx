@@ -161,17 +161,6 @@ export class KupTabBar {
     kupIconClick: EventEmitter<KupTabBarEventPayload>;
 
     /**
-     * Triggered when the icon inside tab is clicked.
-     */
-    @Event({
-        eventName: 'kup-tabbar-infoiconclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInfoIconClick: EventEmitter<KupTabBarEventPayload>;
-
-    /**
      * Triggered when the tab is focused.
      */
     @Event({
