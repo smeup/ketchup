@@ -24,9 +24,9 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
 import {
-    KupAccordionData,
     KupAccordionProps,
-    KupAccordionItemSelectedEventPayload,
+    KupAccordionNode,
+    KupAccordionEventPayload,
 } from './kup-accordion-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -34,7 +34,13 @@ import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../managers/kup-theme/kup-theme-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -71,46 +77,162 @@ export class KupAccordion {
      * Data of the accordion.
      * @default null
      */
-    @Prop() data: KupAccordionData = null;
+    @Prop() data: KupAccordionNode[] = null;
+    /**
+     * When true, it will show the info activation icon.
+     * @default false
+     */
+    @Prop() infoIcon: boolean = false;
     /**
      * When enabled displays Material's ripple effect on item headers.
      * @default true
      */
     @Prop() ripple: boolean = false;
     /**
-     * Sets the type of the button
+     * When true, it will show the toolbar activation icon.
+     * @default false
+     */
+    @Prop() toolbar: boolean = false;
+    /**
+     * Sets the type of the component sizing
      * @default KupComponentSizing.SMALL
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
+
+    @Prop() toolbarCallback: () => Promise<KupDataNode[]>;
+    @Prop() infoCallback: () => Promise<KupDataNode[]>;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    toolbarState: KupDataNode[] = [];
+    infoState: KupDataNode[] = [];
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    #clickCbDropCard: KupManagerClickCb = null;
     /**
      * Instance of the KupManager class.
      */
     private slotsNames: string[] = [];
+
+    /**
+     * Toolbar List.
+     */
+    private toolbarList: KupDynamicPositionElement;
+    private infoList: KupDynamicPositionElement;
+
+    #dropDownActionCardAnchor: HTMLElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     /**
-     * Fired when an item is selected.
+     * Triggered when the accordion loses focus.
      */
     @Event({
-        eventName: 'kup-accordion-itemselected',
+        eventName: 'kup-accordion-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
+    kupBlur: EventEmitter<KupAccordionEventPayload>;
 
+    /**
+     * Triggered when an item is selected.
+     */
+    @Event({
+        eventName: 'kup-accordion-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupAccordionEventPayload>;
+
+    /**
+     * Triggered when the icon inside accordion is clicked.
+     */
+    @Event({
+        eventName: 'kup-accordion-iconclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupAccordionEventPayload>;
+
+    /**
+     * Triggered when the accordion is focused.
+     */
+    @Event({
+        eventName: 'kup-accordion-focus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<KupAccordionEventPayload>;
+
+    /**
+     * Triggered when a list item is clicked.
+     */
+    @Event({
+        eventName: 'kup-accordion-toolbaritemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupToolbarItemClick: EventEmitter<KupAccordionEventPayload>;
+
+    onKupBlur(node: KupAccordionNode) {
+        this.kupBlur.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: node,
+        });
+    }
+
+    onKupIconClick(el: HTMLElement) {
+        if (!el) {
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
+            return;
+        }
+        this.#dropDownActionCardAnchor = el;
+        this.createDropDownToolbarList();
+    }
+
+    onKupInfoIconClick(el: HTMLElement) {
+        if (!el) {
+            this.kupManager.debug.logMessage(
+                this,
+                'onKupIconClick: Element is null'
+            );
+            return;
+        }
+        this.#dropDownActionCardAnchor = el;
+        this.createDropDownInfoList();
+    }
+
+    onKupFocus(node: KupAccordionNode) {
+        this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: node,
+        });
+    }
+
+    onKupToolbarItemClick(e: CustomEvent) {
+        this.kupToolbarItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: e.detail.selected,
+        });
+    }
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -130,6 +252,22 @@ export class KupAccordion {
         }
     }
 
+    @Watch('data')
+    updateSelectedItems() {
+        const ids: string[] = [];
+        if (this.data?.length) {
+            for (let i = 0; i < this.data.length; i++) {
+                const node = this.data[i];
+                if (node.contentVisible === undefined) {
+                    node.contentVisible = true;
+                }
+                if (node.contentVisible) {
+                    ids.push(node.id);
+                }
+            }
+        }
+        this.selectedItems = ids;
+    }
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -141,14 +279,10 @@ export class KupAccordion {
     async collapseAll(): Promise<void> {
         const ids: string[] = [];
 
-        for (let i = 0; i < this.data.columns.length; i++) {
-            const column = this.data.columns[i];
-            const itemName = column.name;
-            if (
-                !this.isItemExpandible(itemName) &&
-                this.isItemSelected(itemName)
-            ) {
-                ids.push(itemName);
+        for (let i = 0; i < this.data.length; i++) {
+            const node = this.data[i];
+            if (!this.isItemExpandible(node) && this.isItemSelected(node)) {
+                ids.push(node.id);
             }
         }
 
@@ -161,11 +295,10 @@ export class KupAccordion {
     async expandAll(): Promise<void> {
         const ids: string[] = [];
 
-        for (let i = 0; i < this.data.columns.length; i++) {
-            const column = this.data.columns[i];
-            const itemName = column.name;
-            if (this.isItemExpandible(itemName)) {
-                ids.push(itemName);
+        for (let i = 0; i < this.data.length; i++) {
+            const node = this.data[i];
+            if (this.isItemExpandible(node)) {
+                ids.push(node.id);
             }
         }
 
@@ -200,36 +333,33 @@ export class KupAccordion {
      * @param {string} itemName - Name of the item.
      */
     @Method()
-    async toggleItem(itemName: string) {
-        const isItemExpandible = this.isItemExpandible(itemName);
-
-        const ids: string[] = [...this.selectedItems];
-        if (ids.includes(itemName)) {
-            ids.splice(ids.indexOf(itemName), 1);
-        } else {
-            ids.push(itemName);
+    async toggleItem(node: KupAccordionNode) {
+        if (!this.isItemExpandible(node)) {
+            return;
         }
-        this.selectedItems = ids;
-
-        if (!isItemExpandible) {
-            this.kupAccordionItemSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                itemName: itemName,
-            });
+        if (node.contentVisible === undefined) {
+            node.contentVisible = true;
         }
+        node.contentVisible = !node.contentVisible;
+        this.updateSelectedItems();
+
+        this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: node,
+        });
     }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private isItemExpandible(itemName: string): boolean {
-        return this.slotsNames.includes(itemName);
+    private isItemExpandible(item: KupAccordionNode): boolean {
+        return item.expandable || this.slotsNames.includes(item.id);
     }
 
-    private isItemSelected(itemName: string): boolean {
-        return this.selectedItems.includes(itemName);
+    private isItemSelected(item: KupAccordionNode): boolean {
+        return this.selectedItems.includes(item.id);
     }
 
     private renderItems(): VNode[] {
@@ -244,11 +374,10 @@ export class KupAccordion {
             this.slotsNames.push(slot.slot);
         }
 
-        for (let i = 0; i < this.data.columns.length; i++) {
-            const column: KupDataColumn = this.data.columns[i];
-            const itemName: string = column.name;
-            const isItemSelected: boolean = this.isItemSelected(itemName);
-            const isItemExpandible: boolean = this.isItemExpandible(itemName);
+        for (let i = 0; i < this.data.length; i++) {
+            const node: KupAccordionNode = this.data[i];
+            const isItemSelected: boolean = this.isItemSelected(node);
+            const isItemExpandible: boolean = this.isItemExpandible(node);
 
             const itemHeaderClass: GenericObject = {
                 'accordion-item__header': true,
@@ -267,41 +396,233 @@ export class KupAccordion {
                     : false,
             };
 
+            const wrapper = (
+                <div class="accordion-rigtbuttons">
+                    {this.infoIcon && this.infoCallback && (
+                        <FImage
+                            resource="info_outline"
+                            sizeX="16px"
+                            sizeY="16px"
+                            onClick={async (event: MouseEvent) => {
+                                event.stopPropagation();
+                                const el = event.currentTarget as HTMLElement;
+                                this.infoState = await this.infoCallback();
+                                if (this.infoState.length > 0) {
+                                    this.onKupInfoIconClick(el);
+                                } else {
+                                    this.kupManager.debug.logMessage(
+                                        this,
+                                        'InfoIcon data is empty, not opening dropdown.'
+                                    );
+                                }
+                            }}
+                            wrapperClass="tab__iconToolbar iconInfo"
+                        />
+                    )}
+                    {this.toolbar && this.toolbarCallback && (
+                        <FImage
+                            resource="more_vert"
+                            sizeX="16px"
+                            sizeY="16px"
+                            onClick={async (event: MouseEvent) => {
+                                event.stopPropagation();
+                                const el = event.currentTarget as HTMLElement;
+                                this.toolbarState =
+                                    await this.toolbarCallback();
+                                if (this.toolbarState?.length > 0) {
+                                    this.onKupIconClick(el);
+                                } else {
+                                    this.kupManager.debug.logMessage(
+                                        this,
+                                        'Toolbar data is empty, not opening dropdown.'
+                                    );
+                                }
+                            }}
+                            wrapperClass="tab__iconToolbar iconToolbar"
+                        ></FImage>
+                    )}
+                    {isItemExpandible ? (
+                        <div
+                            class={`accordion-item__dropdown kup-icon ${KupThemeIconValues.DROPDOWN.replace(
+                                '--',
+                                ''
+                            )}`}
+                        />
+                    ) : null}
+                </div>
+            );
+
             items.push(
                 <div class="accordion-item">
                     <div
-                        tabindex="1"
-                        title={column.title}
+                        tabindex={i}
+                        title={node.title ?? null}
                         class={itemHeaderClass}
-                        onClick={() => this.toggleItem(itemName)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            this.toggleItem(node);
+                        }}
+                        onBlur={() => this.onKupBlur(node)}
+                        onFocus={() => this.onKupFocus(node)}
                     >
-                        {column.icon ? (
+                        {node.icon ? (
                             <FImage
-                                color={`var(${KupThemeColorValues.ICON})`}
-                                resource={column.icon}
+                                color={`var(${KupThemeColorValues.PRIMARY})`}
+                                resource={node.icon}
+                                placeholderResource={node.placeholderIcon}
                                 sizeX="1.5em"
                                 sizeY="1.5em"
                                 wrapperClass="accordion-item__icon"
                             />
                         ) : null}
-                        <span class="accordion-item__text">{column.title}</span>
-                        {isItemExpandible ? (
-                            <span
-                                class={`accordion-item__dropdown kup-icon ${KupThemeIconValues.DROPDOWN.replace(
-                                    '--',
-                                    ''
-                                )}`}
-                            />
+                        {node.value ? (
+                            <span class="accordion-item__text">
+                                {node.value ?? ''}
+                            </span>
                         ) : null}
+                        {wrapper}
                     </div>
-
                     <div class={itemContentClass}>
-                        <slot name={column.name}></slot>
+                        <slot name={node.id}></slot>
                     </div>
                 </div>
             );
         }
         return items;
+    }
+
+    closeRowToolbarList() {
+        if (this.toolbarList) {
+            this.kupManager.dynamicPosition.stop(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.toolbarList.remove();
+            this.kupManager.dynamicPosition.unregister([this.toolbarList]);
+            this.toolbarList = null;
+        }
+    }
+
+    /**
+     * Create dropdown list for toolbar
+     */
+    createDropDownToolbarList() {
+        if (!this.#dropDownActionCardAnchor) {
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
+            return;
+        }
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
+        }
+        if (this.toolbarState.length === 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'No toolbar state available.'
+            );
+            return;
+        }
+        const listEl = document.createElement('kup-toolbar');
+        listEl.data = this.toolbarState;
+        listEl.addEventListener('kup-toolbar-click', (e: CustomEvent) => {
+            this.onKupToolbarItemClick(e);
+            setTimeout(() => {
+                this.closeRowToolbarList();
+            }, 0);
+        });
+        this.toolbarList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeRowToolbarList();
+            },
+            el: this.toolbarList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.toolbarList);
+        requestAnimationFrame(() => {
+            if (!this.#dropDownActionCardAnchor) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'DropDown anchor is still null after delay!'
+                );
+                return;
+            }
+            this.kupManager.dynamicPosition.register(
+                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
+        });
+    }
+
+    /**
+     * Create dropdown list for tab info icon
+     */
+    createDropDownInfoList() {
+        if (!this.#dropDownActionCardAnchor) {
+            this.kupManager.debug.logMessage(
+                this,
+                'createDropDownToolbarList: Anchor is null!'
+            );
+            return;
+        }
+        if (this.infoList) {
+            this.closeInfoDataList();
+        }
+        if (this.infoState.length === 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'No toolbar state available.'
+            );
+            return;
+        }
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.infoState;
+        this.infoList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeInfoDataList();
+            },
+            el: this.infoList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.infoList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.infoList,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.infoList as unknown as KupDynamicPositionElement
+            );
+        });
+    }
+
+    /**
+     * Destroy dropdown list for tab info icon
+     */
+    closeInfoDataList() {
+        if (this.infoList) {
+            this.kupManager.dynamicPosition.stop(
+                this.infoList as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.infoList.remove();
+            this.kupManager.dynamicPosition.unregister([this.infoList]);
+            this.infoList = null;
+        }
     }
 
     /*-------------------------------------------------*/
@@ -314,6 +635,7 @@ export class KupAccordion {
     }
 
     componentDidLoad() {
+        this.updateSelectedItems();
         this.applyRipple();
         this.kupManager.debug.logLoad(this, true);
     }
@@ -337,7 +659,7 @@ export class KupAccordion {
 
     render() {
         const content: VNode[] =
-            this.data && this.data.columns ? this.renderItems() : null;
+            this.data && this.data.length ? this.renderItems() : null;
 
         return (
             <Host>

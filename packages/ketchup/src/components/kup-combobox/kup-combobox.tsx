@@ -43,6 +43,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { getSizeOfInputElement } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-combobox',
@@ -161,6 +162,10 @@ export class KupCombobox {
      * @default false
      */
     @Prop() legacyLook: boolean = false;
+    /**
+     * Sets the size of the input element
+     */
+    @Prop() size: number;
 
     /**
      * Instance of the KupManager class.
@@ -315,6 +320,20 @@ export class KupCombobox {
             value: this.value,
             inputValue: this.#textfieldEl.value,
         });
+    }
+
+    onKupClearIconClick() {
+        this.value = '';
+        this.displayedValue = '';
+        this.#textfieldEl.value = '';
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            node: { value: '' },
+        });
+        this.#closeList();
     }
 
     /*-------------------------------------------------*/
@@ -611,6 +630,8 @@ export class KupCombobox {
                 : false,
             showMarker: this.showMarker,
             legacyLook: this.legacyLook,
+            size: getSizeOfInputElement(this.data, this.displayMode, this.size),
+            title: this.displayedValue ?? '',
         };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
@@ -650,6 +671,7 @@ export class KupCombobox {
                         onFocus={() => this.onKupFocus()}
                         onInput={() => this.onKupInput()}
                         onIconClick={() => this.onKupIconClick()}
+                        onClearIconClick={() => this.onKupClearIconClick()}
                     ></FTextField>
                 </div>
                 {this.#prepList()}

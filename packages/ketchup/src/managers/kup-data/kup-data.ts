@@ -301,6 +301,7 @@ export class KupData {
          * @returns {boolean} if cell contain action showed on f-cell
          */
         hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
+            if (!cell || !cell.obj) return false;
             return commands.some((command) =>
                 this.cell.isActionCell(command, cell)
             );

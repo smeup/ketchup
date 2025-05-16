@@ -16,14 +16,20 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
  * @param {string} compType - Components' type.
+ * @param {number} maxLength - Maximum number of components to return.
  * @returns {JSX.Element[]} List of components.
  */
 export function compList(
     compArray: GenericObject[] | string[] | HTMLElement[],
-    compType: string
+    compType: string,
+    maxLength: number = compArray.length
 ): VNode[] {
     let list: VNode[] = [];
-    for (let index = 0; index < compArray.length; index++) {
+    for (
+        let index = 0;
+        index < Math.min(maxLength, compArray.length);
+        index++
+    ) {
         if (
             typeof compArray[0] !== 'string' &&
             !(compArray as GenericObject[])[index].id

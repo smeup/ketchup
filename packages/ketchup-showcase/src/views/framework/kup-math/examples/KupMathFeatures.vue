@@ -227,46 +227,44 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'setLocale',
-          },
-          {
-            name: '3',
-            title: 'numberify',
-          },
-          {
-            name: '4',
-            title: 'format',
-          },
-          {
-            name: '5',
-            title: 'normalDistribution',
-          },
-          {
-            name: '6',
-            title: 'formulas.custom',
-          },
-          {
-            name: '7',
-            title: 'formulas.normalDistribution',
-          },
-          {
-            name: '8',
-            title: 'unregister',
-          },
-          {
-            name: '9',
-            title: 'numbers.toLocaleString',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'setLocale',
+        },
+        {
+          id: '3',
+          value: 'numberify',
+        },
+        {
+          id: '4',
+          value: 'format',
+        },
+        {
+          id: '5',
+          value: 'normalDistribution',
+        },
+        {
+          id: '6',
+          value: 'formulas.custom',
+        },
+        {
+          id: '7',
+          value: 'formulas.normalDistribution',
+        },
+        {
+          id: '8',
+          value: 'unregister',
+        },
+        {
+          id: '9',
+          value: 'numbers.toLocaleString',
+        },
+      ];
       const locales: string[] = dom.ketchup.dates.getLocales();
       const localesListData: KupListNode[] = [];
       for (let index = 0; index < locales.length; index++) {

@@ -36,10 +36,7 @@ import {
 import { FLabel } from '../../f-components/f-label/f-label';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTypography } from '../../f-components/f-typography/f-typography';
-import {
-    FTypographyProps,
-    FTypographyType,
-} from '../../f-components/f-typography/f-typography-declarations';
+import { FTypographyType } from '../../f-components/f-typography/f-typography-declarations';
 import {
     KupDataColumn,
     KupDataRow,
@@ -97,10 +94,9 @@ import {
     getAbsoluteLeft,
     getAbsoluteTop,
     getAbsoluteWidth,
-    getInpComponentAbsoluteHeight,
+    getInpComponentHeight,
     getLabelAbsoluteWidth,
     graphicShapeHasIcon,
-    SPACED_ROW_HEIGHT,
 } from './kup-input-panel-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -207,6 +203,12 @@ export class KupInputPanel {
      */
     @Prop() updateOnClick: boolean = false;
 
+    /**
+     * When set to true, will render a reset button
+     * @default false
+     */
+    @Prop() fieldReset: boolean = false;
+
     //#endregion
 
     //#region STATES
@@ -296,7 +298,6 @@ export class KupInputPanel {
     >([
         [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
     ]);
-    #keysShortcut: string[] = [];
     #readyPromise: Promise<void>;
     #readyResolve: () => void;
     //#endregion
@@ -483,7 +484,6 @@ export class KupInputPanel {
         const layout = inputPanelCell.row.layout;
         const horizontal = layout?.horizontal || false;
         const styleObj: GenericObject = {};
-        const styleTypographyObj: GenericObject = {};
 
         let rowContent: VNode[];
 
@@ -496,11 +496,7 @@ export class KupInputPanel {
         } else {
             if (layout.absolute) {
                 rowContent = this.#renderAbsoluteLayout(inputPanelCell, layout);
-                // 12px is added due to the chance that the horizontal scrollbar will be rendered
-                styleObj.height = `${
-                    getInpComponentAbsoluteHeight(layout) * SPACED_ROW_HEIGHT +
-                    12
-                }px`;
+                styleObj.height = `${getInpComponentHeight(layout)}px`;
             } else {
                 if (!layout.sectionsType) {
                     const hasDim = layout.sections.some((sec) => sec.dim);
@@ -570,6 +566,10 @@ export class KupInputPanel {
                             },
                         });
                     }}
+                    onReset={(e: SubmitEvent) => {
+                        e.preventDefault();
+                        this.onFormReset();
+                    }}
                     onContextMenu={(e: MouseEvent) => {
                         if (this.#findTraversedFCell(e) != null) {
                             e.preventDefault();
@@ -597,11 +597,43 @@ export class KupInputPanel {
                             wrapperClass="form__submit"
                             invisible={this.hiddenSubmitButton}
                         ></FButton>
+                        {this.fieldReset && (
+                            <FButton
+                                buttonType="reset"
+                                label="Reset"
+                                wrapperClass="form__submit"
+                                icon="broom"
+                            ></FButton>
+                        )}
                         {this.inputPanelCommands}
                     </div>
                 </form>
             </div>
         );
+    }
+
+    onFormReset() {
+        for (const col of this.data.columns) {
+            const cell = this.#getCell(col.name);
+
+            if (
+                (cell.shape === FCellShapes.MULTI_AUTOCOMPLETE ||
+                    cell.shape === FCellShapes.MULTI_COMBOBOX) &&
+                cell.data?.data
+            ) {
+                // reset chips array
+                cell.data.data = [];
+            }
+            cell.value = '';
+            cell.obj.k = '';
+            cell.decode = '';
+
+            if (cell.data.initialValue) {
+                cell.data.initialValue = '';
+            }
+        }
+
+        this.refresh();
     }
 
     #renderCell(
@@ -1003,8 +1035,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1014,8 +1046,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1793,10 +1825,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? (this.#optionsTreeComboAdapter(
+                    ? this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? [])
+                      ) ?? []
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {

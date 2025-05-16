@@ -43,6 +43,8 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { getSizeOfInputElement } from '../../utils/cell-utils';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -181,15 +183,19 @@ export class KupAutocomplete {
      */
     @Prop() trailingIcon: boolean = false;
     /**
-     * Set custom placeholder / watermark for text field
-     * @default "Type code or description"
+     * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
+     * @default 'Type code or description'
      */
-    @Prop() placeholder: string = 'Type code or description';
+    @Prop() placeholder: string = null;
     /**
      * Allows legacyLook in ACP
      * @default false
      */
     @Prop() legacyLook: boolean = false;
+    /**
+     * Sets the size of the input element
+     */
+    @Prop() size: number;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -372,6 +378,19 @@ export class KupAutocomplete {
         });
     }
 
+    onKupClearIconClick() {
+        this.value = '';
+        this.displayedValue = '';
+        this.#textfieldEl.value = '';
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+            node: { value: '' },
+        });
+        this.#closeList();
+    }
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -617,26 +636,6 @@ export class KupAutocomplete {
         );
     }
 
-    #calcSize() {
-        // Explicitly setting size from sub-components props, if present
-        if (this.data['kup-text-field']?.size) {
-            return this.data['kup-text-field']?.size as number;
-        } else {
-            switch (this.displayMode) {
-                case ItemsDisplayMode.CODE:
-                    return 15;
-                case ItemsDisplayMode.DESCRIPTION:
-                    return 35;
-                case ItemsDisplayMode.CODE_AND_DESC:
-                case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
-                case ItemsDisplayMode.DESC_AND_CODE:
-                    return 50;
-                default:
-                    return 35;
-            }
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -651,6 +650,10 @@ export class KupAutocomplete {
                 'kup-text-field': {},
             };
         }
+
+        this.placeholder ||= this.#kupManager.language.translate(
+            KupLanguageGeneric.TYPE_CODE_OR_DESCR
+        );
     }
 
     componentDidLoad() {
@@ -701,8 +704,9 @@ export class KupAutocomplete {
                 ? true
                 : false,
             showMarker: this.showMarker,
-            size: this.#calcSize(),
             legacyLook: this.legacyLook,
+            size: getSizeOfInputElement(this.data, this.displayMode, this.size),
+            title: this.displayedValue ?? '',
         };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
@@ -748,6 +752,7 @@ export class KupAutocomplete {
                             );
                         }}
                         onIconClick={() => this.onKupIconClick()}
+                        onClearIconClick={() => this.onKupClearIconClick()}
                     ></FTextField>
                 </div>
                 {this.#prepList()}

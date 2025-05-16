@@ -20,14 +20,13 @@
 
 ## Events
 
-| Event                      | Description                                    | Type                                           |
-| -------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `kup-tabbar-blur`          | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-click`         | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-focus`         | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-iconclick`     | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-infoiconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-itemclick`     | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
+| Event                         | Description                                    | Type                                           |
+| ----------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `kup-tabbar-blur`             | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-click`            | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-focus`            | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-iconclick`        | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-toolbaritemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
 
 
 ## Methods

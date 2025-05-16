@@ -154,46 +154,44 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'getThemes',
-          },
-          {
-            name: '3',
-            title: 'set',
-          },
-          {
-            name: '4',
-            title: 'refresh',
-          },
-          {
-            name: '5',
-            title: 'colorContrast',
-          },
-          {
-            name: '6',
-            title: 'randomColor',
-          },
-          {
-            name: '7',
-            title: 'randomTheme',
-          },
-          {
-            name: '8',
-            title: 'colorCheck',
-          },
-          {
-            name: '9',
-            title: 'unregister',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'getThemes',
+        },
+        {
+          id: '3',
+          value: 'set',
+        },
+        {
+          id: '4',
+          value: 'refresh',
+        },
+        {
+          id: '5',
+          value: 'colorContrast',
+        },
+        {
+          id: '6',
+          value: 'randomColor',
+        },
+        {
+          id: '7',
+          value: 'randomTheme',
+        },
+        {
+          id: '8',
+          value: 'colorCheck',
+        },
+        {
+          id: '9',
+          value: 'unregister',
+        },
+      ];
       const randomColor = dom.ketchup.theme.randomColor(0);
       const themes = dom.ketchup.theme.getThemes();
       for (let index = 0; index < themes.length; index++) {

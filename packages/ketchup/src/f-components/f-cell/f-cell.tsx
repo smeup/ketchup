@@ -1577,7 +1577,8 @@ function getValueFromEventTarget(
     cellType: FCellTypes
 ): string {
     const isInputEvent = !!(
-        (e.target as HTMLElement).tagName === 'INPUT' || 'TEXTAREA'
+        (e.target as HTMLElement).tagName === 'INPUT' ||
+        (e.target as HTMLElement).tagName === 'TEXTAREA'
     );
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value

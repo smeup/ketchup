@@ -68,6 +68,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-accordion](../kup-accordion)
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
@@ -184,6 +185,7 @@ graph TD;
   kup-form --> kup-toolbar
   kup-tree --> kup-toolbar
   kup-tab-bar --> kup-toolbar
+  kup-accordion --> kup-toolbar
   kup-box --> kup-toolbar
   kup-cell --> kup-toolbar
   kup-image-list --> kup-toolbar

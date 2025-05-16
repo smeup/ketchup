@@ -67,22 +67,20 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.data = {
-        columns: [
-          {
-            name: '1',
-            title: 'register',
-          },
-          {
-            name: '2',
-            title: 'isRegistered',
-          },
-          {
-            name: '3',
-            title: 'unregister',
-          },
-        ],
-      };
+      accordion.data = [
+        {
+          id: '1',
+          value: 'register',
+        },
+        {
+          id: '2',
+          value: 'isRegistered',
+        },
+        {
+          id: '3',
+          value: 'unregister',
+        },
+      ];
       scrollingCard.data = {
         image: [{ resource: 'images/catz_small.jpg' }],
         text: [
