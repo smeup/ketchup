@@ -22,9 +22,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@sme.up/ketchup": "10.3.2",
-        "@stencil/react-output-target": "^0.8",
-        "react": "^18",
-        "react-dom": "^18"
+        "@stencil/react-output-target": "^0.8"
     },
     "devDependencies": {
         "@stencil/core": "^4",
