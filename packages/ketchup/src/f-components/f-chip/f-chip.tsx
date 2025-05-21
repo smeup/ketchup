@@ -153,7 +153,7 @@ function createChipList(
             const onlyIcon = !!(chip.icon && !chip.value);
             let componentClass: string = `chip ${
                 onlyIcon ? 'chip--only-icon' : ''
-            } ${disabled && 'chip--disabled'}`;
+            } ${disabled ? 'chip--disabled' : ''}`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
