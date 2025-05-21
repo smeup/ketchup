@@ -7166,11 +7166,31 @@ export class KupDataTable {
                 const props: FChipsProps = {
                     data: chipsData,
                     id: 'group-chips',
-                    type: FChipType.INPUT,
                     onIconClick: [],
+                    onClearFilterClick: [],
+                    type: FChipType.INPUT,
                     onContextMenu: [],
+                    hasFilter: [],
                 };
                 for (let i = 0; i < chipsData.length; i++) {
+                    const column = getColumnByName(
+                        this.getColumns(),
+                        chipsData[i].id
+                    );
+                    const hasFilterColumn =
+                        this.#filtersColumnMenuInstance.hasFiltersForColumn(
+                            this.filters,
+                            column
+                        );
+                    props.hasFilter.push(hasFilterColumn);
+                    this.#filtersColumnMenuInstance.hasFiltersForColumn(
+                        this.filters,
+                        column
+                    );
+                    props.onClearFilterClick.push(() =>
+                        this.#onRemoveFilter(column)
+                    );
+
                     props.onIconClick.push(() => this.#removeGroup(i));
                     props.onContextMenu.push((chipArg, e) => {
                         this.#handleChipsContextMenu(chipArg.id, e);

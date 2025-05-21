@@ -11,8 +11,10 @@ export interface FChipsProps extends FComponent {
     onClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onContextMenu?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onExpansionClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
+    onClearFilterClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onFocus?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onIconClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
+    hasFilter?: boolean [];
     primary?: boolean;
     sizing?: FChipSize;
     styling?: FChipStyling;
@@ -31,6 +33,7 @@ export enum FChipType {
     CHOICE = 'choice',
     FILTER = 'filter',
     INPUT = 'input',
+    // HAS_FILTER = 'has-filter',
     STANDARD = 'standard',
 }
 /**

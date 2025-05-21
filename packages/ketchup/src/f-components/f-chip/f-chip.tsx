@@ -252,6 +252,26 @@ function createChipList(
                             <span class="chip__text">{chipText}</span>
                         </span>
                     </span>
+                    {props.hasFilter?.[i] && (
+                        <span role="gridcell">
+                            <span
+                                tabindex="-1"
+                                class={`kup-icon chip__icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                                    '--',
+                                    ''
+                                )}`}
+                                onClick={
+                                    props.onClearFilterClick &&
+                                    props.onClearFilterClick[i]
+                                        ? props.onClearFilterClick[i].bind(
+                                              props.onClearFilterClick[i],
+                                              chip
+                                          )
+                                        : null
+                                }
+                            ></span>
+                        </span>
+                    )}
                     {isInput ? (
                         <span role="gridcell">
                             <span
