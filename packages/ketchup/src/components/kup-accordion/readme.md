@@ -25,7 +25,6 @@
 | `kup-accordion-click`            | Triggered when an item is selected.                  | `CustomEvent<KupAccordionEventPayload>` |
 | `kup-accordion-focus`            | Triggered when the accordion is focused.             | `CustomEvent<KupAccordionEventPayload>` |
 | `kup-accordion-iconclick`        | Triggered when the icon inside accordion is clicked. | `CustomEvent<KupAccordionEventPayload>` |
-| `kup-accordion-infoiconclick`    | Triggered when the icon inside accordion is clicked. | `CustomEvent<KupAccordionEventPayload>` |
 | `kup-accordion-toolbaritemclick` | Triggered when a list item is clicked.               | `CustomEvent<KupAccordionEventPayload>` |
 
 
