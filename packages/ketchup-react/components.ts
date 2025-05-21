@@ -130,6 +130,7 @@ export const KupActivityTimeline: StencilReactComponent<KupActivityTimelineEleme
 type KupAutocompleteEvents = {
     onKupAutocompleteBlur: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
     onKupAutocompleteChange: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
+    onKupAutocompleteSubmit: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
     onKupAutocompleteClick: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
     onKupAutocompleteFocus: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
     onKupAutocompleteInput: EventName<KupAutocompleteCustomEvent<KupAutocompleteEventPayload>>,
@@ -145,6 +146,7 @@ export const KupAutocomplete: StencilReactComponent<KupAutocompleteElement, KupA
     events: {
         onKupAutocompleteBlur: 'kup-autocomplete-blur',
         onKupAutocompleteChange: 'kup-autocomplete-change',
+        onKupAutocompleteSubmit: 'kup-autocomplete-submit',
         onKupAutocompleteClick: 'kup-autocomplete-click',
         onKupAutocompleteFocus: 'kup-autocomplete-focus',
         onKupAutocompleteInput: 'kup-autocomplete-input',

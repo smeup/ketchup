@@ -161,7 +161,7 @@ export class KupAutocomplete {
      * When true, the items filter is managed server side, otherwise items filter is done client side.
      * @default false
      */
-    @Prop({ reflect: true }) serverHandledFilter: boolean = false;
+    @Prop({ reflect: true }) serverHandledFilter: boolean = true;
     /**
      * When true shows the drop-down icon, for open list.
      * @default true
@@ -233,6 +233,14 @@ export class KupAutocomplete {
     kupChange: EventEmitter<KupAutocompleteEventPayload>;
 
     @Event({
+        eventName: 'kup-autocomplete-submit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSubmit: EventEmitter<KupAutocompleteEventPayload>;
+
+    @Event({
         eventName: 'kup-autocomplete-click',
         composed: true,
         cancelable: false,
@@ -283,11 +291,11 @@ export class KupAutocomplete {
         }
     }
 
-    onKupChange(value: string) {
+    onKupChangeSubmit(value: string, eventToEmit: EventEmitter) {
         if (value) {
             const ret = this.#consistencyCheck(value, undefined, true);
             if (ret.exists || this.allowInconsistentValues) {
-                this.kupChange.emit({
+                eventToEmit.emit({
                     comp: this,
                     id: this.rootElement.id,
                     value: this.value,
@@ -298,7 +306,7 @@ export class KupAutocomplete {
         } else {
             this.value = '';
             this.displayedValue = '';
-            this.kupChange.emit({
+            eventToEmit.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
@@ -364,7 +372,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
-        this.onKupChange(e.detail.selected.id);
+        this.onKupChangeSubmit(e.detail.selected.id, this.kupChange);
         this.#closeList();
         if (this.#textfieldEl) {
             this.#textfieldEl.focus();
@@ -451,6 +459,14 @@ export class KupAutocomplete {
                     e.stopPropagation();
                     this.#openList(false);
                     this.#listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.onKupChangeSubmit(
+                        this.#textfieldEl.value,
+                        this.kupSubmit
+                    );
                     break;
             }
         }
@@ -741,7 +757,10 @@ export class KupAutocomplete {
                         onBlur={() => this.onKupBlur()}
                         onClick={() => this.onKupClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
-                            this.onKupChange(e.target.value)
+                            this.onKupChangeSubmit(
+                                e.target.value,
+                                this.kupChange
+                            )
                         }
                         onFocus={() => this.onKupFocus()}
                         onInput={() => {
