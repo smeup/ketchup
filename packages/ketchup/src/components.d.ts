@@ -1763,7 +1763,7 @@ export namespace Components {
           * Opens the column menu of the given column.
           * @param column - Name of the column.
          */
-        "openColumnMenu": (column: string) => Promise<void>;
+        "openColumnMenu": (columnName: string, wrapperClass: string) => Promise<void>;
         /**
           * Current selected page set on component load
          */

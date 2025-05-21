@@ -79,16 +79,15 @@ export class KupColumnMenu {
         );
     }
     /**
-     * Function called to reposition the column menu card to the appropriate column.
+     * Function called to reposition the column menu card to the appropriate selector.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement): void {
+    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement, wrapperSelector:string): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
             if (card) {
-                const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
-                    'th[data-column="' + column + '"]'
+                    wrapperSelector
                 );
                 if (dom.ketchup.dynamicPosition.isRegistered(card as any)) {
                     dom.ketchup.dynamicPosition.changeAnchor(
