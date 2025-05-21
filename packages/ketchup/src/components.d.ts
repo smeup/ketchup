@@ -5158,6 +5158,7 @@ declare global {
     interface HTMLKupAutocompleteElementEventMap {
         "kup-autocomplete-blur": KupAutocompleteEventPayload;
         "kup-autocomplete-change": KupAutocompleteEventPayload;
+        "kup-autocomplete-submit": KupAutocompleteEventPayload;
         "kup-autocomplete-click": KupAutocompleteEventPayload;
         "kup-autocomplete-focus": KupAutocompleteEventPayload;
         "kup-autocomplete-input": KupAutocompleteEventPayload;
@@ -6525,6 +6526,7 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-submit"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
           * @default 'Type code or description'
