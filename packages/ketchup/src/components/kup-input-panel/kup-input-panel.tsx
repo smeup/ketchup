@@ -40,6 +40,7 @@ import { FTypographyType } from '../../f-components/f-typography/f-typography-de
 import {
     KupDataColumn,
     KupDataRow,
+    UseAsValue,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
@@ -1221,7 +1222,7 @@ export class KupInputPanel {
     ) {
         const defaultProps = {
             ...this.#mapData(cell, column, layout),
-            disabled: !cell.isEditable,
+            disabled: !cell.isEditable || column.useAs === UseAsValue.KEY,
             id: column.name,
         };
 
