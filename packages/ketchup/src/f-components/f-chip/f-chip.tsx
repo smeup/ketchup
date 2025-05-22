@@ -153,7 +153,7 @@ function createChipList(
             const onlyIcon = !!(chip.icon && !chip.value);
             let componentClass: string = `chip ${
                 onlyIcon ? 'chip--only-icon' : ''
-            } ${disabled && 'chip--disabled'}`;
+            } ${disabled ? 'chip--disabled' : ''}`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
@@ -211,6 +211,14 @@ function createChipList(
                             ? props.onClick[i].bind(props.onClick[i], chip)
                             : null
                     }
+                    onContextMenu={
+                        props.onContextMenu && props.onContextMenu[i]
+                            ? props.onContextMenu[i].bind(
+                                  props.onContextMenu[i],
+                                  chip
+                              )
+                            : null
+                    }
                     role="row"
                     title={chip.title ? chip.title : ''}
                 >
@@ -244,6 +252,26 @@ function createChipList(
                             <span class="chip__text">{chipText}</span>
                         </span>
                     </span>
+                    {props.hasFilter?.[i] && (
+                        <span role="gridcell">
+                            <span
+                                tabindex="-1"
+                                class={`kup-icon chip__icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                                    '--',
+                                    ''
+                                )}`}
+                                onClick={
+                                    props.onClearFilterClick &&
+                                    props.onClearFilterClick[i]
+                                        ? props.onClearFilterClick[i].bind(
+                                              props.onClearFilterClick[i],
+                                              chip
+                                          )
+                                        : null
+                                }
+                            ></span>
+                        </span>
+                    )}
                     {isInput ? (
                         <span role="gridcell">
                             <span

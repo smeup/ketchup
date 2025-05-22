@@ -786,7 +786,7 @@ export class KupTree {
             getColumnByName(this.getVisibleColumns(), column)
         );
         this.columnMenuInstance.open(this, column);
-        this.columnMenuInstance.reposition(this, this.columnMenuCard);
+        this.columnMenuInstance.reposition(this, this.columnMenuCard, 'th[data-column="' + column + '"]');
         this.kupTreeColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,

@@ -347,15 +347,16 @@ Type: `Promise<string | KupDataColumn>`
 
 Returns the new column created or a string containing the error message if something went wrong.
 
-### `openColumnMenu(column: string) => Promise<void>`
+### `openColumnMenu(columnName: string, wrapperClass: string) => Promise<void>`
 
 Opens the column menu of the given column.
 
 #### Parameters
 
-| Name     | Type     | Description           |
-| -------- | -------- | --------------------- |
-| `column` | `string` | - Name of the column. |
+| Name           | Type     | Description |
+| -------------- | -------- | ----------- |
+| `columnName`   | `string` |             |
+| `wrapperClass` | `string` |             |
 
 #### Returns
 
