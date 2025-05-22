@@ -186,6 +186,7 @@ import {
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
+    UseAsValue,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -4081,7 +4082,7 @@ export class KupDataTable {
     }
 
     #hasRowActions() {
-        return this.rowActions !== undefined;
+        return this.rowActions?.length > 0;
     }
 
     #removeGroup(index: number) {
@@ -4212,12 +4213,13 @@ export class KupDataTable {
         if (column.useAs) {
             if (
                 this.#insertedRowIds.includes(row.id) &&
-                column.useAs === 'Dec'
+                column.useAs === UseAsValue.DEC
             ) {
                 return false;
             } else if (
                 !this.#insertedRowIds.includes(row.id) &&
-                (column.useAs === 'Dec' || column.useAs === 'Key')
+                (column.useAs === UseAsValue.DEC ||
+                    column.useAs === UseAsValue.KEY)
             ) {
                 return false;
             }
@@ -6936,7 +6938,7 @@ export class KupDataTable {
             let row: KupDataRow = { cells: {} };
             this.#originalDataLoaded?.columns.forEach((c) => {
                 (row.cells[c.name] as Omit<KupDataCell, 'value'>) = {
-                    shape: FCellShapes.INPUT_FIELD,
+                    shape: c.shape ?? FCellShapes.INPUT_FIELD,
                     obj: { ...c.obj },
                     isEditable: true,
                 };
