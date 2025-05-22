@@ -461,8 +461,6 @@ export class KupAutocomplete {
                     this.#listEl.focusPrevious();
                     break;
                 case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
                     this.onKupChangeSubmit(
                         this.#textfieldEl.value,
                         this.kupSubmit
