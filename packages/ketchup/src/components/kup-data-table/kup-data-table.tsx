@@ -5074,6 +5074,7 @@ export class KupDataTable {
     }
 
     #renderHeader() {
+        debugger;
         let specialExtraCellsCount: number = 0;
 
         // Renders multiple selection column
@@ -6919,7 +6920,7 @@ export class KupDataTable {
             let row: KupDataRow = { cells: {} };
             this.#originalDataLoaded?.columns.forEach((c) => {
                 (row.cells[c.name] as Omit<KupDataCell, 'value'>) = {
-                    shape: FCellShapes.INPUT_FIELD,
+                    shape: c.shape ?? FCellShapes.INPUT_FIELD,
                     obj: { ...c.obj },
                     isEditable: true,
                 };
