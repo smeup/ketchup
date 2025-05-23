@@ -140,6 +140,8 @@ export class KupData {
                         return FCellTypes.TIME;
                     case FCellShapes.LABEL:
                         return FCellTypes.LABEL;
+                    case FCellShapes.IMAGE_LIST:
+                        return FCellTypes.IMAGE_LIST;
                 }
             }
 
