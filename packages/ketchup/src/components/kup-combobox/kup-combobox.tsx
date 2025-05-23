@@ -166,6 +166,10 @@ export class KupCombobox {
      * Sets the size of the input element
      */
     @Prop() size: number;
+    /**
+     * Index of the element to select. When default selects nothing.
+     */
+    @Prop() preselect: number = null;
 
     /**
      * Instance of the KupManager class.
@@ -598,6 +602,11 @@ export class KupCombobox {
                 this.#textfieldWrapper = f;
                 this.#textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
+            }
+
+            if (this.preselect != null) {
+                console.log('preselecting...');
+                this.#listEl.select(this.preselect);
             }
         }
         this.#kupManager.debug.logRender(this, true);

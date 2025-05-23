@@ -1427,6 +1427,10 @@ export namespace Components {
          */
         "listDisplayMode": ItemsDisplayMode;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -7501,6 +7505,10 @@ declare namespace LocalJSX {
         "onKup-combobox-iconclick"?: (event: KupComboboxCustomEvent<KupComboboxIconClickEventPayload>) => void;
         "onKup-combobox-input"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
