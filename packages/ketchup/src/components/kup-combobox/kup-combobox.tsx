@@ -605,7 +605,6 @@ export class KupCombobox {
             }
 
             if (this.preselect != null) {
-                console.log('preselecting...');
                 this.#listEl.select(this.preselect);
             }
         }
