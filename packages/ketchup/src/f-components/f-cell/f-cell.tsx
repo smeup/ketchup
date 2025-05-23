@@ -1150,6 +1150,8 @@ function setCell(
             return <FSwitch {...subcomponentProps}></FSwitch>;
         case FCellTypes.LABEL:
             return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
+        case FCellTypes.IMAGE_LIST:
+            return <kup-image-list {...cell.data} />;
         default:
             return (
                 <div class="f-cell__text">
