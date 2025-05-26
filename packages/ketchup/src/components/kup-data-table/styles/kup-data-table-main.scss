@@ -81,7 +81,7 @@
     var(--kup-layer-1-hover)
   );
   --kup_datatable_text_color_hover: var(
-    --kup-datatable-background-color-hover,
+    --kup-datatable-text-color-hover,
     var(--kup-text-primary)
   );
   --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
