@@ -196,6 +196,10 @@ export class KupAutocomplete {
      * Sets the size of the input element
      */
     @Prop() size: number;
+    /**
+     * Index of the element to select. When default selects nothing.
+     */
+    @Prop() preselect: number = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -687,6 +691,10 @@ export class KupAutocomplete {
                 this.#textfieldWrapper = f;
                 this.#textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
+            }
+
+            if (this.preselect != null) {
+                this.#listEl.select(this.preselect);
             }
         }
         this.#kupManager.debug.logRender(this, true);

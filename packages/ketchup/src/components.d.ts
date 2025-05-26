@@ -331,6 +331,10 @@ export namespace Components {
          */
         "placeholder": string;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -6536,6 +6540,10 @@ declare namespace LocalJSX {
           * @default 'Type code or description'
          */
         "placeholder"?: string;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
