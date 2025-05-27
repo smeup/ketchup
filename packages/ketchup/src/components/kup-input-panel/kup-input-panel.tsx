@@ -1567,7 +1567,7 @@ export class KupInputPanel {
     ) {
         return {
             initialValue: currentValue || '',
-            label: fieldLabel || ' ',
+            leadingLabel: fieldLabel || '',
             value: currentValue || '',
         };
     }

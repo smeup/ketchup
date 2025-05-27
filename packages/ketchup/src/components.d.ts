@@ -3015,6 +3015,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -8776,6 +8781,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupImageListDataNode[];
+        /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel"?: string;
         "onKup-imagelist-click"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-contextmenu"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-dblclick"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;

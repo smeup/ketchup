@@ -150,6 +150,12 @@ export class KupImageList {
      */
     @Prop() showFullDescription: boolean = false;
 
+    /**
+     * When present component will have a main label.
+     * @default null
+     */
+    @Prop() leadingLabel: string = null;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -621,6 +627,11 @@ export class KupImageList {
                             </div>
                         ) : null}
                     </div>
+                    {this.leadingLabel && (
+                        <div class="mdc-text-field__label-container">
+                            <label class="mdc-label">{this.leadingLabel}</label>
+                        </div>
+                    )}
                     <div class={imlClass} style={combinedGridStyle}>
                         {...this.#createList()}
                     </div>
