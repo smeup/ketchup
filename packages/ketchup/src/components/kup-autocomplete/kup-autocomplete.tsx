@@ -675,6 +675,9 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
+        if (this.preselect != null) {
+            this.#listEl.select(this.preselect);
+        }
         this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
@@ -691,10 +694,6 @@ export class KupAutocomplete {
                 this.#textfieldWrapper = f;
                 this.#textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
-            }
-
-            if (this.preselect != null) {
-                this.#listEl.select(this.preselect);
             }
         }
         this.#kupManager.debug.logRender(this, true);
