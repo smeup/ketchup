@@ -1806,10 +1806,7 @@ export class KupInputPanel {
         ).then((options) => {
             const visibleColumns: string[] =
                 options?.columns
-                    ?.filter(
-                        (col: KupDataColumn) =>
-                            col?.visible !== false || !('visible' in col)
-                    )
+                    ?.filter((col: KupDataColumn) => col?.visible !== false)
                     .map((col: KupDataColumn) => col.name) || [];
 
             const filteredRows: KupDataRow[] = options?.rows?.map(
