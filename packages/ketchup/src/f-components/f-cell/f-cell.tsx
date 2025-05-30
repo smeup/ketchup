@@ -1,5 +1,9 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { KupTextFieldEventPayload } from '../../components';
+import {
+    KupImageListDataNode,
+    KupImageListEventPayload,
+    KupTextFieldEventPayload,
+} from '../../components';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
@@ -1151,7 +1155,21 @@ function setCell(
         case FCellTypes.LABEL:
             return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
         case FCellTypes.IMAGE_LIST:
-            return <kup-image-list {...cell.data} />;
+            const activeNode: KupImageListDataNode =
+                cell.data.data.find(
+                    (node: KupImageListDataNode) => node.value === cell.value
+                ) || null;
+
+            return (
+                <kup-image-list
+                    ripple={true}
+                    {...cell.data}
+                    onKup-imagelist-click={(
+                        e: CustomEvent<KupImageListEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    activeNode={activeNode}
+                />
+            );
         default:
             return (
                 <div class="f-cell__text">
@@ -1535,6 +1553,9 @@ function cellEvent(
                     ).detail.comp.data;
                 }
                 break;
+            case FCellTypes.IMAGE_LIST:
+                value = (e as CustomEvent<KupImageListEventPayload>).detail
+                    .details.cell.value;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();

@@ -2993,6 +2993,11 @@ export namespace Components {
     }
     interface KupImageList {
         /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
+        /**
           * Number of columns to display in the grid layout.
           * @default null
          */
@@ -8765,6 +8770,11 @@ declare namespace LocalJSX {
         "zoomEnable"?: boolean;
     }
     interface KupImageList {
+        /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
         /**
           * Number of columns to display in the grid layout.
           * @default null
