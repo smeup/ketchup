@@ -342,7 +342,7 @@ export class KupImageList {
                 'image-list__item': true,
                 'mdc-ripple-surface': this.ripple ? true : false,
                 'image-list__item--active':
-                    this.activeSelectedNode?.id === node.id,
+                    this.activeSelectedNode?.value === node.value,
             };
             const item: VNode = (
                 <div
