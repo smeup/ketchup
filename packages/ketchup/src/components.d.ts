@@ -331,6 +331,10 @@ export namespace Components {
          */
         "placeholder": string;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -1426,6 +1430,10 @@ export namespace Components {
           * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
          */
         "listDisplayMode": ItemsDisplayMode;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -6543,6 +6551,10 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -7511,6 +7523,10 @@ declare namespace LocalJSX {
         "onKup-combobox-iconclick"?: (event: KupComboboxCustomEvent<KupComboboxIconClickEventPayload>) => void;
         "onKup-combobox-input"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false

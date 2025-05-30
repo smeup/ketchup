@@ -490,7 +490,7 @@ export class KupInputPanel {
 
         if (!layout?.sections?.length) {
             rowContent = inputPanelCell.cells
-                .filter(({ column }) => column.visible)
+                .filter(({ column }) => column.visible !== false)
                 .map((cell) =>
                     this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
                 );
@@ -1023,12 +1023,21 @@ export class KupInputPanel {
         );
     }
 
+    #skipRenderField(fieldCell: {
+        cell: KupDataCell;
+        column: KupDataColumn;
+    }): boolean {
+        return (
+            !fieldCell || !fieldCell.cell || fieldCell.column.visible === false
+        );
+    }
+
     #renderField(cells: InputPanelCells, field: KupInputPanelLayoutField) {
         const fieldCell = cells.cells.find(
             (cell) => cell.column.name === field.id
         );
 
-        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
+        if (this.#skipRenderField(fieldCell)) {
             return;
         }
 
@@ -1078,7 +1087,7 @@ export class KupInputPanel {
             (cell) => cell.column.name === field.id
         );
 
-        if (!fieldCell || !fieldCell.cell || !fieldCell.column.visible) {
+        if (this.#skipRenderField(fieldCell)) {
             return;
         }
 
@@ -1810,26 +1819,28 @@ export class KupInputPanel {
         ).then((options) => {
             const visibleColumns: string[] =
                 options?.columns
-                    ?.filter((col) => col?.visible || !('visible' in col))
-                    .map((col) => col.name) || [];
+                    ?.filter((col: KupDataColumn) => col?.visible !== false)
+                    .map((col: KupDataColumn) => col.name) || [];
 
-            const filteredRows: KupDataRow[] = options?.rows?.map((row) => {
-                const { cells } = row;
-                const filteredCells = visibleColumns.reduce(
-                    (acc, columnName) => {
-                        if (row.cells.hasOwnProperty(columnName)) {
-                            acc[columnName] = cells[columnName];
-                        }
-                        return acc;
-                    },
-                    {}
-                );
+            const filteredRows: KupDataRow[] = options?.rows?.map(
+                (row: KupDataRow) => {
+                    const { cells } = row;
+                    const filteredCells = visibleColumns.reduce(
+                        (acc, columnName) => {
+                            if (row.cells.hasOwnProperty(columnName)) {
+                                acc[columnName] = cells[columnName];
+                            }
+                            return acc;
+                        },
+                        {}
+                    );
 
-                return {
-                    ...row,
-                    cells: filteredCells,
-                };
-            });
+                    return {
+                        ...row,
+                        cells: filteredCells,
+                    };
+                }
+            );
 
             const visibleColumnsOptions = { ...options, rows: filteredRows };
 
