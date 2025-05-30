@@ -3001,6 +3001,11 @@ export namespace Components {
     }
     interface KupImageList {
         /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
+        /**
           * Number of columns to display in the grid layout.
           * @default null
          */
@@ -3022,6 +3027,11 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -8777,6 +8787,11 @@ declare namespace LocalJSX {
     }
     interface KupImageList {
         /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
+        /**
           * Number of columns to display in the grid layout.
           * @default null
          */
@@ -8792,6 +8807,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupImageListDataNode[];
+        /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel"?: string;
         "onKup-imagelist-click"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-contextmenu"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-dblclick"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;

@@ -1356,6 +1356,7 @@ export class KupInputPanel {
             [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
             [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
+            [FCellTypes.IMAGE_LIST, this.#ImageListAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -1564,6 +1565,18 @@ export class KupInputPanel {
         return {
             initialValue: currentValue || '',
             label: fieldLabel || ' ',
+            value: currentValue || '',
+        };
+    }
+
+    #ImageListAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            initialValue: currentValue || '',
+            leadingLabel: fieldLabel || '',
             value: currentValue || '',
         };
     }
