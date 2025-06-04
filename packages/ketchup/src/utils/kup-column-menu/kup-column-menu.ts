@@ -82,13 +82,16 @@ export class KupColumnMenu {
      * Function called to reposition the column menu card to the appropriate selector.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement, wrapperSelector:string): void {
+    reposition(
+        comp: KupDataTable | KupTree,
+        card: HTMLKupCardElement,
+        wrapperSelector: string
+    ): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
             if (card) {
-                const wrapper: HTMLElement = root.querySelector(
-                    wrapperSelector
-                );
+                const wrapper: HTMLElement =
+                    root.querySelector(wrapperSelector);
                 if (dom.ketchup.dynamicPosition.isRegistered(card as any)) {
                     dom.ketchup.dynamicPosition.changeAnchor(
                         card as any,
@@ -242,7 +245,6 @@ export class KupColumnMenu {
                 );
             const columnValues: ValueDisplayedValue[] =
                 comp.getColumnValues(column);
-
             if (columnValues.length > 0) {
                 props.push({
                     checked: checkBoxesFilter.length == 0,
