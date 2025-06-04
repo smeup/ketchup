@@ -79,6 +79,12 @@ export class KupEditor {
     @Prop() editorHeight: string = 'auto';
 
     /**
+     * Defines whether to hide the extra buttons in the editor's toolbar or not.
+     * When set to true, only the save button will be shown.
+     */
+    @Prop({ reflect: true }) hideExtraButtons: boolean = false;
+
+    /**
      * The editor type.
      * @default 'markdown'
      */

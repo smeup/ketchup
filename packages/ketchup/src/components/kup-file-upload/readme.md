@@ -174,6 +174,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-file-upload
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -207,7 +208,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-file-upload
   kup-cell --> kup-file-upload
-  kup-image-list --> kup-file-upload
   kup-input-panel --> kup-file-upload
   style kup-file-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```

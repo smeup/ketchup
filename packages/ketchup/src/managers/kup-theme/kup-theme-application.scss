@@ -2435,6 +2435,16 @@ Please note that using !important should generally be avoided if possible, as it
   z-index: -1;
 }
 
+kup-editor[hide-extra-buttons] .tui-editor-defaultUI-toolbar > * {
+  display: none;
+}
+
+kup-editor[hide-extra-buttons]
+  .tui-editor-defaultUI-toolbar
+  > .kup-editor-save-button {
+  display: block;
+}
+
 /*-------------------------------------------------*/
 /*                    D e b u g                    */
 /*-------------------------------------------------*/

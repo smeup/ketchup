@@ -214,6 +214,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-combobox
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -247,7 +248,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-combobox
   kup-cell --> kup-combobox
-  kup-image-list --> kup-combobox
   kup-input-panel --> kup-combobox
   kup-magic-box --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
