@@ -218,6 +218,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-autocomplete
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -251,7 +252,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-autocomplete
   kup-cell --> kup-autocomplete
-  kup-image-list --> kup-autocomplete
   kup-input-panel --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
