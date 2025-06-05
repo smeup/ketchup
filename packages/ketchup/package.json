@@ -54,7 +54,7 @@
         "html2canvas": "1.4.1",
         "interactjs": "1.10.12",
         "jquery": "^3.7.0",
-        "pdfjs-dist": "3.11.174",
+        "pdfjs-dist": "4.2.67",
         "vanilla-picker": "2.12.3"
     },
     "devDependencies": {
