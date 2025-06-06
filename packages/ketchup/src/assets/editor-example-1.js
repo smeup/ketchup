@@ -50,3 +50,30 @@ if (props) {
         comp[key] = props[key];
     }
 }
+
+comp = document.getElementById('editor-text');
+
+comp.addEventListener('kup-editor-save', (e) => {
+    console.log('kup-editor-save (text) ' + new Date().toISOString(), e);
+});
+comp.addEventListener('kup-editor-autosave', (e) => {
+    console.log('kup-editor-autosave (text) ' + new Date().toISOString(), e);
+});
+
+props = {
+    customStyle: '',
+    initialEditType: 'text',
+    initialValue: 'title 1 \n title2',
+    isReadOnly: false,
+    showSaveButton: true,
+    showToolbar: true,
+    autosaveTimer: 5000,
+};
+
+comp.style = '--kup-editor-height: 300px;';
+
+if (props) {
+    for (const key in props) {
+        comp[key] = props[key];
+    }
+}
