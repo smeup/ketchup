@@ -5,18 +5,17 @@
 
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                     | Type                      | Default      |
-| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
-| `autosaveTimer`    | `autosave-timer`     | When specified, the component will emit the kup-editor-autosave event at regular intervals.                                     | `number`                  | `undefined`  |
-| `editorHeight`     | `editor-height`      | Sets the height of the component.                                                                                               | `string`                  | `'auto'`     |
-| `hideExtraButtons` | `hide-extra-buttons` | Defines whether to hide the extra buttons in the editor's toolbar or not. When set to true, only the save button will be shown. | `boolean`                 | `false`      |
-| `initialEditType`  | `initial-edit-type`  | The editor type.                                                                                                                | `"markdown" \| "wysiwyg"` | `'markdown'` |
-| `initialValue`     | `initial-value`      | The initial editor value.                                                                                                       | `string`                  | `''`         |
-| `isReadOnly`       | `is-read-only`       | Defines whether the editor is disabled or not.                                                                                  | `boolean`                 | `false`      |
-| `previewStyle`     | `preview-style`      | The editor preview style.                                                                                                       | `"tab" \| "vertical"`     | `'vertical'` |
-| `selectedTab`      | `selected-tab`       | The markdown editor selected tab.                                                                                               | `"preview" \| "write"`    | `'write'`    |
-| `showSaveButton`   | `show-save-button`   | Defines whether to show the save button in editor's toolbar or not.                                                             | `boolean`                 | `true`       |
-| `showToolbar`      | `show-toolbar`       | Defines whether to show the editor's toolbar or not.                                                                            | `boolean`                 | `true`       |
+| Property          | Attribute           | Description                                                                                 | Type                                | Default      |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ |
+| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                            | `undefined`  |
+| `editorHeight`    | `editor-height`     | Sets the height of the component.                                                           | `string`                            | `'auto'`     |
+| `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "text" \| "wysiwyg"` | `'markdown'` |
+| `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                            | `''`         |
+| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                           | `false`      |
+| `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`               | `'vertical'` |
+| `selectedTab`     | `selected-tab`      | The markdown editor selected tab.                                                           | `"preview" \| "write"`              | `'write'`    |
+| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                           | `true`       |
+| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                           | `true`       |
 
 
 ## Events
