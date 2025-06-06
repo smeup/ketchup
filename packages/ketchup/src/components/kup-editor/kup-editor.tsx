@@ -79,16 +79,10 @@ export class KupEditor {
     @Prop() editorHeight: string = 'auto';
 
     /**
-     * Defines whether to hide the extra buttons in the editor's toolbar or not.
-     * When set to true, only the save button will be shown.
-     */
-    @Prop({ reflect: true }) hideExtraButtons: boolean = false;
-
-    /**
      * The editor type.
      * @default 'markdown'
      */
-    @Prop() initialEditType: KupEditorType = 'markdown';
+    @Prop({ reflect: true }) initialEditType: KupEditorType = 'markdown';
 
     /**
      * The initial editor value.
@@ -143,6 +137,7 @@ export class KupEditor {
         },
         type: 'button',
     };
+    #textareaRef: HTMLTextAreaElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -348,35 +343,44 @@ export class KupEditor {
     /*          P r i v a t e   M e t h o d s          */
     /*-------------------------------------------------*/
 
+    #isPlainTextEditor() {
+        return this.initialEditType === 'text';
+    }
+
+    #handleUnsavedChanges(value?: string) {
+        value = value !== undefined ? value : this.editor.getMarkdown();
+
+        if (this.#textareaRef) {
+            if (this.#initialContent !== value) {
+                if (!this.#hasChanges) {
+                    this.#unsavedChangesIndex =
+                        this.editor.getUI().getToolbar().getItems().length - 1;
+                    this.editor
+                        .getUI()
+                        .getToolbar()
+                        .insertItem(
+                            this.#unsavedChangesIndex,
+                            this.#unsavedChangesItem
+                        );
+                }
+                this.#hasChanges = true;
+            } else {
+                if (this.#hasChanges) {
+                    this.editor
+                        .getUI()
+                        .getToolbar()
+                        .removeItem(this.#unsavedChangesIndex);
+                }
+                this.#hasChanges = false;
+            }
+        }
+    }
+
     createEditor() {
         const editorProps: EditorOptions = {
             el: this.editorRef,
             events: {
-                change: () => {
-                    if (this.#initialContent !== this.editor.getMarkdown()) {
-                        if (!this.#hasChanges) {
-                            this.#unsavedChangesIndex =
-                                this.editor.getUI().getToolbar().getItems()
-                                    .length - 1;
-                            this.editor
-                                .getUI()
-                                .getToolbar()
-                                .insertItem(
-                                    this.#unsavedChangesIndex,
-                                    this.#unsavedChangesItem
-                                );
-                        }
-                        this.#hasChanges = true;
-                    } else {
-                        if (this.#hasChanges) {
-                            this.editor
-                                .getUI()
-                                .getToolbar()
-                                .removeItem(this.#unsavedChangesIndex);
-                        }
-                        this.#hasChanges = false;
-                    }
-                },
+                change: () => this.#handleUnsavedChanges(),
                 focus: () => {
                     if (!this.isReadOnly && !this.showToolbar) {
                         this.showToolbar = true;
@@ -385,7 +389,8 @@ export class KupEditor {
             },
             height: this.editorHeight ?? 'auto',
             hideModeSwitch: true,
-            initialEditType: this.initialEditType,
+            initialEditType:
+                this.initialEditType === 'wysiwyg' ? 'wysiwyg' : 'markdown',
             initialValue: this.initialValue,
             placeholder: 'Type your text here...',
             previewStyle: this.previewStyle,
@@ -562,11 +567,18 @@ export class KupEditor {
     }
 
     getSaveAndAutoSaveProps(): KupEditorEventPayload {
+        const htmlValue = this.#isPlainTextEditor()
+            ? this.#textareaRef.value
+            : this.editor.getHtml();
+        const markdownValue = this.#isPlainTextEditor()
+            ? this.#textareaRef.value
+            : this.editor.getMarkdown();
+
         return {
             comp: this,
             id: this.rootElement.id,
-            htmlValue: this.editor.getHtml() ?? '',
-            markdownValue: this.editor.getMarkdown() ?? '',
+            htmlValue,
+            markdownValue,
         };
     }
 
@@ -604,6 +616,20 @@ export class KupEditor {
                         ref={(el) => (this.editorRef = el)}
                         class="kup-editor"
                     ></div>
+                    {this.#isPlainTextEditor() && (
+                        <textarea
+                            id={'' + this.rootElement.id + '-textarea'}
+                            value={this.initialValue}
+                            ref={(el) => (this.#textareaRef = el)}
+                            onInput={(e) =>
+                                this.#handleUnsavedChanges(
+                                    (e.target as HTMLTextAreaElement).value
+                                )
+                            }
+                            readOnly={this.isReadOnly}
+                            class="kup-editor-textarea"
+                        ></textarea>
+                    )}
                 </div>
             </Host>
         );

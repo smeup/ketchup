@@ -2397,10 +2397,6 @@ export namespace Components {
          */
         "getValueAsMarkdown": () => Promise<string>;
         /**
-          * Defines whether to hide the extra buttons in the editor's toolbar or not. When set to true, only the save button will be shown.
-         */
-        "hideExtraButtons": boolean;
-        /**
           * The editor type.
           * @default 'markdown'
          */
@@ -8315,10 +8311,6 @@ declare namespace LocalJSX {
           * @default "auto"
          */
         "editorHeight"?: string;
-        /**
-          * Defines whether to hide the extra buttons in the editor's toolbar or not. When set to true, only the save button will be shown.
-         */
-        "hideExtraButtons"?: boolean;
         /**
           * The editor type.
           * @default 'markdown'
