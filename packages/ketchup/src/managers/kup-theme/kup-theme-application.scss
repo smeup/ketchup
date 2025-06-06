@@ -2438,9 +2438,8 @@ Please note that using !important should generally be avoided if possible, as it
 kup-editor[initial-edit-type='text'] {
   .kup-editor-textarea {
     width: 100%;
-    padding: 0;
     border: 0;
-    padding: 1em;
+    padding: 16px 25px 0px 25px;
     box-sizing: border-box;
     font-family: var(--kup-font-family);
     outline: none;

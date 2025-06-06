@@ -626,7 +626,11 @@ export class KupEditor {
                                     (e.target as HTMLTextAreaElement).value
                                 )
                             }
+                            placeholder="Type your text here..."
                             readOnly={this.isReadOnly}
+                            style={{
+                                height: this.editorHeight || 'auto',
+                            }}
                             class="kup-editor-textarea"
                         ></textarea>
                     )}
