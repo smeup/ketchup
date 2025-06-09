@@ -189,6 +189,7 @@ graph TD;
   kup-file-upload --> kup-dialog
   kup-rating --> kup-dialog
   kup-time-picker --> kup-dialog
+  kup-image-list --> kup-dialog
   kup-button-list --> kup-dialog
   kup-dropdown-button --> kup-dialog
   kup-chart --> kup-dialog
@@ -216,7 +217,6 @@ graph TD;
   kup-grid --> kup-dialog
   kup-htm --> kup-dialog
   kup-iframe --> kup-dialog
-  kup-image-list --> kup-dialog
   kup-input-panel --> kup-dialog
   kup-lazy --> kup-dialog
   kup-magic-box --> kup-dialog

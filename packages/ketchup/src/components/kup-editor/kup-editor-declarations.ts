@@ -7,7 +7,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupEditorProps {
     autosaveTimer = 'When a number is specified, the component will emit the kup-editor-save event at regular intervals. The amount of time every interval will last is specified but the prop itself.',
     editorHeight = 'Sets the height of the component.',
-    initialEditType = 'Initializes editor with the specified editor type. Suported values: "markdown", "wysiwyg".',
+    initialEditType = 'Initializes editor with the specified editor type. Suported values: "markdown", "wysiwyg", "text".',
     initialValue = 'Initializes editor with the specified string.',
     isReadOnly = 'Defaults at false. When set, When set, the editor’s content can’t be changed..',
     selectedTab = 'Sets the markdown editor with the specified tab. Supported values: "preview", "write".',
@@ -16,7 +16,7 @@ export enum KupEditorProps {
     showToolbar = 'When set to false, the toolbar will not be shown.',
 }
 
-export type KupEditorType = 'wysiwyg' | 'markdown';
+export type KupEditorType = 'wysiwyg' | 'markdown' | 'text';
 
 export type KupEditorPreview = 'tab' | 'vertical';
 

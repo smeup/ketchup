@@ -5,17 +5,19 @@
 
 ## Properties
 
-| Property              | Attribute               | Description                                                      | Type                     | Default     |
-| --------------------- | ----------------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
-| `columns`             | --                      | Number of columns to display in the grid layout.                 | `number[]`               | `[]`        |
-| `customStyle`         | `custom-style`          | Custom style of the component.                                   | `string`                 | `''`        |
-| `data`                | --                      | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
-| `ripple`              | `ripple`                | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `false`     |
-| `rows`                | `rows`                  | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
-| `selectedNode`        | --                      | An array of integers containing the path to a selected child.    | `number[]`               | `[]`        |
-| `showFullDescription` | `show-full-description` | When enabled images descriptions will be fully shown.            | `boolean`                | `false`     |
-| `stateId`             | `state-id`              |                                                                  | `string`                 | `''`        |
-| `store`               | --                      |                                                                  | `KupStore`               | `undefined` |
+| Property              | Attribute               | Description                                                        | Type                     | Default     |
+| --------------------- | ----------------------- | ------------------------------------------------------------------ | ------------------------ | ----------- |
+| `activeNode`          | --                      | When present component will have an active class on node selected. | `KupImageListDataNode`   | `undefined` |
+| `columns`             | --                      | Number of columns to display in the grid layout.                   | `number[]`               | `[]`        |
+| `customStyle`         | `custom-style`          | Custom style of the component.                                     | `string`                 | `''`        |
+| `data`                | --                      | Actual data of the component.                                      | `KupImageListDataNode[]` | `[]`        |
+| `leadingLabel`        | `leading-label`         | When present component will have a main label.                     | `string`                 | `null`      |
+| `ripple`              | `ripple`                | When enabled displays Material's ripple effect on clicked items.   | `boolean`                | `false`     |
+| `rows`                | `rows`                  | Number of rows to display in the grid layout.                      | `number`                 | `null`      |
+| `selectedNode`        | --                      | An array of integers containing the path to a selected child.      | `number[]`               | `[]`        |
+| `showFullDescription` | `show-full-description` | When enabled images descriptions will be fully shown.              | `boolean`                | `false`     |
+| `stateId`             | `state-id`              |                                                                    | `string`                 | `''`        |
+| `store`               | --                      |                                                                    | `KupStore`               | `undefined` |
 
 
 ## Events
@@ -93,6 +95,18 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](.)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-toolbar](../kup-toolbar)
+ - [kup-tree](../kup-tree)
+
 ### Depends on
 
 - [kup-card](../kup-card)
@@ -108,6 +122,7 @@ Type: `Promise<void>`
 - [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
+- [kup-image-list](.)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -117,51 +132,8 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-image-list --> kup-card
-  kup-image-list --> kup-dialog
-  kup-image-list --> kup-badge
-  kup-image-list --> kup-image
-  kup-image-list --> kup-autocomplete
-  kup-image-list --> kup-chip
-  kup-image-list --> kup-text-field
-  kup-image-list --> kup-color-picker
-  kup-image-list --> kup-combobox
-  kup-image-list --> kup-date-picker
-  kup-image-list --> kup-file-upload
-  kup-image-list --> kup-rating
-  kup-image-list --> kup-time-picker
-  kup-image-list --> kup-button-list
-  kup-image-list --> kup-chart
-  kup-image-list --> kup-gauge
-  kup-image-list --> kup-progress-bar
-  kup-image-list --> kup-toolbar
-  kup-card --> kup-image
-  kup-card --> kup-autocomplete
-  kup-card --> kup-chip
-  kup-card --> kup-text-field
-  kup-card --> kup-color-picker
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-file-upload
-  kup-card --> kup-rating
-  kup-card --> kup-time-picker
-  kup-card --> kup-button-list
-  kup-card --> kup-chart
-  kup-card --> kup-gauge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-badge
-  kup-card --> kup-toolbar
-  kup-card --> kup-card
-  kup-card --> kup-dialog
-  kup-card --> kup-button
-  kup-card --> kup-list
-  kup-card --> kup-spinner
-  kup-card --> kup-checkbox
-  kup-card --> kup-data-table
-  kup-card --> kup-dropdown-button
-  kup-card --> kup-tree
-  kup-card --> kup-tab-bar
-  kup-card --> kup-switch
+  kup-image-list --> kup-image-list
+  kup-card --> kup-image-list
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -227,99 +199,26 @@ graph TD;
   kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
   kup-progress-bar --> kup-dialog
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
-  kup-toolbar --> kup-badge
-  kup-toolbar --> kup-image
-  kup-toolbar --> kup-autocomplete
-  kup-toolbar --> kup-chip
-  kup-toolbar --> kup-text-field
-  kup-toolbar --> kup-color-picker
-  kup-toolbar --> kup-combobox
-  kup-toolbar --> kup-date-picker
-  kup-toolbar --> kup-file-upload
-  kup-toolbar --> kup-rating
-  kup-toolbar --> kup-time-picker
-  kup-toolbar --> kup-button-list
-  kup-toolbar --> kup-chart
-  kup-toolbar --> kup-gauge
-  kup-toolbar --> kup-progress-bar
-  kup-toolbar --> kup-toolbar
+  kup-toolbar --> kup-image-list
   kup-button --> kup-card
   kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
-  kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-spinner
-  kup-data-table --> kup-form
-  kup-data-table --> kup-image
-  kup-data-table --> kup-dialog
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-dropdown-button
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-file-upload
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-toolbar
+  kup-data-table --> kup-image-list
   kup-switch --> kup-card
   kup-switch --> kup-dialog
-  kup-form --> kup-card
-  kup-form --> kup-dialog
-  kup-form --> kup-image
-  kup-form --> kup-autocomplete
-  kup-form --> kup-chip
-  kup-form --> kup-text-field
-  kup-form --> kup-color-picker
-  kup-form --> kup-combobox
-  kup-form --> kup-date-picker
-  kup-form --> kup-file-upload
-  kup-form --> kup-rating
-  kup-form --> kup-time-picker
-  kup-form --> kup-button-list
-  kup-form --> kup-chart
-  kup-form --> kup-gauge
-  kup-form --> kup-progress-bar
-  kup-form --> kup-badge
-  kup-form --> kup-toolbar
-  kup-tree --> kup-card
-  kup-tree --> kup-list
-  kup-tree --> kup-text-field
-  kup-tree --> kup-dialog
-  kup-tree --> kup-image
-  kup-tree --> kup-autocomplete
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-combobox
-  kup-tree --> kup-date-picker
-  kup-tree --> kup-file-upload
-  kup-tree --> kup-rating
-  kup-tree --> kup-time-picker
-  kup-tree --> kup-button-list
-  kup-tree --> kup-chart
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-badge
-  kup-tree --> kup-toolbar
+  kup-form --> kup-image-list
+  kup-tree --> kup-image-list
   kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-box --> kup-image-list
+  kup-cell --> kup-image-list
+  kup-input-panel --> kup-image-list
   style kup-image-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

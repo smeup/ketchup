@@ -63,7 +63,7 @@ export class KupImageList {
 
     @State() currentNode: KupImageListDataNode = null;
     @State() navigationBarToggled: boolean = false;
-
+    @State() activeSelectedNode?: KupImageListDataNode = null;
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
             this.state.load = true;
@@ -150,6 +150,18 @@ export class KupImageList {
      */
     @Prop() showFullDescription: boolean = false;
 
+    /**
+     * When present component will have a main label.
+     * @default null
+     */
+    @Prop() leadingLabel: string = null;
+
+    /**
+     * When present component will have an active class on node selected.
+     * @default null
+     */
+    @Prop() activeNode?: KupImageListDataNode;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -229,6 +241,10 @@ export class KupImageList {
         ) as KupImageListDataNode;
     }
 
+    @Watch('activeNode')
+    watchActiveNode(newNode: KupImageListDataNode) {
+        this.activeSelectedNode = newNode ?? null;
+    }
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -276,9 +292,9 @@ export class KupImageList {
         const label = <div class="image-list__label">{node.value}</div>;
 
         const hasExternalResource =
-            props.resource.indexOf('.') > -1 ||
-            props.resource.indexOf('/') > -1 ||
-            props.resource.indexOf('\\') > -1;
+            props.resource?.indexOf('.') > -1 ||
+            props.resource?.indexOf('/') > -1 ||
+            props.resource?.indexOf('\\') > -1;
 
         return (
             <FCell
@@ -325,6 +341,8 @@ export class KupImageList {
             const classObj = {
                 'image-list__item': true,
                 'mdc-ripple-surface': this.ripple ? true : false,
+                'image-list__item--active':
+                    this.activeSelectedNode?.value === node.value,
             };
             const item: VNode = (
                 <div
@@ -419,6 +437,7 @@ export class KupImageList {
                             if (node?.children?.length > 0) {
                                 this.currentNode = node;
                             }
+                            this.activeSelectedNode = node;
                             this.kupClick.emit({
                                 comp: this,
                                 id: this.rootElement.id,
@@ -494,6 +513,7 @@ export class KupImageList {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
+        this.activeSelectedNode = this.activeNode ?? null;
     }
 
     componentDidLoad() {
@@ -621,6 +641,11 @@ export class KupImageList {
                             </div>
                         ) : null}
                     </div>
+                    {this.leadingLabel && (
+                        <div class="mdc-text-field__label-container">
+                            <label class="mdc-label">{this.leadingLabel}</label>
+                        </div>
+                    )}
                     <div class={imlClass} style={combinedGridStyle}>
                         {...this.#createList()}
                     </div>

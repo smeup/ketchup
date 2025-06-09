@@ -97,6 +97,7 @@ Type: `Promise<void>`
 - [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
+- [kup-image-list](../kup-image-list)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -159,6 +160,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-toolbar
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -188,7 +190,6 @@ graph TD;
   kup-accordion --> kup-toolbar
   kup-box --> kup-toolbar
   kup-cell --> kup-toolbar
-  kup-image-list --> kup-toolbar
   kup-input-panel --> kup-toolbar
   kup-object-field --> kup-toolbar
   kup-typography --> kup-toolbar

@@ -10,7 +10,10 @@
 */
 
 :host {
-  --kup_box_background_color: var(--kup-box-background-color, var(--kup-layer-1));
+  --kup_box_background_color: var(
+    --kup-box-background-color,
+    var(--kup-layer-1)
+  );
   --kup_box_background_color_hover: var(
     --kup-box-background-color-hover,
     var(--kup-layer-1-hover)
@@ -22,10 +25,21 @@
   --kup_box_text_color: var(--kup-box-text-color, var(--kup-text-secondary));
   --kup_box_grid_gap: var(--kup-box-grid-gap, var(--kup-space-03));
   --kup_box_transition: var(--kup-box-transition, 0.25s);
-  --kup_box_border_color_drag:var(--kup-box-border-color-drag, var(--kup-border-interactive))
+  --kup_box_border_color_drag: var(
+    --kup-box-border-color-drag,
+    var(--kup-border-interactive)
+  );
   display: block;
-
   --kup_box_padding: var(--kup-box-padding, var(--kup-space-05));
+  --kup_box_border_radius: var(--kup-box-border-radius, var(--kup-radius-00));
+
+  --kup_box_border_color: var(
+    --kup-box-border-color,
+    var(--kup-primary-color-60)
+  );
+
+  --kup_box_border_width: var(--kup-box-border-width, 0);
+  --kup_box_border_style: var(--kup-box-border-style, none);
 }
 
 .box-component {
@@ -63,7 +77,10 @@
     display: flex;
     align-items: center;
     background-color: var(--kup_box_background_color);
-    border-radius: var(--kup-radius-00);
+    border-radius: var(--kup_box_border_radius);
+    border-color: var(--kup_box_border_color);
+    border-width: var(--kup_box_border_width);
+    border-style: var(--kup_box_border_style);
     &:hover {
       background-color: var(--kup_box_background_color_hover);
     }
@@ -75,7 +92,6 @@
         background-color: transparent;
       }
     }
-
 
     .box {
       flex-grow: 1;
@@ -95,7 +111,6 @@
       &.column {
         flex-direction: column;
       }
-
 
       &[#{$kup-dd-draggable}] {
         opacity: 0.5;

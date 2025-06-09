@@ -284,8 +284,10 @@ export class Filters {
                         _endWildcard,
                     ] = filterMatch;
 
-                    const numericFilterValue =
-                        dom.ketchup.math.numberifySafe(filterNum);
+                    const numericFilterValue = dom.ketchup.math.numberifySafe(
+                        filterNum,
+                        true
+                    );
 
                     if (!isNaN(numericFilterValue)) {
                         checkByRegularExpression = false;

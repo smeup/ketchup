@@ -1,3 +1,4 @@
+import { ex } from '@fullcalendar/core/internal-common';
 import { GenericObject, KupEventPayload } from '../../components';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
@@ -7,6 +8,7 @@ import {
     KupDataColumn,
     KupDataCommand,
     KupDataRow,
+    UseAsValue,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
@@ -33,11 +35,8 @@ export interface KupInputPanelAction {
     fun?: string;
 }
 
-export interface KupInputPanelColumn {
-    name: string;
-    title: string;
-    visible?: boolean;
-}
+// TODO: remove this interface and use the KupDataColumn instead
+export interface KupInputPanelColumn extends KupDataColumn {}
 
 export interface KupInputPanelRow {
     cells?: KupInputPanelRowCells;
@@ -163,7 +162,7 @@ export enum KupInputPanelProps {
     inputPanelPosition = 'Manage the global layout of the input panel fields. The default is COLUMNS.',
     autoSkip = 'Sets the auto skip between input text fields when the value reaches the max length.',
     autoFocus = 'Sets whether the first input should receive focus.',
-    fieldReset = 'Create e Reset button for the form'
+    fieldReset = 'Create e Reset button for the form',
 }
 
 export interface KupInputPanelEventHandlerDetails {

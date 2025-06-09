@@ -331,6 +331,10 @@ export namespace Components {
          */
         "placeholder": string;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -1427,6 +1431,10 @@ export namespace Components {
          */
         "listDisplayMode": ItemsDisplayMode;
         /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect": number;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -1763,7 +1771,7 @@ export namespace Components {
           * Opens the column menu of the given column.
           * @param column - Name of the column.
          */
-        "openColumnMenu": (column: string) => Promise<void>;
+        "openColumnMenu": (columnName: string, wrapperClass: string) => Promise<void>;
         /**
           * Current selected page set on component load
          */
@@ -2993,6 +3001,11 @@ export namespace Components {
     }
     interface KupImageList {
         /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
+        /**
           * Number of columns to display in the grid layout.
           * @default null
          */
@@ -3014,6 +3027,11 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -5158,6 +5176,7 @@ declare global {
     interface HTMLKupAutocompleteElementEventMap {
         "kup-autocomplete-blur": KupAutocompleteEventPayload;
         "kup-autocomplete-change": KupAutocompleteEventPayload;
+        "kup-autocomplete-submit": KupAutocompleteEventPayload;
         "kup-autocomplete-click": KupAutocompleteEventPayload;
         "kup-autocomplete-focus": KupAutocompleteEventPayload;
         "kup-autocomplete-input": KupAutocompleteEventPayload;
@@ -6525,11 +6544,16 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-submit"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.
           * @default 'Type code or description'
          */
         "placeholder"?: string;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -7499,6 +7523,10 @@ declare namespace LocalJSX {
         "onKup-combobox-iconclick"?: (event: KupComboboxCustomEvent<KupComboboxIconClickEventPayload>) => void;
         "onKup-combobox-input"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
+        /**
+          * Index of the element to select. When default selects nothing.
+         */
+        "preselect"?: number;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -8759,6 +8787,11 @@ declare namespace LocalJSX {
     }
     interface KupImageList {
         /**
+          * When present component will have an active class on node selected.
+          * @default null
+         */
+        "activeNode"?: KupImageListDataNode;
+        /**
           * Number of columns to display in the grid layout.
           * @default null
          */
@@ -8774,6 +8807,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupImageListDataNode[];
+        /**
+          * When present component will have a main label.
+          * @default null
+         */
+        "leadingLabel"?: string;
         "onKup-imagelist-click"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-contextmenu"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-dblclick"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;

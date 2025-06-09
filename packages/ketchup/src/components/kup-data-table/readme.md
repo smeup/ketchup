@@ -347,15 +347,16 @@ Type: `Promise<string | KupDataColumn>`
 
 Returns the new column created or a string containing the error message if something went wrong.
 
-### `openColumnMenu(column: string) => Promise<void>`
+### `openColumnMenu(columnName: string, wrapperClass: string) => Promise<void>`
 
 Opens the column menu of the given column.
 
 #### Parameters
 
-| Name     | Type     | Description           |
-| -------- | -------- | --------------------- |
-| `column` | `string` | - Name of the column. |
+| Name           | Type     | Description |
+| -------------- | -------- | ----------- |
+| `columnName`   | `string` |             |
+| `wrapperClass` | `string` |             |
 
 #### Returns
 
@@ -571,6 +572,7 @@ Type: `Promise<void>`
 - [kup-file-upload](../kup-file-upload)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
+- [kup-image-list](../kup-image-list)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -600,6 +602,7 @@ graph TD;
   kup-data-table --> kup-file-upload
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
+  kup-data-table --> kup-image-list
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
@@ -657,6 +660,25 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-card
+  kup-image-list --> kup-dialog
+  kup-image-list --> kup-badge
+  kup-image-list --> kup-image
+  kup-image-list --> kup-autocomplete
+  kup-image-list --> kup-chip
+  kup-image-list --> kup-text-field
+  kup-image-list --> kup-color-picker
+  kup-image-list --> kup-combobox
+  kup-image-list --> kup-date-picker
+  kup-image-list --> kup-file-upload
+  kup-image-list --> kup-rating
+  kup-image-list --> kup-time-picker
+  kup-image-list --> kup-image-list
+  kup-image-list --> kup-button-list
+  kup-image-list --> kup-chart
+  kup-image-list --> kup-gauge
+  kup-image-list --> kup-progress-bar
+  kup-image-list --> kup-toolbar
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -684,6 +706,7 @@ graph TD;
   kup-toolbar --> kup-file-upload
   kup-toolbar --> kup-rating
   kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image-list
   kup-toolbar --> kup-button-list
   kup-toolbar --> kup-chart
   kup-toolbar --> kup-gauge
@@ -708,6 +731,7 @@ graph TD;
   kup-tree --> kup-file-upload
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
+  kup-tree --> kup-image-list
   kup-tree --> kup-button-list
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
@@ -733,6 +757,7 @@ graph TD;
   kup-form --> kup-file-upload
   kup-form --> kup-rating
   kup-form --> kup-time-picker
+  kup-form --> kup-image-list
   kup-form --> kup-button-list
   kup-form --> kup-chart
   kup-form --> kup-gauge

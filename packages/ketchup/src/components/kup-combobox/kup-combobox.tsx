@@ -166,6 +166,10 @@ export class KupCombobox {
      * Sets the size of the input element
      */
     @Prop() size: number;
+    /**
+     * Index of the element to select. When default selects nothing.
+     */
+    @Prop() preselect: number = null;
 
     /**
      * Instance of the KupManager class.
@@ -582,6 +586,9 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
+        if (this.preselect != null) {
+            this.#listEl.select(this.preselect);
+        }
         this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }

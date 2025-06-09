@@ -42,7 +42,7 @@ export interface KupDataColumn {
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
     tooltip?: boolean;
-    useAs?: string;
+    useAs?: UseAsValue;
 }
 export interface KupDataColumnChild {
     name: string;
@@ -270,4 +270,9 @@ export enum DropDownAction {
     ROWACTION = 'row-action',
     CODVER = 'cod_ver',
     COMMAND = 'command',
+}
+
+export enum UseAsValue {
+    KEY = 'Key',
+    DEC = 'Dec',
 }

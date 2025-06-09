@@ -148,6 +148,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-image
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -182,7 +183,6 @@ graph TD;
   kup-box --> kup-image
   kup-calendar --> kup-image
   kup-cell --> kup-image
-  kup-image-list --> kup-image
   kup-input-panel --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

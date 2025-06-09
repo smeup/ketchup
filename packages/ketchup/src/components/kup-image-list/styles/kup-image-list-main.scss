@@ -182,6 +182,10 @@
     &:hover {
       background-color: var(--kup_imagelist_item_background_color_hover);
     }
+    &--active {
+      background-color: rgba(var(--kup_imagelist_primary_color_rgb), 0.15);
+      color: var(--kup_imagelist_primary_color);
+    }
   }
 
   &__image.f-image {

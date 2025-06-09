@@ -153,6 +153,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-progress-bar
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -184,7 +185,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-progress-bar
   kup-cell --> kup-progress-bar
-  kup-image-list --> kup-progress-bar
   kup-input-panel --> kup-progress-bar
   style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```

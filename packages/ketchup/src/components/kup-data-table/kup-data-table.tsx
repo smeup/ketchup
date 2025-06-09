@@ -186,6 +186,7 @@ import {
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
+    UseAsValue,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -1705,12 +1706,13 @@ export class KupDataTable {
      * @param {string} column - Name of the column.
      */
     @Method()
-    async openColumnMenu(column: string): Promise<void> {
+    async openColumnMenu(
+        columnName: string,
+        wrapperClass: string
+    ): Promise<void> {
         if (this.#columnMenuCard) {
             this.#closeColumnMenuCard();
         }
-
-        this.columnMenuAnchor = column;
 
         this.#columnMenuCard = document.createElement('kup-card');
         this.#columnMenuCard.isMenu = true;
@@ -1729,6 +1731,7 @@ export class KupDataTable {
                 });
             }
         );
+
         this.#columnMenuCard.addEventListener(
             'kup-card-event',
             (e: CustomEvent<KupCardEventPayload>) => {
@@ -1749,15 +1752,20 @@ export class KupDataTable {
             },
             el: this.#columnMenuCard,
         };
+
         this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
 
-        this.#columnMenuCard.setAttribute('data-column', column);
+        this.#columnMenuCard.setAttribute('data-column', columnName);
         this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
             this,
-            getColumnByName(this.getVisibleColumns(), column)
+            getColumnByName(this.getColumns(), columnName)
         );
-        this.#columnMenuInstance.open(this, column);
-        this.#columnMenuInstance.reposition(this, this.#columnMenuCard);
+        this.#columnMenuInstance.open(this, columnName);
+        this.#columnMenuInstance.reposition(
+            this,
+            this.#columnMenuCard,
+            wrapperClass
+        );
         this.kupDataTableColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,
@@ -3925,7 +3933,8 @@ export class KupDataTable {
     ): KupDatatableEventHandlerDetails {
         if (details.area === DataTableAreasEnum.HEADER) {
             if (details.column) {
-                this.openColumnMenu(details.column.name);
+                const colName = details.column.name;
+                this.openColumnMenu(colName, `th[data-column="${colName}"]`);
                 return details;
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
@@ -4073,7 +4082,7 @@ export class KupDataTable {
     }
 
     #hasRowActions() {
-        return this.rowActions !== undefined;
+        return this.rowActions?.length > 0;
     }
 
     #removeGroup(index: number) {
@@ -4204,12 +4213,13 @@ export class KupDataTable {
         if (column.useAs) {
             if (
                 this.#insertedRowIds.includes(row.id) &&
-                column.useAs === 'Dec'
+                column.useAs === UseAsValue.DEC
             ) {
                 return false;
             } else if (
                 !this.#insertedRowIds.includes(row.id) &&
-                (column.useAs === 'Dec' || column.useAs === 'Key')
+                (column.useAs === UseAsValue.DEC ||
+                    column.useAs === UseAsValue.KEY)
             ) {
                 return false;
             }
@@ -6877,6 +6887,15 @@ export class KupDataTable {
         );
     }
 
+    #handleChipsContextMenu(chipColumnName: string, e) {
+        e.preventDefault();
+
+        this.openColumnMenu(
+            chipColumnName,
+            `.chip[data-value="${chipColumnName}"]`
+        );
+    }
+
     #renderCommandDropDownButton(
         commandObj: KupDataCommand,
         styling: FButtonStyling
@@ -6919,7 +6938,7 @@ export class KupDataTable {
             let row: KupDataRow = { cells: {} };
             this.#originalDataLoaded?.columns.forEach((c) => {
                 (row.cells[c.name] as Omit<KupDataCell, 'value'>) = {
-                    shape: FCellShapes.INPUT_FIELD,
+                    shape: c.shape ?? FCellShapes.INPUT_FIELD,
                     obj: { ...c.obj },
                     isEditable: true,
                 };
@@ -7149,11 +7168,35 @@ export class KupDataTable {
                 const props: FChipsProps = {
                     data: chipsData,
                     id: 'group-chips',
-                    type: FChipType.INPUT,
                     onIconClick: [],
+                    onClearFilterClick: [],
+                    type: FChipType.INPUT,
+                    onContextMenu: [],
+                    hasFilter: [],
                 };
                 for (let i = 0; i < chipsData.length; i++) {
+                    const column = getColumnByName(
+                        this.getColumns(),
+                        chipsData[i].id
+                    );
+                    const hasFilterColumn =
+                        this.#filtersColumnMenuInstance.hasFiltersForColumn(
+                            this.filters,
+                            column
+                        );
+                    props.hasFilter.push(hasFilterColumn);
+                    this.#filtersColumnMenuInstance.hasFiltersForColumn(
+                        this.filters,
+                        column
+                    );
+                    props.onClearFilterClick.push(() =>
+                        this.#onRemoveFilter(column)
+                    );
+
                     props.onIconClick.push(() => this.#removeGroup(i));
+                    props.onContextMenu.push((chipArg, e) => {
+                        this.#handleChipsContextMenu(chipArg.id, e);
+                    });
                 }
                 groupChips = <FChip {...props}></FChip>;
             }

@@ -151,6 +151,7 @@ graph TD;
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-badge
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
@@ -175,7 +176,6 @@ graph TD;
   kup-cell --> kup-badge
   kup-dashboard --> kup-badge
   kup-family-tree --> kup-badge
-  kup-image-list --> kup-badge
   kup-input-panel --> kup-badge
   kup-magic-box --> kup-badge
   kup-numeric-picker --> kup-badge

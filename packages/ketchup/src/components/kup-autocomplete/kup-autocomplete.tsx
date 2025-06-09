@@ -161,7 +161,7 @@ export class KupAutocomplete {
      * When true, the items filter is managed server side, otherwise items filter is done client side.
      * @default false
      */
-    @Prop({ reflect: true }) serverHandledFilter: boolean = false;
+    @Prop({ reflect: true }) serverHandledFilter: boolean = true;
     /**
      * When true shows the drop-down icon, for open list.
      * @default true
@@ -196,6 +196,10 @@ export class KupAutocomplete {
      * Sets the size of the input element
      */
     @Prop() size: number;
+    /**
+     * Index of the element to select. When default selects nothing.
+     */
+    @Prop() preselect: number = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -231,6 +235,14 @@ export class KupAutocomplete {
         bubbles: true,
     })
     kupChange: EventEmitter<KupAutocompleteEventPayload>;
+
+    @Event({
+        eventName: 'kup-autocomplete-submit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSubmit: EventEmitter<KupAutocompleteEventPayload>;
 
     @Event({
         eventName: 'kup-autocomplete-click',
@@ -283,11 +295,11 @@ export class KupAutocomplete {
         }
     }
 
-    onKupChange(value: string) {
+    onKupChangeSubmit(value: string, eventToEmit: EventEmitter) {
         if (value) {
             const ret = this.#consistencyCheck(value, undefined, true);
             if (ret.exists || this.allowInconsistentValues) {
-                this.kupChange.emit({
+                eventToEmit.emit({
                     comp: this,
                     id: this.rootElement.id,
                     value: this.value,
@@ -298,7 +310,7 @@ export class KupAutocomplete {
         } else {
             this.value = '';
             this.displayedValue = '';
-            this.kupChange.emit({
+            eventToEmit.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
@@ -364,7 +376,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
-        this.onKupChange(e.detail.selected.id);
+        this.onKupChangeSubmit(e.detail.selected.id, this.kupChange);
         this.#closeList();
         if (this.#textfieldEl) {
             this.#textfieldEl.focus();
@@ -451,6 +463,12 @@ export class KupAutocomplete {
                     e.stopPropagation();
                     this.#openList(false);
                     this.#listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    this.onKupChangeSubmit(
+                        this.#textfieldEl.value,
+                        this.kupSubmit
+                    );
                     break;
             }
         }
@@ -657,6 +675,9 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
+        if (this.preselect != null) {
+            this.#listEl.select(this.preselect);
+        }
         this.#consistencyCheck(this.value, this.initialValueDecode, true);
         this.#kupManager.debug.logLoad(this, true);
     }
@@ -741,7 +762,10 @@ export class KupAutocomplete {
                         onBlur={() => this.onKupBlur()}
                         onClick={() => this.onKupClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
-                            this.onKupChange(e.target.value)
+                            this.onKupChangeSubmit(
+                                e.target.value,
+                                this.kupChange
+                            )
                         }
                         onFocus={() => this.onKupFocus()}
                         onInput={() => {
