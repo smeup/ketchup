@@ -1562,8 +1562,11 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.IMAGE_LIST:
-                value = (e as CustomEvent<KupImageListEventPayload>).detail
-                    .details.cell.value;
+                const obj = (e as CustomEvent<KupImageListEventPayload>).detail
+                    .details.cell.obj;
+                const cellValue = (e as CustomEvent<KupImageListEventPayload>)
+                    .detail.details.cell.value;
+                value = obj?.k ? obj.k : cellValue;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
