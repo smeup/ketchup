@@ -147,6 +147,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-rating
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -180,7 +181,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-rating
   kup-cell --> kup-rating
-  kup-image-list --> kup-rating
   kup-input-panel --> kup-rating
   style kup-rating fill:#f9f,stroke:#333,stroke-width:4px
 ```

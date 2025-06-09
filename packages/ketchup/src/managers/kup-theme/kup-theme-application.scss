@@ -2435,6 +2435,32 @@ Please note that using !important should generally be avoided if possible, as it
   z-index: -1;
 }
 
+kup-editor[initial-edit-type='text'] {
+  .kup-editor-textarea {
+    width: 100%;
+    border: 0;
+    padding: 16px 25px 0px 25px;
+    box-sizing: border-box;
+    font-family: var(--kup-font-family);
+    outline: none;
+  }
+
+  .te-editor-section {
+    display: none;
+  }
+
+  .tui-editor-defaultUI-toolbar {
+    > * {
+      display: none !important;
+    }
+
+    > .kup-editor-unsaved-changes,
+    > .kup-editor-save-button {
+      display: block !important;
+    }
+  }
+}
+
 /*-------------------------------------------------*/
 /*                    D e b u g                    */
 /*-------------------------------------------------*/

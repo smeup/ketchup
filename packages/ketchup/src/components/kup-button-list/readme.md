@@ -169,6 +169,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-button-list
   kup-chart --> kup-card
   kup-chart --> kup-dialog
   kup-gauge --> kup-card
@@ -194,7 +195,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-button-list
   kup-cell --> kup-button-list
-  kup-image-list --> kup-button-list
   kup-input-panel --> kup-button-list
   kup-magic-box --> kup-button-list
   style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px

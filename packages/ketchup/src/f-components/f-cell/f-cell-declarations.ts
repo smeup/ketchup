@@ -148,6 +148,7 @@ export const FCellShapes = {
     TABLE: 'TBL',
     TEXT_FIELD: 'ITX',
     TIME: 'TIM',
+    IMAGE_LIST: 'IML',
 } as const;
 
 // Define the type as keys of the object or a generic string
@@ -190,6 +191,7 @@ export enum FCellTypes {
     TABLE = 'table',
     TIME = 'time',
     LABEL = 'label',
+    IMAGE_LIST = 'image-list',
 }
 export const editableTypes = [
     FCellTypes.AUTOCOMPLETE,

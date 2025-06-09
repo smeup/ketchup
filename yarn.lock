@@ -15297,9 +15297,9 @@ __metadata:
   linkType: hard
 
 "tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "tapable@npm:2.2.1"
-  checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
+  version: 2.2.2
+  resolution: "tapable@npm:2.2.2"
+  checksum: 781b3666f4454eb506fd2bcd985c1994f2b93884ea88a7a2a5be956cad8337b31128a7591e771f7aab8e247993b2a0887d360a2d4f54382902ed89994c102740
   languageName: node
   linkType: hard
 
@@ -16243,12 +16243,12 @@ __metadata:
   linkType: hard
 
 "watchpack@npm:^2.4.0, watchpack@npm:^2.4.1":
-  version: 2.4.2
-  resolution: "watchpack@npm:2.4.2"
+  version: 2.4.3
+  resolution: "watchpack@npm:2.4.3"
   dependencies:
     glob-to-regexp: ^0.4.1
     graceful-fs: ^4.1.2
-  checksum: 92d9d52ce3d16fd83ed6994d1dd66a4d146998882f4c362d37adfea9ab77748a5b4d1e0c65fa104797928b2d40f635efa8f9b925a6265428a69f1e1852ca3441
+  checksum: a41b874add491fa4eee403d445b52bbab63fd50c167633975c847323257a467bdcae3f9e6de6930e9b034c47318fc4b57f3f028ca6d00867c3fa7865c83c90ab
   languageName: node
   linkType: hard
 

@@ -25,9 +25,10 @@
 | `listDisplayMode`         | `list-display-mode`         | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".            | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE_AND_DESC` |
 | `minimumChars`            | `minimum-chars`             | The minimum number of chars to trigger the autocomplete                                                                                  | `number`                                                                                                                                                            | `3`                              |
 | `placeholder`             | `placeholder`               | Set custom placeholder / watermark for text field, if not set the default one will be taken on component load.                           | `string`                                                                                                                                                            | `null`                           |
+| `preselect`               | `preselect`                 | Index of the element to select. When default selects nothing.                                                                            | `number`                                                                                                                                                            | `null`                           |
 | `readOnly`                | `read-only`                 | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean`                                                                                                                                                           | `false`                          |
 | `selectMode`              | `select-mode`               | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE`          |
-| `serverHandledFilter`     | `server-handled-filter`     | When true, the items filter is managed server side, otherwise items filter is done client side.                                          | `boolean`                                                                                                                                                           | `false`                          |
+| `serverHandledFilter`     | `server-handled-filter`     | When true, the items filter is managed server side, otherwise items filter is done client side.                                          | `boolean`                                                                                                                                                           | `true`                           |
 | `showDropDownIcon`        | `show-drop-down-icon`       | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                                           | `true`                           |
 | `showMarker`              | `show-marker`               | When true shows a small marker on the component.                                                                                         | `boolean`                                                                                                                                                           | `false`                          |
 | `size`                    | `size`                      | Sets the size of the input element                                                                                                       | `number`                                                                                                                                                            | `undefined`                      |
@@ -46,6 +47,7 @@
 | `kup-autocomplete-iconclick` |             | `CustomEvent<KupAutocompleteIconClickEventPayload>` |
 | `kup-autocomplete-input`     |             | `CustomEvent<KupAutocompleteEventPayload>`          |
 | `kup-autocomplete-itemclick` |             | `CustomEvent<KupAutocompleteEventPayload>`          |
+| `kup-autocomplete-submit`    |             | `CustomEvent<KupAutocompleteEventPayload>`          |
 
 
 ## Methods
@@ -216,6 +218,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-autocomplete
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -249,7 +252,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-autocomplete
   kup-cell --> kup-autocomplete
-  kup-image-list --> kup-autocomplete
   kup-input-panel --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```

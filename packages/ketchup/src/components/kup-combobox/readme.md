@@ -22,6 +22,7 @@
 | `leadingLabel`       | `leading-label`        | When set to true, the label will be on the left of the component.                                                                        | `boolean`                                                                                                                                                           | `false`                          |
 | `legacyLook`         | `legacy-look`          | Allows legacyLook aspect in CMB.                                                                                                         | `boolean`                                                                                                                                                           | `false`                          |
 | `listDisplayMode`    | `list-display-mode`    | Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".            | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE_AND_DESC` |
+| `preselect`          | `preselect`            | Index of the element to select. When default selects nothing.                                                                            | `number`                                                                                                                                                            | `null`                           |
 | `readOnly`           | `read-only`            | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean`                                                                                                                                                           | `false`                          |
 | `selectMode`         | `select-mode`          | Sets how to return the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.CODE_AND_DESC \| ItemsDisplayMode.CODE_AND_DESC_ALIAS \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESC_AND_CODE` | `ItemsDisplayMode.CODE`          |
 | `showDropDownIcon`   | `show-drop-down-icon`  | When true shows the drop-down icon, for open list.                                                                                       | `boolean`                                                                                                                                                           | `true`                           |
@@ -213,6 +214,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
+  kup-image-list --> kup-combobox
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-dialog
@@ -246,7 +248,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-box --> kup-combobox
   kup-cell --> kup-combobox
-  kup-image-list --> kup-combobox
   kup-input-panel --> kup-combobox
   kup-magic-box --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px

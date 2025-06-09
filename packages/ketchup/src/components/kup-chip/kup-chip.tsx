@@ -279,7 +279,7 @@ export class KupChip {
         e.stopPropagation();
         const data = this.data && this.data.length ? this.data : [];
         // check event type
-        if ('node' in e.detail) {
+        if ('node' in e.detail && e.detail.node) {
             // autocomplete and combobox handler
             const node = (
                 e.detail as
@@ -287,7 +287,7 @@ export class KupChip {
                     | KupComboboxEventPayload
             ).node;
             // check if node isn't presents in data
-            if (!this.data?.find((n) => n.id === node.id)) {
+            if (node.value && !this.data?.find((n) => n.id === node.id)) {
                 this.data = [
                     ...data,
                     {
@@ -442,6 +442,11 @@ export class KupChip {
                 }}
                 onKup-combobox-itemclick={(
                     e: CustomEvent<KupComboboxEventPayload>
+                ) => {
+                    this.#changeHandler(e);
+                }}
+                onKup-autocomplete-submit={(
+                    e: CustomEvent<KupAutocompleteEventPayload>
                 ) => {
                     this.#changeHandler(e);
                 }}
