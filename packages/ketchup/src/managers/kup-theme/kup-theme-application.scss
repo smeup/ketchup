@@ -2443,6 +2443,8 @@ kup-editor[initial-edit-type='text'] {
     box-sizing: border-box;
     font-family: var(--kup-font-family);
     outline: none;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
   }
 
   .te-editor-section {
