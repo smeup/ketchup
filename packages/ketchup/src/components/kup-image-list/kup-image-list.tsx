@@ -240,11 +240,6 @@ export class KupImageList {
             newData
         ) as KupImageListDataNode;
     }
-
-    @Watch('activeNode')
-    watchActiveNode(newNode: KupImageListDataNode) {
-        this.activeSelectedNode = newNode ?? null;
-    }
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -437,7 +432,12 @@ export class KupImageList {
                             if (node?.children?.length > 0) {
                                 this.currentNode = node;
                             }
-                            this.activeSelectedNode = node;
+                            if (
+                                this.activeSelectedNode?.value !== node?.value
+                            ) {
+                                this.activeSelectedNode = node;
+                            }
+
                             this.kupClick.emit({
                                 comp: this,
                                 id: this.rootElement.id,
