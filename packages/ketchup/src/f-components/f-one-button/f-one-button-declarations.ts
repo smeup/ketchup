@@ -4,8 +4,14 @@ import type { FComponent } from '../../types/GenericTypes';
  */
 export interface FOneButtonProps extends FComponent {
     data?: FOneButtonData[];
+    onBlur?: (index: number, event: FocusEvent) => void;
+    onChange?: (index: number, event: Event) => void;
+    onFocus?: (index: number, event: FocusEvent) => void;
 }
 /**
  * The object of a single one button.
  */
-export interface FOneButtonData {}
+export interface FOneButtonData {
+    label: string;
+    icon?: string;
+}

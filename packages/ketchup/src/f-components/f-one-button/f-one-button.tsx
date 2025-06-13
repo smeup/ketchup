@@ -12,11 +12,22 @@ export const FOneButton: FunctionalComponent<FOneButtonProps> = (
 ) => {
     // creates the elements of the list
     const buttons: Array<VNode> = [];
-    for (let i = 0; i < props.data?.length; i++) {}
+    for (let i = 0; i < props.data?.length; i++) {
+        buttons.push(
+            <FButton
+                label={props.data[i].label}
+                onBlur={(event: FocusEvent) => {
+                    props.onBlur(i, event);
+                }}
+                onClick={(event: FocusEvent) => {
+                    props.onChange(i, event);
+                }}
+                onFocus={(event: FocusEvent) => {
+                    props.onFocus(i, event);
+                }}
+            ></FButton>
+        );
+    }
 
-    return (
-        <div>
-            <FButton label="ciaone===="></FButton>
-        </div>
-    );
+    return <div>{buttons}</div>;
 };
