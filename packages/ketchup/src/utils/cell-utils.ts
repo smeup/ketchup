@@ -11,6 +11,7 @@ import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declara
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
 import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
 import { KupObj } from '../managers/kup-objects/kup-objects-declarations';
+import { kMaxLength } from 'buffer';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -262,12 +263,15 @@ export function isNegativeNumber(value: string): boolean {
 export const CMBandACPAdapter = (
     value: string,
     label: string,
-    options: GenericObject
+    options: GenericObject,
+    cellData: GenericObject
 ) => ({
     data: {
         'kup-text-field': {
             trailingIcon: true,
             label,
+            size: cellData?.size,
+            maxLength: cellData?.maxLength,
         },
         'kup-list': {
             showIcons: true,
