@@ -3,6 +3,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
+import { FOneButton } from '../../f-components/f-one-button/f-one-button';
+import { FOneButtonProps } from '../../f-components/f-one-button/f-one-button-declarations';
 
 @Component({
     tag: 'kup-one-button',
@@ -64,7 +66,13 @@ export class KupOneButton {
     }
 
     render() {
-        return <Host>ciaone</Host>;
+        const props: FOneButtonProps = {};
+
+        return (
+            <Host>
+                <FOneButton {...props}></FOneButton>
+            </Host>
+        );
     }
 
     disconnectedCallback() {
