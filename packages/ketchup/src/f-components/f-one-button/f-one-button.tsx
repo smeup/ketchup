@@ -7,8 +7,7 @@ import { FOneButtonProps } from './f-one-button-declarations';
 import { FButton } from '../f-button/f-button';
 
 export const FOneButton: FunctionalComponent<FOneButtonProps> = (
-    props: FOneButtonProps,
-    children: VNode[]
+    props: FOneButtonProps
 ) => {
     // creates the elements of the list
     const buttons: Array<VNode> = [];
