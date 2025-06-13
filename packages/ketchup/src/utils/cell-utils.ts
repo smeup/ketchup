@@ -262,12 +262,15 @@ export function isNegativeNumber(value: string): boolean {
 export const CMBandACPAdapter = (
     value: string,
     label: string,
-    options: GenericObject
+    options: GenericObject,
+    cellData: GenericObject
 ) => ({
     data: {
         'kup-text-field': {
             trailingIcon: true,
             label,
+            size: cellData?.size,
+            maxLength: cellData?.maxLength,
         },
         'kup-list': {
             showIcons: true,

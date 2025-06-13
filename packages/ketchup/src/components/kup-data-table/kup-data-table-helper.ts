@@ -1148,9 +1148,9 @@ export function decorateDataTable(data: KupDataTableDataset) {
             cell.isEditable = cell.isEditable ?? cell['editable'];
             const shapeAdapters = {
                 [FCellShapes.AUTOCOMPLETE]: () =>
-                    CMBandACPAdapter(value, '', options),
+                    CMBandACPAdapter(value, '', options, cell.data),
                 [FCellShapes.COMBOBOX]: () =>
-                    CMBandACPAdapter(value, '', options),
+                    CMBandACPAdapter(value, '', options, cell.data),
                 [FCellShapes.RADIO]: () => RADAdapter(value, options),
                 [FCellShapes.CHECKBOX]: () => CHKAdapter(value, ''),
                 [FCellShapes.CHIP]: () => CHIAdapter(value, decode),
