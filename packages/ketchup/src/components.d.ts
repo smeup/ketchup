@@ -3481,6 +3481,8 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
+    interface KupOneButton {
+    }
     interface KupPdf {
         /**
           * Used to retrieve component's props values.
@@ -5913,6 +5915,12 @@ declare global {
         prototype: HTMLKupObjectFieldElement;
         new (): HTMLKupObjectFieldElement;
     };
+    interface HTMLKupOneButtonElement extends Components.KupOneButton, HTMLStencilElement {
+    }
+    var HTMLKupOneButtonElement: {
+        prototype: HTMLKupOneButtonElement;
+        new (): HTMLKupOneButtonElement;
+    };
     interface HTMLKupPdfElementEventMap {
         "kup-pdf-ready": KupEventPayload;
     }
@@ -6334,6 +6342,7 @@ declare global {
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
+        "kup-one-button": HTMLKupOneButtonElement;
         "kup-pdf": HTMLKupPdfElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
@@ -9129,6 +9138,8 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "data"?: KupObjectFieldData;
     }
+    interface KupOneButton {
+    }
     interface KupPdf {
         /**
           * Triggered when the component is ready.
@@ -10458,6 +10469,7 @@ declare namespace LocalJSX {
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
+        "kup-one-button": KupOneButton;
         "kup-pdf": KupPdf;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
@@ -10537,6 +10549,7 @@ declare module "@stencil/core" {
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
+            "kup-one-button": LocalJSX.KupOneButton & JSXBase.HTMLAttributes<HTMLKupOneButtonElement>;
             "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;

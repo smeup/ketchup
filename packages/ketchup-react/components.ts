@@ -54,6 +54,7 @@ import { KupMagicBox as KupMagicBoxElement, defineCustomElement as defineKupMagi
 import { KupNavBar as KupNavBarElement, defineCustomElement as defineKupNavBar } from "@sme.up/ketchup/dist/components/kup-nav-bar.js";
 import { KupNumericPicker as KupNumericPickerElement, defineCustomElement as defineKupNumericPicker } from "@sme.up/ketchup/dist/components/kup-numeric-picker.js";
 import { KupObjectField as KupObjectFieldElement, defineCustomElement as defineKupObjectField } from "@sme.up/ketchup/dist/components/kup-object-field.js";
+import { KupOneButton as KupOneButtonElement, defineCustomElement as defineKupOneButton } from "@sme.up/ketchup/dist/components/kup-one-button.js";
 import { KupPdf as KupPdfElement, defineCustomElement as defineKupPdf } from "@sme.up/ketchup/dist/components/kup-pdf.js";
 import { KupPlannerRenderer as KupPlannerRendererElement, defineCustomElement as defineKupPlannerRenderer } from "@sme.up/ketchup/dist/components/kup-planner-renderer.js";
 import { KupPlanner as KupPlannerElement, defineCustomElement as defineKupPlanner } from "@sme.up/ketchup/dist/components/kup-planner.js";
@@ -909,6 +910,17 @@ export const KupObjectField: StencilReactComponent<KupObjectFieldElement, KupObj
     react: React,
     events: {} as KupObjectFieldEvents,
     defineCustomElement: defineKupObjectField
+});
+
+type KupOneButtonEvents = NonNullable<unknown>;
+
+export const KupOneButton: StencilReactComponent<KupOneButtonElement, KupOneButtonEvents> = /*@__PURE__*/ createComponent<KupOneButtonElement, KupOneButtonEvents>({
+    tagName: 'kup-one-button',
+    elementClass: KupOneButtonElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {} as KupOneButtonEvents,
+    defineCustomElement: defineKupOneButton
 });
 
 type KupPdfEvents = { onKupPdfReady: EventName<KupPdfCustomEvent<KupEventPayload>> };
