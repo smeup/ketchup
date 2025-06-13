@@ -10,6 +10,10 @@ export const FOneButton: FunctionalComponent<FOneButtonProps> = (
     props: FOneButtonProps,
     children: VNode[]
 ) => {
+    // creates the elements of the list
+    const buttons: Array<VNode> = [];
+    for (let i = 0; i < props.data?.length; i++) {}
+
     return (
         <div>
             <FButton label="ciaone===="></FButton>

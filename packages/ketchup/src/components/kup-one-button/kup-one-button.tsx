@@ -1,10 +1,13 @@
-import { Component, Element, State, h, Host } from '@stencil/core';
+import { Component, Element, State, h, Host, Prop } from '@stencil/core';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { FOneButton } from '../../f-components/f-one-button/f-one-button';
-import { FOneButtonProps } from '../../f-components/f-one-button/f-one-button-declarations';
+import {
+    FOneButtonData,
+    FOneButtonProps,
+} from '../../f-components/f-one-button/f-one-button-declarations';
 
 @Component({
     tag: 'kup-one-button',
@@ -30,6 +33,12 @@ export class KupOneButton {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
+
+    /**
+     * List of elements.
+     * @default null
+     */
+    @Prop() data: FOneButtonData[] = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
