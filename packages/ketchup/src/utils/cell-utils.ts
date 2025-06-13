@@ -11,7 +11,6 @@ import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declara
 import { ItemsDisplayMode } from '../components/kup-list/kup-list-declarations';
 import { KupMathFormulaResult } from '../managers/kup-math/kup-math-declarations';
 import { KupObj } from '../managers/kup-objects/kup-objects-declarations';
-import { kMaxLength } from 'buffer';
 
 const dom: KupDom = document.documentElement as KupDom;
 
