@@ -1150,7 +1150,10 @@ function setCell(
                     cell.value
                 );
                 const cellValue = getCellValueForDisplay(column, cell);
-                if (cellValueNumber < 0) {
+                const hasCustomColor = Boolean(
+                    cell.style && cell.style['color']
+                );
+                if (!hasCustomColor && cellValueNumber < 0) {
                     classObj[FCellClasses.TEXT_DANGER] = true;
                 }
                 if (isAutoCentered(props)) {
