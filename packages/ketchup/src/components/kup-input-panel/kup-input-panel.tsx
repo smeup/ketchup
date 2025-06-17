@@ -1873,6 +1873,39 @@ export class KupInputPanel {
         });
     }
 
+    #setRadioData(cell: KupDataCell, options: GenericObject) {
+        if (options) {
+            console.log('setting radio data...');
+            const data = this.#tableOptionsAdapter(options, cell.value);
+            console.log(data);
+
+            cell.data = {
+                data: {
+                    ...cell.data?.data,
+                    ...data,
+                },
+            };
+        }
+    }
+
+    #getShapesData() {
+        this.data.rows.forEach((row) => {
+            Object.keys(row.cells).forEach((cellKey) => {
+                const cell = this.#getCell(cellKey) as KupInputPanelCell;
+                if (cell.shape === FCellShapes.RADIO) {
+                    this.optionsHandler(
+                        cell.fun,
+                        cell.value,
+                        this.#reverseMapCells(),
+                        cellKey
+                    ).then((options) => {
+                        this.#setRadioData(cell, options);
+                    });
+                }
+            });
+        });
+    }
+
     async #manageInputPanelCheck(
         e: CustomEvent<FCellEventPayload>,
         eventType: CheckTriggeringEvents
@@ -2202,6 +2235,7 @@ export class KupInputPanel {
 
     componentDidLoad() {
         this.#didLoadInteractables();
+        this.#getShapesData();
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
 
         this.#setFocusOnInputElement();
