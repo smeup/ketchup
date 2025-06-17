@@ -227,6 +227,23 @@ export const FCell: FunctionalComponent<FCellProps> = (
         infoEl = <FImage {...fProps} />;
     }
 
+    // For input panel G Cells: handle textfield instead of cell background/text colors
+    const isInputPanel =
+        (props.component as KupComponent).rootElement.tagName ===
+        KupTagNames.INPUT_PANEL;
+    if (isInputPanel && cell.style) {
+        if (cell.style.backgroundColor) {
+            const color = cell.style.backgroundColor;
+            cell.style.backgroundColor = '';
+            cell.style['--kup-textfield-background-color'] = color;
+        }
+        if (cell.style.color) {
+            const color = cell.style.color;
+            cell.style.color = '';
+            cell.style['--kup-textfield-color'] = color;
+        }
+    }
+
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
@@ -1150,7 +1167,10 @@ function setCell(
                     cell.value
                 );
                 const cellValue = getCellValueForDisplay(column, cell);
-                if (cellValueNumber < 0) {
+                const hasCustomColor = Boolean(
+                    cell.style && cell.style['color']
+                );
+                if (!hasCustomColor && cellValueNumber < 0) {
                     classObj[FCellClasses.TEXT_DANGER] = true;
                 }
                 if (isAutoCentered(props)) {
