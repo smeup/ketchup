@@ -22,6 +22,7 @@ import {
     KupDataTableRow,
     KupDropdownButtonEventPayload,
     KupEditorEventPayload,
+    KupFileUploadEventPayload,
     KupTabBarEventPayload,
     KupTabBarNode,
 } from '../../components';
@@ -452,6 +453,14 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupInputPanelObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-upload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellUpload: EventEmitter<KupFileUploadEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -2180,6 +2189,11 @@ export class KupInputPanel {
         inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
     }
 
+    #upload(e: CustomEvent<KupFileUploadEventPayload>): void {
+        e.stopPropagation();
+        this.kupCellUpload.emit(e.detail);
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2281,6 +2295,7 @@ export class KupInputPanel {
                         e.detail
                     );
                 }}
+                onKup-file-upload-upload={this.#upload.bind(this)}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(

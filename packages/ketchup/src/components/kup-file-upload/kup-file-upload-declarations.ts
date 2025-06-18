@@ -8,3 +8,6 @@ export enum KupFileUploadProps {
 export interface KupFileUploadEventPayload extends KupEventPayload {
     files: File[];
 }
+export interface KupFileUploadChangeEventPayload extends KupEventPayload {
+    value: string;
+}

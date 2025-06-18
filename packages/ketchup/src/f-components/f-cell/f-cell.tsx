@@ -1,5 +1,6 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
+    KupFileUploadChangeEventPayload,
     KupImageListDataNode,
     KupImageListEventPayload,
     KupTextFieldEventPayload,
@@ -802,7 +803,14 @@ function setEditableCell(
                 />
             );
         case FCellTypes.FILE_UPLOAD:
-            return <kup-file-upload {...cell.data} />;
+            return (
+                <kup-file-upload
+                    onKup-file-upload-change={(
+                        e: CustomEvent<KupFileUploadChangeEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    {...cell.data}
+                />
+            );
         case FCellTypes.MULTI_AUTOCOMPLETE: {
             return (
                 <kup-chip

@@ -7,18 +7,21 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                     | Type     | Default |
-| ------------- | -------------- | ------------------------------- | -------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.  | `string` | `''`    |
-| `data`        | `data`         | Actual data of the input field. | `any`    | `null`  |
+| Property      | Attribute      | Description                         | Type      | Default |
+| ------------- | -------------- | ----------------------------------- | --------- | ------- |
+| `autoUpload`  | `auto-upload`  | Sets the auto upload of select file | `boolean` | `false` |
+| `customStyle` | `custom-style` | Custom style of the component.      | `string`  | `''`    |
+| `data`        | `data`         | The initial filepaths               | `string`  | `null`  |
+| `multiUpload` | `multi-upload` | Sets the multiple upload            | `boolean` | `false` |
 
 
 ## Events
 
-| Event                    | Description                     | Type                                     |
-| ------------------------ | ------------------------------- | ---------------------------------------- |
-| `kup-file-upload-ready`  | When component load is complete | `CustomEvent<KupEventPayload>`           |
-| `kup-file-upload-upload` |                                 | `CustomEvent<KupFileUploadEventPayload>` |
+| Event                    | Description                     | Type                                           |
+| ------------------------ | ------------------------------- | ---------------------------------------------- |
+| `kup-file-upload-change` |                                 | `CustomEvent<KupFileUploadChangeEventPayload>` |
+| `kup-file-upload-ready`  | When component load is complete | `CustomEvent<KupEventPayload>`                 |
+| `kup-file-upload-upload` |                                 | `CustomEvent<KupFileUploadEventPayload>`       |
 
 
 ## Methods
@@ -81,15 +84,16 @@ Type: `Promise<void>`
 
 
 
-### `setSuccess(success: boolean) => Promise<void>`
+### `setSuccess(success: boolean, pathFiles: string) => Promise<void>`
 
 Sets upload has been successfull to show success message.
 
 #### Parameters
 
-| Name      | Type      | Description                                      |
-| --------- | --------- | ------------------------------------------------ |
-| `success` | `boolean` | - Boolean to set if upload has been successfull. |
+| Name        | Type      | Description                                      |
+| ----------- | --------- | ------------------------------------------------ |
+| `success`   | `boolean` | - Boolean to set if upload has been successfull. |
+| `pathFiles` | `string`  |                                                  |
 
 #### Returns
 
