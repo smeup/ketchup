@@ -4614,6 +4614,7 @@ export class KupDataTable {
             this.#selectColumn(this.selectedColumn);
 
             if (emitEvent !== false) {
+                console.log('rowClick');
                 // emit event
                 this.kupRowSelected.emit({
                     comp: this,

@@ -250,11 +250,11 @@ export class KupInputPanel {
         (options: any, currentValue: string) => GenericObject[]
     >([
         ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
-        ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
+        ['SmeupDataTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
 
         //FIXME: deprecated
         ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
-        ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
+        ['SmeupTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
     ]);
 
     #originalData: KupInputPanelData = null;
@@ -1791,7 +1791,10 @@ export class KupInputPanel {
         }));
     }
 
-    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
+    #tableCMBandACPOptionsAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
         return options.rows.map((row) => {
             const cells = row.fields || row.cells;
             const [id, value] = Object.keys(cells);
@@ -1799,6 +1802,22 @@ export class KupInputPanel {
             return {
                 id: cells[id].value,
                 value: value ? cells[value].value : cells[id].value,
+                selected: currentValue === cells[id].value,
+            };
+        });
+    }
+
+    #tableRADOptionsAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
+        return options.rows.map((row) => {
+            const cells = row.fields || row.cells;
+            const [id, value] = Object.keys(cells);
+
+            return {
+                id: cells[id].value,
+                label: value ? cells[value].value : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
@@ -1873,35 +1892,55 @@ export class KupInputPanel {
         });
     }
 
-    #setRadioData(cell: KupDataCell, options: GenericObject) {
-        if (options) {
-            console.log('setting radio data...');
-            const data = this.#tableOptionsAdapter(options, cell.value);
-            console.log(data);
-
-            cell.data = {
-                data: {
-                    ...cell.data?.data,
-                    ...data,
-                },
-            };
+    #setRadioData(cell: KupInputPanelCell, dataStructure: GenericObject) {
+        if (dataStructure) {
+            cell.options = this.#tableRADOptionsAdapter(
+                dataStructure,
+                cell.value
+            );
         }
     }
 
     #getShapesData() {
-        this.data.rows.forEach((row) => {
-            Object.keys(row.cells).forEach((cellKey) => {
-                const cell = this.#getCell(cellKey) as KupInputPanelCell;
-                if (cell.shape === FCellShapes.RADIO) {
-                    this.optionsHandler(
-                        cell.fun,
-                        cell.value,
-                        this.#reverseMapCells(),
-                        cellKey
-                    ).then((options) => {
-                        this.#setRadioData(cell, options);
+        return new Promise<void>((resolve) => {
+            const cells: { id: string; cell: KupInputPanelCell }[] = [];
+
+            this.inputPanelCells.forEach((_cells) => {
+                _cells.cells.forEach((_cell) => {
+                    const cell = _cell.cell;
+                    if (cell.shape === FCellShapes.RADIO) {
+                        cells.push({
+                            id: _cell.column.name,
+                            cell: cell,
+                        });
+                    }
+                });
+            });
+
+            let counter = 0;
+
+            cells.forEach((item) => {
+                const cell = item.cell;
+                const id = item.id;
+
+                this.optionsHandler(
+                    cell.fun,
+                    cell.value,
+                    this.#reverseMapCells(),
+                    id
+                )
+                    .then((dataStructure) => {
+                        this.#setRadioData(cell, dataStructure);
+                        counter++;
+                    })
+                    .catch((_) => {
+                        counter++;
+                    })
+                    .finally(() => {
+                        if (counter === cells.length) {
+                            resolve();
+                        }
                     });
-                }
             });
         });
     }
@@ -2235,7 +2274,10 @@ export class KupInputPanel {
 
     componentDidLoad() {
         this.#didLoadInteractables();
-        this.#getShapesData();
+        this.#getShapesData().then(() => {
+            console.log('refreshing component');
+            this.refresh();
+        });
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
 
         this.#setFocusOnInputElement();
