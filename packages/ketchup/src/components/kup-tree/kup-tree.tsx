@@ -84,7 +84,10 @@ import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupDom,
+    KupManagerClickCb,
+} from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellClasses,
     FCellEventPayload,
@@ -102,6 +105,8 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FImage } from '../../f-components/f-image/f-image';
 import { isExpandable } from './kup-tree-helper';
+
+const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -786,7 +791,11 @@ export class KupTree {
             getColumnByName(this.getVisibleColumns(), column)
         );
         this.columnMenuInstance.open(this, column);
-        this.columnMenuInstance.reposition(this, this.columnMenuCard, 'th[data-column="' + column + '"]');
+        this.columnMenuInstance.reposition(
+            this,
+            this.columnMenuCard,
+            'th[data-column="' + column + '"]'
+        );
         this.kupTreeColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1965,7 +1974,9 @@ export class KupTree {
                     this.footer[column.name] != null
                         ? getValueForDisplay(
                               this.footer[column.name],
-                              column.obj,
+                              dom.ketchup.objects.isDate(column.obj)
+                                  ? column.obj
+                                  : { t: 'NR', p: '', k: '' },
                               column.decimals
                           )
                         : '';

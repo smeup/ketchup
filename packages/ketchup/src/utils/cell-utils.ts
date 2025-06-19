@@ -188,28 +188,40 @@ export function compareValues(
         v1 = dom.ketchup.math.numberifySafe(s1);
         v2 = dom.ketchup.math.numberifySafe(s2);
     } else if (dom.ketchup.objects.isDate(obj1)) {
-        v1 = dom.ketchup.dates.toDate(
+        const firstDateValue = dom.ketchup.dates.toDate(
             dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE)
         );
-        v2 = dom.ketchup.dates.toDate(
+        const secondDateValue = dom.ketchup.dates.toDate(
             dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
         );
+        if (firstDateValue && secondDateValue) {
+            v1 = firstDateValue;
+            v2 = secondDateValue;
+        }
     } else if (dom.ketchup.objects.isTime(obj1)) {
         // Previous code could not work because dayjs
         // returns an invalid date when it tries to parse a time
         // This solution is simpler and it works because the time format
         // was assumed to be equals to HH:mm:ss or HH:mm
-        v1 = Number(s1.replace(/:/g, ''));
-        v2 = Number(s2.replace(/:/g, ''));
+        const firstTimeValue = Number(s1.replace(/:/g, ''));
+        const secondTimeValue = Number(s2.replace(/:/g, ''));
+        if (!Number.isNaN(firstTimeValue) && !Number.isNaN(secondTimeValue)) {
+            v1 = firstTimeValue;
+            v2 = secondTimeValue;
+        }
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
-        v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME),
+        const firstTimestampValue = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE),
             KupDatesFormats.ISO_DATE_TIME
         );
-        v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME),
+        const secondTimestampValue = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE),
             KupDatesFormats.ISO_DATE_TIME
         );
+        if (firstTimestampValue && secondTimestampValue) {
+            v1 = firstTimestampValue;
+            v2 = secondTimestampValue;
+        }
     }
     if (v1 > v2) {
         return sm * 1;
@@ -262,12 +274,15 @@ export function isNegativeNumber(value: string): boolean {
 export const CMBandACPAdapter = (
     value: string,
     label: string,
-    options: GenericObject
+    options: GenericObject,
+    _cellData: GenericObject
 ) => ({
     data: {
         'kup-text-field': {
             trailingIcon: true,
             label,
+            // size: _cellData?.size,
+            // maxLength: _cellData?.maxLength,
         },
         'kup-list': {
             showIcons: true,
