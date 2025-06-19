@@ -136,7 +136,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         'monospace c-pre': cell.data?.legacyLook,
     };
     let content: unknown = valueToDisplay;
-    if (!cell.data) {
+    if (!cell.data || Object.keys(cell.data).length === 0) {
         setDefaults(cellType, cell);
     }
     if (isEditable && editableTypes.includes(cellType)) {
