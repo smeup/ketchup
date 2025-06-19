@@ -136,7 +136,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         'monospace c-pre': cell.data?.legacyLook,
     };
     let content: unknown = valueToDisplay;
-    if (!cell.data) {
+    if (!cell.data || Object.keys(cell.data).length === 0) {
         setDefaults(cellType, cell);
     }
     if (isEditable && editableTypes.includes(cellType)) {
@@ -225,6 +225,23 @@ export const FCell: FunctionalComponent<FCellProps> = (
             wrapperClass: 'cell-info',
         };
         infoEl = <FImage {...fProps} />;
+    }
+
+    // For input panel G Cells: handle textfield instead of cell background/text colors
+    const isInputPanel =
+        (props.component as KupComponent).rootElement.tagName ===
+        KupTagNames.INPUT_PANEL;
+    if (isInputPanel && cell.style) {
+        if (cell.style.backgroundColor) {
+            const color = cell.style.backgroundColor;
+            cell.style.backgroundColor = '';
+            cell.style['--kup-textfield-background-color'] = color;
+        }
+        if (cell.style.color) {
+            const color = cell.style.color;
+            cell.style.color = '';
+            cell.style['--kup-textfield-color'] = color;
+        }
     }
 
     return (
@@ -394,7 +411,12 @@ const MainCMBandACPAdapter = (
     _id: string
 ) => {
     if (options) {
-        const configCMBandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+        const configCMBandACP = CMBandACPAdapter(
+            currentValue,
+            fieldLabel,
+            [],
+            cell.data
+        );
         configCMBandACP.data['kup-list'].data = optionsTreeComboAdapter(
             options,
             currentValue
@@ -1145,7 +1167,10 @@ function setCell(
                     cell.value
                 );
                 const cellValue = getCellValueForDisplay(column, cell);
-                if (cellValueNumber < 0) {
+                const hasCustomColor = Boolean(
+                    cell.style && cell.style['color']
+                );
+                if (!hasCustomColor && cellValueNumber < 0) {
                     classObj[FCellClasses.TEXT_DANGER] = true;
                 }
                 if (isAutoCentered(props)) {
@@ -1562,8 +1587,11 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.IMAGE_LIST:
-                value = (e as CustomEvent<KupImageListEventPayload>).detail
-                    .details.cell.value;
+                const obj = (e as CustomEvent<KupImageListEventPayload>).detail
+                    .details.cell.obj;
+                const cellValue = (e as CustomEvent<KupImageListEventPayload>)
+                    .detail.details.cell.value;
+                value = obj?.k ? obj.k : cellValue;
         }
         if (cell.obj) {
             cell.obj.k = value?.toString();
