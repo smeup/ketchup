@@ -5709,7 +5709,9 @@ export class KupDataTable {
                     this.#footer[column.name] != null
                         ? getValueForDisplay(
                               this.#footer[column.name],
-                              column.obj,
+                              dom.ketchup.objects.isDate(column.obj)
+                                  ? column.obj
+                                  : { t: 'NR', p: '', k: '' },
                               column.decimals
                           )
                         : '';

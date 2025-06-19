@@ -344,10 +344,11 @@ export class Filters {
                         filterMatch;
 
                     // Try to convert the filter value to a Date
-                    if (dom.ketchup.dates.isValidFormattedStringDate(dateStr)) {
-                        const filterDate = dom.ketchup.dates.toDate(
-                            this.normalizeValue(dateStr, obj)
-                        );
+                    const filterDate = dom.ketchup.dates.toDate(
+                        this.normalizeValue(dateStr, obj),
+                        defaultFormat
+                    );
+                    if (filterDate) {
                         checkByRegularExpression = false;
 
                         switch (operator) {
@@ -386,7 +387,10 @@ export class Filters {
                         dom.ketchup.objects.isTimeWithSeconds(obj)
                     )
                 ) {
-                    value = dom.ketchup.dates.format(value);
+                    const formattedValue = dom.ketchup.dates.format(value);
+                    if (formattedValue !== 'Invalid Date') {
+                        value = formattedValue;
+                    }
                 }
             }
 
