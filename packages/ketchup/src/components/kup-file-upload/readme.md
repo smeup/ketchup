@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                         | Type      | Default |
-| ------------- | -------------- | ----------------------------------- | --------- | ------- |
-| `autoUpload`  | `auto-upload`  | Sets the auto upload of select file | `boolean` | `false` |
-| `customStyle` | `custom-style` | Custom style of the component.      | `string`  | `''`    |
-| `data`        | `data`         | The initial filepaths               | `string`  | `null`  |
-| `multiUpload` | `multi-upload` | Sets the multiple upload            | `boolean` | `false` |
+| Property      | Attribute      | Description                         | Type     | Default     |
+| ------------- | -------------- | ----------------------------------- | -------- | ----------- |
+| `FupAut`      | `fup-aut`      | Sets the auto upload of select file | `string` | `'false'`   |
+| `FupMul`      | `fup-mul`      | Sets the multiple upload            | `string` | `'false'`   |
+| `customStyle` | `custom-style` | Custom style of the component.      | `string` | `''`        |
+| `error`       | `error`        | Error string to render in component | `string` | `undefined` |
+| `pathString`  | `path-string`  | The initial filepaths               | `string` | `null`      |
 
 
 ## Events

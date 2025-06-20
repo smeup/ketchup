@@ -10,6 +10,7 @@ import {
     Watch,
     h,
     State,
+    Fragment,
 } from '@stencil/core';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import {
@@ -63,19 +64,25 @@ export class KupFileUpload {
      * The initial filepaths
      * @default null
      */
-    @Prop() data: string = null;
+    @Prop() pathString: string = null;
 
     /**
      * Sets the multiple upload
-     * @default false
+     * @default 'false'
      */
-    @Prop() multiUpload: boolean = false;
+    @Prop() FupMul: string = 'false';
 
     /**
      * Sets the auto upload of select file
-     * @default false
+     * @default 'false'
      */
-    @Prop() autoUpload: boolean = false;
+    @Prop() FupAut: string = 'false';
+
+    /**
+     * Error string to render in component
+     * @default 'false'
+     */
+    @Prop() error: string = undefined;
     //#endregion
 
     //#region STATES
@@ -88,6 +95,8 @@ export class KupFileUpload {
     @State() pathFiles?: string[] = [];
     @State() uploadSuccess?: boolean = false;
     @State() showSpinner?: boolean = false;
+    @State() multiUpload?: boolean = false;
+    @State() autoUpload?: boolean = false;
 
     //#endregion
 
@@ -117,11 +126,21 @@ export class KupFileUpload {
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
-    @Watch('data')
+    @Watch('pathString')
     onDataChanged() {
         this.uploadSuccess = false;
         this.#handleCancel();
-        this.pathFiles = this.data?.split(';') || [];
+        this.pathFiles = this.pathString?.split(';') || [];
+    }
+
+    @Watch('FupMul')
+    onFupMulChanged() {
+        this.multiUpload = this.FupMul === 'true';
+    }
+
+    @Watch('FupAut')
+    onFupAutChanged() {
+        this.autoUpload = this.FupAut === 'true';
     }
     //#endregion
 
@@ -227,9 +246,19 @@ export class KupFileUpload {
 
     #handleFileChange(event: Event) {
         this.uploadSuccess = false;
+        this.error = '';
         const newFiles = Array.from((event.target as HTMLInputElement).files);
         this.tempFiles = [...this.tempFiles, ...newFiles];
         this.inputRef.value = '';
+
+        if (this.autoUpload) {
+            this.kupUpload.emit({
+                comp: this,
+                id: this.rootElement.id,
+                files: this.tempFiles,
+            });
+            this.setLoading(true);
+        }
     }
 
     #handleFileRemove(index: number) {
@@ -295,6 +324,9 @@ export class KupFileUpload {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
+
+        this.multiUpload = this.FupMul === 'true';
+        this.autoUpload = this.FupAut === 'true';
     }
 
     componentDidLoad() {
@@ -343,25 +375,36 @@ export class KupFileUpload {
                                 )}
                                 onClick={this.#handleClick.bind(this)}
                             ></FButton>
-                            <FButton
-                                icon="save"
-                                disabled={!this.tempFiles.length}
-                                label={this.#kupManager.language.translate(
-                                    KupLanguageGeneric.UPLOAD
-                                )}
-                                onClick={this.#uploadClick.bind(this)}
-                                styling={FButtonStyling.FLAT}
-                            ></FButton>
-                            <FButton
-                                icon="clear"
-                                disabled={!this.tempFiles.length}
-                                label={this.#kupManager.language.translate(
-                                    KupLanguageGeneric.ABORT
-                                )}
-                                onClick={this.#handleCancel.bind(this)}
-                                styling={FButtonStyling.FLAT}
-                            ></FButton>
+                            {!this.autoUpload && (
+                                <Fragment>
+                                    <FButton
+                                        icon="save"
+                                        disabled={!this.tempFiles.length}
+                                        label={this.#kupManager.language.translate(
+                                            KupLanguageGeneric.UPLOAD
+                                        )}
+                                        onClick={this.#uploadClick.bind(this)}
+                                        styling={FButtonStyling.FLAT}
+                                    ></FButton>
+                                    <FButton
+                                        icon="clear"
+                                        disabled={!this.tempFiles.length}
+                                        label={this.#kupManager.language.translate(
+                                            KupLanguageGeneric.ABORT
+                                        )}
+                                        onClick={this.#handleCancel.bind(this)}
+                                        styling={FButtonStyling.FLAT}
+                                    ></FButton>
+                                </Fragment>
+                            )}
                         </div>
+                        {this.error && (
+                            <div class="file-upload__error">
+                                <span class="mdc-error-message">
+                                    {this.error}
+                                </span>
+                            </div>
+                        )}
                         {this.uploadSuccess ? (
                             <span>
                                 {this.#kupManager.language.translate(
@@ -377,6 +420,7 @@ export class KupFileUpload {
                                                 resource={this.#getPreview(
                                                     file
                                                 )}
+                                                placeholderResource="file"
                                             ></FImage>
                                         </div>
                                         <span

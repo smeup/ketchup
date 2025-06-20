@@ -2514,9 +2514,14 @@ export namespace Components {
     interface KupFileUpload {
         /**
           * Sets the auto upload of select file
-          * @default false
+          * @default 'false'
          */
-        "autoUpload": boolean;
+        "FupAut": string;
+        /**
+          * Sets the multiple upload
+          * @default 'false'
+         */
+        "FupMul": string;
         /**
           * Custom style of the component.
           * @default ""
@@ -2524,10 +2529,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The initial filepaths
-          * @default null
+          * Error string to render in component
+          * @default 'false'
          */
-        "data": string;
+        "error": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2535,10 +2540,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Sets the multiple upload
-          * @default false
+          * The initial filepaths
+          * @default null
          */
-        "multiUpload": boolean;
+        "pathString": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -8420,9 +8425,14 @@ declare namespace LocalJSX {
     interface KupFileUpload {
         /**
           * Sets the auto upload of select file
-          * @default false
+          * @default 'false'
          */
-        "autoUpload"?: boolean;
+        "FupAut"?: string;
+        /**
+          * Sets the multiple upload
+          * @default 'false'
+         */
+        "FupMul"?: string;
         /**
           * Custom style of the component.
           * @default ""
@@ -8430,21 +8440,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The initial filepaths
-          * @default null
+          * Error string to render in component
+          * @default 'false'
          */
-        "data"?: string;
-        /**
-          * Sets the multiple upload
-          * @default false
-         */
-        "multiUpload"?: boolean;
+        "error"?: string;
         "onKup-file-upload-change"?: (event: KupFileUploadCustomEvent<KupFileUploadChangeEventPayload>) => void;
         /**
           * When component load is complete
          */
         "onKup-file-upload-ready"?: (event: KupFileUploadCustomEvent<KupEventPayload>) => void;
         "onKup-file-upload-upload"?: (event: KupFileUploadCustomEvent<KupFileUploadEventPayload>) => void;
+        /**
+          * The initial filepaths
+          * @default null
+         */
+        "pathString"?: string;
     }
     interface KupForm {
         /**
