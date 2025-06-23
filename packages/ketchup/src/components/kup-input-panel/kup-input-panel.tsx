@@ -22,6 +22,7 @@ import {
     KupDataTableRow,
     KupDropdownButtonEventPayload,
     KupEditorEventPayload,
+    KupFileUploadEventPayload,
     KupTabBarEventPayload,
     KupTabBarNode,
 } from '../../components';
@@ -452,6 +453,14 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupInputPanelObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-upload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellUpload: EventEmitter<KupFileUploadEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -1357,6 +1366,7 @@ export class KupInputPanel {
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
             [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
             [FCellTypes.IMAGE_LIST, this.#ImageListAdapter.bind(this)],
+            [FCellTypes.FILE_UPLOAD, this.#FileUploadAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -1584,6 +1594,18 @@ export class KupInputPanel {
             initialValue: currentValue || '',
             leadingLabel: fieldLabel || '',
             value: currentValue || '',
+        };
+    }
+
+    #FileUploadAdapter(
+        _options: GenericObject,
+        _fieldLabel: string,
+        currentValue: string,
+        cell: KupInputPanelCell
+    ) {
+        return {
+            pathString: currentValue,
+            ...cell.data,
         };
     }
 
@@ -2252,6 +2274,11 @@ export class KupInputPanel {
         inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
     }
 
+    #upload(e: CustomEvent<KupFileUploadEventPayload>): void {
+        e.stopPropagation();
+        this.kupCellUpload.emit(e.detail);
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2357,6 +2384,7 @@ export class KupInputPanel {
                         e.detail
                     );
                 }}
+                onKup-file-upload-upload={this.#upload.bind(this)}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
