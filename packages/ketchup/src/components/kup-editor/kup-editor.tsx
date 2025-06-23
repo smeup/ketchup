@@ -348,32 +348,31 @@ export class KupEditor {
     }
 
     #handleUnsavedChanges(value?: string) {
-        console.log('change', value);
         value = value !== undefined ? value : this.editor.getMarkdown();
 
-        // if (this.#textareaRef) {
-        if (this.#initialContent !== value) {
-            if (!this.#hasChanges) {
-                this.#unsavedChangesIndex =
-                    this.editor.getUI().getToolbar().getItems().length - 1;
-                this.editor
-                    .getUI()
-                    .getToolbar()
-                    .insertItem(
-                        this.#unsavedChangesIndex,
-                        this.#unsavedChangesItem
-                    );
+        if (this.#textareaRef) {
+            if (this.#initialContent !== value) {
+                if (!this.#hasChanges) {
+                    this.#unsavedChangesIndex =
+                        this.editor.getUI().getToolbar().getItems().length - 1;
+                    this.editor
+                        .getUI()
+                        .getToolbar()
+                        .insertItem(
+                            this.#unsavedChangesIndex,
+                            this.#unsavedChangesItem
+                        );
+                }
+                this.#hasChanges = true;
+            } else {
+                if (this.#hasChanges) {
+                    this.editor
+                        .getUI()
+                        .getToolbar()
+                        .removeItem(this.#unsavedChangesIndex);
+                }
+                this.#hasChanges = false;
             }
-            this.#hasChanges = true;
-        } else {
-            if (this.#hasChanges) {
-                this.editor
-                    .getUI()
-                    .getToolbar()
-                    .removeItem(this.#unsavedChangesIndex);
-            }
-            this.#hasChanges = false;
-            // }
         }
     }
 
@@ -403,7 +402,6 @@ export class KupEditor {
         }
 
         this.editor = new Editor(editorProps);
-        this.editor.on;
         this.#initialContent = this.editor.getMarkdown();
 
         if (!this.showToolbar) {
