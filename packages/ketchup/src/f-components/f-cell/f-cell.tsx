@@ -400,6 +400,7 @@ const MainRADAdapter = (
     currentValue: string,
     cell?: KupDataCellOptions
 ) => {
+    console.log('f-cell RAD Adapter');
     const newData = RADAdapter(currentValue, options);
     return { ...cell.data, ...newData };
 };

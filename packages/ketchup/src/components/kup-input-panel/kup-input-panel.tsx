@@ -1543,11 +1543,19 @@ export class KupInputPanel {
     }
 
     #RADAdapter(
-        options: GenericObject,
+        _options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell
     ) {
-        return RADAdapter(currentValue, options);
+        console.log('kup-input-panel RAD Adapter');
+        if (cell.data.data) {
+            return RADAdapter(
+                currentValue,
+                this.#tableRADOptionsAdapter(cell.data.data, cell.value)
+            );
+        }
+        return null;
     }
 
     #SWTAdapter(
@@ -1914,59 +1922,6 @@ export class KupInputPanel {
         });
     }
 
-    #setRadioData(cell: KupInputPanelCell, dataStructure: GenericObject) {
-        if (dataStructure) {
-            cell.options = this.#tableRADOptionsAdapter(
-                dataStructure,
-                cell.value
-            );
-        }
-    }
-
-    #getShapesData() {
-        return new Promise<void>((resolve) => {
-            const cells: { id: string; cell: KupInputPanelCell }[] = [];
-
-            this.inputPanelCells.forEach((_cells) => {
-                _cells.cells.forEach((_cell) => {
-                    const cell = _cell.cell;
-                    if (cell.shape === FCellShapes.RADIO) {
-                        cells.push({
-                            id: _cell.column.name,
-                            cell: cell,
-                        });
-                    }
-                });
-            });
-
-            let counter = 0;
-
-            cells.forEach((item) => {
-                const cell = item.cell;
-                const id = item.id;
-
-                this.optionsHandler(
-                    cell.fun,
-                    cell.value,
-                    this.#reverseMapCells(),
-                    id
-                )
-                    .then((dataStructure) => {
-                        this.#setRadioData(cell, dataStructure);
-                        counter++;
-                    })
-                    .catch((_) => {
-                        counter++;
-                    })
-                    .finally(() => {
-                        if (counter === cells.length) {
-                            resolve();
-                        }
-                    });
-            });
-        });
-    }
-
     async #manageInputPanelCheck(
         e: CustomEvent<FCellEventPayload>,
         eventType: CheckTriggeringEvents
@@ -2301,10 +2256,6 @@ export class KupInputPanel {
 
     componentDidLoad() {
         this.#didLoadInteractables();
-        this.#getShapesData().then(() => {
-            console.log('refreshing component');
-            this.refresh();
-        });
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
 
         this.#setFocusOnInputElement();
