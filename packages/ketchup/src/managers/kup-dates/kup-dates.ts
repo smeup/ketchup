@@ -165,7 +165,7 @@ export class KupDates {
      * @param {dayjs.ConfigType} input - Date to be formatted.
      * @param {string} format - Output format.
      * @see https://day.js.org/docs/en/display/format
-     */
+     **/
     format(input: dayjs.ConfigType, format?: string): string {
         if (!format) {
             format = 'L'; // MM/DD/YYYY, DD/MM/YYYY depending on locale
@@ -311,12 +311,9 @@ export class KupDates {
      * @param {string} format - Format of the input date.
      * @returns {Date} Date object.
      */
-    toDate(input: dayjs.ConfigType, format?: string): Date {
-        if (format && format != null) {
-            return dayjs.utc(input, format).toDate();
-        } else {
-            return dayjs.utc(input).toDate();
-        }
+    toDate(input: dayjs.ConfigType, format?: string): Date | null {
+        const parsed = format ? dayjs.utc(input, format) : dayjs.utc(input);
+        return parsed.isValid() ? parsed.toDate() : null;
     }
     /**
      * Converts the input in a Dayjs object.

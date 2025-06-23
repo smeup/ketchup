@@ -129,7 +129,7 @@ export class KupObjects {
      */
     isDate(obj: KupObj): boolean {
         if (!obj) return false;
-        return 'D8' === obj.t;
+        return 'D8' === obj.t && !obj.p.includes('*UP');
     }
     /**
      * Checks whether the object represents an icon or not.
