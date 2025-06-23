@@ -10,6 +10,7 @@ import {
     Watch,
     h,
     State,
+    Fragment,
 } from '@stencil/core';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import {
@@ -23,6 +24,7 @@ import {
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import {
+    KupFileUploadChangeEventPayload,
     KupFileUploadEventPayload,
     KupFileUploadProps,
 } from './kup-file-upload-declarations';
@@ -59,11 +61,28 @@ export class KupFileUpload {
     @Prop() customStyle: string = '';
 
     /**
-     * Actual data of the input field.
+     * The initial filepaths
      * @default null
      */
-    // TODO: TYPING
-    @Prop() data = null;
+    @Prop() pathString: string = null;
+
+    /**
+     * Sets the multiple upload
+     * @default 'false'
+     */
+    @Prop() FupMul: string = 'false';
+
+    /**
+     * Sets the auto upload of select file
+     * @default 'false'
+     */
+    @Prop() FupAut: string = 'false';
+
+    /**
+     * Error string to render in component
+     * @default 'false'
+     */
+    @Prop() error: string = undefined;
     //#endregion
 
     //#region STATES
@@ -72,9 +91,12 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
 
     @State() inputRef?: HTMLInputElement;
-    @State() files?: File[] = [];
+    @State() tempFiles?: File[] = [];
+    @State() pathFiles?: string[] = [];
     @State() uploadSuccess?: boolean = false;
     @State() showSpinner?: boolean = false;
+    @State() multiUpload?: boolean = false;
+    @State() autoUpload?: boolean = false;
 
     //#endregion
 
@@ -104,8 +126,22 @@ export class KupFileUpload {
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
-    @Watch('data')
-    onDataChanged() {}
+    @Watch('pathString')
+    onDataChanged() {
+        this.uploadSuccess = false;
+        this.#handleCancel();
+        this.pathFiles = this.pathString?.split(';') || [];
+    }
+
+    @Watch('FupMul')
+    onFupMulChanged() {
+        this.multiUpload = this.FupMul === 'true';
+    }
+
+    @Watch('FupAut')
+    onFupAutChanged() {
+        this.autoUpload = this.FupAut === 'true';
+    }
     //#endregion
 
     //#region PUBLIC METHODS
@@ -142,11 +178,19 @@ export class KupFileUpload {
      * @param {boolean} success - Boolean to set if upload has been successfull.
      */
     @Method()
-    async setSuccess(success: boolean): Promise<void> {
+    async setSuccess(success: boolean, pathFiles: string): Promise<void> {
         this.setLoading(false);
-        if (success) {
+        if (success && pathFiles) {
             this.#handleCancel();
             this.uploadSuccess = success;
+            this.pathFiles = this.multiUpload
+                ? [...this.pathFiles, ...pathFiles.split(';')]
+                : [pathFiles.split(';')[0]];
+            this.kupChange.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.pathFiles.join(';'),
+            });
         }
     }
     /**
@@ -182,6 +226,14 @@ export class KupFileUpload {
         bubbles: true,
     })
     kupUpload: EventEmitter<KupFileUploadEventPayload>;
+
+    @Event({
+        eventName: 'kup-file-upload-change',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<KupFileUploadChangeEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -194,14 +246,25 @@ export class KupFileUpload {
 
     #handleFileChange(event: Event) {
         this.uploadSuccess = false;
+        this.error = '';
         const newFiles = Array.from((event.target as HTMLInputElement).files);
-        this.files = [...this.files, ...newFiles];
+        this.tempFiles = [...this.tempFiles, ...newFiles];
+        this.inputRef.value = '';
+
+        if (this.autoUpload) {
+            this.kupUpload.emit({
+                comp: this,
+                id: this.rootElement.id,
+                files: this.tempFiles,
+            });
+            this.setLoading(true);
+        }
     }
 
     #handleFileRemove(index: number) {
-        this.files = [
-            ...this.files.splice(0, index),
-            ...this.files.splice(index + 1),
+        this.tempFiles = [
+            ...this.tempFiles.splice(0, index),
+            ...this.tempFiles.splice(index + 1),
         ];
     }
 
@@ -211,12 +274,12 @@ export class KupFileUpload {
         const droppedFiles = event.dataTransfer.files;
         if (droppedFiles.length > 0) {
             const newFiles = Array.from(droppedFiles);
-            this.files = [...this.files, ...newFiles];
+            this.tempFiles = [...this.tempFiles, ...newFiles];
         }
     }
 
     #handleCancel() {
-        this.files = [];
+        this.tempFiles = [];
     }
 
     #getPreview(file: File) {
@@ -246,7 +309,7 @@ export class KupFileUpload {
         this.kupUpload.emit({
             comp: this,
             id: this.rootElement.id,
-            files: this.files,
+            files: this.tempFiles,
         });
         this.setLoading(true);
     }
@@ -261,6 +324,9 @@ export class KupFileUpload {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
+
+        this.multiUpload = this.FupMul === 'true';
+        this.autoUpload = this.FupAut === 'true';
     }
 
     componentDidLoad() {
@@ -298,7 +364,7 @@ export class KupFileUpload {
                             type="file"
                             ref={(el) => (this.inputRef = el)}
                             onChange={this.#handleFileChange.bind(this)}
-                            multiple
+                            multiple={this.multiUpload}
                             hidden
                         ></input>
                         <div class="file-upload__buttons">
@@ -309,25 +375,36 @@ export class KupFileUpload {
                                 )}
                                 onClick={this.#handleClick.bind(this)}
                             ></FButton>
-                            <FButton
-                                icon="save"
-                                disabled={!this.files.length}
-                                label={this.#kupManager.language.translate(
-                                    KupLanguageGeneric.UPLOAD
-                                )}
-                                onClick={this.#uploadClick.bind(this)}
-                                styling={FButtonStyling.FLAT}
-                            ></FButton>
-                            <FButton
-                                icon="clear"
-                                disabled={!this.files.length}
-                                label={this.#kupManager.language.translate(
-                                    KupLanguageGeneric.ABORT
-                                )}
-                                onClick={this.#handleCancel.bind(this)}
-                                styling={FButtonStyling.FLAT}
-                            ></FButton>
+                            {!this.autoUpload && (
+                                <Fragment>
+                                    <FButton
+                                        icon="save"
+                                        disabled={!this.tempFiles.length}
+                                        label={this.#kupManager.language.translate(
+                                            KupLanguageGeneric.UPLOAD
+                                        )}
+                                        onClick={this.#uploadClick.bind(this)}
+                                        styling={FButtonStyling.FLAT}
+                                    ></FButton>
+                                    <FButton
+                                        icon="clear"
+                                        disabled={!this.tempFiles.length}
+                                        label={this.#kupManager.language.translate(
+                                            KupLanguageGeneric.ABORT
+                                        )}
+                                        onClick={this.#handleCancel.bind(this)}
+                                        styling={FButtonStyling.FLAT}
+                                    ></FButton>
+                                </Fragment>
+                            )}
                         </div>
+                        {this.error && (
+                            <div class="file-upload__error">
+                                <span class="mdc-error-message">
+                                    {this.error}
+                                </span>
+                            </div>
+                        )}
                         {this.uploadSuccess ? (
                             <span>
                                 {this.#kupManager.language.translate(
@@ -336,13 +413,14 @@ export class KupFileUpload {
                             </span>
                         ) : (
                             <div class="file-upload__list">
-                                {this.files.map((file, i) => (
+                                {this.tempFiles.map((file, i) => (
                                     <div class="file-upload__list__item">
                                         <div class="file-upload__list__item__preview">
                                             <FImage
                                                 resource={this.#getPreview(
                                                     file
                                                 )}
+                                                placeholderResource="file"
                                             ></FImage>
                                         </div>
                                         <span
@@ -362,6 +440,17 @@ export class KupFileUpload {
                                 ))}
                             </div>
                         )}
+                        {this.pathFiles.length ? (
+                            <div class="file-upload__list">
+                                {this.pathFiles.map((path, i) => (
+                                    <span class="file-upload__list__item">
+                                        <span>
+                                            {i + 1}. {path}
+                                        </span>
+                                    </span>
+                                ))}
+                            </div>
+                        ) : null}
                         {this.showSpinner && (
                             <div class="file-upload__spinner-container">
                                 <kup-spinner
