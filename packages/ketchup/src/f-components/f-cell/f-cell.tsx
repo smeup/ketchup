@@ -395,13 +395,28 @@ const MainITXAdapter = (
 });
 
 const MainRADAdapter = (
-    options: CellOptions[],
+    _options: CellOptions[],
     _fieldLabel: string,
     currentValue: string,
     cell?: KupDataCellOptions
 ) => {
     console.log('f-cell RAD Adapter');
-    const newData = RADAdapter(currentValue, options);
+    const options = () => {
+        if (cell.data.data) {
+            return cell.data.data.rows?.map((row) => {
+                const cells = row.fields || row.cells;
+                const [id, value] = Object.keys(cells);
+
+                return {
+                    id: cells[id].value,
+                    label: value ? cells[value].value : cells[id].value,
+                    selected: currentValue === cells[id].value,
+                };
+            });
+        }
+        return undefined;
+    };
+    const newData = RADAdapter(currentValue, options());
     return { ...cell.data, ...newData };
 };
 

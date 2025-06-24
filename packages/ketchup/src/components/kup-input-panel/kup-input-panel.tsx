@@ -1543,19 +1543,12 @@ export class KupInputPanel {
     }
 
     #RADAdapter(
-        _options: GenericObject,
+        options: GenericObject,
         _fieldLabel: string,
-        currentValue: string,
-        cell: KupInputPanelCell
+        currentValue: string
     ) {
         console.log('kup-input-panel RAD Adapter');
-        if (cell.data.data) {
-            return RADAdapter(
-                currentValue,
-                this.#tableRADOptionsAdapter(cell.data.data, cell.value)
-            );
-        }
-        return null;
+        return RADAdapter(currentValue, options);
     }
 
     #SWTAdapter(
@@ -1832,22 +1825,6 @@ export class KupInputPanel {
             return {
                 id: cells[id].value,
                 value: value ? cells[value].value : cells[id].value,
-                selected: currentValue === cells[id].value,
-            };
-        });
-    }
-
-    #tableRADOptionsAdapter(
-        options: any,
-        currentValue: string
-    ): GenericObject[] {
-        return options.rows.map((row) => {
-            const cells = row.fields || row.cells;
-            const [id, value] = Object.keys(cells);
-
-            return {
-                id: cells[id].value,
-                label: value ? cells[value].value : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
