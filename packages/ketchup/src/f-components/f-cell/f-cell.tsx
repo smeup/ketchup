@@ -395,32 +395,13 @@ const MainITXAdapter = (
 });
 
 const MainRADAdapter = (
-    _options: CellOptions[],
+    options: CellOptions[],
     _fieldLabel: string,
     currentValue: string,
     cell?: KupDataCellOptions
 ) => {
-    const getOptions = () => {
-        if (cell.data.data) {
-            return cell.data.data.rows?.map((row) => {
-                const cells = row.fields || row.cells;
-                const [id, value] = Object.keys(cells);
-
-                return {
-                    id: cells[id].value,
-                    label: value ? cells[value].value : cells[id].value,
-                    selected: currentValue === cells[id].value,
-                };
-            });
-        }
-        return undefined;
-    };
-    const options = getOptions();
     const newData = RADAdapter(currentValue, options);
-    if (options) {
-        return { ...cell.data, ...newData };
-    }
-    return { ...cell.data };
+    return { ...newData, ...cell.data };
 };
 
 const MainCMBandACPAdapter = (
