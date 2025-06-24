@@ -1547,7 +1547,6 @@ export class KupInputPanel {
         _fieldLabel: string,
         currentValue: string
     ) {
-        console.log('kup-input-panel RAD Adapter');
         return RADAdapter(currentValue, options);
     }
 

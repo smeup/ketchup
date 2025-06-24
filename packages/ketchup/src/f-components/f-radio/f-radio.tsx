@@ -14,7 +14,6 @@ import { FImage } from '../f-image/f-image';
 export const FRadio: FunctionalComponent<FRadioProps> = (
     props: FRadioProps
 ) => {
-    console.log('FRadio', props);
     const hasColumns: boolean = !!props.columns;
     const radioList: Array<VNode> = [];
 

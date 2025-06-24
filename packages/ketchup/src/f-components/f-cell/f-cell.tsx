@@ -400,8 +400,7 @@ const MainRADAdapter = (
     currentValue: string,
     cell?: KupDataCellOptions
 ) => {
-    console.log('f-cell RAD Adapter');
-    const options = () => {
+    const getOptions = () => {
         if (cell.data.data) {
             return cell.data.data.rows?.map((row) => {
                 const cells = row.fields || row.cells;
@@ -416,8 +415,12 @@ const MainRADAdapter = (
         }
         return undefined;
     };
-    const newData = RADAdapter(currentValue, options());
-    return { ...cell.data, ...newData };
+    const options = getOptions();
+    const newData = RADAdapter(currentValue, options);
+    if (options) {
+        return { ...cell.data, ...newData };
+    }
+    return { ...cell.data };
 };
 
 const MainCMBandACPAdapter = (
