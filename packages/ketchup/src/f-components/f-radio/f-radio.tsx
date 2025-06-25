@@ -14,6 +14,8 @@ import { FImage } from '../f-image/f-image';
 export const FRadio: FunctionalComponent<FRadioProps> = (
     props: FRadioProps
 ) => {
+    // props aliases
+    const horizontal = props.horizontal || props.RadLay == 'lineDirection';
     const hasColumns: boolean = !!props.columns;
     const radioList: Array<VNode> = [];
 
@@ -134,7 +136,7 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
             } ${props.success ? 'kup-success' : ''} ${
                 props.warning ? 'kup-warning' : ''
             } ${props.wrapperClass ? props.wrapperClass : ''} ${
-                props.horizontal ? 'kup-horizontal' : ''
+                horizontal ? 'kup-horizontal' : ''
             }`}
             style={styleObj}
         >
