@@ -1653,6 +1653,37 @@ export class KupEchart {
             return value;
         };
 
+        // === INIZIO: adattamento dinamico delle label ===
+        // Calcolo responsive della larghezza media delle label
+        let containerWidth = this.rootElement?.clientWidth || 0;
+        // Stima della larghezza media di un carattere in px (dipende dal font, ma 8 è una media ragionevole)
+        const avgCharWidth = 8;
+        // Trova la label più lunga
+        const maxLabelLength = x.reduce(
+            (max, label) => Math.max(max, label.length),
+            0
+        );
+        // Calcola la larghezza media di una label in base alla label più lunga
+        const avgLabelWidth = Math.max(
+            60,
+            Math.min(maxLabelLength * avgCharWidth, 100)
+        );
+        // Responsive: se la somma delle larghezze delle label supera la larghezza del container, ruota
+        const rotateLabels = x.length * avgLabelWidth > containerWidth;
+
+        function wrapLabel(label: string, maxChars: number): string {
+            const regex = new RegExp(`(.{1,${maxChars}})`, 'g');
+            return label.match(regex)?.join('\n') ?? label;
+        }
+
+        // Se le label sono ruotate, troncale a 10 caratteri con ellipsis
+        const wrappedX = rotateLabels
+            ? x.map((label) =>
+                  label.length > 10 ? label.slice(0, 10) + '…' : label
+              )
+            : x.map((label) => wrapLabel(label, 10));
+        // === FINE ===
+
         /* 
         col.name is used in operations for unicity,
         but name in series object should match with values in legend
@@ -1701,10 +1732,12 @@ export class KupEchart {
             },
             xAxis: {
                 ...this.#setAxisColors(),
-                data: isHorizontal ? undefined : x,
+                data: isHorizontal ? undefined : wrappedX,
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
                     formatter: axisLabelFormatter,
+                    rotate: rotateLabels ? 45 : 0,
+                    lineHeight: 16,
                 },
                 ...this.xAxis,
             },
