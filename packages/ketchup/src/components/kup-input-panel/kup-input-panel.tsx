@@ -759,6 +759,35 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 {...cell.data}
+                onKup-autocomplete-iconclick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-autocomplete-input={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-datatable-cell-iconclick={(
+                    e: CustomEvent<FCellEventPayload>
+                ) => {
+                    this.#getOptionHandler(e);
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-datatable-cell-input={(
+                    e: CustomEvent<FCellEventPayload>
+                ) => {
+                    if (e.detail.type === 'autocomplete') {
+                        this.#getOptionHandler(e);
+                    }
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-cell-itemclick={(e: CustomEvent<FCellEventPayload>) => {
+                    this.#manageTblItemClick(e);
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
             ></kup-data-table>
         );
     }
@@ -1488,19 +1517,32 @@ export class KupInputPanel {
     }
 
     #getOptionHandler(
-        { detail }: CustomEvent<KupAutocompleteEventPayload>,
+        {
+            detail,
+        }:
+            | CustomEvent<KupAutocompleteEventPayload>
+            | CustomEvent<FCellEventPayload>,
         checkList = false
     ) {
-        const cell = this.#getCell(detail.id) as KupInputPanelCell;
-        let triggerCallback = true;
+        if (this.#isFCellEventPayload(detail)) {
+            this.#getTblAutocompleteEventCallback(detail);
+        } else {
+            const cell = this.#getCell(detail.id) as KupInputPanelCell;
 
-        if (checkList) {
-            triggerCallback = !detail.comp.data['kup-list'].data.length;
-        }
+            let triggerCallback = true;
 
-        if (cell.fun && triggerCallback) {
-            this.#getAutocompleteEventCallback(detail, cell);
+            if (checkList) {
+                triggerCallback = !detail.comp.data['kup-list'].data.length;
+            }
+
+            if (cell.fun && triggerCallback) {
+                this.#getAutocompleteEventCallback(detail, cell);
+            }
         }
+    }
+
+    #isFCellEventPayload(detail: any): detail is FCellEventPayload {
+        return detail.cell ? true : false;
     }
 
     #CHKAdapter(
@@ -1912,6 +1954,96 @@ export class KupInputPanel {
         });
     }
 
+    #getTblAutocompleteEventCallback(detail: FCellEventPayload) {
+        // Destructure frequently used properties
+        const { cell, row, column, comp, id, event } = detail;
+        const cellValue = cell?.value;
+        const autocompleteEventDetail = detail.event.detail;
+
+        try {
+            this.optionsHandler(
+                cell['fun'],
+                autocompleteEventDetail.inputValue,
+                { columns: comp.data.columns, rows: [row] },
+                column.name
+            ).then((options) => {
+                // Filter visible columns
+                const visibleColumns = (options?.columns ?? [])
+                    .filter((col: KupDataColumn) => col?.visible !== false)
+                    .map((col: KupDataColumn) => col.name);
+
+                // Filter rows to only include visible columns
+                const filteredRows =
+                    options?.rows?.map((rowData: KupDataRow) => {
+                        const visibleCells = visibleColumns.reduce(
+                            (acc, colName) => {
+                                if (rowData.cells[colName]) {
+                                    acc[colName] = rowData.cells[colName];
+                                }
+                                return acc;
+                            },
+                            {} as Record<string, any>
+                        );
+
+                        return { ...rowData, cells: visibleCells };
+                    }) ?? [];
+
+                // Prepare the final options with filtered data
+                const visibleColumnsOptions = {
+                    ...options,
+                    rows: filteredRows,
+                };
+
+                // Get and update table data
+                const tableData = comp.data;
+                const targetCell = tableData.rows[row.id].cells[column.name];
+
+                // Initialize cell data structure if needed
+                if (!targetCell.data?.data?.['kup-list']) {
+                    targetCell.data = {
+                        data: {
+                            'kup-list': {},
+                            'kup-text-field': { ...targetCell.data },
+                        },
+                    };
+                }
+
+                // Update the autocomplete list data
+                const kupListData = targetCell.data.data['kup-list'];
+                kupListData.data = filteredRows.length
+                    ? this.#optionsTreeComboAdapter(
+                          visibleColumnsOptions,
+                          cellValue
+                      ) ?? []
+                    : [];
+                kupListData.options = options.columns ?? [];
+
+                // Update the component data and refresh
+                comp.data = tableData;
+                this.data.rows[0].cells[id].value = JSON.stringify(tableData);
+
+                // // Refresh components
+                event.detail.comp.refresh();
+                comp.refresh();
+            });
+        } catch (error) {
+            console.error('Error in autocomplete callback:', error);
+        }
+    }
+
+    #manageTblItemClick(e: CustomEvent<FCellEventPayload>) {
+        const { cell, row, column, id, comp } = e.detail;
+
+        const tableData = comp.data;
+        tableData.rows[row.id].cells[column.name] = cell;
+
+        comp.data = tableData;
+        this.data.rows[0].cells[id].value = JSON.stringify(tableData);
+
+        e.detail.event.detail.comp.refresh();
+        comp.refresh();
+    }
+
     async #manageInputPanelCheck(
         e: CustomEvent<FCellEventPayload>,
         eventType: CheckTriggeringEvents
@@ -2302,12 +2434,12 @@ export class KupInputPanel {
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
                 }
-                onKup-cell-itemclick={(e) =>
+                onKup-cell-itemclick={(e) => {
                     this.#manageInputPanelCheck(
                         e,
                         CheckTriggeringEvents.ITEMCLICK
-                    )
-                }
+                    );
+                }}
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>
                 ) => {
