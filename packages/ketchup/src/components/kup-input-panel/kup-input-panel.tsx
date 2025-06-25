@@ -1185,10 +1185,6 @@ export class KupInputPanel {
     }
 
     #mapCells(data: KupInputPanelData) {
-        if (data.setup?.commands?.length) {
-            this.#mapCommands();
-        }
-
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
@@ -1231,6 +1227,10 @@ export class KupInputPanel {
         );
 
         this.inputPanelCells = inpuPanelCells;
+
+        if (data.setup?.commands?.length) {
+            this.#mapCommands();
+        }
     }
 
     #setData(
@@ -1442,6 +1442,23 @@ export class KupInputPanel {
         cell.data.onClick = () => {
             this.#getFunctionOnClickBTN(cell, id);
         };
+
+        if (cell.data.BtnMap) {
+            const concurrentCommand = this.data.setup?.commands?.find(
+                (command) => command.obj.k === cell.data.BtnMap
+            );
+
+            if (concurrentCommand) {
+                cell.isEditable = true;
+                cell.data.onClick = () => {
+                    this.#getFunctionOnClickBTN(cell, concurrentCommand.obj.k);
+                };
+
+                this.data.setup.commands = this.data.setup.commands.filter(
+                    (command) => command.obj.k !== concurrentCommand.obj.k
+                );
+            }
+        }
 
         return {
             label: cell.value,
