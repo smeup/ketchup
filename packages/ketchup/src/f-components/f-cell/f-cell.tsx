@@ -401,7 +401,11 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    return { ...newData, ...cell.data };
+    return {
+        ...cell.data,
+        ...newData,
+        data: [...(cell.data?.data ?? []), ...newData.data],
+    };
 };
 
 const MainCMBandACPAdapter = (
