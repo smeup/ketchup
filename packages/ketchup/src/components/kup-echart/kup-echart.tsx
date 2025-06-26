@@ -1609,6 +1609,52 @@ export class KupEchart {
         }
     }
 
+    #buildResponsiveAxisLabel(x: string[], pxPerChr = 7) {
+        const rootH = this.rootElement.clientHeight;
+        const rootW = this.rootElement.clientWidth;
+
+        const slots = x.length; // number of categories
+        const slotW = Math.max(rootW / slots, 1); // px available per label
+
+        const longestChr = Math.max(...x.map((l) => l.length));
+        const longestPx = longestChr * pxPerChr; // rough pixel length
+
+        const fitsFlat = longestPx <= slotW * 0.9;
+        if (fitsFlat) {
+            return { interval: 0, rotate: 0 };
+        }
+
+        let charLimit = 0;
+        if (rootH < 200) {
+            charLimit = 10;
+        } else if (rootH < 400) {
+            charLimit = 15;
+        } else if (rootW < 400) {
+            charLimit = 15;
+        } else if (rootW < 600) {
+            charLimit = 20;
+        } else if (rootW < 800) {
+            charLimit = 30;
+        } else {
+            charLimit = 40;
+        }
+        const toolong = longestChr > charLimit;
+        if (!toolong) {
+            const fitsTilt = longestPx <= slotW * 1.4;
+            if (fitsTilt) {
+                return { interval: 0, rotate: 22.5 };
+            }
+        }
+
+        const clampW = Math.max(Math.floor(rootW / charLimit), 1);
+        return {
+            interval: 0,
+            rotate: 22.5,
+            width: clampW,
+            overflow: 'truncate',
+        };
+    }
+
     #setOptions() {
         const x = this.#createX();
         const y = this.#createY();
@@ -1705,6 +1751,7 @@ export class KupEchart {
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
                     formatter: axisLabelFormatter,
+                    ...this.#buildResponsiveAxisLabel(x),
                 },
                 ...this.xAxis,
             },
