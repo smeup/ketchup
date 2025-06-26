@@ -109,14 +109,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
-    const subcomponentProps: unknown = {
-        ...cell.data,
-        ...(cell?.icon ? { resource: cell.icon } : {}),
-        ...(cell?.placeholderIcon
-            ? { placeholderResource: cell.placeholderIcon }
-            : {}),
-        ...(sizing ? { sizing } : {}),
-    };
 
     let cssClasses = cell.cssClass
         ? cell.cssClass
@@ -140,6 +132,15 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (!cell.data || Object.keys(cell.data).length === 0) {
         setDefaults(cellType, cell);
     }
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        ...(cell?.icon ? { resource: cell.icon } : {}),
+        ...(cell?.placeholderIcon
+            ? { placeholderResource: cell.placeholderIcon }
+            : {}),
+        ...(sizing ? { sizing } : {}),
+    };
+
     if (isEditable && editableTypes.includes(cellType)) {
         cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
