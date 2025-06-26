@@ -1615,21 +1615,39 @@ export class KupEchart {
         const slotW = Math.max(rootW / slots, 1); // px available per label
         const longestChr = Math.max(...x.map((l) => l.length));
         const longestPx = longestChr * pxPerChr; // rough pixel length
+        const rootH = this.rootElement.clientHeight; // px available for labels
+        let charLimit = 0;
 
-        const fitsFlat = longestPx <= slotW * 0.9; // margin
-        const fitsTilt = longestPx <= slotW * 1.4; // ~45° buys ~40 %
-        const clampW = Math.floor(slotW - 4); // px for wrap/ellipsis
-
-        if (fitsFlat) {
-            return { interval: 0, rotate: 0 };
+        if (rootH < 200) {
+            charLimit = 10; // very small height, few chars
+        } else if (rootH < 400) {
+            charLimit = 15; // small height, few chars
+        } else if (rootW < 400) {
+            charLimit = 15;
+        } else if (rootW < 600) {
+            charLimit = 20;
+        } else if (rootW < 800) {
+            charLimit = 30;
+        } else {
+            charLimit = 40;
         }
-        if (fitsTilt) {
-            return { interval: 0, rotate: 45 }; // readable tilt
+        const toolong = longestChr > charLimit;
+        const clampW = charLimit * pxPerChr; //Math.floor(slotW - 4); // px for wrap/ellipsis
+        if (!toolong) {
+            const fitsFlat = longestPx <= slotW * 0.9; // margin
+            const fitsTilt = longestPx <= slotW * 1.4; // ~45° buys ~40 %
+
+            if (fitsFlat) {
+                return { interval: 0, rotate: 0 };
+            }
+            if (fitsTilt) {
+                return { interval: 0, rotate: 22.5 }; // readable tilt
+            }
         }
 
         return {
             interval: 0,
-            rotate: 45,
+            rotate: 22.5,
             width: clampW,
             overflow: 'truncate',
         };

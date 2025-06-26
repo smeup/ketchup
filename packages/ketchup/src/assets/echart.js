@@ -1468,297 +1468,471 @@ echart12.chartTitle = {
 };
 echart12.stacked = true;
 echart12.showMarks = true;
-echart12.axis = 'A';
-echart12.series = ['B', 'C'];
+echart12.axis = 'ragSocfornitore';
+echart12.series = ['fatturato'];
 echart12.data = {
     columns: [
         {
-            isEditable: false,
-            isKey: false,
-            name: 'A',
+            name: 'OBJ',
+            title: 'ID',
+            fill: 'K01',
             obj: {
-                k: '',
-                p: 'COL',
-                t: 'CN',
+                t: 'G_',
+                p: 'FATT2',
             },
-            title: 'Persone',
-            tooltip: true,
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'B',
+            name: 'id',
+            title: 'id',
+            visible: false,
+            fill: 'id',
             obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+                t: 'G_',
+                p: 'FATT2',
             },
-            title: 'Anno Cur',
-            tooltip: false,
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'C',
+            name: 'annoMovimento',
+            title: 'Anno Movimento',
+            fill: 'annoMovimento',
             obj: {
-                k: '',
+                t: '',
                 p: '',
-                t: 'NR',
             },
-            title: 'Anno Pre',
-            tooltip: false,
+            shape: 'Itx',
+        },
+        {
+            name: 'tipoCodice',
+            title: 'Tipo Codice',
+            fill: 'tipoCodice',
+            obj: {
+                t: '',
+                p: '',
+            },
+            shape: 'Itx',
+        },
+        {
+            name: 'codice',
+            title: 'Codice',
+            fill: 'codice',
+            obj: {
+                t: '',
+                p: '',
+            },
+            shape: 'Itx',
+        },
+        {
+            name: 'fatturato',
+            title: 'Fatturato',
+            fill: 'fatturato',
+            obj: {
+                t: 'NR',
+                p: 'VE',
+            },
+            shape: 'Inr',
+            decimals: 2,
+        },
+        {
+            name: 'clifor',
+            title: 'Clifor',
+            fill: 'clifor',
+            obj: {
+                t: 'CL',
+                p: 'IFOR',
+            },
+            shape: 'Itx',
+        },
+        {
+            name: 'ragSocfornitore',
+            title: 'Ragione sociale Fornitore',
+            fill: 'ragSocfornitore',
+            obj: {
+                t: '',
+                p: '',
+            },
+            shape: 'Itx',
         },
     ],
     rows: [
         {
             cells: {
-                A: {
+                OBJ: {
+                    value: '20241001',
                     obj: {
-                        k: 'SANCOS',
-                        p: 'COL',
-                        t: 'CN',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '20241001',
                     },
-                    value: 'SANCOS',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                B: {
+                id: {
+                    value: '20241001',
                     obj: {
-                        k: '3',
-                        p: '',
-                        t: 'NR',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '20241001',
                     },
-                    value: '3',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                C: {
+                annoMovimento: {
+                    value: '2024',
                     obj: {
-                        k: '7',
+                        t: '',
                         p: '',
-                        t: 'NR',
+                        k: '2024',
                     },
-                    value: '7',
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                tipoCodice: {
+                    value: '1',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '1',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                codice: {
+                    value: '100',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '100',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                fatturato: {
+                    value: '2639.17',
+                    obj: {
+                        t: 'NR',
+                        p: 'VE',
+                        k: '2639.17',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                    shape: 'INR',
+                },
+                clifor: {
+                    value: '1100',
+                    obj: {
+                        t: 'CL',
+                        p: 'IFOR',
+                        k: '1100',
+                    },
+                    tooltip: true,
+                    data: {},
+                    style: {},
+                },
+                ragSocfornitore: {
+                    value: 'PALMACCI SRL',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'PALMACCI SRL',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
             },
+            cssClass: 'clickable',
             id: '0',
-            object: '',
-            readOnly: true,
         },
         {
             cells: {
-                A: {
+                OBJ: {
+                    value: '20241881',
                     obj: {
-                        k: 'BENMAR',
-                        p: 'COL',
-                        t: 'CN',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '20241881',
                     },
-                    value: 'BENMAR',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                B: {
+                id: {
+                    value: '20241881',
                     obj: {
-                        k: '3',
-                        p: '',
-                        t: 'NR',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '20241881',
                     },
-                    value: '3',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                C: {
+                annoMovimento: {
+                    value: '2024',
                     obj: {
-                        k: '4',
+                        t: '',
                         p: '',
-                        t: 'NR',
+                        k: '2024',
                     },
-                    value: '4',
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                tipoCodice: {
+                    value: '1',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '1',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                codice: {
+                    value: '188',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '188',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                fatturato: {
+                    value: '454.86',
+                    obj: {
+                        t: 'NR',
+                        p: 'VE',
+                        k: '454.86',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                    shape: 'INR',
+                },
+                clifor: {
+                    value: '1188',
+                    obj: {
+                        t: 'CL',
+                        p: 'IFOR',
+                        k: '1188',
+                    },
+                    tooltip: true,
+                    data: {},
+                    style: {},
+                },
+                ragSocfornitore: {
+                    value: 'EDIL. CAMALDOLI SANSONE S.R.L.',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'EDIL. CAMALDOLI SANSONE S.R.L.',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
             },
+            cssClass: 'clickable',
             id: '1',
-            object: '',
-            readOnly: true,
         },
         {
             cells: {
-                A: {
+                OBJ: {
+                    value: '202441',
                     obj: {
-                        k: 'CARLUC',
-                        p: 'COL',
-                        t: 'CN',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '202441',
                     },
-                    value: 'CARLUC',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                B: {
+                id: {
+                    value: '202441',
                     obj: {
-                        k: '8',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '202441',
+                    },
+                    tooltip: true,
+                    data: {},
+                    style: {},
+                },
+                annoMovimento: {
+                    value: '2024',
+                    obj: {
+                        t: '',
                         p: '',
-                        t: 'NR',
+                        k: '2024',
                     },
-                    value: '8',
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
-                C: {
-                    obj: {
-                        k: '20',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '20',
-                },
-            },
-            id: '2',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                A: {
-                    obj: {
-                        k: 'FIOGIA',
-                        p: 'COL',
-                        t: 'CN',
-                    },
-                    value: 'FIOGIA',
-                },
-                B: {
-                    obj: {
-                        k: '2',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '2',
-                },
-                C: {
-                    obj: {
-                        k: '12',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '12',
-                },
-            },
-            id: '3',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                A: {
-                    obj: {
-                        k: 'Franco',
-                        p: 'COL',
-                        t: 'CN',
-                    },
-                    value: 'Franco',
-                },
-                B: {
-                    obj: {
-                        k: '1',
-                        p: '',
-                        t: 'NR',
-                    },
+                tipoCodice: {
                     value: '1',
-                },
-                C: {
                     obj: {
-                        k: '2',
+                        t: '',
                         p: '',
-                        t: 'NR',
-                    },
-                    value: '2',
-                },
-            },
-            id: '4',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                A: {
-                    obj: {
-                        k: "Carlo D'Azeglio",
-                        p: 'COL',
-                        t: 'CN',
-                    },
-                    value: "Carlo D'Azeglio",
-                },
-                B: {
-                    obj: {
-                        k: '16',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '16',
-                },
-                C: {
-                    obj: {
                         k: '1',
-                        p: '',
-                        t: 'NR',
                     },
-                    value: '1',
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
-            },
-            id: '5',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                A: {
-                    obj: {
-                        k: 'Oliviero',
-                        p: 'COL',
-                        t: 'CN',
-                    },
-                    value: 'Oliviero',
-                },
-                B: {
-                    obj: {
-                        k: '10',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '10',
-                },
-                C: {
-                    obj: {
-                        k: '4',
-                        p: '',
-                        t: 'NR',
-                    },
+                codice: {
                     value: '4',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '4',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                fatturato: {
+                    value: '190.66',
+                    obj: {
+                        t: 'NR',
+                        p: 'VE',
+                        k: '190.66',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                    shape: 'INR',
+                },
+                clifor: {
+                    value: '14',
+                    obj: {
+                        t: 'CL',
+                        p: 'IFOR',
+                        k: '14',
+                    },
+                    tooltip: true,
+                    data: {},
+                    style: {},
+                },
+                ragSocfornitore: {
+                    value: 'FORESTIERI GIUSEPPE E C RETTIFICA MOTORI',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'FORESTIERI GIUSEPPE E C RETTIFICA MOTORI',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
             },
-            id: '6',
-            object: '',
-            readOnly: true,
+            cssClass: 'clickable',
+            id: '2',
         },
         {
             cells: {
-                A: {
+                OBJ: {
+                    value: '2024735861',
                     obj: {
-                        k: 'Quinto',
-                        p: 'COL',
-                        t: 'CN',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '2024735861',
                     },
-                    value: 'Quinto',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                B: {
+                id: {
+                    value: '2024735861',
                     obj: {
-                        k: '3',
-                        p: '',
-                        t: 'NR',
+                        t: 'G_',
+                        p: 'FATT2',
+                        k: '2024735861',
                     },
-                    value: '3',
+                    tooltip: true,
+                    data: {},
+                    style: {},
                 },
-                C: {
+                annoMovimento: {
+                    value: '2024',
                     obj: {
-                        k: '11',
+                        t: '',
                         p: '',
-                        t: 'NR',
+                        k: '2024',
                     },
-                    value: '11',
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                tipoCodice: {
+                    value: '1',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '1',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                codice: {
+                    value: '73586',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '73586',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                },
+                fatturato: {
+                    value: '2.19',
+                    obj: {
+                        t: 'NR',
+                        p: 'VE',
+                        k: '2.19',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
+                    shape: 'INR',
+                },
+                clifor: {
+                    value: '173586',
+                    obj: {
+                        t: 'CL',
+                        p: 'IFOR',
+                        k: '173586',
+                    },
+                    tooltip: true,
+                    data: {},
+                    style: {},
+                },
+                ragSocfornitore: {
+                    value: 'SOLOMEO IMPIANTI S.N.C.DI ',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'SOLOMEO IMPIANTI S.N.C.DI BONDI FRANCESCO E ROTONI MATTEO',
+                    },
+                    tooltip: false,
+                    data: {},
+                    style: {},
                 },
             },
-            id: '7',
-            object: '',
-            readOnly: true,
+            cssClass: 'clickable',
+            id: '3',
         },
     ],
 };
