@@ -404,7 +404,13 @@ const MainRADAdapter = (
     return {
         ...cell.data,
         ...newData,
-        data: [...(cell.data?.data ?? []), ...newData.data],
+        data: Object.values(
+            Object.fromEntries(
+                [...(cell.data?.data ?? []), ...(newData.data ?? [])].map(
+                    (item) => [item.value, item]
+                )
+            )
+        ),
     };
 };
 
