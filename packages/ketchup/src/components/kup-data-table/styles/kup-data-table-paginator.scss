@@ -6,6 +6,7 @@
 
 .paginator-tabs {
   width: 100%;
+  display: flex;
 
   & kup-paginator {
     display: inline-flex;
@@ -19,11 +20,14 @@
   }
 }
 
+@media (max-width: 830px) {
+  .above-wrapper.paginator-top {
+    border-bottom: 1px solid var(--kup-border-subtle);
+  }
+}
+
 @media (max-width: 500px) {
   .paginator-wrapper {
     min-width: fit-content;
-  }
-  .above-wrapper.paginator-top {
-    border-bottom: 1px solid var(--kup-border-subtle);
   }
 }
