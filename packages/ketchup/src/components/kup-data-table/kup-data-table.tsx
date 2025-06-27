@@ -7399,9 +7399,11 @@ export class KupDataTable {
                                 />
                             </div>
                         ) : null}
-                        <div class="above-wrapper paginator-top">
-                            {paginatorTop}
-                        </div>
+                        {paginatorTop && (
+                            <div class="above-wrapper paginator-top">
+                                {paginatorTop}
+                            </div>
+                        )}
                         {this.insertMode !== '' &&
                         this.selectedRows.length > 0 ? (
                             <FButton
