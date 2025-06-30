@@ -402,17 +402,18 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    return {
+    const value = {
         ...cell.data,
         ...newData,
-        data: Object.values(
-            Object.fromEntries(
+        data: Array.from(
+            new Map(
                 [...(cell.data?.data ?? []), ...(newData.data ?? [])].map(
                     (item) => [item.value, item]
                 )
-            )
+            ).values()
         ),
     };
+    return value;
 };
 
 const MainCMBandACPAdapter = (
