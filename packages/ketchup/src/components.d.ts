@@ -2518,6 +2518,11 @@ export namespace Components {
          */
         "FupAut": string;
         /**
+          * Sets the custom dir to upload files
+          * @default null
+         */
+        "FupDir": string;
+        /**
           * Sets the multiple upload
           * @default 'false'
          */
@@ -8428,6 +8433,11 @@ declare namespace LocalJSX {
           * @default 'false'
          */
         "FupAut"?: string;
+        /**
+          * Sets the custom dir to upload files
+          * @default null
+         */
+        "FupDir"?: string;
         /**
           * Sets the multiple upload
           * @default 'false'
