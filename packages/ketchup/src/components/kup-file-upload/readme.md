@@ -10,6 +10,7 @@
 | Property      | Attribute      | Description                         | Type     | Default     |
 | ------------- | -------------- | ----------------------------------- | -------- | ----------- |
 | `FupAut`      | `fup-aut`      | Sets the auto upload of select file | `string` | `'false'`   |
+| `FupDir`      | `fup-dir`      | Sets the custom dir to upload files | `string` | `null`      |
 | `FupMul`      | `fup-mul`      | Sets the multiple upload            | `string` | `'false'`   |
 | `customStyle` | `custom-style` | Custom style of the component.      | `string` | `''`        |
 | `error`       | `error`        | Error string to render in component | `string` | `undefined` |

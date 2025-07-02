@@ -79,6 +79,12 @@ export class KupFileUpload {
     @Prop() FupAut: string = 'false';
 
     /**
+     * Sets the custom dir to upload files
+     * @default null
+     */
+    @Prop() FupDir: string = null;
+
+    /**
      * Error string to render in component
      * @default 'false'
      */
