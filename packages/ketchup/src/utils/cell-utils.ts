@@ -275,14 +275,14 @@ export const CMBandACPAdapter = (
     value: string,
     label: string,
     options: GenericObject,
-    _cellData: GenericObject
+    cellData: GenericObject
 ) => ({
     data: {
         'kup-text-field': {
             trailingIcon: true,
             label,
-            // size: _cellData?.size,
-            // maxLength: _cellData?.maxLength,
+            ...(cellData?.size && { size: cellData.size }),
+            ...(cellData?.maxLength && { maxLength: cellData.maxLength }),
         },
         'kup-list': {
             showIcons: true,
