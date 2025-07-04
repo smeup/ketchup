@@ -752,6 +752,15 @@ export class KupInputPanel {
     }
 
     #renderDataTable(cell: KupDataCell, { name }: KupDataColumn) {
+        for (const row of cell.data.data.rows) {
+            for (const cellName of Object.keys(row.cells)) {
+                const cell = row.cells[cellName];
+                if (cell.shape === FCellShapes.AUTOCOMPLETE) {
+                    cell.data['displayMode'] = 'CodeOnly';
+                    cell.data['selectMode'] = 'CodeOnly';
+                }
+            }
+        }
         return (
             <kup-data-table
                 id={name}
@@ -1992,63 +2001,67 @@ export class KupInputPanel {
                 column.name
             ).then((options) => {
                 // Filter visible columns
-                const visibleColumns = (options?.columns ?? [])
-                    .filter((col: KupDataColumn) => col?.visible !== false)
-                    .map((col: KupDataColumn) => col.name);
+                if (options) {
+                    const visibleColumns = (options?.columns ?? [])
+                        .filter((col: KupDataColumn) => col?.visible !== false)
+                        .map((col: KupDataColumn) => col.name);
 
-                // Filter rows to only include visible columns
-                const filteredRows =
-                    options?.rows?.map((rowData: KupDataRow) => {
-                        const visibleCells = visibleColumns.reduce(
-                            (acc, colName) => {
-                                if (rowData.cells[colName]) {
-                                    acc[colName] = rowData.cells[colName];
-                                }
-                                return acc;
-                            },
-                            {} as Record<string, any>
-                        );
+                    // Filter rows to only include visible columns
+                    const filteredRows =
+                        options?.rows?.map((rowData: KupDataRow) => {
+                            const visibleCells = visibleColumns.reduce(
+                                (acc, colName) => {
+                                    if (rowData.cells[colName]) {
+                                        acc[colName] = rowData.cells[colName];
+                                    }
+                                    return acc;
+                                },
+                                {} as Record<string, any>
+                            );
 
-                        return { ...rowData, cells: visibleCells };
-                    }) ?? [];
+                            return { ...rowData, cells: visibleCells };
+                        }) ?? [];
 
-                // Prepare the final options with filtered data
-                const visibleColumnsOptions = {
-                    ...options,
-                    rows: filteredRows,
-                };
-
-                // Get and update table data
-                const tableData = comp.data;
-                const targetCell = tableData.rows[row.id].cells[column.name];
-
-                // Initialize cell data structure if needed
-                if (!targetCell.data?.data?.['kup-list']) {
-                    targetCell.data = {
-                        data: {
-                            'kup-list': {},
-                            'kup-text-field': { ...targetCell.data },
-                        },
+                    // Prepare the final options with filtered data
+                    const visibleColumnsOptions = {
+                        ...options,
+                        rows: filteredRows,
                     };
+
+                    // Get and update table data
+                    const tableData = comp.data;
+                    const targetCell =
+                        tableData.rows[row.id].cells[column.name];
+
+                    // Initialize cell data structure if needed
+                    if (!targetCell.data?.data?.['kup-list']) {
+                        targetCell.data = {
+                            data: {
+                                'kup-list': {},
+                                'kup-text-field': { ...targetCell.data },
+                            },
+                        };
+                    }
+
+                    // Update the autocomplete list data
+                    const kupListData = targetCell.data.data['kup-list'];
+                    kupListData.data = filteredRows.length
+                        ? this.#optionsTreeComboAdapter(
+                              visibleColumnsOptions,
+                              cellValue
+                          ) ?? []
+                        : [];
+                    kupListData.options = options.columns ?? [];
+
+                    // Update the component data and refresh
+                    comp.data = tableData;
+                    this.data.rows[0].cells[id].value =
+                        JSON.stringify(tableData);
+
+                    // // Refresh components
+                    event.detail.comp.refresh();
+                    comp.refresh();
                 }
-
-                // Update the autocomplete list data
-                const kupListData = targetCell.data.data['kup-list'];
-                kupListData.data = filteredRows.length
-                    ? this.#optionsTreeComboAdapter(
-                          visibleColumnsOptions,
-                          cellValue
-                      ) ?? []
-                    : [];
-                kupListData.options = options.columns ?? [];
-
-                // Update the component data and refresh
-                comp.data = tableData;
-                this.data.rows[0].cells[id].value = JSON.stringify(tableData);
-
-                // // Refresh components
-                event.detail.comp.refresh();
-                comp.refresh();
             });
         } catch (error) {
             console.error('Error in autocomplete callback:', error);
