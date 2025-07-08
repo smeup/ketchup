@@ -393,6 +393,7 @@ const MainITXAdapter = (
 ) => ({
     ...cell.data,
     label: fieldLabel,
+    ...(cell.data?.maxLength && { textArea: cell.data.maxLength >= 256 }),
 });
 
 const MainRADAdapter = (
