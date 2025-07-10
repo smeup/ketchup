@@ -1055,7 +1055,8 @@ function setEditableCell(
             } else {
                 const isTextArea =
                     (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
-                    (cellType ? cellType === FCellTypes.MEMO : false);
+                    (cellType ? cellType === FCellTypes.MEMO : false) ||
+                    cell.data.maxLength >= 256;
                 return (
                     <FTextField
                         {...cell.data}
