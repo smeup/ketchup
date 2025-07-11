@@ -51,6 +51,27 @@ export default {
           default: '""',
           try: 'css',
         },
+        {
+          prop: 'pathString',
+          description: 'The initial filepaths.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'FupMul',
+          description: 'Sets the multiple upload.',
+          type: 'string',
+          default: '"false"',
+          try: 'field',
+        },
+        {
+          prop: 'FupAut',
+          description: 'Sets the auto upload of select file',
+          type: 'string',
+          default: '"false"',
+          try: 'field',
+        },
       ],
     };
   },

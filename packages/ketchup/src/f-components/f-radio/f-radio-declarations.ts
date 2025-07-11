@@ -13,6 +13,8 @@ export interface FRadioProps extends FComponent {
     onFocus?: (event: FocusEvent) => void;
     horizontal?: boolean;
     type?: FRadioType;
+    // legacy passing props
+    RadLay?: 'lineDirection';
 }
 /**
  * The object of a single radio.

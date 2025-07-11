@@ -949,9 +949,10 @@ export class KupDataTable {
     }
 
     @Watch('data')
+    @Watch('visibleColumns')
     computeMaxRowsPerPage() {
         if (this.data?.columns?.length > 0 && this.data?.rows?.length > 0) {
-            const columnsNumber = this.data.columns.length;
+            const columnsNumber = this.getVisibleColumns().length;
             const rowsNumber = this.data.rows.length;
             const perfTuning = this.#kupManager.perfTuning;
 
@@ -7398,9 +7399,11 @@ export class KupDataTable {
                                 />
                             </div>
                         ) : null}
-                        <div class="above-wrapper paginator-top">
-                            {paginatorTop}
-                        </div>
+                        {paginatorTop && (
+                            <div class="above-wrapper paginator-top">
+                                {paginatorTop}
+                            </div>
+                        )}
                         {this.insertMode !== '' &&
                         this.selectedRows.length > 0 ? (
                             <FButton

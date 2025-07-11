@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  flex: 1;
 
   .load-more-button {
     padding: 0;
@@ -12,10 +13,6 @@
     button {
       width: 100%;
     }
-  }
-
-  .arrow-wrapper {
-    display: flex;
   }
 
   kup-combobox {
@@ -38,10 +35,28 @@
   .max-page-wrapper > label {
     padding-left: 4px;
     padding-right: 4px;
+    white-space: nowrap;
+  }
+
+  .page-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    .page-selector-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-wrapper {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+    }
   }
 }
 
-@media (max-width: 678px) {
+@media (max-width: 830px) {
   .f-paginator {
     & kup-combobox.rows-selector,
     & kup-combobox.page-selector {
@@ -54,22 +69,23 @@
       display: flex;
       justify-content: center;
       border-right: none;
+      border-left: 1px solid var(--kup-border-subtle);
     }
+  }
+}
+
+@media (max-width: 655px) {
+  .load-more-button {
+    border-top: 1px solid var(--kup-border-subtle);
   }
 }
 
 @media (max-width: 500px) {
   .f-paginator kup-combobox.rows-selector {
-    order: 1;
     border-right: none;
   }
-  .arrow-wrapper {
-    order: 2;
-  }
-  .load-more-button {
-    border-left: 1px solid var(--kup-border-subtle);
-  }
-  .f-paginator kup-combobox.page-selector {
-    display: none;
+
+  .page-wrapper {
+    border-top: 1px solid var(--kup-border-subtle);
   }
 }

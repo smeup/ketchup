@@ -22,6 +22,7 @@ import {
     KupDataTableRow,
     KupDropdownButtonEventPayload,
     KupEditorEventPayload,
+    KupFileUploadEventPayload,
     KupTabBarEventPayload,
     KupTabBarNode,
 } from '../../components';
@@ -250,11 +251,11 @@ export class KupInputPanel {
         (options: any, currentValue: string) => GenericObject[]
     >([
         ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
-        ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
+        ['SmeupDataTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
 
         //FIXME: deprecated
         ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
-        ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
+        ['SmeupTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
     ]);
 
     #originalData: KupInputPanelData = null;
@@ -452,6 +453,14 @@ export class KupInputPanel {
         bubbles: true,
     })
     kupInputPanelObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-inputpanel-upload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellUpload: EventEmitter<KupFileUploadEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -743,6 +752,15 @@ export class KupInputPanel {
     }
 
     #renderDataTable(cell: KupDataCell, { name }: KupDataColumn) {
+        for (const row of cell.data.data.rows) {
+            for (const cellName of Object.keys(row.cells)) {
+                const cell = row.cells[cellName];
+                if (cell.shape === FCellShapes.AUTOCOMPLETE) {
+                    cell.data['displayMode'] = 'CodeOnly';
+                    cell.data['selectMode'] = 'CodeOnly';
+                }
+            }
+        }
         return (
             <kup-data-table
                 id={name}
@@ -750,6 +768,35 @@ export class KupInputPanel {
                 showGroups={true}
                 showFilters={true}
                 {...cell.data}
+                onKup-autocomplete-iconclick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-autocomplete-input={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-datatable-cell-iconclick={(
+                    e: CustomEvent<FCellEventPayload>
+                ) => {
+                    this.#getOptionHandler(e);
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-datatable-cell-input={(
+                    e: CustomEvent<FCellEventPayload>
+                ) => {
+                    if (e.detail.type === 'autocomplete') {
+                        this.#getOptionHandler(e);
+                    }
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onKup-cell-itemclick={(e: CustomEvent<FCellEventPayload>) => {
+                    this.#manageTblItemClick(e);
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
             ></kup-data-table>
         );
     }
@@ -1176,10 +1223,6 @@ export class KupInputPanel {
     }
 
     #mapCells(data: KupInputPanelData) {
-        if (data.setup?.commands?.length) {
-            this.#mapCommands();
-        }
-
         const layout = data?.rows[0]?.layout;
         const inpuPanelCells = data?.rows?.length
             ? data.rows.reduce((inpuPanelCells, row) => {
@@ -1222,6 +1265,10 @@ export class KupInputPanel {
         );
 
         this.inputPanelCells = inpuPanelCells;
+
+        if (data.setup?.commands?.length) {
+            this.#mapCommands();
+        }
     }
 
     #setData(
@@ -1357,6 +1404,7 @@ export class KupInputPanel {
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
             [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
             [FCellTypes.IMAGE_LIST, this.#ImageListAdapter.bind(this)],
+            [FCellTypes.FILE_UPLOAD, this.#FileUploadAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -1433,6 +1481,23 @@ export class KupInputPanel {
             this.#getFunctionOnClickBTN(cell, id);
         };
 
+        if (cell.data.BtnMap) {
+            const concurrentCommand = this.data.setup?.commands?.find(
+                (command) => command.obj.k === cell.data.BtnMap
+            );
+
+            if (concurrentCommand) {
+                cell.isEditable = true;
+                cell.data.onClick = () => {
+                    this.#getFunctionOnClickBTN(cell, concurrentCommand.obj.k);
+                };
+
+                this.data.setup.commands = this.data.setup.commands.filter(
+                    (command) => command.obj.k !== concurrentCommand.obj.k
+                );
+            }
+        }
+
         return {
             label: cell.value,
             fun: cell.fun,
@@ -1461,19 +1526,32 @@ export class KupInputPanel {
     }
 
     #getOptionHandler(
-        { detail }: CustomEvent<KupAutocompleteEventPayload>,
+        {
+            detail,
+        }:
+            | CustomEvent<KupAutocompleteEventPayload>
+            | CustomEvent<FCellEventPayload>,
         checkList = false
     ) {
-        const cell = this.#getCell(detail.id) as KupInputPanelCell;
-        let triggerCallback = true;
+        if (this.#isFCellEventPayload(detail)) {
+            this.#getTblAutocompleteEventCallback(detail);
+        } else {
+            const cell = this.#getCell(detail.id) as KupInputPanelCell;
 
-        if (checkList) {
-            triggerCallback = !detail.comp.data['kup-list'].data.length;
-        }
+            let triggerCallback = true;
 
-        if (cell.fun && triggerCallback) {
-            this.#getAutocompleteEventCallback(detail, cell);
+            if (checkList) {
+                triggerCallback = !detail.comp.data['kup-list'].data.length;
+            }
+
+            if (cell.fun && triggerCallback) {
+                this.#getAutocompleteEventCallback(detail, cell);
+            }
         }
+    }
+
+    #isFCellEventPayload(detail: any): detail is FCellEventPayload {
+        return detail.cell ? true : false;
     }
 
     #CHKAdapter(
@@ -1533,11 +1611,32 @@ export class KupInputPanel {
     }
 
     #RADAdapter(
-        options: GenericObject,
+        _options: GenericObject,
         _fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        cell: KupInputPanelCell
     ) {
-        return RADAdapter(currentValue, options);
+        const getOptions = () => {
+            if (cell.data.data) {
+                return cell.data.data.rows?.map((row) => {
+                    const cells = row.fields || row.cells;
+                    const [id, value] = Object.keys(cells);
+
+                    return {
+                        id: cells[id].value,
+                        label: value ? cells[value].value : cells[id].value,
+                        selected: currentValue === cells[id].value,
+                    };
+                });
+            }
+            return undefined;
+        };
+        const options = getOptions();
+        const newData = RADAdapter(currentValue, options);
+        if (options) {
+            return newData;
+        }
+        return cell.data;
     }
 
     #SWTAdapter(
@@ -1584,6 +1683,18 @@ export class KupInputPanel {
             initialValue: currentValue || '',
             leadingLabel: fieldLabel || '',
             value: currentValue || '',
+        };
+    }
+
+    #FileUploadAdapter(
+        _options: GenericObject,
+        _fieldLabel: string,
+        currentValue: string,
+        cell: KupInputPanelCell
+    ) {
+        return {
+            pathString: currentValue,
+            ...cell.data,
         };
     }
 
@@ -1791,7 +1902,10 @@ export class KupInputPanel {
         }));
     }
 
-    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
+    #tableCMBandACPOptionsAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
         return options.rows.map((row) => {
             const cells = row.fields || row.cells;
             const [id, value] = Object.keys(cells);
@@ -1871,6 +1985,100 @@ export class KupInputPanel {
             }
             detail.comp.refresh();
         });
+    }
+
+    #getTblAutocompleteEventCallback(detail: FCellEventPayload) {
+        // Destructure frequently used properties
+        const { cell, row, column, comp, id, event } = detail;
+        const cellValue = cell?.value;
+        const autocompleteEventDetail = detail.event.detail;
+
+        try {
+            this.optionsHandler(
+                cell['fun'],
+                autocompleteEventDetail.inputValue,
+                { columns: comp.data.columns, rows: [row] },
+                column.name
+            ).then((options) => {
+                // Filter visible columns
+                if (options) {
+                    const visibleColumns = (options?.columns ?? [])
+                        .filter((col: KupDataColumn) => col?.visible !== false)
+                        .map((col: KupDataColumn) => col.name);
+
+                    // Filter rows to only include visible columns
+                    const filteredRows =
+                        options?.rows?.map((rowData: KupDataRow) => {
+                            const visibleCells = visibleColumns.reduce(
+                                (acc, colName) => {
+                                    if (rowData.cells[colName]) {
+                                        acc[colName] = rowData.cells[colName];
+                                    }
+                                    return acc;
+                                },
+                                {} as Record<string, any>
+                            );
+
+                            return { ...rowData, cells: visibleCells };
+                        }) ?? [];
+
+                    // Prepare the final options with filtered data
+                    const visibleColumnsOptions = {
+                        ...options,
+                        rows: filteredRows,
+                    };
+
+                    // Get and update table data
+                    const tableData = comp.data;
+                    const targetCell =
+                        tableData.rows[row.id].cells[column.name];
+
+                    // Initialize cell data structure if needed
+                    if (!targetCell.data?.data?.['kup-list']) {
+                        targetCell.data = {
+                            data: {
+                                'kup-list': {},
+                                'kup-text-field': { ...targetCell.data },
+                            },
+                        };
+                    }
+
+                    // Update the autocomplete list data
+                    const kupListData = targetCell.data.data['kup-list'];
+                    kupListData.data = filteredRows.length
+                        ? this.#optionsTreeComboAdapter(
+                              visibleColumnsOptions,
+                              cellValue
+                          ) ?? []
+                        : [];
+                    kupListData.options = options.columns ?? [];
+
+                    // Update the component data and refresh
+                    comp.data = tableData;
+                    this.data.rows[0].cells[id].value =
+                        JSON.stringify(tableData);
+
+                    // // Refresh components
+                    event.detail.comp.refresh();
+                    comp.refresh();
+                }
+            });
+        } catch (error) {
+            console.error('Error in autocomplete callback:', error);
+        }
+    }
+
+    #manageTblItemClick(e: CustomEvent<FCellEventPayload>) {
+        const { cell, row, column, id, comp } = e.detail;
+
+        const tableData = comp.data;
+        tableData.rows[row.id].cells[column.name] = cell;
+
+        comp.data = tableData;
+        this.data.rows[0].cells[id].value = JSON.stringify(tableData);
+
+        e.detail.event.detail.comp.refresh();
+        comp.refresh();
     }
 
     async #manageInputPanelCheck(
@@ -2180,6 +2388,11 @@ export class KupInputPanel {
         inputElements[currentInputElementIndex + 1].HTMLInputElement?.focus();
     }
 
+    #upload(e: CustomEvent<KupFileUploadEventPayload>): void {
+        e.stopPropagation();
+        this.kupCellUpload.emit(e.detail);
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -2258,12 +2471,12 @@ export class KupInputPanel {
                 onKup-combobox-iconclick={(e) =>
                     this.#getOptionHandler(e, true)
                 }
-                onKup-cell-itemclick={(e) =>
+                onKup-cell-itemclick={(e) => {
                     this.#manageInputPanelCheck(
                         e,
                         CheckTriggeringEvents.ITEMCLICK
-                    )
-                }
+                    );
+                }}
                 onKup-objectfield-searchpayload={(
                     e: CustomEvent<FObjectFieldEventPayload>
                 ) => {
@@ -2281,6 +2494,7 @@ export class KupInputPanel {
                         e.detail
                     );
                 }}
+                onKup-file-upload-upload={this.#upload.bind(this)}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(

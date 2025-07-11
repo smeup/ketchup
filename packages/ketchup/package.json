@@ -75,5 +75,8 @@
     },
     "installConfig": {
         "hoistingLimits": "workspaces"
+    },
+    "optionalDependencies": {
+        "canvas": "^2.11.2"
     }
 }
