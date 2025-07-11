@@ -23,7 +23,7 @@ import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
-import { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
+import { KupFileUploadChangeEventPayload, KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -49,7 +49,7 @@ import { KupImageClickEventPayload } from "./components/kup-image/kup-image-decl
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
-import { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
+import { FObjectFieldEventPayload as FObjectFieldEventPayload1, KupFileUploadEventPayload as KupFileUploadEventPayload1 } from "./components";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -85,7 +85,7 @@ export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
-export { KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
+export { KupFileUploadChangeEventPayload, KupFileUploadEventPayload } from "./components/kup-file-upload/kup-file-upload-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -111,7 +111,7 @@ export { KupImageClickEventPayload } from "./components/kup-image/kup-image-decl
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export { InputPanelButtonClickHandler, InputPanelCheckValidObjCallback, InputPanelCheckValidValueCallback, InputPanelOptionsHandler, KupInputPanelButtonsPositions, KupInputPanelClickEventPayload, KupInputPanelData, KupInputPanelPosition, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
-export { FObjectFieldEventPayload as FObjectFieldEventPayload1 } from "./components";
+export { FObjectFieldEventPayload as FObjectFieldEventPayload1, KupFileUploadEventPayload as KupFileUploadEventPayload1 } from "./components";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -2513,22 +2513,42 @@ export namespace Components {
     }
     interface KupFileUpload {
         /**
+          * Sets the auto upload of select file
+          * @default 'false'
+         */
+        "FupAut": string;
+        /**
+          * Sets the custom dir to upload files
+          * @default null
+         */
+        "FupDir": string;
+        /**
+          * Sets the multiple upload
+          * @default 'false'
+         */
+        "FupMul": string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
-          * Actual data of the input field.
-          * @default null
+          * Error string to render in component
+          * @default 'false'
          */
-        "data": any;
+        "error": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * The initial filepaths
+          * @default null
+         */
+        "pathString": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2547,7 +2567,7 @@ export namespace Components {
           * Sets upload has been successfull to show success message.
           * @param success - Boolean to set if upload has been successfull.
          */
-        "setSuccess": (success: boolean) => Promise<void>;
+        "setSuccess": (success: boolean, pathFiles: string) => Promise<void>;
     }
     interface KupForm {
         /**
@@ -5661,6 +5681,7 @@ declare global {
     interface HTMLKupFileUploadElementEventMap {
         "kup-file-upload-ready": KupEventPayload;
         "kup-file-upload-upload": KupFileUploadEventPayload;
+        "kup-file-upload-change": KupFileUploadChangeEventPayload;
     }
     interface HTMLKupFileUploadElement extends Components.KupFileUpload, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupFileUploadElementEventMap>(type: K, listener: (this: HTMLKupFileUploadElement, ev: KupFileUploadCustomEvent<HTMLKupFileUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5807,6 +5828,7 @@ declare global {
         "kup-inputpanel-objectfield-searchpayload": FObjectFieldEventPayload1;
         "kup-inputpanel-objectfield-opensearchmenu": FObjectFieldEventPayload1;
         "kup-inputpanel-objectfield-selectedmenuitem": FObjectFieldEventPayload1;
+        "kup-inputpanel-upload": KupFileUploadEventPayload1;
     }
     interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -8407,21 +8429,42 @@ declare namespace LocalJSX {
     }
     interface KupFileUpload {
         /**
+          * Sets the auto upload of select file
+          * @default 'false'
+         */
+        "FupAut"?: string;
+        /**
+          * Sets the custom dir to upload files
+          * @default null
+         */
+        "FupDir"?: string;
+        /**
+          * Sets the multiple upload
+          * @default 'false'
+         */
+        "FupMul"?: string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
-          * Actual data of the input field.
-          * @default null
+          * Error string to render in component
+          * @default 'false'
          */
-        "data"?: any;
+        "error"?: string;
+        "onKup-file-upload-change"?: (event: KupFileUploadCustomEvent<KupFileUploadChangeEventPayload>) => void;
         /**
           * When component load is complete
          */
         "onKup-file-upload-ready"?: (event: KupFileUploadCustomEvent<KupEventPayload>) => void;
         "onKup-file-upload-upload"?: (event: KupFileUploadCustomEvent<KupFileUploadEventPayload>) => void;
+        /**
+          * The initial filepaths
+          * @default null
+         */
+        "pathString"?: string;
     }
     interface KupForm {
         /**
@@ -8910,6 +8953,7 @@ declare namespace LocalJSX {
         "onKup-inputpanel-objectfield-opensearchmenu"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
         "onKup-inputpanel-objectfield-searchpayload"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
         "onKup-inputpanel-objectfield-selectedmenuitem"?: (event: KupInputPanelCustomEvent<FObjectFieldEventPayload1>) => void;
+        "onKup-inputpanel-upload"?: (event: KupInputPanelCustomEvent<KupFileUploadEventPayload1>) => void;
         /**
           * Sets the callback function on loading options via FUN
           * @default null

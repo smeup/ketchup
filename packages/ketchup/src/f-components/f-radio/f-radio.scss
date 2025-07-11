@@ -217,6 +217,7 @@
   }
   &.#{$kup-class-horizontal} {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--kup-space-05);
   }
 

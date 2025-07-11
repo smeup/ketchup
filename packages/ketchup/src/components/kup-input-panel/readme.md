@@ -33,6 +33,7 @@
 | `kup-inputpanel-objectfield-opensearchmenu`   |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
 | `kup-inputpanel-objectfield-searchpayload`    |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
 | `kup-inputpanel-objectfield-selectedmenuitem` |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
+| `kup-inputpanel-upload`                       |                                           | `CustomEvent<KupFileUploadEventPayload>`      |
 
 
 ## Methods

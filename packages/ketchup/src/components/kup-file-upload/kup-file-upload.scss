@@ -5,6 +5,7 @@
     var(--kup-gray-color-30)
   );
   flex: 1;
+  min-width: 360px;
 
   .file-upload-spinner > * {
     opacity: 0.6;
@@ -32,6 +33,15 @@
         height: 48px;
         margin: auto;
         width: 48px;
+      }
+    }
+
+    &__error {
+      display: flex;
+      justify-content: center;
+      .mdc-error-message {
+        @include kup-label-01;
+        color: var(--kup-danger-color-60);
       }
     }
 

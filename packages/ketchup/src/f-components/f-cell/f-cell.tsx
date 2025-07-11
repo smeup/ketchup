@@ -1,5 +1,6 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
+    KupFileUploadChangeEventPayload,
     KupImageListDataNode,
     KupImageListEventPayload,
     KupTextFieldEventPayload,
@@ -108,14 +109,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
-    const subcomponentProps: unknown = {
-        ...cell.data,
-        ...(cell?.icon ? { resource: cell.icon } : {}),
-        ...(cell?.placeholderIcon
-            ? { placeholderResource: cell.placeholderIcon }
-            : {}),
-        ...(sizing ? { sizing } : {}),
-    };
 
     let cssClasses = cell.cssClass
         ? cell.cssClass
@@ -139,6 +132,15 @@ export const FCell: FunctionalComponent<FCellProps> = (
     if (!cell.data || Object.keys(cell.data).length === 0) {
         setDefaults(cellType, cell);
     }
+    const subcomponentProps: unknown = {
+        ...cell.data,
+        ...(cell?.icon ? { resource: cell.icon } : {}),
+        ...(cell?.placeholderIcon
+            ? { placeholderResource: cell.placeholderIcon }
+            : {}),
+        ...(sizing ? { sizing } : {}),
+    };
+
     if (isEditable && editableTypes.includes(cellType)) {
         cell.data.showMarker = cell.tooltip ?? false;
         content = setEditableCell(cellType, classObj, cell, column, props);
@@ -391,6 +393,7 @@ const MainITXAdapter = (
 ) => ({
     ...cell.data,
     label: fieldLabel,
+    ...(cell.data?.maxLength && { textArea: cell.data.maxLength >= 256 }),
 });
 
 const MainRADAdapter = (
@@ -400,7 +403,18 @@ const MainRADAdapter = (
     cell?: KupDataCellOptions
 ) => {
     const newData = RADAdapter(currentValue, options);
-    return { ...cell.data, ...newData };
+    const value = {
+        ...cell.data,
+        ...newData,
+        data: Array.from(
+            new Map(
+                [...(cell.data?.data ?? []), ...(newData.data ?? [])].map(
+                    (item) => [item.value, item]
+                )
+            ).values()
+        ),
+    };
+    return value;
 };
 
 const MainCMBandACPAdapter = (
@@ -819,7 +833,14 @@ function setEditableCell(
                 />
             );
         case FCellTypes.FILE_UPLOAD:
-            return <kup-file-upload {...cell.data} />;
+            return (
+                <kup-file-upload
+                    onKup-file-upload-change={(
+                        e: CustomEvent<KupFileUploadChangeEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    {...cell.data}
+                />
+            );
         case FCellTypes.MULTI_AUTOCOMPLETE: {
             return (
                 <kup-chip
@@ -1034,7 +1055,8 @@ function setEditableCell(
             } else {
                 const isTextArea =
                     (cell.shape ? cell.shape === FCellShapes.MEMO : false) ||
-                    (cellType ? cellType === FCellTypes.MEMO : false);
+                    (cellType ? cellType === FCellTypes.MEMO : false) ||
+                    cell.data.maxLength >= 256;
                 return (
                     <FTextField
                         {...cell.data}

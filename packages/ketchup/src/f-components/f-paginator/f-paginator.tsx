@@ -99,42 +99,46 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                 initialValueDecode={props.perPage.toString()}
                 onkup-combobox-change={props.onRowsChange}
             />
-            <kup-combobox
-                class="page-selector"
-                data={dataPageSelector}
-                displayMode={ItemsDisplayMode.CODE}
-                initialValue={props.currentPage.toString()}
-                initialValueDecode={props.currentPage.toString()}
-                onkup-combobox-change={props.onPageChange}
-            />
-            {props.showMaxPages ? (
-                <div class="max-page-wrapper">
-                    <label htmlFor="page-selector">
-                        {'/ ' + maxNumberOfPage}
-                    </label>
+            <div class="page-wrapper">
+                <div class="page-selector-wrapper">
+                    <kup-combobox
+                        class="page-selector"
+                        data={dataPageSelector}
+                        displayMode={ItemsDisplayMode.CODE}
+                        initialValue={props.currentPage.toString()}
+                        initialValueDecode={props.currentPage.toString()}
+                        onkup-combobox-change={props.onPageChange}
+                    />
+                    {props.showMaxPages ? (
+                        <div class="max-page-wrapper">
+                            <label htmlFor="page-selector">
+                                {'/ ' + maxNumberOfPage}
+                            </label>
+                        </div>
+                    ) : null}
                 </div>
-            ) : null}
-            <div class="arrow-wrapper">
-                {props.mode !== FPaginatorMode.SIMPLE ? (
-                    <FButton
-                        icon="chevron_left"
-                        disabled={isPrevPageDisabled(props)}
-                        onClick={props.onPrevPage}
-                        sizing={KupComponentSizing.SMALL}
-                        styling={FButtonStyling.FLAT}
-                        wrapperClass="kup-neutral prev-page"
-                    />
-                ) : null}
-                {props.mode !== FPaginatorMode.SIMPLE ? (
-                    <FButton
-                        icon="chevron_right"
-                        disabled={isNextPageDisabled(props)}
-                        onClick={props.onNextPage}
-                        sizing={KupComponentSizing.SMALL}
-                        styling={FButtonStyling.FLAT}
-                        wrapperClass="kup-neutral next-page"
-                    />
-                ) : null}
+                <div class="arrow-wrapper">
+                    {props.mode !== FPaginatorMode.SIMPLE ? (
+                        <FButton
+                            icon="chevron_left"
+                            disabled={isPrevPageDisabled(props)}
+                            onClick={props.onPrevPage}
+                            sizing={KupComponentSizing.SMALL}
+                            styling={FButtonStyling.FLAT}
+                            wrapperClass="kup-neutral prev-page"
+                        />
+                    ) : null}
+                    {props.mode !== FPaginatorMode.SIMPLE ? (
+                        <FButton
+                            icon="chevron_right"
+                            disabled={isNextPageDisabled(props)}
+                            onClick={props.onNextPage}
+                            sizing={KupComponentSizing.SMALL}
+                            styling={FButtonStyling.FLAT}
+                            wrapperClass="kup-neutral next-page"
+                        />
+                    ) : null}
+                </div>
             </div>
         </div>
     );

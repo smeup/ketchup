@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "10.3.6",
+    "version": "10.3.7",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -75,5 +75,8 @@
     },
     "installConfig": {
         "hoistingLimits": "workspaces"
+    },
+    "optionalDependencies": {
+        "canvas": "^2.11.2"
     }
 }
