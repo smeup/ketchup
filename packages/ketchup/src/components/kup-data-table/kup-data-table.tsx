@@ -936,6 +936,7 @@ export class KupDataTable {
                 : this.selection;
 
             this.#insertedRowIds = [];
+            this.#modifiedRowsIds = [];
 
             this.#originalDataLoadedMaxId =
                 this.#originalDataLoaded.rows?.length > 0
@@ -1053,6 +1054,11 @@ export class KupDataTable {
      * contains the id greater value in #originalDataLoaded
      */
     #insertedRowIds: string[] = [];
+
+    /**
+     * contains the id greater value in #originalDataLoaded
+     */
+    #modifiedRowsIds: string[] = [];
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -6258,6 +6264,9 @@ export class KupDataTable {
 
             const rowClass = {
                 selected: this.selectedRows.includes(row),
+                inserted: this.#isRowInserted(row.id),
+                modified:
+                    !this.#isRowInserted(row.id) && this.#isRowModified(row.id),
             };
 
             if (row.cssClass) {
@@ -7027,7 +7036,30 @@ export class KupDataTable {
                     title: this.#kupManager.language.translate(
                         KupLanguageGeneric.ROW_DELETE
                     ),
-                    onClickHandler: () => deleteRowHandler(),
+                    onClickHandler: () => {
+                        const selectedRowsIds = this.selectedRows.map(
+                            (row) => row.id
+                        );
+                        const insertedRowsIds = this.#insertedRowIds;
+                        if (
+                            this.#arraysContainSameElements(
+                                selectedRowsIds,
+                                insertedRowsIds
+                            )
+                        ) {
+                            //If the only rows to delete are the ones inserted by the user
+                            //AND NOT CONFIRMED, avoid calling the update
+                            this.deleteRows(selectedRowsIds);
+                        } else {
+                            this.kupUpdate.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                originalData: this.#originalDataLoaded,
+                                updatedData: this.#createDeletePayload(),
+                                command: undefined,
+                            });
+                        }
+                    },
                 },
             };
 
@@ -7055,6 +7087,35 @@ export class KupDataTable {
                 <div class="commands">{commandButtons}</div>
             )
         );
+    }
+
+    #createDeletePayload() {
+        const idsToRemove = this.selectedRows.map((item) => item.id);
+        const newRows = this.#originalDataLoaded.rows.filter(
+            (row) => !idsToRemove.includes(row.id)
+        );
+        return getDiffData(
+            this.#originalDataLoaded,
+            { ...this.#originalDataLoaded, rows: newRows },
+            true
+        );
+    }
+
+    #isRowInserted(rowId: string) {
+        return this.#insertedRowIds.includes(rowId);
+    }
+
+    #isRowModified(rowId: string) {
+        return this.#modifiedRowsIds.includes(rowId);
+    }
+
+    #arraysContainSameElements<T>(arr1: T[], arr2: T[]): boolean {
+        if (arr1.length !== arr2.length) return false;
+
+        const sorted1 = [...arr1].sort();
+        const sorted2 = [...arr2].sort();
+
+        return sorted1.every((val, index) => val === sorted2[index]);
     }
 
     calculateScrollToRowOffset(): number {
@@ -7337,8 +7398,12 @@ export class KupDataTable {
                 onKup-cell-input={(e: CustomEvent<FCellEventPayload>) => {
                     autoselectOnAction(e);
                     this.kupDataTableCellInput.emit(e.detail);
+                    this.#modifiedRowsIds.push(e.detail.row.id);
                 }}
-                onKup-cell-update={autoselectOnAction}
+                onKup-cell-update={(e: CustomEvent<FCellEventPayload>) => {
+                    autoselectOnAction(e);
+                    this.#modifiedRowsIds.push(e.detail.row.id);
+                }}
                 onKup-cell-blur={this.#onBlurHandler}
                 onKup-cell-click={(e: CustomEvent<FCellEventPayload>) => {
                     this.kupDataTableCellClick.emit(e.detail);
