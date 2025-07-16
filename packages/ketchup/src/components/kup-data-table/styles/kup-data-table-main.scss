@@ -101,6 +101,14 @@
     --kup-fcell-padding-wide,
     var(--kup-space-04) var(--kup-space-03)
   );
+  --kup_datatable_inserted_row_background: var(
+    --kup-datatable-inserted-row-background,
+    #c8e6c9
+  );
+  --kup_datatable_modified_row_background: var(
+    --kup-datatable-modified-row-background,
+    #ffd8a6
+  );
 
   display: block;
   font-family: var(--kup_datatable_font_family);
@@ -439,6 +447,16 @@ tbody {
       }
     }
 
+    &.inserted {
+      td {
+        background-color: var(--kup_datatable_inserted_row_background);
+      }
+    }
+    &.modified {
+      td {
+        background-color: var(--kup_datatable_modified_row_background);
+      }
+    }
     &:hover:not(.group):not(.selected) {
       td {
         color: var(--kup_datatable_text_color_hover);
