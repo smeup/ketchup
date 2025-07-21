@@ -18,9 +18,11 @@ export const FLabel: FunctionalComponent<FLabelProps> = ({ text, classes }) => {
     const parsedElements = getParsedElements(text);
     // To avoid creating unnecessary span in the text
     // when there are no tags to format the content
-    if (parsedElements.find((p) => p.tag !== undefined)) {
-        return <span class={classes}>{getVNodes(parsedElements)}</span>;
-    } else {
-        return <Fragment>{text}</Fragment>;
-    }
+    return (
+        <span class={classes}>
+            {parsedElements.find((p) => p.tag !== undefined)
+                ? getVNodes(parsedElements)
+                : text}
+        </span>
+    );
 };
