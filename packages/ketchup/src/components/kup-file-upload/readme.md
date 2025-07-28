@@ -9,6 +9,7 @@
 
 | Property      | Attribute      | Description                         | Type     | Default     |
 | ------------- | -------------- | ----------------------------------- | -------- | ----------- |
+| `FupAty`      | `fup-aty`      | Sets the accepted extensions        | `string` | `null`      |
 | `FupAut`      | `fup-aut`      | Sets the auto upload of select file | `string` | `'false'`   |
 | `FupDir`      | `fup-dir`      | Sets the custom dir to upload files | `string` | `null`      |
 | `FupMul`      | `fup-mul`      | Sets the multiple upload            | `string` | `'false'`   |
