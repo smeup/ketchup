@@ -85,6 +85,12 @@ export class KupFileUpload {
     @Prop() FupDir: string = null;
 
     /**
+     * Sets the accepted extensions
+     * @default null
+     */
+    @Prop() FupAty: string = null;
+
+    /**
      * Error string to render in component
      * @default 'false'
      */
@@ -103,6 +109,7 @@ export class KupFileUpload {
     @State() showSpinner?: boolean = false;
     @State() multiUpload?: boolean = false;
     @State() autoUpload?: boolean = false;
+    @State() acceptedFiles?: string[] = null;
 
     //#endregion
 
@@ -147,6 +154,11 @@ export class KupFileUpload {
     @Watch('FupAut')
     onFupAutChanged() {
         this.autoUpload = this.FupAut === 'true';
+    }
+
+    @Watch('FupAty')
+    onFupFupAtyChanged() {
+        this.acceptedFiles = this.FupAty?.split('|').map((ext) => `.${ext}`);
     }
     //#endregion
 
@@ -333,6 +345,7 @@ export class KupFileUpload {
 
         this.multiUpload = this.FupMul === 'true';
         this.autoUpload = this.FupAut === 'true';
+        this.acceptedFiles = this.FupAty?.split('|').map((ext) => `.${ext}`);
     }
 
     componentDidLoad() {
@@ -371,6 +384,7 @@ export class KupFileUpload {
                             ref={(el) => (this.inputRef = el)}
                             onChange={this.#handleFileChange.bind(this)}
                             multiple={this.multiUpload}
+                            accept={this.acceptedFiles?.join(',')}
                             hidden
                         ></input>
                         <div class="file-upload__buttons">

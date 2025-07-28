@@ -2513,6 +2513,11 @@ export namespace Components {
     }
     interface KupFileUpload {
         /**
+          * Sets the accepted extensions
+          * @default null
+         */
+        "FupAty": string;
+        /**
           * Sets the auto upload of select file
           * @default 'false'
          */
@@ -8428,6 +8433,11 @@ declare namespace LocalJSX {
         "stackedLeaves"?: boolean;
     }
     interface KupFileUpload {
+        /**
+          * Sets the accepted extensions
+          * @default null
+         */
+        "FupAty"?: string;
         /**
           * Sets the auto upload of select file
           * @default 'false'
