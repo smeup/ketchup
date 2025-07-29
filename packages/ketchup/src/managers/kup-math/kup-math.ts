@@ -220,6 +220,8 @@ export class KupMath {
         value: string,
         options: NumericFieldFormatOptions
     ): RegExpMatchArray {
+        console.log('MATCH VALUE', value);
+        console.log('MATCH OPTIONS', options);
         value = value.replace(
             getRegExpFromString(this.groupSeparator(), 'g'),
             ''

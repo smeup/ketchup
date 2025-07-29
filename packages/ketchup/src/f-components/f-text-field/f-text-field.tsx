@@ -212,6 +212,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         };
         value = formatValue(value, options, false);
     }
+    if (props.legacyLook && props.inputType === 'number') console.log(props);
 
     return (
         <div class={classContainerObj}>

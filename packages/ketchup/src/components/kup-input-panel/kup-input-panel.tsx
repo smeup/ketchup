@@ -759,6 +759,10 @@ export class KupInputPanel {
                     cell.data['displayMode'] = 'CodeOnly';
                     cell.data['selectMode'] = 'CodeOnly';
                 }
+                if (cell.obj.t === 'NR' && cell.shape === 'INR') {
+                    console.log('NR SHAPE NO', cell);
+                    cell.shape = FCellShapes.TEXT_FIELD;
+                }
             }
         }
         return (

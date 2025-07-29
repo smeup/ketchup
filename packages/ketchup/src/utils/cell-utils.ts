@@ -83,7 +83,7 @@ export function getValueForDisplay(
     if (value == null || value.trim() == '') {
         return value;
     }
-
+    console.log('GET VALUE', value, obj, decimals);
     if (dom.ketchup.objects.isNumber(obj)) {
         if (isNaN(Number(value))) {
             return KupMathFormulaResult.IMPOSSIBILE_OPERATION;
