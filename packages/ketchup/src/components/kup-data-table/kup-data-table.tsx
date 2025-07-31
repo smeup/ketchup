@@ -4968,7 +4968,12 @@ export class KupDataTable {
             comp: this,
             id: this.rootElement.id,
             originalData: this.#originalDataLoaded,
-            updatedData: getDiffData(this.#originalDataLoaded, this.data, true),
+            updatedData: getDiffData(
+                this.#originalDataLoaded,
+                this.data,
+                true,
+                this.#insertedRowIds
+            ),
             command: command,
         });
     };
@@ -6948,14 +6953,25 @@ export class KupDataTable {
         const styling: FButtonStyling = FButtonStyling.FLAT;
 
         const createRowWithInputFields = (): KupDataRow => {
-            let row: KupDataRow = { cells: {} };
-            this.#originalDataLoaded?.columns.forEach((c) => {
-                (row.cells[c.name] as Omit<KupDataCell, 'value'>) = {
-                    shape: c.shape ?? FCellShapes.INPUT_FIELD,
+            const row: KupDataRow = { cells: {} };
+            this.data?.columns.forEach((c) => {
+                const cell: Partial<KupDataCell> = {
+                    shape: c.shape ?? FCellShapes.TEXT_FIELD,
                     obj: { ...c.obj },
-                    isEditable: true,
+                    isEditable: c.isEditable ?? true,
+                    data: {},
                 };
+
+                if (c['length'] && c['maxLength']) {
+                    cell.data = {
+                        size: c['length'],
+                        maxLength: c['maxLength'],
+                    };
+                }
+
+                row.cells[c.name] = cell as KupDataCell;
             });
+
             return row;
         };
 
