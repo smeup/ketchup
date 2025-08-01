@@ -1784,6 +1784,7 @@ export class KupInputPanel {
                                         disabled:
                                             row.cells[key].editable === false,
                                         id: column.id,
+                                        ...row.cells[key].data,
                                     },
                                 },
                             };
