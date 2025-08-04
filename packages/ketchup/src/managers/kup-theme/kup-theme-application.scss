@@ -2606,6 +2606,18 @@ kup-editor[initial-edit-type='text'] {
   }
 }
 
+.kup-helper-tooltip {
+  background-color: var(--kup-background-color);
+  border: 1px solid var(--kup-border-strong);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+  color: var(--kup-text-color);
+  font-size: var(--kup-font-size);
+  padding: 8px;
+  position: fixed;
+  z-index: 1000;
+}
+
 @media screen and (max-width: 600px) {
   [kup-modal-backdrop] {
     &.responsive.visible {

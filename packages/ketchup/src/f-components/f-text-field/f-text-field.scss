@@ -705,6 +705,24 @@
         cursor: not-allowed;
       }
     }
+
+    label {
+      position: relative;
+    }
+
+    & .helper-icon {
+      cursor: help;
+      height: 16px;
+      opacity: 0.375;
+      position: absolute;
+      right: -18px;
+      top: -2px;
+      width: 16px;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 
   &.f-text-field--sizing-extra-small .mdc-text-field-container {

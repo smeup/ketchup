@@ -34,6 +34,7 @@ import {
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 import { FLabel } from '../../f-components/f-label/f-label';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTypography } from '../../f-components/f-typography/f-typography';
@@ -302,6 +303,7 @@ export class KupInputPanel {
     ]);
     #readyPromise: Promise<void>;
     #readyResolve: () => void;
+    #helperEl: HTMLDivElement | null = null;
     //#endregion
 
     //#region WATCHERS
@@ -664,7 +666,20 @@ export class KupInputPanel {
         cell.data = {
             ...cell.data,
             sizing: 'extra-small',
+            labelHelper: column.helper,
         };
+        const subcompData = cell.data?.data;
+        if (subcompData) {
+            const hasTextFieldProps =
+                Object.keys(subcompData).includes('kup-text-field');
+            if (!hasTextFieldProps) {
+                subcompData['kup-text-field'] = {
+                    labelHelper: column.helper,
+                };
+            } else {
+                subcompData['kup-text-field'].labelHelper = column.helper;
+            }
+        }
         const cellProps: FCellProps = {
             cell,
             column,
@@ -674,20 +689,59 @@ export class KupInputPanel {
             renderKup: true,
             setSizes: true,
         };
-
         const label = this.#getLabelComponent(cell, column.title);
+        const fcell = <FCell {...cellProps} />;
 
         if (label) {
+            /*
+            const hasHelper = Boolean(column?.helper) || true;
+            const helper = hasHelper ? (
+                <span
+                    class="input-panel__helper-icon"
+                    onPointerMove={(e) => this.#showHelper(e, column.helper)}
+                    onPointerDown={(e) => this.#showHelper(e, column.helper)}
+                    onPointerOut={() => this.#hideHelper()}
+                >
+                    <FImage
+                        resource="info-outline"
+                        title={column.helper}
+                    ></FImage>
+                </span>
+            ) : null;
+            */
             return (
                 <div class={{ 'input-panel__label_container': true }}>
                     {label}
-                    <FCell {...cellProps} />
+                    {/* helper           // TODO? implement helper tooltip for shapes that don't leverage TextField, style of the label must be revised */}
+                    {fcell}
                 </div>
             );
         }
 
-        return <FCell {...cellProps} />;
+        return fcell;
     }
+
+    #hideHelper = () => {
+        if (this.#helperEl) {
+            this.#helperEl.remove();
+            this.#helperEl = null;
+        }
+    };
+
+    #showHelper = (e: PointerEvent, text: string) => {
+        if (this.#helperEl) {
+            this.#helperEl.style.left = `${e.clientX + 10}px`;
+            this.#helperEl.style.top = `${e.clientY + 10}px`;
+            this.#helperEl.innerText = text;
+        } else {
+            this.#helperEl = document.createElement('div');
+            this.#helperEl.className = 'input-panel__helper-tooltip';
+            this.#helperEl.innerText = text;
+            this.#helperEl.style.left = `${e.clientX + 10}px`;
+            this.#helperEl.style.top = `${e.clientY + 10}px`;
+            document.body.appendChild(this.#helperEl);
+        }
+    };
 
     #renderButton(cell: KupDataCell, { name }: KupDataColumn) {
         const renderedButton = (

@@ -7,6 +7,7 @@ import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
+let helperEl: HTMLDivElement | null = null;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -82,6 +83,22 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             <div class="mdc-text-field__label-container">
                 <label class="mdc-label" htmlFor="kup-input">
                     {props.label}
+                    {props.labelHelper && (
+                        <span
+                            onPointerMove={(e) =>
+                                showHelper(e, props.labelHelper)
+                            }
+                            onPointerDown={(e) =>
+                                showHelper(e, props.labelHelper)
+                            }
+                            onPointerOut={() => hideHelper()}
+                        >
+                            <FImage
+                                resource="info_outline"
+                                wrapperClass="helper-icon"
+                            ></FImage>
+                        </span>
+                    )}
                 </label>
                 {props.maxLength && props.showCounter ? (
                     <div class="mdc-text-field__label-character-counter">
@@ -543,4 +560,30 @@ const formatValue = function (
         dom.ketchup.math.createFormatPattern(options.group, options.decimal),
         inputIsLocalized
     );
+};
+
+const hideHelper = () => {
+    if (helperEl) {
+        helperEl.remove();
+        helperEl = null;
+    }
+};
+
+const showHelper = (e: PointerEvent, text: string) => {
+    if (!text || text.length === 0) {
+        return;
+    }
+
+    if (helperEl) {
+        helperEl.style.left = `${e.clientX + 10}px`;
+        helperEl.style.top = `${e.clientY + 10}px`;
+        helperEl.innerText = text;
+    } else {
+        helperEl = document.createElement('div');
+        helperEl.className = 'kup-helper-tooltip';
+        helperEl.innerText = text;
+        helperEl.style.left = `${e.clientX + 10}px`;
+        helperEl.style.top = `${e.clientY + 10}px`;
+        document.body.appendChild(helperEl);
+    }
 };
