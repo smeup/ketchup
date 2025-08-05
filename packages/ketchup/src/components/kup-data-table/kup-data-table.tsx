@@ -6949,6 +6949,27 @@ export class KupDataTable {
         );
     }
 
+    #renderOtherButtons() {
+        const styling: FButtonStyling = FButtonStyling.FLAT;
+        const addCommands = () => {
+            this.data?.setup?.otherCommands?.forEach((commandObj) => {
+                commandButtons.push(
+                    commandObj?.children && commandObj?.children.length > 0
+                        ? this.#renderCommandDropDownButton(commandObj, styling)
+                        : this.#renderCommandButton(commandObj, styling)
+                );
+            });
+        };
+        let commandButtons = [];
+
+        addCommands();
+        return (
+            !!commandButtons.length && (
+                <div class="commands">{commandButtons}</div>
+            )
+        );
+    }
+
     #renderUpdateButtons() {
         const styling: FButtonStyling = FButtonStyling.FLAT;
 
@@ -7449,6 +7470,7 @@ export class KupDataTable {
                     )}
                 </style>
                 {this.updatableData ? this.#renderUpdateButtons() : null}
+                {this.#renderOtherButtons()}
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
