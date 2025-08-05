@@ -1485,7 +1485,7 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
-            return {
+            const props = {
                 ...this.#CMBandACPAdapter(cell.options, col.title, null, cell),
                 showDropDownIcon: true,
                 class: '',
@@ -1493,6 +1493,10 @@ export class KupInputPanel {
                 disabled: !cell.isEditable,
                 id: col.name,
             };
+            if (props?.data?.['kup-text-field']) {
+                props.data['kup-text-field'].labelHelper = col.helper;
+            }
+            return props;
         }
 
         return null;

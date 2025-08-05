@@ -575,15 +575,57 @@ const showHelper = (e: PointerEvent, text: string) => {
     }
 
     if (helperEl) {
-        helperEl.style.left = `${e.clientX + 10}px`;
-        helperEl.style.top = `${e.clientY + 10}px`;
         helperEl.innerText = text;
+        positionHelper(helperEl, e);
     } else {
         helperEl = document.createElement('div');
         helperEl.className = 'kup-helper-tooltip';
         helperEl.innerText = text;
-        helperEl.style.left = `${e.clientX + 10}px`;
-        helperEl.style.top = `${e.clientY + 10}px`;
         document.body.appendChild(helperEl);
+        positionHelper(helperEl, e);
     }
+};
+
+const positionHelper = (element: HTMLDivElement, e: PointerEvent) => {
+    const padding = 10;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const rect = element.getBoundingClientRect();
+    const elementWidth = rect.width;
+    const elementHeight = rect.height;
+
+    let left = e.clientX + padding;
+    let top = e.clientY + padding;
+
+    // Check right edge overflow
+    if (left + elementWidth > viewportWidth) {
+        left = e.clientX - elementWidth - padding;
+        // If still overflowing on the left, align to the right edge
+        if (left < 0) {
+            left = viewportWidth - elementWidth - padding;
+        }
+    }
+
+    // Check bottom edge overflow
+    if (top + elementHeight > viewportHeight) {
+        top = e.clientY - elementHeight - padding;
+        // If still overflowing on the top, align to the bottom edge
+        if (top < 0) {
+            top = viewportHeight - elementHeight - padding;
+        }
+    }
+
+    // Ensure minimum padding from edges
+    left = Math.max(
+        padding,
+        Math.min(left, viewportWidth - elementWidth - padding)
+    );
+    top = Math.max(
+        padding,
+        Math.min(top, viewportHeight - elementHeight - padding)
+    );
+
+    element.style.left = `${left}px`;
+    element.style.top = `${top}px`;
 };
