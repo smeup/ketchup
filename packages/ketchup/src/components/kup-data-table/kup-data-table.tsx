@@ -4967,9 +4967,9 @@ export class KupDataTable {
         this.kupUpdate.emit({
             comp: this,
             id: this.rootElement.id,
-            originalData: this.#originalDataLoaded,
+            originalData: this.#originalDataLoaded ?? this.data,
             updatedData: getDiffData(
-                this.#originalDataLoaded,
+                this.#originalDataLoaded ?? this.data,
                 this.data,
                 true,
                 this.#insertedRowIds
