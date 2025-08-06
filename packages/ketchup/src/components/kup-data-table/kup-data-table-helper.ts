@@ -1100,7 +1100,8 @@ function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
 export function getDiffData(
     originalData: KupDataDataset,
     modifiedData: KupDataDataset,
-    includesAlsoEmptyRows: boolean = false
+    includesAlsoEmptyRows: boolean = false,
+    insertedRowsIds: string[] = []
 ): KupDataDataset {
     const diffDataTable = {
         columns: modifiedData.columns.filter((col) => col.visible),
@@ -1108,6 +1109,11 @@ export function getDiffData(
     };
 
     for (const modifiedRow of modifiedData.rows) {
+        if (insertedRowsIds.includes(modifiedRow.id)) {
+            diffDataTable.rows.push(modifiedRow);
+            continue;
+        }
+
         const newRow = { cells: {}, id: modifiedRow.id };
 
         for (const column of diffDataTable.columns) {

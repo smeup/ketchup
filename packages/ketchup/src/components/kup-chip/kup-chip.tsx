@@ -64,20 +64,25 @@ export class KupChip {
      */
     @Prop({ mutable: true }) data: KupChipNode[] = [];
     /**
-     * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
-     * @default false
-     */
-    @Prop() enableInput = false;
-    /**
      * When true, the chip cannot be edited, nor removed.
      * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * The type of chip. Available types: input, filter, choice or empty for default.
-     * @default FChipType.STANDARD
+     * When enabled, the chip's text will display both the id and description.
+     * @default ItemsDisplayMode.DESCRIPTION
      */
-    @Prop() type: FChipType = FChipType.STANDARD;
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    /**
+     * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
+     * @default false
+     */
+    @Prop() enableInput = false;
+    /**
+     * When set,will be shown a label on the chips
+     * @default null
+     */
+    @Prop() label: string = null;
     /**
      * Sets the size of the chip
      * @default FChipSize.SMALL
@@ -88,18 +93,12 @@ export class KupChip {
      * @default FChipStyling.RAISED
      */
     @Prop() styling: FChipStyling = FChipStyling.RAISED;
-
     /**
-     * When enabled, the chip's text will display both the id and description.
-     * @default ItemsDisplayMode.DESCRIPTION
+     * The type of chip. Available types: input, filter, choice or empty for default.
+     * @default FChipType.STANDARD
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() type: FChipType = FChipType.STANDARD;
 
-    /**
-     * When set,will be shown a label on the chips
-     * @default null
-     */
-    @Prop() label: string = null;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
