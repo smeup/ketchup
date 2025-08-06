@@ -279,6 +279,7 @@ export const CMBandACPAdapter = (
 ) => ({
     data: {
         'kup-text-field': {
+            labelHelper: '',
             trailingIcon: true,
             label,
             ...(cellData?.size && { size: cellData.size }),

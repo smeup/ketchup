@@ -27,6 +27,7 @@
 | `integers`               | `integers`                   | Number of integers (should be used when inputType is number).                                                                                                              | `number`                                                                                                                                                | `null`                     |
 | `isClearable`            | `is-clearable`               | Enables a clear trailing icon.                                                                                                                                             | `boolean`                                                                                                                                               | `false`                    |
 | `label`                  | `label`                      | When set, its content will be shown as a label.                                                                                                                            | `string`                                                                                                                                                | `null`                     |
+| `labelHelper`            | `label-helper`               | When set, the label will be accompanied by a helper text displayed on hover.                                                                                               | `string`                                                                                                                                                | `''`                       |
 | `leadingLabel`           | `leading-label`              | When set to true, the label will be on the left of the component.                                                                                                          | `boolean`                                                                                                                                               | `false`                    |
 | `lightMode`              | `light-mode`                 | When set to true, the label will be on the left of the component.                                                                                                          | `boolean`                                                                                                                                               | `false`                    |
 | `max`                    | `max`                        | The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week. | `number`                                                                                                                                                | `null`                     |
@@ -190,16 +191,19 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-text-field --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-card --> kup-text-field
   kup-image --> kup-card
   kup-image --> kup-image
@@ -209,9 +213,6 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
@@ -237,8 +238,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
-  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-date-picker --> kup-dialog
   kup-file-upload --> kup-spinner
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog

@@ -4419,6 +4419,11 @@ export namespace Components {
          */
         "label": string;
         /**
+          * When set, the label will be accompanied by a helper text displayed on hover.
+          * @default ""
+         */
+        "labelHelper": string;
+        /**
           * When set to true, the label will be on the left of the component.
           * @default false
          */
@@ -9993,6 +9998,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "label"?: string;
+        /**
+          * When set, the label will be accompanied by a helper text displayed on hover.
+          * @default ""
+         */
+        "labelHelper"?: string;
         /**
           * When set to true, the label will be on the left of the component.
           * @default false

@@ -23,6 +23,7 @@ export enum KupTextFieldProps {
     integers = 'Number of integers (should be used when inputType is number).',
     isClearable = 'Enables a clear trailing icon.',
     label = 'When set, its content will be shown as a label.',
+    labelHelper = 'When set, the label will be accompanied by a helper text displayed on hover.',
     leadingLabel = 'When set to true, the label will be on the left of the component.',
     max = 'The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.',
     maxLength = 'When set, the helper will display a character counter.',

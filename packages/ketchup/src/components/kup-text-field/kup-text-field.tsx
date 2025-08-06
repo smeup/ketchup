@@ -10,26 +10,26 @@ import {
     Prop,
     State,
 } from '@stencil/core';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import {
     GenericObject,
     KupComponent,
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupTextFieldEventPayload,
     KupTextFieldProps,
 } from './kup-text-field-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { getProps, setProps } from '../../utils/utils';
-import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-text-field',
@@ -162,6 +162,11 @@ export class KupTextField {
      * @default null
      */
     @Prop() label: string = null;
+    /**
+     * When set, the label will be accompanied by a helper text displayed on hover.
+     * @default ""
+     */
+    @Prop() labelHelper: string = '';
     /**
      * When set to true, the label will be on the left of the component.
      * @default false
@@ -657,6 +662,7 @@ export class KupTextField {
             integers: this.integers,
             isClearable: this.isClearable,
             label: this.label,
+            labelHelper: this.labelHelper,
             leadingLabel: this.leadingLabel,
             lightMode: this.lightMode,
             max: this.max,

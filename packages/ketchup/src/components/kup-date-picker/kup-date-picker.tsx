@@ -12,35 +12,34 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../managers/kup-manager/kup-manager';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     GenericObject,
     KupComponent,
     KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../managers/kup-manager/kup-manager';
-import {
-    KupDatePickerEventPayload,
-    KupDatePickerProps,
-} from './kup-date-picker-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { getProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
-import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupCardClickPayload,
     KupCardData,
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
-import { getProps } from '../../utils/utils';
-import { FILTER_ANALYZER } from '../../utils/filters/filters-declarations';
+import {
+    KupDatePickerEventPayload,
+    KupDatePickerProps,
+} from './kup-date-picker-declarations';
 
 @Component({
     tag: 'kup-date-picker',
