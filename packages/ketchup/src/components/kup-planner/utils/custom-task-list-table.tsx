@@ -52,17 +52,18 @@ export class KupCustomTaskListTable {
     private projectWrapperRef: HTMLDivElement;
 
     componentDidLoad() {
-        this.ontaskListScrollWidth(this.projectWrapperRef?.clientWidth)
+        this.ontaskListScrollWidth(this.projectWrapperRef?.clientWidth);
     }
 
     componentDidUpdate() {
-        this.ontaskListScrollWidth(this.projectWrapperRef?.clientWidth)
+        this.ontaskListScrollWidth(this.projectWrapperRef?.clientWidth);
     }
 
     @Watch('taskListScrollX')
     updateTaskListScroll() {
         this.projectWrapperRef &&
-        (this.projectWrapperRef.parentElement.scrollLeft = this.taskListScrollX);
+            (this.projectWrapperRef.parentElement.scrollLeft =
+                this.taskListScrollX);
     }
 
     render() {
@@ -70,21 +71,30 @@ export class KupCustomTaskListTable {
         const scrollableStyle = {};
 
         if (this.scrollableTaskList) {
-            scrollableStyle['width'] = this.rowWidth
+            scrollableStyle['width'] = this.rowWidth;
         }
 
-        const spansToShow = this.tasks.reduce((prev, curr) => {
-            return prev.valuesToShow.length > curr.valuesToShow.length ? prev : curr;
-        }).valuesToShow.length + 1;
-        
+        const spansToShow =
+            this.tasks && this.tasks.length > 0
+                ? this.tasks.reduce((prev, curr) => {
+                      return prev.valuesToShow?.length >
+                          curr.valuesToShow?.length
+                          ? prev
+                          : curr;
+                  }).valuesToShow?.length + 1 || 1
+                : 1;
+
         return (
             <div
                 class={`container ${
                     this.scrollableTaskList ? 'scrollable' : ''
-                    }`}
+                }`}
                 style={scrollableStyle}
             >
-                <div class="project-wrapper" ref={(el) => (this.projectWrapperRef = el)}>
+                <div
+                    class="project-wrapper"
+                    ref={(el) => (this.projectWrapperRef = el)}
+                >
                     {this.tasks.map((task) => (
                         <Fragment>
                             {task.type === 'project' ? (
@@ -132,16 +142,21 @@ export class KupCustomTaskListTable {
                                                 : v}
                                         </span>
                                     ))}
-                                    {this.scrollableTaskList && spansToShow > task.valuesToShow.length && (
+                                    {this.scrollableTaskList &&
+                                        spansToShow >
+                                            task.valuesToShow.length &&
                                         (() => {
-                                            const spansToIterate = createArrayFromNum(spansToShow - task.valuesToShow.length);
-                                            return (
-                                                spansToIterate.map((element) => (
-                                                    <span key={element}></span> 
-                                                ))
-                                            )
-                                        })()
-                                    )}
+                                            const spansToIterate =
+                                                createArrayFromNum(
+                                                    spansToShow -
+                                                        task.valuesToShow.length
+                                                );
+                                            return spansToIterate.map(
+                                                (element) => (
+                                                    <span key={element}></span>
+                                                )
+                                            );
+                                        })()}
                                 </div>
                             ) : task.type === 'task' ? (
                                 <div
@@ -220,16 +235,23 @@ export class KupCustomTaskListTable {
                                                 : v}
                                         </span>
                                     ))}
-                                    {this.scrollableTaskList && spansToShow > task.valuesToShow.length && (
+                                    {this.scrollableTaskList &&
+                                        spansToShow >
+                                            task.valuesToShow.length &&
                                         (() => {
-                                            const spansToIterate = createArrayFromNum(spansToShow - task.valuesToShow.length - 1);
-                                            return (
-                                                spansToIterate.map((element) => (
-                                                    <span key={element}></span> 
-                                                ))
-                                            )
-                                        })()
-                                    )}
+                                            const spansToIterate =
+                                                createArrayFromNum(
+                                                    spansToShow -
+                                                        task.valuesToShow
+                                                            .length -
+                                                        1
+                                                );
+                                            return spansToIterate.map(
+                                                (element) => (
+                                                    <span key={element}></span>
+                                                )
+                                            );
+                                        })()}
                                 </div>
                             ) : (
                                 (() => {

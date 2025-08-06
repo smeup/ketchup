@@ -90,6 +90,8 @@ export interface KupDataTableDataset {
             delete?: boolean;
         };
         commands?: Array<KupDataCommand>;
+        /** command buttons visible, for all types of data-table (not editable for example) */
+        otherCommands?: Array<KupDataCommand>;
     };
 }
 

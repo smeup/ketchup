@@ -6,10 +6,7 @@ import {
 } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import {
-    KupThemeColorValues,
-    KupThemeIconValues,
-} from '../../managers/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
