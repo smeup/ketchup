@@ -3177,7 +3177,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
   dependencies:
-    "@sme.up/ketchup": 10.3.7
+    "@sme.up/ketchup": 10.3.8
     "@stencil/core": ^4
     "@stencil/react-output-target": ^0.8
     react: ^19.0.0
@@ -3213,7 +3213,7 @@ __metadata:
   resolution: "@sme.up/ketchup-showcase@workspace:packages/ketchup-showcase"
   dependencies:
     "@babel/plugin-transform-private-methods": ^7.24.1
-    "@sme.up/ketchup": ^10.3.7
+    "@sme.up/ketchup": ^10.3.8
     "@typescript-eslint/eslint-plugin": ^5.59.8
     "@typescript-eslint/parser": ^5.59.8
     "@vue/cli-plugin-babel": ~5.0.8
@@ -3237,7 +3237,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sme.up/ketchup@10.3.7, @sme.up/ketchup@^10.3.7, @sme.up/ketchup@workspace:packages/ketchup":
+"@sme.up/ketchup@10.3.8, @sme.up/ketchup@^10.3.8, @sme.up/ketchup@workspace:packages/ketchup":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup@workspace:packages/ketchup"
   dependencies:
