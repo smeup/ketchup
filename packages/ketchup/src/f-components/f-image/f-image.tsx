@@ -191,14 +191,16 @@ function createBar(data: FImageData[]): HTMLDivElement {
 
         const stepId: string = 'step-' + i;
         const stepClass: string = 'css-step bottom-aligned';
+        const withPercentage: number =
+            Number(data[i].width.replace(/%$/, '')) - leftProgression;
         const stepStyle: any = {
             backgroundColor: data[i].color,
             left: leftProgression + '%',
             height: data[i].height,
-            width: data[i].width,
+            width: withPercentage + '%',
         };
 
-        leftProgression += parseFloat(data[i].width);
+        leftProgression += withPercentage;
 
         drawStep = (
             <span id={stepId} class={stepClass} style={stepStyle}></span>
