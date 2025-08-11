@@ -257,6 +257,7 @@
             "genericUpload": "Upload",
             "genericChoose": "Choose",
             "fileUploadSuccess": "Upload complete",
+            "invalidExtension": "Invalid extension",
             "genericTypeCodeOrDescr": "Type code or description",
             "genericPartialFiltersList": "Partial filters list"
         }
@@ -519,6 +520,7 @@
             "genericUpload": "Carica",
             "genericChoose": "Scegli",
             "fileUploadSuccess": "Caricamento completato",
+            "invalidExtension": "Estensione non valida",
             "genericTypeCodeOrDescr": "Digita codice o descrizione",
             "genericPartialFiltersList": "Lista filtri parziale"
         },

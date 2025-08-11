@@ -13,10 +13,7 @@ import {
     Fragment,
 } from '@stencil/core';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
-import {
-    KupDom,
-    KupManager,
-} from '../../managers/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -92,7 +89,7 @@ export class KupFileUpload {
 
     /**
      * Error string to render in component
-     * @default 'false'
+     * @default 'undefined'
      */
     @Prop() error: string = undefined;
     //#endregion
@@ -105,11 +102,11 @@ export class KupFileUpload {
     @State() inputRef?: HTMLInputElement;
     @State() tempFiles?: File[] = [];
     @State() pathFiles?: string[] = [];
-    @State() uploadSuccess?: boolean = false;
     @State() showSpinner?: boolean = false;
     @State() multiUpload?: boolean = false;
     @State() autoUpload?: boolean = false;
     @State() acceptedFiles?: string[] = null;
+    @State() isValidDropFiles?: boolean = true;
 
     //#endregion
 
@@ -138,12 +135,11 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
-
     @Watch('pathString')
     onDataChanged() {
-        this.uploadSuccess = false;
+        this.error = '';
         this.#handleCancel();
-        this.pathFiles = this.pathString?.split(';') || [];
+        this.pathFiles = this.#getArrayPathString(this.pathString);
     }
 
     @Watch('FupMul')
@@ -200,7 +196,6 @@ export class KupFileUpload {
         this.setLoading(false);
         if (success && pathFiles) {
             this.#handleCancel();
-            this.uploadSuccess = success;
             this.pathFiles = this.multiUpload
                 ? [...this.pathFiles, ...pathFiles.split(';')]
                 : [pathFiles.split(';')[0]];
@@ -263,20 +258,34 @@ export class KupFileUpload {
     }
 
     #handleFileChange(event: Event) {
-        this.uploadSuccess = false;
         this.error = '';
-        const newFiles = Array.from((event.target as HTMLInputElement).files);
-        this.tempFiles = [...this.tempFiles, ...newFiles];
-        this.inputRef.value = '';
 
-        if (this.autoUpload) {
-            this.kupUpload.emit({
-                comp: this,
-                id: this.rootElement.id,
-                files: this.tempFiles,
-            });
-            this.setLoading(true);
+        const newFiles =
+            Array.from((event.target as HTMLInputElement).files) || [];
+
+        if (!this.multiUpload && newFiles.length > 1) {
+            return;
         }
+
+        this.inputRef.value = '';
+        this.#processFiles(newFiles);
+    }
+
+    #handleDrop(event: DragEvent) {
+        event.preventDefault();
+        this.error = '';
+        this.isValidDropFiles = true;
+        const droppedFiles = event.dataTransfer.files;
+        if (droppedFiles?.length <= 0) {
+            return;
+        }
+
+        if (!this.multiUpload && droppedFiles.length > 1) {
+            return;
+        }
+
+        const newFiles = Array.from(droppedFiles);
+        this.#processFiles(newFiles);
     }
 
     #handleFileRemove(index: number) {
@@ -286,13 +295,24 @@ export class KupFileUpload {
         ];
     }
 
-    #handleDrop(event: DragEvent) {
-        event.preventDefault();
-        this.uploadSuccess = false;
-        const droppedFiles = event.dataTransfer.files;
-        if (droppedFiles.length > 0) {
-            const newFiles = Array.from(droppedFiles);
-            this.tempFiles = [...this.tempFiles, ...newFiles];
+    #processFiles(newFiles: File[]) {
+        if (!this.#areValidFiles(newFiles)) {
+            return;
+        }
+
+        this.tempFiles = this.multiUpload
+            ? // Add new files
+              this.#getUniqueFiles([...this.tempFiles, ...newFiles])
+            : // Reset files
+              newFiles;
+
+        if (this.autoUpload) {
+            this.kupUpload.emit({
+                comp: this,
+                id: this.rootElement.id,
+                files: this.tempFiles,
+            });
+            this.setLoading(true);
         }
     }
 
@@ -331,6 +351,75 @@ export class KupFileUpload {
         });
         this.setLoading(true);
     }
+
+    #getArrayPathString(paths: string): string[] {
+        return paths?.split(';').filter((path) => path.trim()) || [];
+    }
+
+    #getUniqueFiles(files: File[]): File[] {
+        const uniqueFiles = files.reduce((map, file) => {
+            const key = `${file.name}-${file.size}-${file.lastModified}`;
+            map.set(key, file);
+            return map;
+        }, new Map<string, File>());
+
+        return Array.from(uniqueFiles.values());
+    }
+
+    #isValidDraggedItems(items: DataTransferItemList): boolean {
+        if (!items?.length || (!this.multiUpload && items.length > 1)) {
+            return false;
+        }
+
+        for (const item of Array.from(items)) {
+            if (item.kind != 'file') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    #areValidFiles(files: File[]): boolean {
+        if (!files?.length) {
+            return false;
+        }
+
+        for (const file of files) {
+            if (!this.#isValidFile(file)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    #isValidFile(file: File): boolean {
+        if (!this.acceptedFiles?.length) {
+            return true;
+        }
+
+        // Check extensions
+        const fileExtension = this.#getFileExtension(file.name);
+        const isValid = fileExtension
+            ? this.acceptedFiles.includes(fileExtension)
+            : false;
+
+        if (!isValid) {
+            // Set extension error
+            this.error = this.#kupManager.language.translate(
+                KupLanguageUpload.INVALID_EXTENSION
+            );
+        }
+
+        return isValid;
+    }
+
+    #getFileExtension(fileName: string): string {
+        const dotIndex = fileName.lastIndexOf('.');
+        return dotIndex >= 0 ? fileName.substring(dotIndex).toLowerCase() : '';
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -375,9 +464,17 @@ export class KupFileUpload {
                         class={{
                             'file-upload': true,
                             'file-upload-spinner': this.showSpinner,
+                            'file-upload__invalid': !this.isValidDropFiles,
+                        }}
+                        onDragOver={(event) => {
+                            event.preventDefault();
+                            this.isValidDropFiles = this.#isValidDraggedItems(
+                                event.dataTransfer?.items
+                            );
                         }}
                         onDrop={this.#handleDrop.bind(this)}
-                        onDragOver={(event) => event.preventDefault()}
+                        onDragLeave={() => (this.isValidDropFiles = true)}
+                        onDragEnd={() => (this.isValidDropFiles = true)}
                     >
                         <input
                             type="file"
@@ -425,13 +522,7 @@ export class KupFileUpload {
                                 </span>
                             </div>
                         )}
-                        {this.uploadSuccess ? (
-                            <span>
-                                {this.#kupManager.language.translate(
-                                    KupLanguageUpload.SUCCESS
-                                )}
-                            </span>
-                        ) : (
+                        {
                             <div class="file-upload__list">
                                 {this.tempFiles.map((file, i) => (
                                     <div class="file-upload__list__item">
@@ -459,7 +550,7 @@ export class KupFileUpload {
                                     </div>
                                 ))}
                             </div>
-                        )}
+                        }
                         {this.pathFiles.length ? (
                             <div class="file-upload__list">
                                 {this.pathFiles.map((path, i) => (
