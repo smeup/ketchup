@@ -1287,6 +1287,7 @@ function setKupCell(
                 label: cell.value,
                 icon: cell.icon,
                 placeholderIcon: cell.placeholderIcon,
+                title: column.title,
                 ...subcomponentProps,
             };
             return (
