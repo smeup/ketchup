@@ -107,6 +107,7 @@ export class KupFileUpload {
     @State() autoUpload?: boolean = false;
     @State() acceptedFiles?: string[] = null;
     @State() isValidDropFiles?: boolean = true;
+    @State() fupError?: string = null;
 
     //#endregion
 
@@ -135,11 +136,18 @@ export class KupFileUpload {
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
+
+    @Watch('error')
+    onErrorChange() {
+        this.fupError = this.error;
+    }
+
     @Watch('pathString')
     onDataChanged() {
-        this.error = '';
+        this.fupError = '';
         this.#handleCancel();
-        this.pathFiles = this.#getArrayPathString(this.pathString);
+        this.pathFiles =
+            this.pathString?.split(';').filter((path) => path.trim()) || [];
     }
 
     @Watch('FupMul')
@@ -258,7 +266,7 @@ export class KupFileUpload {
     }
 
     #handleFileChange(event: Event) {
-        this.error = '';
+        this.fupError = '';
 
         const newFiles =
             Array.from((event.target as HTMLInputElement).files) || [];
@@ -273,7 +281,7 @@ export class KupFileUpload {
 
     #handleDrop(event: DragEvent) {
         event.preventDefault();
-        this.error = '';
+        this.fupError = '';
         this.isValidDropFiles = true;
         const droppedFiles = event.dataTransfer.files;
         if (droppedFiles?.length <= 0) {
@@ -352,10 +360,6 @@ export class KupFileUpload {
         this.setLoading(true);
     }
 
-    #getArrayPathString(paths: string): string[] {
-        return paths?.split(';').filter((path) => path.trim()) || [];
-    }
-
     #getUniqueFiles(files: File[]): File[] {
         const uniqueFiles = files.reduce((map, file) => {
             const key = `${file.name}-${file.size}-${file.lastModified}`;
@@ -407,7 +411,7 @@ export class KupFileUpload {
 
         if (!isValid) {
             // Set extension error
-            this.error = this.#kupManager.language.translate(
+            this.fupError = this.#kupManager.language.translate(
                 KupLanguageUpload.INVALID_EXTENSION
             );
         }
@@ -515,10 +519,10 @@ export class KupFileUpload {
                                 </Fragment>
                             )}
                         </div>
-                        {this.error && (
+                        {this.fupError && (
                             <div class="file-upload__error">
                                 <span class="mdc-error-message">
-                                    {this.error}
+                                    {this.fupError}
                                 </span>
                             </div>
                         )}
