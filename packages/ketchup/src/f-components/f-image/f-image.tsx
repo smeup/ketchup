@@ -195,7 +195,8 @@ function createBar(data: FImageData[]): HTMLDivElement {
             backgroundColor: data[i].color,
             left: leftProgression + '%',
             height: data[i].height,
-            width: data[i].width,
+            width:
+                Number(data[i].width.replace(/%$/, '')) - leftProgression + '%',
         };
 
         leftProgression += parseFloat(data[i].width);
