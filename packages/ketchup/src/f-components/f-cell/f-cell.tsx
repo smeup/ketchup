@@ -322,6 +322,7 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
         [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
         [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
         [FCellTypes.CHIP, MainCHIAdapter.bind(this)],
+        [FCellTypes.FILE_UPLOAD, MainFUPAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
@@ -445,6 +446,18 @@ const MainCMBandACPAdapter = (
             ...cell.data,
         };
     }
+};
+
+export const MainFUPAdapter = (
+    _options: GenericObject,
+    _fieldLabel: string,
+    currentValue: string,
+    cell: KupInputPanelCell
+) => {
+    return {
+        ...cell.data,
+        pathString: currentValue,
+    };
 };
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {

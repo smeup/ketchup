@@ -2540,7 +2540,7 @@ export namespace Components {
         "customStyle": string;
         /**
           * Error string to render in component
-          * @default 'false'
+          * @default 'undefined'
          */
         "error": string;
         /**
@@ -8466,7 +8466,7 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * Error string to render in component
-          * @default 'false'
+          * @default 'undefined'
          */
         "error"?: string;
         "onKup-file-upload-change"?: (event: KupFileUploadCustomEvent<KupFileUploadChangeEventPayload>) => void;

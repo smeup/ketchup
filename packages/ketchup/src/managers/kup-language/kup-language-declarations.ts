@@ -254,4 +254,5 @@ export enum KupLanguageTotals {
  */
 export enum KupLanguageUpload {
     SUCCESS = 'fileUploadSuccess',
+    INVALID_EXTENSION = 'invalidExtension',
 }
