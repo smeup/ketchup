@@ -1,6 +1,6 @@
 import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
-import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { GroupObject } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupTabBarNode } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
@@ -220,7 +220,23 @@ export class KupColumnMenu {
                 title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
             });
         }
+        if (this.isKupDataTable(comp)) {
+            if (comp.totals && comp.groups) {
+                props.push({
+                    className: 'printable',
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    icon: 'filter',
+                    id: 'totals-matrix',
+                    title: 'totalsmatrix',
+                });
+            }
+        }
         return props;
+    }
+    isKupDataTable(comp: any): comp is KupDataTable {
+        return comp && comp.rowsPerPage;
     }
     /**
      * Handles the column menu's checkbox prop.
@@ -645,7 +661,11 @@ export class KupColumnMenu {
      * @param {CustomEvent} cardEvent - kup-card-event emitted by the column menu.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
+    eventHandlers(
+        cardEvent: CustomEvent,
+        comp: KupDataTable | KupTree,
+        columnName?: string
+    ): void {
         const card: HTMLKupCardElement = cardEvent.detail.card
             ? cardEvent.detail.card
             : cardEvent.detail.comp.rootElement;
@@ -766,6 +786,13 @@ export class KupColumnMenu {
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         comp.closeColumnMenu().then(() => {
                             comp.hideColumn(dataStorage['column']);
+                        });
+                        break;
+                    case 'totals-matrix':
+                        comp.closeColumnMenu().then(() => {
+                            (comp as KupDataTable).toggleTotalsMatrix(
+                                columnName
+                            );
                         });
                         break;
                 }

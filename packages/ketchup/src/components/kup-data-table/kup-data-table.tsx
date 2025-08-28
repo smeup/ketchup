@@ -1752,7 +1752,7 @@ export class KupDataTable {
         this.#columnMenuCard.addEventListener(
             'kup-card-event',
             (e: CustomEvent<KupCardEventPayload>) => {
-                this.#columnMenuInstance.eventHandlers(e, this);
+                this.#columnMenuInstance.eventHandlers(e, this, columnName);
                 this.kupDataTableColumnMenu.emit({
                     comp: this,
                     id: this.rootElement.id,
@@ -1777,6 +1777,7 @@ export class KupDataTable {
             this,
             getColumnByName(this.getColumns(), columnName)
         );
+        console.log(this.#columnMenuCard.data);
         this.#columnMenuInstance.open(this, columnName);
         this.#columnMenuInstance.reposition(
             this,
@@ -2229,6 +2230,14 @@ export class KupDataTable {
         }
     }
 
+    @Method()
+    async toggleTotalsMatrix(columnName?: string): Promise<void> {
+        console.log(columnName);
+        this.totalsMatrixView
+            ? this.#switchBackFromTotalsMatrix()
+            : this.#switchToTotalsMatrix(columnName);
+    }
+
     #switchBackFromTotalsMatrix(): void {
         this.groups = this.#beforeTotalMatrixGroups;
         this.data = this.#beforeTotalMatrixData;
@@ -2241,21 +2250,35 @@ export class KupDataTable {
         this.totalsMatrixView = false;
     }
 
-    #switchToTotalsMatrix(): void {
-        if (this.#rows.length === 0 || !this.#rows[0].group) return;
+    #switchToTotalsMatrix(columnName?: string): void {
+        const groupColName = columnName ?? this.groups[0].column;
+        const totalsColumns = Object.keys(this.totals);
+
+        if (
+            this.#rows.length === 0 ||
+            !this.#rows[0].group ||
+            totalsColumns?.length === 0 ||
+            !groupColName
+        )
+            return;
 
         // ---------------------------
         // Build the matrix data object
         // ---------------------------
         const totalsMatrixData: KupDataDataset = {};
 
+        const groupsToInsert = this.#getGroupElementsBefore(
+            this.groups,
+            groupColName
+        );
+
         // 1. Compute column IDs in correct order
-        const ids: string[] = [
-            this.#rows[0].group.column,
-            ...Object.keys(this.#rows[0].group.totals).filter(
-                (key) => key !== this.#rows[0].group.column
-            ),
+        const columnIds: string[] = [
+            ...groupsToInsert.map((group) => group.column),
+            ...[columnName],
+            ...Object.keys(this.totals),
         ];
+        console.log('IDS', columnIds);
 
         // 2. Optimize lookup of columns by building a Map
         const columnMap = new Map(
@@ -2263,7 +2286,7 @@ export class KupDataTable {
         );
 
         // 3. Build matrix columns
-        const totalsMatrixColumns: KupDataColumn[] = ids
+        totalsMatrixData.columns = columnIds
             .map((id) => columnMap.get(id))
             .filter((col): col is KupDataColumn => !!col) // ensure defined
             .map((col) => {
@@ -2279,31 +2302,27 @@ export class KupDataTable {
                 }
                 return currentColumn;
             });
-
-        totalsMatrixData.columns = totalsMatrixColumns;
-
+        console.log('COLUMNS', totalsMatrixData.columns);
         // 4. Build matrix rows
-        const totalsMatrixRows: KupDataTableRow[] = this.#rows.map(
-            (row, index) => {
-                const cells: KupDataTableRowCells = {};
-                ids.forEach((id) => {
-                    let totalValue = row.group.totals[id] ?? row.group.id;
+        totalsMatrixData.rows = this.#rows.map((row, index) => {
+            const cells: KupDataTableRowCells = {};
+            columnIds.forEach((id) => {
+                let totalValue = row.group.totals[id] ?? row.group.id;
 
-                    if (this.#kupManager.dates.isIsoDate(totalValue)) {
-                        totalValue = this.#kupManager.dates.format(totalValue);
-                    }
+                if (this.#kupManager.dates.isIsoDate(totalValue)) {
+                    totalValue = this.#kupManager.dates.format(totalValue);
+                }
 
-                    cells[id] = { value: String(totalValue) };
-                });
+                cells[id] = { value: String(totalValue) };
+            });
 
-                return {
-                    id: String(index),
-                    cells,
-                };
-            }
-        );
+            return {
+                id: String(index),
+                cells,
+            };
+        });
 
-        totalsMatrixData.rows = totalsMatrixRows;
+        console.log('ROWS', totalsMatrixData.rows);
 
         // ---------------------------
         // Finalize matrix
@@ -2314,14 +2333,23 @@ export class KupDataTable {
         this.#beforeTotalMatrixGroups = this.groups;
         this.#beforeTotalMatrixTotals = this.totals;
 
-        this.groups = []; // groups no longer valid
+        this.groups = groupsToInsert;
         this.data = { ...totalsMatrixData }; // update dataset
         this.totals = this.#promoteTotals(this.totals); // promote totals
+        this.visibleColumns = columnIds;
     }
 
     // --------------------------------------
     // Helpers
     // --------------------------------------
+
+    #getGroupElementsBefore(arr: GroupObject[], target: string): GroupObject[] {
+        const index = arr.findIndex((obj) => obj.column === target);
+        if (index <= 0) {
+            return []; // not found or at index 0
+        }
+        return arr.slice(0, index);
+    }
 
     /**
      * Build a proper column title with the total mode label.
@@ -6888,7 +6916,7 @@ export class KupDataTable {
                         KupLanguageGeneric.TOTALS_TABLE
                     )}
                     icon="exposure"
-                    onkup-button-click={() => this.#switchToTotalsMatrix()}
+                    onkup-button-click={() => this.toggleTotalsMatrix()}
                 />
             </div>
         );

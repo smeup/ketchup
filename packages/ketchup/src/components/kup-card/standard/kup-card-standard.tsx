@@ -887,6 +887,13 @@ export function create12(component: KupCard): VNode {
                             )}
                         />
                     ) : null}
+                    {buttonsIds.includes('totals-matrix') ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) => x.id === 'totals-matrix'
+                            )}
+                        />
+                    ) : null}
                 </div>
             ) : null}
             <div
