@@ -1060,6 +1060,7 @@ export class KupDataTable {
     #beforeTotalMatrixData: KupDataTableDataset = undefined;
     #beforeTotalMatrixGroups: Array<GroupObject> = undefined;
     #beforeTotalMatrixTotals: TotalsMap = undefined;
+    #beforeTotalMatrixVisibleColumns: string[] = undefined;
     /**
      * contains the id greater value in #originalDataLoaded
      */
@@ -2244,10 +2245,12 @@ export class KupDataTable {
         this.groups = this.#beforeTotalMatrixGroups;
         this.data = this.#beforeTotalMatrixData;
         this.totals = this.#beforeTotalMatrixTotals;
+        this.visibleColumns = this.#beforeTotalMatrixVisibleColumns;
 
         this.#beforeTotalMatrixData = undefined;
         this.#beforeTotalMatrixGroups = undefined;
         this.#beforeTotalMatrixTotals = undefined;
+        this.#beforeTotalMatrixVisibleColumns = undefined;
 
         this.totalsMatrixView = false;
     }
@@ -2255,6 +2258,11 @@ export class KupDataTable {
     #switchToTotalsMatrix(columnName?: string): void {
         const groupColName = columnName ?? this.groups[0].column;
         const totalsColumns = Object.keys(this.totals);
+
+        this.#beforeTotalMatrixData = this.data;
+        this.#beforeTotalMatrixGroups = this.groups;
+        this.#beforeTotalMatrixTotals = this.totals;
+        this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
 
         if (
             this.#rows.length === 0 ||
@@ -2364,10 +2372,6 @@ export class KupDataTable {
         // Finalize matrix
         // ---------------------------
         this.totalsMatrixView = true;
-
-        this.#beforeTotalMatrixData = this.data;
-        this.#beforeTotalMatrixGroups = this.groups;
-        this.#beforeTotalMatrixTotals = this.totals;
 
         this.groups = groupsToInsert;
         this.data = { ...totalsMatrixData }; // update dataset
