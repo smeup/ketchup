@@ -14,5 +14,6 @@ export enum KupColumnMenuIds {
     SWITCH_KEY = 'key',
     TEXTFIELD_FILTER = 'filter',
     TEXTFIELD_FORMULA = 'formula',
-    TOTALS_MATRIX = 'totals-matrix',
+    TOTALS_TABLE = 'totals-table',
+    BACK_TO_ORIGINAL_TABLE = 'back-to-original-table',
 }

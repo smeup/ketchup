@@ -227,10 +227,25 @@ export class KupColumnMenu {
                     'data-storage': {
                         columnName: column.name,
                     },
-                    icon: 'filter',
-                    id: KupColumnMenuIds.TOTALS_MATRIX,
-                    title: 'totalsmatrix',
+                    icon: 'table',
+                    id: KupColumnMenuIds.TOTALS_TABLE,
+                    title: dom.ketchup.language.translate(
+                        KupLanguageGeneric.TOTALS_TABLE
+                    ),
                 });
+                if (comp.totalsMatrixView) {
+                    props.push({
+                        className: 'printable',
+                        'data-storage': {
+                            columnName: column.name,
+                        },
+                        icon: 'table-large',
+                        id: KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE,
+                        title: dom.ketchup.language.translate(
+                            KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
+                        ),
+                    });
+                }
             }
         }
         return props;
@@ -788,10 +803,19 @@ export class KupColumnMenu {
                             comp.hideColumn(dataStorage['column']);
                         });
                         break;
-                    case KupColumnMenuIds.TOTALS_MATRIX:
+                    case KupColumnMenuIds.TOTALS_TABLE:
                         comp.closeColumnMenu().then(() => {
                             (comp as KupDataTable).toggleTotalsMatrix(
-                                columnName
+                                columnName,
+                                true
+                            );
+                        });
+                        break;
+                    case KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE:
+                        comp.closeColumnMenu().then(() => {
+                            (comp as KupDataTable).toggleTotalsMatrix(
+                                columnName,
+                                false
                             );
                         });
                         break;

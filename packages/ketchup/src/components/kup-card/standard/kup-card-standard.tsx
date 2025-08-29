@@ -887,10 +887,21 @@ export function create12(component: KupCard): VNode {
                             )}
                         />
                     ) : null}
-                    {buttonsIds.includes(KupColumnMenuIds.TOTALS_MATRIX) ? (
+                    {buttonsIds.includes(KupColumnMenuIds.TOTALS_TABLE) ? (
                         <kup-button
                             {...buttonArray.find(
-                                (x) => x.id === KupColumnMenuIds.TOTALS_MATRIX
+                                (x) => x.id === KupColumnMenuIds.TOTALS_TABLE
+                            )}
+                        />
+                    ) : null}
+                    {buttonsIds.includes(
+                        KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
+                    ) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) =>
+                                    x.id ===
+                                    KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
                             )}
                         />
                     ) : null}

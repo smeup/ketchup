@@ -883,7 +883,7 @@ export class KupDataTable {
     private fontsize: string = 'small';
 
     @State()
-    private totalsMatrixView: boolean = false;
+    public totalsMatrixView: boolean = false;
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -2231,11 +2231,13 @@ export class KupDataTable {
     }
 
     @Method()
-    async toggleTotalsMatrix(columnName?: string): Promise<void> {
-        console.log(columnName);
-        this.totalsMatrixView
-            ? this.#switchBackFromTotalsMatrix()
-            : this.#switchToTotalsMatrix(columnName);
+    async toggleTotalsMatrix(
+        columnName?: string,
+        calculateTotals?: boolean
+    ): Promise<void> {
+        calculateTotals === true
+            ? this.#switchToTotalsMatrix(columnName)
+            : this.#switchBackFromTotalsMatrix();
     }
 
     #switchBackFromTotalsMatrix(): void {
