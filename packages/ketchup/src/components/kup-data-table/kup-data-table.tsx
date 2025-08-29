@@ -2278,7 +2278,6 @@ export class KupDataTable {
             ...[columnName],
             ...Object.keys(this.totals),
         ];
-        console.log('IDS', columnIds);
 
         // 2. Optimize lookup of columns by building a Map
         const columnMap = new Map(
@@ -2302,27 +2301,62 @@ export class KupDataTable {
                 }
                 return currentColumn;
             });
-        console.log('COLUMNS', totalsMatrixData.columns);
+
         // 4. Build matrix rows
-        totalsMatrixData.rows = this.#rows.map((row, index) => {
-            const cells: KupDataTableRowCells = {};
-            columnIds.forEach((id) => {
-                let totalValue = row.group.totals[id] ?? row.group.id;
+        if (!groupsToInsert || groupsToInsert.length === 0) {
+            totalsMatrixData.rows = this.#rows.map((row, index) => {
+                const cells: KupDataTableRowCells = {};
+                columnIds.forEach((id) => {
+                    let totalValue = row.group.totals[id] ?? row.group.id;
 
-                if (this.#kupManager.dates.isIsoDate(totalValue)) {
-                    totalValue = this.#kupManager.dates.format(totalValue);
-                }
+                    if (this.#kupManager.dates.isIsoDate(totalValue)) {
+                        totalValue = this.#kupManager.dates.format(totalValue);
+                    }
 
-                cells[id] = { value: String(totalValue) };
+                    cells[id] = { value: String(totalValue) };
+                });
+
+                return {
+                    id: String(index),
+                    cells,
+                };
             });
+        } else {
+            totalsMatrixData.rows = [];
+            for (const row of this.#rows) {
+                const foundGroups = this.#findGroupsAtLevel(
+                    row.group,
+                    columnName
+                );
 
-            return {
-                id: String(index),
-                cells,
-            };
-        });
+                if (foundGroups) {
+                    for (const g of foundGroups) {
+                        if (g?.totals) {
+                            const utilityRow = g.children[0];
+                            for (const [key, value] of Object.entries(
+                                g.totals
+                            )) {
+                                let cellValue: any = value;
 
-        console.log('ROWS', totalsMatrixData.rows);
+                                if (
+                                    this.#kupManager.dates.isIsoDate(cellValue)
+                                ) {
+                                    cellValue =
+                                        this.#kupManager.dates.format(
+                                            cellValue
+                                        );
+                                }
+                                utilityRow.cells[key].value = String(cellValue);
+                                utilityRow.cells[key].obj.k = String(cellValue);
+                                utilityRow.cells[key].displayedValue =
+                                    String(cellValue);
+                            }
+                            totalsMatrixData.rows.push(utilityRow);
+                        }
+                    }
+                }
+            }
+        }
 
         // ---------------------------
         // Finalize matrix
@@ -2342,6 +2376,33 @@ export class KupDataTable {
     // --------------------------------------
     // Helpers
     // --------------------------------------
+
+    #findGroupsAtLevel(group: any, columnName: string): any[] {
+        let results: any[] = [];
+
+        if (!group || !Array.isArray(group.children)) {
+            return results;
+        }
+
+        // check if any child group matches the columnName
+        const hasMatch = group.children.some(
+            (child: any) => child.group?.column === columnName
+        );
+
+        if (hasMatch) {
+            // collect all sibling groups at this level
+            results.push(...group.children.map((child: any) => child.group));
+        } else {
+            // traverse children
+            for (const child of group.children) {
+                results.push(
+                    ...this.#findGroupsAtLevel(child.group, columnName)
+                );
+            }
+        }
+
+        return results;
+    }
 
     #getGroupElementsBefore(arr: GroupObject[], target: string): GroupObject[] {
         const index = arr.findIndex((obj) => obj.column === target);

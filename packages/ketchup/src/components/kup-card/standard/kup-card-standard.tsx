@@ -887,10 +887,10 @@ export function create12(component: KupCard): VNode {
                             )}
                         />
                     ) : null}
-                    {buttonsIds.includes('totals-matrix') ? (
+                    {buttonsIds.includes(KupColumnMenuIds.TOTALS_MATRIX) ? (
                         <kup-button
                             {...buttonArray.find(
-                                (x) => x.id === 'totals-matrix'
+                                (x) => x.id === KupColumnMenuIds.TOTALS_MATRIX
                             )}
                         />
                     ) : null}

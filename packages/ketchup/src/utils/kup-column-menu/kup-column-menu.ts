@@ -228,7 +228,7 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     icon: 'filter',
-                    id: 'totals-matrix',
+                    id: KupColumnMenuIds.TOTALS_MATRIX,
                     title: 'totalsmatrix',
                 });
             }
@@ -788,7 +788,7 @@ export class KupColumnMenu {
                             comp.hideColumn(dataStorage['column']);
                         });
                         break;
-                    case 'totals-matrix':
+                    case KupColumnMenuIds.TOTALS_MATRIX:
                         comp.closeColumnMenu().then(() => {
                             (comp as KupDataTable).toggleTotalsMatrix(
                                 columnName
