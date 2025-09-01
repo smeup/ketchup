@@ -172,6 +172,7 @@ export enum KupLanguageGeneric {
     TODAY = 'genericToday',
     TOP = 'genericTop',
     TOTALS_TABLE = 'genericTotalsTable',
+    BACK_TO_ORIGINAL_TABLE = 'backToOriginalTable',
     TRANSPOSE_DATA = 'genericTransposeData',
     VIEW_AS = 'genericViewAs',
     WEEK = 'genericWeek',

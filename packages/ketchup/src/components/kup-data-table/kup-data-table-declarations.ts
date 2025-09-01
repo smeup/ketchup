@@ -302,6 +302,7 @@ export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
     event: CustomEvent<KupCardEventPayload | KupEventPayload>;
     open: boolean;
+    columnName?: string;
 }
 
 export interface KupDatatableOptionClickEventPayload extends KupEventPayload {

@@ -1909,6 +1909,7 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
+        "toggleTotalsMatrix": (columnName?: string, calculateTotals?: boolean) => Promise<void>;
         /**
           * This method is used to force tooltip request for current focused cell
          */

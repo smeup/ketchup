@@ -321,7 +321,7 @@ export class KupInputPanel {
             this.#listeners = [];
         }
 
-        if (this.data) {
+        if (this.data && this.data.columns && this.data.rows) {
             this.#mapCells(this.data);
         }
     }
