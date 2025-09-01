@@ -1778,7 +1778,7 @@ export class KupDataTable {
             this,
             getColumnByName(this.getColumns(), columnName)
         );
-        console.log(this.#columnMenuCard.data);
+
         this.#columnMenuInstance.open(this, columnName);
         this.#columnMenuInstance.reposition(
             this,
@@ -2259,10 +2259,12 @@ export class KupDataTable {
         const groupColName = columnName ?? this.groups[0].column;
         const totalsColumns = Object.keys(this.totals);
 
-        this.#beforeTotalMatrixData = this.data;
-        this.#beforeTotalMatrixGroups = this.groups;
-        this.#beforeTotalMatrixTotals = this.totals;
-        this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
+        if (this.totalsMatrixView) {
+            this.#beforeTotalMatrixData = this.data;
+            this.#beforeTotalMatrixGroups = this.groups;
+            this.#beforeTotalMatrixTotals = this.totals;
+            this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
+        }
 
         if (
             this.#rows.length === 0 ||
@@ -6014,7 +6016,7 @@ export class KupDataTable {
                     }
                     cells.push(<td class={totalClass}>{value}</td>);
                 }
-                console.log(row);
+
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
