@@ -76,9 +76,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                     </div>
                 </div>
                 {props.label ? (
-                    <label htmlFor={props.id} onClick={props.onChange}>
-                        {props.label}
-                    </label>
+                    <label htmlFor={props.id}>{props.label}</label>
                 ) : undefined}
             </div>
 
