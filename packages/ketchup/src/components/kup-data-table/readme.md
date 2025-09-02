@@ -491,6 +491,23 @@ Type: `Promise<void>`
 
 
 
+### `toggleTotalsMatrix(columnName?: string, calculateTotals?: boolean) => Promise<void>`
+
+
+
+#### Parameters
+
+| Name              | Type      | Description |
+| ----------------- | --------- | ----------- |
+| `columnName`      | `string`  |             |
+| `calculateTotals` | `boolean` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `tooltipRequest() => Promise<void>`
 
 This method is used to force tooltip request for current focused cell
