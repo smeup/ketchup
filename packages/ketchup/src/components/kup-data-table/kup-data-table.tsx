@@ -2603,6 +2603,29 @@ export class KupDataTable {
                     for (const key in e) {
                         clone[key] = e[key];
                     }
+                    // in case an icon is clicked
+                    if (
+                        (e.target as HTMLElement).classList.contains(
+                            'f-image__icon'
+                        )
+                    ) {
+                        const details = this.#getEventDetails(
+                            this.#kupManager.getEventPath(
+                                e.target,
+                                this.rootElement
+                            ),
+                            e
+                        );
+
+                        // in case a cell action icon is clicked
+                        if (
+                            details?.cell?.obj?.t !== 'J4' &&
+                            details?.cell?.obj?.p !== 'ICO' &&
+                            details?.cell?.shape !== FCellShapes.ICON
+                        ) {
+                            break;
+                        }
+                    }
 
                     this.#clickTimeout.push(
                         setTimeout(() => {
