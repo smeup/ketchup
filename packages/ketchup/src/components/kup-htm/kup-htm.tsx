@@ -19,12 +19,15 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupHTMProps } from './kup-htm-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FButtonStyling } from '../../components';
 
 @Component({
     tag: 'kup-htm',
@@ -148,15 +151,19 @@ export class KupHTM {
                     <div class={`kup-htm ${isLink ? 'is-link' : ''}`}>
                         {isLink ? (
                             <Fragment>
-                                <a
-                                    href={this.data.value}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {this.#kupManager.language.translate(
+                                <kup-button
+                                    label={this.#kupManager.language.translate(
                                         KupLanguageGeneric.OPEN_IN_NEW_TAB
                                     )}
-                                </a>
+                                    sizing={'small' as KupComponentSizing}
+                                    class={'kup-secondary'}
+                                    icon="open-in-new"
+                                    styling={'flat' as FButtonStyling}
+                                    trailingIcon={true}
+                                    onClick={() =>
+                                        this.openInNewTab(this.data.value)
+                                    }
+                                ></kup-button>
                                 <iframe
                                     src={this.data.value}
                                     frameBorder="0"
@@ -170,6 +177,10 @@ export class KupHTM {
             </Host>
         );
     }
+
+    openInNewTab = (url: string) => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
