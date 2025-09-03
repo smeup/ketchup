@@ -357,12 +357,25 @@ export class KupColumnMenu {
                         KupDebugCategory.ERROR
                     );
                 }
-                chipData.push({
-                    icon: child.icon ? child.icon : null,
-                    value: childColumn ? childColumn.title : '*Not found!',
-                    obj: child.obj ? child.obj : null,
-                    id: childColumn ? childColumn.name : '*NOTFND',
-                });
+
+                if (childColumn) {
+                    if (childColumn.visible) {
+                        chipData.push({
+                            icon: child.icon ? child.icon : null,
+                            value: childColumn.title,
+                            obj: child.obj ? child.obj : null,
+                            id: childColumn.name,
+                        });
+                    }
+                    // if column is not visible it means it has been removed, do not push anything
+                } else {
+                    chipData.push({
+                        icon: child.icon ? child.icon : null,
+                        value: '*Not found!',
+                        obj: child.obj ? child.obj : null,
+                        id: '*NOTFND',
+                    });
+                }
             }
             chipProps.dataSet = { initialData: [...chipData] };
             chipProps.data = chipData;
