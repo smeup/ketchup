@@ -211,7 +211,7 @@ export class KupData {
                     }[]
                 >((result, col) => {
                     const cell = row.cells[col.name];
-                    if (!cell) return result;
+                    if (!cell || !cell.obj?.k) return result;
                     result.push({
                         id: col.name,
                         column: col,
@@ -634,8 +634,8 @@ export class KupData {
                 }
             });
 
-            // handle Codver command with blank K case and almost a codVer Column
-            if (rowCodVers.length && blankCommands.length) {
+            // Handle VO;COD_VER command with blank K case if there is at least one VO;COD_VER column
+            if (this.column.hasCodVer(columns)) {
                 blankCommands.forEach(({ cmd, index }) => {
                     actions.push({
                         ...this.action.createBlankRowAction(cmd, index),
