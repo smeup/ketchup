@@ -54,6 +54,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
             >
                 <div class={classObj}>
                     <input
+                        id={`${props.id}_inputEl`}
                         type="checkbox"
                         class="checkbox__native-control"
                         checked={props.checked}
@@ -76,7 +77,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                     </div>
                 </div>
                 {props.label ? (
-                    <label htmlFor={props.id}>{props.label}</label>
+                    <label htmlFor={`${props.id}_inputEl`}>{props.label}</label>
                 ) : undefined}
             </div>
 
