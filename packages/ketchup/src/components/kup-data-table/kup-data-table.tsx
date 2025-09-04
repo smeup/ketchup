@@ -2259,12 +2259,10 @@ export class KupDataTable {
         const groupColName = columnName ?? this.groups[0].column;
         const totalsColumns = Object.keys(this.totals);
 
-        if (this.totalsMatrixView) {
-            this.#beforeTotalMatrixData = this.data;
-            this.#beforeTotalMatrixGroups = this.groups;
-            this.#beforeTotalMatrixTotals = this.totals;
-            this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
-        }
+        this.#beforeTotalMatrixData = this.data;
+        this.#beforeTotalMatrixGroups = this.groups;
+        this.#beforeTotalMatrixTotals = this.totals;
+        this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
 
         if (
             this.#rows.length === 0 ||
