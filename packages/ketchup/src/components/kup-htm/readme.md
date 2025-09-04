@@ -66,14 +66,19 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-button](../kup-button)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-htm --> kup-button
   kup-htm --> kup-card
   kup-htm --> kup-dialog
+  kup-button --> kup-card
+  kup-button --> kup-dialog
+  kup-button --> kup-badge
   kup-card --> kup-image
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -205,9 +210,6 @@ graph TD;
   kup-toolbar --> kup-gauge
   kup-toolbar --> kup-progress-bar
   kup-toolbar --> kup-toolbar
-  kup-button --> kup-card
-  kup-button --> kup-dialog
-  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
