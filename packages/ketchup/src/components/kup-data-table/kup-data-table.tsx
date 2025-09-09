@@ -195,6 +195,7 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
+import { KupMathFormulaResult } from '../../managers/kup-math/kup-math-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -2317,7 +2318,29 @@ export class KupDataTable {
             totalsMatrixData.rows = this.#rows.map((row, index) => {
                 const cells: KupDataTableRowCells = {};
                 columnIds.forEach((id) => {
-                    let totalValue = row.group.totals[id] ?? row.group.id;
+                    let totalValue: string;
+                    if (
+                        (columnName === id ||
+                            groupsToInsert
+                                .map((group) => group.column)
+                                .includes(id)) &&
+                        row.group.id
+                    ) {
+                        // ID is contained in the column of the group levels before the one clicked
+                        // ID equals the column relative to the group the user clicked
+                        // - Returns the value of the group - row headers
+                        totalValue = row.group.id;
+                    } else if (
+                        row.group.totals[id] &&
+                        Object.keys(this.totals).includes(id)
+                    ) {
+                        // The column id is contained in the totals columns
+                        // and the total exists
+                        totalValue = row.group.totals[id];
+                    } else {
+                        // Default with an empty value because '---' breaks the totals
+                        totalValue = '';
+                    }
 
                     if (this.#kupManager.dates.isIsoDate(totalValue)) {
                         totalValue = this.#kupManager.dates.format(totalValue);
