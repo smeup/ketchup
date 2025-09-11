@@ -1538,9 +1538,9 @@ export class KupInputPanel {
             this.#getFunctionOnClickBTN(cell, id);
         };
 
-        if (cell.data.BtnMap) {
+        if (cell.data.mappedCommandId) {
             const concurrentCommand = this.data.setup?.commands?.find(
-                (command) => command.obj.k === cell.data.BtnMap
+                (command) => command.obj.k === cell.data.mappedCommandId
             );
 
             if (concurrentCommand) {
