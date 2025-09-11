@@ -156,6 +156,7 @@ export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the input panel.',
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
+    commandBarPosition = 'Manage the position of the command bar (submit button and other commands).',
     submitCb = 'Sets the callback function on submit form',
     optionsHandler = 'Sets the callback function to recieve options',
     buttonPosition = 'Manage the position of the buttons related to the input panel content. It is an enumeration',
