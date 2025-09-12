@@ -53,6 +53,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'commandBarPosition',
+          description:
+            'Manage the position of the command bar (submit button and other commands).',
+          type: 'string',
+          default: '"bottom"',
+          try: 'select',
+        },
+        {
           prop: 'submitCb',
           description: 'Sets the callback function on submit form.',
           type: 'string',

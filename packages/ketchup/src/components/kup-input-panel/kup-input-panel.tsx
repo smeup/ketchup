@@ -152,6 +152,12 @@ export class KupInputPanel {
     @Prop() hiddenSubmitButton: boolean = false;
 
     /**
+     * Position of the command bar (submit button and other commands)
+     * @default 'bottom'
+     */
+    @Prop() commandBarPosition?: 'top' | 'bottom' | 'left' | 'right';
+
+    /**
      * Dispositions of the whole input panel elements
      * @default COLUMNS
      */

@@ -3116,6 +3116,11 @@ export namespace Components {
          */
         "checkValidValueCallback"?: InputPanelCheckValidValueCallback;
         /**
+          * Position of the command bar (submit button and other commands)
+          * @default 'bottom'
+         */
+        "commandBarPosition"?: 'top' | 'bottom' | 'left' | 'right';
+        /**
           * Sets the handler to use when click on custom buttons
           * @default null
          */
@@ -8922,6 +8927,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "checkValidValueCallback"?: InputPanelCheckValidValueCallback;
+        /**
+          * Position of the command bar (submit button and other commands)
+          * @default 'bottom'
+         */
+        "commandBarPosition"?: 'top' | 'bottom' | 'left' | 'right';
         /**
           * Sets the handler to use when click on custom buttons
           * @default null
