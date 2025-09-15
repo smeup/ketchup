@@ -6208,7 +6208,7 @@ export class KupDataTable {
                         ) ||
                         (rowActions.length === 1 && rowActions[0].icon)
                     ) {
-                        rowActions.forEach((action, index) => {
+                        rowActions.forEach((action) => {
                             const imageProp: FImageProps =
                                 this.#kupManager.data.action.buildImageProp(
                                     action.icon,
@@ -6222,7 +6222,7 @@ export class KupDataTable {
                                             obj: action.obj,
                                             cell: action.cell,
                                             type: action.type,
-                                            index: index,
+                                            index: action.index,
                                             column: action.column,
                                         });
                                     }
