@@ -43,6 +43,7 @@ export interface KupDataColumn {
     cellSlotData?: GenericObject;
     tooltip?: boolean;
     useAs?: UseAsValue;
+    helper?: string;
 }
 export interface KupDataColumnChild {
     name: string;

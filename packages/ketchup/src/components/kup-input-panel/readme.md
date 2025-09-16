@@ -12,6 +12,7 @@
 | `buttonPosition`           | `button-position`      | Select the position of the buttons related to the input panel                      | `KupInputPanelButtonsPositions.BOTTOM \| KupInputPanelButtonsPositions.CENTER \| KupInputPanelButtonsPositions.LEFT \| KupInputPanelButtonsPositions.RIGHT \| KupInputPanelButtonsPositions.TOP`             | `KupInputPanelButtonsPositions.BOTTOM` |
 | `checkValidObjCallback`    | --                     | Sets the callback for valid the object when cell checkObject is true               | `(event: { obj: KupObj; currentState: KupInputPanelData; fun?: string; }) => Promise<ValidCheckObjResponse>`                                                                                                 | `null`                                 |
 | `checkValidValueCallback`  | --                     | Sets the callback for valid the object when cell checkObject is true               | `(currentState: KupInputPanelSubmitValue, cellId: string) => void`                                                                                                                                           | `null`                                 |
+| `commandBarPosition`       | `command-bar-position` | Position of the command bar (submit button and other commands)                     | `"bottom" \| "left" \| "right" \| "top"`                                                                                                                                                                     | `undefined`                            |
 | `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                               | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                                                                                                                         | `null`                                 |
 | `customStyle`              | `custom-style`         | Custom style of the component.                                                     | `string`                                                                                                                                                                                                     | `''`                                   |
 | `dashboardMode`            | `dashboard-mode`       | Sets verical layout if dashboardMode is true                                       | `boolean`                                                                                                                                                                                                    | `false`                                |
@@ -234,9 +235,9 @@ graph TD;
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
@@ -245,8 +246,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
-  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-date-picker --> kup-dialog
   kup-file-upload --> kup-spinner
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog

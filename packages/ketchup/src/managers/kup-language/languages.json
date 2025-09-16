@@ -211,6 +211,7 @@
             "genericToggle": "Toggle",
             "genericTop": "Top",
             "genericTotalsTable": "Totals table",
+            "backToOriginalTable": "Original table",
             "genericTransposeData": "Transpose data",
             "genericViewAs": "View as",
             "genericWeek": "Week",
@@ -257,6 +258,7 @@
             "genericUpload": "Upload",
             "genericChoose": "Choose",
             "fileUploadSuccess": "Upload complete",
+            "invalidExtension": "Invalid extension",
             "genericTypeCodeOrDescr": "Type code or description",
             "genericPartialFiltersList": "Partial filters list"
         }
@@ -473,6 +475,7 @@
             "genericToggle": "Attiva",
             "genericTop": "Top",
             "genericTotalsTable": "Tabella dei totali",
+            "backToOriginalTable": "Tabella originale",
             "genericTransposeData": "Trasposizione dati",
             "genericViewAs": "Vedi come",
             "genericWeek": "Settimana",
@@ -519,6 +522,7 @@
             "genericUpload": "Carica",
             "genericChoose": "Scegli",
             "fileUploadSuccess": "Caricamento completato",
+            "invalidExtension": "Estensione non valida",
             "genericTypeCodeOrDescr": "Digita codice o descrizione",
             "genericPartialFiltersList": "Lista filtri parziale"
         },

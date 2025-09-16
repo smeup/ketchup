@@ -162,9 +162,9 @@ graph TD;
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
+  kup-text-field --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
   kup-color-picker --> kup-badge
@@ -173,8 +173,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
-  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-date-picker --> kup-dialog
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
