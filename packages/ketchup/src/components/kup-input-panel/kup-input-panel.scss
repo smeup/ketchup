@@ -181,4 +181,13 @@
     align-items: end;
     gap: 1rem;
   }
+  & .input-panel__helper-icon {
+    cursor: help;
+    height: 16px;
+    opacity: 0.375;
+    position: absolute;
+    right: -18px;
+    top: -2px;
+    width: 16px;
+  }
 }

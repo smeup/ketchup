@@ -90,9 +90,12 @@ graph TD;
   kup-magic-box --> kup-card
   kup-magic-box --> kup-dialog
   kup-magic-box --> kup-badge
+  kup-text-field --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-card --> kup-image
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -129,9 +132,6 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
   kup-autocomplete --> kup-list
@@ -157,8 +157,8 @@ graph TD;
   kup-combobox --> kup-dialog
   kup-combobox --> kup-badge
   kup-date-picker --> kup-card
-  kup-date-picker --> kup-dialog
   kup-date-picker --> kup-badge
+  kup-date-picker --> kup-dialog
   kup-file-upload --> kup-spinner
   kup-file-upload --> kup-card
   kup-file-upload --> kup-dialog

@@ -1909,6 +1909,7 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
+        "toggleTotalsMatrix": (columnName?: string, calculateTotals?: boolean) => Promise<void>;
         /**
           * This method is used to force tooltip request for current focused cell
          */
@@ -2540,7 +2541,7 @@ export namespace Components {
         "customStyle": string;
         /**
           * Error string to render in component
-          * @default 'false'
+          * @default 'undefined'
          */
         "error": string;
         /**
@@ -3114,6 +3115,11 @@ export namespace Components {
           * @default null
          */
         "checkValidValueCallback"?: InputPanelCheckValidValueCallback;
+        /**
+          * Position of the command bar (submit button and other commands)
+          * @default 'bottom'
+         */
+        "commandBarPosition"?: 'top' | 'bottom' | 'left' | 'right';
         /**
           * Sets the handler to use when click on custom buttons
           * @default null
@@ -4418,6 +4424,11 @@ export namespace Components {
           * @default null
          */
         "label": string;
+        /**
+          * When set, the label will be accompanied by a helper text displayed on hover.
+          * @default ""
+         */
+        "labelHelper": string;
         /**
           * When set to true, the label will be on the left of the component.
           * @default false
@@ -8461,7 +8472,7 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * Error string to render in component
-          * @default 'false'
+          * @default 'undefined'
          */
         "error"?: string;
         "onKup-file-upload-change"?: (event: KupFileUploadCustomEvent<KupFileUploadChangeEventPayload>) => void;
@@ -8916,6 +8927,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "checkValidValueCallback"?: InputPanelCheckValidValueCallback;
+        /**
+          * Position of the command bar (submit button and other commands)
+          * @default 'bottom'
+         */
+        "commandBarPosition"?: 'top' | 'bottom' | 'left' | 'right';
         /**
           * Sets the handler to use when click on custom buttons
           * @default null
@@ -9993,6 +10009,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "label"?: string;
+        /**
+          * When set, the label will be accompanied by a helper text displayed on hover.
+          * @default ""
+         */
+        "labelHelper"?: string;
         /**
           * When set to true, the label will be on the left of the component.
           * @default false
