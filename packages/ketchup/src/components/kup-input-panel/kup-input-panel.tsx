@@ -1919,9 +1919,9 @@ export class KupInputPanel {
             return adapter(options, currentValue);
         } else {
             return options.map((option) => ({
-                value: option.label,
-                id: option.id,
-                selected: currentValue === option.id,
+                value: option.value,
+                id: option.obj.k,
+                selected: currentValue === option.obj.k,
             }));
         }
     }
