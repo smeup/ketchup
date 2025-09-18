@@ -1921,7 +1921,7 @@ export class KupInputPanel {
             return options.map((option) => ({
                 value: option.value,
                 id: option.obj.k,
-                selected: currentValue === option.id,
+                selected: currentValue === option.obj.k,
             }));
         }
     }
