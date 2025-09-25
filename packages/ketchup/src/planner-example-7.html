@@ -43,4 +43,41 @@
         ></kup-button>
     </body>
     <script src="/assets/planner-example-7.js"></script>
+    <script>
+        // Auto-smoke-test: attempt to invoke comp.addPhases('CM1', phases)
+        // after the assets script attaches data. This is non-invasive and
+        // only runs in the example page to produce reproducible console logs
+        // for verification.
+        (function () {
+            function tryInvoke() {
+                const comp = document.getElementById('planner');
+                if (!comp) {
+                    setTimeout(tryInvoke, 500);
+                    return;
+                }
+                if (typeof comp.addPhases !== 'function') {
+                    setTimeout(tryInvoke, 500);
+                    return;
+                }
+                if (typeof phases === 'undefined') {
+                    setTimeout(tryInvoke, 500);
+                    return;
+                }
+                console.log(
+                    'planner-example-7: auto-invoking addPhases for CM1'
+                );
+                try {
+                    comp.addPhases('CM1', phases);
+                } catch (e) {
+                    console.error(
+                        'planner-example-7: addPhases invocation failed',
+                        e
+                    );
+                }
+            }
+
+            // give the page a moment to initialize
+            setTimeout(tryInvoke, 1000);
+        })();
+    </script>
 </html>
