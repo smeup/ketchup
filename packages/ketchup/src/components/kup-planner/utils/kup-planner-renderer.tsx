@@ -424,6 +424,7 @@ export class KupPlannerRenderer {
                             tasks={this.tasks}
                             columnWidth={columnWidthForTimeUnit(this.timeUnit)}
                             viewMode={this.timeUnit}
+                            dependencies={this.props.mainGantt.dependencies}
                             {...this.props.mainGantt.stylingOptions}
                             TaskListHeader={
                                 this.props.mainGantt.taskListHeaderProject
@@ -576,6 +577,9 @@ export class KupPlannerRenderer {
                                     this.timeUnit
                                 )}
                                 viewMode={this.timeUnit}
+                                dependencies={
+                                    this.props.secondaryGantt.dependencies
+                                }
                                 {...this.props.secondaryGantt.stylingOptions}
                                 TaskListHeader={
                                     this.props.secondaryGantt

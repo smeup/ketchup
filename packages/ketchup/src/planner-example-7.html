@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup planner (example 7)</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            #dropdown {
+                padding-top: 40px;
+                padding-left: 11px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 20000 },
+                autoSetLocalization: true,
+            };
+        </script>
+        <kup-planner id="planner"></kup-planner>
+        <kup-button
+            label="Unmount"
+            style="position: fixed; bottom: 10px; right: 5px; z-index: 1000"
+            styling="floating"
+        ></kup-button>
+    </body>
+    <script src="/assets/planner-example-7.js"></script>
+</html>

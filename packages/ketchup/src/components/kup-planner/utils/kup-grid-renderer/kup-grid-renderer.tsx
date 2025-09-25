@@ -13,6 +13,7 @@ import {
     KupPlannerTaskIconProps,
     defaultStylingOptions,
 } from '../../kup-planner-declarations';
+import { KupPlannerDependency } from '../../kup-planner-declarations';
 import { addToDate } from '../kup-planner-renderer-helper';
 import {
     handleTaskBySVGMouseEvent,
@@ -84,6 +85,9 @@ export class KupGridRenderer {
 
     @Prop()
     readOnly: KupPlannerTaskGanttContentProps['readOnly'] = false;
+
+    @Prop()
+    dependencies: KupPlannerDependency[] = [];
 
     @Prop()
     gridProps: KupPlannerTaskGanttProps['gridProps'];
@@ -889,6 +893,169 @@ export class KupGridRenderer {
         );
     }
 
+    /**
+     * Render dependencies passed as structured data. Supports multiple dependencies
+     * between the same pair by offsetting paths.
+     */
+    renderDependencies() {
+        if (!this.dependencies || this.dependencies.length === 0) return null;
+
+        // Build a map of task id -> KupPlannerBarTask for quick lookup
+        const taskById = new Map<string, KupPlannerBarTask>();
+        for (const t of this.tasks) taskById.set(t.id, t);
+
+        // Group dependencies by pair key
+        const groups = new Map<string, KupPlannerDependency[]>();
+        for (const dep of this.dependencies) {
+            const key = `${dep.sourceId}__${dep.targetId}`;
+            const arr = groups.get(key) ?? [];
+            arr.push(dep);
+            groups.set(key, arr);
+        }
+
+        const rendered: any[] = [];
+        const OFFSET_STEP = 8; // px
+
+        for (const [key, deps] of groups.entries()) {
+            const [sourceId, targetId] = key.split('__');
+            // tolerate different id formats: exact, trimmed, and taskId_phaseId (with padded phase ids)
+            let sourceTask =
+                taskById.get(sourceId) ||
+                this.tasks.find(
+                    (t) => t.id && t.id.trim() === (sourceId + '').trim()
+                );
+
+            // try exact match first
+            let targetTask =
+                taskById.get(targetId) ||
+                this.tasks.find(
+                    (t) => t.id && t.id.trim() === (targetId + '').trim()
+                );
+
+            // if not found, try combined formats like <taskId>_<phaseId> (with possible padding)
+            if (!targetTask && sourceTask) {
+                const candidate1 = `${sourceTask.id}_${targetId}`;
+                const candidate2 = `${sourceTask.id}_${(targetId + '').trim()}`;
+                targetTask =
+                    taskById.get(candidate1) ||
+                    taskById.get(candidate2) ||
+                    this.tasks.find(
+                        (t) =>
+                            t.id &&
+                            (t.id === candidate1 ||
+                                t.id === candidate2 ||
+                                t.id.trim() === candidate2.trim())
+                    );
+            }
+
+            // as a last resort try matching by trimming both sides against all tasks
+            if (!sourceTask || !targetTask) {
+                const trimmedSource = (sourceId + '').trim();
+                const trimmedTarget = (targetId + '').trim();
+                if (!sourceTask) {
+                    sourceTask = this.tasks.find(
+                        (t) => t.id && t.id.trim() === trimmedSource
+                    );
+                }
+                if (!targetTask) {
+                    targetTask = this.tasks.find(
+                        (t) => t.id && t.id.trim() === trimmedTarget
+                    );
+                }
+
+                // Extra fallback: some dependency definitions use the original row id
+                // (taskRowId) or row-based ids like '1_P410'. Try to resolve those to
+                // the runtime task objects using taskRowId / phaseRowId mappings.
+                try {
+                    // If source is still not found, try to match by taskRowId or taskRow.id
+                    if (!sourceTask) {
+                        sourceTask = this.tasks.find(
+                            (t) =>
+                                (t as any).taskRowId == sourceId ||
+                                (t as any).taskRow?.id == sourceId ||
+                                (t as any).phaseRowId == sourceId
+                        );
+                    }
+
+                    // If target is not found, handle cases like '1_P410' where the left
+                    // part is the taskRowId and the right part is the phase code. We'll
+                    // try to find a phase whose taskRowId matches the left part and
+                    // whose id ends with the phase suffix.
+                    if (!targetTask) {
+                        const parts = trimmedTarget.split('_');
+                        if (parts.length > 1) {
+                            const left = parts[0];
+                            const right = parts.slice(1).join('_');
+                            targetTask = this.tasks.find(
+                                (t) =>
+                                    ((t as any).taskRowId == left &&
+                                        t.id &&
+                                        t.id.endsWith('_' + right)) ||
+                                    ((t as any).taskRow?.id == left &&
+                                        t.id &&
+                                        t.id.endsWith('_' + right))
+                            );
+                        }
+
+                        // also try matching target by row id directly
+                        if (!targetTask) {
+                            targetTask = this.tasks.find(
+                                (t) =>
+                                    (t as any).taskRowId == targetId ||
+                                    (t as any).taskRow?.id == targetId ||
+                                    (t as any).phaseRowId == targetId
+                            );
+                        }
+                    }
+                } catch (e) {
+                    // ignore matching errors
+                }
+            }
+
+            if (!sourceTask || !targetTask) {
+                continue;
+            }
+
+            const total = deps.length;
+            deps.forEach((dep, idx) => {
+                // compute offset: center the stack around 0
+                const offset = (idx - (total - 1) / 2) * OFFSET_STEP;
+
+                // we will re-use drownPathAndTriangle but need temporary synthetic tasks shifted by offset
+                const shiftedFrom = { ...sourceTask } as KupPlannerBarTask;
+                const shiftedTo = { ...targetTask } as KupPlannerBarTask;
+
+                // shift vertically
+                shiftedFrom.y = sourceTask.y + offset;
+                shiftedTo.y = targetTask.y + offset;
+
+                const [path, trianglePoints] = this.rtl
+                    ? this.drownPathAndTriangleRTL(
+                          shiftedFrom,
+                          shiftedTo,
+                          this.rowHeight,
+                          this.taskHeight,
+                          this.arrowIndent
+                      )
+                    : this.drownPathAndTriangle(
+                          shiftedFrom,
+                          shiftedTo,
+                          this.rowHeight,
+                          this.taskHeight,
+                          this.arrowIndent
+                      );
+
+                rendered.push(
+                    <g class="arrow dependency" data-dep-id={dep.id}>
+                        <path stroke-width="1.5" d={path} fill="none" />
+                        <polygon points={trianglePoints} />
+                    </g>
+                );
+            });
+        }
+        return rendered;
+    }
+
     drownPathAndTriangle(
         taskFrom: KupPlannerBarTask,
         taskTo: KupPlannerBarTask,
@@ -1081,11 +1248,14 @@ export class KupGridRenderer {
                         fill={this.arrowColor}
                         stroke={this.arrowColor}
                     >
+                        {this.renderDependencies()}
+                        {/* Legacy per-task children arrows (keep for backwards compatibility) */}
                         {this.tasks.map((task) => {
                             return task.barChildren.map((child) => {
                                 if (task.type !== 'timeline') {
-                                    this.renderKupArrow(task, child);
+                                    return this.renderKupArrow(task, child);
                                 }
+                                return null;
                             });
                         })}
                     </g>

@@ -29,7 +29,7 @@ import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 import { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerDependency, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
@@ -90,7 +90,7 @@ export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 export { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerDependency, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDropEventPayload } from "./managers/kup-interact/kup-interact-declarations";
@@ -2455,6 +2455,7 @@ export namespace Components {
         "dateChange": KupPlannerGanttProps['dateChange'];
         "dateTimeFormatters": KupPlannerGanttProps['dateTimeFormatters'];
         "delete": KupPlannerGanttProps['delete'];
+        "dependencies": KupPlannerDependency[];
         "displayedEndDate": KupPlannerGanttProps['displayedEndDate'];
         "displayedStartDate": KupPlannerGanttProps['displayedStartDate'];
         "doubleClick": KupPlannerGanttProps['doubleClick'];
@@ -2670,6 +2671,7 @@ export namespace Components {
         "dateChange": KupPlannerEventOption['dateChange'];
         "dates": KupPlannerTaskGanttContentProps['dates'];
         "delete": KupPlannerEventOption['delete'];
+        "dependencies": KupPlannerDependency[];
         "doubleClick": KupPlannerEventOption['doubleClick'];
         "eMouseDown": KupPlannerBarDisplayProps['onMouseDown'];
         "eventStart": KupPlannerTaskItemProps['onEventStart'];
@@ -3334,6 +3336,10 @@ export namespace Components {
           * @default null
          */
         "data": KupDataDataset;
+        /**
+          * Structured dependencies to render as arrows
+         */
+        "dependencies": KupPlannerDependency[];
         /**
           * Column containing the detail color, in hex format
           * @default null
@@ -8108,6 +8114,7 @@ declare namespace LocalJSX {
         "dateChange"?: KupPlannerGanttProps['dateChange'];
         "dateTimeFormatters"?: KupPlannerGanttProps['dateTimeFormatters'];
         "delete"?: KupPlannerGanttProps['delete'];
+        "dependencies"?: KupPlannerDependency[];
         "displayedEndDate"?: KupPlannerGanttProps['displayedEndDate'];
         "displayedStartDate"?: KupPlannerGanttProps['displayedStartDate'];
         "doubleClick"?: KupPlannerGanttProps['doubleClick'];
@@ -8289,6 +8296,7 @@ declare namespace LocalJSX {
         "dateChange"?: KupPlannerEventOption['dateChange'];
         "dates"?: KupPlannerTaskGanttContentProps['dates'];
         "delete"?: KupPlannerEventOption['delete'];
+        "dependencies"?: KupPlannerDependency[];
         "doubleClick"?: KupPlannerEventOption['doubleClick'];
         "eMouseDown"?: KupPlannerBarDisplayProps['onMouseDown'];
         "eventStart"?: KupPlannerTaskItemProps['onEventStart'];
@@ -8770,6 +8778,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupDataDataset;
+        /**
+          * Structured dependencies to render as arrows
+         */
+        "dependencies"?: KupPlannerDependency[];
         /**
           * Column containing the detail color, in hex format
           * @default null

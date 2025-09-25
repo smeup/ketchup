@@ -31,6 +31,7 @@ import {
     KupPlannerStoredSettings,
     KupPlannerUnloadEventPayload,
     KupPlannerGanttRow,
+    KupPlannerDependency,
     PlannerProps,
     KupPlannerTaskType,
     defaultStylingOptions,
@@ -389,6 +390,10 @@ export class KupPlanner {
     @Prop()
     phasePrevDates: string[];
 
+    /** Structured dependencies to render as arrows */
+    @Prop()
+    dependencies: KupPlannerDependency[] = [];
+
     /**
      * When true, the two gantts are not interactable.
      * @default false
@@ -697,10 +702,13 @@ export class KupPlanner {
                     let iconUrl = this.#getIconUrl(row, this.phaseIconCol);
                     let iconColor = this.#getIconColor(row, this.phaseIconCol);
 
+                    const _phaseIdRaw =
+                        (row.cells[this.phaseIdCol]?.value ?? '') + '';
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
                         phaseRow: row,
-                        id: task.id + '_' + row.cells[this.phaseIdCol].value,
+                        // trim the phase id value to avoid padded/trailing spaces
+                        id: `${task.id}_${_phaseIdRaw.trim()}`,
                         phaseRowId: row.id,
                         taskRowId: task.taskRowId,
                         name: row.cells[this.phaseNameCol].value,
@@ -723,6 +731,17 @@ export class KupPlanner {
                     };
                     return phase;
                 });
+            // Diagnostic: log created phase ids for the task
+            try {
+                // eslint-disable-next-line no-console
+                console.log(
+                    'kup-planner: addPhases created phases for',
+                    taskId,
+                    task.phases ? task.phases.map((p) => p.id) : []
+                );
+            } catch (e) {
+                /* ignore */
+            }
         }
         this.plannerProps.mainGantt.initialScrollX =
             this.#storedSettings.taskInitialScrollX;
@@ -999,6 +1018,15 @@ export class KupPlanner {
                       ),
                   },
               };
+        // Diagnostic: inspect whether planner-level `dependencies` prop is set
+        try {
+            // eslint-disable-next-line no-console
+            console.log(
+                'kup-planner: componentDidLoad - this.dependencies',
+                this.dependencies
+            );
+        } catch (e) {}
+
         this.plannerProps = {
             ...this.plannerProps,
             ...newGantt,
@@ -1127,6 +1155,8 @@ export class KupPlanner {
                 onPhaseDrop: (
                     nativeEvent: KupPlannerGanttTask | KupPlannerPhase
                 ) => this.handleOnPhaseDrop(nativeEvent),
+                // forward structured dependencies provided at planner level
+                dependencies: this.dependencies,
             },
             secondaryGantt: details
                 ? {
@@ -1150,6 +1180,8 @@ export class KupPlanner {
                       initialScrollX: this.detailInitialScrollX,
                       initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
+                      // forward structured dependencies to secondary gantt as well
+                      dependencies: this.dependencies,
                       onScrollY: (y: number) => {
                           window.clearTimeout(detailScrollYTimeout);
                           detailScrollYTimeout = window.setTimeout(
@@ -1173,6 +1205,15 @@ export class KupPlanner {
                 );
             },
         };
+
+        // Diagnostic: log what was forwarded into plannerProps.mainGantt.dependencies
+        try {
+            // eslint-disable-next-line no-console
+            console.log(
+                'kup-planner: componentDidLoad - plannerProps.mainGantt.dependencies',
+                this.plannerProps?.mainGantt?.dependencies
+            );
+        } catch (e) {}
 
         this.kupReady.emit({
             comp: this,
