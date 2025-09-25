@@ -3341,6 +3341,11 @@ export namespace Components {
          */
         "dependencies": KupPlannerDependency[];
         /**
+          * Optional column name inside the phases dataset containing a reference to a dependent phase (for example: 'OPEDIP'). When set, `addPhases` will read that column and create structured dependencies (FS) from the referenced phase to the current phase (source -> target). Multiple references can be separated by commas in the cell.
+          * @default undefined
+         */
+        "dependencyCol": string;
+        /**
           * Column containing the detail color, in hex format
           * @default null
          */
@@ -8782,6 +8787,11 @@ declare namespace LocalJSX {
           * Structured dependencies to render as arrows
          */
         "dependencies"?: KupPlannerDependency[];
+        /**
+          * Optional column name inside the phases dataset containing a reference to a dependent phase (for example: 'OPEDIP'). When set, `addPhases` will read that column and create structured dependencies (FS) from the referenced phase to the current phase (source -> target). Multiple references can be separated by commas in the cell.
+          * @default undefined
+         */
+        "dependencyCol"?: string;
         /**
           * Column containing the detail color, in hex format
           * @default null

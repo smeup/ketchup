@@ -328,6 +328,17 @@ export class KupPlanner {
     phaseColorCol: string;
 
     /**
+     * Optional column name inside the phases dataset containing a reference
+     * to a dependent phase (for example: 'OPEDIP'). When set, `addPhases`
+     * will read that column and create structured dependencies (FS) from the
+     * referenced phase to the current phase (source -> target).
+     * Multiple references can be separated by commas in the cell.
+     * @default undefined
+     */
+    @Prop()
+    dependencyCol: string;
+
+    /**
      * Columns containing informations displayed in the left box ,near the gantt of phases
      * @default null
      */
@@ -741,6 +752,101 @@ export class KupPlanner {
                 );
             } catch (e) {
                 /* ignore */
+            }
+
+            // If the phases dataset includes a dependency column, parse it and
+            // create structured dependencies. The column may contain a single
+            // dependency id or multiple comma-separated ids. The values can be
+            // either phase codes (e.g. 'P410') or full runtime ids
+            // ('G418_P410'). We'll normalize to runtime ids using the current
+            // task id when necessary.
+            try {
+                if (
+                    this.dependencyCol &&
+                    data.columns.find((c) => c.name == this.dependencyCol)
+                ) {
+                    const parsedDeps: any[] = [];
+                    for (const row of data.rows || []) {
+                        const raw =
+                            (row.cells?.[this.dependencyCol]?.value ?? '') + '';
+                        if (!raw) continue;
+                        const parts = raw
+                            .split(',')
+                            .map((s) => s.trim())
+                            .filter(Boolean);
+
+                        // compute current phase runtime id (target of dependencies)
+                        const phaseCode =
+                            (row.cells?.[this.phaseIdCol]?.value ?? '') + '';
+                        const currentPhaseId = `${task.id}_${phaseCode.trim()}`;
+
+                        for (const part of parts) {
+                            // normalize referenced (source) phase id
+                            let sourcePhaseId = part;
+                            if (!sourcePhaseId.includes('_')) {
+                                // assume phase code in the same task -> make runtime id
+                                sourcePhaseId = `${task.id}_${sourcePhaseId}`;
+                            }
+
+                            // dependency goes from the referenced phase (source) to the current phase (target)
+                            const depId = `${sourcePhaseId}__${currentPhaseId}`;
+                            parsedDeps.push({
+                                id: depId,
+                                sourceId: sourcePhaseId,
+                                targetId: currentPhaseId,
+                                type: 'FS',
+                            });
+                        }
+                    }
+
+                    if (parsedDeps.length) {
+                        // ensure plannerProps.mainGantt.dependencies exists
+                        try {
+                            if (!this.plannerProps.mainGantt.dependencies) {
+                                this.plannerProps.mainGantt.dependencies = [];
+                            }
+                        } catch (e) {
+                            // ensure plannerProps in general exists
+                            if (!this.plannerProps)
+                                this.plannerProps = {} as any;
+                            if (!this.plannerProps.mainGantt)
+                                this.plannerProps.mainGantt = {} as any;
+                            this.plannerProps.mainGantt.dependencies = [];
+                        }
+
+                        // merge while avoiding duplicates by id
+                        const existing = new Map(
+                            (
+                                this.plannerProps.mainGantt.dependencies || []
+                            ).map((d: any) => [d.id, d])
+                        );
+                        for (const pd of parsedDeps) {
+                            if (!existing.has(pd.id)) {
+                                existing.set(pd.id, pd);
+                            }
+                        }
+                        this.plannerProps.mainGantt.dependencies = Array.from(
+                            existing.values()
+                        );
+
+                        // also forward to secondary if present
+                        if (this.plannerProps.secondaryGantt) {
+                            this.plannerProps.secondaryGantt.dependencies =
+                                this.plannerProps.mainGantt.dependencies;
+                        }
+
+                        // Diagnostic
+                        try {
+                            // eslint-disable-next-line no-console
+                            console.log(
+                                'kup-planner: addPhases - injected dependencies',
+                                parsedDeps
+                            );
+                        } catch (e) {}
+                    }
+                }
+            } catch (e) {
+                // ignore parsing errors
             }
         }
         this.plannerProps.mainGantt.initialScrollX =

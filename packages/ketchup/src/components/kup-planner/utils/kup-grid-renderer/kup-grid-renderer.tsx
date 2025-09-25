@@ -904,7 +904,7 @@ export class KupGridRenderer {
         const taskById = new Map<string, KupPlannerBarTask>();
         for (const t of this.tasks) taskById.set(t.id, t);
 
-        // Group dependencies by pair key
+        // Group dependencies by pair key (source__target)
         const groups = new Map<string, KupPlannerDependency[]>();
         for (const dep of this.dependencies) {
             const key = `${dep.sourceId}__${dep.targetId}`;
@@ -913,8 +913,33 @@ export class KupGridRenderer {
             groups.set(key, arr);
         }
 
+        // Also group by target to handle multiple different sources pointing to the same target.
+        const byTarget = new Map<string, string[]>(); // targetId -> array of pair keys
+        for (const key of groups.keys()) {
+            const [, targetId] = key.split('__');
+            const arr = byTarget.get(targetId) ?? [];
+            arr.push(key);
+            byTarget.set(targetId, arr);
+        }
+
         const rendered: any[] = [];
         const OFFSET_STEP = 8; // px
+
+        // For each target that has multiple source groups, compute a per-group vertical offset
+        // so the groups themselves are arranged and then individual deps inside each group are
+        // offset relative to their group's offset.
+        const groupOffsets = new Map<string, number>(); // pairKey -> base offset
+        for (const [targetId, pairKeys] of byTarget.entries()) {
+            if (pairKeys.length === 1) continue;
+            // center the groups around 0
+            const totalGroups = pairKeys.length;
+            for (let i = 0; i < pairKeys.length; i++) {
+                const pk = pairKeys[i];
+                const baseOffset =
+                    (i - (totalGroups - 1) / 2) * (OFFSET_STEP * 3);
+                groupOffsets.set(pk, baseOffset);
+            }
+        }
 
         for (const [key, deps] of groups.entries()) {
             const [sourceId, targetId] = key.split('__');
@@ -1017,9 +1042,12 @@ export class KupGridRenderer {
             }
 
             const total = deps.length;
+            // base offset for this pair (if groups were arranged around the target)
+            const base = groupOffsets.get(key) ?? 0;
             deps.forEach((dep, idx) => {
-                // compute offset: center the stack around 0
-                const offset = (idx - (total - 1) / 2) * OFFSET_STEP;
+                // compute offset: center the stack around 0 and add group base offset
+                const intraOffset = (idx - (total - 1) / 2) * OFFSET_STEP;
+                const offset = base + intraOffset;
 
                 // we will re-use drownPathAndTriangle but need temporary synthetic tasks shifted by offset
                 const shiftedFrom = { ...sourceTask } as KupPlannerBarTask;
