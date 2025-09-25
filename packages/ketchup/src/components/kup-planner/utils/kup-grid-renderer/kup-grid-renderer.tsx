@@ -1073,10 +1073,27 @@ export class KupGridRenderer {
                           this.arrowIndent
                       );
 
+                // pick a color for the connector: prefer the source task's color,
+                // then component arrowColor prop, and finally a neutral grey
+                const sourceColor =
+                    (sourceTask &&
+                        sourceTask.styles &&
+                        sourceTask.styles.backgroundColor) ||
+                    this.arrowColor ||
+                    '#9e9e9e';
                 rendered.push(
                     <g class="arrow dependency" data-dep-id={dep.id}>
-                        <path stroke-width="1.5" d={path} fill="none" />
-                        <polygon points={trianglePoints} />
+                        <path
+                            stroke={sourceColor}
+                            stroke-width="2"
+                            d={path}
+                            fill="none"
+                        />
+                        <polygon
+                            points={trianglePoints}
+                            fill={sourceColor}
+                            stroke={sourceColor}
+                        />
                     </g>
                 );
             });
