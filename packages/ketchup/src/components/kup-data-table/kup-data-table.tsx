@@ -7681,6 +7681,16 @@ export class KupDataTable {
                 {this.updatableData ? this.#renderUpdateButtons() : null}
                 {this.#renderOtherButtons()}
                 <div id={componentWrapperId} class={wrapClass}>
+                    {this.totalsMatrixView && (
+                        <FButton
+                            icon="table"
+                            label={dom.ketchup.language.translate(
+                                KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
+                            )}
+                            sizing={KupComponentSizing.SMALL}
+                            onClick={() => this.#switchBackFromTotalsMatrix()}
+                        />
+                    )}
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
                         {useGlobalFilter ? (
