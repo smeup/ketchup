@@ -289,7 +289,7 @@ export const CMBandACPAdapter = (
             showIcons: true,
             data: options?.length
                 ? options.map((option) => ({
-                      value: option.label,
+                      value: option.value,
                       id: option.id,
                       selected: value === option.id,
                   }))
