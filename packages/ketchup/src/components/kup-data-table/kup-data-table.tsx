@@ -54,6 +54,7 @@ import {
     KupDatatableHistoryEventPayload,
     KupDatatableRowActionItemClickEventPayload,
     KupDatatableUpdatePayload,
+    TotalMatrixOriginalDataToPersist,
     DataTableAreasEnum,
     KupDatatableCellCheckPayload,
     TypesToDuplicate,
@@ -195,7 +196,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
-import { KupMathFormulaResult } from '../../managers/kup-math/kup-math-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -212,7 +212,9 @@ export class KupDataTable {
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
             this.state.load = true;
-            const state = this.store.getState(this.stateId);
+            const state = this.store.getState(
+                this.stateId
+            ) as KupDataTableState;
             if (state != null) {
                 this.#kupManager.debug.logMessage(
                     this,
@@ -223,7 +225,7 @@ export class KupDataTable {
                 this.groups = [...state.groups];
                 this.expandGroups = state.expandGroups;
                 this.groupLabelDisplay = state.groupLabelDisplay;
-                this.density = state.density;
+                this.density = state.density as FCellPadding;
                 this.enableExtraColumns = state.enableExtraColumns;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
@@ -252,6 +254,16 @@ export class KupDataTable {
                 this.visibleColumns = state.visibleColumns
                     ? [...state.visibleColumns]
                     : undefined;
+                this.totalsMatrixView = state.totalsMatrixView;
+
+                this.#beforeTotalMatrixData =
+                    state.totalsMatrixOriginalData.data;
+                this.#beforeTotalMatrixGroups =
+                    state.totalsMatrixOriginalData.groups;
+                this.#beforeTotalMatrixTotals =
+                    state.totalsMatrixOriginalData.totals;
+                this.#beforeTotalMatrixVisibleColumns =
+                    state.totalsMatrixOriginalData.visibleColumns;
             }
         }
     }
@@ -823,6 +835,10 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) totals: TotalsMap;
     /**
+     * Defines the current totals options
+     */
+    @Prop() totalsView: string;
+    /**
      * Transposes the data of the data table
      */
     @Prop({ mutable: true }) transpose: boolean = false;
@@ -892,7 +908,7 @@ export class KupDataTable {
     private fontsize: string = 'small';
 
     @State()
-    public totalsMatrixView: boolean = false;
+    public totalsMatrixView: boolean;
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -1016,6 +1032,11 @@ export class KupDataTable {
         }
     }
 
+    @Watch('totalsView')
+    manageTotalsViewProp() {
+        this.#switchToTotalsMatrix(this.totalsView);
+    }
+
     @Watch('transpose')
     recalculateData() {
         if (this.#initialized) {
@@ -1066,10 +1087,10 @@ export class KupDataTable {
     /**
      * variables keeping track of the matrix properties before the totals view
      */
-    #beforeTotalMatrixData: KupDataTableDataset = undefined;
-    #beforeTotalMatrixGroups: Array<GroupObject> = undefined;
-    #beforeTotalMatrixTotals: TotalsMap = undefined;
-    #beforeTotalMatrixVisibleColumns: string[] = undefined;
+    #beforeTotalMatrixData: KupDataTableDataset;
+    #beforeTotalMatrixGroups: Array<GroupObject>;
+    #beforeTotalMatrixTotals: TotalsMap;
+    #beforeTotalMatrixVisibleColumns: string[];
     /**
      * contains the id greater value in #originalDataLoaded
      */
@@ -1408,6 +1429,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-totals-matrix',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableTotalsMatrix: EventEmitter<TotalMatrixOriginalDataToPersist>;
 
     /**
      * Closes any opened column menu.
@@ -2256,22 +2285,42 @@ export class KupDataTable {
         this.totals = this.#beforeTotalMatrixTotals;
         this.visibleColumns = this.#beforeTotalMatrixVisibleColumns;
 
+        this.kupDataTableTotalsMatrix.emit({
+            groups: this.#beforeTotalMatrixGroups,
+            data: this.#beforeTotalMatrixData,
+            totals: this.#beforeTotalMatrixTotals,
+            visibleColumns: this.#beforeTotalMatrixVisibleColumns,
+        });
+
         this.#beforeTotalMatrixData = undefined;
         this.#beforeTotalMatrixGroups = undefined;
         this.#beforeTotalMatrixTotals = undefined;
         this.#beforeTotalMatrixVisibleColumns = undefined;
 
         this.totalsMatrixView = false;
+        this.state.totalsMatrixView = false;
     }
 
     #switchToTotalsMatrix(columnName?: string): void {
         const groupColName = columnName ?? this.groups[0].column;
         const totalsColumns = Object.keys(this.totals);
 
-        this.#beforeTotalMatrixData = this.data;
-        this.#beforeTotalMatrixGroups = this.groups;
-        this.#beforeTotalMatrixTotals = this.totals;
-        this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
+        if (!this.#beforeTotalMatrixData)
+            this.#beforeTotalMatrixData = this.data;
+        if (!this.#beforeTotalMatrixGroups)
+            this.#beforeTotalMatrixGroups = this.groups;
+        if (!this.#beforeTotalMatrixTotals)
+            this.#beforeTotalMatrixTotals = this.totals;
+        if (!this.#beforeTotalMatrixVisibleColumns)
+            this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
+
+        if (!this.state.totalsMatrixOriginalData)
+            this.state.totalsMatrixOriginalData = {
+                data: this.data,
+                groups: this.groups,
+                totals: this.totals,
+                visibleColumns: this.visibleColumns,
+            };
 
         if (
             this.#rows.length === 0 ||
@@ -2403,11 +2452,19 @@ export class KupDataTable {
         // Finalize matrix
         // ---------------------------
         this.totalsMatrixView = true;
+        this.state.totalsMatrixView = true;
 
         this.groups = groupsToInsert;
         this.data = { ...totalsMatrixData }; // update dataset
         this.totals = this.#promoteTotals(this.totals); // promote totals
         this.visibleColumns = columnIds;
+
+        this.kupDataTableTotalsMatrix.emit({
+            groups: groupsToInsert,
+            data: { ...totalsMatrixData },
+            totals: this.#promoteTotals(this.totals),
+            visibleColumns: columnIds,
+        });
     }
 
     // --------------------------------------
@@ -3089,6 +3146,7 @@ export class KupDataTable {
     //---- Lifecycle hooks ----
 
     connectedCallback() {
+        console.log('CREATED');
         this.#readyPromise = new Promise((resolve) => {
             this.#readyResolve = resolve;
         });
@@ -3135,6 +3193,7 @@ export class KupDataTable {
         this.#setObserver();
 
         //this.recalculateRows();
+        if (this.totalsView) this.#switchToTotalsMatrix(this.totalsView);
 
         // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
         this.#isSafariBrowser =
@@ -3148,10 +3207,12 @@ export class KupDataTable {
     }
 
     componentWillRender() {
+        console.log('WILLRENDER');
         this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
+        console.log('DIDRENDER');
         this.#kupManager.perfMonitoring.mark('componentDidRender');
         // If the component is not connected this method must not be executed
         if (!this.rootElement.isConnected) {
@@ -7393,7 +7454,7 @@ export class KupDataTable {
         let elStyle = undefined;
         let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
-
+        console.log(this.totalsMatrixView);
         let rows = null;
         if (this.#paginatedRowsLength === 0) {
             rows = (
@@ -7922,6 +7983,7 @@ export class KupDataTable {
     }
 
     disconnectedCallback() {
+        console.log('DISCONNECTED');
         this.#kupManager.interact.unregister(
             this.#interactableDrag.concat(
                 this.#interactableDrop,

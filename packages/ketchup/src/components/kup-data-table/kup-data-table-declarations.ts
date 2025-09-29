@@ -374,3 +374,10 @@ export const TypesToDuplicate: FCellTypes[] = [
     FCellTypes.STRING,
     FCellTypes.TIME,
 ];
+
+export interface TotalMatrixOriginalDataToPersist {
+    data: KupDataTableDataset;
+    groups: GroupObject[];
+    totals: TotalsMap;
+    visibleColumns: string[];
+}

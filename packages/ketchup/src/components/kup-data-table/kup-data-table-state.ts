@@ -7,6 +7,8 @@ import {
     GroupLabelDisplayMode,
     TotalsMap,
     SelectionMode,
+    KupDataTableDataset,
+    TotalMatrixOriginalDataToPersist,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -43,6 +45,8 @@ export class KupDataTableState implements KupState {
     totals: TotalsMap;
     load: boolean = false;
     visibleColumns: string[] = undefined;
+    totalsMatrixView: boolean = false;
+    totalsMatrixOriginalData: TotalMatrixOriginalDataToPersist = undefined;
 
     public toDebugString() {
         // TODO
