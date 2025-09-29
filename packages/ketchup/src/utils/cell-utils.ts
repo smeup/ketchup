@@ -291,7 +291,7 @@ export const CMBandACPAdapter = (
                 ? options.map((option) => ({
                       value: option.value,
                       id: option.obj.k,
-                      selected: value === option.id,
+                      selected: value === option.obj.k,
                   }))
                 : [],
         },
