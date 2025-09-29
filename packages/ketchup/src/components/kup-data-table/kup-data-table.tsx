@@ -845,7 +845,7 @@ export class KupDataTable {
     @Prop() updateOnClick: boolean = false;
 
     /**
-     * When set the new set of cellActions will be used insted of the default ones.
+     * When set the new set of cellActions will be used instead of the default ones.
      */
     @Prop() onCellActionBuild: (
         row: KupDataRow,
