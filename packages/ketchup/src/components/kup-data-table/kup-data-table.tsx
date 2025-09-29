@@ -844,8 +844,16 @@ export class KupDataTable {
      */
     @Prop() updateOnClick: boolean = false;
 
-    //-------- State --------
+    /**
+     * When set the new set of cellActions will be used insted of the default ones.
+     */
+    @Prop() onCellActionBuild: (
+        row: KupDataRow,
+        column: KupDataColumn,
+        cellActions: KupDataRowAction[]
+    ) => KupDataRowAction[];
 
+    //-------- State --------
     @State()
     private lazyLoadCells = false;
 
@@ -4065,11 +4073,18 @@ export class KupDataTable {
             e
         );
         if (details.cell) {
-            const cellActions = this.#kupManager.data.cell.buildCellActions(
+            let cellActions = this.#kupManager.data.cell.buildCellActions(
                 details.row,
                 details.column,
                 this.commands ?? []
             );
+            if (this.onCellActionBuild) {
+                cellActions = this.onCellActionBuild(
+                    details.row,
+                    details.column,
+                    cellActions
+                );
+            }
             this.#onRowActionExpanderClick(e, details.row, cellActions);
         }
         return details;
@@ -7666,6 +7681,16 @@ export class KupDataTable {
                 {this.updatableData ? this.#renderUpdateButtons() : null}
                 {this.#renderOtherButtons()}
                 <div id={componentWrapperId} class={wrapClass}>
+                    {this.totalsMatrixView && (
+                        <FButton
+                            icon="table"
+                            label={dom.ketchup.language.translate(
+                                KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
+                            )}
+                            sizing={KupComponentSizing.SMALL}
+                            onClick={() => this.#switchBackFromTotalsMatrix()}
+                        />
+                    )}
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
                         {useGlobalFilter ? (

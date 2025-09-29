@@ -221,7 +221,11 @@ export class KupColumnMenu {
             });
         }
         if (this.isKupDataTable(comp)) {
-            if (comp.totals && comp.groups) {
+            if (
+                comp.totals &&
+                comp.groups &&
+                comp.groups.map((group) => group.column).includes(column.name)
+            ) {
                 props.push({
                     className: 'printable',
                     'data-storage': {
