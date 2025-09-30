@@ -1917,7 +1917,6 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
-        "toggleTotalsMatrix": (columnName?: string, calculateTotals?: boolean) => Promise<void>;
         /**
           * This method is used to force tooltip request for current focused cell
          */
@@ -5549,6 +5548,7 @@ declare global {
         "kup-datatable-objectfield-searchpayload": FObjectFieldEventPayload;
         "kup-datatable-objectfield-opensearchmenu": FObjectFieldEventPayload;
         "kup-datatable-objectfield-selectedmenuitem": FObjectFieldEventPayload;
+        "kup-datatable-totals-matrix": string;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -7883,6 +7883,7 @@ declare namespace LocalJSX {
           * Event fired when the save button is pressed.
          */
         "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
+        "onKup-datatable-totals-matrix"?: (event: KupDataTableCustomEvent<string>) => void;
         /**
           * Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true
          */

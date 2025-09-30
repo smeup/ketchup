@@ -237,19 +237,6 @@ export class KupColumnMenu {
                         KupLanguageGeneric.TOTALS_TABLE
                     ),
                 });
-                if (comp.totalsMatrixView) {
-                    props.push({
-                        className: 'printable',
-                        'data-storage': {
-                            columnName: column.name,
-                        },
-                        icon: 'table-large',
-                        id: KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE,
-                        title: dom.ketchup.language.translate(
-                            KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
-                        ),
-                    });
-                }
             }
         }
         return props;
@@ -822,18 +809,9 @@ export class KupColumnMenu {
                         break;
                     case KupColumnMenuIds.TOTALS_TABLE:
                         comp.closeColumnMenu().then(() => {
-                            (comp as KupDataTable).toggleTotalsMatrix(
-                                columnName,
-                                true
-                            );
-                        });
-                        break;
-                    case KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE:
-                        comp.closeColumnMenu().then(() => {
-                            (comp as KupDataTable).toggleTotalsMatrix(
-                                columnName,
-                                false
-                            );
+                            (
+                                comp as KupDataTable
+                            ).kupDataTableTotalsMatrixRequest.emit(columnName);
                         });
                         break;
                 }
