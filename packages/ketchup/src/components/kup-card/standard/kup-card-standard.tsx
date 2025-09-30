@@ -894,17 +894,6 @@ export function create12(component: KupCard): VNode {
                             )}
                         />
                     ) : null}
-                    {buttonsIds.includes(
-                        KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
-                    ) ? (
-                        <kup-button
-                            {...buttonArray.find(
-                                (x) =>
-                                    x.id ===
-                                    KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
-                            )}
-                        />
-                    ) : null}
                 </div>
             ) : null}
             <div
@@ -1262,17 +1251,6 @@ export function create14(component: KupCard): VNode {
                                         (x) =>
                                             x.id ===
                                             KupColumnMenuIds.TOTALS_TABLE
-                                    )}
-                                />
-                            ) : null}
-                            {buttonsIds.includes(
-                                KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
-                            ) ? (
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE
                                     )}
                                 />
                             ) : null}

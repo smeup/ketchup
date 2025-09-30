@@ -891,9 +891,6 @@ export class KupDataTable {
     @State()
     private fontsize: string = 'small';
 
-    @State()
-    public totalsMatrixView: boolean = false;
-
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -1063,13 +1060,6 @@ export class KupDataTable {
      */
     #originalDataLoadedMaxId: number;
 
-    /**
-     * variables keeping track of the matrix properties before the totals view
-     */
-    #beforeTotalMatrixData: KupDataTableDataset = undefined;
-    #beforeTotalMatrixGroups: Array<GroupObject> = undefined;
-    #beforeTotalMatrixTotals: TotalsMap = undefined;
-    #beforeTotalMatrixVisibleColumns: string[] = undefined;
     /**
      * contains the id greater value in #originalDataLoaded
      */
@@ -1408,6 +1398,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableObjectFieldSelectedMenuItem: EventEmitter<FObjectFieldEventPayload>;
+
+    @Event({
+        eventName: 'kup-datatable-totals-matrix',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableTotalsMatrixRequest: EventEmitter<string>;
 
     /**
      * Closes any opened column menu.
@@ -2237,285 +2235,6 @@ export class KupDataTable {
         this.#originalData = { ...this.data };
         if (this.data.columns.length > 0) {
             this.data = this.#getTransposedData(this.data.columns[0].name);
-        }
-    }
-
-    @Method()
-    async toggleTotalsMatrix(
-        columnName?: string,
-        calculateTotals?: boolean
-    ): Promise<void> {
-        calculateTotals === true
-            ? this.#switchToTotalsMatrix(columnName)
-            : this.#switchBackFromTotalsMatrix();
-    }
-
-    #switchBackFromTotalsMatrix(): void {
-        this.groups = this.#beforeTotalMatrixGroups;
-        this.data = this.#beforeTotalMatrixData;
-        this.totals = this.#beforeTotalMatrixTotals;
-        this.visibleColumns = this.#beforeTotalMatrixVisibleColumns;
-
-        this.#beforeTotalMatrixData = undefined;
-        this.#beforeTotalMatrixGroups = undefined;
-        this.#beforeTotalMatrixTotals = undefined;
-        this.#beforeTotalMatrixVisibleColumns = undefined;
-
-        this.totalsMatrixView = false;
-    }
-
-    #switchToTotalsMatrix(columnName?: string): void {
-        const groupColName = columnName ?? this.groups[0].column;
-        const totalsColumns = Object.keys(this.totals);
-
-        this.#beforeTotalMatrixData = this.data;
-        this.#beforeTotalMatrixGroups = this.groups;
-        this.#beforeTotalMatrixTotals = this.totals;
-        this.#beforeTotalMatrixVisibleColumns = this.visibleColumns;
-
-        if (
-            this.#rows.length === 0 ||
-            !this.#rows[0].group ||
-            totalsColumns?.length === 0 ||
-            !groupColName
-        )
-            return;
-
-        // ---------------------------
-        // Build the matrix data object
-        // ---------------------------
-        const totalsMatrixData: KupDataDataset = {};
-
-        const groupsToInsert = this.#getGroupElementsBefore(
-            this.groups,
-            groupColName
-        );
-
-        // 1. Compute column IDs in correct order
-        const columnIds: string[] = [
-            ...groupsToInsert.map((group) => group.column),
-            ...[columnName],
-            ...Object.keys(this.totals),
-        ];
-
-        // 2. Optimize lookup of columns by building a Map
-        const columnMap = new Map(
-            this.data.columns.map((col) => [col.name, col])
-        );
-
-        // 3. Build matrix columns
-        totalsMatrixData.columns = columnIds
-            .map((id) => columnMap.get(id))
-            .filter((col): col is KupDataColumn => !!col) // ensure defined
-            .map((col) => {
-                const currentColumn: KupDataColumn = { ...col };
-                const totalMode = this.totals[currentColumn.name];
-
-                if (totalMode) {
-                    currentColumn.title = this.#buildTotalTitle(
-                        currentColumn.title,
-                        totalMode as TotalMode
-                    );
-                    this.#setObjForTotalsMatrix(currentColumn, this.totals);
-                }
-                return currentColumn;
-            });
-
-        // 4. Build matrix rows
-        if (!groupsToInsert || groupsToInsert.length === 0) {
-            totalsMatrixData.rows = this.#rows.map((row, index) => {
-                const cells: KupDataTableRowCells = {};
-                columnIds.forEach((id) => {
-                    let totalValue: string;
-                    if (
-                        (columnName === id ||
-                            groupsToInsert
-                                .map((group) => group.column)
-                                .includes(id)) &&
-                        row.group.id
-                    ) {
-                        // ID is contained in the column of the group levels before the one clicked
-                        // ID equals the column relative to the group the user clicked
-                        // - Returns the value of the group - row headers
-                        totalValue = row.group.id;
-                    } else if (
-                        row.group.totals[id] &&
-                        Object.keys(this.totals).includes(id)
-                    ) {
-                        // The column id is contained in the totals columns
-                        // and the total exists
-                        totalValue = row.group.totals[id];
-                    } else {
-                        // Default with an empty value because '---' breaks the totals
-                        totalValue = '';
-                    }
-
-                    if (this.#kupManager.dates.isIsoDate(totalValue)) {
-                        totalValue = this.#kupManager.dates.format(totalValue);
-                    }
-
-                    cells[id] = { value: String(totalValue) };
-                });
-
-                return {
-                    id: String(index),
-                    cells,
-                };
-            });
-        } else {
-            totalsMatrixData.rows = [];
-            for (const row of this.#rows) {
-                const foundGroups = this.#findGroupsAtLevel(
-                    row.group,
-                    columnName
-                );
-
-                if (foundGroups) {
-                    for (const g of foundGroups) {
-                        if (g?.totals) {
-                            const utilityRow = g.children[0];
-                            for (const [key, value] of Object.entries(
-                                g.totals
-                            )) {
-                                let cellValue: any = value;
-
-                                if (
-                                    this.#kupManager.dates.isIsoDate(cellValue)
-                                ) {
-                                    cellValue =
-                                        this.#kupManager.dates.format(
-                                            cellValue
-                                        );
-                                }
-                                utilityRow.cells[key].value = String(cellValue);
-                                utilityRow.cells[key].obj.k = String(cellValue);
-                                utilityRow.cells[key].displayedValue =
-                                    String(cellValue);
-                            }
-                            totalsMatrixData.rows.push(utilityRow);
-                        }
-                    }
-                }
-            }
-        }
-
-        // ---------------------------
-        // Finalize matrix
-        // ---------------------------
-        this.totalsMatrixView = true;
-
-        this.groups = groupsToInsert;
-        this.data = { ...totalsMatrixData }; // update dataset
-        this.totals = this.#promoteTotals(this.totals); // promote totals
-        this.visibleColumns = columnIds;
-    }
-
-    // --------------------------------------
-    // Helpers
-    // --------------------------------------
-
-    #findGroupsAtLevel(group: any, columnName: string): any[] {
-        let results: any[] = [];
-
-        if (!group || !Array.isArray(group.children)) {
-            return results;
-        }
-
-        // check if any child group matches the columnName
-        const hasMatch = group.children.some(
-            (child: any) => child.group?.column === columnName
-        );
-
-        if (hasMatch) {
-            // collect all sibling groups at this level
-            results.push(...group.children.map((child: any) => child.group));
-        } else {
-            // traverse children
-            for (const child of group.children) {
-                results.push(
-                    ...this.#findGroupsAtLevel(child.group, columnName)
-                );
-            }
-        }
-
-        return results;
-    }
-
-    #getGroupElementsBefore(arr: GroupObject[], target: string): GroupObject[] {
-        const index = arr.findIndex((obj) => obj.column === target);
-        if (index <= 0) {
-            return []; // not found or at index 0
-        }
-        return arr.slice(0, index);
-    }
-
-    /**
-     * Build a proper column title with the total mode label.
-     */
-    #buildTotalTitle(originalTitle: string, totalMode: TotalMode): string {
-        if (totalMode.startsWith(TotalMode.MATH)) {
-            return `${TotalLabel[TotalMode.MATH]} ${originalTitle}`;
-        }
-        const totalModeKey = Object.keys(TotalMode).find(
-            (key) => TotalMode[key] === totalMode
-        );
-        const label = totalModeKey ? TotalLabel[totalModeKey] : totalMode;
-        return `${label} ${originalTitle}`;
-    }
-
-    /**
-     * Promote totals when switching to totals matrix:
-     * DISTINCT → COUNT, COUNT → SUM, others unchanged.
-     */
-    #promoteTotals(totals: TotalsMap): TotalsMap {
-        const updated: TotalsMap = {};
-        for (const [key, mode] of Object.entries(totals)) {
-            switch (mode) {
-                case TotalMode.DISTINCT:
-                    updated[key] = TotalMode.COUNT;
-                    break;
-                case TotalMode.COUNT:
-                    updated[key] = TotalMode.SUM;
-                    break;
-                default:
-                    updated[key] = mode;
-                    break;
-            }
-        }
-        return updated;
-    }
-
-    /**
-     * Normalize the column object for totals matrix.
-     */
-    #setObjForTotalsMatrix(column: KupDataColumn, totals: TotalsMap): void {
-        const obj = column.obj;
-        const totalMode = totals[column.name];
-
-        // Date columns: keep MAX/MIN modes
-        if (this.#kupManager.objects.isDate(obj)) {
-            if (totalMode === TotalMode.MAX || totalMode === TotalMode.MIN)
-                return;
-        }
-
-        // Percentage numbers: keep COUNT/DISTINCT modes
-        if (
-            this.#kupManager.objects.isNumber(obj) &&
-            obj.p?.toUpperCase() === 'P'
-        ) {
-            if (
-                totalMode === TotalMode.COUNT ||
-                totalMode === TotalMode.DISTINCT
-            ) {
-                return;
-            }
-        }
-
-        // Default: force numeric
-        column.obj = { t: 'NR', p: '', k: '' };
-
-        if (column.icon) {
-            delete column.icon;
         }
     }
 
@@ -6564,14 +6283,6 @@ export class KupDataTable {
             fontsize = this.#renderFontSizePanel();
             grid = this.#renderGridPanel();
             transpose = this.#renderTransposeSwitch();
-            if (this.totals && this.groups.length > 0) {
-                // From original matrix to totalsMatrix
-                totalsMatrix = this.#renderTotalsMatrix();
-            }
-            if (this.totalsMatrixView) {
-                // From totals matrix to original
-                totalsMatrix = this.#renderBackFromTotalsMatrix();
-            }
         }
 
         return (
@@ -6998,56 +6709,6 @@ export class KupDataTable {
                             this.transpose = false;
                         }
                     }}
-                />
-            </div>
-        );
-    }
-
-    #renderTotalsMatrix() {
-        return (
-            <div class="customize-element grid-panel">
-                <kup-button
-                    title={
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.TOTALS_TABLE
-                        ) +
-                        ' (' +
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPERIMENTAL_FEAT
-                        ) +
-                        ')'
-                    }
-                    label={this.#kupManager.language.translate(
-                        KupLanguageGeneric.TOTALS_TABLE
-                    )}
-                    icon="exposure"
-                    onkup-button-click={() => this.toggleTotalsMatrix()}
-                />
-            </div>
-        );
-    }
-
-    #renderBackFromTotalsMatrix() {
-        return (
-            <div class="customize-element grid-panel">
-                <kup-button
-                    title={
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
-                        ) +
-                        ' (' +
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPERIMENTAL_FEAT
-                        ) +
-                        ')'
-                    }
-                    label={this.#kupManager.language.translate(
-                        KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
-                    )}
-                    icon="exposure"
-                    onkup-button-click={() =>
-                        this.#switchBackFromTotalsMatrix()
-                    }
                 />
             </div>
         );
@@ -7681,16 +7342,6 @@ export class KupDataTable {
                 {this.updatableData ? this.#renderUpdateButtons() : null}
                 {this.#renderOtherButtons()}
                 <div id={componentWrapperId} class={wrapClass}>
-                    {this.totalsMatrixView && (
-                        <FButton
-                            icon="table"
-                            label={dom.ketchup.language.translate(
-                                KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
-                            )}
-                            sizing={KupComponentSizing.SMALL}
-                            onClick={() => this.#switchBackFromTotalsMatrix()}
-                        />
-                    )}
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
                         {useGlobalFilter ? (
