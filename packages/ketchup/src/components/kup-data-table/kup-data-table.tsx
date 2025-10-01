@@ -212,7 +212,9 @@ export class KupDataTable {
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
             this.state.load = true;
-            const state = this.store.getState(this.stateId);
+            const state = this.store.getState(
+                this.stateId
+            ) as KupDataTableState;
             if (state != null) {
                 this.#kupManager.debug.logMessage(
                     this,
@@ -223,7 +225,7 @@ export class KupDataTable {
                 this.groups = [...state.groups];
                 this.expandGroups = state.expandGroups;
                 this.groupLabelDisplay = state.groupLabelDisplay;
-                this.density = state.density;
+                this.density = state.density as FCellPadding;
                 this.enableExtraColumns = state.enableExtraColumns;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
@@ -934,19 +936,8 @@ export class KupDataTable {
 
     @Watch('data')
     decorateAndInitForUpdTable() {
-        if (this.data['type'] === 'SmeupDataTable') {
-            decorateDataTable(this.data);
-            this.#lastFocusedRow = this.data.rows[0];
-        }
         if (this.updatableData) {
             this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
-            this.selection = this.data.setup?.operations?.delete
-                ? SelectionMode.MULTIPLE_CHECKBOX
-                : this.selection;
-
-            this.#insertedRowIds = [];
-            this.#modifiedRowsIds = [];
-
             this.#originalDataLoadedMaxId =
                 this.#originalDataLoaded.rows?.length > 0
                     ? Math.max(
@@ -955,6 +946,32 @@ export class KupDataTable {
                           )
                       )
                     : -1;
+            if (
+                this.state.pendingRowsToUpdate &&
+                this.state.pendingRowsToUpdate.length > 0
+            ) {
+                for (const row of this.state.pendingRowsToUpdate) {
+                    const originalDataRowIndex = this.data.rows.findIndex(
+                        (dataRow) => dataRow.id === row.id // Row is SmeupDataRow and not Kup... using any for this type misalignment
+                    );
+                    if (originalDataRowIndex && originalDataRowIndex !== -1)
+                        this.data.rows[originalDataRowIndex].cells =
+                            structuredClone(row.cells);
+                }
+                this.state.pendingRowsToUpdate = [];
+            }
+        }
+        if (this.data['type'] === 'SmeupDataTable') {
+            decorateDataTable(this.data);
+            this.#lastFocusedRow = this.data.rows[0];
+        }
+        if (this.updatableData) {
+            this.selection = this.data.setup?.operations?.delete
+                ? SelectionMode.MULTIPLE_CHECKBOX
+                : this.selection;
+
+            this.#insertedRowIds = [];
+            this.#modifiedRowsIds = [];
         }
     }
 
@@ -1124,6 +1141,8 @@ export class KupDataTable {
     #lastFocusedCell: KupDataTableCell = null;
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
+
+    #pendingRowsToUpdate: KupDataRow[] = [];
 
     #readyPromise: Promise<void>;
     #readyResolve: () => void;
