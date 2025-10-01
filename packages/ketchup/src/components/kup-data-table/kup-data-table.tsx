@@ -1142,8 +1142,6 @@ export class KupDataTable {
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
 
-    #pendingRowsToUpdate: KupDataRow[] = [];
-
     #readyPromise: Promise<void>;
     #readyResolve: () => void;
 
