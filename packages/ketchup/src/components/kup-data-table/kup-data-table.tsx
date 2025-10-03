@@ -954,9 +954,11 @@ export class KupDataTable {
                     const originalDataRowIndex = this.data.rows.findIndex(
                         (dataRow) => dataRow.id === row.id // Row is SmeupDataRow and not Kup... using any for this type misalignment
                     );
-                    if (originalDataRowIndex && originalDataRowIndex !== -1)
+                    if (originalDataRowIndex > -1) {
                         this.data.rows[originalDataRowIndex].cells =
                             structuredClone(row.cells);
+                        this.#modifiedRowsIds.push(`${originalDataRowIndex}`);
+                    }
                 }
                 this.state.pendingRowsToUpdate = [];
             }
