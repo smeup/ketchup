@@ -176,7 +176,7 @@
       background-color: var(--kup_familytree_item_background_color);
       box-sizing: border-box;
       display: flex;
-      height: (--kup_familytree_item_minheight);
+      height: var(--kup_familytree_item_minheight);
       min-height: 32px;
 
       margin: 0 18px;
