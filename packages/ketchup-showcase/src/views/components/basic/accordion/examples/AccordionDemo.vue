@@ -158,13 +158,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'toolbar',
-          description: 'When true, it will show the toolbar activation icon.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'toolbarCallback',
           description: 'Callback function called on click on toolbar icon.',
           type: '() => Promise<KupDataNode[]>',
