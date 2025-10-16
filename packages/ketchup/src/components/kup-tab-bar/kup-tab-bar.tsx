@@ -566,7 +566,7 @@ export class KupTabBar {
                             wrapperClass="tab__iconToolbar iconInfo"
                         />
                     )}
-                    {this.data[i]?.toolbar && (
+                    {node?.toolbar && (
                         <FImage
                             resource="more_vert"
                             sizeX="16px"
