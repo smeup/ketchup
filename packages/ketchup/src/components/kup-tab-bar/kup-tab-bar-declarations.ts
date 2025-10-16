@@ -36,7 +36,6 @@ export interface KupTabBarNode extends KupDataNode {
     active?: boolean;
     contentVisible?: boolean;
     danger?: boolean;
-    toolbar?: boolean;
 }
 
 export interface KupTabBarEventPayload extends KupEventPayload {

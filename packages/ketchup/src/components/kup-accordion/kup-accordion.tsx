@@ -414,7 +414,7 @@ export class KupAccordion {
                             wrapperClass="tab__iconToolbar iconInfo"
                         />
                     )}
-                    {this.data[i]?.toolbar && this.toolbarCallback && (
+                    {node?.data?.toolbar && this.toolbarCallback && (
                         <FImage
                             resource="more_vert"
                             sizeX="16px"
