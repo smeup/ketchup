@@ -186,11 +186,6 @@ export namespace Components {
           * @param itemName - Name of the item.
          */
         "toggleItem": (node: KupAccordionNode) => Promise<void>;
-        /**
-          * When true, it will show the toolbar activation icon.
-          * @default false
-         */
-        "toolbar": boolean;
         "toolbarCallback": () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
@@ -4244,11 +4239,6 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "toolbar": boolean;
         "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * List of elements.
@@ -6458,11 +6448,6 @@ declare namespace LocalJSX {
           * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
-        /**
-          * When true, it will show the toolbar activation icon.
-          * @default false
-         */
-        "toolbar"?: boolean;
         "toolbarCallback"?: () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
@@ -9849,11 +9834,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "toolbar"?: boolean;
         "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * List of elements.
