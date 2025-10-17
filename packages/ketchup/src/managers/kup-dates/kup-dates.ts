@@ -267,7 +267,7 @@ export class KupDates {
                 format != KupDatesFormats.ISO_TIME &&
                 format != KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             ) {
-                options.year = cleanedDate.length < 8 ? '2-digit' : 'numeric';
+                options.year = 'numeric'; // Always use 4-digit year for consistency
                 options.month = '2-digit';
                 options.day = '2-digit';
             }
@@ -280,7 +280,21 @@ export class KupDates {
             formattedDate = formatObj.format(parsedDate.toDate());
         }
         const cleanedDateNew = this.cleanInputDateString(formattedDate);
-        isValidDate = cleanedDateNew == cleanedDate;
+        
+        // For dates with 2-digit years, we need to expand the original cleaned date for comparison
+        // But only for date formats, not time formats
+        let expandedCleanedDate = cleanedDate;
+        if (!isJustTime && cleanedDate.length === 6 && /^\d{6}$/.test(cleanedDate)) {
+            // This is likely DDMMYY format, expand the year part
+            const day = cleanedDate.substring(0, 2);
+            const month = cleanedDate.substring(2, 4);
+            const year = cleanedDate.substring(4, 6);
+            const yearNum = parseInt(year);
+            const fullYear = yearNum > 50 ? '19' + year : '20' + year;
+            expandedCleanedDate = day + month + fullYear;
+        }
+        
+        isValidDate = cleanedDateNew == expandedCleanedDate;
         return isValidDate;
     }
 
@@ -445,6 +459,17 @@ export class KupDates {
                 return '0' + input;
             case 5: // e.g., "11223" -> "011223" (day=01, month=12, year=23)
                 return '0' + input;
+            case 6: // e.g., "112023" -> "01122023" OR "300924" -> "300924" (DDMMYY format, don't pad)
+                // Check if the last 4 characters could be a year (19xx or 20xx)
+                const lastFour = input.substring(2);
+                const yearCandidate = parseInt(lastFour);
+                if (yearCandidate >= 1900 && yearCandidate <= 2099) {
+                    // This looks like DMYYYY format (e.g., "112023" = 1-12-2023)
+                    return '0' + input;
+                } else {
+                    // This looks like DDMMYY format (e.g., "300924" = 30-09-24)
+                    return input;
+                }
             case 7: // e.g., "1122023" -> "01122023" (day=01, month=12, year=2023)
                 return '0' + input;
             default:
