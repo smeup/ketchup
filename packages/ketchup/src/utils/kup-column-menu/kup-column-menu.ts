@@ -786,7 +786,7 @@ export class KupColumnMenu {
                                 );
                                 card.refresh();
                             }
-                        }, 300);
+                        }, 100);
                         break;
                 }
             //#endregion
