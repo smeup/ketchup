@@ -47,7 +47,7 @@ import { FiltersRows } from '../filters/filters-rows';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-
+let pendingChange: boolean = false;
 /**
  * Definition and events of the column menu card.
  * @module KupColumnMenu
@@ -56,6 +56,7 @@ export class KupColumnMenu {
     clickCb: KupManagerClickCb = null;
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
+
     /**
      * Function called by the component when the column menu must be opened.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
@@ -744,8 +745,15 @@ export class KupColumnMenu {
                     case 'kup-datepicker-textfieldsubmit':
                     case 'kup-datepicker-change':
                     case 'kup-timepicker-textfieldsubmit':
-                        this.saveTextualFilters(comp, dataStorage['column']);
-                        this.close(card);
+                        if (comp.columnFilterTimeout) {
+                            pendingChange = true;
+                        } else {
+                            this.saveTextualFilters(
+                                comp,
+                                dataStorage['column']
+                            );
+                            this.close(card);
+                        }
                         break;
                     case 'kup-textfield-cleariconclick':
                     case 'kup-datepicker-cleariconclick':
@@ -786,7 +794,15 @@ export class KupColumnMenu {
                                 );
                                 card.refresh();
                             }
-                        }, 100);
+                            if (pendingChange) {
+                                this.saveTextualFilters(
+                                    comp,
+                                    dataStorage['column']
+                                );
+                                this.close(card);
+                                pendingChange = false;
+                            }
+                        }, 300);
                         break;
                 }
             //#endregion
