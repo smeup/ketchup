@@ -226,7 +226,6 @@ export class KupDates {
         manageSeconds: boolean = false
     ): boolean {
         let isValidDate = false;
-        const cleanedDate = this.cleanInputDateString(date);
         let parsedDate = null;
         if (format) {
             const nDate = strict ? date : this.normalize(date, format);
@@ -238,13 +237,14 @@ export class KupDates {
                 isValidDate = parsedDate.isValid();
             }
         } else {
-            parsedDate = this.normalize(cleanedDate);
+            parsedDate = this.normalize(date);
             isValidDate = parsedDate.isValid();
         }
         if (!isValidDate) {
             return false;
         }
         let formattedDate = null;
+        const cleanedDate = this.cleanInputDateString(date);
 
         if (format) {
             formattedDate = dayjs(parsedDate).format(format);
@@ -267,7 +267,7 @@ export class KupDates {
                 format != KupDatesFormats.ISO_TIME &&
                 format != KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             ) {
-                options.year = cleanedDate.length < 8 ? '2-digit' : 'numeric';
+                options.year = 'numeric'; // Always use 4-digit year for consistency
                 options.month = '2-digit';
                 options.day = '2-digit';
             }
@@ -280,7 +280,25 @@ export class KupDates {
             formattedDate = formatObj.format(parsedDate.toDate());
         }
         const cleanedDateNew = this.cleanInputDateString(formattedDate);
-        isValidDate = cleanedDateNew == cleanedDate;
+
+        // For dates with 2-digit years, we need to expand the original cleaned date for comparison
+        // But only for date formats, not time formats
+        let expandedCleanedDate = cleanedDate;
+        if (
+            !isJustTime &&
+            cleanedDate.length === 6 &&
+            /^\d{6}$/.test(cleanedDate)
+        ) {
+            // This is likely DDMMYY format, expand the year part
+            const day = cleanedDate.substring(0, 2);
+            const month = cleanedDate.substring(2, 4);
+            const year = cleanedDate.substring(4, 6);
+            const yearNum = parseInt(year);
+            const fullYear = yearNum > 50 ? '19' + year : '20' + year;
+            expandedCleanedDate = day + month + fullYear;
+        }
+
+        isValidDate = cleanedDateNew == expandedCleanedDate;
         return isValidDate;
     }
 
@@ -328,14 +346,139 @@ export class KupDates {
 
     /**
      * Removes undesired characters in input string, for manage as date
-     * @param input
-     * @returns
+     * Handles dates with or without leading zeros by standardizing the format
+     * based on current locale (D/MM/YYYY, DD/MM/YYYY, etc.)
+     * @param input - Input date string (e.g., "1/12/2023", "01/12/2023", "1/1/23")
+     * @returns Cleaned string with standardized format for further processing
      */
     cleanInputDateString(input: string): string {
         if (!input) {
             return '';
         }
-        return input.replace(/[^0-9]/g, '').trim();
+        if (this.isIsoDate(input)) {
+            return input;
+        }
+
+        // Get browser locale format to understand expected structure
+        const localeFormat = this.getDateFormat();
+
+        // Check if input contains separators (slash, dash, dot)
+        const separatorRegex = /[\/\-\.]/;
+        const hasSeparators = separatorRegex.test(input);
+
+        if (hasSeparators) {
+            // Split by separators to get individual parts
+            const parts = input.split(separatorRegex);
+
+            if (parts.length >= 2) {
+                // We have at least day and month (and possibly year)
+                const dayIndex = localeFormat.indexOf('DD');
+                const monthIndex = localeFormat.indexOf('MM');
+                const yearIndex = localeFormat.indexOf('YYYY');
+
+                // Create array to hold [day, month, year] in correct order based on locale
+                let orderedParts: string[] = ['', '', ''];
+
+                // Determine the order based on locale format positions
+                const positions = [
+                    { type: 'day', index: dayIndex, pos: 0 },
+                    { type: 'month', index: monthIndex, pos: 1 },
+                    { type: 'year', index: yearIndex, pos: 2 },
+                ].sort((a, b) => a.index - b.index);
+
+                // Map input parts to correct positions
+                for (let i = 0; i < Math.min(parts.length, 3); i++) {
+                    const targetPos = positions[i].pos;
+                    orderedParts[targetPos] = parts[i].replace(/[^0-9]/g, '');
+                }
+
+                let [day, month, year] = orderedParts;
+
+                // Pad day and month with leading zeros if necessary
+                if (day && day.length === 1) {
+                    day = '0' + day;
+                }
+                if (month && month.length === 1) {
+                    month = '0' + month;
+                }
+
+                // Handle 2-digit years (convert to 4-digit)
+                if (year && year.length === 2) {
+                    const yearNum = parseInt(year);
+                    if (yearNum > 50) {
+                        year = '19' + year;
+                    } else {
+                        year = '20' + year;
+                    }
+                }
+
+                // Build result string based on locale format order, not logical order
+                let result = '';
+                // Create a map of components for easy access
+                const componentMap = {
+                    day: day || '',
+                    month: month || '',
+                    year: year || '',
+                };
+
+                // Rebuild the string in the order they appear in locale format
+                for (let i = 0; i < positions.length; i++) {
+                    const position = positions[i];
+                    const component =
+                        componentMap[
+                            position.type as keyof typeof componentMap
+                        ];
+                    if (component) {
+                        result += component;
+                    }
+                }
+
+                return result;
+            }
+        }
+
+        // If no separators found, clean and return as before
+        const cleanedNumbers = input.replace(/[^0-9]/g, '').trim();
+
+        // For unseparated input, try to add padding based on common patterns
+        if (cleanedNumbers.length >= 3 && cleanedNumbers.length <= 8) {
+            // This handles cases like "1122023" -> should become "01122023"
+            // or "112023" -> should become "011203" (with 2-digit year handling)
+            return this.padUnseparatedDate(cleanedNumbers);
+        }
+
+        return cleanedNumbers;
+    }
+
+    /**
+     * Helper method to pad unseparated date strings (e.g., "1122023" -> "01122023")
+     * @param input - Clean numeric string
+     * @returns Padded string with leading zeros where appropriate
+     */
+    private padUnseparatedDate(input: string): string {
+        const length = input.length;
+
+        switch (length) {
+            case 3: // e.g., "123" -> "0123" (day=01, month=23 - invalid, but let validation handle it)
+                return '0' + input;
+            case 5: // e.g., "11223" -> "011223" (day=01, month=12, year=23)
+                return '0' + input;
+            case 6: // e.g., "112023" -> "01122023" OR "300924" -> "300924" (DDMMYY format, don't pad)
+                // Check if the last 4 characters could be a year (19xx or 20xx)
+                const lastFour = input.substring(2);
+                const yearCandidate = parseInt(lastFour);
+                if (yearCandidate >= 1900 && yearCandidate <= 2099) {
+                    // This looks like DMYYYY format (e.g., "112023" = 1-12-2023)
+                    return '0' + input;
+                } else {
+                    // This looks like DDMMYY format (e.g., "300924" = 30-09-24)
+                    return input;
+                }
+            case 7: // e.g., "1122023" -> "01122023" (day=01, month=12, year=2023)
+                return '0' + input;
+            default:
+                return input;
+        }
     }
 
     /**

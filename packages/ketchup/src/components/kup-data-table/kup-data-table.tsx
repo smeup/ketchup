@@ -46,7 +46,6 @@ import {
     KupDatatableColumnMoveEventPayload,
     KupDataTableDataset,
     KupDataTableRow,
-    KupDataTableRowCells,
     KupDataTableCell,
     KupDatatableDeleteRowEventPayload,
     KupDatatableInsertRowEventPayload,
@@ -195,7 +194,6 @@ import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-de
 import { KupList } from '../kup-list/kup-list';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { FObjectFieldEventPayload } from '../../f-components/f-object-field/f-object-field-declarations';
-import { KupMathFormulaResult } from '../../managers/kup-math/kup-math-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -872,9 +870,6 @@ export class KupDataTable {
     private selectedColumn: string;
 
     @State()
-    private columnMenuAnchor: string = null;
-
-    @State()
     private groupState: {
         [index: string]: {
             expanded: boolean;
@@ -1431,7 +1426,6 @@ export class KupDataTable {
      */
     @Method()
     async closeColumnMenu(): Promise<void> {
-        this.columnMenuAnchor = null;
         if (this.#columnMenuCard) {
             this.#columnMenuCard.data = null;
         }
