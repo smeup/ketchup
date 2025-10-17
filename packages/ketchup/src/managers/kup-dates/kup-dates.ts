@@ -280,11 +280,15 @@ export class KupDates {
             formattedDate = formatObj.format(parsedDate.toDate());
         }
         const cleanedDateNew = this.cleanInputDateString(formattedDate);
-        
+
         // For dates with 2-digit years, we need to expand the original cleaned date for comparison
         // But only for date formats, not time formats
         let expandedCleanedDate = cleanedDate;
-        if (!isJustTime && cleanedDate.length === 6 && /^\d{6}$/.test(cleanedDate)) {
+        if (
+            !isJustTime &&
+            cleanedDate.length === 6 &&
+            /^\d{6}$/.test(cleanedDate)
+        ) {
             // This is likely DDMMYY format, expand the year part
             const day = cleanedDate.substring(0, 2);
             const month = cleanedDate.substring(2, 4);
@@ -293,7 +297,7 @@ export class KupDates {
             const fullYear = yearNum > 50 ? '19' + year : '20' + year;
             expandedCleanedDate = day + month + fullYear;
         }
-        
+
         isValidDate = cleanedDateNew == expandedCleanedDate;
         return isValidDate;
     }
