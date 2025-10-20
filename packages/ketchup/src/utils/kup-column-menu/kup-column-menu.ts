@@ -774,13 +774,11 @@ export class KupColumnMenu {
                     case 'kup-timepicker-itemclick':
                         window.clearTimeout(comp.columnFilterTimeout);
                         comp.columnFilterTimeout = window.setTimeout(() => {
-                            {
-                                this.textfieldChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column']
-                                );
-                            }
+                            this.textfieldChange(
+                                comp,
+                                compEvent.detail.value,
+                                dataStorage['column']
+                            );
                             if (isClickEvent) {
                                 this.saveTextualFilters(
                                     comp,
