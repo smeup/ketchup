@@ -47,7 +47,6 @@ import { FiltersRows } from '../filters/filters-rows';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-let pendingChange: boolean = false;
 /**
  * Definition and events of the column menu card.
  * @module KupColumnMenu
@@ -745,15 +744,8 @@ export class KupColumnMenu {
                     case 'kup-datepicker-textfieldsubmit':
                     case 'kup-datepicker-change':
                     case 'kup-timepicker-textfieldsubmit':
-                        if (comp.columnFilterTimeout) {
-                            pendingChange = true;
-                        } else {
-                            this.saveTextualFilters(
-                                comp,
-                                dataStorage['column']
-                            );
-                            this.close(card);
-                        }
+                        this.saveTextualFilters(comp, dataStorage['column']);
+                        this.close(card);
                         break;
                     case 'kup-textfield-cleariconclick':
                     case 'kup-datepicker-cleariconclick':
@@ -772,35 +764,25 @@ export class KupColumnMenu {
                     case 'kup-textfield-input':
                     case 'kup-timepicker-input':
                     case 'kup-timepicker-itemclick':
-                        window.clearTimeout(comp.columnFilterTimeout);
-                        comp.columnFilterTimeout = window.setTimeout(() => {
-                            this.textfieldChange(
+                        /** removed timeout management, the filter works well with 10000 values */
+                        this.textfieldChange(
+                            comp,
+                            compEvent.detail.value,
+                            dataStorage['column']
+                        );
+                        if (isClickEvent) {
+                            this.saveTextualFilters(
                                 comp,
-                                compEvent.detail.value,
                                 dataStorage['column']
                             );
-                            if (isClickEvent) {
-                                this.saveTextualFilters(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (card.data?.checkbox) {
-                                card.data.checkbox = this.prepCheckbox(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                                card.refresh();
-                            }
-                            if (pendingChange) {
-                                this.saveTextualFilters(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                                this.close(card);
-                                pendingChange = false;
-                            }
-                        }, 300);
+                        }
+                        if (card.data?.checkbox) {
+                            card.data.checkbox = this.prepCheckbox(
+                                comp,
+                                dataStorage['column']
+                            );
+                            card.refresh();
+                        }
                         break;
                 }
             //#endregion
