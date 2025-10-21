@@ -89,11 +89,6 @@ export class KupAccordion {
      */
     @Prop() ripple: boolean = false;
     /**
-     * When true, it will show the toolbar activation icon.
-     * @default false
-     */
-    @Prop() toolbar: boolean = false;
-    /**
      * Sets the type of the component sizing
      * @default KupComponentSizing.SMALL
      */
@@ -419,7 +414,7 @@ export class KupAccordion {
                             wrapperClass="tab__iconToolbar iconInfo"
                         />
                     )}
-                    {this.toolbar && this.toolbarCallback && (
+                    {node?.data?.toolbar && this.toolbarCallback && (
                         <FImage
                             resource="more_vert"
                             sizeX="16px"

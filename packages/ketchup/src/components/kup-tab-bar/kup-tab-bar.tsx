@@ -91,11 +91,6 @@ export class KupTabBar {
      * @default true
      */
     @Prop() ripple: boolean = false;
-    /**
-     * When enabled displays toolbar item inside each single tab.
-     * @default false
-     */
-    @Prop() toolbar: boolean = false;
 
     @Prop() toolbarCallback: () => Promise<KupDataNode[]>;
     @Prop() infoCallback: () => Promise<KupDataNode[]>;
@@ -571,7 +566,7 @@ export class KupTabBar {
                             wrapperClass="tab__iconToolbar iconInfo"
                         />
                     )}
-                    {this.toolbar && (
+                    {node?.data?.toolbar && (
                         <FImage
                             resource="more_vert"
                             sizeX="16px"

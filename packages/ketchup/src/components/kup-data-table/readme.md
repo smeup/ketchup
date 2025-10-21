@@ -132,6 +132,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-rowaction-item-click`         | Event fired when the history confirm button is pressed.                                                                                                        | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
 | `kup-datatable-rowselected`                  | When a row is selected                                                                                                                                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
 | `kup-datatable-save`                         | Event fired when the save button is pressed.                                                                                                                   | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
+| `kup-datatable-totals-matrix`                |                                                                                                                                                                | `CustomEvent<string>`                                     |
 | `kup-datatable-update`                       | Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true | `CustomEvent<KupDatatableUpdatePayload>`                  |
 
 
@@ -485,23 +486,6 @@ This method will set the selected rows of the component.
 | `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
 | `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
 | `scrollIntoView`  | `boolean`              | - If true, the component will scroll to the first selected row.      |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `toggleTotalsMatrix(columnName?: string, calculateTotals?: boolean) => Promise<void>`
-
-
-
-#### Parameters
-
-| Name              | Type      | Description |
-| ----------------- | --------- | ----------- |
-| `columnName`      | `string`  |             |
-| `calculateTotals` | `boolean` |             |
 
 #### Returns
 

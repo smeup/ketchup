@@ -13,7 +13,6 @@
 | `infoCallback`    | --             |                                                                 | `() => Promise<KupDataNode[]>`                        | `undefined`             |
 | `infoIcon`        | `info-icon`    | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
 | `ripple`          | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                             | `false`                 |
-| `toolbar`         | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`                                             | `false`                 |
 | `toolbarCallback` | --             |                                                                 | `() => Promise<KupDataNode[]>`                        | `undefined`             |
 | `variant`         | `variant`      | List of elements.                                               | `KupTabbarStyling.CONTAINED \| KupTabbarStyling.FLAT` | `KupTabbarStyling.FLAT` |
 

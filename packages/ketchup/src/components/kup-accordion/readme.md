@@ -13,7 +13,6 @@
 | `infoIcon`        | `info-icon`    | When true, it will show the info activation icon.               | `boolean`                                                                                                                                               | `false`                    |
 | `ripple`          | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                                                               | `false`                    |
 | `sizing`          | `sizing`       | Sets the type of the component sizing                           | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.SMALL` |
-| `toolbar`         | `toolbar`      | When true, it will show the toolbar activation icon.            | `boolean`                                                                                                                                               | `false`                    |
 | `toolbarCallback` | --             |                                                                 | `() => Promise<KupDataNode[]>`                                                                                                                          | `undefined`                |
 
 

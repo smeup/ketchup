@@ -186,11 +186,6 @@ export namespace Components {
           * @param itemName - Name of the item.
          */
         "toggleItem": (node: KupAccordionNode) => Promise<void>;
-        /**
-          * When true, it will show the toolbar activation icon.
-          * @default false
-         */
-        "toolbar": boolean;
         "toolbarCallback": () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
@@ -1768,7 +1763,7 @@ export namespace Components {
          */
         "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>;
         /**
-          * When set the new set of cellActions will be used insted of the default ones.
+          * When set the new set of cellActions will be used instead of the default ones.
          */
         "onCellActionBuild": (
         row: KupDataRow,
@@ -1917,7 +1912,6 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
-        "toggleTotalsMatrix": (columnName?: string, calculateTotals?: boolean) => Promise<void>;
         /**
           * This method is used to force tooltip request for current focused cell
          */
@@ -4245,11 +4239,6 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "toolbar": boolean;
         "toolbarCallback": () => Promise<KupDataNode[]>;
         /**
           * List of elements.
@@ -5549,6 +5538,7 @@ declare global {
         "kup-datatable-objectfield-searchpayload": FObjectFieldEventPayload;
         "kup-datatable-objectfield-opensearchmenu": FObjectFieldEventPayload;
         "kup-datatable-objectfield-selectedmenuitem": FObjectFieldEventPayload;
+        "kup-datatable-totals-matrix": string;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -6458,11 +6448,6 @@ declare namespace LocalJSX {
           * @default KupComponentSizing.SMALL
          */
         "sizing"?: KupComponentSizing;
-        /**
-          * When true, it will show the toolbar activation icon.
-          * @default false
-         */
-        "toolbar"?: boolean;
         "toolbarCallback"?: () => Promise<KupDataNode[]>;
     }
     interface KupActivityTimeline {
@@ -7799,7 +7784,7 @@ declare namespace LocalJSX {
          */
         "loadMoreStep"?: number;
         /**
-          * When set the new set of cellActions will be used insted of the default ones.
+          * When set the new set of cellActions will be used instead of the default ones.
          */
         "onCellActionBuild"?: (
         row: KupDataRow,
@@ -7883,6 +7868,7 @@ declare namespace LocalJSX {
           * Event fired when the save button is pressed.
          */
         "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
+        "onKup-datatable-totals-matrix"?: (event: KupDataTableCustomEvent<string>) => void;
         /**
           * Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true
          */
@@ -9848,11 +9834,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
-        /**
-          * When enabled displays toolbar item inside each single tab.
-          * @default false
-         */
-        "toolbar"?: boolean;
         "toolbarCallback"?: () => Promise<KupDataNode[]>;
         /**
           * List of elements.

@@ -192,32 +192,32 @@ export class KupFamilyTree {
      */
     @Method()
     async runAutofit(): Promise<void> {
-        const parentWidth = this.#wrapperEl.clientWidth;
-        const childWidth = this.#wrapperEl.children[0].clientWidth;
-        const multiplierStep = 0.01;
-        const minWidth = (85 / 100) * parentWidth;
-        const maxWidth = (95 / 100) * parentWidth;
-        let multiplier = 1;
-        let tooManyAttempts = 2000;
-        let tempWidth = childWidth;
-        while (
-            (tempWidth < minWidth || tempWidth > maxWidth) &&
-            tooManyAttempts > 0 &&
-            multiplier > multiplierStep
-        ) {
-            tooManyAttempts--;
-            if (tempWidth < minWidth) {
-                multiplier = multiplier + multiplierStep;
-            } else if (tempWidth > maxWidth) {
-                multiplier = multiplier - multiplierStep;
-            } else {
-                tooManyAttempts = 0;
-            }
-            tempWidth = childWidth * multiplier;
+        if (!this.#wrapperEl) {
+            return;
         }
+
+        const parentWidth = this.#wrapperEl.clientWidth;
+        const contentWidth = this.#wrapperEl.scrollWidth;
+
+        if (!parentWidth || !contentWidth) {
+            return;
+        }
+
+        const minWidth = 0.85 * parentWidth;
+        const maxWidth = 0.95 * parentWidth;
+
+        let multiplier = 1;
+
+        if (contentWidth > maxWidth) {
+            multiplier = maxWidth / contentWidth;
+        } else if (contentWidth < minWidth) {
+            multiplier = Math.min(1, minWidth / contentWidth);
+        }
+
+        multiplier = Math.max(0.01, Math.min(1, multiplier));
         this.#wrapperEl.style.setProperty(
             '--kup_familytree_scale',
-            multiplier <= 1 ? multiplier.toFixed(2) : '1'
+            multiplier.toFixed(2)
         );
     }
     /**
