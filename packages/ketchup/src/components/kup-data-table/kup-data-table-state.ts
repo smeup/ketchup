@@ -1,3 +1,4 @@
+import { KupDataRow } from '../../components';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { KupState } from '../kup-state/kup-state';
 
@@ -43,6 +44,7 @@ export class KupDataTableState implements KupState {
     totals: TotalsMap;
     load: boolean = false;
     visibleColumns: string[] = undefined;
+    pendingRowsToUpdate: KupDataRow[] = [];
 
     public toDebugString() {
         // TODO

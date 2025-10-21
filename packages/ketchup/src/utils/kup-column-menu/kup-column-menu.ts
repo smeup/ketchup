@@ -47,7 +47,6 @@ import { FiltersRows } from '../filters/filters-rows';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-
 /**
  * Definition and events of the column menu card.
  * @module KupColumnMenu
@@ -56,6 +55,7 @@ export class KupColumnMenu {
     clickCb: KupManagerClickCb = null;
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
+
     /**
      * Function called by the component when the column menu must be opened.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
@@ -237,19 +237,6 @@ export class KupColumnMenu {
                         KupLanguageGeneric.TOTALS_TABLE
                     ),
                 });
-                if (comp.totalsMatrixView) {
-                    props.push({
-                        className: 'printable',
-                        'data-storage': {
-                            columnName: column.name,
-                        },
-                        icon: 'table-large',
-                        id: KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE,
-                        title: dom.ketchup.language.translate(
-                            KupLanguageGeneric.BACK_TO_ORIGINAL_TABLE
-                        ),
-                    });
-                }
             }
         }
         return props;
@@ -777,29 +764,25 @@ export class KupColumnMenu {
                     case 'kup-textfield-input':
                     case 'kup-timepicker-input':
                     case 'kup-timepicker-itemclick':
-                        window.clearTimeout(comp.columnFilterTimeout);
-                        comp.columnFilterTimeout = window.setTimeout(() => {
-                            {
-                                this.textfieldChange(
-                                    comp,
-                                    compEvent.detail.value,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (isClickEvent) {
-                                this.saveTextualFilters(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                            }
-                            if (card.data?.checkbox) {
-                                card.data.checkbox = this.prepCheckbox(
-                                    comp,
-                                    dataStorage['column']
-                                );
-                                card.refresh();
-                            }
-                        }, 300);
+                        /** removed timeout management, the filter works well with 10000 values */
+                        this.textfieldChange(
+                            comp,
+                            compEvent.detail.value,
+                            dataStorage['column']
+                        );
+                        if (isClickEvent) {
+                            this.saveTextualFilters(
+                                comp,
+                                dataStorage['column']
+                            );
+                        }
+                        if (card.data?.checkbox) {
+                            card.data.checkbox = this.prepCheckbox(
+                                comp,
+                                dataStorage['column']
+                            );
+                            card.refresh();
+                        }
                         break;
                 }
             //#endregion
@@ -822,18 +805,9 @@ export class KupColumnMenu {
                         break;
                     case KupColumnMenuIds.TOTALS_TABLE:
                         comp.closeColumnMenu().then(() => {
-                            (comp as KupDataTable).toggleTotalsMatrix(
-                                columnName,
-                                true
-                            );
-                        });
-                        break;
-                    case KupColumnMenuIds.BACK_TO_ORIGINAL_TABLE:
-                        comp.closeColumnMenu().then(() => {
-                            (comp as KupDataTable).toggleTotalsMatrix(
-                                columnName,
-                                false
-                            );
+                            (
+                                comp as KupDataTable
+                            ).kupDataTableTotalsMatrixRequest.emit(columnName);
                         });
                         break;
                 }

@@ -451,7 +451,8 @@ type KupDataTableEvents = {
     onKupDatatableCellInput: EventName<KupDataTableCustomEvent<FCellEventPayload>>,
     onKupDatatableObjectfieldSearchpayload: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>,
     onKupDatatableObjectfieldOpensearchmenu: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>,
-    onKupDatatableObjectfieldSelectedmenuitem: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>
+    onKupDatatableObjectfieldSelectedmenuitem: EventName<KupDataTableCustomEvent<FObjectFieldEventPayload>>,
+    onKupDatatableTotalsMatrix: EventName<CustomEvent<string>>
 };
 
 export const KupDataTable: StencilReactComponent<KupDataTableElement, KupDataTableEvents> = /*@__PURE__*/ createComponent<KupDataTableElement, KupDataTableEvents>({
@@ -486,7 +487,8 @@ export const KupDataTable: StencilReactComponent<KupDataTableElement, KupDataTab
         onKupDatatableCellInput: 'kup-datatable-cell-input',
         onKupDatatableObjectfieldSearchpayload: 'kup-datatable-objectfield-searchpayload',
         onKupDatatableObjectfieldOpensearchmenu: 'kup-datatable-objectfield-opensearchmenu',
-        onKupDatatableObjectfieldSelectedmenuitem: 'kup-datatable-objectfield-selectedmenuitem'
+        onKupDatatableObjectfieldSelectedmenuitem: 'kup-datatable-objectfield-selectedmenuitem',
+        onKupDatatableTotalsMatrix: 'kup-datatable-totals-matrix'
     } as KupDataTableEvents,
     defineCustomElement: defineKupDataTable
 });
