@@ -1763,7 +1763,7 @@ export namespace Components {
          */
         "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>;
         /**
-          * When set the new set of cellActions will be used insted of the default ones.
+          * When set the new set of cellActions will be used instead of the default ones.
          */
         "onCellActionBuild": (
         row: KupDataRow,
@@ -7784,7 +7784,7 @@ declare namespace LocalJSX {
          */
         "loadMoreStep"?: number;
         /**
-          * When set the new set of cellActions will be used insted of the default ones.
+          * When set the new set of cellActions will be used instead of the default ones.
          */
         "onCellActionBuild"?: (
         row: KupDataRow,
