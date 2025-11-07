@@ -20,6 +20,7 @@
     var(--kup-space-09)
   );
   --kup_dialog_content_max_height: var(--kup-dialog-content-max-height, 85dvh);
+  --kup_dialog_border_radius: var(--kup-dialog-border-radius, 0);
 
   box-sizing: border-box;
   display: block;
@@ -113,4 +114,5 @@
   user-select: text;
   background-color: var(--kup_dialog_background_color);
   max-height: var(--kup_dialog_content_max_height);
+  border-radius: var(--kup_dialog_border_radius);
 }

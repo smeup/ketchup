@@ -84,6 +84,11 @@
   --kup_button_text_transform: var(--kup-button-text-transform, capitalize);
   --kup-spinner-color: var(--kup_button_text_color);
 
+  --kup_button_border_radius: var(
+    --kup-button-border-radius,
+    var(--kup-radius-00)
+  );
+
   .button {
     -moz-osx-font-smoothing: grayscale;
     -webkit-appearance: none;
@@ -109,7 +114,8 @@
     position: relative;
     text-decoration: none;
     text-transform: var(--kup_button_text_transform);
-    transition: background-color 80ms linear,
+    transition:
+      background-color 80ms linear,
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
@@ -242,7 +248,8 @@
     }
 
     &.button--floating {
-      box-shadow: 0 0.215em 0.35em -1px rgba(var(--kup-text-color-rgb), 0.2),
+      box-shadow:
+        0 0.215em 0.35em -1px rgba(var(--kup-text-color-rgb), 0.2),
         0 0.43em 0.71em 0 rgba(var(--kup-text-color-rgb), 0.14),
         0 0.07em 1.285em 0 rgba(var(--kup-text-color-rgb), 0.12);
       font-weight: 500;
@@ -260,13 +267,15 @@
 
       &:hover,
       &:focus {
-        box-shadow: 0 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.2),
+        box-shadow:
+          0 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.2),
           0 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.14),
           0 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.12);
       }
 
       &:active {
-        box-shadow: 0 7px 8px -4px rgba(var(--kup-text-color-rgb), 0.2),
+        box-shadow:
+          0 7px 8px -4px rgba(var(--kup-text-color-rgb), 0.2),
           0 12px 17px 2px rgba(var(--kup-text-color-rgb), 0.14),
           0 5px 22px 4px rgba(var(--kup-text-color-rgb), 0.12);
       }
@@ -401,6 +410,7 @@
     user-select: none;
     padding: 0.75em;
     @include kup-body-compact-01;
+    border-radius: var(--kup_button_border_radius);
 
     &:hover,
     &:focus {

@@ -2488,6 +2488,7 @@ kup-editor[initial-edit-type='text'] {
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  border-radius: var(--kup_dialog_border_radius);
 }
 
 [kup-modal-backdrop] {
