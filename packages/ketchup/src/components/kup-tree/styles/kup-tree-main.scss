@@ -12,6 +12,7 @@
 * @prop --kup-tree-primary-color: Sets the primary color of the component.
 * @prop --kup-tree-primary-color-rgb: Sets the primary color RGB values of the component (used for shaders).
 * @prop --kup-tree-text-on-primary-color: Sets the text on primary color of the component.
+* @prop --kup-tree-tr-border-radius: Sets the border radius of the tree rows.
 */
 
 :host {
@@ -75,6 +76,8 @@
   display: block;
   font-family: var(--kup_tree_font_family);
   font-size: var(--kup_tree_font_size);
+
+  --kup_tree_tr_border_radius: var(--kup-tree-tr-border-radius);
 }
 
 :host([prevent-x-scroll]) {
@@ -162,6 +165,7 @@
     td {
       font-size: 1em;
       line-height: 1em;
+      border-radius: var(--kup_tree_tr_border_radius, 0);
 
       &.mdc-ripple-surface {
         --mdc-ripple-fg-opacity: 0.24;
@@ -419,7 +423,9 @@ tfoot {
       display: flex;
       line-height: 1.75em;
       text-align: left;
-      transition: background-color 80ms, color 80ms;
+      transition:
+        background-color 80ms,
+        color 80ms;
       width: 100%;
     }
 
