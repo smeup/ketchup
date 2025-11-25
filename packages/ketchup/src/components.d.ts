@@ -1783,6 +1783,7 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "pendingRowsToUpdate": KupDataRow[];
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -7881,6 +7882,7 @@ declare namespace LocalJSX {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos"?: PaginatorPos;
+        "pendingRowsToUpdate"?: KupDataRow[];
         /**
           * Sets the possibility to remove the selected column.
          */
