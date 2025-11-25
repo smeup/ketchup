@@ -176,7 +176,8 @@ export class KupTree {
                 this.filters
             )
         ) {
-            this.state.filters = { ...this.filters };
+            /** need to be deep copied to feel changes in this.filters */
+            this.state.filters = JSON.parse(JSON.stringify(this.filters));
             somethingChanged = true;
         }
         if (

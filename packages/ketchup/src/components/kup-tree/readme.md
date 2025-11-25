@@ -297,6 +297,7 @@ Type: `Promise<void>`
 | `--kup-tree-primary-color`           | Sets the primary color of the component.                               |
 | `--kup-tree-primary-color-rgb`       | Sets the primary color RGB values of the component (used for shaders). |
 | `--kup-tree-text-on-primary-color`   | Sets the text on primary color of the component.                       |
+| `--kup-tree-tr-border-radius`        | Sets the border radius of the tree rows.                               |
 
 
 ## Dependencies
