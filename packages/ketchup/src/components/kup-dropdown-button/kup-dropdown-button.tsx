@@ -81,7 +81,7 @@ export class KupDropdownButton {
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.DESCRIPTION
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
      * @default false
@@ -420,7 +420,7 @@ export class KupDropdownButton {
             this.data['kup-list'],
             this.listEl,
             this.selectMode,
-            this.displayMode,
+            this.DescrMode,
             e
         );
         this.value = ret.value;
@@ -531,7 +531,7 @@ export class KupDropdownButton {
                     </div>
                     <kup-list
                         {...this.data['kup-list']}
-                        displayMode={this.displayMode}
+                        DescrMode={this.DescrMode}
                         isMenu={true}
                         onKup-list-click={(
                             e: CustomEvent<KupListEventPayload>

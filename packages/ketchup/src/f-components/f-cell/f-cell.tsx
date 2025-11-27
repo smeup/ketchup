@@ -90,10 +90,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-        ? cell.shape
-        : column.shape
-        ? column.shape
-        : null;
+          ? cell.shape
+          : column.shape
+            ? column.shape
+            : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -113,8 +113,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-        ? column?.cssClass
-        : '';
+          ? column?.cssClass
+          : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -857,8 +857,8 @@ function setEditableCell(
         case FCellTypes.MULTI_AUTOCOMPLETE: {
             return (
                 <kup-chip
-                    displayMode={
-                        cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
+                    DescrMode={
+                        cell.data.DescrMode ?? ItemsDisplayMode.DESCRIPTION
                     }
                     {...cell.data}
                     label={cell.slotData?.label ?? ''}
@@ -871,7 +871,7 @@ function setEditableCell(
                     <kup-autocomplete
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        DescrMode={ItemsDisplayMode.CODE_AND_DESC}
                         sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-autocomplete-blur={(
                             e: CustomEvent<KupAutocompleteEventPayload>
@@ -897,7 +897,7 @@ function setEditableCell(
                         id={cell.slotData?.id}
                         error={cell.data.error}
                         showMarker={cell.tooltip ?? false}
-                        listDisplayMode={cell.data.listDisplayMode}
+                        ListDescrMode={cell.data.ListDescrMode}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -905,8 +905,8 @@ function setEditableCell(
         case FCellTypes.MULTI_COMBOBOX:
             return (
                 <kup-chip
-                    displayMode={
-                        cell.data.displayMode ?? ItemsDisplayMode.DESCRIPTION
+                    DescrMode={
+                        cell.data.DescrMode ?? ItemsDisplayMode.DESCRIPTION
                     }
                     {...cell.data}
                     type={FChipType.INPUT}
@@ -918,7 +918,7 @@ function setEditableCell(
                     <kup-combobox
                         class="kup-full-width"
                         slot="field"
-                        displayMode={ItemsDisplayMode.CODE_AND_DESC}
+                        DescrMode={ItemsDisplayMode.CODE_AND_DESC}
                         sizing={KupComponentSizing.EXTRA_SMALL}
                         onKup-combobox-blur={(
                             e: CustomEvent<KupComboboxEventPayload>
@@ -1078,8 +1078,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                ? KupComponentSizing.EXTRA_LARGE
-                                : KupComponentSizing.SMALL
+                                  ? KupComponentSizing.EXTRA_LARGE
+                                  : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1096,10 +1096,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                ? cell.icon
-                                : column.icon
-                                ? column.icon
-                                : null
+                                  ? cell.icon
+                                  : column.icon
+                                    ? column.icon
+                                    : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
@@ -1241,7 +1241,7 @@ function setCell(
         default:
             return (
                 <div class="f-cell__text">
-                    {cell.data.displayMode
+                    {cell.data.DescrMode
                         ? adaptContentToDisplayMode(cell, content, '-')
                         : content}
                 </div>

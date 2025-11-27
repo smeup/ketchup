@@ -86,11 +86,11 @@ export class KupCombobox {
     /**
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
-    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    @Prop() ListDescrMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
     /**
      * Set error message
      * @default '''
@@ -528,7 +528,7 @@ export class KupCombobox {
         if (idIn != null && idInDecode != null) {
             this.displayedValue = getIdOfItemByDisplayMode(
                 { id: idIn, value: idInDecode },
-                this.displayMode,
+                this.DescrMode,
                 ' - '
             );
         } else {
@@ -537,7 +537,7 @@ export class KupCombobox {
                 this.data['kup-list'],
                 this.#listEl,
                 this.selectMode,
-                this.displayMode
+                this.DescrMode
             );
             if (ret.exists && eventShouldSetValue) {
                 this.value = ret.value;
@@ -555,7 +555,7 @@ export class KupCombobox {
     #prepList() {
         return (
             <kup-list
-                displayMode={this.listDisplayMode}
+                DescrMode={this.ListDescrMode}
                 {...this.data['kup-list']}
                 is-menu
                 showFilter={
@@ -639,7 +639,7 @@ export class KupCombobox {
             legacyLook: this.legacyLook,
             size: this.size
                 ? this.size
-                : getSizeOfInputElement(this.data, this.displayMode, this.size),
+                : getSizeOfInputElement(this.data, this.DescrMode, this.size),
             title: this.displayedValue ?? '',
         };
         const fullHeight: boolean =
