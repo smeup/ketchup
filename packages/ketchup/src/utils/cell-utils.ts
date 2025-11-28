@@ -385,15 +385,15 @@ export function adaptContentToDisplayMode(
 
     const { k: code } = cell.obj;
     const desc = cell.decode;
-    const displayMode =
-        cell.data?.displayMode != null
-            ? cell.data?.displayMode
+    const DescrMode =
+        cell.data?.DescrMode != null
+            ? cell.data?.DescrMode
             : ItemsDisplayMode.DESCRIPTION;
 
     const format = (a: string, b: string, sep: string = separator) =>
         a && b ? `${a} ${sep} ${b}` : '';
 
-    switch (displayMode) {
+    switch (DescrMode) {
         case ItemsDisplayMode.CODE:
             return code || '';
         case ItemsDisplayMode.DESCRIPTION:
@@ -410,13 +410,13 @@ export function adaptContentToDisplayMode(
 
 export function getSizeOfInputElement(
     data: Object,
-    displayMode: ItemsDisplayMode,
+    DescrMode: ItemsDisplayMode,
     size: number
 ) {
     if (data['kup-text-field']?.size) {
         return data['kup-text-field']?.size as number;
     } else {
-        switch (displayMode) {
+        switch (DescrMode) {
             case ItemsDisplayMode.CODE:
                 return size || 15;
             case ItemsDisplayMode.DESCRIPTION:

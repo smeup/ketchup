@@ -251,7 +251,7 @@
         "minimumChars": 2,
         "showClearIcon": true,
         "showDropdownIcon": true,
-        "displayMode": "description_and_code"
+        "DescrMode": "description_and_code"
       }
     },
     "company": {
@@ -268,7 +268,7 @@
         "serverHandledFilter": true,
         "minimumChars": 3,
         "showClearIcon": true,
-        "displayMode": "DescOnly"
+        "DescrMode": "DescOnly"
       }
     },
     "department": {

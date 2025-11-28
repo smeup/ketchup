@@ -6,7 +6,7 @@ import { ItemsDisplayMode } from '../../components';
  */
 export interface FChipsProps extends FComponent {
     data?: KupChipNode[];
-    displayMode?: ItemsDisplayMode;
+    DescrMode?: ItemsDisplayMode;
     onBlur?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onContextMenu?: ((chip: KupChipNode, e: PointerEvent) => void)[];

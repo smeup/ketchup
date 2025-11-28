@@ -371,7 +371,7 @@ export class KupTree {
      */
     @Prop({ mutable: true }) totals: TotalsMap;
 
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -1056,8 +1056,8 @@ export class KupTree {
             const columnName = td
                 ? td.dataset.column
                 : th
-                ? th.dataset.column
-                : null;
+                  ? th.dataset.column
+                  : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -1067,10 +1067,10 @@ export class KupTree {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -1720,7 +1720,7 @@ export class KupTree {
 
         let treeNodeCell = null;
         let nodeValue: string;
-        switch (this.displayMode) {
+        switch (this.DescrMode) {
             case ItemsDisplayMode.CODE:
                 nodeValue = treeNodeData.obj?.k ?? '';
                 break;

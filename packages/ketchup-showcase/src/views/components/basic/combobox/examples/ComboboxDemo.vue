@@ -141,7 +141,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'displayMode',
+          prop: 'DescrMode',
           description:
             'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
@@ -201,14 +201,14 @@ function createComp() {
           id: 'CODE_3',
         },
       ],
-      displayMode: 'Both',
+      DescrMode: 'Both',
       selectable: true,
     },
     'kup-text-field': {
       label: 'Demo',
     },
   };
-  comp.displayMode = 'description';
+  comp.DescrMode = 'description';
   comp.initialValue = 'First item';
   comp.selectMode = 'description';
   return comp;

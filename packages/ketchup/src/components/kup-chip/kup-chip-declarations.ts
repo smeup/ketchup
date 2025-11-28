@@ -10,7 +10,7 @@ export enum KupChipProps {
     data = 'List of elements.',
     // displayId = "When enabled, the chip's text will display both the id and the value.",
     disabled = 'When true, the chip cannot be edited, nor removed.',
-    displayMode = 'When enabled, the chip will display both the id and description of the data.',
+    DescrMode = 'When enabled, the chip will display both the id and description of the data.',
     enableInput = "When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).",
     label = 'When set, will be shown a label on the chips.',
     sizing = 'The size of the chip. Available sizes: small, medium.',
