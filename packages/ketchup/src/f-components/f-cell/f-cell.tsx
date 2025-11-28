@@ -768,6 +768,7 @@ function setEditableCell(
                     key={column.name + props.row.id}
                     initialValue={cell.value}
                     initialValueDecode={cell.decode}
+                    ListDescrMode={cell.data.ListDescrMode}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-combobox-change={(
@@ -939,6 +940,7 @@ function setEditableCell(
                         {...cell.slotData}
                         error={cell.data.error}
                         showMarker={cell.tooltip ?? false}
+                        ListDescrMode={cell.data.ListDescrMode}
                     ></kup-combobox>
                 </kup-chip>
             );
