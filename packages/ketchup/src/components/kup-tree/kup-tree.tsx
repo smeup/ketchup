@@ -628,17 +628,10 @@ export class KupTree {
      */
     @Method()
     async collapseAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index].isExpanded = false;
-                this.handleChildren(this.data[index], false);
-            }
-        } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                comp: this,
-                id: this.rootElement.id,
-                expandAll: false,
-            });
+        /** now must do just collapse all, without check dynamic expansion management */
+        for (let index = 0; index < this.data.length; index++) {
+            this.data[index].isExpanded = false;
+            this.handleChildren(this.data[index], false);
         }
         this.refresh();
     }
@@ -647,17 +640,10 @@ export class KupTree {
      */
     @Method()
     async expandAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index].isExpanded = true;
-                this.handleChildren(this.data[index], true);
-            }
-        } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                comp: this,
-                id: this.rootElement.id,
-                expandAll: true,
-            });
+        /** now must do just expand all, without check dynamic expansion management */
+        for (let index = 0; index < this.data.length; index++) {
+            this.data[index].isExpanded = true;
+            this.handleChildren(this.data[index], true);
         }
         this.refresh();
     }
