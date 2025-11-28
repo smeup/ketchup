@@ -38,7 +38,7 @@ describe('kup-autocomplete', () => {
         expect(hasActiveClass).toBe(true);
     });
 
-    it(`render with displayMode = ${ItemsDisplayMode.CODE}`, async () => {
+    it(`render with DescrMode = ${ItemsDisplayMode.CODE}`, async () => {
         const { page, input } = await setupTest(
             '<kup-autocomplete display-mode="code"></kup-autocomplete>'
         );

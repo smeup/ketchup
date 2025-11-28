@@ -117,7 +117,7 @@ export default {
           try: 'json',
         },
         {
-          prop: 'displayMode',
+          prop: 'DescrMode',
           description:
             'Selects how the items must display their label and how they can be filtered for. Supported values: "CodeOnly", "DescOnly", "Both".',
           type: 'string',
