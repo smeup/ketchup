@@ -10,6 +10,7 @@ export enum KupComboboxProps {
     data = 'Props of the sub-components (date input text field).',
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     DescrMode = 'Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both".',
+    ListDescrMode = 'Sets how to show the list items of the component. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".',
     initialValue = 'Sets the initial value of the component',
     initialValueDecode = 'Sets the initial value decode of the component',
     isClearable = 'Enables a clear trailing icon.',
