@@ -133,6 +133,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             <span
                 style={iconStyle}
                 onClick={props.onIconClick}
+                onMouseDown={(e) => {
+                    e.preventDefault();
+                }}
                 class={`mdc-text-field__icon kup-icon action ${iconClass}`}
             ></span>
         );
