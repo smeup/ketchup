@@ -1724,6 +1724,10 @@ export class KupEchart {
                       max: this.axisYMax,
                       offset: Math.floor(i / 2) * 60,
                       ...this.yAxis,
+                      splitLine:
+                          i === 0
+                              ? this.#setAxisColors().splitLine
+                              : { show: false },
                   }))
                 : {
                       ...this.#setAxisColors(),
