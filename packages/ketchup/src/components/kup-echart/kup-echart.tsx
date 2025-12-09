@@ -1672,9 +1672,13 @@ export class KupEchart {
                     type = KupEchartTypes.LINE;
                 }
                 this.#addSeries(type, series, values, key, color[i]);
-                if (this.multipleYAxes) {
-                    (series[i] as echarts.LineSeriesOption).yAxisIndex =
-                        +multipleYAxes[i];
+                // Assign yAxisIndex for multiple Y-axes configuration
+                // Since multipleYAxes now contains valid series names in order,
+                // we assign axis indices sequentially (0, 1, 2, ...) to the series
+                // that should use separate axes. This prevents ECharts from trying
+                // to parse series names as numbers, which would result in NaN.
+                if (this.multipleYAxes && i < multipleYAxes.length) {
+                    (series[i] as echarts.LineSeriesOption).yAxisIndex = i;
                 }
                 i++;
             }
@@ -1720,6 +1724,10 @@ export class KupEchart {
                       max: this.axisYMax,
                       offset: Math.floor(i / 2) * 60,
                       ...this.yAxis,
+                      splitLine:
+                          i === 0
+                              ? this.#setAxisColors().splitLine
+                              : { show: false },
                   }))
                 : {
                       ...this.#setAxisColors(),
@@ -1923,6 +1931,60 @@ export class KupEchart {
                         }
                     );
                     this.series[seriesIndex] = newName;
+                }
+            }
+        }
+        /**
+         * Validates and corrects the multipleYAxes prop to prevent ECharts runtime errors.
+         *
+         * The multipleYAxes prop is expected to contain series names separated by '|',
+         * indicating which series should be plotted on separate Y-axes. However, if the
+         * specified series names don't exist in the actual data, ECharts will throw an
+         * "axisModel is undefined" error because it tries to assign yAxisIndex values
+         * that don't correspond to existing axes.
+         *
+         * This validation:
+         * 1. Checks if all series names in multipleYAxes exist in this.series
+         * 2. If valid, keeps the original configuration
+         * 3. If invalid, falls back to using the first n series where n = number of
+         *    requested axes, ensuring we have valid series for axis creation
+         * 4. If there aren't enough series, disables multiple axes entirely
+         *
+         * This prevents crashes when backend configurations contain outdated or
+         * incorrect series references, while maintaining backward compatibility.
+         */
+        // Validates multipleYAxes against series
+        if (this.multipleYAxes && this.series && this.series.length) {
+            const axes = this.multipleYAxes.replace(/Y/g, '').split('|');
+            const validAxes = axes.filter((axis) => this.series.includes(axis));
+            if (validAxes.length === axes.length) {
+                // All axes are valid, keep as is
+            } else {
+                // Not all axes are valid, fallback to first n series where n = number of axes
+                const numAxes = axes.length;
+                if (numAxes <= this.series.length) {
+                    this.multipleYAxes = this.series
+                        .slice(0, numAxes)
+                        .join('|');
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'multipleYAxes fallback to first ' +
+                            numAxes +
+                            ' series. (' +
+                            this.multipleYAxes +
+                            ')',
+                        KupDebugCategory.WARNING
+                    );
+                } else {
+                    // Not enough series, disable multiple axes
+                    this.multipleYAxes = null;
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'multipleYAxes disabled - not enough series for ' +
+                            numAxes +
+                            ' axes.',
+                        KupDebugCategory.WARNING
+                    );
                 }
             }
         }

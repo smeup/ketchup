@@ -81,7 +81,7 @@ export class KupList {
      * Selects how the items must display their label and how they can be filtered for.
      * @default ItemsDisplayMode.DESCRIPTION
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
 
     /**
      * Show filter for filter elements in list
@@ -449,7 +449,7 @@ export class KupList {
         let primaryTextTag = [
             getIdOfItemByDisplayMode(
                 item,
-                item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.displayMode,
+                item.id == '' ? ItemsDisplayMode.DESCRIPTION : this.DescrMode,
                 ' - '
             ),
         ];
@@ -575,11 +575,11 @@ export class KupList {
                     !this.selectable
                         ? (e: MouseEvent) => e.stopPropagation()
                         : this.#isNested()
-                        ? (e: MouseEvent) => {
-                              e.stopPropagation();
-                              this.onKupClick(index);
-                          }
-                        : () => this.onKupClick(index)
+                          ? (e: MouseEvent) => {
+                                e.stopPropagation();
+                                this.onKupClick(index);
+                            }
+                          : () => this.onKupClick(index)
                 }
             >
                 {innerSpanTag}

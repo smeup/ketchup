@@ -252,6 +252,9 @@ export class KupDataTable {
                 this.visibleColumns = state.visibleColumns
                     ? [...state.visibleColumns]
                     : undefined;
+                this.pendingRowsToUpdate = state.pendingRowsToUpdate
+                    ? [...state.pendingRowsToUpdate]
+                    : undefined;
             }
         }
     }
@@ -553,6 +556,15 @@ export class KupDataTable {
             this.state.visibleColumns = [...this.visibleColumns];
             somethingChanged = true;
         }
+        if (
+            !this.#kupManager.objects.deepEqual(
+                this.state.pendingRowsToUpdate,
+                this.pendingRowsToUpdate
+            )
+        ) {
+            this.state.pendingRowsToUpdate = [...this.pendingRowsToUpdate];
+            somethingChanged = true;
+        }
         return somethingChanged;
     }
     //////////////////////////////
@@ -830,6 +842,10 @@ export class KupDataTable {
      * List of the visible columns
      */
     @Prop({ mutable: true }) visibleColumns: string[];
+    /**
+     *
+     */
+    @Prop({ mutable: true }) pendingRowsToUpdate: KupDataRow[] = [];
 
     /**
      * When set to true, editable cells will be rendered using input components
@@ -942,10 +958,10 @@ export class KupDataTable {
                       )
                     : -1;
             if (
-                this.state.pendingRowsToUpdate &&
-                this.state.pendingRowsToUpdate.length > 0
+                this.pendingRowsToUpdate &&
+                this.pendingRowsToUpdate.length > 0
             ) {
-                for (const row of this.state.pendingRowsToUpdate) {
+                for (const row of this.pendingRowsToUpdate) {
                     const originalDataRowIndex = this.data.rows.findIndex(
                         (dataRow) => dataRow.id === row.id // Row is SmeupDataRow and not Kup... using any for this type misalignment
                     );
@@ -955,7 +971,7 @@ export class KupDataTable {
                         this.#modifiedRowsIds.push(`${originalDataRowIndex}`);
                     }
                 }
-                this.state.pendingRowsToUpdate = [];
+                this.pendingRowsToUpdate = [];
             }
         }
         if (this.data['type'] === 'SmeupDataTable') {

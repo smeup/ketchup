@@ -72,7 +72,7 @@ export class KupChip {
      * When enabled, the chip's text will display both the id and description.
      * @default ItemsDisplayMode.DESCRIPTION
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
      * @default false
@@ -387,7 +387,7 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
-            displayMode: this.displayMode,
+            DescrMode: this.DescrMode,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,

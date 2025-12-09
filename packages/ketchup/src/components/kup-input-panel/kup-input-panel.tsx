@@ -816,7 +816,7 @@ export class KupInputPanel {
             for (const cellName of Object.keys(row.cells)) {
                 const cell = row.cells[cellName];
                 if (cell.shape === FCellShapes.AUTOCOMPLETE) {
-                    cell.data['displayMode'] = 'CodeOnly';
+                    cell.data['DescrMode'] = 'CodeOnly';
                     cell.data['selectMode'] = 'CodeOnly';
                 }
             }
@@ -1152,8 +1152,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1163,8 +1163,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -2022,10 +2022,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? this.#optionsTreeComboAdapter(
+                    ? (this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? []
+                      ) ?? [])
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {
@@ -2098,10 +2098,10 @@ export class KupInputPanel {
                     // Update the autocomplete list data
                     const kupListData = targetCell.data.data['kup-list'];
                     kupListData.data = filteredRows.length
-                        ? this.#optionsTreeComboAdapter(
+                        ? (this.#optionsTreeComboAdapter(
                               visibleColumnsOptions,
                               cellValue
-                          ) ?? []
+                          ) ?? [])
                         : [];
                     kupListData.options = options.columns ?? [];
 

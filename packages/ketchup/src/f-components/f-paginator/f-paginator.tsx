@@ -36,7 +36,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataPageSelector = {
         'kup-list': {
             data: pageItems,
-            displayMode: ItemsDisplayMode.CODE,
+            DescrMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label: dom.ketchup.language.translate(KupLanguagePage.PAGE),
@@ -53,7 +53,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     const dataRowsSelector = {
         'kup-list': {
             data: rowsPerPageItems,
-            displayMode: ItemsDisplayMode.CODE,
+            DescrMode: ItemsDisplayMode.CODE,
         },
         'kup-text-field': {
             label:
@@ -94,7 +94,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             <kup-combobox
                 class="rows-selector"
                 data={dataRowsSelector}
-                displayMode={ItemsDisplayMode.CODE}
+                DescrMode={ItemsDisplayMode.CODE}
                 initialValue={props.perPage.toString()}
                 initialValueDecode={props.perPage.toString()}
                 onkup-combobox-change={props.onRowsChange}
@@ -104,7 +104,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     <kup-combobox
                         class="page-selector"
                         data={dataPageSelector}
-                        displayMode={ItemsDisplayMode.CODE}
+                        DescrMode={ItemsDisplayMode.CODE}
                         initialValue={props.currentPage.toString()}
                         initialValueDecode={props.currentPage.toString()}
                         onkup-combobox-change={props.onPageChange}

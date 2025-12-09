@@ -270,10 +270,10 @@ const layoutData = {
                     data: {
                         data: {
                             'kup-list': {
-                                displayMode: 'Both',
+                                DescrMode: 'Both',
                             },
                         },
-                        displayMode: 'Both',
+                        DescrMode: 'Both',
                         selectMode: 'code',
                         serverHandledFilter: true,
                         allowInconsistentValues: true,

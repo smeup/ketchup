@@ -98,11 +98,11 @@ export class KupAutocomplete {
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      * @default ItemsDisplayMode.DESCRIPTION
      */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
      */
-    @Prop() listDisplayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    @Prop() ListDescrMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
     /**
      * Set error message
      * @default '''
@@ -612,7 +612,7 @@ export class KupAutocomplete {
         if (idIn && idInDecode) {
             this.displayedValue = getIdOfItemByDisplayMode(
                 { id: idIn, value: idInDecode },
-                this.displayMode,
+                this.DescrMode,
                 ' - '
             );
         } else {
@@ -621,7 +621,7 @@ export class KupAutocomplete {
                 this.data['kup-list'],
                 this.#listEl,
                 this.selectMode,
-                this.displayMode
+                this.DescrMode
             );
             if (
                 (ret.exists || this.allowInconsistentValues) &&
@@ -643,7 +643,7 @@ export class KupAutocomplete {
     #prepList() {
         return (
             <kup-list
-                displayMode={this.listDisplayMode}
+                DescrMode={this.ListDescrMode}
                 {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
@@ -728,7 +728,7 @@ export class KupAutocomplete {
             legacyLook: this.legacyLook,
             size: this.size
                 ? this.size
-                : getSizeOfInputElement(this.data, this.displayMode, this.size),
+                : getSizeOfInputElement(this.data, this.DescrMode, this.size),
             title: this.displayedValue ?? '',
         };
         const fullHeight =
