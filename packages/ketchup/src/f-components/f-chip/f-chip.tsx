@@ -26,8 +26,8 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     if (!props.type) {
         props.type = FChipType.STANDARD;
     }
-    if (!props.displayMode) {
-        props.displayMode = ItemsDisplayMode.DESCRIPTION;
+    if (!props.DescrMode) {
+        props.DescrMode = ItemsDisplayMode.DESCRIPTION;
     }
 
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
@@ -195,7 +195,7 @@ function createChipList(
 
             let chipText: string = getIdOfItemByDisplayMode(
                 chip,
-                chip.value == '' ? ItemsDisplayMode.CODE : props.displayMode,
+                chip.value == '' ? ItemsDisplayMode.CODE : props.DescrMode,
                 ' - '
             );
 

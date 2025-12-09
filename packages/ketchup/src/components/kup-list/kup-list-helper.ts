@@ -38,7 +38,7 @@ export function consistencyCheck(
     listData: Object,
     listEl: any,
     selectMode: ItemsDisplayMode,
-    displayMode: ItemsDisplayMode,
+    DescrMode: ItemsDisplayMode,
     e?: CustomEvent
 ): ValueDisplayedValue {
     const validList = !!(listEl && listData && listData['data']);
@@ -49,7 +49,7 @@ export function consistencyCheck(
         selected = e.detail.selected;
     }
     if (selected == null && idIn != null && validList) {
-        selected = getItemByDisplayMode(listData, idIn, displayMode, true);
+        selected = getItemByDisplayMode(listData, idIn, DescrMode, true);
         listEl.data = [...listData['data']];
     }
     if (selected == null && idIn == null && listData) {
@@ -68,7 +68,7 @@ export function consistencyCheck(
         id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
         displayedValue = getIdOfItemByDisplayMode(
             selected,
-            id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
+            id == '' ? ItemsDisplayMode.DESCRIPTION : DescrMode,
             ' - '
         );
         trueValue = getIdOfItemByDisplayMode(
@@ -149,7 +149,7 @@ export function getItemById(
 export function getItemByDisplayMode(
     listData: Object,
     id: string,
-    displayMode: ItemsDisplayMode,
+    DescrMode: ItemsDisplayMode,
     setSelected: boolean
 ): KupListNode {
     if (listData && listData['data']) {
@@ -158,7 +158,7 @@ export function getItemByDisplayMode(
         for (let i = 0; i < listData['data'].length; i++) {
             let displayedValue = getIdOfItemByDisplayMode(
                 listData['data'][i],
-                id == '' ? ItemsDisplayMode.DESCRIPTION : displayMode,
+                id == '' ? ItemsDisplayMode.DESCRIPTION : DescrMode,
                 ' - '
             );
             if (setSelected == true) {

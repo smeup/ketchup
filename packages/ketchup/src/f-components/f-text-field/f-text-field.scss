@@ -199,6 +199,7 @@
       border-radius: var(--kup_textfield_border_radius);
       outline: 2px solid transparent;
       outline-offset: -2px;
+      border: 1px solid var(--kup_textfield_border_color);
       border-bottom: 1px solid var(--kup_textfield_border_color);
       background-color: var(--kup_textfield_background_color);
       align-items: center;
@@ -509,12 +510,6 @@
 
         &.mdc-text-field--error {
           padding: 0;
-        }
-
-        &:not(.mdc-text-field--error) {
-          border-top-color: transparent;
-          border-left-color: transparent;
-          border-right-color: transparent;
         }
 
         .kup-clear-icon {

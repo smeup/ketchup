@@ -226,6 +226,15 @@ export namespace Components {
     }
     interface KupAutocomplete {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode": ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "ListDescrMode": ItemsDisplayMode;
+        /**
           * Set alert message
           * @default '''
          */
@@ -251,11 +260,6 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode": ItemsDisplayMode;
         /**
           * Set error message
           * @default '''
@@ -311,10 +315,6 @@ export namespace Components {
           * @default false
          */
         "legacyLook": boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "listDisplayMode": ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -1221,6 +1221,11 @@ export namespace Components {
     }
     interface KupChip {
         /**
+          * When enabled, the chip's text will display both the id and description.
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode": ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -1236,11 +1241,6 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        /**
-          * When enabled, the chip's text will display both the id and description.
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode": ItemsDisplayMode;
         /**
           * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
           * @default false
@@ -1346,6 +1346,14 @@ export namespace Components {
     }
     interface KupCombobox {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "DescrMode": ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "ListDescrMode": ItemsDisplayMode;
+        /**
           * Set alert message
           * @default '''
          */
@@ -1364,10 +1372,6 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayMode": ItemsDisplayMode;
         /**
           * Set error message
           * @default '''
@@ -1421,10 +1425,6 @@ export namespace Components {
           * @default false
          */
         "legacyLook": boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "listDisplayMode": ItemsDisplayMode;
         /**
           * Index of the element to select. When default selects nothing.
          */
@@ -1783,6 +1783,7 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "pendingRowsToUpdate": KupDataRow[];
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2168,6 +2169,11 @@ export namespace Components {
     }
     interface KupDropdownButton {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode": ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -2183,11 +2189,6 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode": ItemsDisplayMode;
         /**
           * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
           * @default false
@@ -3248,6 +3249,11 @@ export namespace Components {
     }
     interface KupList {
         /**
+          * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode": ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -3258,11 +3264,6 @@ export namespace Components {
           * @default []
          */
         "data": KupListNode[];
-        /**
-          * Selects how the items must display their label and how they can be filtered for.
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode": ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
           * @default ''
@@ -4663,6 +4664,7 @@ export namespace Components {
         "taskListWidth": number;
     }
     interface KupTree {
+        "DescrMode": ItemsDisplayMode;
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
           * @default false
@@ -4694,7 +4696,6 @@ export namespace Components {
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
         "density": FCellPadding;
-        "displayMode": ItemsDisplayMode;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
@@ -6485,6 +6486,15 @@ declare namespace LocalJSX {
     }
     interface KupAutocomplete {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode"?: ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "ListDescrMode"?: ItemsDisplayMode;
+        /**
           * Set alert message
           * @default '''
          */
@@ -6510,11 +6520,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode"?: ItemsDisplayMode;
         /**
           * Set error message
           * @default '''
@@ -6559,10 +6564,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "legacyLook"?: boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "listDisplayMode"?: ItemsDisplayMode;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 3
@@ -7377,6 +7378,11 @@ declare namespace LocalJSX {
     }
     interface KupChip {
         /**
+          * When enabled, the chip's text will display both the id and description.
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode"?: ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -7392,11 +7398,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
-        /**
-          * When enabled, the chip's text will display both the id and description.
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode"?: ItemsDisplayMode;
         /**
           * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
           * @default false
@@ -7479,6 +7480,14 @@ declare namespace LocalJSX {
     }
     interface KupCombobox {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "DescrMode"?: ItemsDisplayMode;
+        /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+         */
+        "ListDescrMode"?: ItemsDisplayMode;
+        /**
           * Set alert message
           * @default '''
          */
@@ -7497,10 +7506,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "displayMode"?: ItemsDisplayMode;
         /**
           * Set error message
           * @default '''
@@ -7543,10 +7548,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "legacyLook"?: boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-         */
-        "listDisplayMode"?: ItemsDisplayMode;
         "onKup-combobox-blur"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
@@ -7881,6 +7882,7 @@ declare namespace LocalJSX {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos"?: PaginatorPos;
+        "pendingRowsToUpdate"?: KupDataRow[];
         /**
           * Sets the possibility to remove the selected column.
          */
@@ -8155,6 +8157,11 @@ declare namespace LocalJSX {
     }
     interface KupDropdownButton {
         /**
+          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode"?: ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -8170,11 +8177,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
-        /**
-          * Sets how to show the selected item value. Suported values: "CodeOnly", "DescOnly", "Both" or "CodeAndDesc" and "DescAndCode".
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode"?: ItemsDisplayMode;
         /**
           * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
           * @default false
@@ -9032,6 +9034,11 @@ declare namespace LocalJSX {
     }
     interface KupList {
         /**
+          * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
+         */
+        "DescrMode"?: ItemsDisplayMode;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -9042,11 +9049,6 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupListNode[];
-        /**
-          * Selects how the items must display their label and how they can be filtered for.
-          * @default ItemsDisplayMode.DESCRIPTION
-         */
-        "displayMode"?: ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
           * @default ''
@@ -10235,6 +10237,7 @@ declare namespace LocalJSX {
         "taskListWidth"?: number;
     }
     interface KupTree {
+        "DescrMode"?: ItemsDisplayMode;
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
           * @default false
@@ -10258,7 +10261,6 @@ declare namespace LocalJSX {
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
         "density"?: FCellPadding;
-        "displayMode"?: ItemsDisplayMode;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion

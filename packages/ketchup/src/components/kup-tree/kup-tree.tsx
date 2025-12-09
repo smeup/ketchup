@@ -176,7 +176,8 @@ export class KupTree {
                 this.filters
             )
         ) {
-            this.state.filters = { ...this.filters };
+            /** need to be deep copied to feel changes in this.filters */
+            this.state.filters = JSON.parse(JSON.stringify(this.filters));
             somethingChanged = true;
         }
         if (
@@ -370,7 +371,7 @@ export class KupTree {
      */
     @Prop({ mutable: true }) totals: TotalsMap;
 
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
+    @Prop() DescrMode: ItemsDisplayMode = ItemsDisplayMode.CODE_AND_DESC;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -627,17 +628,10 @@ export class KupTree {
      */
     @Method()
     async collapseAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index].isExpanded = false;
-                this.handleChildren(this.data[index], false);
-            }
-        } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                comp: this,
-                id: this.rootElement.id,
-                expandAll: false,
-            });
+        /** now must do just collapse all, without check dynamic expansion management */
+        for (let index = 0; index < this.data.length; index++) {
+            this.data[index].isExpanded = false;
+            this.handleChildren(this.data[index], false);
         }
         this.refresh();
     }
@@ -646,17 +640,10 @@ export class KupTree {
      */
     @Method()
     async expandAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index].isExpanded = true;
-                this.handleChildren(this.data[index], true);
-            }
-        } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                comp: this,
-                id: this.rootElement.id,
-                expandAll: true,
-            });
+        /** now must do just expand all, without check dynamic expansion management */
+        for (let index = 0; index < this.data.length; index++) {
+            this.data[index].isExpanded = true;
+            this.handleChildren(this.data[index], true);
         }
         this.refresh();
     }
@@ -1069,8 +1056,8 @@ export class KupTree {
             const columnName = td
                 ? td.dataset.column
                 : th
-                ? th.dataset.column
-                : null;
+                  ? th.dataset.column
+                  : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -1080,10 +1067,10 @@ export class KupTree {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -1733,7 +1720,7 @@ export class KupTree {
 
         let treeNodeCell = null;
         let nodeValue: string;
-        switch (this.displayMode) {
+        switch (this.DescrMode) {
             case ItemsDisplayMode.CODE:
                 nodeValue = treeNodeData.obj?.k ?? '';
                 break;
