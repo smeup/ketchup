@@ -207,7 +207,8 @@ export class KupMath {
         const numberWithGroupAndDecimalSeparator = 1000.1;
         return Intl.NumberFormat(this.locale)
             .formatToParts(numberWithGroupAndDecimalSeparator)
-            .find((part) => part.type === 'group')?.value;
+            .find((part) => part.type === 'group' || part.type == 'decimal')
+            ?.value;
     }
 
     /**
