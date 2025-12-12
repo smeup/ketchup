@@ -31,6 +31,7 @@ import {
     KupPlannerStoredSettings,
     KupPlannerUnloadEventPayload,
     KupPlannerGanttRow,
+    KupPlannerDependency,
     PlannerProps,
     KupPlannerTaskType,
     defaultStylingOptions,
@@ -327,6 +328,17 @@ export class KupPlanner {
     phaseColorCol: string;
 
     /**
+     * Optional column name inside the phases dataset containing a reference
+     * to a dependent phase (for example: 'OPEDIP'). When set, `addPhases`
+     * will read that column and create structured dependencies (FS) from the
+     * referenced phase to the current phase (source -> target).
+     * Multiple references can be separated by commas in the cell.
+     * @default undefined
+     */
+    @Prop()
+    dependencyCol: string;
+
+    /**
      * Columns containing informations displayed in the left box ,near the gantt of phases
      * @default null
      */
@@ -388,6 +400,10 @@ export class KupPlanner {
      */
     @Prop()
     phasePrevDates: string[];
+
+    /** Structured dependencies to render as arrows */
+    @Prop()
+    dependencies: KupPlannerDependency[] = [];
 
     /**
      * When true, the two gantts are not interactable.
@@ -697,10 +713,13 @@ export class KupPlanner {
                     let iconUrl = this.#getIconUrl(row, this.phaseIconCol);
                     let iconColor = this.#getIconColor(row, this.phaseIconCol);
 
+                    const _phaseIdRaw =
+                        (row.cells[this.phaseIdCol]?.value ?? '') + '';
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
                         phaseRow: row,
-                        id: task.id + '_' + row.cells[this.phaseIdCol].value,
+                        // trim the phase id value to avoid padded/trailing spaces
+                        id: `${task.id}_${_phaseIdRaw.trim()}`,
                         phaseRowId: row.id,
                         taskRowId: task.taskRowId,
                         name: row.cells[this.phaseNameCol].value,
@@ -723,6 +742,112 @@ export class KupPlanner {
                     };
                     return phase;
                 });
+            // Diagnostic: log created phase ids for the task
+            try {
+                // eslint-disable-next-line no-console
+                console.log(
+                    'kup-planner: addPhases created phases for',
+                    taskId,
+                    task.phases ? task.phases.map((p) => p.id) : []
+                );
+            } catch (e) {
+                /* ignore */
+            }
+
+            // If the phases dataset includes a dependency column, parse it and
+            // create structured dependencies. The column may contain a single
+            // dependency id or multiple comma-separated ids. The values can be
+            // either phase codes (e.g. 'P410') or full runtime ids
+            // ('G418_P410'). We'll normalize to runtime ids using the current
+            // task id when necessary.
+            try {
+                if (
+                    this.dependencyCol &&
+                    data.columns.find((c) => c.name == this.dependencyCol)
+                ) {
+                    const parsedDeps: any[] = [];
+                    for (const row of data.rows || []) {
+                        const raw =
+                            (row.cells?.[this.dependencyCol]?.value ?? '') + '';
+                        if (!raw) continue;
+                        const parts = raw
+                            .split(',')
+                            .map((s) => s.trim())
+                            .filter(Boolean);
+
+                        // compute current phase runtime id (target of dependencies)
+                        const phaseCode =
+                            (row.cells?.[this.phaseIdCol]?.value ?? '') + '';
+                        const currentPhaseId = `${task.id}_${phaseCode.trim()}`;
+
+                        for (const part of parts) {
+                            // normalize referenced (source) phase id
+                            let sourcePhaseId = part;
+                            if (!sourcePhaseId.includes('_')) {
+                                // assume phase code in the same task -> make runtime id
+                                sourcePhaseId = `${task.id}_${sourcePhaseId}`;
+                            }
+
+                            // dependency goes from the referenced phase (source) to the current phase (target)
+                            const depId = `${sourcePhaseId}__${currentPhaseId}`;
+                            parsedDeps.push({
+                                id: depId,
+                                sourceId: sourcePhaseId,
+                                targetId: currentPhaseId,
+                                type: 'FS',
+                            });
+                        }
+                    }
+
+                    if (parsedDeps.length) {
+                        // ensure plannerProps.mainGantt.dependencies exists
+                        try {
+                            if (!this.plannerProps.mainGantt.dependencies) {
+                                this.plannerProps.mainGantt.dependencies = [];
+                            }
+                        } catch (e) {
+                            // ensure plannerProps in general exists
+                            if (!this.plannerProps)
+                                this.plannerProps = {} as any;
+                            if (!this.plannerProps.mainGantt)
+                                this.plannerProps.mainGantt = {} as any;
+                            this.plannerProps.mainGantt.dependencies = [];
+                        }
+
+                        // merge while avoiding duplicates by id
+                        const existing = new Map(
+                            (
+                                this.plannerProps.mainGantt.dependencies || []
+                            ).map((d: any) => [d.id, d])
+                        );
+                        for (const pd of parsedDeps) {
+                            if (!existing.has(pd.id)) {
+                                existing.set(pd.id, pd);
+                            }
+                        }
+                        this.plannerProps.mainGantt.dependencies = Array.from(
+                            existing.values()
+                        );
+
+                        // also forward to secondary if present
+                        if (this.plannerProps.secondaryGantt) {
+                            this.plannerProps.secondaryGantt.dependencies =
+                                this.plannerProps.mainGantt.dependencies;
+                        }
+
+                        // Diagnostic
+                        try {
+                            // eslint-disable-next-line no-console
+                            console.log(
+                                'kup-planner: addPhases - injected dependencies',
+                                parsedDeps
+                            );
+                        } catch (e) {}
+                    }
+                }
+            } catch (e) {
+                // ignore parsing errors
+            }
         }
         this.plannerProps.mainGantt.initialScrollX =
             this.#storedSettings.taskInitialScrollX;
@@ -999,6 +1124,15 @@ export class KupPlanner {
                       ),
                   },
               };
+        // Diagnostic: inspect whether planner-level `dependencies` prop is set
+        try {
+            // eslint-disable-next-line no-console
+            console.log(
+                'kup-planner: componentDidLoad - this.dependencies',
+                this.dependencies
+            );
+        } catch (e) {}
+
         this.plannerProps = {
             ...this.plannerProps,
             ...newGantt,
@@ -1127,6 +1261,8 @@ export class KupPlanner {
                 onPhaseDrop: (
                     nativeEvent: KupPlannerGanttTask | KupPlannerPhase
                 ) => this.handleOnPhaseDrop(nativeEvent),
+                // forward structured dependencies provided at planner level
+                dependencies: this.dependencies,
             },
             secondaryGantt: details
                 ? {
@@ -1150,6 +1286,8 @@ export class KupPlanner {
                       initialScrollX: this.detailInitialScrollX,
                       initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
+                      // forward structured dependencies to secondary gantt as well
+                      dependencies: this.dependencies,
                       onScrollY: (y: number) => {
                           window.clearTimeout(detailScrollYTimeout);
                           detailScrollYTimeout = window.setTimeout(
@@ -1173,6 +1311,15 @@ export class KupPlanner {
                 );
             },
         };
+
+        // Diagnostic: log what was forwarded into plannerProps.mainGantt.dependencies
+        try {
+            // eslint-disable-next-line no-console
+            console.log(
+                'kup-planner: componentDidLoad - plannerProps.mainGantt.dependencies',
+                this.plannerProps?.mainGantt?.dependencies
+            );
+        } catch (e) {}
 
         this.kupReady.emit({
             comp: this,
