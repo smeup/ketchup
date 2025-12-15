@@ -119,12 +119,12 @@ jobs:
             - name: Publish Ketchup
               run: |
                   cd packages/ketchup
-                  npm publish
+                  npm publish --tag snapshot
 
             - name: Publish Ketchup React
               run: |
                   cd packages/ketchup-react
-                  npm publish
+                  npm publish --tag snapshot
 
     trigger-webup-continuum:
         needs: build
