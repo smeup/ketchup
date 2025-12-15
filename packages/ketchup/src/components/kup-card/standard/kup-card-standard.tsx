@@ -1399,7 +1399,8 @@ export function create15(component: KupCard): VNode {
     const isReservedID = (id: string) => {
         return (
             id === KupColumnMenuIds.BUTTON_OPEN_IN_NEW ||
-            id === KupColumnMenuIds.BUTTON_SEARCH
+            id === KupColumnMenuIds.BUTTON_SEARCH ||
+            id === KupColumnMenuIds.BUTTON_COPY_OBJ
         );
     };
     for (let index = 0; index < buttonArray.length; index++) {
@@ -1457,7 +1458,8 @@ export function create15(component: KupCard): VNode {
                 <div class="sub-1">
                     {textArray[0] ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
-                    buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_COPY_OBJ) ? (
                         <div class="top">
                             {textArray[0] ? (
                                 <div class="title">
@@ -1474,6 +1476,9 @@ export function create15(component: KupCard): VNode {
                             ) ||
                             buttonsIds.includes(
                                 KupColumnMenuIds.BUTTON_SEARCH
+                            ) ||
+                            buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_COPY_OBJ
                             ) ? (
                                 <div class="buttons">
                                     {buttonsIds.includes(
@@ -1495,6 +1500,17 @@ export function create15(component: KupCard): VNode {
                                                 (x) =>
                                                     x.id ===
                                                     KupColumnMenuIds.BUTTON_SEARCH
+                                            )}
+                                        />
+                                    ) : null}
+                                    {buttonsIds.includes(
+                                        KupColumnMenuIds.BUTTON_COPY_OBJ
+                                    ) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) =>
+                                                    x.id ===
+                                                    KupColumnMenuIds.BUTTON_COPY_OBJ
                                             )}
                                         />
                                     ) : null}
