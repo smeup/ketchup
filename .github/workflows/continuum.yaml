@@ -11,6 +11,9 @@ env:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
     PUPPETEER_SKIP_DOWNLOAD: true
 
+permissions:
+    id-token: write # Required for OIDC
+
 jobs:
     ketchup-release:
         runs-on: ubuntu-latest
@@ -83,8 +86,11 @@ jobs:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
-                  node-version: '18.x'
+                  node-version: '20.17.0'
                   registry-url: 'https://registry.npmjs.org'
+
+            - name: Update npm
+              run: npm install -g npm@latest
 
             - name: Install dependencies
               run: yarn install --no-immutable
@@ -114,15 +120,11 @@ jobs:
               run: |
                   cd packages/ketchup
                   npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             - name: Publish Ketchup React
               run: |
                   cd packages/ketchup-react
                   npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     trigger-webup-continuum:
         needs: build
