@@ -20,6 +20,7 @@
     },
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
+    "repository": "https://github.com/smeup/ketchup",
     "dependencies": {
         "@sme.up/ketchup": "^11.0.0-SNAPSHOT",
         "@stencil/react-output-target": "^0.8"
