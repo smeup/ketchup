@@ -1152,8 +1152,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1163,8 +1163,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                  ? 1
-                  : null;
+                ? 1
+                : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -2022,10 +2022,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? (this.#optionsTreeComboAdapter(
+                    ? this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? [])
+                      ) ?? []
                     : [];
                 kupListData.options = options.columns ?? [];
             } else {
@@ -2098,10 +2098,10 @@ export class KupInputPanel {
                     // Update the autocomplete list data
                     const kupListData = targetCell.data.data['kup-list'];
                     kupListData.data = filteredRows.length
-                        ? (this.#optionsTreeComboAdapter(
+                        ? this.#optionsTreeComboAdapter(
                               visibleColumnsOptions,
                               cellValue
-                          ) ?? [])
+                          ) ?? []
                         : [];
                     kupListData.options = options.columns ?? [];
 
@@ -2317,6 +2317,9 @@ export class KupInputPanel {
     }
 
     #didLoadInteractables() {
+        /** input panel unloaded meanwhile... */
+        if (!this.#formRef) return;
+
         // this could seems like a duplication because this.#kupManager.interact.on already does it but removing this causes an error on righ-clicking a TBL cell with tooltip when set as shape of an input panel cell
         this.#kupManager.interact.managedElements.add(this.#formRef);
 
