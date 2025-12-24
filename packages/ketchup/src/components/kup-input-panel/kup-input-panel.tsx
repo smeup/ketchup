@@ -1628,12 +1628,14 @@ export class KupInputPanel {
     #CLPAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell
     ) {
         return {
             data: {
                 'kup-text-field': {
                     label: fieldLabel,
+                    error: cell.data.error,
                 },
             },
         };
