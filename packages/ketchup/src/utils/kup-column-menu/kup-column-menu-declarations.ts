@@ -9,6 +9,7 @@ export enum KupColumnMenuIds {
     BUTTON_OPEN_IN_NEW = 'open-in-new',
     BUTTON_REMOVE = 'remove',
     BUTTON_SEARCH = 'search',
+    BUTTON_COPY_OBJ = 'copy-obj',
     CHECKBOX_GLOBAL = 'global-checkbox',
     SWITCH_GROUP = 'group',
     SWITCH_KEY = 'key',

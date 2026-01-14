@@ -23,7 +23,7 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: '18.16.0'
+                  node-version: '22.16.0'
                   cache: 'yarn'
 
             - name: Install dependencies
@@ -119,12 +119,12 @@ jobs:
             - name: Publish Ketchup
               run: |
                   cd packages/ketchup
-                  npm publish
+                  npm publish --tag snapshot
 
             - name: Publish Ketchup React
               run: |
                   cd packages/ketchup-react
-                  npm publish
+                  npm publish --tag snapshot
 
     trigger-webup-continuum:
         needs: build

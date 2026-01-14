@@ -7,3 +7,4 @@ target/
 .yarn/install-state.gz
 .package-lock.json
 .vscode/settings.json
+.npmrc
