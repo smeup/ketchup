@@ -53,7 +53,6 @@ import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
 import { FObjectField } from '../f-object-field/f-object-field';
-import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
 import { FRating } from '../f-rating/f-rating';
@@ -90,10 +89,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-          ? cell.shape
-          : column.shape
-            ? column.shape
-            : null;
+        ? cell.shape
+        : column.shape
+        ? column.shape
+        : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -113,8 +112,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-          ? column?.cssClass
-          : '';
+        ? column?.cssClass
+        : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -752,9 +751,9 @@ function setEditableCell(
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
-                    key={column.name + props.row.id}
-                    initialValue={cell.value}
                     {...cell.data}
+                    key={column.name + props.row.id}
+                    initialValue={cell.value.toUpperCase()}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     disabled={false}
                     onkup-colorpicker-change={(
@@ -1080,8 +1079,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                  ? KupComponentSizing.EXTRA_LARGE
-                                  : KupComponentSizing.SMALL
+                                ? KupComponentSizing.EXTRA_LARGE
+                                : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1098,10 +1097,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                  ? cell.icon
-                                  : column.icon
-                                    ? column.icon
-                                    : null
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
