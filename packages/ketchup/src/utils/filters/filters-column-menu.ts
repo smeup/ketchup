@@ -213,21 +213,22 @@ export class FiltersColumnMenu extends Filters {
         if (filters == null) {
             return;
         }
-        let filter: Filter = filters[column];
-        if (filter == null) {
-            filter = {
-                textField: '',
-                textFieldTmp: '',
-                checkBoxes: [],
-            };
-            filters[column] = filter;
-        }
+        // Clone the column-specific filter object to ensure reference change
+        let filter: Filter = {
+            textField: '',
+            textFieldTmp: '',
+            checkBoxes: [],
+            ...filters[column],
+        };
+
         if (tmp) {
             filter.textFieldTmp =
                 newFilter != null ? newFilter.trim() : newFilter;
         } else {
             filter.textField = newFilter != null ? newFilter.trim() : newFilter;
         }
+
+        filters[column] = filter; // Re-assign the new reference
     }
 
     saveTextualFilters(filters: GenericFilter = {}, column: string) {
