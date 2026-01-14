@@ -3890,8 +3890,9 @@ export class KupDataTable {
                 this.#resetSelectedRows();
             }
             if (
-                this.selection == SelectionMode.SINGLE ||
-                this.selection == SelectionMode.MULTIPLE
+                details.row &&
+                (this.selection == SelectionMode.SINGLE ||
+                    this.selection == SelectionMode.MULTIPLE)
             ) {
                 this.#onRowClick(details.row, details.td, false);
             }
