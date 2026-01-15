@@ -130,7 +130,6 @@ Procfile          text
 *.jpeg            binary
 *.jpx             binary
 *.jxr             binary
-*.pdf             binary
 *.png             binary
 *.PNG             binary
 *.psb             binary

@@ -94,7 +94,6 @@ export const config: Config = {
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
                 { src: 'numeric-picker.html' },
-                { src: 'pdf.html' },
                 { src: 'planner.html' },
                 { src: 'planner-example-1.html' },
                 { src: 'planner-example-2.html' },
