@@ -3515,33 +3515,6 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
-    interface KupPdf {
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Path of the pdf document
-          * @default null
-         */
-        "pdfPath": string;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Credentials sending along with request
-          * @default true
-         */
-        "sendCredentials": boolean;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-    }
     interface KupPlanner {
         /**
           * Add a list of phases to the project
@@ -5106,10 +5079,6 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNumericPickerElement;
 }
-export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupPdfElement;
-}
 export interface KupPlannerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPlannerElement;
@@ -5950,23 +5919,6 @@ declare global {
         prototype: HTMLKupObjectFieldElement;
         new (): HTMLKupObjectFieldElement;
     };
-    interface HTMLKupPdfElementEventMap {
-        "kup-pdf-ready": KupEventPayload;
-    }
-    interface HTMLKupPdfElement extends Components.KupPdf, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupPdfElementEventMap>(type: K, listener: (this: HTMLKupPdfElement, ev: KupPdfCustomEvent<HTMLKupPdfElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupPdfElementEventMap>(type: K, listener: (this: HTMLKupPdfElement, ev: KupPdfCustomEvent<HTMLKupPdfElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLKupPdfElement: {
-        prototype: HTMLKupPdfElement;
-        new (): HTMLKupPdfElement;
-    };
     interface HTMLKupPlannerElementEventMap {
         "kup-planner-click": KupPlannerEventPayload;
         "kup-planner-dblclick": KupPlannerEventPayload;
@@ -6371,7 +6323,6 @@ declare global {
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-object-field": HTMLKupObjectFieldElement;
-        "kup-pdf": HTMLKupPdfElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
         "kup-probe": HTMLKupProbeElement;
@@ -9203,22 +9154,6 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "data"?: KupObjectFieldData;
     }
-    interface KupPdf {
-        /**
-          * Triggered when the component is ready.
-         */
-        "onKup-pdf-ready"?: (event: KupPdfCustomEvent<KupEventPayload>) => void;
-        /**
-          * Path of the pdf document
-          * @default null
-         */
-        "pdfPath"?: string;
-        /**
-          * Credentials sending along with request
-          * @default true
-         */
-        "sendCredentials"?: boolean;
-    }
     interface KupPlanner {
         /**
           * Custom style of the component.
@@ -10532,7 +10467,6 @@ declare namespace LocalJSX {
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-object-field": KupObjectField;
-        "kup-pdf": KupPdf;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
         "kup-probe": KupProbe;
@@ -10611,7 +10545,6 @@ declare module "@stencil/core" {
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-object-field": LocalJSX.KupObjectField & JSXBase.HTMLAttributes<HTMLKupObjectFieldElement>;
-            "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
