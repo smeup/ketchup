@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.4.0"
-            >v10.4.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.4.1"
+            >v10.4.1</a
           ></div
         ></div
       >
@@ -682,16 +682,6 @@ export default {
                 },
                 icon: 'calculator',
                 value: 'Numeric picker',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'pdf',
-                  },
-                },
-                icon: 'document',
-                value: 'Pdf',
                 visible: true,
               },
               {
