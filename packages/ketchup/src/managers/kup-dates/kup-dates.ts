@@ -221,12 +221,22 @@ export class KupDates {
     }
 
     isIsoDate(dateString: string): boolean {
+        // Validate input
+        if (!dateString || typeof dateString !== 'string') {
+            return false;
+        }
+
+        // ISO date must be at least 10 characters (YYYY-MM-DD)
+        if (dateString.length < 10) {
+            return false;
+        }
+
         // Extract year from the string
         const yearStr = dateString.substring(0, 4);
         const year = Number(yearStr);
 
         // Year 0 doesn't exist in Gregorian calendar (goes from 1 BC to 1 AD)
-        if (year === 0) {
+        if (year === 0 || isNaN(year)) {
             return false;
         }
 
