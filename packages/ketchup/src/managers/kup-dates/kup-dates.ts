@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -170,6 +170,36 @@ export class KupDates {
         if (!format) {
             format = 'L'; // MM/DD/YYYY, DD/MM/YYYY depending on locale
         }
+
+        // Check if input is an ISO date string with early year (0001-0999)
+        if (typeof input === 'string' && /^0\d{3}-/.test(input)) {
+            const yearStr = input.substring(0, 4);
+            const year = Number(yearStr);
+            if (year >= 1 && year <= 999) {
+                // Use native Date for early years
+                const nativeDate = new Date(input);
+                if (!isNaN(nativeDate.getTime())) {
+                    // Manual formatting for common ISO formats
+                    if (
+                        format === 'YYYY-MM-DD' ||
+                        format === KupDatesFormats.ISO_DATE
+                    ) {
+                        return nativeDate.toISOString().substring(0, 10);
+                    } else if (
+                        format === 'YYYY-MM-DD HH:mm:ss' ||
+                        format === KupDatesFormats.ISO_DATE_TIME
+                    ) {
+                        return nativeDate
+                            .toISOString()
+                            .substring(0, 19)
+                            .replace('T', ' ');
+                    }
+                    // For other formats, convert to dayjs but be aware of year issues
+                    return dayjs.utc(nativeDate).format(format);
+                }
+            }
+        }
+
         return dayjs.utc(input).format(format);
     }
     /**
@@ -191,6 +221,56 @@ export class KupDates {
     }
 
     isIsoDate(dateString: string): boolean {
+        // Validate input
+        if (!dateString || typeof dateString !== 'string') {
+            return false;
+        }
+
+        // ISO date must be at least 10 characters (YYYY-MM-DD)
+        if (dateString.length < 10) {
+            return false;
+        }
+
+        // Extract year from the string
+        const yearStr = dateString.substring(0, 4);
+        const year = Number(yearStr);
+
+        // Year 0 doesn't exist in Gregorian calendar (goes from 1 BC to 1 AD)
+        if (year === 0 || isNaN(year)) {
+            return false;
+        }
+
+        // For years 0001-0999, dayjs misinterprets them, so use native Date parsing
+        if (year >= 1 && year <= 999) {
+            try {
+                const nativeDate = new Date(dateString);
+                if (isNaN(nativeDate.getTime())) {
+                    return false;
+                }
+                // Validate the parsed components match the input
+                const isoString = nativeDate.toISOString();
+                if (Number(isoString.substring(0, 4)) != year) {
+                    return false;
+                }
+                if (
+                    Number(dateString.substring(5, 7)) !=
+                    nativeDate.getUTCMonth() + 1
+                ) {
+                    return false;
+                }
+                if (
+                    Number(dateString.substring(8, 10)) !=
+                    nativeDate.getUTCDate()
+                ) {
+                    return false;
+                }
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
+        // For years 1000 and above, use dayjs as usual
         const isoDate = dayjs(dateString, [
             KupDatesFormats.ISO_DATE,
             KupDatesFormats.ISO_DATE_TIME,
@@ -330,6 +410,19 @@ export class KupDates {
      * @returns {Date} Date object.
      */
     toDate(input: dayjs.ConfigType, format?: string): Date | null {
+        // Check if input is an ISO date string with early year (0001-0999)
+        if (typeof input === 'string' && /^0\d{3}-/.test(input)) {
+            const yearStr = input.substring(0, 4);
+            const year = Number(yearStr);
+            if (year >= 1 && year <= 999) {
+                // Use native Date for early years
+                const nativeDate = new Date(input);
+                if (!isNaN(nativeDate.getTime())) {
+                    return nativeDate;
+                }
+            }
+        }
+
         const parsed = format ? dayjs.utc(input, format) : dayjs.utc(input);
         return parsed.isValid() ? parsed.toDate() : null;
     }
@@ -340,6 +433,19 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object.
      */
     toDayjs(input: dayjs.ConfigType, format?: string): dayjs.Dayjs | null {
+        // Check if input is an ISO date string with early year (0001-0999)
+        if (typeof input === 'string' && /^0\d{3}-/.test(input)) {
+            const yearStr = input.substring(0, 4);
+            const year = Number(yearStr);
+            if (year >= 1 && year <= 999) {
+                // Use native Date for early years, then convert to dayjs
+                const nativeDate = new Date(input);
+                if (!isNaN(nativeDate.getTime())) {
+                    return dayjs(nativeDate);
+                }
+            }
+        }
+
         const dayJsResult = format ? dayjs(input, format) : dayjs(input);
         return dayJsResult.isValid() ? dayJsResult : null;
     }
