@@ -1611,7 +1611,7 @@ export class KupInputPanel {
                 triggerCallback = !detail.comp.data['kup-list'].data.length;
             }
 
-            if (cell.fun && triggerCallback) {
+            if (triggerCallback) {
                 this.#getAutocompleteEventCallback(detail, cell);
             }
         }
