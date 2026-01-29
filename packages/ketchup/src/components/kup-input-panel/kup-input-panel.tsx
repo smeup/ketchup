@@ -1611,7 +1611,7 @@ export class KupInputPanel {
                 triggerCallback = !detail.comp.data['kup-list'].data.length;
             }
 
-            if (cell.fun && triggerCallback) {
+            if (triggerCallback && !cell.options) {
                 this.#getAutocompleteEventCallback(detail, cell);
             }
         }
@@ -2033,7 +2033,7 @@ export class KupInputPanel {
                           cell.value
                       ) ?? [])
                     : [];
-                kupListData.options = options.columns ?? [];
+                kupListData.options = options?.columns ?? [];
             } else {
                 this.#kupManager.debug.logMessage(
                     this,
