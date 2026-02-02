@@ -104,3 +104,19 @@ function escapeRegExp(s: string) {
 export function jestDelay(ms: number) {
     return new Promise((res) => setTimeout(res, ms));
 }
+
+/**
+ * Extract columns in a formula string in the format "[col]"
+ * @param testo
+ * @returns
+ */
+export function extractColumnsFromFormulaString(testo: string): string[] {
+    const regex = /\[([^\]]*)\]/g;
+    const risultati: string[] = [];
+
+    for (const match of testo.matchAll(regex)) {
+        risultati.push(match[1]);
+    }
+
+    return risultati;
+}
