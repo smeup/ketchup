@@ -519,7 +519,7 @@ export class KupColumnMenu {
                 dom.ketchup.objects.isNumber(column.obj) &&
                 comp.enableColumnsFormula
             ) {
-                // FIXME: disabled due to unclear usage and uncaught errors when user types and submits -> I don't know if this could be a temporary or maybe permanent thing to do due to Ketchup2 migration
+                // FIXME: disabled due to unclear usage -> I don't know if this could be a temporary or maybe permanent thing to do due to Ketchup2 migration
                 // =============================================================
                 // props.push({
                 //     fullWidth: true,
