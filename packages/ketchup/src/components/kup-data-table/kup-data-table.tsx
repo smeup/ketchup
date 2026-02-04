@@ -6877,7 +6877,7 @@ export class KupDataTable {
         const selectedRows = await this.getSelectedRows();
         if (selectedRows.length > 0) {
             newRow = JSON.parse(JSON.stringify(selectedRows[0]));
-        } else if (this.#originalDataLoaded?.rows?.length > 0) {
+        } else if (this.#originalDataLoaded?.rows?.length > 0 && !row) {
             newRow = JSON.parse(
                 JSON.stringify(this.#originalDataLoaded.rows[0])
             );
