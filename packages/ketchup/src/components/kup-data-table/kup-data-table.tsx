@@ -969,6 +969,8 @@ export class KupDataTable {
                         this.data.rows[originalDataRowIndex].cells =
                             structuredClone(row.cells);
                         this.#modifiedRowsIds.push(`${originalDataRowIndex}`);
+                    } else {
+                        this.#addRowHandler(row);
                     }
                 }
                 this.pendingRowsToUpdate = [];
@@ -3644,8 +3646,8 @@ export class KupDataTable {
             const columnName = td
                 ? td.dataset.column
                 : th
-                ? th.dataset.column
-                : null;
+                  ? th.dataset.column
+                  : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -3655,10 +3657,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -3716,10 +3718,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -6870,56 +6872,58 @@ export class KupDataTable {
         );
     }
 
+    #addRowHandler = async (row?: KupDataRow) => {
+        let newRow: KupDataRow;
+        const selectedRows = await this.getSelectedRows();
+        if (selectedRows.length > 0) {
+            newRow = JSON.parse(JSON.stringify(selectedRows[0]));
+        } else if (this.#originalDataLoaded?.rows?.length > 0 && !row) {
+            newRow = JSON.parse(
+                JSON.stringify(this.#originalDataLoaded.rows[0])
+            );
+        } else if (row) {
+            newRow = this.#createRowWithInputFields(row);
+        } else {
+            newRow = this.#createRowWithInputFields();
+        }
+        Object.values(newRow.cells).forEach((cell) => {
+            if (selectedRows.length == 0 && !row) {
+                cell.value = '';
+            }
+        });
+        newRow.id = (
+            this.#originalDataLoadedMaxId + ++this.#insertCount
+        ).toString();
+
+        this.#insertedRowIds.push(newRow.id);
+        this.insertNewRow(newRow, true);
+    };
+
+    #createRowWithInputFields = (rowToCopy?: KupDataRow): KupDataRow => {
+        const row: KupDataRow = { cells: {} };
+        this.data?.columns.forEach((c) => {
+            const cell: Partial<KupDataCell> = rowToCopy?.cells?.[c.name]
+                ? structuredClone(rowToCopy.cells[c.name])
+                : {
+                      shape: c.shape ?? FCellShapes.TEXT_FIELD,
+                      obj: { ...c.obj },
+                      isEditable: c.isEditable ?? true,
+                      data:
+                          c['length'] && c['maxLength']
+                              ? {
+                                    size: c['length'],
+                                    maxLength: c['maxLength'],
+                                }
+                              : {},
+                  };
+            row.cells[c.name] = cell as KupDataCell;
+        });
+
+        return row;
+    };
+
     #renderUpdateButtons() {
         const styling: FButtonStyling = FButtonStyling.FLAT;
-
-        const createRowWithInputFields = (): KupDataRow => {
-            const row: KupDataRow = { cells: {} };
-            this.data?.columns.forEach((c) => {
-                const cell: Partial<KupDataCell> = {
-                    shape: c.shape ?? FCellShapes.TEXT_FIELD,
-                    obj: { ...c.obj },
-                    isEditable: c.isEditable ?? true,
-                    data: {},
-                };
-
-                if (c['length'] && c['maxLength']) {
-                    cell.data = {
-                        size: c['length'],
-                        maxLength: c['maxLength'],
-                    };
-                }
-
-                row.cells[c.name] = cell as KupDataCell;
-            });
-
-            return row;
-        };
-
-        const addRowHandler = async () => {
-            let newRow: KupDataRow;
-            const selectedRows = await this.getSelectedRows();
-            if (selectedRows.length > 0) {
-                newRow = JSON.parse(JSON.stringify(selectedRows[0]));
-            } else if (this.#originalDataLoaded?.rows?.length > 0) {
-                newRow = JSON.parse(
-                    JSON.stringify(this.#originalDataLoaded.rows[0])
-                );
-            } else {
-                newRow = createRowWithInputFields();
-            }
-            Object.values(newRow.cells).forEach((cell) => {
-                if (selectedRows.length == 0) {
-                    cell.value = '';
-                }
-            });
-            newRow.id = (
-                this.#originalDataLoadedMaxId + ++this.#insertCount
-            ).toString();
-
-            this.#insertedRowIds.push(newRow.id);
-            this.insertNewRow(newRow, true);
-        };
 
         const deleteRowHandler = async () => {
             const ids: string[] = (await this.getSelectedRows()).map(
@@ -6965,7 +6969,7 @@ export class KupDataTable {
                     title: this.#kupManager.language.translate(
                         KupLanguageGeneric.ROW_ADD
                     ),
-                    onClickHandler: () => addRowHandler(),
+                    onClickHandler: () => this.#addRowHandler(),
                 },
                 delete: {
                     enabled: operationList?.delete,
