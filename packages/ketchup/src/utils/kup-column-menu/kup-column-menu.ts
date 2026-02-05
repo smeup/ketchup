@@ -519,19 +519,17 @@ export class KupColumnMenu {
                 dom.ketchup.objects.isNumber(column.obj) &&
                 comp.enableColumnsFormula
             ) {
-                // FIXME: disabled due to unclear usage -> I don't know if this could be a temporary or maybe permanent thing to do due to Ketchup2 migration
-                // =============================================================
-                // props.push({
-                //     fullWidth: true,
-                //     icon: 'functions',
-                //     id: KupColumnMenuIds.TEXTFIELD_FORMULA,
-                //     key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
-                //     helper: `i.e.: Description;[${column.name}] * 2`,
-                //     label: dom.ketchup.language.translate(
-                //         KupLanguageTotals.FORMULA
-                //     ),
-                //     trailingIcon: true,
-                // });
+                props.push({
+                    fullWidth: true,
+                    icon: 'functions',
+                    id: KupColumnMenuIds.TEXTFIELD_FORMULA,
+                    key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
+                    helper: `i.e.: Description;[${column.name}] * 2`,
+                    label: dom.ketchup.language.translate(
+                        KupLanguageTotals.FORMULA
+                    ),
+                    trailingIcon: true,
+                });
             }
         }
         return props;
