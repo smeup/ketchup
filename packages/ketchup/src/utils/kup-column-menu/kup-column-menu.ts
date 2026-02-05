@@ -44,6 +44,7 @@ import {
     ValueDisplayedValue,
 } from '../filters/filters-declarations';
 import { FiltersRows } from '../filters/filters-rows';
+import { extractColumnsFromFormulaString } from '../utils';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -144,8 +145,8 @@ export class KupColumnMenu {
         data.object = column.objs
             ? column.objs
             : column.obj
-            ? [column.obj]
-            : null;
+              ? [column.obj]
+              : null;
         data.switch = this.prepSwitch(comp, column, data.object);
         if (!currentData) {
             data.tabbar = this.prepTabBar(comp, column);
@@ -716,6 +717,11 @@ export class KupColumnMenu {
                             newColumn: hasDescription
                                 ? { name: description, title: description }
                                 : undefined,
+                            columns: [
+                                columnName,
+                                parts[0],
+                                ...extractColumnsFromFormulaString(value),
+                            ],
                         })
                         .then((res) => {
                             if (
