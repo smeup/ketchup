@@ -1270,26 +1270,32 @@ export function create14(component: KupCard): VNode {
                             ) : null}
                         </div>
                         <div class="sub-formula">
-                            <div class="formula-container">
-                                <kup-image
-                                    resource="functions"
-                                    size-x="18px"
-                                    size-y="18px"
-                                ></kup-image>
-                                {textfieldArrayFormula?.['helper'] && (
-                                    <span class="formula-text">
-                                        {textfieldArrayFormula?.['helper']}
-                                    </span>
-                                )}
-                            </div>
                             {textfieldsIds.includes(
                                 KupColumnMenuIds.TEXTFIELD_FORMULA
                             ) ? (
-                                <kup-text-field
-                                    {...textfieldArrayFormula}
-                                    icon={undefined}
-                                    fullWidth={false}
-                                />
+                                <Fragment>
+                                    <div class="formula-container">
+                                        <kup-image
+                                            resource="functions"
+                                            size-x="18px"
+                                            size-y="18px"
+                                        ></kup-image>
+                                        {textfieldArrayFormula?.['helper'] && (
+                                            <span class="formula-text">
+                                                {
+                                                    textfieldArrayFormula?.[
+                                                        'helper'
+                                                    ]
+                                                }
+                                            </span>
+                                        )}
+                                    </div>
+                                    <kup-text-field
+                                        {...textfieldArrayFormula}
+                                        icon={undefined}
+                                        fullWidth={false}
+                                    />
+                                </Fragment>
                             ) : null}
                         </div>
                         <div class="sub-chip">
