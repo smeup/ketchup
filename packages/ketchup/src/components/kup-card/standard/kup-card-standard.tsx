@@ -1282,11 +1282,14 @@ export function create14(component: KupCard): VNode {
                                         ></kup-image>
                                         {textfieldArrayFormula?.['helper'] && (
                                             <span class="formula-text">
-                                                {
-                                                    textfieldArrayFormula?.[
-                                                        'helper'
-                                                    ]
-                                                }
+                                                {textfieldArrayFormula?.[
+                                                    'helper'
+                                                ]
+                                                    .split('\n')
+                                                    .map((line) => [
+                                                        line,
+                                                        <br />,
+                                                    ])}
                                             </span>
                                         )}
                                     </div>
