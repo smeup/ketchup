@@ -1625,7 +1625,9 @@ export class KupDataTable {
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
         this.#kupManager.data.column.hide(this.data, [column.name]);
-        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        this.visibleColumns = this.getVisibleColumns({
+            includeCodVer: true,
+        }).map((col) => col.name);
         this.visibleColumns = this.visibleColumns.filter(
             (colName) => colName != column.name
         );
@@ -2111,7 +2113,9 @@ export class KupDataTable {
         result: string | KupDataColumn,
         afterColumn: string
     ) {
-        this.visibleColumns = this.getVisibleColumns().map((col) => col.name);
+        this.visibleColumns = this.getVisibleColumns({
+            includeCodVer: true,
+        }).map((col) => col.name);
         if (typeof result !== 'string') {
             if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
                 this.#kupManager.debug.logMessage(
@@ -4872,7 +4876,9 @@ export class KupDataTable {
             this.visibleColumns.splice(rIdx, 0, sortedName);
         } else {
             // Adds the sorted column to visibleColumns to preserve the current column order.
-            this.visibleColumns = this.getVisibleColumns().map((c) => c.name);
+            this.visibleColumns = this.getVisibleColumns({
+                includeCodVer: true,
+            }).map((c) => c.name);
         }
     }
 
