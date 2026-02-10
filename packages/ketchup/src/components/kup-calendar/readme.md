@@ -21,12 +21,13 @@
 
 ## Events
 
-| Event                     | Description                | Type                                             |
-| ------------------------- | -------------------------- | ------------------------------------------------ |
-| `kup-calendar-dateclick`  | When a date is clicked.    | `CustomEvent<KupCalendarDateClickEventPayload>`  |
-| `kup-calendar-eventclick` | When an event is clicked.  | `CustomEvent<KupCalendarEventClickEventPayload>` |
-| `kup-calendar-eventdrop`  | When a date is dropped.    | `CustomEvent<KupCalendarEventDropEventPayload>`  |
-| `kup-calendar-viewchange` | When the navigation change | `CustomEvent<KupCalendarViewChangeEventPayload>` |
+| Event                           | Description                     | Type                                                   |
+| ------------------------------- | ------------------------------- | ------------------------------------------------------ |
+| `kup-calendar-dateclick`        | When a date is clicked.         | `CustomEvent<KupCalendarDateClickEventPayload>`        |
+| `kup-calendar-eventclick`       | When an event is clicked.       | `CustomEvent<KupCalendarEventClickEventPayload>`       |
+| `kup-calendar-eventcontextmenu` | When an event is right clicked. | `CustomEvent<KupCalendarEventContextMenuEventPayload>` |
+| `kup-calendar-eventdrop`        | When a date is dropped.         | `CustomEvent<KupCalendarEventDropEventPayload>`        |
+| `kup-calendar-viewchange`       | When the navigation change      | `CustomEvent<KupCalendarViewChangeEventPayload>`       |
 
 
 ## Methods

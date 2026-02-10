@@ -43,6 +43,7 @@ import {
     KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
+    KupCalendarEventContextMenuEventPayload,
     KupCalendarEventDropEventPayload,
     KupCalendarOptions,
     KupCalendarProps,
@@ -223,6 +224,16 @@ export class KupCalendar {
     })
     kupCalendarEventClick: EventEmitter<KupCalendarEventClickEventPayload>;
     /**
+     * When an event is right clicked.
+     */
+    @Event({
+        eventName: 'kup-calendar-eventcontextmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCalendarEventContextMenu: EventEmitter<KupCalendarEventContextMenuEventPayload>;
+    /**
      * When a date is clicked.
      */
     @Event({
@@ -314,6 +325,22 @@ export class KupCalendar {
                 minute: '2-digit',
             },
             eventDidMount: (info) => {
+                info.el.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    const { find } = this.kupManager.data.column;
+                    const k01 = find(this.getColumns(), { isKey: true })?.[0];
+
+                    this.kupCalendarEventContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        row: info.event.extendedProps.row,
+                        k01,
+                        el: info.el,
+                        originalEvent: e,
+                    });
+                    return false;
+                };
+
                 // In the calendar component, we handle two cases:
                 // if the '.fc-event-main' div exists, the event don't has start/end time;
                 const content = document.createElement('div');
