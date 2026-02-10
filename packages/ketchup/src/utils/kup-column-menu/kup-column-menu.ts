@@ -524,10 +524,9 @@ export class KupColumnMenu {
                     icon: 'functions',
                     id: KupColumnMenuIds.TEXTFIELD_FORMULA,
                     key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
-                    helper: `i.e.: Description;[${column.name}] * 2`,
-                    label: dom.ketchup.language.translate(
-                        KupLanguageTotals.FORMULA
-                    ),
+                    helper: `Adds a new computed column with title 'Description'\nwhere each cell has 2 times the value of ${column.name} cell`,
+                    label: 'Compute Column',
+                    placeholder: `Description;[${column.name}] * 2`,
                     trailingIcon: true,
                 });
             }
