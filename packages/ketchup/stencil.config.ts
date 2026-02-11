@@ -101,6 +101,7 @@ export const config: Config = {
                 { src: 'planner-example-4.html' },
                 { src: 'planner-example-5.html' },
                 { src: 'planner-example-6.html' },
+                { src: 'planner-example-7.html' },
                 { src: 'probe.html' },
                 { src: 'progress-bar.html' },
                 { src: 'radio.html' },
