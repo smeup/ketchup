@@ -1052,6 +1052,17 @@ export function create14(component: KupCard): VNode {
         }
     }
 
+    const textfieldArrayExcludedFormula =
+        textfieldArray.length > 0
+            ? textfieldArray.filter(
+                  (x) => x.id !== KupColumnMenuIds.TEXTFIELD_FORMULA
+              )
+            : [];
+
+    const textfieldArrayFormula = textfieldArray.find(
+        (x) => x.id === KupColumnMenuIds.TEXTFIELD_FORMULA
+    );
+
     const tooltipText = dom.ketchup.language.translate(
         KupLanguageSearch.TOOLTIP
     );
@@ -1186,8 +1197,11 @@ export function create14(component: KupCard): VNode {
                             {datepickerArray.length > 0
                                 ? compList(datepickerArray, 'datepicker')
                                 : null}
-                            {textfieldArray.length > 0
-                                ? compList(textfieldArray, 'textfield')
+                            {textfieldArrayExcludedFormula.length > 0
+                                ? compList(
+                                      textfieldArrayExcludedFormula,
+                                      'textfield'
+                                  )
                                 : null}
                             {timepickerArray.length > 0
                                 ? compList(timepickerArray, 'timepicker')
@@ -1259,13 +1273,32 @@ export function create14(component: KupCard): VNode {
                             {textfieldsIds.includes(
                                 KupColumnMenuIds.TEXTFIELD_FORMULA
                             ) ? (
-                                <kup-text-field
-                                    {...textfieldArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.TEXTFIELD_FORMULA
-                                    )}
-                                />
+                                <Fragment>
+                                    <div class="formula-container">
+                                        <kup-image
+                                            resource="functions"
+                                            size-x="18px"
+                                            size-y="18px"
+                                        ></kup-image>
+                                        {textfieldArrayFormula?.['helper'] && (
+                                            <span class="formula-text">
+                                                {textfieldArrayFormula?.[
+                                                    'helper'
+                                                ]
+                                                    .split('\n')
+                                                    .map((line) => [
+                                                        line,
+                                                        <br />,
+                                                    ])}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <kup-text-field
+                                        {...textfieldArrayFormula}
+                                        icon={undefined}
+                                        fullWidth={false}
+                                    />
+                                </Fragment>
                             ) : null}
                         </div>
                         <div class="sub-chip">

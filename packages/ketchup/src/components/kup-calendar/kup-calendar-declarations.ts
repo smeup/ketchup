@@ -58,6 +58,12 @@ export interface KupCalendarData {
 export interface KupCalendarEventClickEventPayload extends KupEventPayload {
     row: KupDataRow;
 }
+export interface KupCalendarEventContextMenuEventPayload extends KupEventPayload {
+    row: KupDataRow;
+    k01: KupDataColumn;
+    el: HTMLElement;
+    originalEvent: MouseEvent;
+}
 export interface KupCalendarDateClickEventPayload extends KupEventPayload {
     date: Date;
 }

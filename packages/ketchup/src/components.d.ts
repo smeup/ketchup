@@ -19,7 +19,7 @@ import { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-de
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventContextMenuEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
@@ -81,7 +81,7 @@ export { FCellEventPayload, FCellPadding } from "./f-components/f-cell/f-cell-de
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventContextMenuEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
@@ -5281,6 +5281,7 @@ declare global {
     };
     interface HTMLKupCalendarElementEventMap {
         "kup-calendar-eventclick": KupCalendarEventClickEventPayload;
+        "kup-calendar-eventcontextmenu": KupCalendarEventContextMenuEventPayload;
         "kup-calendar-dateclick": KupCalendarDateClickEventPayload;
         "kup-calendar-eventdrop": KupCalendarEventDropEventPayload;
         "kup-calendar-viewchange": KupCalendarViewChangeEventPayload;
@@ -6973,6 +6974,10 @@ declare namespace LocalJSX {
           * When an event is clicked.
          */
         "onKup-calendar-eventclick"?: (event: KupCalendarCustomEvent<KupCalendarEventClickEventPayload>) => void;
+        /**
+          * When an event is right clicked.
+         */
+        "onKup-calendar-eventcontextmenu"?: (event: KupCalendarCustomEvent<KupCalendarEventContextMenuEventPayload>) => void;
         /**
           * When a date is dropped.
          */
