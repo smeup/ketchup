@@ -1222,7 +1222,7 @@ function setCell(
             subcomponentProps['disabled'] = true;
             return <FSwitch {...subcomponentProps}></FSwitch>;
         case FCellTypes.LABEL:
-            return <FLabel text={cell.value} classes="f-cell__text"></FLabel>;
+            return <FLabel style={cell.style} text={cell.value} classes="f-cell__text"></FLabel>;
         case FCellTypes.IMAGE_LIST:
             const activeNode: KupImageListDataNode =
                 cell.data.data.find(

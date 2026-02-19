@@ -883,7 +883,7 @@ export class KupInputPanel {
 
         return (
             <span class={classList.join(' ')} id={column.name}>
-                <FLabel text={value} />
+                <FLabel style={cell.style} text={value} />
             </span>
         );
     }
