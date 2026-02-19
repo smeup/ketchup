@@ -1,5 +1,3 @@
-import { table } from 'console';
-import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     AbsoluteTblPositioningData,
@@ -14,7 +12,7 @@ export const ADDITIONAL_WIDTH_WITH_ICON = 18; // Additional width added to accou
 
 // Char sizes
 export const FONT_SIZE = 12; // Monospace font size of the INP
-export const FONT_SIZE_TO_WIDTH_RATIO = 1.6; // FontSize to SingleCharWidth ratio
+export const FONT_SIZE_TO_WIDTH_RATIO = 1.4; // FontSize to SingleCharWidth ratio
 export const CHAR_WIDTH = FONT_SIZE / FONT_SIZE_TO_WIDTH_RATIO; // Used for field width and left attribute
 
 export const getAbsoluteWidth = (
@@ -30,7 +28,10 @@ export const getAbsoluteWidth = (
     }
 
     if (length === 1) {
-        return 1.5 * CHAR_WIDTH;
+        return (
+            1.5 * CHAR_WIDTH +
+            (graphicShapeHasIcon ? ADDITIONAL_WIDTH_WITH_ICON : 0)
+        );
     }
 
     return (

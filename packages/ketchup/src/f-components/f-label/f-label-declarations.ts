@@ -1,6 +1,7 @@
-import { FComponent } from '../../types/GenericTypes';
+import { FComponent, GenericObject } from '../../types/GenericTypes';
 
 export interface FLabelProps extends FComponent {
+    style?: GenericObject;
     text: string;
     classes?: string;
 }
