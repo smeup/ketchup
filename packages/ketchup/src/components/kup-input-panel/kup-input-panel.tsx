@@ -883,7 +883,7 @@ export class KupInputPanel {
 
         return (
             <span class={classList.join(' ')} id={column.name}>
-                <FLabel text={value} />
+                <FLabel style={cell.style} text={value} />
             </span>
         );
     }
@@ -1216,10 +1216,12 @@ export class KupInputPanel {
         const absoluteWidth =
             fieldCell.cell.shape === FCellShapes.LABEL
                 ? getLabelAbsoluteWidth(length)
-                : getAbsoluteWidth(
-                      length,
-                      graphicShapeHasIcon(fieldCell.cell.shape)
-                  );
+                : fieldCell.cell.shape === FCellShapes.CHECKBOX
+                  ? 15
+                  : getAbsoluteWidth(
+                        length,
+                        graphicShapeHasIcon(fieldCell.cell.shape)
+                    );
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(
             field.absoluteRow,
