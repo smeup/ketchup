@@ -141,7 +141,7 @@
 
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
-  background-color: var(--kup_datatable_background_color);
+  background-color: lightgoldenrodyellow;
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
   color: var(--kup_card_text_color);
