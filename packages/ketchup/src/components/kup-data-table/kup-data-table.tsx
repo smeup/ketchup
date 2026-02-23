@@ -2116,6 +2116,7 @@ export class KupDataTable {
         this.visibleColumns = this.getVisibleColumns({
             includeCodVer: true,
         }).map((col) => col.name);
+
         if (typeof result !== 'string') {
             if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
                 this.#kupManager.debug.logMessage(
@@ -3906,53 +3907,74 @@ export class KupDataTable {
         return details;
     }
 
+    /**
+     * Retrieves the list of visible columns based on configuration and grouping state.
+     *
+     * This method handles multiple visibility scenarios:
+     * 1. Explicit visibility list (via visibleColumns property)
+     * 2. Column-level visibility flags
+     * 3. CodVer (code/version) column filtering
+     * 4. Group-based visibility when grouping is enabled
+     *
+     * @param {Object} options - Configuration options
+     * @param {boolean} options.includeCodVer - If true, includes CodVer columns in the result (default: false)
+     * @returns {Array<KupDataColumn>} Array of visible columns, ordered and filtered according to configuration
+     */
     getVisibleColumns({ includeCodVer = false } = {}): Array<KupDataColumn> {
-        if (includeCodVer) {
-            return this.getColumns().filter((col) => {
-                if (this.visibleColumns) {
-                    return this.visibleColumns.includes(col.name);
-                } else {
-                    return !('visible' in col) || col.visible;
-                }
-            });
-        }
-        // Starting columns filter
-        let resultVisibleColumns = this.getColumns().filter((col) => {
-            const isNotCodVer = !this.#kupManager.data.column.isCodVer(col);
+        const allColumns = this.getColumns();
+
+        // Step 1: Filter columns based on visibility rules and CodVer inclusion
+        let filteredColumns = allColumns.filter((column) => {
+            // CodVer columns are system columns used for versioning/coding
+            const isNotCodVer = !this.#kupManager.data.column.isCodVer(column);
+
+            // Determine if column should be included based on CodVer flag
+            const codVerCheck = includeCodVer ? true : isNotCodVer;
 
             if (this.visibleColumns) {
-                // if visible columns is specified, include only those columns
-                return isNotCodVer && this.visibleColumns.includes(col.name);
+                // Explicit visibility list takes precedence: include only specified columns
+                return this.visibleColumns.includes(column.name);
             } else {
-                return isNotCodVer && (!('visible' in col) || col.visible);
+                // No explicit list: use column's visibility flag (undefined or true = visible)
+                return (
+                    codVerCheck && (!('visible' in column) || column.visible)
+                );
             }
         });
 
-        // order based on `visibleColumns`
+        // Step 2: Sort columns according to the order specified in visibleColumns property
+        // This ordering is ALWAYS applied when visibleColumns is defined, regardless of includeCodVer
         if (this.visibleColumns) {
-            resultVisibleColumns = resultVisibleColumns.sort(
-                (a, b) =>
-                    this.visibleColumns.indexOf(a.name) -
-                    this.visibleColumns.indexOf(b.name)
-            );
-        }
-        // Check grouping e filter based on group visibility
-        if (this.#isGrouping()) {
-            return resultVisibleColumns.filter((column) => {
-                let group = null;
-                for (let currentGroup of this.groups) {
-                    if (currentGroup.column === column.name) {
-                        group = currentGroup;
-                        break;
-                    }
-                }
-                if (group) {
-                    return !group.hasOwnProperty('visible') || group.visible;
-                }
-                return true; // Not in a group -> visible
+            filteredColumns = filteredColumns.sort((columnA, columnB) => {
+                const indexA = this.visibleColumns.indexOf(columnA.name);
+                const indexB = this.visibleColumns.indexOf(columnB.name);
+                return indexA - indexB;
             });
         }
-        return resultVisibleColumns;
+
+        // Step 3: Apply group-based visibility filtering (only when grouping is active)
+        if (this.#isGrouping()) {
+            return filteredColumns.filter((column) => {
+                // Find the group that contains this column
+                const associatedGroup = this.groups.find(
+                    (group) => group.column === column.name
+                );
+
+                if (associatedGroup) {
+                    // Column is in a group: respect the group's visibility flag
+                    // If group doesn't have 'visible' property, default to visible
+                    return (
+                        !associatedGroup.hasOwnProperty('visible') ||
+                        associatedGroup.visible
+                    );
+                }
+
+                // Column is not in any group: always visible
+                return true;
+            });
+        }
+
+        return filteredColumns;
     }
 
     getGroupByName(column: string): GroupObject {
