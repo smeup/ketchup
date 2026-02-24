@@ -3926,14 +3926,14 @@ export class KupDataTable {
         // Step 1: Filter columns based on visibility rules and CodVer inclusion
         let filteredColumns = allColumns.filter((column) => {
             // CodVer columns are system columns used for versioning/coding
-            const isNotCodVer = !this.#kupManager.data.column.isCodVer(column);
+            const isCodVer = this.#kupManager.data.column.isCodVer(column);
 
             // Determine if column should be included based on CodVer flag
-            const codVerCheck = includeCodVer ? true : isNotCodVer;
+            const codVerCheck = includeCodVer ? true : !isCodVer;
 
             if (this.visibleColumns) {
                 // Explicit visibility list takes precedence: include only specified columns
-                return this.visibleColumns.includes(column.name);
+                return codVerCheck && this.visibleColumns.includes(column.name);
             } else {
                 // No explicit list: use column's visibility flag (undefined or true = visible)
                 return (
@@ -4316,7 +4316,10 @@ export class KupDataTable {
             const totalFixedColumns =
                 this.fixedColumns +
                 (this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(
+                    this.data.columns,
+                    this.visibleColumns
+                )
                     ? 1
                     : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
@@ -4831,7 +4834,10 @@ export class KupDataTable {
 
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(
+                this.data.columns,
+                this.visibleColumns
+            )
         ) {
             colSpan += 1;
         }
@@ -5110,7 +5116,10 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(
+                this.data.columns,
+                this.visibleColumns
+            )
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -5301,7 +5310,10 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(
+                this.data.columns,
+                this.visibleColumns
+            )
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -5441,7 +5453,10 @@ export class KupDataTable {
         let actionsCell = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(
+                this.data.columns,
+                this.visibleColumns
+            )
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -5774,7 +5789,10 @@ export class KupDataTable {
                 const cells = [];
                 if (
                     this.#hasRowActions() ||
-                    this.#kupManager.data.column.hasCodVer(this.data.columns)
+                    this.#kupManager.data.column.hasCodVer(
+                        this.data.columns,
+                        this.visibleColumns
+                    )
                 ) {
                     cells.push(<td></td>);
                 }
@@ -5971,7 +5989,10 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(
+                    this.data.columns,
+                    this.visibleColumns
+                )
             ) {
                 // Increments
                 specialExtraCellsCount++;
@@ -5994,8 +6015,10 @@ export class KupDataTable {
                             row,
                             this.getVisibleColumns({ includeCodVer: true }),
                             this.rowActions,
-                            this.commands ?? []
+                            this.commands ?? [],
+                            this.visibleColumns
                         );
+
                     if (
                         this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
                             rowActions
