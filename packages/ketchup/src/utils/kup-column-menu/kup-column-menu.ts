@@ -717,8 +717,8 @@ export class KupColumnMenu {
                                 ? { name: description, title: description }
                                 : undefined,
                             columns: [
-                                columnName,
                                 parts[0],
+                                columnName,
                                 ...extractColumnsFromFormulaString(value),
                             ],
                         })
