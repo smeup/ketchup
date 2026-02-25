@@ -294,7 +294,7 @@ function newColumnFromMath(
         const col = dataset.columns[index];
         if (columns.includes(col.name)) {
             titles[columns.indexOf(col.name)] = col.title;
-            if (!dom.ketchup.objects.isNumber(col?.obj)) {
+            if (!dom.ketchup.objects.isNumber(col.obj)) {
                 const message =
                     "Can't apply math formulas on non-numerical columns!(" +
                     columns +
