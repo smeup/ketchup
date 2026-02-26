@@ -192,7 +192,8 @@ export class KupData {
          */
         getRowCodVers: (
             columns: KupDataColumn[],
-            row: KupDataTableRow
+            row: KupDataTableRow,
+            visibleColumns: string[]
         ): {
             id: string;
             column: KupDataColumn;
@@ -201,7 +202,10 @@ export class KupData {
             return columns
                 .filter(
                     (col) =>
-                        this.column.isCodVer(col) && this.column.isVisible(col)
+                        this.column.isCodVer(col) &&
+                        (visibleColumns && visibleColumns.length > 0
+                            ? visibleColumns.includes(col.name)
+                            : this.column.isVisible(col))
                 )
                 .reduce<
                     {
@@ -434,14 +438,19 @@ export class KupData {
         /**
          *  Check if almost one column has COD_VER
          * @param { KupDataColumn[] } columns single column.
-         * @returns { boolean } if COD_VER founded or not.
+         * @returns { boolean } result of cod_ver search.
          */
-        hasCodVer: (columns: KupDataColumn[]): boolean => {
+        hasCodVer: (
+            columns: KupDataColumn[],
+            visibleColumns: string[]
+        ): boolean => {
             return columns
                 ? columns.some(
                       (col) =>
                           this.column.isCodVer(col) &&
-                          this.column.isVisible(col)
+                          (visibleColumns && visibleColumns.length > 0
+                              ? visibleColumns?.includes(col.name)
+                              : this.column.isVisible(col))
                   )
                 : false;
         },
@@ -516,12 +525,14 @@ export class KupData {
             row: KupDataRow,
             columns: KupDataColumn[],
             actions: KupDataRowAction[],
-            commands: KupCommand[]
+            commands: KupCommand[],
+            visibleColumns: string[]
         ): KupDataRowAction[] => {
             const codVerActions = this.action.createActionsFromVoCodRow(
                 row,
                 columns,
-                commands
+                commands,
+                visibleColumns
             );
 
             const rowActionsWithCodVer =
@@ -589,10 +600,15 @@ export class KupData {
         createActionsFromVoCodRow: (
             row: KupDataTableRow,
             columns: KupDataColumn[],
-            commands: KupCommand[]
+            commands: KupCommand[],
+            visibleColumns: string[]
         ): KupDataRowAction[] => {
             const actions: KupDataRowAction[] = [];
-            const rowCodVers = this.cell.getRowCodVers(columns, row);
+            const rowCodVers = this.cell.getRowCodVers(
+                columns,
+                row,
+                visibleColumns
+            );
 
             const commandMap = new Map<
                 string,
@@ -635,7 +651,7 @@ export class KupData {
             });
 
             // Handle VO;COD_VER command with blank K case if there is at least one VO;COD_VER column
-            if (this.column.hasCodVer(columns)) {
+            if (this.column.hasCodVer(columns, visibleColumns)) {
                 blankCommands.forEach(({ cmd, index }) => {
                     actions.push({
                         ...this.action.createBlankRowAction(cmd, index),

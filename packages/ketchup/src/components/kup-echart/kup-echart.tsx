@@ -389,9 +389,9 @@ export class KupEchart {
                     const name = (value as GenericObject).data.name as string;
                     const percentage = (value as GenericObject).data
                         .value as string;
-                    return `${name}: <strong>${
+                    return `${name}: <strong>${this.#formatTooltipValue(
                         cellsSum[name]
-                    }</strong> (${this.#kupManager.math.format(percentage)}%)`;
+                    )}</strong> (${this.#formatTooltipValue(percentage)}%)`;
                 },
             },
             legend: this.#setLegend(cellsSum),
@@ -584,7 +584,9 @@ export class KupEchart {
                             const columnTitle = this.data.columns.find(
                                 (col) => col.name === key
                             ).title;
-                            return `<li>${columnTitle}: ${rowData[index]}</li>`;
+                            return `<li>${columnTitle}: ${this.#formatTooltipValue(
+                                rowData[index]
+                            )}</li>`;
                         })
                         .join('');
 
@@ -777,7 +779,11 @@ export class KupEchart {
                 formatter: (value: unknown) => {
                     const name = (value as GenericObject).data || [];
                     const data = keys.map((e, i) => {
-                        return `<li>  ${e}: ${name[i] ?? '-'} </li>`;
+                        return `<li>  ${e}: ${
+                            name[i] != null
+                                ? this.#formatTooltipValue(name[i])
+                                : '-'
+                        } </li>`;
                     });
                     let showContent = '';
                     data.forEach((r) => {
@@ -1047,6 +1053,23 @@ export class KupEchart {
         } as echarts.TooltipComponentOption;
     }
 
+    /**
+     * Helper used by tooltip formatters to apply locale‑aware number
+     * formatting. Non‑numeric values are returned verbatim (or as an empty
+     * string when null/undefined).
+     */
+    #formatTooltipValue(value: any): string {
+        if (
+            value === null ||
+            value === undefined ||
+            // convert to number first; non‑numeric strings become NaN
+            isNaN(Number(value))
+        ) {
+            return value != null ? String(value) : '';
+        }
+        return this.#kupManager.math.format(String(value));
+    }
+
     #setVisualMap(
         max: number,
         min: number,
@@ -1061,27 +1084,27 @@ export class KupEchart {
         const colorRange = !hasNumericValues
             ? undefined
             : colors.length > 0
-            ? ({
-                  inRange: { color: colors },
-                  min: min,
-                  max: max,
-                  textStyle: { color: this.#themeText },
-              } as VisualMapComponentOption)
-            : ({
-                  inRange: {
-                      color: [this.#minColorHeatMap, this.#maxColorHeatMap],
-                  },
-                  min: min,
-                  max: max,
-                  textStyle: { color: this.#themeText },
-              } as VisualMapComponentOption);
+              ? ({
+                    inRange: { color: colors },
+                    min: min,
+                    max: max,
+                    textStyle: { color: this.#themeText },
+                } as VisualMapComponentOption)
+              : ({
+                    inRange: {
+                        color: [this.#minColorHeatMap, this.#maxColorHeatMap],
+                    },
+                    min: min,
+                    max: max,
+                    textStyle: { color: this.#themeText },
+                } as VisualMapComponentOption);
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
                 ...colorRange,
                 calculable: true,
                 formatter: (value) => {
-                    return this.#kupManager.math.format(value as string);
+                    return this.#formatTooltipValue(value);
                 },
                 min: min,
                 max: max,
@@ -1184,7 +1207,7 @@ export class KupEchart {
             } else {
                 return (
                     "<div style='min-width: 60px; text-align: center'>" +
-                    this.#kupManager.math.format(value as string) +
+                    this.#formatTooltipValue(value) +
                     '</div>'
                 );
             }
@@ -1420,7 +1443,9 @@ export class KupEchart {
                     this.types[param.seriesIndex] == KupEchartTypes.GAUSSIAN
                 ) {
                     const value = param.value[0];
-                    const x = `<div style="color: ${param.color};"><span style="margin-right: 5px;"><strong>x:</strong></span><span>${param.value[0]}</span></div>`;
+                    const x = `<div style="color: ${param.color};"><span style="margin-right: 5px;"><strong>x:</strong></span><span>${this.#formatTooltipValue(
+                        param.value[0]
+                    )}</span></div>`;
                     if (!index) {
                         format += x;
                     }
@@ -1459,14 +1484,16 @@ export class KupEchart {
                                 format += `<div style="display: flex; flex-direction: row;">`;
                             }
                             const style = `style="color: ${param.color}; margin-right: 5px"`;
-                            format += `<span ${style}><strong>${title}</strong>: ${cells[column].value}</span>`;
+                            format += `<span ${style}><strong>${title}</strong>: ${this.#formatTooltipValue(
+                                cells[column].value
+                            )}</span>`;
                             count++;
                         }
                     }
                     if (format !== wrapper) format += '</div>';
                 } else {
                     const style = `style="color: ${param.color}; margin-right: 5px"`;
-                    format += `<div ${style}><strong>${param.name}</strong>: ${param.value}</div>`;
+                    format += `<div ${style}><strong>${param.name}</strong>: ${this.#formatTooltipValue(param.value)}</div>`;
                 }
             }
             if (format === wrapper) {
@@ -1750,7 +1777,7 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (params: GenericObject) => {
-                    return `<b>${params.name}</b><br/>${params.seriesName}: <b>${params.value}</b>`;
+                    return `<b>${params.name}</b><br/>${params.seriesName}: <b>${this.#formatTooltipValue(params.value)}</b>`;
                 },
             },
             xAxis: {
