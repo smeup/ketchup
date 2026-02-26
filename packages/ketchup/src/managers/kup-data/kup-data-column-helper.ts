@@ -334,7 +334,7 @@ function newColumnFromMath(
         prog++;
     }
     newName = newName + prog;
-    const newObj = firstColumn.obj;
+    const newObj = firstColumn?.obj;
     let newTitle = formula;
     for (let i = 0; i < columns.length; i++) {
         const column = columns[i];

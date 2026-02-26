@@ -140,15 +140,14 @@ export class FiltersColumnMenu extends Filters {
         if (filters == null) {
             return;
         }
-        let filter: Filter = filters[column];
-        if (filter == null) {
-            filter = {
-                textField: '',
-                textFieldTmp: '',
-                checkBoxes: [],
-            };
-            filters[column] = filter;
-        }
+        // Clone the column-specific filter object to ensure reference change
+        let filter: Filter = {
+            textField: '',
+            textFieldTmp: '',
+            checkBoxes: [],
+            ...filters[column],
+        };
+
         if (filter.checkBoxes == null) {
             filter.checkBoxes = [];
         }
@@ -161,9 +160,12 @@ export class FiltersColumnMenu extends Filters {
                     newFilterItem.value
                 )
             ) {
-                filter.checkBoxes[filter.checkBoxes.length] = newFilterItem;
+                // Clone the checkBoxes array to ensure reference change
+                filter.checkBoxes = [...filter.checkBoxes, newFilterItem];
             }
         }
+
+        filters[column] = filter; // Re-assign the new reference
     }
     /**
      * Triggers when a filter checkbox becomes unchecked.
@@ -181,7 +183,14 @@ export class FiltersColumnMenu extends Filters {
             return;
         }
 
-        const filter = filters[column];
+        // Clone the column-specific filter object to ensure reference change
+        let filter: Filter = {
+            textField: '',
+            textFieldTmp: '',
+            checkBoxes: [],
+            ...filters[column],
+        };
+
         filter.checkBoxes = filter.checkBoxes ?? [];
 
         filter.checkBoxes = filter.checkBoxes.filter(
@@ -190,6 +199,8 @@ export class FiltersColumnMenu extends Filters {
 
         if (filter.checkBoxes.length === 0) {
             delete filters[column];
+        } else {
+            filters[column] = filter; // Re-assign the new reference
         }
     }
 
