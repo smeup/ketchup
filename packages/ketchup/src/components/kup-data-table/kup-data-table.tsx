@@ -2113,12 +2113,28 @@ export class KupDataTable {
         result: string | KupDataColumn,
         afterColumn: string
     ) {
-        this.visibleColumns = this.getVisibleColumns({
-            includeCodVer: true,
-        }).map((col) => col.name);
-
         if (typeof result !== 'string') {
-            if (this.visibleColumns.findIndex((c) => c === result.name) < 0) {
+            // Check if dataTable has visible columns
+            const dataTableHasVisibleColumns =
+                this.visibleColumns && this.visibleColumns.length > 0;
+
+            // - If dataTableHasVisibleColumns is true:
+            // return every col.name without filterings
+            // - If dataTableHasVisibleColumns is false:
+            // result column is filtered out because it is already inserted in the data
+            // and will make resultColumnIndexNotFound false, not adding the column
+            this.visibleColumns = this.getVisibleColumns({
+                includeCodVer: true,
+            }).map((col) => {
+                if (dataTableHasVisibleColumns || col.name !== result.name) {
+                    return col.name;
+                }
+            });
+
+            const resultColumnIndexNotFound =
+                this.visibleColumns.findIndex((c) => c === result.name) < 0;
+
+            if (resultColumnIndexNotFound) {
                 this.#kupManager.debug.logMessage(
                     this,
                     'New column [' +
