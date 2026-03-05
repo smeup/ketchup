@@ -18,6 +18,7 @@ import { KupCard } from '../kup-card';
 import {
     KupCardBuiltInCalendar,
     KupCardBuiltInCalendarOptions,
+    KupCardObj,
 } from '../kup-card-declarations';
 import { fillString } from '../../../utils/utils';
 import { KupLanguageGeneric } from '../../../managers/kup-language/kup-language-declarations';
@@ -34,7 +35,7 @@ export function prepareCalendar(component: KupCard) {
         const opts = component.data.options as KupCardBuiltInCalendarOptions;
         if (opts.resetStatus) {
             el.kupData = {};
-            const obj = opts.initialValue as KupObj;
+            const obj = opts.initialValue as KupCardObj;
             if (opts.initialValue) {
                 if (obj && obj.k) {
                     setValue(component, new Date(obj.k));

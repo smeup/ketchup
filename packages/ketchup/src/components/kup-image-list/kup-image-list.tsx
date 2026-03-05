@@ -284,7 +284,9 @@ export class KupImageList {
         };
 
         const image = <FImage {...props}></FImage>;
-        const label = <div class="image-list__label">{node.value}</div>;
+        const label = (
+            <div class="image-list__label">{node.decode || node.value}</div>
+        );
 
         const hasExternalResource =
             props.resource?.indexOf('.') > -1 ||
@@ -300,7 +302,7 @@ export class KupImageList {
                     obj: node.obj,
                     cssClass:
                         this.#kupManager.data.cell.getObjectRelatedStyleClasses(
-                            node.obj,
+                            { ...node.obj, k: node.value },
                             node.cssClass
                         ),
                 }}

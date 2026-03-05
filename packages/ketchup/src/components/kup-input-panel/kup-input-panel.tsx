@@ -643,7 +643,6 @@ export class KupInputPanel {
                 cell.data.data = [];
             }
             cell.value = '';
-            cell.obj.k = '';
             cell.decode = '';
 
             if (cell.data.initialValue) {
@@ -1552,17 +1551,17 @@ export class KupInputPanel {
 
         if (cell.data.mappedCommandId) {
             const concurrentCommand = this.data.setup?.commands?.find(
-                (command) => command.obj.k === cell.data.mappedCommandId
+                (command) => command.value === cell.data.mappedCommandId
             );
 
             if (concurrentCommand) {
                 cell.isEditable = true;
                 cell.data.onClick = () => {
-                    this.#getFunctionOnClickBTN(cell, concurrentCommand.obj.k);
+                    this.#getFunctionOnClickBTN(cell, concurrentCommand.value);
                 };
 
                 this.data.setup.commands = this.data.setup.commands.filter(
-                    (command) => command.obj.k !== concurrentCommand.obj.k
+                    (command) => command.value !== concurrentCommand.value
                 );
             }
         }
@@ -1927,9 +1926,9 @@ export class KupInputPanel {
             return adapter(options, currentValue);
         } else {
             return options.map((option) => ({
-                value: option.value,
-                id: option.obj.k,
-                selected: currentValue === option.obj.k,
+                value: option.decode,
+                id: option.value,
+                selected: currentValue === option.value,
             }));
         }
     }
@@ -1953,9 +1952,9 @@ export class KupInputPanel {
         currentValue: string
     ): GenericObject[] {
         return options.children.map((child) => ({
-            id: child.obj.k,
-            value: child.value,
-            selected: currentValue === child.obj.k,
+            id: child.value,
+            value: child.decode,
+            selected: currentValue === child.value,
             children: child.children?.length
                 ? this.#dataTreeOptionsChildrenAdapter(child, currentValue)
                 : [],
@@ -1981,8 +1980,8 @@ export class KupInputPanel {
     #commandAdapter(cell: KupDataCell): KupDataCell {
         const buttonCell = {
             ...cell,
-            data: this.#BTNAdapter(null, null, cell.value, cell, cell.obj.k),
-            id: cell.obj.k,
+            data: this.#BTNAdapter(null, null, cell.decode, cell, cell.value),
+            id: cell.value,
         };
         return buttonCell;
     }

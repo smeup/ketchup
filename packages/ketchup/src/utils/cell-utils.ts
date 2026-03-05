@@ -52,10 +52,6 @@ export function getValueForDisplay2(
 }
 
 export function formatToNumber(cell: KupDataCell): number {
-    if (cell.obj) {
-        return dom.ketchup.math.numberify(cell.obj.k);
-    }
-
     return dom.ketchup.math.numberify(cell.value);
 }
 
@@ -289,9 +285,9 @@ export const CMBandACPAdapter = (
             showIcons: true,
             data: options?.length
                 ? options.map((option) => ({
-                      value: option.value,
-                      id: option.obj.k,
-                      selected: value === option.obj.k,
+                      value: option.decode,
+                      id: option.value,
+                      selected: value === option.value,
                   }))
                 : [],
         },
@@ -379,11 +375,11 @@ export function adaptContentToDisplayMode(
     content: unknown,
     separator: string
 ) {
-    if (!cell?.decode || !cell?.obj?.k) {
+    if (!cell?.decode || !cell?.value) {
         return content ?? '';
     }
 
-    const { k: code } = cell.obj;
+    const code = cell.value;
     const desc = cell.decode;
     const DescrMode =
         cell.data?.DescrMode != null

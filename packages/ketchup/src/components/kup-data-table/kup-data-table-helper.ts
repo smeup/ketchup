@@ -787,7 +787,6 @@ export function normalizeRows(
                         cell.obj = {
                             t: column.obj.t,
                             p: column.obj.p,
-                            k: cell.value,
                         };
                     }
                 }
@@ -1091,7 +1090,7 @@ function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
 
 /**
  * Returns a KupDataDataset obtained as the difference between originalData and modifiedData
- * The checked data are cell.value and cell.obj.k with the same column and row
+ * The checked data are cell.value with the same column and row
  * @param originalData
  * @param modifiedData
  * @param includesAlsoEmptyRows

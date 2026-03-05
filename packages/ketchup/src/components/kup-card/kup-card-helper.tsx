@@ -211,7 +211,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             );
             const node: KupDataNode = e.detail.treeNode;
             const obj: KupObj = node.obj;
-            const objKey = obj ? obj.t + obj.p + obj.k : '';
+            const objKey = obj ? obj.t + obj.p + node.value : '';
             if (objKey && objKey.trim() != '**' && node.expandable != true) {
                 const chipData: KupChipNode[] =
                     chip && chip.data ? chip.data : null;

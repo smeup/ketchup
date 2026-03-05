@@ -63,7 +63,7 @@ export class FiltersRows extends Filters {
             return false;
         }
         return this.isFilterCompliantForSimpleValue(
-            cellValue.obj.k,
+            cellValue.value,
             cellValue.obj,
             filterValue,
             isGlobalFilter

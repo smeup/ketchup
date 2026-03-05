@@ -83,6 +83,7 @@ export interface KupDataRowAction {
  */
 export interface KupCommand {
     obj: KupObj;
+    value: string;
     icon: string;
     text: string;
     showIcon: boolean;
@@ -133,6 +134,7 @@ export interface CellActionProps {
  */
 export interface KupDataNode extends KupDataRow {
     value?: string;
+    decode?: string;
     children?: KupDataNode[];
     disabled?: boolean;
     expandable?: boolean;

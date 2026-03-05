@@ -11,5 +11,4 @@ export interface KupObjectsJSON {
 export interface KupObj {
     t: string;
     p: string;
-    k: string;
 }

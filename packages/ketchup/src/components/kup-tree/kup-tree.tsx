@@ -1676,7 +1676,7 @@ export class KupTree {
                     if (!cell.isEditable) {
                         cell.cssClass =
                             this.#kupManager.data.cell.getObjectRelatedStyleClasses(
-                                cell.obj,
+                                { ...cell.obj, k: cell.value },
                                 cell.cssClass
                             );
                     }
@@ -1714,7 +1714,7 @@ export class KupTree {
                 '; ' +
                 treeNodeData.obj.p +
                 '; ' +
-                treeNodeData.obj.k +
+                treeNodeData.value +
                 ';';
         }
 
@@ -1722,14 +1722,14 @@ export class KupTree {
         let nodeValue: string;
         switch (this.DescrMode) {
             case ItemsDisplayMode.CODE:
-                nodeValue = treeNodeData.obj?.k ?? '';
-                break;
-            case ItemsDisplayMode.DESCRIPTION:
                 nodeValue = treeNodeData.value ?? '';
                 break;
+            case ItemsDisplayMode.DESCRIPTION:
+                nodeValue = treeNodeData.decode ?? '';
+                break;
             default:
-                nodeValue = `${treeNodeData.obj?.k ?? ''}: ${
-                    treeNodeData.value ?? ''
+                nodeValue = `${treeNodeData.value ?? ''}: ${
+                    treeNodeData.decode ?? ''
                 }`;
                 break;
         }
@@ -1964,7 +1964,7 @@ export class KupTree {
                               dom.ketchup.objects.isNumber(column.obj) ||
                                   dom.ketchup.objects.isDate(column.obj)
                                   ? column.obj
-                                  : { t: 'NR', p: '', k: '' },
+                                  : { t: 'NR', p: '' },
                               column.decimals
                           )
                         : '';

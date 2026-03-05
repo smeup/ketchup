@@ -20,11 +20,18 @@ export enum KupCardProps {
     sizeX = 'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
 }
+
+export interface KupCardObj {
+    t: string;
+    p: string;
+    k: string;
+}
+
 /**
  * Options of the built-in calendar.
  */
 export interface KupCardBuiltInCalendarOptions {
-    initialValue?: string | KupObj;
+    initialValue?: string | KupCardObj;
     firstDayIndex?: number;
     resetStatus: boolean;
     showPreviousNextMonthDays?: boolean;
@@ -51,7 +58,7 @@ export interface KupCardBuiltInCalendar extends HTMLElement {
  * Options of the built-in clock.
  */
 export interface KupCardBuiltInClockOptions {
-    initialValue?: string | KupObj;
+    initialValue?: string | KupCardObj;
     manageSeconds?: boolean;
     hoursActive?: boolean;
     minutesActive?: boolean;
@@ -150,7 +157,7 @@ export interface KupCardBuiltInClock extends HTMLElement {
  */
 export interface KupCardBuiltInNumericOptions {
     decimals?: boolean;
-    initialValue?: string | KupObj;
+    initialValue?: string | KupCardObj;
     maxDecimals?: number;
     maxIntegers?: number;
     maxLength?: number;

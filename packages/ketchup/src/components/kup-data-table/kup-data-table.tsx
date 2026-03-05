@@ -2060,11 +2060,11 @@ export class KupDataTable {
 
         const command =
             this.data?.setup?.commands?.find(
-                (cmd) => cmd.obj?.k === commandId
+                (cmd) => cmd.value === commandId
             ) ??
             this.data?.setup?.commands
                 ?.flatMap((cmd) => cmd.children)
-                .find((child) => child?.obj?.k === commandId) ??
+                .find((child) => child?.value === commandId) ??
             null;
 
         if (command) {
@@ -3141,7 +3141,6 @@ export class KupDataTable {
                     obj: {
                         t: 'J4',
                         p: 'ICO',
-                        k: 'OG_OG_KF',
                     },
                     data: {
                         color: `var(${KupThemeColorValues.TEXT})`,
@@ -3161,7 +3160,6 @@ export class KupDataTable {
                     obj: {
                         t: 'VO',
                         p: 'COD_VER',
-                        k: '000051',
                     },
                     data: {
                         color: `var(${KupThemeColorValues.TEXT})`,
@@ -3177,7 +3175,6 @@ export class KupDataTable {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '',
                 };
@@ -5712,7 +5709,7 @@ export class KupDataTable {
                               dom.ketchup.objects.isNumber(column.obj) ||
                                   dom.ketchup.objects.isDate(column.obj)
                                   ? column.obj
-                                  : { t: 'NR', p: '', k: '' },
+                                  : { t: 'NR', p: '' },
                               column.decimals
                           )
                         : '';
@@ -6147,7 +6144,7 @@ export class KupDataTable {
                 if (!cell.isEditable) {
                     cell.cssClass =
                         this.#kupManager.data.cell.getObjectRelatedStyleClasses(
-                            cell.obj,
+                            { ...cell.obj, k: cell.value },
                             cell.cssClass
                         );
                 }
@@ -6897,7 +6894,7 @@ export class KupDataTable {
                             label: c.value,
                             ...c.data,
                         },
-                        id: c.obj.k,
+                        id: c.value,
                     };
                 }),
             },

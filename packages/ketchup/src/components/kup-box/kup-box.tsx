@@ -1452,9 +1452,8 @@ export class KupBox {
         }
 
         if (isGrid) {
-            sectionStyle[
-                'grid-template-columns'
-            ] = `repeat(${section.columns}, 1fr)`;
+            sectionStyle['grid-template-columns'] =
+                `repeat(${section.columns}, 1fr)`;
         }
 
         let sectionContainer = null;
@@ -1554,12 +1553,12 @@ export class KupBox {
             classObj['is-obj'] = true;
             if (this.#kupManager.debug.isDebug()) {
                 title =
-                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.value + ';';
             }
             if (!cell.isEditable) {
                 cell.cssClass =
                     this.#kupManager.data.cell.getObjectRelatedStyleClasses(
-                        cell.obj,
+                        { ...cell.obj, k: cell.value },
                         cell.cssClass
                     );
             }
@@ -1703,10 +1702,10 @@ export class KupBox {
                 'grid-template-columns': this.kanban.isStacked
                     ? 'repeat(1fr)'
                     : this.kanban.size
-                    ? `repeat(${Object.keys(kanbanSections).length}, ${
-                          this.kanban.size
-                      })`
-                    : `repeat(${Object.keys(kanbanSections).length}, 1fr)`,
+                      ? `repeat(${Object.keys(kanbanSections).length}, ${
+                            this.kanban.size
+                        })`
+                      : `repeat(${Object.keys(kanbanSections).length}, 1fr)`,
             },
         };
     }

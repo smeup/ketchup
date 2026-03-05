@@ -202,7 +202,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     let cellTitle: string = null;
     if (dom.ketchup.debug.isDebug() && hasObj) {
-        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.value + ';';
     } else if (cell.title != null && cell.title.trim() != '') {
         cellTitle = cell.title;
     }
@@ -496,9 +496,9 @@ const dataTreeOptionsChildrenAdapter = (
     currentValue: string
 ): GenericObject[] => {
     return options.children.map((child) => ({
-        id: child.obj.k,
+        id: child.value,
         value: child.value,
-        selected: currentValue === child.obj.k,
+        selected: currentValue === child.value,
         children: child.children?.length
             ? dataTreeOptionsChildrenAdapter(child, currentValue)
             : [],
@@ -1643,12 +1643,8 @@ function cellEvent(
             case FCellTypes.IMAGE_LIST:
                 const obj = (e as CustomEvent<KupImageListEventPayload>).detail
                     .details.cell.obj;
-                const cellValue = (e as CustomEvent<KupImageListEventPayload>)
-                    .detail.details.cell.value;
-                value = obj?.k ? obj.k : cellValue;
-        }
-        if (cell.obj) {
-            cell.obj.k = value?.toString();
+                value = (e as CustomEvent<KupImageListEventPayload>).detail
+                    .details.cell.value;
         }
         cell.value = value?.toString();
         cell.displayedValue = null;

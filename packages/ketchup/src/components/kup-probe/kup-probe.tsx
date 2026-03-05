@@ -255,14 +255,14 @@ export class KupProbe {
     private longCycleObjects() {
         let b: boolean = null;
         for (let index = 0; index < 1000000; index++) {
-            b = this.kupManager.objects.isNumber({ t: 'NR', p: '', k: '' });
+            b = this.kupManager.objects.isNumber({ t: 'NR', p: '' });
         }
     }
 
     private longCycleObjectsFunction() {
         let b: boolean = null;
         for (let index = 0; index < 1000000; index++) {
-            b = isNumber({ t: 'NR', p: '', k: '' });
+            b = isNumber({ t: 'NR', p: '' });
         }
         function isNumber(obj: KupObj): boolean {
             if (obj == null) return false;
