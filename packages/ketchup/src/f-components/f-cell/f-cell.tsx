@@ -145,7 +145,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
-            setCellSizeKup(cellType, subcomponentProps, cell);
+            setCellSizeKup(cellType, subcomponentProps, cell, column);
         }
         if (!props.renderKup) {
             const lazyClass = 'cell-' + cellType + ' placeholder';
@@ -295,7 +295,11 @@ const handleMouseEnter = (
 
 const handleMouseLeave = (event: MouseEvent) => {
     const parent = event.currentTarget as HTMLElement;
-    const iconContainer = parent.querySelector('kup-image');
+    // only remove the action icon we added on mouse enter, not the first
+    // kup-image in the cell (which might be the BAR/IMAGE itself)
+    const iconContainer = parent.querySelector(
+        'kup-image.f-cell__iconfunction'
+    );
 
     if (iconContainer) {
         iconContainer.remove();
@@ -607,12 +611,16 @@ function setCellSize(
 function setCellSizeKup(
     cellType: string,
     subcomponentProps: unknown,
-    cell: KupDataCell
+    cell: KupDataCell,
+    column: KupDataColumn
 ) {
     switch (cellType) {
         case FCellTypes.BAR:
             if (!(subcomponentProps as FImageProps).sizeY) {
                 (subcomponentProps as FImageProps).sizeY = '26px';
+            }
+            if (!(subcomponentProps as FImageProps).sizeX && column.size) {
+                (subcomponentProps as FImageProps).sizeX = column.size;
             }
             break;
         case FCellTypes.BUTTON:

@@ -1094,7 +1094,7 @@ export function create14(component: KupCard): VNode {
                         buttonsIds.includes(
                             KupColumnMenuIds.BUTTON_OPEN_IN_NEW
                         ) ||
-                        buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                        buttonsIds.includes(KupColumnMenuIds.BUTTON_PREVIEW) ? (
                             <div class="top">
                                 {textArray[0] ? (
                                     <div class="title">
@@ -1110,7 +1110,7 @@ export function create14(component: KupCard): VNode {
                                     KupColumnMenuIds.BUTTON_OPEN_IN_NEW
                                 ) ||
                                 buttonsIds.includes(
-                                    KupColumnMenuIds.BUTTON_SEARCH
+                                    KupColumnMenuIds.BUTTON_PREVIEW
                                 ) ? (
                                     <div class="buttons">
                                         {buttonsIds.includes(
@@ -1125,13 +1125,13 @@ export function create14(component: KupCard): VNode {
                                             />
                                         ) : null}
                                         {buttonsIds.includes(
-                                            KupColumnMenuIds.BUTTON_SEARCH
+                                            KupColumnMenuIds.BUTTON_PREVIEW
                                         ) ? (
                                             <kup-button
                                                 {...buttonArray.find(
                                                     (x) =>
                                                         x.id ===
-                                                        KupColumnMenuIds.BUTTON_SEARCH
+                                                        KupColumnMenuIds.BUTTON_PREVIEW
                                                 )}
                                             />
                                         ) : null}
@@ -1432,7 +1432,7 @@ export function create15(component: KupCard): VNode {
     const isReservedID = (id: string) => {
         return (
             id === KupColumnMenuIds.BUTTON_OPEN_IN_NEW ||
-            id === KupColumnMenuIds.BUTTON_SEARCH ||
+            id === KupColumnMenuIds.BUTTON_PREVIEW ||
             id === KupColumnMenuIds.BUTTON_COPY_OBJ
         );
     };
@@ -1491,7 +1491,7 @@ export function create15(component: KupCard): VNode {
                 <div class="sub-1">
                     {textArray[0] ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
-                    buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_PREVIEW) ||
                     buttonsIds.includes(KupColumnMenuIds.BUTTON_COPY_OBJ) ? (
                         <div class="top">
                             {textArray[0] ? (
@@ -1508,7 +1508,7 @@ export function create15(component: KupCard): VNode {
                                 KupColumnMenuIds.BUTTON_OPEN_IN_NEW
                             ) ||
                             buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_SEARCH
+                                KupColumnMenuIds.BUTTON_PREVIEW
                             ) ||
                             buttonsIds.includes(
                                 KupColumnMenuIds.BUTTON_COPY_OBJ
@@ -1526,13 +1526,13 @@ export function create15(component: KupCard): VNode {
                                         />
                                     ) : null}
                                     {buttonsIds.includes(
-                                        KupColumnMenuIds.BUTTON_SEARCH
+                                        KupColumnMenuIds.BUTTON_PREVIEW
                                     ) ? (
                                         <kup-button
                                             {...buttonArray.find(
                                                 (x) =>
                                                     x.id ===
-                                                    KupColumnMenuIds.BUTTON_SEARCH
+                                                    KupColumnMenuIds.BUTTON_PREVIEW
                                             )}
                                         />
                                     ) : null}
