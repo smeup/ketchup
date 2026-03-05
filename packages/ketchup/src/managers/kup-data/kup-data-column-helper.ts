@@ -370,8 +370,9 @@ function newColumnFromMath(
         ...firstColumn,
         name: newName,
         title: title ? title : newTitle,
-        obj: newObj,
+        obj: newObj ?? { t: '', p: '', k: '' },
         resultOf: formula,
+        visible: true,
     };
     dataset.columns.splice(
         dataset.columns.indexOf(firstColumn) + 1,
