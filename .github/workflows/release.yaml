@@ -6,6 +6,7 @@ on:
 
 env:
   AWS_REGION: eu-south-1
+  PUPPETEER_SKIP_DOWNLOAD: "true"
 
 jobs:
   ketchup-release:
