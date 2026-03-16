@@ -2182,6 +2182,7 @@ export class KupInputPanel {
         if (cell.inputSettings?.checkObject) {
             const { valid } = await this.checkValidObjCallback({
                 obj: cell.obj,
+                value: cell.value,
                 currentState: this.#reverseMapCells(),
                 fun: (cell as KupInputPanelCell).fun,
             });

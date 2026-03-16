@@ -133,6 +133,7 @@ export type InputPanelOptionsHandler = (
 
 export type InputPanelCheckValidObjCallback = (event: {
     obj: KupObj;
+    value: string;
     currentState: KupInputPanelData;
     fun?: string;
 }) => Promise<ValidCheckObjResponse>;
