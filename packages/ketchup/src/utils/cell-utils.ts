@@ -27,6 +27,9 @@ export function getCellValueForDisplay(
             return cell.displayedValue;
         }
     }
+    if (cell.decode) {
+        return cell.decode;
+    }
     let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
     if (cell != null) {
         cell.displayedValue = formattedValue;
