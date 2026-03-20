@@ -306,6 +306,7 @@ export class KupChip {
                         ...data,
                         {
                             id: value,
+                            value: value,
                         },
                     ];
                     await this.#performChangeEvent();
