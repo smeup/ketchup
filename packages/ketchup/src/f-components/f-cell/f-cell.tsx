@@ -104,7 +104,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     cell.data = mapData(cell, column) ?? cell.data;
 
-    const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
+    let _value = cell.decode || cell.value;
+
+    const valueToDisplay = props.previousValue !== _value ? _value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
@@ -202,7 +204,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     let cellTitle: string = null;
     if (dom.ketchup.debug.isDebug() && hasObj) {
-        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.value + ';';
+        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + _value + ';';
     } else if (cell.title != null && cell.title.trim() != '') {
         cellTitle = cell.title;
     }
