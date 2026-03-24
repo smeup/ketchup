@@ -1301,7 +1301,7 @@ function setKupCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
             const buttonProps: FButtonProps = {
-                label: cell.value,
+                label: cell.decode || cell.value,
                 icon: cell.icon,
                 placeholderIcon: cell.placeholderIcon,
                 title: column.title,
