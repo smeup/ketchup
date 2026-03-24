@@ -1643,8 +1643,6 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.IMAGE_LIST:
-                const obj = (e as CustomEvent<KupImageListEventPayload>).detail
-                    .details.cell.obj;
                 value = (e as CustomEvent<KupImageListEventPayload>).detail
                     .details.cell.value;
         }
