@@ -102,11 +102,13 @@ function sortGroupRows(
         const cell1: KupDataTableCell = {
             obj: r1.group.obj,
             value: r1.group.id,
+            decode: r1.group.label,
         };
 
         const cell2: KupDataTableCell = {
             obj: r2.group.obj,
             value: r2.group.id,
+            decode: r2.group.label,
         };
 
         return compareCell(cell1, cell2, sortObject.sortMode);

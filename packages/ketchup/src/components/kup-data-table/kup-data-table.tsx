@@ -6160,7 +6160,8 @@ export class KupDataTable {
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
-                            ? previousRow.cells[name].value
+                            ? previousRow.cells[name].decode ||
+                              previousRow.cells[name].value
                             : undefined,
                     renderKup: this.lazyLoadCells,
                     cellActionIcon: this.#kupManager.data.cell.hasActionCell(
