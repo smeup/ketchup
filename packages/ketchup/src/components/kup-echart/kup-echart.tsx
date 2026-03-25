@@ -1576,6 +1576,8 @@ export class KupEchart {
                     data: this.#kupManager.math.normalDistribution(values),
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     showSymbol: false,
@@ -1591,6 +1593,8 @@ export class KupEchart {
                     data: values,
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     stack: this.stacked ? 'total' : undefined,
@@ -1603,6 +1607,8 @@ export class KupEchart {
                     data: values,
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     type: 'scatter',
@@ -1617,6 +1623,8 @@ export class KupEchart {
                     ),
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     type: 'line',
@@ -1755,7 +1763,9 @@ export class KupEchart {
                       data: isHorizontal ? x : undefined,
                       type: isHorizontal ? 'category' : 'value',
                       axisLabel: {
-                          formatter: axisLabelFormatter,
+                          ...(isHorizontal
+                              ? {}
+                              : { formatter: axisLabelFormatter }),
                       },
                       min: this.axisYMin,
                       max: this.axisYMax,
@@ -1771,7 +1781,9 @@ export class KupEchart {
                       data: isHorizontal ? x : undefined,
                       type: isHorizontal ? 'category' : 'value',
                       axisLabel: {
-                          formatter: axisLabelFormatter,
+                          ...(isHorizontal
+                              ? {}
+                              : { formatter: axisLabelFormatter }),
                       },
                       min: this.axisYMin,
                       max: this.axisYMax,
@@ -1795,7 +1807,9 @@ export class KupEchart {
                 data: isHorizontal ? undefined : x,
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
-                    formatter: axisLabelFormatter,
+                    ...(isHorizontal
+                        ? { formatter: axisLabelFormatter }
+                        : {}),
                     ...this.#buildResponsiveAxisLabel(x),
                 },
                 ...this.xAxis,
