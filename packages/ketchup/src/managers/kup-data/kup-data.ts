@@ -274,6 +274,7 @@ export class KupData {
                     cellActions.push({
                         icon: command.icon,
                         text: command.text,
+                        originalText: command.originalText,
                         obj: command.obj,
                         cell: currentCell,
                         index: index,

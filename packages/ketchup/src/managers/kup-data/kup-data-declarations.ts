@@ -66,6 +66,7 @@ export interface KupDataRowCells {
 }
 export interface KupDataRowAction {
     text: string;
+    originalText?: string;
     icon: string;
     type:
         | DropDownAction.CODVER
@@ -86,6 +87,7 @@ export interface KupCommand {
     value: string;
     icon: string;
     text: string;
+    originalText?: string;
     showIcon: boolean;
 }
 

@@ -6179,7 +6179,6 @@ export class KupDataTable {
                           }
                         : null,
                 };
-
                 const jsxCell = <FCell {...fcell}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
