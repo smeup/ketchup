@@ -9,12 +9,11 @@ export function getIdOfItemByDisplayMode(
     mode: ItemsDisplayMode,
     separator: string
 ): string {
-    const { id, value } = item;
-
-    if (id == null && value) {
-        return value;
+    const { id, value, decode } = item;
+    if (id == null && (decode || value)) {
+        return decode || value;
     }
-    if (id && value == null) {
+    if (id && decode == null && value == null) {
         return id;
     }
 
@@ -22,12 +21,16 @@ export function getIdOfItemByDisplayMode(
         case ItemsDisplayMode.CODE:
             return id;
         case ItemsDisplayMode.DESCRIPTION:
-            return value;
+            return decode || value;
         case ItemsDisplayMode.CODE_AND_DESC:
         case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
-            return id && value ? id + separator + value : id || value;
+            return id && (decode || value)
+                ? id + separator + (decode || value)
+                : id || decode || value;
         case ItemsDisplayMode.DESC_AND_CODE:
-            return value && id ? value + separator + id : value || id;
+            return (decode || value) && id
+                ? (decode || value) + separator + id
+                : decode || value || id;
         default:
             return id;
     }

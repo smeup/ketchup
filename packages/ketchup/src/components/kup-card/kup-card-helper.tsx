@@ -233,6 +233,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                             icon: node.icon,
                             placeholderIcon: node.placeholderIcon,
                             value: node.value,
+                            decode: node.decode,
                             obj: node.obj,
                             id: key,
                         });
@@ -244,6 +245,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                             icon: node.icon,
                             placeholderIcon: node.placeholderIcon,
                             label: node.value,
+                            decode: node.decode,
                             obj: node.obj,
                             value: key,
                         },

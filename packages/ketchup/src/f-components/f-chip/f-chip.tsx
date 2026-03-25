@@ -147,7 +147,7 @@ function createChipList(
         }
 
         function createChip(chip: KupChipNode, disabled: boolean): VNode {
-            const onlyIcon = !!(chip.icon && !chip.value);
+            const onlyIcon = !!(chip.icon && !chip.value && !chip.decode);
             let componentClass: string = `chip ${
                 onlyIcon ? 'chip--only-icon' : ''
             } ${disabled ? 'chip--disabled' : ''}`;
@@ -195,7 +195,9 @@ function createChipList(
 
             let chipText: string = getIdOfItemByDisplayMode(
                 chip,
-                chip.value == '' ? ItemsDisplayMode.CODE : props.DescrMode,
+                !chip.value && !chip.decode
+                    ? ItemsDisplayMode.CODE
+                    : props.DescrMode,
                 ' - '
             );
 

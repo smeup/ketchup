@@ -292,6 +292,7 @@ export class KupChip {
                     {
                         id: node.id,
                         value: node.value,
+                        decode: node.decode,
                     },
                 ];
                 await this.#performChangeEvent();
