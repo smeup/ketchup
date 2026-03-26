@@ -103,6 +103,13 @@ $editorFontMono: var(
   sans-serif
 );
 
+#kup-component {
+  a[data-type][data-type][data-type] {
+    all: unset;
+    display: inline;
+  }
+}
+
 kup-editor {
   display: block;
 
