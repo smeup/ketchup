@@ -21,7 +21,7 @@ export function getIdOfItemByDisplayMode(
         case ItemsDisplayMode.CODE:
             return id;
         case ItemsDisplayMode.DESCRIPTION:
-            return decode || value;
+            return decode || value || id;
         case ItemsDisplayMode.CODE_AND_DESC:
         case ItemsDisplayMode.CODE_AND_DESC_ALIAS:
             return id && (decode || value)

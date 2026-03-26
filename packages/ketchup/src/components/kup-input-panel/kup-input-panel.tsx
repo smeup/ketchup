@@ -878,7 +878,9 @@ export class KupInputPanel {
 
         const value = isFormattableType
             ? getCellValueForDisplay(column, cell)
-            : cell.value;
+            : cell.decode
+              ? cell.decode
+              : cell.value;
 
         return (
             <span class={classList.join(' ')} id={column.name}>
@@ -1567,7 +1569,7 @@ export class KupInputPanel {
         }
 
         return {
-            label: cell.value,
+            label: cell.decode ? cell.decode : cell.value,
             fun: cell.fun,
             ...cell.data,
         };
