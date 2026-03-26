@@ -334,6 +334,18 @@ export class KupEchart {
                 })[0];
             } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
+            } else if (e.seriesType === 'pie') {
+                // Data are grouped than i need to return a right row not obtained by using dataIndex.
+                row = structuredClone(
+                    this.data.rows.find(
+                        (r) => r.cells[this.axis]?.value === e.name
+                    )
+                );
+                // I need to set the value of the cell related to the series, by using the value calculated
+                // inside #setPieOptions method
+                row.cells[this.series[0]].obj.k = row.cells[
+                    this.series[0]
+                ].value = e.value.toString();
             } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
             }
@@ -1566,6 +1578,8 @@ export class KupEchart {
                     data: this.#kupManager.math.normalDistribution(values),
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     showSymbol: false,
@@ -1581,6 +1595,8 @@ export class KupEchart {
                     data: values,
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     stack: this.stacked ? 'total' : undefined,
@@ -1593,6 +1609,8 @@ export class KupEchart {
                     data: values,
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     type: 'scatter',
@@ -1607,6 +1625,8 @@ export class KupEchart {
                     ),
                     label: {
                         show: this.showMarks,
+                        formatter: (params: any) =>
+                            this.#formatTooltipValue(params.value),
                     },
                     name: key,
                     type: 'line',
@@ -1745,7 +1765,9 @@ export class KupEchart {
                       data: isHorizontal ? x : undefined,
                       type: isHorizontal ? 'category' : 'value',
                       axisLabel: {
-                          formatter: axisLabelFormatter,
+                          ...(isHorizontal
+                              ? {}
+                              : { formatter: axisLabelFormatter }),
                       },
                       min: this.axisYMin,
                       max: this.axisYMax,
@@ -1761,7 +1783,9 @@ export class KupEchart {
                       data: isHorizontal ? x : undefined,
                       type: isHorizontal ? 'category' : 'value',
                       axisLabel: {
-                          formatter: axisLabelFormatter,
+                          ...(isHorizontal
+                              ? {}
+                              : { formatter: axisLabelFormatter }),
                       },
                       min: this.axisYMin,
                       max: this.axisYMax,
@@ -1785,7 +1809,9 @@ export class KupEchart {
                 data: isHorizontal ? undefined : x,
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
-                    formatter: axisLabelFormatter,
+                    ...(isHorizontal
+                        ? { formatter: axisLabelFormatter }
+                        : {}),
                     ...this.#buildResponsiveAxisLabel(x),
                 },
                 ...this.xAxis,
