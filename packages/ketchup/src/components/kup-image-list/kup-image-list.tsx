@@ -285,7 +285,7 @@ export class KupImageList {
 
         const image = <FImage {...props}></FImage>;
         const label = (
-            <div class="image-list__label">{node.decode || node.value}</div>
+            <div class="image-list__label">{node.decode ?? node.value}</div>
         );
 
         const hasExternalResource =

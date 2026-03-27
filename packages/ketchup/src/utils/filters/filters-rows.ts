@@ -44,7 +44,7 @@ export class FiltersRows extends Filters {
         }
 
         return this.isFilterCompliantForSimpleValue(
-            cellValue.decode || cellValue.value,
+            cellValue.decode ?? cellValue.value,
             cellValue.obj,
             filterValue,
             isGlobalFilter
@@ -63,7 +63,7 @@ export class FiltersRows extends Filters {
             return false;
         }
         return this.isFilterCompliantForSimpleValue(
-            cellValue.decode || cellValue.value,
+            cellValue.decode ?? cellValue.value,
             cellValue.obj,
             filterValue,
             isGlobalFilter
@@ -120,7 +120,7 @@ export class FiltersRows extends Filters {
                         continue;
                     }
                     retValue = this.isFilterCompliantForValue(
-                        cell.decode || cell.value,
+                        cell.decode ?? cell.value,
                         globalFilter,
                         isGlobalFilter
                     );
@@ -128,7 +128,7 @@ export class FiltersRows extends Filters {
                         columns[i],
                         cell
                     );
-                    if (displayedValue != (cell.decode || cell.value)) {
+                    if (displayedValue != (cell.decode ?? cell.value)) {
                         retValue =
                             retValue ||
                             this.isFilterCompliantForValue(

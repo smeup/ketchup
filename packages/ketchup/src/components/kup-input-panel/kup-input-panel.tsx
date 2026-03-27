@@ -1569,7 +1569,7 @@ export class KupInputPanel {
         }
 
         return {
-            label: cell.decode ? cell.decode : cell.value,
+            label: cell.decode ?? cell.value,
             fun: cell.fun,
             ...cell.data,
         };

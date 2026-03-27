@@ -181,7 +181,7 @@ export class KupToolbar {
                 ) : (
                     <FImage resource="empty" sizeX="14px" sizeY="14px" />
                 )}
-                {node.decode || node.value}
+                {node.decode ?? node.value}
             </div>
         );
 

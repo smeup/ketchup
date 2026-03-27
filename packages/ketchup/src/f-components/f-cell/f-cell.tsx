@@ -89,10 +89,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const shape = props.shape
         ? props.shape
         : cell.shape
-        ? cell.shape
-        : column.shape
-        ? column.shape
-        : null;
+          ? cell.shape
+          : column.shape
+            ? column.shape
+            : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
@@ -104,7 +104,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     cell.data = mapData(cell, column) ?? cell.data;
 
-    let _value = cell.decode || cell.value;
+    let _value = cell.decode ?? cell.value;
 
     const valueToDisplay = props.previousValue !== _value ? _value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
@@ -114,8 +114,8 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column?.cssClass
-        ? column?.cssClass
-        : '';
+          ? column?.cssClass
+          : '';
 
     const classObj: Record<string, boolean> = {
         'f-cell': true,
@@ -1089,8 +1089,8 @@ function setEditableCell(
                             cell.data.sizing
                                 ? cell.data.sizing
                                 : isTextArea
-                                ? KupComponentSizing.EXTRA_LARGE
-                                : KupComponentSizing.SMALL
+                                  ? KupComponentSizing.EXTRA_LARGE
+                                  : KupComponentSizing.SMALL
                         }
                         inputType={type}
                         fullWidth={isFullWidth(props) ? true : false}
@@ -1107,10 +1107,10 @@ function setEditableCell(
                             cell.data && cell.data.icon
                                 ? cell.data.icon
                                 : cell.icon
-                                ? cell.icon
-                                : column.icon
-                                ? column.icon
-                                : null
+                                  ? cell.icon
+                                  : column.icon
+                                    ? column.icon
+                                    : null
                         }
                         decimals={props.column.decimals}
                         integers={props.column.integers}
@@ -1161,8 +1161,11 @@ function setCell(
         case FCellTypes.DATETIME:
         case FCellTypes.TIME:
             if (content && content != '') {
-                const cellValue = getCellValueForDisplay(column, cell);
-                return <div class="f-cell__text">{cellValue}</div>;
+                return (
+                    <div class="f-cell__text">
+                        {getCellValueForDisplay(column, cell)}
+                    </div>
+                );
             }
             return content;
         case FCellTypes.CHECKBOX:
@@ -1182,7 +1185,7 @@ function setCell(
             );
         case FCellTypes.EDITOR:
         case FCellTypes.MEMO:
-            return <div innerHTML={cell.value}></div>;
+            return <div innerHTML={getCellValueForDisplay(column, cell)}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -1204,7 +1207,7 @@ function setCell(
         case FCellTypes.LINK:
             return (
                 <a href={content as string} target="_blank">
-                    {cell.value}
+                    {getCellValueForDisplay(column, cell)}
                 </a>
             );
         case FCellTypes.NUMBER:
@@ -1235,7 +1238,7 @@ function setCell(
             return (
                 <FLabel
                     style={cell.style}
-                    text={cell.decode || cell.value}
+                    text={getCellValueForDisplay(column, cell)}
                     classes="f-cell__text"
                 ></FLabel>
             );
@@ -1300,8 +1303,14 @@ function setKupCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
+            let label = cell.decode;
+            if (!label) {
+                if (!cell.icon && !cell.placeholderIcon) {
+                    label = cell.value;
+                }
+            }
             const buttonProps: FButtonProps = {
-                label: cell.decode || cell.value,
+                label: label,
                 icon: cell.icon,
                 placeholderIcon: cell.placeholderIcon,
                 title: column.title,
