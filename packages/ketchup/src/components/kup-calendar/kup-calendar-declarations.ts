@@ -12,6 +12,7 @@ export enum KupCalendarProps {
     currentDate = 'Sets the date of the calendar. Must be in ISO format (YYYY-MM-DD).',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the calendar.',
+    dataFormula = 'Formula to calculate and display on each day cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.',
     editableEvents = 'When true, events are editable.',
     hideNavigation = "When disabled, the navigation toolbar won't be displayed.",
     viewType = 'Type of the view.',
@@ -58,7 +59,8 @@ export interface KupCalendarData {
 export interface KupCalendarEventClickEventPayload extends KupEventPayload {
     row: KupDataRow;
 }
-export interface KupCalendarEventContextMenuEventPayload extends KupEventPayload {
+export interface KupCalendarEventContextMenuEventPayload
+    extends KupEventPayload {
     row: KupDataRow;
     k01: KupDataColumn;
     el: HTMLElement;

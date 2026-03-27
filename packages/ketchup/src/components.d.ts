@@ -782,6 +782,11 @@ export namespace Components {
          */
         "data": KupCalendarData;
         /**
+          * Formula to calculate and display on each day cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * @default null
+         */
+        "dataFormula": string;
+        /**
           * When true, events are editable.
           * @default true
          */
@@ -6951,6 +6956,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupCalendarData;
+        /**
+          * Formula to calculate and display on each day cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * @default null
+         */
+        "dataFormula"?: string;
         /**
           * When true, events are editable.
           * @default true
