@@ -37,13 +37,13 @@ export default JSON.parse(`
             "FLD1": {
               "readOnly": true,
               "obj": {
-                "t": "CN",
-                "p": "COL",
-                "k": "KEKBUR"
-              },
+  t: "CN",
+  p: "COL"
+},
               "style": "",
               "type": "itx / acp / etc...",
-              "value": "mickey mouse"
+              "decode": "mickey mouse",
+              "value": "KEKBUR"
             },
             "FLD2": {
               "value": "value 2"

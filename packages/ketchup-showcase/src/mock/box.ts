@@ -6,7 +6,6 @@ export const defaultData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -19,7 +18,6 @@ export const defaultData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -39,36 +37,34 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Blue Flowers',
           },
           data: {
             resource: 'images/blueflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/blueflowers.JPG',
+          value: 'AR;ART;Blue Flowers',
+          decode: 'images/blueflowers.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Blue Flowers',
           },
-          value: 'Blue flowers',
+          value: 'Blue Flowers',
+          decode: 'Blue flowers',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
-          value: '300',
+          value: '3',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200301',
           },
           value: '2020-03-01',
         },
@@ -81,20 +77,19 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Wooden heart',
           },
           data: {
             resource: 'images/woodheart.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/woodheart.JPG',
+          value: 'AR;ART;Wooden heart',
+          decode: 'images/woodheart.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Wooden heart',
           },
           value: 'Wooden heart',
         },
@@ -102,7 +97,6 @@ export const defaultData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '800',
           },
           value: '800',
         },
@@ -110,7 +104,6 @@ export const defaultData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200205',
           },
           value: '2020-02-05',
         },
@@ -123,20 +116,19 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Purple flowers',
           },
           data: {
             resource: 'images/purpleflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/purpleflowers.JPG',
+          value: 'AR;ART;Purple flowers',
+          decode: 'images/purpleflowers.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Purple flowers',
           },
           value: 'Purple flowers',
         },
@@ -144,7 +136,6 @@ export const defaultData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
           },
           value: '12',
         },
@@ -152,7 +143,6 @@ export const defaultData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20211231',
           },
           value: '2021-12-31',
         },
@@ -165,20 +155,19 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Red flowers',
           },
           data: {
             resource: 'images/redflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/redflowers.JPG',
+          value: 'AR;ART;Red flowers',
+          decode: 'images/redflowers.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Red flowers',
           },
           value: 'Red flowers',
         },
@@ -186,7 +175,6 @@ export const defaultData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '521',
           },
           value: '521',
         },
@@ -194,7 +182,6 @@ export const defaultData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200606',
           },
           value: '2020-06-06',
         },
@@ -211,7 +198,6 @@ export const j4btnData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -224,7 +210,6 @@ export const j4btnData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -233,7 +218,6 @@ export const j4btnData = {
       obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
       },
     },
   ],
@@ -244,20 +228,19 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Florence',
           },
           data: {
             resource: 'images/Florence.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Florence.jpg',
+          value: 'AR;ART;Florence',
+          decode: 'images/Florence.jpg',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Florence',
           },
           value: 'Florence',
         },
@@ -265,7 +248,6 @@ export const j4btnData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Hotel Red',
           },
           value: 'Hotel Red',
         },
@@ -273,13 +255,13 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Florence)',
           },
           data: {
             label: 'Book',
             icon: 'pencil',
           },
-          value: 'Book',
+          value: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Florence)',
+          decode: 'Book',
         },
       },
     },
@@ -289,20 +271,19 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Parme',
           },
           data: {
             resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Parme.JPG',
+          value: 'AR;ART;Parme',
+          decode: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Parme',
           },
           value: 'Parme',
         },
@@ -310,7 +291,6 @@ export const j4btnData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Hotel Blue',
           },
           value: 'Hotel Blue',
         },
@@ -318,14 +298,14 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Parme)',
           },
           data: {
             icon: 'pencil',
             label: 'Book',
             showtext: true,
           },
-          value: 'Book',
+          value: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Parme)',
+          decode: 'Book',
         },
       },
     },
@@ -335,20 +315,19 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Milan',
           },
           data: {
             resource: 'images/Milan.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Milan.jpg',
+          value: 'AR;ART;Milan',
+          decode: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Milan',
           },
           value: 'Milan',
         },
@@ -356,7 +335,6 @@ export const j4btnData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Hotel Green',
           },
           value: 'Hotel Green',
         },
@@ -364,14 +342,14 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Milan)',
           },
           data: {
             label: 'Book',
             icon: 'pencil',
             showtext: true,
           },
-          value: 'Book',
+          value: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Milan)',
+          decode: 'Book',
         },
       },
     },
@@ -381,20 +359,19 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Rome',
           },
           data: {
             resource: 'images/Rome.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Rome.jpg',
+          value: 'AR;ART;Rome',
+          decode: 'images/Rome.jpg',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Rome',
           },
           value: 'Rome',
         },
@@ -402,7 +379,6 @@ export const j4btnData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Hotel Yellow',
           },
           value: 'Hotel Yellow',
         },
@@ -410,13 +386,13 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Rome)',
           },
           data: {
             label: 'Book',
             icon: 'pencil',
           },
-          value: 'Book',
+          value: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Rome)',
+          decode: 'Book',
         },
       },
     },
@@ -435,7 +411,6 @@ export const v2sinoData = {
       obj: {
         t: 'V2',
         p: 'SI/NO',
-        k: '',
       },
     },
   ],
@@ -446,7 +421,6 @@ export const v2sinoData = {
           obj: {
             t: '',
             p: '',
-            k: 'Not selected',
           },
           value: 'Not selected',
         },
@@ -454,7 +428,6 @@ export const v2sinoData = {
           obj: {
             t: 'V2',
             p: 'SI/NO',
-            k: '',
           },
           value: '',
         },
@@ -466,7 +439,6 @@ export const v2sinoData = {
           obj: {
             t: '',
             p: '',
-            k: 'Selected',
           },
           value: 'Selected',
         },
@@ -474,7 +446,6 @@ export const v2sinoData = {
           obj: {
             t: 'V2',
             p: 'SI/NO',
-            k: '1',
           },
           value: '1',
         },
@@ -495,7 +466,6 @@ export const v2radioData = {
       obj: {
         t: 'V2',
         p: 'RADIO',
-        k: '',
       },
     },
   ],
@@ -506,7 +476,6 @@ export const v2radioData = {
           obj: {
             t: '',
             p: '',
-            k: 'Not selected',
           },
           value: 'Not selected',
         },
@@ -514,7 +483,6 @@ export const v2radioData = {
           obj: {
             t: 'V2',
             p: 'RADIO',
-            k: '',
           },
           value: '',
         },
@@ -526,7 +494,6 @@ export const v2radioData = {
           obj: {
             t: '',
             p: '',
-            k: 'Selected',
           },
           value: 'Selected',
         },
@@ -534,7 +501,6 @@ export const v2radioData = {
           obj: {
             t: 'V2',
             p: 'RADIO',
-            k: '1',
           },
           value: '1',
         },
@@ -555,7 +521,6 @@ export const j1pwdData = {
       obj: {
         t: 'J1',
         p: 'PWD',
-        k: '',
       },
     },
   ],
@@ -566,7 +531,6 @@ export const j1pwdData = {
           obj: {
             t: '',
             p: '',
-            k: 'Empty password',
           },
           value: 'Empty password',
         },
@@ -574,7 +538,6 @@ export const j1pwdData = {
           obj: {
             t: 'J1',
             p: 'PWD',
-            k: '',
           },
           value: '',
         },
@@ -586,7 +549,6 @@ export const j1pwdData = {
           obj: {
             t: '',
             p: '',
-            k: 'A password',
           },
           value: 'A password',
         },
@@ -594,7 +556,6 @@ export const j1pwdData = {
           obj: {
             t: 'J1',
             p: 'PWD',
-            k: 'sample password',
           },
           value: 'sample password',
         },
@@ -611,7 +572,6 @@ export const imgBadgeData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -624,7 +584,6 @@ export const imgBadgeData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -639,7 +598,6 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Purple Flowers',
           },
           data: {
             resource: 'images/purpleflowers.JPG',
@@ -652,13 +610,13 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/purpleflowers.JPG',
+          value: 'AR;ART;Purple Flowers',
+          decode: 'images/purpleflowers.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Purple Flowers',
           },
           value: 'Purple Flowers',
         },
@@ -666,7 +624,6 @@ export const imgBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
           },
           value: '12',
         },
@@ -674,7 +631,6 @@ export const imgBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20201231',
           },
           value: '2020-12-31',
         },
@@ -686,7 +642,6 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Milan',
           },
           data: {
             resource: 'images/Milan.jpg',
@@ -694,18 +649,20 @@ export const imgBadgeData = {
             sizeY: '64px',
             badgeData: [
               {
-                imageData: { resource: 'account' },
+                imageData: {
+                  resource: 'account',
+                },
                 className: 'bottom-right',
               },
             ],
           },
-          value: 'images/Milan.jpg',
+          value: 'AR;ART;Milan',
+          decode: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Milan',
           },
           value: 'Milan',
         },
@@ -713,7 +670,6 @@ export const imgBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -721,7 +677,6 @@ export const imgBadgeData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Guest',
           },
           value: 'Guest',
         },
@@ -733,7 +688,6 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'AR;ART;Parme',
           },
           data: {
             resource: 'images/Parme.JPG',
@@ -745,18 +699,20 @@ export const imgBadgeData = {
                 className: 'top-right',
               },
               {
-                imageData: { resource: 'widgets' },
+                imageData: {
+                  resource: 'widgets',
+                },
                 className: 'bottom-right',
               },
             ],
           },
-          value: 'images/Parme.JPG',
+          value: 'AR;ART;Parme',
+          decode: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'Shopping center',
           },
           value: 'Shopping center',
         },
@@ -764,7 +720,6 @@ export const imgBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '16',
           },
           value: '16',
         },
@@ -772,7 +727,6 @@ export const imgBadgeData = {
           obj: {
             t: 'N',
             p: '',
-            k: '43100',
           },
           value: '43100',
         },
@@ -784,7 +738,6 @@ export const imgBadgeData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'SANCOS',
           },
           shape: 'IMG',
           data: {
@@ -797,18 +750,20 @@ export const imgBadgeData = {
                 className: 'top-left',
               },
               {
-                imageData: { resource: 'account' },
+                imageData: {
+                  resource: 'account',
+                },
                 className: 'bottom-left',
               },
             ],
           },
-          value: 'https://placehold.co/64?text=SC',
+          value: 'SANCOS',
+          decode: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'SANCOS',
           },
           value: 'SANCOS',
         },
@@ -816,7 +771,6 @@ export const imgBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '187.59',
           },
           value: '187.59',
         },
@@ -824,7 +778,6 @@ export const imgBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180104',
           },
           value: '2018-01-04',
         },
@@ -841,7 +794,6 @@ export const pgbData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -854,7 +806,6 @@ export const pgbData = {
       obj: {
         t: 'J4',
         p: 'PGB',
-        k: '',
       },
     },
   ],
@@ -865,20 +816,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;SANCOS',
           },
           data: {
             resource: 'https://placehold.co/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=SC',
+          value: 'CN;COL;SANCOS',
+          decode: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #1',
           },
           value: 'Todo #1',
         },
@@ -886,7 +836,6 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '80',
           },
           data: {
             value: '80',
@@ -901,20 +850,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=CF',
+          value: 'CN;COL;CASFRA',
+          decode: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #2',
           },
           value: 'Todo #2',
         },
@@ -922,13 +870,13 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '100\\*LAB;Done',
           },
           data: {
             label: 'Done',
             value: '100',
           },
-          value: '100',
+          value: '100\\*LAB;Done',
+          decode: '100',
         },
       },
     },
@@ -938,20 +886,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
           },
           data: {
             resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=DG',
+          value: 'CN;COL;DELGIO',
+          decode: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #3',
           },
           value: 'Todo #3',
         },
@@ -959,7 +906,6 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '75',
           },
           data: {
             hideLabel: true,
@@ -975,20 +921,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=PF',
+          value: 'CN;COL;PARFRA',
+          decode: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #4',
           },
           value: 'Todo #4',
         },
@@ -996,7 +941,6 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '#C01BAF;33',
           },
           data: {
             customStyle:
@@ -1004,7 +948,8 @@ export const pgbData = {
             backgroundColor: 'black',
             value: '33',
           },
-          value: '33',
+          value: '#C01BAF;33',
+          decode: '33',
         },
       },
     },
@@ -1014,20 +959,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=PF',
+          value: 'CN;COL;PARFRA',
+          decode: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #5',
           },
           value: 'Todo #5',
         },
@@ -1035,14 +979,14 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '#C01BAF;45',
           },
           data: {
             value: '45',
             customStyle:
               ':host{--kup-disabled-background-color: magenta; --kup-primary-color: yellow}',
           },
-          value: '45',
+          value: '#C01BAF;45',
+          decode: '45',
         },
       },
     },
@@ -1052,20 +996,19 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=PF',
+          value: 'CN;COL;PARFRA',
+          decode: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #6',
           },
           value: 'Todo #6',
         },
@@ -1073,12 +1016,12 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '#C01BAF;70',
           },
           data: {
             value: '70',
           },
-          value: '70',
+          value: '#C01BAF;70',
+          decode: '70',
         },
       },
     },
@@ -1093,7 +1036,6 @@ export const boxBadgeData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -1106,7 +1048,6 @@ export const boxBadgeData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1122,20 +1063,19 @@ export const boxBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=CF',
+          value: 'CN;COL;CASFRA',
+          decode: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
           },
           value: 'CASFRA',
         },
@@ -1143,7 +1083,6 @@ export const boxBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -1151,7 +1090,6 @@ export const boxBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
           },
           value: '2018-01-01',
         },
@@ -1169,20 +1107,19 @@ export const boxBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=PF',
+          value: 'CN;COL;PARFRA',
+          decode: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
           },
           value: 'PARFRA',
         },
@@ -1190,7 +1127,6 @@ export const boxBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '145.22',
           },
           value: '145.22',
         },
@@ -1198,7 +1134,6 @@ export const boxBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
           },
           value: '2018-01-02',
         },
@@ -1217,20 +1152,19 @@ export const boxBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
           },
           data: {
             resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=DG',
+          value: 'CN;COL;DELGIO',
+          decode: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
           },
           value: 'DELGIO',
         },
@@ -1238,7 +1172,6 @@ export const boxBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '221.23',
           },
           value: '221.23',
         },
@@ -1246,7 +1179,6 @@ export const boxBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
           },
           value: '2018-01-03',
         },
@@ -1268,7 +1200,6 @@ export const shapeData = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
     {
@@ -1281,7 +1212,6 @@ export const shapeData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1297,26 +1227,27 @@ export const shapeData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
           },
-          value: 'https://placehold.co/64?text=CUSTOM',
+          value: 'PARFRA',
           data: {
             resource: 'https://placehold.co/64?text=CUSTOM',
             badgeData: [
               {
-                imageData: { resource: 'account' },
+                imageData: {
+                  resource: 'account',
+                },
                 className: 'bottom-right',
               },
             ],
             width: 20,
             height: 20,
           },
+          decode: 'https://placehold.co/64?text=CUSTOM',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #1',
           },
           value: 'Todo #1',
         },
@@ -1324,9 +1255,8 @@ export const shapeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: 'R200G100B002;89\\*LAB;Done',
           },
-          value: '89',
+          value: 'R200G100B002;89\\*LAB;Done',
         },
       },
       layout: {
@@ -1372,23 +1302,24 @@ export const shapeData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
           },
-          value: '',
+          value: 'CASFRA',
           data: {
             badgeData: [
               {
-                imageData: { resource: 'account' },
+                imageData: {
+                  resource: 'account',
+                },
                 className: 'top-left',
               },
             ],
           },
+          decode: '',
         },
         FLD2: {
           obj: {
             t: '',
             p: '',
-            k: 'Todo #2',
           },
           value: 'Todo #2',
         },
@@ -1396,7 +1327,6 @@ export const shapeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -1409,9 +1339,9 @@ export const shapeData = {
           obj: {
             t: 'AR',
             p: 'ART',
-            k: 'myhtml',
           },
-          value:
+          value: 'myhtml',
+          decode:
             '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b> e immagine <img src="https://picsum.photos/100/50"/></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
         },
       },
@@ -1442,7 +1372,6 @@ export function createData(rows: number) {
         obj: {
           t: 'J4',
           p: 'IMG',
-          k: '',
         },
       },
       {
@@ -1455,7 +1384,6 @@ export function createData(rows: number) {
         obj: {
           t: 'NR',
           p: '',
-          k: '',
         },
       },
       {
@@ -1476,20 +1404,19 @@ export function createData(rows: number) {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=CF',
+          value: 'CN;COL;CASFRA',
+          decode: 'https://placehold.co/64?text=CF',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
           },
           value: 'CASFRA',
         },
@@ -1497,7 +1424,6 @@ export function createData(rows: number) {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -1505,7 +1431,6 @@ export function createData(rows: number) {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
           },
           value: '2018-01-01',
         },
@@ -1519,20 +1444,19 @@ export function createData(rows: number) {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
           },
           data: {
             resource: 'https://placehold.co/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=PF',
+          value: 'CN;COL;PARFRA',
+          decode: 'https://placehold.co/64?text=PF',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
           },
           value: 'PARFRA',
         },
@@ -1540,7 +1464,6 @@ export function createData(rows: number) {
           obj: {
             t: 'NR',
             p: '',
-            k: '145.22',
           },
           value: '145.22',
         },
@@ -1548,7 +1471,6 @@ export function createData(rows: number) {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
           },
           value: '2018-01-02',
         },
@@ -1562,20 +1484,19 @@ export function createData(rows: number) {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
           },
           data: {
             resource: 'https://placehold.co/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=DG',
+          value: 'CN;COL;DELGIO',
+          decode: 'https://placehold.co/64?text=DG',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
           },
           value: 'DELGIO',
         },
@@ -1583,7 +1504,6 @@ export function createData(rows: number) {
           obj: {
             t: 'NR',
             p: '',
-            k: '221.23',
           },
           value: '221.23',
         },
@@ -1591,7 +1511,6 @@ export function createData(rows: number) {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
           },
           value: '2018-01-03',
         },
@@ -1605,20 +1524,19 @@ export function createData(rows: number) {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;SANCOS',
           },
           data: {
             resource: 'https://placehold.co/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'https://placehold.co/64?text=SC',
+          value: 'CN;COL;SANCOS',
+          decode: 'https://placehold.co/64?text=SC',
         },
         FLD2: {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'SANCOS',
           },
           value: 'SANCOS',
         },
@@ -1626,15 +1544,13 @@ export function createData(rows: number) {
           obj: {
             t: 'NR',
             p: '',
-            k: '187.59',
           },
-          value: '181.59',
+          value: '187.59',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20220104',
           },
           value: '2022-01-04',
         },

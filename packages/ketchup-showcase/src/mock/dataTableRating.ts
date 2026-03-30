@@ -16,7 +16,6 @@ export const ratingDataTable = {
           obj: {
             t: '**',
             p: '',
-            k: '',
           },
           value: '',
           shape: 'Rtg',
@@ -33,7 +32,6 @@ export const ratingDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
           options: false,
@@ -50,7 +48,6 @@ export const ratingDataTable = {
           obj: {
             t: '**',
             p: '',
-            k: '3',
           },
           value: '3',
           options: false,
@@ -67,7 +64,6 @@ export const ratingDataTable = {
           obj: {
             t: '**',
             p: '',
-            k: '4',
           },
           value: '4',
           options: false,
