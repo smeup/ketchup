@@ -137,9 +137,9 @@ export function compareCell(
 ): number {
     return compareValues(
         cell1.obj,
-        cell1.decode || cell1.value,
+        cell1.decode ?? cell1.value,
         cell2.obj,
-        cell2.decode || cell2.value,
+        cell2.decode ?? cell2.value,
         sortMode
     );
 }

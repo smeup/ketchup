@@ -297,7 +297,7 @@ export class KupCardList {
                 if (col) {
                     const cell = row.cells[col.name];
                     if (cell) {
-                        const value = cell.decode || cell.value;
+                        const value = cell.decode ?? cell.value;
                         switch (prop) {
                             case 'color':
                                 data[prop][index] =

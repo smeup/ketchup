@@ -86,7 +86,7 @@ export class FiltersTreeItems extends FiltersRows {
 
         if (isGlobalFilter == true) {
             retValue = this.isFilterCompliantForValue(
-                node.decode || node.value,
+                node.decode ?? node.value,
                 globalFilter,
                 isGlobalFilter
             );

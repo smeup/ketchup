@@ -6160,8 +6160,8 @@ export class KupDataTable {
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
-                            ? previousRow.cells[name].decode ||
-                              previousRow.cells[name].value
+                            ? (previousRow.cells[name].decode ??
+                              previousRow.cells[name].value)
                             : undefined,
                     renderKup: this.lazyLoadCells,
                     cellActionIcon: this.#kupManager.data.cell.hasActionCell(
@@ -6860,13 +6860,19 @@ export class KupDataTable {
     }
 
     #renderCommandButton(commandObj: KupDataCommand, styling: FButtonStyling) {
+        let label = commandObj.decode;
+        if (!label) {
+            if (!commandObj.icon && !commandObj.placeholderIcon) {
+                label = commandObj.value;
+            }
+        }
         return (
             <kup-button
                 styling={styling}
                 onKup-button-click={() => this.#handleUpdateClick(commandObj)}
                 icon={commandObj.icon}
                 placeholderIcon={commandObj.placeholderIcon}
-                label={commandObj.decode || commandObj.value}
+                label={label}
             />
         );
     }

@@ -327,7 +327,7 @@ export class KupButtonList {
             data.placeholderIcon = node.placeholderIcon;
         }
         if (data.label == null) {
-            data.label = node.decode ? node.decode : node.value;
+            data.label = node.decode ?? node.value;
         }
         data.fullHeight = this.rootElement.classList.contains('kup-full-height')
             ? true
