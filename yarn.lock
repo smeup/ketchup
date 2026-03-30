@@ -3191,7 +3191,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
   dependencies:
-    "@sme.up/ketchup": ^11.0.0-SNAPSHOT
+    "@sme.up/ketchup": 12.0.0-alpha.1
     "@stencil/core": ^4
     "@stencil/react-output-target": ^0.8
     react: ^19.0.0
@@ -3251,7 +3251,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sme.up/ketchup@^11.0.0-SNAPSHOT, @sme.up/ketchup@workspace:packages/ketchup":
+"@sme.up/ketchup@12.0.0-alpha.1, @sme.up/ketchup@workspace:packages/ketchup":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup@workspace:packages/ketchup"
   dependencies:
@@ -3288,6 +3288,35 @@ __metadata:
       optional: true
   languageName: unknown
   linkType: soft
+
+"@sme.up/ketchup@npm:^11.0.0-SNAPSHOT":
+  version: 11.0.0-SNAPSHOT-20260325080513
+  resolution: "@sme.up/ketchup@npm:11.0.0-SNAPSHOT-20260325080513"
+  dependencies:
+    "@fullcalendar/core": 6.1.15
+    "@fullcalendar/daygrid": 6.1.15
+    "@fullcalendar/interaction": 6.1.15
+    "@fullcalendar/list": 6.1.15
+    "@fullcalendar/timegrid": 6.1.15
+    "@material/form-field": 14.0.0
+    "@material/ripple": 14.0.0
+    "@material/textfield": 14.0.0
+    "@toast-ui/editor": 2.5.4
+    canvas: ^2.11.2
+    d3-shape: ^3.2.0
+    dayjs: ^1.11.13
+    echarts: ^5.5.1
+    hex-to-css-filter: 5.4.0
+    html2canvas: 1.4.1
+    interactjs: 1.10.12
+    jquery: ^3.7.0
+    vanilla-picker: 2.12.3
+  dependenciesMeta:
+    canvas:
+      optional: true
+  checksum: d4ea4e31a06c7733615e10c68d66f143239f17a4a05fb39196ccadffa309e3ed3cc63240f1b38d0715bd9101cbd1ebddf4edc7608e0b8194e19df5a4aec7842a
+  languageName: node
+  linkType: hard
 
 "@soda/friendly-errors-webpack-plugin@npm:^1.8.0":
   version: 1.8.1
