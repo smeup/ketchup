@@ -107,6 +107,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'totals',
+          description:
+            'Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'viewType',
           description: 'Type of the view.',
           type: 'KupCalendarViewTypes',
