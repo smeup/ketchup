@@ -12,7 +12,7 @@ export enum KupCalendarProps {
     currentDate = 'Sets the date of the calendar. Must be in ISO format (YYYY-MM-DD).',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the calendar.',
-    totals = 'Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.',
+    totals = 'Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN.',
     editableEvents = 'When true, events are editable.',
     hideNavigation = "When disabled, the navigation toolbar won't be displayed.",
     viewType = 'Type of the view.',

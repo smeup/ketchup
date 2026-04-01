@@ -155,8 +155,8 @@ export class KupCalendar {
     @Prop() data: KupCalendarData = null;
     /**
      * Formula to calculate and display totals on each cell.
-     * Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.
-     * Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+     * Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN.
+     * Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
      * @default null
      */
     @Prop() totals: string = null;
@@ -215,7 +215,7 @@ export class KupCalendar {
     private imageCol: string = null;
     private startCol: string = null;
     private styleCol: string = null;
-    private formulaOperation: 'SUM' | 'AVG' | 'COUNT' = null;
+    private formulaOperation: 'SUM' | 'AVG' | 'COUNT' | 'MAX' | 'MIN' = null;
     private formulaColumn: string = null;
 
     /*-------------------------------------------------*/
@@ -733,14 +733,16 @@ export class KupCalendar {
             return;
         }
 
-        const formulaRegex = /^(SUM|AVG|COUNT)\(([^)]+)\)$/i;
+        const formulaRegex = /^(SUM|AVG|COUNT|MAX|MIN)\(([^)]+)\)$/i;
         const match = this.totals.trim().match(formulaRegex);
 
         if (match) {
             this.formulaOperation = match[1].toUpperCase() as
                 | 'SUM'
                 | 'AVG'
-                | 'COUNT';
+                | 'COUNT'
+                | 'MAX'
+                | 'MIN';
             this.formulaColumn = match[2].trim();
         } else {
             this.kupManager.debug.logMessage(
@@ -781,7 +783,19 @@ export class KupCalendar {
             return null;
         }
 
-        // Extract values from the formula column
+        // For COUNT operation, count all non-null values (numeric or not)
+        if (this.formulaOperation === 'COUNT') {
+            let count = 0;
+            dayRows.forEach((row) => {
+                const cell = row.cells[this.formulaColumn];
+                if (cell && cell.value !== null && cell.value !== undefined) {
+                    count++;
+                }
+            });
+            return count > 0 ? count : null;
+        }
+
+        // For SUM and AVG, extract only numeric values
         const values: number[] = [];
         dayRows.forEach((row) => {
             const cell = row.cells[this.formulaColumn];
@@ -805,8 +819,10 @@ export class KupCalendar {
                 return (
                     values.reduce((acc, val) => acc + val, 0) / values.length
                 );
-            case 'COUNT':
-                return values.length;
+            case 'MAX':
+                return Math.max(...values);
+            case 'MIN':
+                return Math.min(...values);
             default:
                 return null;
         }

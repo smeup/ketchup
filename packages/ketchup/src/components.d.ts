@@ -818,7 +818,7 @@ export namespace Components {
         "stateId": string;
         "store": KupStore;
         /**
-          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
           * @default null
          */
         "totals": string;
@@ -6994,7 +6994,7 @@ declare namespace LocalJSX {
         "stateId"?: string;
         "store"?: KupStore;
         /**
-          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
           * @default null
          */
         "totals"?: string;

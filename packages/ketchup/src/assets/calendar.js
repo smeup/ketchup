@@ -420,7 +420,9 @@ for (let index = 0; index < calendars.length; index++) {
     } else if (
         calendar.id === 'with-formula-sum' ||
         calendar.id === 'with-formula-avg' ||
-        calendar.id === 'with-formula-count'
+        calendar.id === 'with-formula-count' ||
+        calendar.id === 'with-formula-max' ||
+        calendar.id === 'with-formula-min'
     ) {
         calendar.data = {
             columns: [...formulaData.columns],

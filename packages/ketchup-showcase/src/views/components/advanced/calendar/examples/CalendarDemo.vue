@@ -109,7 +109,7 @@ export default {
         {
           prop: 'totals',
           description:
-            'Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.',
+            'Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN.',
           type: 'string',
           default: 'null',
           try: 'field',
