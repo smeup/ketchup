@@ -154,12 +154,12 @@ export class KupCalendar {
      */
     @Prop() data: KupCalendarData = null;
     /**
-     * Formula to calculate and display on each day cell.
+     * Formula to calculate and display totals on each cell.
      * Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT.
      * Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
      * @default null
      */
-    @Prop() dataFormula: string = null;
+    @Prop() totals: string = null;
     /**
      * Sets which columns of the data property will be used to render each
      * characteristic of an event in the calendar.
@@ -279,7 +279,7 @@ export class KupCalendar {
 
     @Watch('data')
     @Watch('currentDate')
-    @Watch('dataFormula')
+    @Watch('totals')
     setCalendarData() {
         if (!this.calendarContainer) {
             return;
@@ -729,12 +729,12 @@ export class KupCalendar {
         this.formulaOperation = null;
         this.formulaColumn = null;
 
-        if (!this.dataFormula) {
+        if (!this.totals) {
             return;
         }
 
         const formulaRegex = /^(SUM|AVG|COUNT)\(([^)]+)\)$/i;
-        const match = this.dataFormula.trim().match(formulaRegex);
+        const match = this.totals.trim().match(formulaRegex);
 
         if (match) {
             this.formulaOperation = match[1].toUpperCase() as
@@ -745,7 +745,7 @@ export class KupCalendar {
         } else {
             this.kupManager.debug.logMessage(
                 this,
-                `Invalid formula format: ${this.dataFormula}. Expected format: OPERATION(columnName)`,
+                `Invalid totals format: ${this.totals}. Expected format: OPERATION(columnName)`,
                 KupDebugCategory.WARNING
             );
         }

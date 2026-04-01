@@ -782,11 +782,6 @@ export namespace Components {
          */
         "data": KupCalendarData;
         /**
-          * Formula to calculate and display on each day cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
-          * @default null
-         */
-        "dataFormula": string;
-        /**
           * When true, events are editable.
           * @default true
          */
@@ -822,6 +817,11 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         "stateId": string;
         "store": KupStore;
+        /**
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * @default null
+         */
+        "totals": string;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
@@ -6957,11 +6957,6 @@ declare namespace LocalJSX {
          */
         "data"?: KupCalendarData;
         /**
-          * Formula to calculate and display on each day cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
-          * @default null
-         */
-        "dataFormula"?: string;
-        /**
           * When true, events are editable.
           * @default true
          */
@@ -6998,6 +6993,11 @@ declare namespace LocalJSX {
         "onKup-calendar-viewchange"?: (event: KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>) => void;
         "stateId"?: string;
         "store"?: KupStore;
+        /**
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, or COUNT. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)"
+          * @default null
+         */
+        "totals"?: string;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
