@@ -234,6 +234,29 @@
     color: var(--kup_calendar_no_work_day_color);
     opacity: 0.7;
   }
+
+  .fc-daygrid-day-frame {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .fc-daygrid-day-events {
+    flex: 1;
+  }
+
+  .kup-calendar-formula-result {
+    align-self: flex-end;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: var(--kup-primary-color);
+    padding: 0.25em 0.5em;
+    margin-top: auto;
+  }
+
+  .fc-daygrid-day-top {
+    width: 100%;
+  }
 }
 
 @media (max-width: 599px) {
