@@ -818,6 +818,11 @@ export namespace Components {
         "stateId": string;
         "store": KupStore;
         /**
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
+          * @default null
+         */
+        "totals": string;
+        /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
          */
@@ -6988,6 +6993,11 @@ declare namespace LocalJSX {
         "onKup-calendar-viewchange"?: (event: KupCalendarCustomEvent<KupCalendarViewChangeEventPayload>) => void;
         "stateId"?: string;
         "store"?: KupStore;
+        /**
+          * Formula to calculate and display totals on each cell. Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN. Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
+          * @default null
+         */
+        "totals"?: string;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
