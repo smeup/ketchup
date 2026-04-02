@@ -154,6 +154,13 @@ export class KupCalendar {
      */
     @Prop() data: KupCalendarData = null;
     /**
+     * Formula to calculate and display totals on each cell.
+     * Format: OPERATION(columnName) where OPERATION is SUM, AVG, COUNT, MAX, or MIN.
+     * Example: "SUM(amount)" or "AVG(hours)" or "COUNT(tasks)" or "MAX(price)" or "MIN(price)"
+     * @default null
+     */
+    @Prop() totals: string = null;
+    /**
      * Sets which columns of the data property will be used to render each
      * characteristic of an event in the calendar.
      * @default {KupCalendarOptions: ""}
@@ -208,6 +215,8 @@ export class KupCalendar {
     private imageCol: string = null;
     private startCol: string = null;
     private styleCol: string = null;
+    private formulaOperation: 'SUM' | 'AVG' | 'COUNT' | 'MAX' | 'MIN' = null;
+    private formulaColumn: string = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -270,6 +279,7 @@ export class KupCalendar {
 
     @Watch('data')
     @Watch('currentDate')
+    @Watch('totals')
     setCalendarData() {
         if (!this.calendarContainer) {
             return;
@@ -277,6 +287,9 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
+
+        // Parse formula if provided
+        this.parseFormula();
 
         if (this.data?.columns) {
             this.data.columns.forEach((column) => {
@@ -305,6 +318,9 @@ export class KupCalendar {
 
                 this.persistState();
             },
+            dayCellDidMount: this.formulaOperation
+                ? (arg) => this.renderDayCellFormula(arg)
+                : undefined,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClick.emit({
                     comp: this,
@@ -707,6 +723,138 @@ export class KupCalendar {
             this.navTitle.innerText = this.calendar.getCurrentData().viewTitle;
             this.calendar.updateSize();
         }
+    }
+
+    private parseFormula() {
+        this.formulaOperation = null;
+        this.formulaColumn = null;
+
+        if (!this.totals) {
+            return;
+        }
+
+        const formulaRegex = /^(SUM|AVG|COUNT|MAX|MIN)\(([^)]+)\)$/i;
+        const match = this.totals.trim().match(formulaRegex);
+
+        if (match) {
+            this.formulaOperation = match[1].toUpperCase() as
+                | 'SUM'
+                | 'AVG'
+                | 'COUNT'
+                | 'MAX'
+                | 'MIN';
+            this.formulaColumn = match[2].trim();
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                `Invalid totals format: ${this.totals}. Expected format: OPERATION(columnName)`,
+                KupDebugCategory.WARNING
+            );
+        }
+    }
+
+    private calculateFormulaForDay(date: Date): number | null {
+        if (!this.formulaOperation || !this.formulaColumn) {
+            return null;
+        }
+
+        if (!this.data?.rows || !this.dateCol) {
+            return null;
+        }
+
+        // Get the date as ISO string (YYYY-MM-DD) for comparison
+        const targetDate = this.kupManager.dates
+            .toDayjs(date)
+            .format('YYYY-MM-DD');
+
+        // Filter rows for the specific day
+        const dayRows = this.data.rows.filter((row) => {
+            const cell = row.cells[this.dateCol];
+            if (!cell || !cell.value) {
+                return false;
+            }
+            const rowDate = this.kupManager.dates
+                .toDayjs(cell.value)
+                .format('YYYY-MM-DD');
+            return rowDate === targetDate;
+        });
+
+        if (dayRows.length === 0) {
+            return null;
+        }
+
+        // For COUNT operation, count all non-null values (numeric or not)
+        if (this.formulaOperation === 'COUNT') {
+            let count = 0;
+            dayRows.forEach((row) => {
+                const cell = row.cells[this.formulaColumn];
+                if (cell && cell.value !== null && cell.value !== undefined) {
+                    count++;
+                }
+            });
+            return count > 0 ? count : null;
+        }
+
+        // For SUM and AVG, extract only numeric values
+        const values: number[] = [];
+        dayRows.forEach((row) => {
+            const cell = row.cells[this.formulaColumn];
+            if (cell && cell.value !== null && cell.value !== undefined) {
+                const numValue = parseFloat(cell.value);
+                if (!isNaN(numValue)) {
+                    values.push(numValue);
+                }
+            }
+        });
+
+        if (values.length === 0) {
+            return null;
+        }
+
+        // Calculate based on operation
+        switch (this.formulaOperation) {
+            case 'SUM':
+                return values.reduce((acc, val) => acc + val, 0);
+            case 'AVG':
+                return (
+                    values.reduce((acc, val) => acc + val, 0) / values.length
+                );
+            case 'MAX':
+                return Math.max(...values);
+            case 'MIN':
+                return Math.min(...values);
+            default:
+                return null;
+        }
+    }
+
+    private renderDayCellFormula(arg: any) {
+        const date = arg.date;
+        const formulaResult = this.calculateFormulaForDay(date);
+
+        if (formulaResult !== null) {
+            // Find the day frame container
+            const dayFrame = arg.el.querySelector('.fc-daygrid-day-frame');
+            if (dayFrame) {
+                // Create formula result element
+                const resultDiv = document.createElement('div');
+                resultDiv.classList.add('kup-calendar-formula-result');
+                resultDiv.textContent = this.formatFormulaResult(formulaResult);
+
+                // Append to day frame
+                dayFrame.appendChild(resultDiv);
+            }
+        }
+    }
+
+    private formatFormulaResult(value: number): string {
+        // Use KupManager to format numbers with locale-specific separators
+        const decimals = this.formulaOperation === 'COUNT' ? 0 : 2;
+        return this.kupManager.math.numberToFormattedString(
+            value,
+            decimals,
+            ''
+        );
     }
 
     /*-------------------------------------------------*/
