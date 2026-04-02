@@ -3224,7 +3224,7 @@ __metadata:
   resolution: "@sme.up/ketchup-showcase@workspace:packages/ketchup-showcase"
   dependencies:
     "@babel/plugin-transform-private-methods": ^7.24.1
-    "@sme.up/ketchup": ^11.0.0-SNAPSHOT
+    "@sme.up/ketchup": 12.0.0-alpha.2
     "@typescript-eslint/eslint-plugin": ^5.59.8
     "@typescript-eslint/parser": ^5.59.8
     "@vue/cli-plugin-babel": ~5.0.8
@@ -3285,35 +3285,6 @@ __metadata:
       optional: true
   languageName: unknown
   linkType: soft
-
-"@sme.up/ketchup@npm:^11.0.0-SNAPSHOT":
-  version: 11.0.0-SNAPSHOT-20260326162622
-  resolution: "@sme.up/ketchup@npm:11.0.0-SNAPSHOT-20260326162622"
-  dependencies:
-    "@fullcalendar/core": 6.1.15
-    "@fullcalendar/daygrid": 6.1.15
-    "@fullcalendar/interaction": 6.1.15
-    "@fullcalendar/list": 6.1.15
-    "@fullcalendar/timegrid": 6.1.15
-    "@material/form-field": 14.0.0
-    "@material/ripple": 14.0.0
-    "@material/textfield": 14.0.0
-    "@toast-ui/editor": 2.5.4
-    canvas: ^2.11.2
-    d3-shape: ^3.2.0
-    dayjs: ^1.11.13
-    echarts: ^5.5.1
-    hex-to-css-filter: 5.4.0
-    html2canvas: 1.4.1
-    interactjs: 1.10.12
-    jquery: ^3.7.0
-    vanilla-picker: 2.12.3
-  dependenciesMeta:
-    canvas:
-      optional: true
-  checksum: f18b929e328637cc8bd36522f8635924f57461d2644f71299ab42f48dfe37c1431e1b4c408a620051dc0457dfed611f072c1de90762a18b555b0e4e10b42510a
-  languageName: node
-  linkType: hard
 
 "@soda/friendly-errors-webpack-plugin@npm:^1.8.0":
   version: 1.8.1
