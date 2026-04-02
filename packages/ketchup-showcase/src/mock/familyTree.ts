@@ -4,7 +4,6 @@ export const layoutData = {
       isKey: false,
       name: 'A',
       obj: {
-        k: '',
         p: 'IMG',
         t: 'J4',
       },
@@ -16,7 +15,6 @@ export const layoutData = {
       isKey: false,
       name: 'B',
       obj: {
-        k: '',
         p: 'COL',
         t: 'CN',
       },
@@ -28,7 +26,6 @@ export const layoutData = {
       isKey: false,
       name: 'C',
       obj: {
-        k: '',
         p: 'COL',
         t: 'CN',
       },
@@ -39,7 +36,6 @@ export const layoutData = {
       isKey: false,
       name: 'D',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -50,7 +46,6 @@ export const layoutData = {
       isKey: false,
       name: 'E',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -61,7 +56,6 @@ export const layoutData = {
       isKey: false,
       name: 'F',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -81,27 +75,26 @@ export const layoutData = {
           },
           isEditable: false,
           obj: {
-            k: 'CN;COL;SANCOS',
             p: 'IMG',
             t: 'J4',
           },
-          value: 'images/faces/john.jpg',
+          value: 'CN;COL;SANCOS',
+          decode: 'images/faces/john.jpg',
         },
         B: {
           cssClass: ' top-right-indicator',
           isEditable: false,
           obj: {
-            k: 'SANCOS',
             p: 'COL',
             t: 'CN',
           },
-          value: 'John',
+          value: 'SANCOS',
+          decode: 'John',
         },
         C: {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'SANCOS',
             p: 'COL',
             t: 'CN',
           },
@@ -110,7 +103,6 @@ export const layoutData = {
         D: {
           isEditable: false,
           obj: {
-            k: 'john@somecompany.com',
             p: '',
             t: '**',
           },
@@ -119,7 +111,6 @@ export const layoutData = {
         E: {
           isEditable: false,
           obj: {
-            k: '39390000',
             p: '',
             t: '**',
           },
@@ -128,7 +119,6 @@ export const layoutData = {
         F: {
           isEditable: false,
           obj: {
-            k: 'CTO',
             p: '',
             t: '**',
           },
@@ -147,28 +137,27 @@ export const layoutData = {
               },
               isEditable: false,
               obj: {
-                k: 'CN;COL;ARRSTE',
                 p: 'IMG',
                 t: 'J4',
               },
               shape: 'Img',
-              value: 'images/faces/james.jpg',
+              value: 'CN;COL;ARRSTE',
+              decode: 'images/faces/james.jpg',
             },
             B: {
               cssClass: ' top-right-indicator',
               isEditable: false,
               obj: {
-                k: 'ARRSTE',
                 p: 'COL',
                 t: 'CN',
               },
-              value: 'James',
+              value: 'ARRSTE',
+              decode: 'James',
             },
             C: {
               cssClass: 'strong-text',
               isEditable: false,
               obj: {
-                k: 'ARRSTE',
                 p: 'COL',
                 t: 'CN',
               },
@@ -177,7 +166,6 @@ export const layoutData = {
             D: {
               isEditable: false,
               obj: {
-                k: 'james@somecompany.com',
                 p: '',
                 t: '**',
               },
@@ -186,7 +174,6 @@ export const layoutData = {
             E: {
               isEditable: false,
               obj: {
-                k: '39390000',
                 p: '',
                 t: '**',
               },
@@ -195,7 +182,6 @@ export const layoutData = {
             F: {
               isEditable: false,
               obj: {
-                k: 'Team leader',
                 p: '',
                 t: '**',
               },
@@ -214,9 +200,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;BONMAT',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;BONMAT',
                   },
                   shape: 'Img',
                   value: 'images/faces/clara.jpg',
@@ -225,9 +211,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'BONMAT',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BONMAT',
                   },
                   value: 'Clara',
                 },
@@ -235,36 +221,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'BONMAT',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BONMAT',
                   },
                   value: 'BONMAT',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'clara@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'clara@somecompany.com',
                   },
                   value: 'clara@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -275,13 +261,12 @@ export const layoutData = {
               id: '0,0,0',
               isExpanded: false,
               obj: {
-                k: 'BONMAT',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'BONMAT',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -358,6 +343,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -370,9 +356,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;ZAMCHI',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;ZAMCHI',
                   },
                   shape: 'Img',
                   value: 'images/faces/fiona.jpg',
@@ -381,9 +367,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'ZAMCHI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'ZAMCHI',
                   },
                   value: 'Fiona',
                 },
@@ -391,36 +377,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'ZAMCHI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'ZAMCHI',
                   },
                   value: 'ZAMCHI',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'fiona@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'fiona@somecompany.com',
                   },
                   value: 'fiona@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -431,13 +417,12 @@ export const layoutData = {
               id: '0,0,1',
               isExpanded: false,
               obj: {
-                k: 'ZAMCHI',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'ZAMCHI',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -514,6 +499,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -526,9 +512,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;FEIFAB',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;FEIFAB',
                   },
                   shape: 'Img',
                   value: 'images/faces/donald.jpg',
@@ -537,9 +523,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'FEIFAB',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FEIFAB',
                   },
                   value: 'Donald',
                 },
@@ -547,36 +533,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'FEIFAB',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FEIFAB',
                   },
                   value: 'FEIFAB',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'donald@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'donald@somecompany.com',
                   },
                   value: 'donald@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -587,13 +573,12 @@ export const layoutData = {
               id: '0,0,2',
               isExpanded: false,
               obj: {
-                k: 'FEIFAB',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'FEIFAB',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -670,6 +655,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -682,9 +668,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;GOBMAS',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;GOBMAS',
                   },
                   shape: 'Img',
                   value: 'images/faces/max.jpg',
@@ -693,9 +679,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'GOBMAS',
                     p: 'COL',
                     t: 'CN',
+                    value: 'GOBMAS',
                   },
                   value: 'Max',
                 },
@@ -703,36 +689,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'GOBMAS',
                     p: 'COL',
                     t: 'CN',
+                    value: 'GOBMAS',
                   },
                   value: 'GOBMAS',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'max@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'max@somecompany.com',
                   },
                   value: 'max@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -743,13 +729,12 @@ export const layoutData = {
               id: '0,0,3',
               isExpanded: false,
               obj: {
-                k: 'GOBMAS',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'GOBMAS',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -826,6 +811,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -838,9 +824,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;FORDAR',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;FORDAR',
                   },
                   shape: 'Img',
                   value: 'images/faces/linda.jpg',
@@ -849,9 +835,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'FORDAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FORDAR',
                   },
                   value: 'Linda',
                 },
@@ -859,36 +845,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'FORDAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FORDAR',
                   },
                   value: 'FORDAR',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'linda@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'linda@somecompany.com',
                   },
                   value: 'linda@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -899,13 +885,12 @@ export const layoutData = {
               id: '0,0,4',
               isExpanded: false,
               obj: {
-                k: 'FORDAR',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'FORDAR',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -982,6 +967,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -994,9 +980,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;SENLUI',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;SENLUI',
                   },
                   shape: 'Img',
                   value: 'images/faces/mario.jpg',
@@ -1005,9 +991,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'SENLUI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SENLUI',
                   },
                   value: 'Mario',
                 },
@@ -1015,36 +1001,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'SENLUI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SENLUI',
                   },
                   value: 'SENLUI',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'mario@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'mario@somecompany.com',
                   },
                   value: 'mario@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1055,13 +1041,12 @@ export const layoutData = {
               id: '0,0,5',
               isExpanded: false,
               obj: {
-                k: 'SENLUI',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'SENLUI',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -1138,6 +1123,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -1150,9 +1136,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;BUSSTE',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;BUSSTE',
                   },
                   shape: 'Img',
                   value: 'images/faces/shawn.jpg',
@@ -1161,9 +1147,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'BUSSTE',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BUSSTE',
                   },
                   value: 'Shawn',
                 },
@@ -1171,36 +1157,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'BUSSTE',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BUSSTE',
                   },
                   value: 'BUSSTE',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'shawn@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'shawn@somecompany.com',
                   },
                   value: 'shawn@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1211,13 +1197,12 @@ export const layoutData = {
               id: '0,0,6',
               isExpanded: false,
               obj: {
-                k: 'BUSSTE',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'BUSSTE',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -1294,6 +1279,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -1306,9 +1292,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;SABMIC',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;SABMIC',
                   },
                   shape: 'Img',
                   value: 'images/faces/cynthia.jpg',
@@ -1317,9 +1303,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'SABMIC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SABMIC',
                   },
                   value: 'Cynthia',
                 },
@@ -1327,36 +1313,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'SABMIC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SABMIC',
                   },
                   value: 'SABMIC',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'cynthia@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'cynthia@somecompany.com',
                   },
                   value: 'cynthia@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1367,13 +1353,12 @@ export const layoutData = {
               id: '0,0,7',
               isExpanded: false,
               obj: {
-                k: 'SABMIC',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'SABMIC',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -1450,6 +1435,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
           ],
           disabled: false,
@@ -1457,13 +1443,12 @@ export const layoutData = {
           id: '0,0',
           isExpanded: false,
           obj: {
-            k: 'ARRSTE',
             p: 'COL',
             t: 'CN',
           },
           options: true,
           style: {},
-          value: 'Team 1',
+          value: 'ARRSTE',
           isStaff: false,
           layout: {
             horizontal: false,
@@ -1540,6 +1525,7 @@ export const layoutData = {
               },
             ],
           },
+          decode: 'Team 1',
         },
         {
           cells: {
@@ -1552,28 +1538,27 @@ export const layoutData = {
               },
               isEditable: false,
               obj: {
-                k: 'CN;COL;DELGIO',
                 p: 'IMG',
                 t: 'J4',
               },
               shape: 'Img',
-              value: 'images/faces/monique.jpg',
+              value: 'CN;COL;DELGIO',
+              decode: 'images/faces/monique.jpg',
             },
             B: {
               cssClass: ' top-right-indicator',
               isEditable: false,
               obj: {
-                k: 'DELGIO',
                 p: 'COL',
                 t: 'CN',
               },
-              value: 'Monique',
+              value: 'DELGIO',
+              decode: 'Monique',
             },
             C: {
               cssClass: 'strong-text',
               isEditable: false,
               obj: {
-                k: 'DELGIO',
                 p: 'COL',
                 t: 'CN',
               },
@@ -1582,7 +1567,6 @@ export const layoutData = {
             D: {
               isEditable: false,
               obj: {
-                k: 'monique@somecompany.com',
                 p: '',
                 t: '**',
               },
@@ -1591,7 +1575,6 @@ export const layoutData = {
             E: {
               isEditable: false,
               obj: {
-                k: '39390000',
                 p: '',
                 t: '**',
               },
@@ -1600,7 +1583,6 @@ export const layoutData = {
             F: {
               isEditable: false,
               obj: {
-                k: 'Team leader',
                 p: '',
                 t: '**',
               },
@@ -1619,9 +1601,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;VERANA',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;VERANA',
                   },
                   shape: 'Img',
                   value: 'images/faces/carmine.jpg',
@@ -1630,9 +1612,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'VERANA',
                     p: 'COL',
                     t: 'CN',
+                    value: 'VERANA',
                   },
                   value: 'Carmine',
                 },
@@ -1640,36 +1622,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'VERANA',
                     p: 'COL',
                     t: 'CN',
+                    value: 'VERANA',
                   },
                   value: 'VERANA',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'carmine@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'carmine@somecompany.com',
                   },
                   value: 'carmine@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1680,13 +1662,12 @@ export const layoutData = {
               id: '0,1,0',
               isExpanded: false,
               obj: {
-                k: 'VERANA',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'VERANA',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -1763,6 +1744,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -1775,9 +1757,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;SANBRU',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;SANBRU',
                   },
                   shape: 'Img',
                   value: 'images/faces/frank.jpg',
@@ -1786,9 +1768,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'SANBRU',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SANBRU',
                   },
                   value: 'Frank',
                 },
@@ -1796,36 +1778,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'SANBRU',
                     p: 'COL',
                     t: 'CN',
+                    value: 'SANBRU',
                   },
                   value: 'SANBRU',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'frank@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'frank@somecompany.com',
                   },
                   value: 'frank@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1836,13 +1818,12 @@ export const layoutData = {
               id: '0,1,1',
               isExpanded: false,
               obj: {
-                k: 'SANBRU',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'SANBRU',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -1919,6 +1900,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -1931,9 +1913,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;FOSLUC',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;FOSLUC',
                   },
                   shape: 'Img',
                   value: 'images/faces/arthur.jpg',
@@ -1942,9 +1924,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'FOSLUC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FOSLUC',
                   },
                   value: 'Arthur',
                 },
@@ -1952,36 +1934,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'FOSLUC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FOSLUC',
                   },
                   value: 'FOSLUC',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'arthur@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'arthur@somecompany.com',
                   },
                   value: 'arthur@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -1992,13 +1974,12 @@ export const layoutData = {
               id: '0,1,2',
               isExpanded: false,
               obj: {
-                k: 'FOSLUC',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'FOSLUC',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2075,6 +2056,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -2087,9 +2069,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;URRAZI',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;URRAZI',
                   },
                   shape: 'Img',
                   value: 'images/faces/takashi.jpg',
@@ -2098,9 +2080,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'URRAZI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'URRAZI',
                   },
                   value: 'Takashi',
                 },
@@ -2108,36 +2090,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'URRAZI',
                     p: 'COL',
                     t: 'CN',
+                    value: 'URRAZI',
                   },
                   value: 'URRAZI',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'takashi@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'takashi@somecompany.com',
                   },
                   value: 'takashi@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -2148,13 +2130,12 @@ export const layoutData = {
               id: '0,1,3',
               isExpanded: false,
               obj: {
-                k: 'URRAZI',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'URRAZI',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2231,6 +2212,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -2243,9 +2225,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;PASCAR',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;PASCAR',
                   },
                   shape: 'Img',
                   value: 'images/faces/serena.jpg',
@@ -2254,9 +2236,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'PASCAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'PASCAR',
                   },
                   value: 'Serena',
                 },
@@ -2264,36 +2246,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'PASCAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'PASCAR',
                   },
                   value: 'PASCAR',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'serena@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'serena@somecompany.com',
                   },
                   value: 'serena@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -2304,13 +2286,12 @@ export const layoutData = {
               id: '0,1,4',
               isExpanded: false,
               obj: {
-                k: 'PASCAR',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'PASCAR',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2387,6 +2368,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -2399,9 +2381,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;VERFRA',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;VERFRA',
                   },
                   shape: 'Img',
                   value: 'images/faces/lucretia.jpg',
@@ -2410,9 +2392,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'VERFRA',
                     p: 'COL',
                     t: 'CN',
+                    value: 'VERFRA',
                   },
                   value: 'Lucretia',
                 },
@@ -2420,36 +2402,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'VERFRA',
                     p: 'COL',
                     t: 'CN',
+                    value: 'VERFRA',
                   },
                   value: 'VERFRA',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'lucretia@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'lucretia@somecompany.com',
                   },
                   value: 'lucretia@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -2460,13 +2442,12 @@ export const layoutData = {
               id: '0,1,5',
               isExpanded: false,
               obj: {
-                k: 'VERFRA',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'VERFRA',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2543,6 +2524,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -2555,9 +2537,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;GIAGIU',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;GIAGIU',
                   },
                   shape: 'Img',
                   value: 'images/faces/zlatan.jpg',
@@ -2566,9 +2548,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'GIAGIU',
                     p: 'COL',
                     t: 'CN',
+                    value: 'GIAGIU',
                   },
                   value: 'Zlatan',
                 },
@@ -2576,36 +2558,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'GIAGIU',
                     p: 'COL',
                     t: 'CN',
+                    value: 'GIAGIU',
                   },
                   value: 'GIAGIU',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'zlatan@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'zlatan@somecompany.com',
                   },
                   value: 'zlatan@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -2616,13 +2598,12 @@ export const layoutData = {
               id: '0,1,6',
               isExpanded: false,
               obj: {
-                k: 'GIAGIU',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'GIAGIU',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2699,6 +2680,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -2711,9 +2693,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;ALQMAR',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;ALQMAR',
                   },
                   shape: 'Img',
                   value: 'images/faces/peter.jpg',
@@ -2722,9 +2704,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'ALQMAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'ALQMAR',
                   },
                   value: 'Peter',
                 },
@@ -2732,36 +2714,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'ALQMAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'ALQMAR',
                   },
                   value: 'ALQMAR',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'peter@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'peter@somecompany.com',
                   },
                   value: 'peter@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -2772,13 +2754,12 @@ export const layoutData = {
               id: '0,1,7',
               isExpanded: false,
               obj: {
-                k: 'ALQMAR',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'ALQMAR',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -2855,6 +2836,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
           ],
           disabled: false,
@@ -2862,13 +2844,12 @@ export const layoutData = {
           id: '0,1',
           isExpanded: false,
           obj: {
-            k: 'DELGIO',
             p: 'COL',
             t: 'CN',
           },
           options: true,
           style: {},
-          value: 'Team 2',
+          value: 'DELGIO',
           isStaff: false,
           layout: {
             horizontal: false,
@@ -2945,6 +2926,7 @@ export const layoutData = {
               },
             ],
           },
+          decode: 'Team 2',
         },
         {
           cells: {
@@ -2957,28 +2939,27 @@ export const layoutData = {
               },
               isEditable: false,
               obj: {
-                k: 'CN;COL;BENMAR',
                 p: 'IMG',
                 t: 'J4',
               },
               shape: 'Img',
-              value: 'images/faces/jane.jpg',
+              value: 'CN;COL;BENMAR',
+              decode: 'images/faces/jane.jpg',
             },
             B: {
               cssClass: ' top-right-indicator',
               isEditable: false,
               obj: {
-                k: 'BENMAR',
                 p: 'COL',
                 t: 'CN',
               },
-              value: 'Jane',
+              value: 'BENMAR',
+              decode: 'Jane',
             },
             C: {
               cssClass: 'strong-text',
               isEditable: false,
               obj: {
-                k: 'BENMAR',
                 p: 'COL',
                 t: 'CN',
               },
@@ -2987,7 +2968,6 @@ export const layoutData = {
             D: {
               isEditable: false,
               obj: {
-                k: 'jane@somecompany.com',
                 p: '',
                 t: '**',
               },
@@ -2996,7 +2976,6 @@ export const layoutData = {
             E: {
               isEditable: false,
               obj: {
-                k: '39390000',
                 p: '',
                 t: '**',
               },
@@ -3005,7 +2984,6 @@ export const layoutData = {
             F: {
               isEditable: false,
               obj: {
-                k: 'Team leader',
                 p: '',
                 t: '**',
               },
@@ -3024,9 +3002,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;LANMAM',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;LANMAM',
                   },
                   shape: 'Img',
                   value: 'images/faces/logan.jpg',
@@ -3035,9 +3013,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'LANMAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'LANMAM',
                   },
                   value: 'Logan',
                 },
@@ -3045,36 +3023,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'LANMAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'LANMAM',
                   },
                   value: 'LANMAM',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'logan@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'logan@somecompany.com',
                   },
                   value: 'logan@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -3085,13 +3063,12 @@ export const layoutData = {
               id: '0,2,0',
               isExpanded: false,
               obj: {
-                k: 'LANMAM',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'LANMAM',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -3168,6 +3145,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -3180,9 +3158,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;BERNIC',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;BERNIC',
                   },
                   shape: 'Img',
                   value: 'images/faces/stewie.jpg',
@@ -3191,9 +3169,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'BERNIC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BERNIC',
                   },
                   value: 'Stewie',
                 },
@@ -3201,36 +3179,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'BERNIC',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BERNIC',
                   },
                   value: 'BERNIC',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'stewie@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'stewie@somecompany.com',
                   },
                   value: 'stewie@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
@@ -3241,13 +3219,12 @@ export const layoutData = {
               id: '0,2,1',
               isExpanded: false,
               obj: {
-                k: 'BERNIC',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'BERNIC',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -3324,6 +3301,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -3336,9 +3314,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;BUSFIO',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;BUSFIO',
                   },
                   shape: 'Img',
                   value: 'images/faces/brian.jpg',
@@ -3347,9 +3325,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'BUSFIO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BUSFIO',
                   },
                   value: 'Brian',
                 },
@@ -3357,36 +3335,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'BUSFIO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BUSFIO',
                   },
                   value: 'BUSFIO',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'brian@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'brian@somecompany.com',
                   },
                   value: 'brian@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -3397,13 +3375,12 @@ export const layoutData = {
               id: '0,2,2',
               isExpanded: false,
               obj: {
-                k: 'BUSFIO',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'BUSFIO',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -3480,6 +3457,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -3492,9 +3470,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;LANSTS',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;LANSTS',
                   },
                   shape: 'Img',
                   value: 'images/faces/lois.jpg',
@@ -3503,9 +3481,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'LANMAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'LANMAM',
                   },
                   value: 'Lois',
                 },
@@ -3513,36 +3491,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'LANMAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'LANMAM',
                   },
                   value: 'LANMAM',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'lois@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'lois@somecompany.com',
                   },
                   value: 'lois@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -3553,13 +3531,12 @@ export const layoutData = {
               id: '0,2,3',
               isExpanded: false,
               obj: {
-                k: 'LANSTS',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'LANSTS',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -3636,6 +3613,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
           ],
           disabled: false,
@@ -3643,13 +3621,12 @@ export const layoutData = {
           id: '0,2',
           isExpanded: false,
           obj: {
-            k: 'BENMAR',
             p: 'COL',
             t: 'CN',
           },
           options: true,
           style: {},
-          value: 'Team 3',
+          value: 'BENMAR',
           isStaff: false,
           layout: {
             horizontal: false,
@@ -3726,6 +3703,7 @@ export const layoutData = {
               },
             ],
           },
+          decode: 'Team 3',
         },
         {
           cells: {
@@ -3738,28 +3716,27 @@ export const layoutData = {
               },
               isEditable: false,
               obj: {
-                k: 'CN;COL;MAEOLI',
                 p: 'IMG',
                 t: 'J4',
               },
               shape: 'Img',
-              value: 'images/faces/ken.jpg',
+              value: 'CN;COL;MAEOLI',
+              decode: 'images/faces/ken.jpg',
             },
             B: {
               cssClass: ' top-right-indicator',
               isEditable: false,
               obj: {
-                k: 'MAEOLI',
                 p: 'COL',
                 t: 'CN',
               },
-              value: 'Ken',
+              value: 'MAEOLI',
+              decode: 'Ken',
             },
             C: {
               cssClass: 'strong-text',
               isEditable: false,
               obj: {
-                k: 'MAEOLI',
                 p: 'COL',
                 t: 'CN',
               },
@@ -3768,7 +3745,6 @@ export const layoutData = {
             D: {
               isEditable: false,
               obj: {
-                k: 'ken@somecompany.com',
                 p: '',
                 t: '**',
               },
@@ -3777,7 +3753,6 @@ export const layoutData = {
             E: {
               isEditable: false,
               obj: {
-                k: '39390000',
                 p: '',
                 t: '**',
               },
@@ -3786,7 +3761,6 @@ export const layoutData = {
             F: {
               isEditable: false,
               obj: {
-                k: 'Team leader',
                 p: '',
                 t: '**',
               },
@@ -3805,9 +3779,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;MOSPAO',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;MOSPAO',
                   },
                   shape: 'Img',
                   value: 'images/faces/ryu.jpg',
@@ -3816,9 +3790,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'MOSPAO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'MOSPAO',
                   },
                   value: 'Ryu',
                 },
@@ -3826,36 +3800,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'MOSPAO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'MOSPAO',
                   },
                   value: 'MOSPAO',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'ryu@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'ryu@somecompany.com',
                   },
                   value: 'ryu@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -3866,13 +3840,12 @@ export const layoutData = {
               id: '0,3,0',
               isExpanded: false,
               obj: {
-                k: 'MOSPAO',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'MOSPAO',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -3949,6 +3922,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -3961,9 +3935,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;BONMAR',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;BONMAR',
                   },
                   shape: 'Img',
                   value: 'images/faces/mary.jpg',
@@ -3972,9 +3946,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'BONMAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BONMAR',
                   },
                   value: 'Mary',
                 },
@@ -3982,36 +3956,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'BONMAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'BONMAR',
                   },
                   value: 'BONMAR',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'mary@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'mary@somecompany.com',
                   },
                   value: 'mary@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
@@ -4022,13 +3996,12 @@ export const layoutData = {
               id: '0,3,1',
               isExpanded: false,
               obj: {
-                k: 'BONMAR',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'BONMAR',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4105,6 +4078,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -4117,9 +4091,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;CANRAR',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;CANRAR',
                   },
                   shape: 'Img',
                   value: 'images/faces/alina.jpg',
@@ -4128,9 +4102,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'CANRAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'CANRAR',
                   },
                   value: 'Alina',
                 },
@@ -4138,36 +4112,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'CANRAR',
                     p: 'COL',
                     t: 'CN',
+                    value: 'CANRAR',
                   },
                   value: 'CANRAR',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'alina@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'alina@somecompany.com',
                   },
                   value: 'alina@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -4178,13 +4152,12 @@ export const layoutData = {
               id: '0,3,2',
               isExpanded: false,
               obj: {
-                k: 'CANRAR',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'CANRAR',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4261,6 +4234,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -4273,9 +4247,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;FACPAO',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;FACPAO',
                   },
                   shape: 'Img',
                   value: 'images/faces/bruce.jpg',
@@ -4284,9 +4258,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'FACPAO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FACPAO',
                   },
                   value: 'Bruce',
                 },
@@ -4294,36 +4268,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'FACPAO',
                     p: 'COL',
                     t: 'CN',
+                    value: 'FACPAO',
                   },
                   value: 'FACPAO',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'bruce@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'bruce@somecompany.com',
                   },
                   value: 'bruce@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -4334,13 +4308,12 @@ export const layoutData = {
               id: '0,3,3',
               isExpanded: false,
               obj: {
-                k: 'FACPAO',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'FACPAO',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4417,6 +4390,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -4429,9 +4403,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;COSANT',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;COSANT',
                   },
                   shape: 'Img',
                   value: 'images/faces/paul.jpg',
@@ -4440,9 +4414,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'COSANT',
                     p: 'COL',
                     t: 'CN',
+                    value: 'COSANT',
                   },
                   value: 'Paul',
                 },
@@ -4450,36 +4424,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'COSANT',
                     p: 'COL',
                     t: 'CN',
+                    value: 'COSANT',
                   },
                   value: 'COSANT',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'paul@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'paul@somecompany.com',
                   },
                   value: 'paul@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -4490,13 +4464,12 @@ export const layoutData = {
               id: '0,3,4',
               isExpanded: false,
               obj: {
-                k: 'COSANT',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'COSANT',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4573,6 +4546,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -4585,9 +4559,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;POISAM',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;POISAM',
                   },
                   shape: 'Img',
                   value: 'images/faces/roxana.jpg',
@@ -4596,9 +4570,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'POISAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'POISAM',
                   },
                   value: 'Roxana',
                 },
@@ -4606,36 +4580,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'POISAM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'POISAM',
                   },
                   value: 'POISAM',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'roxana@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'roxana@somecompany.com',
                   },
                   value: 'roxana@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -4646,13 +4620,12 @@ export const layoutData = {
               id: '0,3,5',
               isExpanded: false,
               obj: {
-                k: 'POISAM',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'POISAM',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4729,6 +4702,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
             {
               cells: {
@@ -4741,9 +4715,9 @@ export const layoutData = {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CN;COL;MICDOM',
                     p: 'IMG',
                     t: 'J4',
+                    value: 'CN;COL;MICDOM',
                   },
                   shape: 'Img',
                   value: 'images/faces/nicole.jpg',
@@ -4752,9 +4726,9 @@ export const layoutData = {
                   cssClass: ' top-right-indicator',
                   isEditable: false,
                   obj: {
-                    k: 'MICDOM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'MICDOM',
                   },
                   value: 'Nicole',
                 },
@@ -4762,36 +4736,36 @@ export const layoutData = {
                   cssClass: 'strong-text',
                   isEditable: false,
                   obj: {
-                    k: 'MICDOM',
                     p: 'COL',
                     t: 'CN',
+                    value: 'MICDOM',
                   },
                   value: 'MICDOM',
                 },
                 D: {
                   isEditable: false,
                   obj: {
-                    k: 'nicole@somecompany.com',
                     p: '',
                     t: '**',
+                    value: 'nicole@somecompany.com',
                   },
                   value: 'nicole@somecompany.com',
                 },
                 E: {
                   isEditable: false,
                   obj: {
-                    k: '39390000',
                     p: '',
                     t: '**',
+                    value: '39390000',
                   },
                   value: '39390000',
                 },
                 F: {
                   isEditable: false,
                   obj: {
-                    k: 'Developer',
                     p: '',
                     t: '**',
+                    value: 'Developer',
                   },
                   value: 'Developer',
                 },
@@ -4802,13 +4776,12 @@ export const layoutData = {
               id: '0,3,6',
               isExpanded: false,
               obj: {
-                k: 'MICDOM',
                 p: 'COL',
                 t: 'CN',
               },
               options: true,
               style: {},
-              value: 'Developer',
+              value: 'MICDOM',
               isStaff: false,
               layout: {
                 horizontal: false,
@@ -4885,6 +4858,7 @@ export const layoutData = {
                   },
                 ],
               },
+              decode: 'Developer',
             },
           ],
           disabled: false,
@@ -4892,13 +4866,12 @@ export const layoutData = {
           id: '0,3',
           isExpanded: false,
           obj: {
-            k: 'MAEOLI',
             p: 'COL',
             t: 'CN',
           },
           options: true,
           style: {},
-          value: 'Team 4',
+          value: 'MAEOLI',
           isStaff: false,
           layout: {
             horizontal: false,
@@ -4975,6 +4948,7 @@ export const layoutData = {
               },
             ],
           },
+          decode: 'Team 4',
         },
       ],
       disabled: false,
@@ -4982,13 +4956,12 @@ export const layoutData = {
       id: '0',
       isExpanded: false,
       obj: {
-        k: 'SANCOS',
         p: 'COL',
         t: 'CN',
       },
       options: true,
       style: {},
-      value: 'CTO',
+      value: 'SANCOS',
       isStaff: false,
       layout: {
         horizontal: false,
@@ -5065,6 +5038,7 @@ export const layoutData = {
           },
         ],
       },
+      decode: 'CTO',
     },
   ],
 };

@@ -5,7 +5,7 @@
       "cells": {
         "avatar": {
           "key": "avatar",
-          "value": "https://placehold.co/64?text=CUSTOM",
+          "value": "PARFRA",
           "config": {
             "badges": [
               {
@@ -18,22 +18,22 @@
           },
           "obj": {
             "t": "CN",
-            "p": "COL",
-            "k": "PARFRA"
-          }
+            "p": "COL"
+          },
+          "decode": "https://placehold.co/64?text=CUSTOM"
         },
         "score": {
           "key": "score",
-          "value": "70",
+          "value": "#C01BAF;70",
           "obj": {
             "t": "J4",
-            "p": "PGB",
-            "k": "#C01BAF;70"
+            "p": "PGB"
           },
           "config": {
             "foregroundColor": "#e0e0e0",
             "textColor": "black"
-          }
+          },
+          "decode": "70"
         },
         "firstName": {
           "key": "firstName",
@@ -63,11 +63,21 @@
         },
         "occupation": {
           "key": "occupation",
-          "value": [{ "code": "OCC02", "text": "Occupation 2" }]
+          "value": [
+            {
+              "code": "OCC02",
+              "text": "Occupation 2"
+            }
+          ]
         },
         "company": {
           "key": "company",
-          "value": [{ "code": "COM3", "text": "Company 3" }]
+          "value": [
+            {
+              "code": "COM3",
+              "text": "Company 3"
+            }
+          ]
         },
         "department": {
           "key": "department",
@@ -79,17 +89,34 @@
             {
               "firstName": "Antonino",
               "lastName": "Pio",
-              "country": { "value": "IT", "text": "Italy" },
-              "region": { "value": "08", "text": "Lazio" },
+              "country": {
+                "value": "IT",
+                "text": "Italy"
+              },
+              "region": {
+                "value": "08",
+                "text": "Lazio"
+              },
               "address": "Lanuvio",
-              "occupation": [{ "code": "OCC03", "text": "Occupation 3" }],
+              "occupation": [
+                {
+                  "code": "OCC03",
+                  "text": "Occupation 3"
+                }
+              ],
               "department": "MARZYX",
               "relatives": [
                 {
                   "firstName": "Tito",
                   "lastName": "Flavio",
-                  "country": { "value": "IT", "text": "Italy" },
-                  "region": { "value": "08", "text": "Lazio" },
+                  "country": {
+                    "value": "IT",
+                    "text": "Italy"
+                  },
+                  "region": {
+                    "value": "08",
+                    "text": "Lazio"
+                  },
                   "address": "Ostia"
                 }
               ]

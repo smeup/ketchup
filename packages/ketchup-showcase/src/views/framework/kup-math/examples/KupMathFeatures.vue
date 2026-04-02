@@ -327,7 +327,7 @@ export default {
         {
           name: 'GAU',
           title: 'Normal distribution',
-          obj: { t: 'NR', p: '', k: '' },
+          obj: { t: 'NR', p: '' },
         },
       ];
       const rows: KupDataRow[] = [];

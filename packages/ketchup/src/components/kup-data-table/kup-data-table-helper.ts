@@ -102,11 +102,13 @@ function sortGroupRows(
         const cell1: KupDataTableCell = {
             obj: r1.group.obj,
             value: r1.group.id,
+            decode: r1.group.label,
         };
 
         const cell2: KupDataTableCell = {
             obj: r2.group.obj,
             value: r2.group.id,
+            decode: r2.group.label,
         };
 
         return compareCell(cell1, cell2, sortObject.sortMode);
@@ -787,7 +789,6 @@ export function normalizeRows(
                         cell.obj = {
                             t: column.obj.t,
                             p: column.obj.p,
-                            k: cell.value,
                         };
                     }
                 }
@@ -1091,7 +1092,7 @@ function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
 
 /**
  * Returns a KupDataDataset obtained as the difference between originalData and modifiedData
- * The checked data are cell.value and cell.obj.k with the same column and row
+ * The checked data are cell.value with the same column and row
  * @param originalData
  * @param modifiedData
  * @param includesAlsoEmptyRows

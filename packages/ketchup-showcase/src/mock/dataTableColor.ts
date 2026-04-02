@@ -15,7 +15,6 @@ export const colorObjectsDataTable = {
           obj: {
             t: 'J1',
             p: 'COL',
-            k: '',
           },
           value: '',
         },
@@ -30,7 +29,6 @@ export const colorObjectsDataTable = {
           obj: {
             t: 'J1',
             p: 'COL',
-            k: 'R255G000B000',
           },
           value: 'R255G000B000',
           options: false,
@@ -46,7 +44,6 @@ export const colorObjectsDataTable = {
           obj: {
             t: 'J1',
             p: 'COL',
-            k: 'R064G100B216',
           },
           value: 'R064G100B216',
           options: false,
@@ -73,7 +70,6 @@ export const colorShapesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
           value: '',
           options: false,
@@ -90,7 +86,6 @@ export const colorShapesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: 'R255G000B000',
           },
           value: 'R255G000B000',
           options: false,
@@ -107,7 +102,6 @@ export const colorShapesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: 'R064G100B216',
           },
           value: 'R064G100B216',
           options: false,

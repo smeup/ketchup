@@ -292,6 +292,7 @@ export class KupChip {
                     {
                         id: node.id,
                         value: node.value,
+                        decode: node.decode,
                     },
                 ];
                 await this.#performChangeEvent();
@@ -306,6 +307,7 @@ export class KupChip {
                         ...data,
                         {
                             id: value,
+                            value: value,
                         },
                     ];
                     await this.#performChangeEvent();

@@ -33,9 +33,9 @@
       },
       "obj": {
         "t": "",
-        "p": "",
-        "k": ""
-      }
+        "p": ""
+      },
+      "value": ""
     },
     "lastName": {
       "key": "lastName",
@@ -50,9 +50,9 @@
       },
       "obj": {
         "t": "",
-        "p": "",
-        "k": ""
-      }
+        "p": ""
+      },
+      "value": ""
     },
     "country": {
       "key": "country",
@@ -128,13 +128,13 @@
       },
       "obj": {
         "t": "TA",
-        "p": "V§N",
-        "k": ""
+        "p": "V§N"
       },
       "outputValueFunction": "description",
       "extra": {
         "liveBackendCheck": true
-      }
+      },
+      "value": ""
     },
     "region": {
       "key": "region",
@@ -229,12 +229,12 @@
       },
       "obj": {
         "t": "",
-        "p": "",
-        "k": ""
+        "p": ""
       },
       "extra": {
         "liveBackendCheck": true
-      }
+      },
+      "value": ""
     },
     "occupation": {
       "key": "occupation",
@@ -299,21 +299,25 @@
       "config": {},
       "obj": {
         "t": "J5",
-        "p": "BRARTI",
-        "k": ""
+        "p": "BRARTI"
       },
-      "outputValueFunction": "firstName"
+      "outputValueFunction": "firstName",
+      "value": ""
     }
   },
-
   "sections": {
     "horizontal": false,
     "sections": [
       {
         "horizontal": true,
         "sections": [
-          { "dim": "40%", "fields": ["avatar"] },
-          { "fields": ["score"] }
+          {
+            "dim": "40%",
+            "fields": ["avatar"]
+          },
+          {
+            "fields": ["score"]
+          }
         ]
       },
       {
@@ -335,9 +339,7 @@
       }
     ]
   },
-
   "extraMessages": [],
-
   "rules": {
     "RULE1": {
       "conditions": {
@@ -366,7 +368,6 @@
       }
     }
   },
-
   "actions": {
     "fields": {
       "submit": {
@@ -389,10 +390,10 @@
           "icon": "mdi mdi-settings"
         },
         "obj": {
-          "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
           "p": "BTN",
           "t": "J4"
-        }
+        },
+        "value": "B(Yes) I(VO;COD_VER;000112) T(Edit)"
       },
       "action2": {
         "key": "action2",
@@ -410,10 +411,10 @@
           }
         },
         "obj": {
-          "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
           "p": "BTN",
           "t": "J4"
-        }
+        },
+        "value": "B(Yes) I(VO;COD_VER;000114) T(action2)"
       },
       "action3": {
         "key": "action3",
@@ -427,18 +428,30 @@
           "imageSrc": "https://placehold.co/64?text=A3"
         },
         "obj": {
-          "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
           "p": "BTN",
           "t": "J4"
         },
-        "options": false
+        "options": false,
+        "value": "B(Yes) M(CN;COL;CASFRA) T(action3)"
       }
     },
     "sections": [
-      { "position": "BR", "fields": ["action2"] },
-      { "position": "BL", "fields": ["submit"] },
-      { "position": "TL", "fields": ["submit"] },
-      { "position": "TR", "fields": ["action3", "action1"] }
+      {
+        "position": "BR",
+        "fields": ["action2"]
+      },
+      {
+        "position": "BL",
+        "fields": ["submit"]
+      },
+      {
+        "position": "TL",
+        "fields": ["submit"]
+      },
+      {
+        "position": "TR",
+        "fields": ["action3", "action1"]
+      }
     ]
   }
 }

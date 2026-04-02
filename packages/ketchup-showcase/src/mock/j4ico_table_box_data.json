@@ -1,14 +1,19 @@
 {
   "columns": [
-    { "name": "DES", "title": "Descrizione" },
-    { "name": "RAW", "title": "Valore raw" },
+    {
+      "name": "DES",
+      "title": "Descrizione"
+    },
+    {
+      "name": "RAW",
+      "title": "Valore raw"
+    },
     {
       "name": "ICON",
       "title": "Icona",
       "obj": {
         "t": "J4",
-        "p": "ICO",
-        "k": ""
+        "p": "ICO"
       }
     }
   ],
@@ -16,58 +21,94 @@
     {
       "cells": {
         "DES": {
-          "obj": { "k": "Icona material", "p": "", "t": "" },
+          "obj": {
+            "p": "",
+            "t": ""
+          },
           "options": false,
           "value": "Icona material"
         },
         "RAW": {
-          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000115" },
+          "obj": {
+            "t": "",
+            "p": ""
+          },
           "value": "VO;COD_AGG;000115"
         },
         "ICON": {
-          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000115" },
-          "data": { "color": "blue", "resource": "magnify" },
-          "value": "magnify"
+          "obj": {
+            "t": "J4",
+            "p": "ICO"
+          },
+          "data": {
+            "color": "blue",
+            "resource": "magnify"
+          },
+          "value": "VO;COD_AGG;000115",
+          "decode": "magnify"
         }
       }
     },
     {
       "cells": {
         "DES": {
-          "obj": { "k": "Icona material con style custom", "p": "", "t": "" },
+          "obj": {
+            "p": "",
+            "t": ""
+          },
           "options": false,
           "value": "Icona material con style custom"
         },
         "RAW": {
-          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000011" },
+          "obj": {
+            "t": "",
+            "p": ""
+          },
           "value": "VO;COD_AGG;000011"
         },
         "ICON": {
-          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000011" },
-          "data": { "color": "#B71817", "resource": "brightness-1" },
-          "value": "brightness-1"
+          "obj": {
+            "t": "J4",
+            "p": "ICO"
+          },
+          "data": {
+            "color": "#B71817",
+            "resource": "brightness-1"
+          },
+          "value": "VO;COD_AGG;000011",
+          "decode": "brightness-1"
         }
       }
     },
     {
       "cells": {
         "DES": {
-          "obj": { "k": "Icona con immagine custom", "p": "", "t": "" },
+          "obj": {
+            "p": "",
+            "t": ""
+          },
           "options": false,
           "value": "Icona con immagine custom"
         },
         "RAW": {
-          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000012" },
+          "obj": {
+            "t": "",
+            "p": ""
+          },
           "value": "VO;COD_AGG;000012"
         },
         "ICON": {
-          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
+          "obj": {
+            "t": "J4",
+            "p": "ICO"
+          },
           "data": {
             "resource": "https://placehold.co/128?text=CF",
             "sizeX": "64px",
             "sizeY": "64px"
           },
-          "value": "https://placehold.co/128?text=CF"
+          "value": "VO;COD_AGG;000012",
+          "decode": "https://placehold.co/128?text=CF"
         }
       }
     }

@@ -215,7 +215,7 @@ export class KupData {
                     }[]
                 >((result, col) => {
                     const cell = row.cells[col.name];
-                    if (!cell || !cell.obj?.k) return result;
+                    if (!cell || !cell.value) return result;
                     result.push({
                         id: col.name,
                         column: col,
@@ -268,12 +268,13 @@ export class KupData {
                         (currentCommand) =>
                             currentCommand.icon === command.icon &&
                             currentCommand.text === command.text &&
-                            currentCommand.obj.k === command.obj.k
+                            currentCommand.value === command.value
                     );
 
                     cellActions.push({
                         icon: command.icon,
                         text: command.text,
+                        originalText: command.originalText,
                         obj: command.obj,
                         cell: currentCell,
                         index: index,
@@ -298,7 +299,7 @@ export class KupData {
                 this.object.isSameTWithBlankPAndK.bind(this.object),
                 this.object.isObjectTPKEmpty.bind(this.object),
             ];
-            return comparisonFunctions.some((fn) => fn(command.obj, cell.obj));
+            return comparisonFunctions.some((fn) => fn(command, cell));
         },
         /**
          * Check if row has action cells.
@@ -586,7 +587,7 @@ export class KupData {
                 return (
                     command.obj.p === VoCodVerRowEnum.P &&
                     command.obj.t === VoCodVerRowEnum.T &&
-                    !command.obj.k
+                    !command.value
                 );
             }
             return false;
@@ -620,14 +621,14 @@ export class KupData {
                 if (this.action.isCodVerBlankK(cmd)) {
                     blankCommands.push({ cmd, index: idx });
                 } else {
-                    const key = cmd.obj.k;
+                    const key = cmd.value;
                     if (!commandMap.has(key)) commandMap.set(key, []);
                     commandMap.get(key)?.push({ cmd, index: idx });
                 }
             });
 
             rowCodVers.forEach((codVer) => {
-                const matchedCommands = commandMap.get(codVer.cell.obj.k) || [];
+                const matchedCommands = commandMap.get(codVer.cell.value) || [];
 
                 if (matchedCommands.length) {
                     matchedCommands.forEach(({ cmd, index }) => {
@@ -655,12 +656,12 @@ export class KupData {
                 blankCommands.forEach(({ cmd, index }) => {
                     actions.push({
                         ...this.action.createBlankRowAction(cmd, index),
-                        obj: { t: '', p: '', k: '' },
-                        cell: { value: '', obj: { t: '', p: '', k: '' } },
+                        obj: { t: '', p: '' },
+                        cell: { value: '', obj: { t: '', p: '' } },
                         column: {
                             name: '',
                             title: '',
-                            obj: { t: '', p: '', k: '' },
+                            obj: { t: '', p: '' },
                         },
                     });
                 });
@@ -725,9 +726,9 @@ export class KupData {
                 text:
                     command.text ||
                     kupManager.language.translate(KupLanguageGeneric.OPTIONS),
-                obj: { t: '', p: '', k: '' },
-                cell: { value: '', obj: { t: '', p: '', k: '' } },
-                column: { name: '', title: '', obj: { t: '', p: '', k: '' } },
+                obj: { t: '', p: '' },
+                cell: { value: '', obj: { t: '', p: '' } },
+                column: { name: '', title: '', obj: { t: '', p: '' } },
                 index,
                 type: DropDownAction.COMMAND,
             };
@@ -739,7 +740,7 @@ export class KupData {
          */
         hasCommandsWithBlankObj: (commands: KupCommand[]): boolean => {
             return commands
-                ? commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                ? commands.some((c) => !c.value && !c.obj.t && !c.obj.p)
                 : false;
         },
         /**
@@ -761,47 +762,57 @@ export class KupData {
         },
     };
     object = {
-        /** compare t p k of two objects
-         * @param {KupObj} firstObj
-         * @param {KupObj} secondObj
+        /** compare t p k of two cells
+         * @param {KupDataCell} firstCell
+         * @param {KupDataCell} secondCell
          * @returns {boolean} result
          */
-        compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
+        compareObjects: (
+            firstCell: KupDataCell,
+            secondCell: KupDataCell
+        ): boolean => {
             return (
-                firstObj.k === secondObj.k &&
-                firstObj.t === secondObj.t &&
-                firstObj.p === secondObj.p
+                firstCell.value === secondCell.value &&
+                firstCell.obj.t === secondCell.obj.t &&
+                firstCell.obj.p === secondCell.obj.p
             );
         },
-        /** ckeck if two obj has same T and P, and first obj has blank K
-         * @param {KupObj} firstObj
-         * @param {KupObj} secondObj
+        /** ckeck if two cells has same T and P, and first obj has blank K
+         * @param {KupDataCell} firstCell
+         * @param {KupDataCell} secondCell
          * @returns {boolean} result
          */
-        isSameTPWithBlankK: (firstObj: KupObj, secondObj: KupObj): boolean => {
+        isSameTPWithBlankK: (
+            firstCell: KupDataCell,
+            secondCell: KupDataCell
+        ): boolean => {
             return (
-                firstObj.t === secondObj.t &&
-                firstObj.p === secondObj.p &&
-                !firstObj.k
+                firstCell.obj.t === secondCell.obj.t &&
+                firstCell.obj.p === secondCell.obj.p &&
+                !firstCell.value
             );
         },
-        /** ckeck if two obj has same T, and first obj has blank P and K
-         * @param {KupObj} firstObj
-         * @param {KupObj} secondObj
+        /** ckeck if two cells has same T, and first obj has blank P and K
+         * @param {KupDataCell} firstCell
+         * @param {KupDataCell} secondCell
          * @returns {boolean} result
          */
         isSameTWithBlankPAndK: (
-            firstObj: KupObj,
-            secondObj: KupObj
+            firstCell: KupDataCell,
+            secondCell: KupDataCell
         ): boolean => {
-            return firstObj.t === secondObj.t && !firstObj.p && !firstObj.k;
+            return (
+                firstCell.obj.t === secondCell.obj.t &&
+                !firstCell.obj.p &&
+                !firstCell.value
+            );
         },
-        /** check if obj t p k proprieties are empty
-         * @param {KupObj} obj
+        /** check if cell t p k proprieties are empty
+         * @param {KupDataCell} cell
          * @returns {boolean} result
          */
-        isObjectTPKEmpty: (obj: KupObj): boolean => {
-            return !obj.k && !obj.t && !obj.p;
+        isObjectTPKEmpty: (cell: KupDataCell): boolean => {
+            return !cell.value && !cell.obj.t && !cell.obj.p;
         },
     };
     /**
@@ -940,7 +951,6 @@ export class KupData {
             column.obj = {
                 t: 'NR',
                 p: '',
-                k: '',
             };
             let rowIndex = 0;
             newColumns.push(column);
@@ -955,7 +965,6 @@ export class KupData {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: value.toString(),
                     },
                     title: j,
                     value: value.toString(),

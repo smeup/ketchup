@@ -275,7 +275,6 @@ function TreeNodeFactory(
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: cellValue,
                 },
                 icon: 'widgets',
                 cssClass: 'strong-text',
@@ -315,7 +314,6 @@ function TreeNodeFactory(
         obj: {
             t: 'TN', // TODO Stands for TreeNode -> Update with effective value
             p: '',
-            k: treeNodeValue,
         },
 
         style: getBooleanOnProbability(0.1)

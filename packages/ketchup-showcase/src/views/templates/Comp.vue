@@ -72,7 +72,6 @@ export default {
         obj: {
           t: 'NAVMENU',
           p: '',
-          k: item,
         },
         value: item,
       };
