@@ -11,13 +11,13 @@ buttonCell.data = {
     obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
     },
     data: {
         icon: 'favorite',
         label: 'Simple button',
     },
-    value: 'Simple button',
+    decode: 'Simple button',
+    value: '',
 };
 
 const dateCell = document.getElementById('dateCell');
@@ -25,7 +25,6 @@ dateCell.data = {
     obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '20211101',
     },
     value: '2021-11-01',
     title: 'Simple date',

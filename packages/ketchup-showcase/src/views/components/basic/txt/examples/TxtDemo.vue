@@ -61,7 +61,7 @@ function createComp() {
   comp.data = {
     value:
       "Welcome to the kup-txt component demo.\r\nThis component handles text transformations,\r\nsuch as replacing custom line breaks.\r\nIt's useful for displaying formatted content\r\nin a web application.",
-    obj: { t: '', p: '', k: '' },
+    obj: { t: '', p: '' },
   };
 
   return comp;

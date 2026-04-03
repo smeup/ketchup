@@ -7,7 +7,6 @@
                 "isKey": false,
                 "name": "X$RIGA",
                 "obj": {
-                    "k": "",
                     "p": "",
                     "t": "NR"
                 },
@@ -26,7 +25,6 @@
                 "isKey": false,
                 "name": "X$CFG",
                 "obj": {
-                    "k": "",
                     "p": "COD_VER",
                     "t": "VO"
                 },
@@ -39,7 +37,6 @@
                 "isKey": false,
                 "name": "X$MOD",
                 "obj": {
-                    "k": "",
                     "p": "COD_VER",
                     "t": "VO"
                 },
@@ -52,7 +49,6 @@
                 "isKey": false,
                 "name": "X$TEST",
                 "obj": {
-                    "k": "CN",
                     "p": "",
                     "t": "CLI"
                 },
@@ -65,7 +61,6 @@
                 "isKey": false,
                 "name": "X$EMPTY",
                 "obj": {
-                    "k": "",
                     "p": "",
                     "t": ""
                 },
@@ -86,7 +81,6 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "1",
                             "p": "",
                             "t": "NR"
                         },
@@ -94,20 +88,21 @@
                         "displayedValue": "1",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "1"
                     },
                     "X$CFG": {
                         "isEditable": false,
                         "obj": {
-                            "k": "1",
                             "p": "",
                             "t": "NR"
                         },
                         "icon": "subject",
-                        "value": "CFG",
+                        "value": "1",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "CFG"
                     },
                     "X$ARTI": {
                         "data": {
@@ -118,14 +113,14 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "MAP000061 PRESSED TUBE PTFE G400 50x25x300",
                             "p": "",
                             "t": ""
                         },
-                        "value": "EXAMPLE",
+                        "value": "MAP000061 PRESSED TUBE PTFE G400 50x25x300",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "EXAMPLE"
                     }
                 },
                 "cssClass": "clickable",
@@ -144,28 +139,28 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "1",
                             "p": "",
                             "t": "NR"
                         },
-                        "value": "2",
+                        "value": "1",
                         "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "2"
                     },
                     "X$CFG": {
                         "isEditable": false,
                         "obj": {
-                            "k": "000050",
                             "p": "COD_VER",
                             "t": "VO"
                         },
                         "icon": "subject",
-                        "value": "CFG",
+                        "value": "000050",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "CFG"
                     },
                     "X$ARTI": {
                         "data": {
@@ -176,14 +171,14 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "MAP000061 PRESSED TUBE PTFE G400 50x25x300",
                             "p": "",
                             "t": ""
                         },
-                        "value": "EXAMPLE",
+                        "value": "MAP000061 PRESSED TUBE PTFE G400 50x25x300",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "EXAMPLE"
                     },
                     "X$TEST": {
                         "data": {
@@ -194,15 +189,15 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "000086",
                             "p": "CN",
                             "t": "CLI"
                         },
-                        "value": "2",
+                        "value": "000086",
                         "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "2"
                     },
                     "X$EMPTY": {
                         "data": {
@@ -213,15 +208,15 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "",
                             "p": "",
                             "t": ""
                         },
-                        "value": "2",
+                        "value": "",
                         "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "2"
                     }
                 },
                 "cssClass": "clickable",
@@ -240,7 +235,6 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "2",
                             "p": "",
                             "t": "NR"
                         },
@@ -248,12 +242,12 @@
                         "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "2"
                     },
                     "X$CFG": {
                         "isEditable": false,
                         "obj": {
-                            "k": "000052",
                             "p": "COD_VER",
                             "t": "VO"
                         },
@@ -261,18 +255,19 @@
                         "value": "000052",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "000052"
                     },
                     "X$MOD": {
                         "isEditable": false,
                         "obj": {
-                            "k": "000053",
                             "p": "COD_VER",
                             "t": "VO"
                         },
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "value": "000053"
                     },
                     "X$ARTI": {
                         "data": {
@@ -283,14 +278,14 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "MEP000001 METALLIC PLIER",
                             "p": "",
                             "t": ""
                         },
-                        "value": "EXAMPLE",
+                        "value": "MEP000001 METALLIC PLIER",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "EXAMPLE"
                     },
                     "X$TEST": {
                         "data": {
@@ -301,15 +296,15 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "000090",
                             "p": "COD_VER",
                             "t": "VO"
                         },
-                        "value": "cod_ver",
+                        "value": "000090",
                         "displayedValue": "cod_ver",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "cod_ver"
                     },
                     "X$EMPTY": {
                         "data": {
@@ -320,15 +315,15 @@
                         },
                         "isEditable": false,
                         "obj": {
-                            "k": "",
                             "p": "",
                             "t": ""
                         },
-                        "value": "2",
+                        "value": "",
                         "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        }
+                        },
+                        "decode": "2"
                     }
                 },
                 "cssClass": "clickable",

@@ -17,41 +17,36 @@
             "title": ""
         }
     ],
-
     "rows": [
         {
             "cells": {
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Europe"
+                        "p": ""
                     },
                     "value": "Europe"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Italy"
+                        "p": ""
                     },
                     "value": "Italy"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Rome"
+                        "p": ""
                     },
                     "value": "Rome"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "2,857,321"
+                        "p": ""
                     },
-                    "value": "2,857,321"
+                    "value": "2857321"
                 }
             }
         },
@@ -60,34 +55,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Europe"
+                        "p": ""
                     },
                     "value": "Europe"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "France"
+                        "p": ""
                     },
                     "value": "France"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Paris"
+                        "p": ""
                     },
                     "value": "Paris"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "2,229,095"
+                        "p": ""
                     },
-                    "value": "2,229,095"
+                    "value": "2229095"
                 }
             }
         },
@@ -96,34 +87,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Europe"
+                        "p": ""
                     },
                     "value": "Europe"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Spain"
+                        "p": ""
                     },
                     "value": "Spain"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Madrid"
+                        "p": ""
                     },
                     "value": "Madrid"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "3,223,334"
+                        "p": ""
                     },
-                    "value": "3,223,334"
+                    "value": "3223334"
                 }
             }
         },
@@ -132,34 +119,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "America"
+                        "p": ""
                     },
                     "value": "America"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "California"
+                        "p": ""
                     },
                     "value": "California"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Los Angeles"
+                        "p": ""
                     },
                     "value": "Los Angeles"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "4,057,875"
+                        "p": ""
                     },
-                    "value": "4,057,875"
+                    "value": "4057875"
                 }
             }
         },
@@ -168,34 +151,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "America"
+                        "p": ""
                     },
                     "value": "America"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Florida"
+                        "p": ""
                     },
                     "value": "Florida"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Miami"
+                        "p": ""
                     },
                     "value": "Miami"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "463,347"
+                        "p": ""
                     },
-                    "value": "463,347"
+                    "value": "463347"
                 }
             }
         },
@@ -204,34 +183,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "America"
+                        "p": ""
                     },
                     "value": "America"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Texas"
+                        "p": ""
                     },
                     "value": "Texas"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Austin"
+                        "p": ""
                     },
                     "value": "Austin"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "790,390"
+                        "p": ""
                     },
-                    "value": "790,390"
+                    "value": "790390"
                 }
             }
         },
@@ -240,34 +215,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Asia"
+                        "p": ""
                     },
                     "value": "Asia"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Japan"
+                        "p": ""
                     },
                     "value": "Japan"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Tokyo"
+                        "p": ""
                     },
                     "value": "Tokyo"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "13,857,443"
+                        "p": ""
                     },
-                    "value": "13,857,443"
+                    "value": "13857443"
                 }
             }
         },
@@ -276,34 +247,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Asia"
+                        "p": ""
                     },
                     "value": "Asia"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "China"
+                        "p": ""
                     },
                     "value": "China"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Beijing"
+                        "p": ""
                     },
                     "value": "Beijing"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "24,516,000"
+                        "p": ""
                     },
-                    "value": "24,516,000"
+                    "value": "24516000"
                 }
             }
         },
@@ -312,34 +279,30 @@
                 "FLD1": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "Asia"
+                        "p": ""
                     },
                     "value": "Asia"
                 },
                 "FLD2": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "India"
+                        "p": ""
                     },
                     "value": "India"
                 },
                 "FLD3": {
                     "obj": {
                         "t": "",
-                        "p": "",
-                        "k": "New Delhi"
+                        "p": ""
                     },
                     "value": "New Delhi"
                 },
                 "FLD4": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "21,750,000"
+                        "p": ""
                     },
-                    "value": "21,750,000"
+                    "value": "21750000"
                 }
             }
         }

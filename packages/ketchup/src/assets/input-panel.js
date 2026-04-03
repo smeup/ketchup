@@ -1,4 +1,4 @@
-const inputPanel = document.getElementById('input-panel');
+﻿const inputPanel = document.getElementById('input-panel');
 inputPanel.data = data;
 
 // Tables
@@ -218,12 +218,11 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Cod.Agente',
-                    },
+                        },
                     editable: false,
                     shape: 'LBL',
                     data: {
-                        size: 15,
+                        size: 15, 
                         maxLength: 15,
                     },
                 },
@@ -231,8 +230,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'TA',
                         p: 'AGE',
-                        k: 'SMEWW',
-                    },
+                        },
                     shape: 'CMB',
                     tooltip: true,
                 },
@@ -241,8 +239,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Cod.Cliente',
-                    },
+                        },
                     editable: false,
                     shape: 'LBL',
                     data: {
@@ -255,8 +252,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'CN',
                         p: 'CLI',
-                        k: '100001',
-                    },
+                        },
                     editable: true,
                     shape: 'CMB',
                     tooltip: true,
@@ -270,8 +266,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Cod.Fornitore',
-                    },
+                        },
                     editable: false,
                     shape: 'LBL',
                     data: {
@@ -284,8 +279,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'CN',
                         p: 'FOR',
-                        k: '20140702',
-                    },
+                        },
                     editable: false,
                     tooltip: true,
                     data: {
@@ -298,8 +292,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Cod.Commessa',
-                    },
+                        },
                     editable: true,
                     shape: 'LBL',
                     data: {
@@ -312,8 +305,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'CM',
                         p: '',
-                        k: '',
-                    },
+                        },
                     editable: true,
                     tooltip: true,
                     data: {
@@ -326,8 +318,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'I1',
                         p: '2',
-                        k: '',
-                    },
+                        },
                     editable: true,
                     tooltip: true,
                     data: {
@@ -340,8 +331,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '',
-                    },
+                        },
                     editable: true,
                     tooltip: true,
                     data: {
@@ -354,8 +344,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
-                    },
+                        },
                     editable: true,
                     data: {
                         size: 300,
@@ -367,8 +356,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Dati sotto-sezione B',
-                    },
+                        },
                     editable: false,
                     shape: 'LBL',
                     data: {
@@ -381,8 +369,7 @@ const absoluteLayoutTest = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Dati sotto-sezione C',
-                    },
+                        },
                     editable: false,
                     shape: 'LBL',
                     data: {
@@ -403,8 +390,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 id: 'AGENL',
                                 absoluteColumn: 2,
                                 absoluteRow: 2,
@@ -414,8 +400,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 id: 'AGEN',
                                 absoluteColumn: 12,
                                 absoluteRow: 2,
@@ -425,8 +410,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 id: 'V£COML',
                                 absoluteColumn: 2,
                                 absoluteRow: 3,
@@ -436,8 +420,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 id: 'V£COM',
                                 absoluteColumn: 12,
                                 absoluteRow: 3,
@@ -457,8 +440,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -473,8 +455,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -489,8 +470,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -515,8 +495,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -531,8 +510,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -547,8 +525,7 @@ const absoluteLayoutTest = {
                                 obj: {
                                     t: '',
                                     p: '',
-                                    k: '',
-                                },
+                                    },
                                 data: {
                                     size: 50,
                                     maxLength: 50,
@@ -586,7 +563,6 @@ const dataTableGroupsTest = {
         {
             name: 'STR001',
             obj: {
-                k: '',
                 p: '',
                 t: '',
             },
@@ -595,7 +571,6 @@ const dataTableGroupsTest = {
         {
             name: 'STR002',
             obj: {
-                k: '',
                 p: '',
                 t: '',
             },
@@ -604,7 +579,6 @@ const dataTableGroupsTest = {
         {
             name: 'STR003',
             obj: {
-                k: '',
                 p: '',
                 t: '',
             },
@@ -614,9 +588,8 @@ const dataTableGroupsTest = {
             decimals: 0,
             name: 'STR004',
             obj: {
-                k: '',
                 p: '',
-                t: 'NR',
+                    t: 'NR',
             },
             title: 'Popolazione',
         },
@@ -626,9 +599,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '1',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '1',
@@ -640,7 +612,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Asti',
                         p: '',
                         t: '',
                     },
@@ -653,7 +624,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Asti',
                         p: '',
                         t: '',
                     },
@@ -667,7 +637,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -688,16 +657,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '2',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '2',
                 },
                 STR003: {
                     obj: {
-                        k: 'San Damiano',
                         p: '',
                         t: '',
                     },
@@ -706,7 +673,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Asti',
                         p: '',
                         t: '',
                     },
@@ -716,7 +682,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -733,16 +698,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '3',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '3',
                 },
                 STR003: {
                     obj: {
-                        k: 'Canelli',
                         p: '',
                         t: '',
                     },
@@ -751,7 +714,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Asti',
                         p: '',
                         t: '',
                     },
@@ -761,7 +723,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -778,16 +739,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '4',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '4',
                 },
                 STR003: {
                     obj: {
-                        k: 'Cuneo',
                         p: '',
                         t: '',
                     },
@@ -796,7 +755,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Cuneo',
                         p: '',
                         t: '',
                     },
@@ -806,7 +764,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -823,16 +780,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '5',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '5',
                 },
                 STR003: {
                     obj: {
-                        k: 'Alba',
                         p: '',
                         t: '',
                     },
@@ -841,7 +796,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Cuneo',
                         p: '',
                         t: '',
                     },
@@ -851,7 +805,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -868,16 +821,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '6',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '6',
                 },
                 STR003: {
                     obj: {
-                        k: 'Bra',
                         p: '',
                         t: '',
                     },
@@ -886,7 +837,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Cuneo',
                         p: '',
                         t: '',
                     },
@@ -896,7 +846,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -913,16 +862,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '7',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '7',
                 },
                 STR003: {
                     obj: {
-                        k: 'Torino',
                         p: '',
                         t: '',
                     },
@@ -931,7 +878,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Torino',
                         p: '',
                         t: '',
                     },
@@ -941,7 +887,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -958,16 +903,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '8',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '8',
                 },
                 STR003: {
                     obj: {
-                        k: 'Moncalieri',
                         p: '',
                         t: '',
                     },
@@ -976,7 +919,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Torino',
                         p: '',
                         t: '',
                     },
@@ -986,7 +928,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -1003,16 +944,14 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '9',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '9',
                 },
                 STR003: {
                     obj: {
-                        k: 'Collegno',
                         p: '',
                         t: '',
                     },
@@ -1021,7 +960,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Torino',
                         p: '',
                         t: '',
                     },
@@ -1031,7 +969,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Piemonte',
                         p: '',
                         t: '',
                     },
@@ -1048,9 +985,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '10',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '10',
@@ -1062,7 +998,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Milano',
                         p: '',
                         t: '',
                     },
@@ -1075,7 +1010,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Milano',
                         p: '',
                         t: '',
                     },
@@ -1089,7 +1023,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1110,9 +1043,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '11',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '11',
@@ -1124,7 +1056,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Sesto San Giovanni',
                         p: '',
                         t: '',
                     },
@@ -1137,7 +1068,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Milano',
                         p: '',
                         t: '',
                     },
@@ -1151,7 +1081,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1172,9 +1101,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '12',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '12',
@@ -1186,7 +1114,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Cinisello Balsamo',
                         p: '',
                         t: '',
                     },
@@ -1199,7 +1126,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Milano',
                         p: '',
                         t: '',
                     },
@@ -1213,7 +1139,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1234,9 +1159,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '13',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '13',
@@ -1248,7 +1172,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Brescia',
                         p: '',
                         t: '',
                     },
@@ -1261,7 +1184,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Brescia',
                         p: '',
                         t: '',
                     },
@@ -1275,7 +1197,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1296,9 +1217,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '14',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '14',
@@ -1310,7 +1230,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Desenzano del Garda',
                         p: '',
                         t: '',
                     },
@@ -1323,7 +1242,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Brescia',
                         p: '',
                         t: '',
                     },
@@ -1337,7 +1255,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1358,9 +1275,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '15',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '15',
@@ -1372,7 +1288,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Montichiari',
                         p: '',
                         t: '',
                     },
@@ -1385,7 +1300,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Brescia',
                         p: '',
                         t: '',
                     },
@@ -1399,7 +1313,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1420,9 +1333,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '16',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '16',
@@ -1434,7 +1346,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Como',
                         p: '',
                         t: '',
                     },
@@ -1447,7 +1358,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Como',
                         p: '',
                         t: '',
                     },
@@ -1461,7 +1371,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1482,9 +1391,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '17',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '17',
@@ -1496,7 +1404,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Cantù',
                         p: '',
                         t: '',
                     },
@@ -1509,7 +1416,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Como',
                         p: '',
                         t: '',
                     },
@@ -1523,7 +1429,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1544,9 +1449,8 @@ const dataTableGroupsTest = {
             cells: {
                 STR004: {
                     obj: {
-                        k: '18',
                         p: '',
-                        t: 'NR',
+                    t: 'NR',
                     },
                     options: false,
                     value: '18',
@@ -1558,7 +1462,6 @@ const dataTableGroupsTest = {
                 },
                 STR003: {
                     obj: {
-                        k: 'Mariano Comense',
                         p: '',
                         t: '',
                     },
@@ -1571,7 +1474,6 @@ const dataTableGroupsTest = {
                 },
                 STR002: {
                     obj: {
-                        k: 'Como',
                         p: '',
                         t: '',
                     },
@@ -1585,7 +1487,6 @@ const dataTableGroupsTest = {
                 },
                 STR001: {
                     obj: {
-                        k: 'Lombardia',
                         p: '',
                         t: '',
                     },
@@ -1621,8 +1522,7 @@ const dataTableFiltersTest = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
-            },
+                },
             children: [
                 {
                     icon: 'widgets',
@@ -1630,8 +1530,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'OA',
                         p: 'SOMETHING',
-                        k: 'SOMETHINGELSE',
-                    },
+                        },
                 },
                 {
                     icon: 'widgets',
@@ -1639,8 +1538,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'OA',
                         p: 'SOMETHING',
-                        k: 'SOMETHINGELSE',
-                    },
+                        },
                 },
                 {
                     icon: 'widgets',
@@ -1648,8 +1546,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'OA',
                         p: 'SOMETHING',
-                        k: 'SOMETHINGELSE',
-                    },
+                        },
                 },
             ],
             isEditable: true,
@@ -1661,8 +1558,7 @@ const dataTableFiltersTest = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
-            },
+                },
             isEditable: true,
         },
         {
@@ -1672,8 +1568,7 @@ const dataTableFiltersTest = {
             obj: {
                 t: 'D8',
                 p: '*YYMD',
-                k: '',
-            },
+                },
             icon: 'calendar',
             isKey: true,
             isEditable: true,
@@ -1685,8 +1580,7 @@ const dataTableFiltersTest = {
             obj: {
                 t: 'NR',
                 p: 'P',
-                k: '',
-            },
+                },
         },
     ],
     rows: [
@@ -1696,8 +1590,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
-                    },
+                        },
                     info: {
                         color: 'var(--kup-warning-color-50)',
                         icon: 'warning',
@@ -1713,8 +1606,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '10',
-                    },
+                        },
                     value: '10',
                     data: {},
                     displayedValue: '10',
@@ -1726,8 +1618,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100000.60',
-                    },
+                        },
                     value: '100,000.60',
                     info: {
                         message: 'Info message, hello!',
@@ -1742,8 +1633,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20181101',
-                    },
+                        },
                     value: '2018-11-01',
                     info: {
                         color: 'var(--kup-danger-color)',
@@ -1760,8 +1650,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '10.60',
-                    },
+                        },
                     value: '10.60',
                     info: {
                         color: 'var(--kup-success-color-40)',
@@ -1783,8 +1672,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
-                    },
+                        },
                     value: 'CASFRA',
                     data: {},
                     element: {
@@ -1795,8 +1683,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '10',
-                    },
+                        },
                     value: '10',
                     data: {},
                     displayedValue: '10',
@@ -1808,8 +1695,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100000.60',
-                    },
+                        },
                     value: '100,000.60',
                     data: {},
                     displayedValue: '100,000.6',
@@ -1821,8 +1707,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20181101',
-                    },
+                        },
                     value: '2018-11-01',
                     data: {},
                     displayedValue: '01/11/2018',
@@ -1834,8 +1719,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '0',
-                    },
+                        },
                     value: '0.00',
                     data: {},
                     displayedValue: '0 %',
@@ -1852,8 +1736,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -1864,8 +1747,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -1877,8 +1759,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -1890,8 +1771,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -1903,8 +1783,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '20.60',
-                    },
+                        },
                     value: '20.60',
                     data: {},
                     displayedValue: '20.6 %',
@@ -1921,8 +1800,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'PARFRA',
-                    },
+                        },
                     value: 'PARFRA',
                     data: {},
                     element: {
@@ -1933,8 +1811,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '5',
-                    },
+                        },
                     value: '5',
                     data: {},
                     displayedValue: '5',
@@ -1946,8 +1823,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '120.06',
-                    },
+                        },
                     value: '120.06',
                     data: {},
                     displayedValue: '120.06',
@@ -1959,8 +1835,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180103',
-                    },
+                        },
                     value: '2018-01-03',
                     data: {},
                     displayedValue: '03/01/2018',
@@ -1972,8 +1847,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '30.60',
-                    },
+                        },
                     value: '30.60',
                     data: {},
                     displayedValue: '30.6 %',
@@ -1990,8 +1864,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2002,8 +1875,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2015,8 +1887,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2028,8 +1899,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2041,8 +1911,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '40.60',
-                    },
+                        },
                     value: '40.60',
                     data: {},
                     displayedValue: '40.6 %',
@@ -2059,8 +1928,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2071,8 +1939,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2084,8 +1951,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2097,8 +1963,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2110,8 +1975,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '50.60',
-                    },
+                        },
                     value: '50.60',
                     data: {},
                     displayedValue: '50.6 %',
@@ -2128,8 +1992,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2140,8 +2003,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2153,8 +2015,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2166,8 +2027,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2179,8 +2039,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '60.60',
-                    },
+                        },
                     value: '60.60',
                     data: {},
                     displayedValue: '60.6 %',
@@ -2197,8 +2056,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2209,8 +2067,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2222,8 +2079,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2235,8 +2091,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2248,8 +2103,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '70.60',
-                    },
+                        },
                     value: '70.60',
                     data: {},
                     displayedValue: '70.6 %',
@@ -2266,8 +2120,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2278,8 +2131,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2291,8 +2143,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2304,8 +2155,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2317,8 +2167,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '80.60',
-                    },
+                        },
                     value: '80.60',
                     data: {},
                     displayedValue: '80.6 %',
@@ -2335,8 +2184,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2347,8 +2195,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2360,8 +2207,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2373,8 +2219,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2386,8 +2231,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '90.60',
-                    },
+                        },
                     value: '90.60',
                     data: {},
                     displayedValue: '90.6 %',
@@ -2404,8 +2248,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
-                    },
+                        },
                     value: 'DELGIO',
                     data: {},
                     element: {
@@ -2416,8 +2259,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
-                    },
+                        },
                     value: '6',
                     data: {},
                     displayedValue: '6',
@@ -2429,8 +2271,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
-                    },
+                        },
                     value: '67.8',
                     data: {},
                     displayedValue: '67.8',
@@ -2442,8 +2283,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20180102',
-                    },
+                        },
                     value: '2018-01-02',
                     data: {},
                     displayedValue: '02/01/2018',
@@ -2455,8 +2295,7 @@ const dataTableFiltersTest = {
                     obj: {
                         t: 'NR',
                         p: 'P',
-                        k: '0',
-                    },
+                        },
                     value: '',
                     data: {},
                     element: {
@@ -2573,14 +2412,14 @@ const data = {
             cells: {
                 NAM: {
                     value: 'Giovanni',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
                 },
                 INP1: {
                     value: '',
-                    obj: { t: 'D8', p: '', k: '' },
+                    obj: { t: 'D8', p: '' },
                     editable: true,
                     mandatory: true,
                 },
@@ -2610,8 +2449,7 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
-                    },
+                        },
                     editable: true,
                     mandatory: true,
                     shape: 'CMB',
@@ -2687,7 +2525,7 @@ const data1 = {
                     editable: true,
                     mandatory: true,
 
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     shape: 'ITX',
                 },
                 INP1: {
@@ -2885,7 +2723,7 @@ const dataAttributeTest = {
             cells: {
                 ITX: {
                     value: 'Giovanni',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
@@ -2895,7 +2733,7 @@ const dataAttributeTest = {
                     },
                 },
                 ACP: {
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'ACP',
@@ -2924,7 +2762,7 @@ const dataAttributeTest = {
                 },
                 CHI: {
                     value: 'chip1;chip2;chip3',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CHI',
@@ -2935,7 +2773,7 @@ const dataAttributeTest = {
                 },
                 CHK: {
                     value: '',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CHK',
@@ -2947,7 +2785,7 @@ const dataAttributeTest = {
                 },
                 CMB: {
                     value: '',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CMB',
@@ -2959,7 +2797,7 @@ const dataAttributeTest = {
                 },
                 EDT: {
                     value: '',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'EDT',
@@ -2969,7 +2807,7 @@ const dataAttributeTest = {
                 },
                 AML: {
                     value: 'chip1;chip2;chip3',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'AML',
@@ -2981,7 +2819,7 @@ const dataAttributeTest = {
                 },
                 CML: {
                     value: 'chip1;chip2;chip3',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CML',
@@ -3003,7 +2841,7 @@ const dataAttributeTest = {
                 },
                 CLP: {
                     value: '',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CLP',
@@ -3012,7 +2850,7 @@ const dataAttributeTest = {
                     },
                 },
                 DAT: {
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'DAT',
@@ -3032,7 +2870,7 @@ const dataAttributeTest = {
                             label: 'value2',
                         },
                     ],
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'RAD',
@@ -3042,7 +2880,7 @@ const dataAttributeTest = {
                 },
                 SWT: {
                     value: true,
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'SWT',
@@ -3052,7 +2890,7 @@ const dataAttributeTest = {
                 },
                 TIM: {
                     value: '',
-                    obj: { t: '', p: '', k: '' },
+                    obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'TIM',
@@ -3338,7 +3176,6 @@ const keyButtonClickTest = {
 //                     obj: {
 //                         t: '',
 //                         p: '',
-//                         k: '',
 //                     },
 //                     editable: true,
 //                     mandatory: true,
@@ -3349,7 +3186,6 @@ const keyButtonClickTest = {
 //                     obj: {
 //                         t: '',
 //                         p: '',
-//                         k: '',
 //                     },
 //                     editable: true,
 //                     mandatory: true,
@@ -3361,7 +3197,6 @@ const keyButtonClickTest = {
 //                     obj: {
 //                         t: '',
 //                         p: '',
-//                         k: '',
 //                     },
 //                     editable: true,
 //                     mandatory: true,
@@ -3372,7 +3207,6 @@ const keyButtonClickTest = {
 //                     obj: {
 //                         t: '',
 //                         p: '',
-//                         k: '',
 //                     },
 //                     editable: true,
 //                     mandatory: true,
@@ -3384,7 +3218,6 @@ const keyButtonClickTest = {
 //                     obj: {
 //                         t: '',
 //                         p: '',
-//                         k: '',
 //                     },
 //                     editable: true,
 //                     mandatory: true,

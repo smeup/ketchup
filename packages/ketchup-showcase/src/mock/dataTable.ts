@@ -56,7 +56,6 @@ export function createDataForPagination(
       cell.obj = {
         t: '',
         p: '',
-        k: cell.value,
       };
 
       if (j === 0) {
@@ -2506,7 +2505,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2539,7 +2537,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2572,7 +2569,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2605,7 +2601,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2638,7 +2633,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2671,7 +2665,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2704,7 +2697,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2737,7 +2729,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2770,7 +2761,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2803,7 +2793,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2836,7 +2825,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2869,7 +2857,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2902,7 +2889,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -2935,7 +2921,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '',
                 p: inputType,
                 t: 'V2',
               },
@@ -2968,7 +2953,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3001,7 +2985,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3034,7 +3017,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3067,7 +3049,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3100,7 +3081,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3133,7 +3113,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3166,7 +3145,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3199,7 +3177,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3232,7 +3209,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3265,7 +3241,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3298,7 +3273,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3331,7 +3305,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3364,7 +3337,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3397,7 +3369,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },
@@ -3430,7 +3401,6 @@ export function dataTableCheckboxFactory(
             },
             C: {
               obj: {
-                k: '1',
                 p: inputType,
                 t: 'V2',
               },

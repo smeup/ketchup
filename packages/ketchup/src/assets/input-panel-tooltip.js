@@ -89,7 +89,7 @@ const tooltipData = (hasTooltip) => {
                 cells: {
                     COL1: {
                         value: 'Plain',
-                        obj: { t: '', p: '', k: '' },
+                        obj: { t: '', p: '' },
                         editable: true,
                         mandatory: true,
                         shape: 'ITX',
@@ -97,7 +97,7 @@ const tooltipData = (hasTooltip) => {
                     },
                     COL2: {
                         value: 'Date',
-                        obj: { t: 'D8', p: '', k: '' },
+                        obj: { t: 'D8', p: '' },
                         editable: true,
                         mandatory: true,
                         tooltip: hasTooltip,
@@ -105,7 +105,7 @@ const tooltipData = (hasTooltip) => {
                     COL3: {
                         value: '15',
                         shape: 'INR',
-                        obj: { t: 'NR', p: '', k: '' },
+                        obj: { t: 'NR', p: '' },
                         editable: true,
                         mandatory: true,
                         tooltip: hasTooltip,
@@ -220,7 +220,7 @@ const tooltipData = (hasTooltip) => {
                     COL7: {
                         value: 'Time',
                         shape: 'TIM',
-                        obj: { t: 'I12', p: '', k: '' },
+                        obj: { t: 'I12', p: '' },
                         editable: true,
                         mandatory: true,
                         tooltip: hasTooltip,
