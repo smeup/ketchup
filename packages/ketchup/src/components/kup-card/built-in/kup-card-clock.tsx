@@ -12,6 +12,7 @@ import {
     KupCardBuiltInClockElements,
     KupCardBuiltInClockOptions,
     KupCardCSSClasses,
+    KupCardObj,
 } from '../kup-card-declarations';
 import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
 
@@ -22,7 +23,7 @@ export function prepareClock(component: KupCard) {
     el.kupData = {};
     if (component.data && component.data.options) {
         const opts = component.data.options as KupCardBuiltInClockOptions;
-        const obj = opts.initialValue as KupObj;
+        const obj = opts.initialValue as KupCardObj;
         if (opts.initialValue) {
             if (obj && obj.k) el.kupData.value = obj.k;
             else el.kupData.value = opts.initialValue as string;

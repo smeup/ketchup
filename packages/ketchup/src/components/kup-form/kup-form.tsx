@@ -393,9 +393,8 @@ export class KupForm {
         }
 
         if (isGrid) {
-            sectionStyle[
-                'grid-template-columns'
-            ] = `repeat(${section.columns}, 1fr)`;
+            sectionStyle['grid-template-columns'] =
+                `repeat(${section.columns}, 1fr)`;
         }
 
         return (
@@ -455,7 +454,7 @@ export class KupForm {
                         '; ' +
                         cell.obj.p +
                         '; ' +
-                        cell.obj.k +
+                        cell.value +
                         ';';
                 }
             }

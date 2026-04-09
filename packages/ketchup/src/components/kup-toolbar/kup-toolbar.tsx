@@ -18,7 +18,6 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
-import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
 import {
     KupToolbarClickEventPayload,
@@ -26,7 +25,6 @@ import {
 } from './kup-toolbar-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
-    KupDataCellOptions,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -183,7 +181,7 @@ export class KupToolbar {
                 ) : (
                     <FImage resource="empty" sizeX="14px" sizeY="14px" />
                 )}
-                {node.value}
+                {node.decode ?? node.value}
             </div>
         );
 

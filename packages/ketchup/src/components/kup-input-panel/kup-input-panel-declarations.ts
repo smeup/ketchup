@@ -1,6 +1,4 @@
-import { ex } from '@fullcalendar/core/internal-common';
 import { GenericObject, KupEventPayload } from '../../components';
-import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataCell,
@@ -8,7 +6,6 @@ import {
     KupDataColumn,
     KupDataCommand,
     KupDataRow,
-    UseAsValue,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
@@ -85,7 +82,7 @@ export interface KupInputPanelLayoutSection {
 }
 
 export interface KupInputPanelLayoutField {
-    id: string;
+    id?: string;
     shape: FCellShapes;
     // Span is referred to start
     colSpan?: number;
@@ -133,8 +130,10 @@ export type InputPanelOptionsHandler = (
 
 export type InputPanelCheckValidObjCallback = (event: {
     obj: KupObj;
+    value: string;
     currentState: KupInputPanelData;
     fun?: string;
+    cellId?: string;
 }) => Promise<ValidCheckObjResponse>;
 
 export interface ValidCheckObjResponse {

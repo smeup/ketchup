@@ -9,6 +9,7 @@ import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import {
     KupCardBuiltInNumeric,
     KupCardBuiltInNumericOptions,
+    KupCardObj,
 } from '../kup-card-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 
@@ -32,7 +33,7 @@ export function prepareNumeric(component: KupCard) {
             value: null,
             localeValue: '',
         };
-        const obj = options.initialValue as KupObj;
+        const obj = options.initialValue as KupCardObj;
         if (options.initialValue) {
             if (obj && obj.k) el.kupData.value = obj.k;
             else el.kupData.value = options.initialValue.toString();

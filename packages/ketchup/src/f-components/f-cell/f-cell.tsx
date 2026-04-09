@@ -104,7 +104,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     cell.data = mapData(cell, column) ?? cell.data;
 
-    const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
+    let _value = cell.decode ?? cell.value;
+
+    const valueToDisplay = props.previousValue !== _value ? _value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
@@ -202,7 +204,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     let cellTitle: string = null;
     if (dom.ketchup.debug.isDebug() && hasObj) {
-        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + _value + ';';
     } else if (cell.title != null && cell.title.trim() != '') {
         cellTitle = cell.title;
     }
@@ -496,9 +498,9 @@ const dataTreeOptionsChildrenAdapter = (
     currentValue: string
 ): GenericObject[] => {
     return options.children.map((child) => ({
-        id: child.obj.k,
+        id: child.value,
         value: child.value,
-        selected: currentValue === child.obj.k,
+        selected: currentValue === child.value,
         children: child.children?.length
             ? dataTreeOptionsChildrenAdapter(child, currentValue)
             : [],
@@ -1159,8 +1161,11 @@ function setCell(
         case FCellTypes.DATETIME:
         case FCellTypes.TIME:
             if (content && content != '') {
-                const cellValue = getCellValueForDisplay(column, cell);
-                return <div class="f-cell__text">{cellValue}</div>;
+                return (
+                    <div class="f-cell__text">
+                        {getCellValueForDisplay(column, cell)}
+                    </div>
+                );
             }
             return content;
         case FCellTypes.CHECKBOX:
@@ -1180,7 +1185,7 @@ function setCell(
             );
         case FCellTypes.EDITOR:
         case FCellTypes.MEMO:
-            return <div innerHTML={cell.value}></div>;
+            return <div innerHTML={getCellValueForDisplay(column, cell)}></div>;
         case FCellTypes.ICON:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -1202,7 +1207,7 @@ function setCell(
         case FCellTypes.LINK:
             return (
                 <a href={content as string} target="_blank">
-                    {cell.value}
+                    {getCellValueForDisplay(column, cell)}
                 </a>
             );
         case FCellTypes.NUMBER:
@@ -1233,7 +1238,7 @@ function setCell(
             return (
                 <FLabel
                     style={cell.style}
-                    text={cell.value}
+                    text={getCellValueForDisplay(column, cell)}
                     classes="f-cell__text"
                 ></FLabel>
             );
@@ -1298,8 +1303,14 @@ function setKupCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
+            let label = cell.decode;
+            if (!label) {
+                if (!cell.icon && !cell.placeholderIcon) {
+                    label = cell.value;
+                }
+            }
             const buttonProps: FButtonProps = {
-                label: cell.value,
+                label: label,
                 icon: cell.icon,
                 placeholderIcon: cell.placeholderIcon,
                 title: column.title,
@@ -1641,14 +1652,8 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.IMAGE_LIST:
-                const obj = (e as CustomEvent<KupImageListEventPayload>).detail
-                    .details.cell.obj;
-                const cellValue = (e as CustomEvent<KupImageListEventPayload>)
-                    .detail.details.cell.value;
-                value = obj?.k ? obj.k : cellValue;
-        }
-        if (cell.obj) {
-            cell.obj.k = value?.toString();
+                value = (e as CustomEvent<KupImageListEventPayload>).detail
+                    .details.cell.value;
         }
         cell.value = value?.toString();
         cell.displayedValue = null;

@@ -13,8 +13,7 @@
       "title": "",
       "obj": {
         "t": "J4",
-        "p": "BTN",
-        "k": ""
+        "p": "BTN"
       }
     }
   ],
@@ -23,7 +22,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Solo icona",
             "p": "",
             "t": ""
           },
@@ -32,7 +30,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "I(VO;COD_VER;000112)",
             "p": "",
             "t": ""
           },
@@ -43,13 +40,13 @@
           "data": {
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "I(VO;COD_VER;000112)",
           "obj": {
-            "k": "I(VO;COD_VER;000112)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "0",
@@ -95,7 +92,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Solo immagine",
             "p": "",
             "t": ""
           },
@@ -104,7 +100,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(J1;URL;https://placehold.co/64?text=img)",
             "p": "",
             "t": ""
           },
@@ -115,13 +110,13 @@
           "data": {
             "icon": "https://placehold.co/64?text=img"
           },
-          "value": "https://placehold.co/64?text=img",
+          "value": "M(J1;URL;https://placehold.co/64?text=img)",
           "obj": {
-            "k": "M(J1;URL;https://placehold.co/64?text=img)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=img"
         }
       },
       "id": "1",
@@ -167,7 +162,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Icona e testo",
             "p": "",
             "t": ""
           },
@@ -176,7 +170,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "I(VO;COD_VER;000112) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -188,13 +181,13 @@
             "icon": "pencil",
             "label": "Edit"
           },
-          "value": "pencil",
+          "value": "I(VO;COD_VER;000112) T(Edit)",
           "obj": {
-            "k": "I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "2",
@@ -240,7 +233,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Immagine e testo",
             "p": "",
             "t": ""
           },
@@ -249,7 +241,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(CN;COL;CASFRA) T(Action)",
             "p": "",
             "t": ""
           },
@@ -261,13 +252,13 @@
             "icon": "https://placehold.co/64?text=CF",
             "label": "Action"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "M(CN;COL;CASFRA) T(Action)",
           "obj": {
-            "k": "M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "3",
@@ -313,7 +304,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Icona e tooltip",
             "p": "",
             "t": ""
           },
@@ -322,7 +312,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "I(VO;COD_VER;000112) H(Edit)",
             "p": "",
             "t": ""
           },
@@ -334,13 +323,13 @@
             "icon": "pencil",
             "tooltip": "Edit"
           },
-          "value": "pencil",
+          "value": "I(VO;COD_VER;000112) H(Edit)",
           "obj": {
-            "k": "I(VO;COD_VER;000112) H(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "4",
@@ -386,7 +375,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Immagine e tooltip",
             "p": "",
             "t": ""
           },
@@ -395,7 +383,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(CN;COL;CASFRA) H(Action)",
             "p": "",
             "t": ""
           },
@@ -407,13 +394,13 @@
             "icon": "https://placehold.co/64?text=CF",
             "tooltip": "Action"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "M(CN;COL;CASFRA) H(Action)",
           "obj": {
-            "k": "M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "5",
@@ -459,7 +446,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Icona con exec",
             "p": "",
             "t": ""
           },
@@ -468,7 +454,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)",
             "p": "",
             "t": ""
           },
@@ -479,13 +464,13 @@
           "data": {
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
           "obj": {
-            "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "6",
@@ -531,7 +516,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Immagine con exec",
             "p": "",
             "t": ""
           },
@@ -540,7 +524,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "",
             "t": ""
           },
@@ -551,13 +534,13 @@
           "data": {
             "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
           "obj": {
-            "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "7",
@@ -603,7 +586,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Icona con exec e style",
             "p": "",
             "t": ""
           },
@@ -612,7 +594,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
             "p": "",
             "t": ""
           },
@@ -624,13 +605,13 @@
             "icon": "pencil",
             "customStyle": ":host{--kup-primary-color: purple;}"
           },
-          "value": "pencil",
+          "value": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "8",
@@ -676,7 +657,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Icona, testo e style",
             "p": "",
             "t": ""
           },
@@ -685,7 +665,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -698,13 +677,13 @@
             "icon": "pencil",
             "label": "Edit"
           },
-          "value": "pencil",
+          "value": "S(a) I(VO;COD_VER;000112) T(Edit)",
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "9",
@@ -750,7 +729,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Link - Solo testo e style",
             "p": "",
             "t": ""
           },
@@ -759,7 +737,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -771,13 +748,13 @@
             "customStyle": ":host{--kup-primary-color: purple;}",
             "label": "Edit"
           },
-          "value": "Edit",
+          "value": "S(a) I(VO;COD_VER;000112) T(Edit)",
           "obj": {
-            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "Edit"
         }
       },
       "id": "10",
@@ -823,7 +800,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona",
             "p": "",
             "t": ""
           },
@@ -832,7 +808,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112)",
             "p": "",
             "t": ""
           },
@@ -843,13 +818,13 @@
           "data": {
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "B(Yes) I(VO;COD_VER;000112)",
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "11",
@@ -895,7 +870,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine",
             "p": "",
             "t": ""
           },
@@ -904,7 +878,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA)",
             "p": "",
             "t": ""
           },
@@ -915,13 +888,13 @@
           "data": {
             "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "B(Yes) M(CN;COL;CASFRA)",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "12",
@@ -967,7 +940,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona e testo",
             "p": "",
             "t": ""
           },
@@ -976,7 +948,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -988,13 +959,13 @@
             "icon": "pencil",
             "label": "Edit"
           },
-          "value": "pencil",
+          "value": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "13",
@@ -1040,7 +1011,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine e testo",
             "p": "",
             "t": ""
           },
@@ -1049,7 +1019,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) T(Action)",
             "p": "",
             "t": ""
           },
@@ -1061,13 +1030,13 @@
             "icon": "https://placehold.co/64?text=CF",
             "label": "Action"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "B(Yes) M(CN;COL;CASFRA) T(Action)",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "14",
@@ -1113,7 +1082,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona e tooltip",
             "p": "",
             "t": ""
           },
@@ -1122,7 +1090,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
             "p": "",
             "t": ""
           },
@@ -1134,13 +1101,13 @@
             "icon": "pencil",
             "tooltip": "Edit"
           },
-          "value": "pencil",
+          "value": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "15",
@@ -1186,7 +1153,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine e tooltip",
             "p": "",
             "t": ""
           },
@@ -1195,7 +1161,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) H(Action)",
             "p": "",
             "t": ""
           },
@@ -1207,13 +1172,13 @@
             "icon": "https://placehold.co/64?text=CF",
             "tooltip": "Action"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "B(Yes) M(CN;COL;CASFRA) H(Action)",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "16",
@@ -1259,7 +1224,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona con exec",
             "p": "",
             "t": ""
           },
@@ -1268,7 +1232,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
             "p": "",
             "t": ""
           },
@@ -1279,13 +1242,13 @@
           "data": {
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "17",
@@ -1331,7 +1294,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine con exec",
             "p": "",
             "t": ""
           },
@@ -1340,7 +1302,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "",
             "t": ""
           },
@@ -1351,13 +1312,13 @@
           "data": {
             "icon": "https://placehold.co/64?text=CF"
           },
-          "value": "https://placehold.co/64?text=CF",
+          "value": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=CF"
         }
       },
       "id": "18",
@@ -1403,7 +1364,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine con exec",
             "p": "",
             "t": ""
           },
@@ -1412,7 +1372,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "",
             "t": ""
           },
@@ -1424,13 +1383,13 @@
             "icon": "https://placehold.co/64?text=SC",
             "label": "Run action"
           },
-          "value": "https://placehold.co/64?text=SC",
+          "value": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
           "obj": {
-            "k": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "https://placehold.co/64?text=SC"
         }
       },
       "id": "19",
@@ -1476,7 +1435,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Immagine con exec",
             "p": "",
             "t": ""
           },
@@ -1485,7 +1443,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "",
             "t": ""
           },
@@ -1496,13 +1453,13 @@
           "data": {
             "label": "Dettaglio"
           },
-          "value": "Dettaglio",
+          "value": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
           "obj": {
-            "k": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "Dettaglio"
         }
       },
       "id": "20",
@@ -1548,7 +1505,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona con exec e style",
             "p": "",
             "t": ""
           },
@@ -1557,7 +1513,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
             "p": "",
             "t": ""
           },
@@ -1568,13 +1523,13 @@
           "data": {
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
           "obj": {
-            "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "21",
@@ -1620,7 +1575,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona, testo e style",
             "p": "",
             "t": ""
           },
@@ -1629,7 +1583,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -1641,13 +1594,13 @@
             "icon": "pencil",
             "label": "Edit"
           },
-          "value": "pencil",
+          "value": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
           "obj": {
-            "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "22",
@@ -1693,7 +1646,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Solo testo e style",
             "p": "",
             "t": ""
           },
@@ -1702,7 +1654,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) S(a) T(Edit)",
             "p": "",
             "t": ""
           },
@@ -1713,13 +1664,13 @@
           "data": {
             "label": "Edit"
           },
-          "value": "Edit",
+          "value": "B(Yes) S(a) T(Edit)",
           "obj": {
-            "k": "B(Yes) S(a) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "Edit"
         }
       },
       "id": "23",
@@ -1765,7 +1716,6 @@
       "cells": {
         "DES": {
           "obj": {
-            "k": "Button - Icona, testo e Fill",
             "p": "",
             "t": ""
           },
@@ -1774,7 +1724,6 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
             "p": "",
             "t": ""
           },
@@ -1787,13 +1736,13 @@
             "fullWidth": true,
             "icon": "pencil"
           },
-          "value": "pencil",
+          "value": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
           "obj": {
-            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false
+          "options": false,
+          "decode": "pencil"
         }
       },
       "id": "24",

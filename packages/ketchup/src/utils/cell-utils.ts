@@ -27,6 +27,9 @@ export function getCellValueForDisplay(
             return cell.displayedValue;
         }
     }
+    if (cell.decode) {
+        return cell.decode;
+    }
     let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
     if (cell != null) {
         cell.displayedValue = formattedValue;
@@ -52,10 +55,6 @@ export function getValueForDisplay2(
 }
 
 export function formatToNumber(cell: KupDataCell): number {
-    if (cell.obj) {
-        return dom.ketchup.math.numberify(cell.obj.k);
-    }
-
     return dom.ketchup.math.numberify(cell.value);
 }
 
@@ -138,9 +137,9 @@ export function compareCell(
 ): number {
     return compareValues(
         cell1.obj,
-        cell1.value,
+        cell1.decode ?? cell1.value,
         cell2.obj,
-        cell2.value,
+        cell2.decode ?? cell2.value,
         sortMode
     );
 }
@@ -289,9 +288,9 @@ export const CMBandACPAdapter = (
             showIcons: true,
             data: options?.length
                 ? options.map((option) => ({
-                      value: option.value,
-                      id: option.obj.k,
-                      selected: value === option.obj.k,
+                      value: option.decode,
+                      id: option.value,
+                      selected: value === option.value,
                   }))
                 : [],
         },
@@ -379,11 +378,11 @@ export function adaptContentToDisplayMode(
     content: unknown,
     separator: string
 ) {
-    if (!cell?.decode || !cell?.obj?.k) {
+    if (!cell?.decode || !cell?.value) {
         return content ?? '';
     }
 
-    const { k: code } = cell.obj;
+    const code = cell.value;
     const desc = cell.decode;
     const DescrMode =
         cell.data?.DescrMode != null

@@ -303,11 +303,7 @@ export class KupObjects {
         if (this.isEmptyJsObject(obj)) {
             return true;
         }
-        return (
-            (!obj.t || obj.t.trim() == '') &&
-            (!obj.p || obj.p.trim() == '') &&
-            (!obj.k || obj.k.trim() == '')
-        );
+        return (!obj.t || obj.t.trim() == '') && (!obj.p || obj.p.trim() == '');
     }
     /**
      * Checks whether the arguments have the same object or not.
@@ -328,11 +324,11 @@ export class KupObjects {
      * @param {KupObj} obj - Object to check.
      * @returns {Dayjs} Dayjs object.
      */
-    parseDate(obj: KupObj): Dayjs {
+    parseDate(obj: KupObj, value: string): Dayjs {
         if (obj.t === 'D8' && obj.p === '*DMYY') {
-            return dom.ketchup.dates.toDayjs(obj.k, 'DDMMYYYY');
+            return dom.ketchup.dates.toDayjs(value, 'DDMMYYYY');
         }
-        return dom.ketchup.dates.toDayjs(obj.k);
+        return dom.ketchup.dates.toDayjs(value);
     }
     /**
      * Check whether two JS objects are deeply equal. When the arguments aren't objects, they are tested directly for equity.

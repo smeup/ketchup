@@ -20,27 +20,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'clickable',
+          value: '',
+          decode: 'clickable',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Mouse cursor turns into a pointer (used for clickable items).',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Clickable',
+          value: '',
           cssClass: 'clickable',
+          decode: 'Clickable',
         },
       },
     },
@@ -50,26 +50,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'display-on-hover',
+          value: '',
+          decode: 'display-on-hover',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell becomes visible on mouse over.',
+          value: '',
+          decode: 'Cell becomes visible on mouse over.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'display-on-hover',
+          value: '',
           cssClass: 'display-on-hover',
+          decode: 'display-on-hover',
         },
       },
     },
@@ -79,26 +79,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'expand-on-hover',
+          value: '',
+          decode: 'expand-on-hover',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell becomes larger on mouse over.',
+          value: '',
+          decode: 'Cell becomes larger on mouse over.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'expand-on-hover',
+          value: '',
           cssClass: 'expand-on-hover',
+          decode: 'expand-on-hover',
         },
       },
     },
@@ -108,26 +108,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'reduce-on-hover',
+          value: '',
+          decode: 'reduce-on-hover',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell becomes smaller on mouse over.',
+          value: '',
+          decode: 'Cell becomes smaller on mouse over.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'reduce-on-hover',
+          value: '',
           cssClass: 'reduce-on-hover',
+          decode: 'reduce-on-hover',
         },
       },
     },
@@ -137,26 +137,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'link',
+          value: '',
+          decode: 'link',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell will be rendered as a link.',
+          value: '',
+          decode: 'Cell will be rendered as a link.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'link',
+          value: '',
           cssClass: 'link',
+          decode: 'link',
         },
       },
     },
@@ -166,26 +166,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'monospace',
+          value: '',
+          decode: 'monospace',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: "Cell will be rendered with the theme's monospace font.",
+          value: '',
+          decode: "Cell will be rendered with the theme's monospace font.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'monospace',
+          value: '',
           cssClass: 'monospace',
+          decode: 'monospace',
         },
       },
     },
@@ -195,26 +195,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'obj',
+          value: '',
+          decode: 'obj',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'It will display the theme cursor set for objects.',
+          value: '',
+          decode: 'It will display the theme cursor set for objects.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'obj',
+          value: '',
           cssClass: 'obj',
+          decode: 'obj',
         },
       },
     },
@@ -224,27 +224,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'shaped',
+          value: '',
+          decode: 'shaped',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell's borders will be shaped (4px border-radius). In the example the background is set to teal to see the borders.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'shaped',
+          value: '',
           cssClass: 'shaped teal-bg',
+          decode: 'shaped',
         },
       },
     },
@@ -254,26 +254,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'strong-text',
+          value: '',
+          decode: 'strong-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Text will be set to a font-weight of 600.',
+          value: '',
+          decode: 'Text will be set to a font-weight of 600.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'strong-text',
+          value: '',
           cssClass: 'strong-text',
+          decode: 'strong-text',
         },
       },
     },
@@ -283,26 +283,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'primary-text',
+          value: '',
+          decode: 'primary-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: "Text will be set to the theme's primary color.",
+          value: '',
+          decode: "Text will be set to the theme's primary color.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'primary-text',
+          value: '',
           cssClass: 'primary-text',
+          decode: 'primary-text',
         },
       },
     },
@@ -312,26 +312,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'secondary-text',
+          value: '',
+          decode: 'secondary-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: "Text will be set to the theme's primary color.",
+          value: '',
+          decode: "Text will be set to the theme's primary color.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'secondary-text',
+          value: '',
           cssClass: 'secondary-text',
+          decode: 'secondary-text',
         },
       },
     },
@@ -341,26 +341,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'underlined',
+          value: '',
+          decode: 'underlined',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Text will be underlined.',
+          value: '',
+          decode: 'Text will be underlined.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'underlined',
+          value: '',
           cssClass: 'underlined',
+          decode: 'underlined',
         },
       },
     },
@@ -370,27 +370,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'success-text',
+          value: '',
+          decode: 'success-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Text color will be set to "--kup-success-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'success-text',
+          value: '',
           cssClass: 'success-text',
+          decode: 'success-text',
         },
       },
     },
@@ -400,27 +400,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'warning-text',
+          value: '',
+          decode: 'warning-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Text color will be set to "--kup-warning-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'warning-text',
+          value: '',
           cssClass: 'warning-text',
+          decode: 'warning-text',
         },
       },
     },
@@ -430,26 +430,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'danger-text',
+          value: '',
+          decode: 'danger-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Text color will be set to "--kup-danger-color" CSS variable.',
+          value: '',
+          decode:
+            'Text color will be set to "--kup-danger-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'danger-text',
+          value: '',
           cssClass: 'danger-text',
+          decode: 'danger-text',
         },
       },
     },
@@ -459,26 +460,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'purple-text',
+          value: '',
+          decode: 'purple-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Text color will be set to #8e15bf.',
+          value: '',
+          decode: 'Text color will be set to #8e15bf.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'purple-text',
+          value: '',
           cssClass: 'purple-text',
+          decode: 'purple-text',
         },
       },
     },
@@ -488,27 +489,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'success-bg',
+          value: '',
+          decode: 'success-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Background color will be set to "--kup-success-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'success-bg',
+          value: '',
           cssClass: 'success-bg',
+          decode: 'success-bg',
         },
       },
     },
@@ -518,27 +519,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'warning-bg',
+          value: '',
+          decode: 'warning-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Background color will be set to "--kup-warning-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'warning-bg',
+          value: '',
           cssClass: 'warning-bg',
+          decode: 'warning-bg',
         },
       },
     },
@@ -548,27 +549,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'danger-bg',
+          value: '',
+          decode: 'danger-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Background color will be set to "--kup-danger-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'danger-bg',
+          value: '',
           cssClass: 'danger-bg',
+          decode: 'danger-bg',
         },
       },
     },
@@ -578,26 +579,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'teal-bg',
+          value: '',
+          decode: 'teal-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Background color will be set to #00b4bc.',
+          value: '',
+          decode: 'Background color will be set to #00b4bc.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'teal-bg',
+          value: '',
           cssClass: 'teal-bg',
+          decode: 'teal-bg',
         },
       },
     },
@@ -607,26 +608,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'orange-bg',
+          value: '',
+          decode: 'orange-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Background color will be set to #f59729.',
+          value: '',
+          decode: 'Background color will be set to #f59729.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'orange-bg',
+          value: '',
           cssClass: 'orange-bg',
+          decode: 'orange-bg',
         },
       },
     },
@@ -636,26 +637,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'green-bg',
+          value: '',
+          decode: 'green-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Background color will be set to #00be67.',
+          value: '',
+          decode: 'Background color will be set to #00be67.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'green-bg',
+          value: '',
           cssClass: 'green-bg',
+          decode: 'green-bg',
         },
       },
     },
@@ -665,26 +666,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'grey-bg',
+          value: '',
+          decode: 'grey-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Background color will be set to #8d8d8d',
+          value: '',
+          decode: 'Background color will be set to #8d8d8d',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'grey-bg',
+          value: '',
           cssClass: 'grey-bg',
+          decode: 'grey-bg',
         },
       },
     },
@@ -694,26 +695,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'purple-bg',
+          value: '',
+          decode: 'purple-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Background color will be set to #b88acc',
+          value: '',
+          decode: 'Background color will be set to #b88acc',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'purple-bg',
+          value: '',
           cssClass: 'purple-bg',
+          decode: 'purple-bg',
         },
       },
     },
@@ -723,27 +724,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'top-right-indicator',
+          value: '',
+          decode: 'top-right-indicator',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'A triangle-shaped indicator will be displayed on the top right of the cell (this class will be omitted when the cell has a density).',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'top-right-indicator',
+          value: '',
           cssClass: 'top-right-indicator',
+          decode: 'top-right-indicator',
         },
       },
     },
@@ -753,26 +754,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-pre',
+          value: '',
+          decode: 'c-pre',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content will preserve whitespaces.',
+          value: '',
+          decode: 'Cell content will preserve whitespaces.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: '              c-pre',
+          value: '',
           cssClass: 'c-pre',
+          decode: '              c-pre',
         },
       },
     },
@@ -782,26 +783,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-vertical-text',
+          value: '',
+          decode: 'c-vertical-text',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content text will be displayed vertically.',
+          value: '',
+          decode: 'Cell content text will be displayed vertically.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-vertical-text',
+          value: '',
           cssClass: 'c-vertical-text',
+          decode: 'c-vertical-text',
         },
       },
     },
@@ -811,26 +812,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-right-aligned',
+          value: '',
+          decode: 'c-right-aligned',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content text will be aligned to the right.',
+          value: '',
+          decode: 'Cell content text will be aligned to the right.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-right-aligned',
+          value: '',
           cssClass: 'c-right-aligned',
+          decode: 'c-right-aligned',
         },
       },
     },
@@ -840,26 +841,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-centered',
+          value: '',
+          decode: 'c-centered',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content text will be centered.',
+          value: '',
+          decode: 'Cell content text will be centered.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-centered',
+          value: '',
           cssClass: 'c-centered',
+          decode: 'c-centered',
         },
       },
     },
@@ -869,27 +870,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-fitted',
+          value: '',
+          decode: 'c-fitted',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's width will fit its max content. In the example the background is set to teal to see the actual width.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-fitted',
+          value: '',
           cssClass: 'c-fitted c-teal-bg',
+          decode: 'c-fitted',
         },
       },
     },
@@ -899,27 +900,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-round',
+          value: '',
+          decode: 'c-round',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's borders will be heavily shaped (50px border radius). In the example the background is set to teal just to see the borders.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-round',
+          value: '',
           cssClass: 'c-round c-teal-bg',
+          decode: 'c-round',
         },
       },
     },
@@ -929,27 +930,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-shaped',
+          value: '',
+          decode: 'c-shaped',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's borders will be shaped (4px border radius). In the example the background is set to teal just to see the borders.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-shaped',
+          value: '',
           cssClass: 'c-shaped c-teal-bg',
+          decode: 'c-shaped',
         },
       },
     },
@@ -959,27 +960,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-padded',
+          value: '',
+          decode: 'c-padded',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's will have padding (1em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-padded',
+          value: '',
           cssClass: 'c-padded c-teal-bg',
+          decode: 'c-padded',
         },
       },
     },
@@ -989,27 +990,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-hor-padded',
+          value: '',
+          decode: 'c-hor-padded',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's will have horizontal padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-hor-padded',
+          value: '',
           cssClass: 'c-hor-padded c-teal-bg',
+          decode: 'c-hor-padded',
         },
       },
     },
@@ -1019,27 +1020,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-ver-padded',
+          value: '',
+          decode: 'c-ver-padded',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             "Cell content's will have vertical padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-ver-padded',
+          value: '',
           cssClass: 'c-ver-padded c-teal-bg',
+          decode: 'c-ver-padded',
         },
       },
     },
@@ -1049,27 +1050,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-success-bg',
+          value: '',
+          decode: 'c-success-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Cell content Background color will be set to "--kup-success-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-success-bg',
+          value: '',
           cssClass: 'c-success-bg',
+          decode: 'c-success-bg',
         },
       },
     },
@@ -1079,27 +1080,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-warning-bg',
+          value: '',
+          decode: 'c-warning-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Cell content Background color will be set to "--kup-warning-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-warning-bg',
+          value: '',
           cssClass: 'c-warning-bg',
+          decode: 'c-warning-bg',
         },
       },
     },
@@ -1109,27 +1110,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-danger-bg',
+          value: '',
+          decode: 'c-danger-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value:
+          value: '',
+          decode:
             'Cell content Background color will be set to "--kup-danger-color" CSS variable.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-danger-bg',
+          value: '',
           cssClass: 'c-danger-bg',
+          decode: 'c-danger-bg',
         },
       },
     },
@@ -1139,26 +1140,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-teal-bg',
+          value: '',
+          decode: 'c-teal-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content Background color will be set to #00b4bc.',
+          value: '',
+          decode: 'Cell content Background color will be set to #00b4bc.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-teal-bg',
+          value: '',
           cssClass: 'c-teal-bg',
+          decode: 'c-teal-bg',
         },
       },
     },
@@ -1168,26 +1169,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-orange-bg',
+          value: '',
+          decode: 'c-orange-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content Background color will be set to #f59729.',
+          value: '',
+          decode: 'Cell content Background color will be set to #f59729.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-orange-bg',
+          value: '',
           cssClass: 'c-orange-bg',
+          decode: 'c-orange-bg',
         },
       },
     },
@@ -1197,26 +1198,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-green-bg',
+          value: '',
+          decode: 'c-green-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content Background color will be set to #00be67.',
+          value: '',
+          decode: 'Cell content Background color will be set to #00be67.',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-green-bg',
+          value: '',
           cssClass: 'c-green-bg',
+          decode: 'c-green-bg',
         },
       },
     },
@@ -1226,26 +1227,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-grey-bg',
+          value: '',
+          decode: 'c-grey-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content Background color will be set to #8d8d8d',
+          value: '',
+          decode: 'Cell content Background color will be set to #8d8d8d',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-grey-bg',
+          value: '',
           cssClass: 'c-grey-bg',
+          decode: 'c-grey-bg',
         },
       },
     },
@@ -1255,26 +1256,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-purple-bg',
+          value: '',
+          decode: 'c-purple-bg',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content Background color will be set to #b88acc',
+          value: '',
+          decode: 'Cell content Background color will be set to #b88acc',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-purple-bg',
+          value: '',
           cssClass: 'c-purple-bg',
+          decode: 'c-purple-bg',
         },
       },
     },
@@ -1284,26 +1285,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-uppercase',
+          value: '',
+          decode: 'c-uppercase',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content, input or text is transformed to uppercase',
+          value: '',
+          decode: 'Cell content, input or text is transformed to uppercase',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'uppercase',
+          value: '',
           cssClass: 'c-uppercase',
+          decode: 'uppercase',
         },
       },
     },
@@ -1313,26 +1314,26 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-lowercase',
+          value: '',
+          decode: 'c-lowercase',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Cell content, input or text is transformed to lowercase',
+          value: '',
+          decode: 'Cell content, input or text is transformed to lowercase',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'LOWERCASE',
+          value: '',
           cssClass: 'c-lowercase',
+          decode: 'LOWERCASE',
         },
       },
     },
@@ -1342,27 +1343,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-input-uppercase',
+          value: '',
+          decode: 'c-input-uppercase',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Only text in <input> tags is transformed to uppercase',
+          value: '',
+          decode: 'Only text in <input> tags is transformed to uppercase',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'uppercase',
+          value: '',
           cssClass: 'c-input-uppercase',
           editable: true,
+          decode: 'uppercase',
         },
       },
     },
@@ -1372,27 +1373,27 @@ export const cellClassesDataTable = {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'c-input-lowercase',
+          value: '',
+          decode: 'c-input-lowercase',
         },
         DESCR: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'Only text in <input> tags is transformed to lowercase',
+          value: '',
+          decode: 'Only text in <input> tags is transformed to lowercase',
         },
         EXAMPLE: {
           obj: {
             t: '',
             p: '',
-            k: '',
           },
-          value: 'LOWERCASE',
+          value: '',
           cssClass: 'c-input-lowercase',
           editable: true,
+          decode: 'LOWERCASE',
         },
       },
     },

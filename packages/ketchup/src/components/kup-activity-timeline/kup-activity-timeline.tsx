@@ -302,7 +302,7 @@ export class KupActivityTimeline {
                                 this.onActivityContextMenu(e, cell);
                             }}
                         >
-                            <p>{cell.value}</p>
+                            <p>{cell.decode ?? cell.value}</p>
                         </div>
                     </div>
                 ))}

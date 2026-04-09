@@ -86,7 +86,7 @@ export const convertRows = (
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
                         const value = kupDates.toDate(
-                            kupObjects.parseDate(cell.obj)
+                            kupObjects.parseDate(cell.obj, cell.value)
                         );
                         currentRow.push(value);
                         if (addMark) {
@@ -94,7 +94,7 @@ export const convertRows = (
                         }
                     } else if (kupObjects.isTime(cell.obj)) {
                         const datetime = kupDates.normalize(
-                            cell.obj.k,
+                            cell.value,
                             KupDatesFormats.ISO_TIME
                         );
                         currentRow.push(datetime.toDate());
@@ -103,7 +103,7 @@ export const convertRows = (
                         }
                     } else if (kupObjects.isTimestamp(cell.obj)) {
                         const datetime = kupDates.normalize(
-                            cell.obj.k,
+                            cell.value,
                             KupDatesFormats.ISO_DATE_TIME
                         );
                         currentRow.push(datetime.toDate());
@@ -111,7 +111,7 @@ export const convertRows = (
                             currentRow.push(datetime.toDate());
                         }
                     } else {
-                        currentRow.push(cell.obj.k);
+                        currentRow.push(cell.value);
                         if (addMark) {
                             currentRow.push(cell.value);
                         }

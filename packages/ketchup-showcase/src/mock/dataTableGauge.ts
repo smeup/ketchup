@@ -19,9 +19,9 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           shape: 'Gau',
+          value: '',
         },
         DESCR: {
           value: 'No data',
@@ -37,7 +37,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -59,7 +58,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -80,7 +78,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -102,7 +99,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -123,7 +119,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -146,7 +141,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -167,7 +161,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',
@@ -192,7 +185,6 @@ export const gaugeShapesDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
           shape: 'Gau',

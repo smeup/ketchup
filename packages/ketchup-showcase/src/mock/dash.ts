@@ -3,50 +3,38 @@ export const mockedDefaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'DELGIO',
-          },
+          obj: {},
           value: 'DELGIO',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '2530,',
             p: '',
             t: 'NR',
           },
-          value: '2,530',
+          value: '2530.',
         },
         UM: {
-          obj: {
-            k: '€',
-          },
+          obj: {},
           value: '€',
         },
         TEXT: {
-          obj: {
-            k: 'CESTANA GIULIETTO',
-          },
+          obj: {},
           value: 'CESTANA GIULIETTO',
         },
         DECVAL: {
-          obj: {
-            k: '0',
-          },
+          obj: {},
           value: '0',
         },
         VALUE: {
           obj: {
-            k: '2520,0',
             p: '',
             t: 'NR',
           },
-          value: '2,520',
+          value: '2520.0',
         },
       },
       object: '',

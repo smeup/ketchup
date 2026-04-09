@@ -72,6 +72,7 @@ export class FiltersTreeItems extends FiltersRows {
             cellsHolder[treeMainColumnName] = {
                 obj: node.obj,
                 value: node.value,
+                decode: node.decode,
             };
             retValue = this.areCellsCompliant(
                 cellsHolder,
@@ -85,7 +86,7 @@ export class FiltersTreeItems extends FiltersRows {
 
         if (isGlobalFilter == true) {
             retValue = this.isFilterCompliantForValue(
-                node.value,
+                node.decode ?? node.value,
                 globalFilter,
                 isGlobalFilter
             );

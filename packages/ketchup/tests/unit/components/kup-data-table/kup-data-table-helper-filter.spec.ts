@@ -240,7 +240,7 @@ describe('kup datatable filtering rows', () => {
                                     cells[columnToFilterOn].obj
                                 ) {
                                     compareResult = compareFunction(
-                                        cells[columnToFilterOn].obj.k,
+                                        cells[columnToFilterOn].value,
                                         filterText
                                     );
                                 }
@@ -271,7 +271,7 @@ describe('kup datatable filtering rows', () => {
                             row.cells[columnToFilterOn].obj
                         ) {
                             compareResult = compareFunction(
-                                row.cells[columnToFilterOn].obj.k,
+                                row.cells[columnToFilterOn].value || '',
                                 filterText
                             );
                         }
@@ -303,15 +303,6 @@ describe('kup datatable filtering rows', () => {
                                         cells[displayedColumns[i].name].value,
                                         filterText
                                     );
-                                    /*if (
-                                    !foundItem &&
-                                    cells[displayedColumns[i].name].obj
-                                ) {
-                                    foundItem = compareFunction(
-                                        cells[displayedColumns[i].name].obj.k,
-                                        filterText
-                                    );
-                                }*/
                                 }
 
                                 return (displayedRowsCount +=
