@@ -33,50 +33,38 @@ export const defaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'DELGIO',
-          },
+          obj: {},
           value: 'DELGIO',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '2520,',
             p: '',
             t: 'NR',
           },
-          value: '2,520',
+          value: '2520.',
         },
         UM: {
-          obj: {
-            k: '€',
-          },
+          obj: {},
           value: '€',
         },
         TEXT: {
-          obj: {
-            k: 'CESTANA GIULIETTO',
-          },
+          obj: {},
           value: 'CESTANA GIULIETTO',
         },
         DECVAL: {
-          obj: {
-            k: '0',
-          },
+          obj: {},
           value: '0',
         },
         VALUE: {
           obj: {
-            k: '2520,0',
             p: '',
             t: 'NR',
           },
-          value: '2,520',
+          value: '2520.0',
         },
       },
       object: '',
@@ -85,50 +73,38 @@ export const defaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'GIAGIU',
-          },
+          obj: {},
           value: 'GIAGIU',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '-2600,',
             p: '',
             t: 'NR',
           },
-          value: '-2,600',
+          value: '-2600.',
         },
         UM: {
-          obj: {
-            k: '%',
-          },
+          obj: {},
           value: '%',
         },
         TEXT: {
-          obj: {
-            k: 'Company Rossi Spa Napoli',
-          },
+          obj: {},
           value: 'Company Rossi Spa Napoli',
         },
         DECVAL: {
-          obj: {
-            k: '0',
-          },
+          obj: {},
           value: '0',
         },
         VALUE: {
           obj: {
-            k: '-2600,0',
             p: '',
             t: 'NR',
           },
-          value: '-2,600',
+          value: '-2600.0',
         },
       },
       object: '',
@@ -137,50 +113,38 @@ export const defaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'MOSPAO',
-          },
+          obj: {},
           value: 'MOSPAO',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '-100,',
             p: '',
             t: 'NR',
           },
-          value: '-100',
+          value: '-100.',
         },
         UM: {
-          obj: {
-            k: '£',
-          },
+          obj: {},
           value: '£',
         },
         TEXT: {
-          obj: {
-            k: 'MOSPAO',
-          },
+          obj: {},
           value: 'MOSPAO',
         },
         DECVAL: {
-          obj: {
-            k: '0',
-          },
+          obj: {},
           value: '0',
         },
         VALUE: {
           obj: {
-            k: '-100,0',
             p: '',
             t: 'NR',
           },
-          value: '-100',
+          value: '-100.0',
         },
       },
       object: '',
@@ -189,50 +153,38 @@ export const defaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'PARFRA',
-          },
+          obj: {},
           value: 'PARFRA',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '5000,',
             p: '',
             t: 'NR',
           },
-          value: '5,000',
+          value: '5000.',
         },
         UM: {
-          obj: {
-            k: '£',
-          },
+          obj: {},
           value: '£',
         },
         TEXT: {
-          obj: {
-            k: 'Company Bianchi Sas Palermo',
-          },
+          obj: {},
           value: 'Company Bianchi Sas Palermo',
         },
         DECVAL: {
-          obj: {
-            k: '0',
-          },
+          obj: {},
           value: '0',
         },
         VALUE: {
           obj: {
-            k: '4000,0',
             p: '',
             t: 'NR',
           },
-          value: '4,000',
+          value: '4000.0',
         },
       },
       object: '',
@@ -241,46 +193,34 @@ export const defaultData = {
     {
       cells: {
         GROUP: {
-          obj: {
-            k: 'VERFRA',
-          },
+          obj: {},
           value: 'VERFRA',
         },
         ICO: {
-          obj: {
-            k: 'mdi mdi-star-circle',
-          },
+          obj: {},
           value: 'mdi mdi-star-circle',
         },
         INTVAL: {
           obj: {
-            k: '-228,',
             p: '',
             t: 'NR',
           },
-          value: '-228',
+          value: '-228.',
         },
         UM: {
-          obj: {
-            k: '$',
-          },
+          obj: {},
           value: '$',
         },
         TEXT: {
-          obj: {
-            k: 'BRETTI PAOLO',
-          },
+          obj: {},
           value: 'BRETTI PAOLO',
         },
         DECVAL: {
-          obj: {
-            k: '1',
-          },
+          obj: {},
           value: '1',
         },
         VALUE: {
           obj: {
-            k: '-228,1',
             p: '',
             t: 'NR',
           },

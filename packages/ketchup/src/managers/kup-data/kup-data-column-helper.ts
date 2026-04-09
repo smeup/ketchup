@@ -194,7 +194,7 @@ function newColumnFromConcatenate(
             cells[newName] = {
                 ...base,
                 displayedValue: null,
-                obj: newObj ? { ...newObj, k: value } : null,
+                obj: newObj ? { ...newObj } : null,
                 value: value,
             };
         }
@@ -362,7 +362,7 @@ function newColumnFromMath(
         cells[newName] = {
             ...base,
             displayedValue: null,
-            obj: { ...newObj, k: value },
+            obj: { ...newObj },
             value: value,
         };
     });
@@ -370,7 +370,7 @@ function newColumnFromMath(
         ...firstColumn,
         name: newName,
         title: title ? title : newTitle,
-        obj: newObj ?? { t: '', p: '', k: '' },
+        obj: newObj ?? { t: '', p: '' },
         resultOf: formula,
         visible: true,
     };

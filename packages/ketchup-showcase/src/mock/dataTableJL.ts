@@ -12,7 +12,6 @@ export const jlObjectsDataTable = {
           obj: {
             t: 'JL',
             p: '**',
-            k: '',
           },
           value: '',
         },
@@ -37,7 +36,6 @@ export const jlObjectsDataTable = {
           obj: {
             t: 'JL',
             p: '**',
-            k: 'text;icon',
           },
           value: 'text;icon',
           options: false,
@@ -60,10 +58,10 @@ export const jlObjectsDataTable = {
           obj: {
             t: 'JL',
             p: 'CNCOL',
-            k: 'FEDROB;PARFRA',
           },
-          value: 'Federico Robertozzi;Parodonte Frascati',
+          value: 'FEDROB;PARFRA',
           options: false,
+          decode: 'Federico Robertozzi;Parodonte Frascati',
         },
       },
     },

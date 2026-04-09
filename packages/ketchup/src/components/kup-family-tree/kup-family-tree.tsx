@@ -478,7 +478,7 @@ export class KupFamilyTree {
                 class={`family-tree__item__layout family-tree__item__layout--1`}
             >
                 <div class={'family-tree__item__layout__text__title'}>
-                    {node.value}
+                    {node.decode ?? node.value}
                 </div>
             </div>
         );
@@ -500,7 +500,7 @@ export class KupFamilyTree {
                 </div>
                 <div class={'family-tree__item__layout__text'}>
                     <div class={'family-tree__item__layout__text__title'}>
-                        {node.value}
+                        {node.decode ?? node.value}
                     </div>
                     {node.title ? (
                         <div

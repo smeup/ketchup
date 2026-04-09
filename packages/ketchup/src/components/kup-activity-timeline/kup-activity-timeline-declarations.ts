@@ -11,6 +11,7 @@ export enum KupActivityTimelineProps {
 export interface KupActivityTimelineData {
     title: string;
     value: string;
+    decode?: string;
     columnName: string;
     rowId: string;
 }

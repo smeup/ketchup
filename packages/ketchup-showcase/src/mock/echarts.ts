@@ -28,7 +28,6 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'Marketing',
           },
           value: 'Marketing',
         },
@@ -36,7 +35,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -44,7 +42,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.50',
           },
           value: '100.50',
         },
@@ -52,7 +49,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '55',
           },
           value: '55',
         },
@@ -64,7 +60,6 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'Sales',
           },
           value: 'Sales',
         },
@@ -72,7 +67,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
           },
           value: '6',
         },
@@ -80,7 +74,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -88,7 +81,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '33',
           },
           value: '33',
         },
@@ -100,7 +92,6 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'Administration',
           },
           value: 'Administration',
         },
@@ -108,7 +99,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -116,7 +106,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -124,7 +113,6 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '77',
           },
           value: '77',
         },
@@ -154,7 +142,6 @@ export const singleData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
           },
           value: 'CASFRA',
         },
@@ -163,7 +150,6 @@ export const singleData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '55',
           },
           value: '55',
         },
@@ -176,7 +162,6 @@ export const singleData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
           },
           value: 'DELGIO',
         },
@@ -185,7 +170,6 @@ export const singleData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '33',
           },
           value: '33',
         },
@@ -198,7 +182,6 @@ export const singleData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
           },
           value: 'PARFRA',
         },
@@ -207,7 +190,6 @@ export const singleData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '77',
           },
           value: '77',
         },
@@ -242,7 +224,6 @@ export const comboData = {
           obj: {
             t: '',
             p: '',
-            k: 'Italy',
           },
           value: 'Italy',
         },
@@ -250,7 +231,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -258,7 +238,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '45',
           },
           value: '45',
         },
@@ -270,7 +249,6 @@ export const comboData = {
           obj: {
             t: '',
             p: '',
-            k: 'France',
           },
           value: 'France',
         },
@@ -278,7 +256,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -286,7 +263,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '35',
           },
           value: '35',
         },
@@ -298,7 +274,6 @@ export const comboData = {
           obj: {
             t: '',
             p: '',
-            k: 'Spain',
           },
           value: 'Spain',
         },
@@ -306,7 +281,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '45',
           },
           value: '45',
         },
@@ -314,7 +288,6 @@ export const comboData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '70',
           },
           value: '70',
         },
@@ -343,7 +316,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190102',
           },
           value: '2019-01-02',
         },
@@ -351,7 +323,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           value: '1000',
         },
@@ -363,7 +334,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190603',
           },
           value: '2019-06-03',
         },
@@ -371,7 +341,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2000',
           },
           value: '2000',
         },
@@ -383,7 +352,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20191212',
           },
           value: '2019-12-12',
         },
@@ -391,7 +359,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1700',
           },
           value: '1700',
         },
@@ -403,7 +370,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190725',
           },
           value: '2019-07-25',
         },
@@ -411,7 +377,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '800',
           },
           value: '800',
         },
@@ -423,7 +388,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190903',
           },
           value: '2019-09-03',
         },
@@ -431,7 +395,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2300',
           },
           value: '2300',
         },
@@ -443,7 +406,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190518',
           },
           value: '2019-05-18',
         },
@@ -451,7 +413,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '450',
           },
           value: '450',
         },
@@ -463,7 +424,6 @@ export const calendarData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20190415',
           },
           value: '2019-04-15',
         },
@@ -471,7 +431,6 @@ export const calendarData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '900',
           },
           value: '900',
         },
@@ -500,7 +459,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -508,7 +466,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5.5',
           },
           value: '5.5',
         },
@@ -520,7 +477,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8',
           },
           value: '8',
         },
@@ -528,7 +484,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
           },
           value: '12',
         },
@@ -540,7 +495,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '11',
           },
           value: '11',
         },
@@ -548,7 +502,6 @@ export const ageWeightData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '14',
           },
           value: '14',
         },
@@ -582,7 +535,6 @@ export const mapData = {
           obj: {
             t: '',
             p: '',
-            k: 'Germany',
           },
           value: 'Germany',
         },
@@ -590,7 +542,6 @@ export const mapData = {
           obj: {
             t: 'Color',
             p: '',
-            k: 'red',
           },
           value: 'red',
         },
@@ -598,7 +549,6 @@ export const mapData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -610,7 +560,6 @@ export const mapData = {
           obj: {
             t: '',
             p: '',
-            k: 'United States',
           },
           value: 'United States',
         },
@@ -618,7 +567,6 @@ export const mapData = {
           obj: {
             t: 'Color',
             p: '',
-            k: 'Green',
           },
           value: 'Green',
         },
@@ -626,7 +574,6 @@ export const mapData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '200',
           },
           value: '200',
         },
@@ -638,7 +585,6 @@ export const mapData = {
           obj: {
             t: '',
             p: '',
-            k: 'Brazil',
           },
           value: 'Brazil',
         },
@@ -646,7 +592,6 @@ export const mapData = {
           obj: {
             t: 'Color',
             p: '',
-            k: 'purple',
           },
           value: 'purple',
         },
@@ -654,7 +599,6 @@ export const mapData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '300',
           },
           value: '300',
         },
@@ -666,7 +610,6 @@ export const mapData = {
           obj: {
             t: '',
             p: '',
-            k: 'Canada',
           },
           value: 'Canada',
         },
@@ -674,7 +617,6 @@ export const mapData = {
           obj: {
             t: 'Color',
             p: '',
-            k: 'yellow',
           },
           value: 'yellow',
         },
@@ -682,7 +624,6 @@ export const mapData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '400',
           },
           value: '400',
         },
@@ -694,7 +635,6 @@ export const mapData = {
           obj: {
             t: '',
             p: '',
-            k: 'France',
           },
           value: 'France',
         },
@@ -702,7 +642,6 @@ export const mapData = {
           obj: {
             t: 'Color',
             p: '',
-            k: 'orange',
           },
           value: 'orange',
         },
@@ -710,7 +649,6 @@ export const mapData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '500',
           },
           value: '500',
         },

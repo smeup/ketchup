@@ -66,6 +66,7 @@ export interface KupDataRowCells {
 }
 export interface KupDataRowAction {
     text: string;
+    originalText?: string;
     icon: string;
     type:
         | DropDownAction.CODVER
@@ -82,9 +83,11 @@ export interface KupDataRowAction {
  * Commands for actions
  */
 export interface KupCommand {
-    obj: KupObj;
+    obj?: KupObj;
+    value: string;
     icon: string;
     text: string;
+    originalText?: string;
     showIcon: boolean;
 }
 
@@ -92,7 +95,7 @@ export interface KupCommand {
  * Generic cell interface.
  */
 export interface KupDataCell {
-    value?: string;
+    value: string;
     decode?: string;
     cardID?: number;
     cssClass?: string;
@@ -132,7 +135,8 @@ export interface CellActionProps {
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
-    value?: string;
+    value: string;
+    decode?: string;
     children?: KupDataNode[];
     disabled?: boolean;
     expandable?: boolean;

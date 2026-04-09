@@ -14,7 +14,6 @@ export const mockedTaskData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -23,7 +22,6 @@ export const mockedTaskData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -32,7 +30,6 @@ export const mockedTaskData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -41,7 +38,6 @@ export const mockedTaskData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
   ],
@@ -58,7 +54,6 @@ export const mockedTaskData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-06-04',
         },
@@ -66,7 +61,6 @@ export const mockedTaskData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-12-04',
         },
@@ -74,7 +68,6 @@ export const mockedTaskData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-06-04',
         },
@@ -82,7 +75,6 @@ export const mockedTaskData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-12-04',
         },
@@ -107,7 +99,6 @@ export const mockedPhaseData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -116,7 +107,6 @@ export const mockedPhaseData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -125,7 +115,6 @@ export const mockedPhaseData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -134,7 +123,6 @@ export const mockedPhaseData = {
       obj: {
         t: 'D8',
         p: '*YYMD',
-        k: '',
       },
     },
     {
@@ -143,7 +131,6 @@ export const mockedPhaseData = {
       obj: {
         t: '',
         p: '',
-        k: '',
       },
     },
   ],
@@ -160,7 +147,6 @@ export const mockedPhaseData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-07-04',
         },
@@ -168,7 +154,6 @@ export const mockedPhaseData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-08-04',
         },
@@ -176,7 +161,6 @@ export const mockedPhaseData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-07-04',
         },
@@ -184,7 +168,6 @@ export const mockedPhaseData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '',
           },
           value: '2022-08-04',
         },
@@ -231,7 +214,6 @@ export function getMockupTaskDatas() {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -240,7 +222,6 @@ export function getMockupTaskDatas() {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -249,7 +230,6 @@ export function getMockupTaskDatas() {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -258,7 +238,6 @@ export function getMockupTaskDatas() {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
     ],
@@ -276,7 +255,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-06-04',
           },
@@ -284,7 +262,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-04',
           },
@@ -292,7 +269,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-06-04',
           },
@@ -300,7 +276,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-04',
           },
@@ -319,7 +294,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-07-04',
           },
@@ -327,7 +301,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-04',
           },
@@ -335,7 +308,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-07-04',
           },
@@ -343,7 +315,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-04',
           },
@@ -362,7 +333,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-11-03',
           },
@@ -370,7 +340,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-28',
           },
@@ -378,7 +347,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-11-03',
           },
@@ -386,7 +354,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-28',
           },
@@ -405,7 +372,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-05-19',
           },
@@ -413,7 +379,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-09-18',
           },
@@ -421,7 +386,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-05-19',
           },
@@ -429,7 +393,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-09-18',
           },
@@ -448,7 +411,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-10-19',
           },
@@ -456,7 +418,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-18',
           },
@@ -464,7 +425,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-10-19',
           },
@@ -472,7 +432,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-18',
           },
@@ -491,7 +450,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-11-15',
           },
@@ -499,7 +457,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-25',
           },
@@ -507,7 +464,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-11-15',
           },
@@ -515,7 +471,6 @@ export function getMockupTaskDatas() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-12-25',
           },

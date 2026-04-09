@@ -343,9 +343,7 @@ export class KupEchart {
                 );
                 // I need to set the value of the cell related to the series, by using the value calculated
                 // inside #setPieOptions method
-                row.cells[this.series[0]].obj.k = row.cells[
-                    this.series[0]
-                ].value = e.value.toString();
+                row.cells[this.series[0]].value = e.value.toString();
             } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
             }

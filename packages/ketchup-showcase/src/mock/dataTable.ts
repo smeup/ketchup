@@ -121,8 +121,8 @@ export function createFakeDepartmentData(dataSuffix: string) {
       currentRow.cells[columns[j].name].obj = {
         t: '',
         p: '',
-        k: '',
       };
+      currentRow.cells[columns[j].name].value = '';
     }
     rows.push(currentRow);
   }
@@ -161,7 +161,6 @@ export const defaultDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -170,7 +169,6 @@ export const defaultDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -186,7 +184,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Shareholders module',
           },
           value: 'Shareholders module',
           title: 'Simple tooltip for cell 1',
@@ -196,7 +193,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
           title: 'Simple tooltip for cell 2',
@@ -205,7 +201,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
           title: 'Simple tooltip for cell 3',
@@ -214,7 +209,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200101',
           },
           value: '2020-01-01',
           title: 'Simple tooltip for cell 4',
@@ -227,7 +221,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
           },
           value: 'Sales module',
           options: true,
@@ -236,7 +229,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -244,7 +236,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39.5',
           },
           value: '39.5',
         },
@@ -252,7 +243,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200202',
           },
           value: '2020-02-02',
         },
@@ -264,7 +254,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Marketing module',
           },
           value: 'Marketing module',
           options: true,
@@ -273,7 +262,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -281,7 +269,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -289,7 +276,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200303',
           },
           value: '2020-03-03',
         },
@@ -301,7 +287,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Commerce module',
           },
           value: 'Commerce module',
           options: true,
@@ -310,7 +295,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -318,7 +302,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '156.7',
           },
           value: '156.7',
         },
@@ -326,7 +309,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200404',
           },
           value: '2020-04-04',
         },
@@ -338,7 +320,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Service module',
           },
           value: 'Service module',
           options: true,
@@ -347,7 +328,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -355,7 +335,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '256.7',
           },
           value: '256.7',
         },
@@ -363,7 +342,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200505',
           },
           value: '2020-05-05',
         },
@@ -375,7 +353,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Cloud module',
           },
           value: 'Cloud module',
           options: true,
@@ -384,7 +361,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -392,7 +368,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '78.9',
           },
           value: '78.9',
         },
@@ -400,7 +375,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200606',
           },
           value: '2020-06-06',
         },
@@ -412,7 +386,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Financial module',
           },
           value: 'Financial module',
           options: true,
@@ -421,7 +394,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -429,7 +401,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '145.6',
           },
           value: '145.6',
         },
@@ -437,7 +408,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200707',
           },
           value: '2020-07-07',
         },
@@ -449,7 +419,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Delivery module',
           },
           value: 'Delivery module',
           options: true,
@@ -458,7 +427,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -466,7 +434,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '278.9',
           },
           value: '278.9',
         },
@@ -474,7 +441,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200808',
           },
           value: '2020-08-08',
         },
@@ -486,7 +452,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Web module',
           },
           value: 'Web module',
           options: true,
@@ -495,7 +460,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -503,7 +467,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '498.7',
           },
           value: '498.7',
         },
@@ -511,7 +474,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200909',
           },
           value: '2020-09-09',
         },
@@ -523,7 +485,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Integration module',
           },
           value: 'Integration module',
           options: true,
@@ -532,7 +493,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -540,7 +500,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '99.9',
           },
           value: '99.9',
         },
@@ -548,7 +507,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20201010',
           },
           value: '2020-10-10',
         },
@@ -560,7 +518,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Banking module',
           },
           value: 'Banking module',
           options: true,
@@ -569,7 +526,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -577,7 +533,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '178.9',
           },
           value: '178.9',
         },
@@ -585,7 +540,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20201111',
           },
           value: '2020-11-11',
         },
@@ -597,7 +551,6 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Analytics module',
           },
           value: 'Analytics module',
           options: true,
@@ -606,7 +559,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -614,7 +566,6 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '345.6',
           },
           value: '345.6',
         },
@@ -622,7 +573,6 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20201212',
           },
           value: '2020-12-12',
         },
@@ -639,7 +589,6 @@ export const dataTableWithCommands = {
       isKey: false,
       name: 'X$RIGA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -659,7 +608,6 @@ export const dataTableWithCommands = {
       isKey: false,
       name: 'X$QTA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -671,7 +619,6 @@ export const dataTableWithCommands = {
       isKey: false,
       name: 'X$CFG',
       obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
       },
@@ -692,7 +639,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -705,7 +651,6 @@ export const dataTableWithCommands = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
@@ -723,7 +668,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
             p: '',
             t: '',
           },
@@ -741,7 +685,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -768,7 +711,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -781,7 +723,6 @@ export const dataTableWithCommands = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000051',
             p: 'COD_VER',
             t: 'VO',
           },
@@ -799,7 +740,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
             p: '',
             t: '',
           },
@@ -817,7 +757,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '5',
             p: '',
             t: 'NR',
           },
@@ -844,7 +783,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '3',
             p: '',
             t: 'NR',
           },
@@ -857,14 +795,14 @@ export const dataTableWithCommands = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000052',
             p: 'COD_VER',
             t: 'VO',
           },
-          value: 'edit',
+          value: '000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'edit',
         },
         X$ARTI: {
           data: {
@@ -875,7 +813,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: 'MEP000001 METALLIC PLIER',
             p: '',
             t: '',
           },
@@ -893,7 +830,6 @@ export const dataTableWithCommands = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -920,7 +856,6 @@ export const dataTableWithCommandsMatching = {
       isKey: false,
       name: 'X$RIGA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -940,7 +875,6 @@ export const dataTableWithCommandsMatching = {
       isKey: false,
       name: 'X$QTA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -952,7 +886,6 @@ export const dataTableWithCommandsMatching = {
       isKey: false,
       name: 'X$CFG',
       obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
       },
@@ -973,7 +906,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -986,7 +918,6 @@ export const dataTableWithCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
@@ -1005,14 +936,14 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
             p: '',
             t: '',
           },
-          value: 'CODVER MATCHING WITH ICON AND TEXT',
+          value: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER MATCHING WITH ICON AND TEXT',
         },
         X$QTA: {
           data: {
@@ -1023,7 +954,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -1050,7 +980,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -1063,11 +992,9 @@ export const dataTableWithCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000051',
             p: 'COD_VER',
             t: 'VO',
           },
-          // icon: 'subject',
           value: '000051',
           element: {
             's-hn': 'KUP-DATA-TABLE',
@@ -1082,14 +1009,14 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
             p: '',
             t: '',
           },
-          value: 'CODVER WITH SINGLE MATCHING',
+          value: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER WITH SINGLE MATCHING',
         },
         X$QTA: {
           data: {
@@ -1100,7 +1027,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '5',
             p: '',
             t: 'NR',
           },
@@ -1127,7 +1053,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '3',
             p: '',
             t: 'NR',
           },
@@ -1140,15 +1065,13 @@ export const dataTableWithCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000052',
             p: 'COD_VER',
             t: 'VO',
           },
-          // icon: 'subject',
-          // value: '000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          value: '000052',
         },
         X$ARTI: {
           data: {
@@ -1159,14 +1082,14 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MEP000001 METALLIC PLIER',
             p: '',
             t: '',
           },
-          value: 'CODVER WITH MORE COMMANDS MATCHING AND NO TEXT',
+          value: 'MEP000001 METALLIC PLIER',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER WITH MORE COMMANDS MATCHING AND NO TEXT',
         },
         X$QTA: {
           data: {
@@ -1177,7 +1100,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -1204,7 +1126,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '3',
             p: '',
             t: 'NR',
           },
@@ -1217,15 +1138,13 @@ export const dataTableWithCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000053',
             p: 'COD_VER',
             t: 'VO',
           },
-          // icon: 'subject',
-          // value: '000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          value: '000053',
         },
         X$ARTI: {
           data: {
@@ -1236,14 +1155,14 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MEP000001 METALLIC PLIER',
             p: '',
             t: '',
           },
-          value: 'CODVER WITH MORE THAN 10 COMMANDS MATCHING',
+          value: 'MEP000001 METALLIC PLIER',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER WITH MORE THAN 10 COMMANDS MATCHING',
         },
         X$QTA: {
           data: {
@@ -1254,7 +1173,6 @@ export const dataTableWithCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -1281,7 +1199,6 @@ export const dataTableWithNoCommandsMatching = {
       isKey: false,
       name: 'X$RIGA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -1301,7 +1218,6 @@ export const dataTableWithNoCommandsMatching = {
       isKey: false,
       name: 'X$QTA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -1313,7 +1229,6 @@ export const dataTableWithNoCommandsMatching = {
       isKey: false,
       name: 'X$CFG',
       obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
       },
@@ -1326,7 +1241,6 @@ export const dataTableWithNoCommandsMatching = {
       isKey: false,
       name: 'X$MOD',
       obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
       },
@@ -1347,7 +1261,6 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -1360,15 +1273,15 @@ export const dataTableWithNoCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           icon: 'subject',
-          value: 'CFG',
+          value: '000050',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CFG',
         },
         X$ARTI: {
           data: {
@@ -1379,14 +1292,14 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
             p: '',
             t: '',
           },
-          value: 'CODVER WITH ICON AND TEXT',
+          value: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER WITH ICON AND TEXT',
         },
         X$QTA: {
           data: {
@@ -1397,7 +1310,6 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -1424,7 +1336,6 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
@@ -1437,28 +1348,25 @@ export const dataTableWithNoCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000052',
             p: 'COD_VER',
             t: 'VO',
           },
           icon: 'settings',
-          // value: ' 000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          value: '000052',
         },
         X$MOD: {
           isEditable: false,
           obj: {
-            k: '000053',
             p: 'COD_VER',
             t: 'VO',
           },
-          // icon: 'subject',
-          // value: ' 000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          value: '000053',
         },
         X$ARTI: {
           data: {
@@ -1469,14 +1377,14 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: 'MEP000001 METALLIC PLIER',
             p: '',
             t: '',
           },
-          value: 'CODVER WITH NO TEXT AND NO ICON',
+          value: 'MEP000001 METALLIC PLIER',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'CODVER WITH NO TEXT AND NO ICON',
         },
         X$QTA: {
           data: {
@@ -1487,7 +1395,6 @@ export const dataTableWithNoCommandsMatching = {
           },
           isEditable: false,
           obj: {
-            k: '1',
             p: '',
             t: 'NR',
           },
@@ -1514,7 +1421,6 @@ export const dataTableWithEmptyObjCommands = {
       isKey: false,
       name: 'X$RIGA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -1534,7 +1440,6 @@ export const dataTableWithEmptyObjCommands = {
       isKey: false,
       name: 'X$QTA',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -1546,7 +1451,6 @@ export const dataTableWithEmptyObjCommands = {
       isKey: false,
       name: 'X$CFG',
       obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
       },
@@ -1567,11 +1471,10 @@ export const dataTableWithEmptyObjCommands = {
           },
           isEditable: false,
           obj: {
-            k: '2',
             p: '',
             t: 'NR',
           },
-          value: '1',
+          value: '2',
           displayedValue: '1',
           element: {
             's-hn': 'KUP-DATA-TABLE',
@@ -1580,7 +1483,6 @@ export const dataTableWithEmptyObjCommands = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -1598,14 +1500,14 @@ export const dataTableWithEmptyObjCommands = {
           },
           isEditable: false,
           obj: {
-            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
             p: '',
             t: '',
           },
-          value: 'COMMAND WITH TEXT AND ICON AND BLANK T P K',
+          value: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
+          decode: 'COMMAND WITH TEXT AND ICON AND BLANK T P K',
         },
         X$QTA: {
           data: {
@@ -1616,7 +1518,6 @@ export const dataTableWithEmptyObjCommands = {
           },
           isEditable: false,
           obj: {
-            k: '5',
             p: '',
             t: 'NR',
           },
@@ -1648,7 +1549,6 @@ export const hiddenColumnsData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1658,7 +1558,6 @@ export const hiddenColumnsData = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1673,7 +1572,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customer module',
           },
           value: 'Customer module',
         },
@@ -1681,7 +1579,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -1689,7 +1586,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -1697,7 +1593,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200101',
           },
           value: '2020-01-01',
         },
@@ -1709,7 +1604,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Commerce module',
           },
           value: 'Commerce module',
         },
@@ -1717,7 +1611,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -1725,7 +1618,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -1733,7 +1625,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200404',
           },
           value: '2020-04-04',
         },
@@ -1745,7 +1636,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Financial module',
           },
           value: 'Financial module',
         },
@@ -1753,7 +1643,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -1761,7 +1650,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -1769,7 +1657,6 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200707',
           },
           value: '2020-07-07',
         },
@@ -1794,7 +1681,6 @@ export const iconImagesDataTable = {
       obj: {
         t: 'J4',
         p: 'ICO',
-        k: '',
       },
     },
     {
@@ -1803,7 +1689,6 @@ export const iconImagesDataTable = {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: '',
       },
     },
   ],
@@ -1814,27 +1699,31 @@ export const iconImagesDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
           },
-          value: 'John Doe',
+          value: 'Customers module',
+          decode: 'John Doe',
         },
         FLD2: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'CN;COL;Customers module',
           },
-          data: { resource: 'account' },
-          value: 'account',
+          data: {
+            resource: 'account',
+          },
+          value: 'CN;COL;Customers module',
+          decode: 'account',
         },
         FLD3: {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;Customers module',
           },
-          data: { resource: 'https://placehold.co/64?text=PF' },
-          value: 'https://placehold.co/64?text=PF',
+          data: {
+            resource: 'https://placehold.co/64?text=PF',
+          },
+          value: 'CN;COL;Customers module',
+          decode: 'https://placehold.co/64?text=PF',
         },
       },
     },
@@ -1844,27 +1733,31 @@ export const iconImagesDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Marketing module',
           },
-          value: 'Jonnie Doe',
+          value: 'Marketing module',
+          decode: 'Jonnie Doe',
         },
         FLD2: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'OG;J1;PATHFILE',
           },
-          data: { resource: 'folder' },
-          value: 'folder',
+          data: {
+            resource: 'folder',
+          },
+          value: 'OG;J1;PATHFILE',
+          decode: 'folder',
         },
         FLD3: {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'OG;J1;PATHFILE',
           },
-          data: { resource: 'https://placehold.co/64?text=PF' },
-          value: 'https://placehold.co/64?text=PF',
+          data: {
+            resource: 'https://placehold.co/64?text=PF',
+          },
+          value: 'OG;J1;PATHFILE',
+          decode: 'https://placehold.co/64?text=PF',
         },
       },
     },
@@ -1874,27 +1767,31 @@ export const iconImagesDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
           },
-          value: 'Baby Doe',
+          value: 'Sales module',
+          decode: 'Baby Doe',
         },
         FLD2: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'J1;KEY;CTRL',
           },
-          data: { resource: 'play' },
-          value: 'play',
+          data: {
+            resource: 'play',
+          },
+          value: 'J1;KEY;CTRL',
+          decode: 'play',
         },
         FLD3: {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'J1;KEY;CTRL',
           },
-          data: { resource: 'https://placehold.co/64?text=PF' },
-          value: 'https://placehold.co/64?text=PF',
+          data: {
+            resource: 'https://placehold.co/64?text=PF',
+          },
+          value: 'J1;KEY;CTRL',
+          decode: 'https://placehold.co/64?text=PF',
         },
       },
     },
@@ -1913,7 +1810,6 @@ export const cellStyleDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1922,7 +1818,6 @@ export const cellStyleDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -1937,7 +1832,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
           },
           value: 'Customers module',
           style: {
@@ -1949,7 +1843,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
           style: {
@@ -1961,7 +1854,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
           style: {
@@ -1975,7 +1867,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200101',
           },
           value: '2020-01-01',
           style: {
@@ -1992,7 +1883,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Commerce module',
           },
           value: 'Commerce module',
           style: {
@@ -2003,7 +1893,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
           style: {
@@ -2015,7 +1904,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
           style: {
@@ -2027,7 +1915,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200404',
           },
           value: '2020-04-04',
           style: {
@@ -2042,7 +1929,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Marketing module',
           },
           value: 'Marketing module',
         },
@@ -2050,7 +1936,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -2058,7 +1943,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -2066,7 +1950,6 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200303',
           },
           value: '2020-03-03',
         },
@@ -2087,7 +1970,6 @@ export const cellStyleDataTable2 = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -2096,7 +1978,6 @@ export const cellStyleDataTable2 = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -2112,7 +1993,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
           },
           value: 'CASFRA',
           styleContent: {
@@ -2124,7 +2004,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
           style: {
@@ -2137,10 +2016,11 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
-          style: { padding: '10px' },
+          style: {
+            padding: '10px',
+          },
           styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',
@@ -2150,7 +2030,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
           },
           value: '2018-01-01',
           style: {
@@ -2167,7 +2046,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
           },
           value: 'DELGIO',
           style: {
@@ -2178,7 +2056,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
           },
           value: '6',
           style: {
@@ -2190,7 +2067,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
           style: {
@@ -2202,7 +2078,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
           },
           value: '2018-01-02',
           style: {
@@ -2217,7 +2092,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
           },
           value: 'PARFRA',
         },
@@ -2225,7 +2099,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -2233,7 +2106,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -2241,7 +2113,6 @@ export const cellStyleDataTable2 = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
           },
           value: '2018-01-03',
         },
@@ -2262,7 +2133,6 @@ export const sortDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -2271,7 +2141,6 @@ export const sortDataTable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -2286,7 +2155,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
           },
           options: true,
           value: 'Customers module',
@@ -2295,7 +2163,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -2303,7 +2170,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -2311,7 +2177,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200101',
           },
           value: '2020-01-01',
         },
@@ -2323,7 +2188,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
           },
           options: true,
           value: 'Sales module',
@@ -2332,7 +2196,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -2340,7 +2203,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -2348,7 +2210,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200202',
           },
           value: '2020-02-02',
         },
@@ -2360,7 +2221,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Marketing module',
           },
           options: true,
           value: 'Marketing module',
@@ -2369,7 +2229,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -2377,7 +2236,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -2385,7 +2243,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200303',
           },
           value: '2020-03-03',
         },
@@ -2397,7 +2254,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Commerce module',
           },
           options: true,
           value: 'Commerce module',
@@ -2406,7 +2262,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -2414,7 +2269,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -2422,7 +2276,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200404',
           },
           value: '2020-04-04',
         },
@@ -2434,7 +2287,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Service module',
           },
           options: true,
           value: 'Service module',
@@ -2443,7 +2295,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -2451,7 +2302,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -2459,7 +2309,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200505',
           },
           value: '2020-05-05',
         },
@@ -2471,7 +2320,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Cloud module',
           },
           options: true,
           value: 'Cloud module',
@@ -2480,7 +2328,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -2488,7 +2335,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -2496,7 +2342,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200606',
           },
           value: '2020-06-06',
         },
@@ -2508,7 +2353,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Financial module',
           },
           options: true,
           value: 'Financial module',
@@ -2517,7 +2361,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -2525,7 +2368,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
           },
           value: '100.60',
         },
@@ -2533,7 +2375,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200707',
           },
           value: '2020-07-07',
         },
@@ -2545,7 +2386,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Delivery module',
           },
           options: true,
           value: 'Delivery module',
@@ -2554,7 +2394,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -2562,7 +2401,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
           },
           value: '67.8',
         },
@@ -2570,7 +2408,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200808',
           },
           value: '2020-08-08',
         },
@@ -2582,7 +2419,6 @@ export const sortDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Web module',
           },
           options: true,
           value: 'Web module',
@@ -2591,7 +2427,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -2599,7 +2434,6 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
           },
           value: '120.06',
         },
@@ -2607,7 +2441,6 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20200909',
           },
           value: '2020-09-09',
         },
@@ -2646,9 +2479,9 @@ export function dataTableCheckboxFactory(
           name: 'C',
           title: 'Si/No',
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
+            value: '',
           },
         },
       ],
@@ -2657,7 +2490,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '1',
                 p: '',
                 t: '',
               },
@@ -2666,7 +2498,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'J;1111ffffffffff',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2692,7 +2523,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -2701,7 +2531,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'A;12345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2727,7 +2556,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -2736,7 +2564,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'B;987654321098',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2762,7 +2589,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -2771,7 +2597,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'C;123456789012',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2797,7 +2622,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '5',
                 p: '',
                 t: '',
               },
@@ -2806,7 +2630,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'D;1122334455667',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2832,7 +2655,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '6',
                 p: '',
                 t: '',
               },
@@ -2841,7 +2663,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'E;9876543210123',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2867,7 +2688,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '7',
                 p: '',
                 t: '',
               },
@@ -2876,7 +2696,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'F;0123987654456',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2902,7 +2721,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '8',
                 p: '',
                 t: '',
               },
@@ -2911,7 +2729,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'G;1234567890123',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2937,7 +2754,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '9',
                 p: '',
                 t: '',
               },
@@ -2946,7 +2762,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'H;51112345621',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -2972,7 +2787,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '0',
                 p: '',
                 t: '',
               },
@@ -2981,7 +2795,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: 'I;12345678901',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3007,7 +2820,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -3016,7 +2828,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3042,7 +2853,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -3051,7 +2861,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '6789',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3077,7 +2886,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -3086,7 +2894,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2511',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3112,7 +2919,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '1',
                 p: '',
                 t: '',
               },
@@ -3121,7 +2927,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '1111',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3147,7 +2952,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -3156,7 +2960,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3182,7 +2985,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -3191,7 +2993,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '6789',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3217,7 +3018,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -3226,7 +3026,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2511',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3252,7 +3051,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '1',
                 p: '',
                 t: '',
               },
@@ -3261,7 +3059,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '1111',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3287,7 +3084,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -3296,7 +3092,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3322,7 +3117,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -3331,7 +3125,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '6789',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3357,7 +3150,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -3366,7 +3158,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2511',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3392,7 +3183,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '1',
                 p: '',
                 t: '',
               },
@@ -3401,7 +3191,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '1111',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3427,7 +3216,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -3436,7 +3224,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3462,7 +3249,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -3471,7 +3257,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '6789',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3497,7 +3282,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -3506,7 +3290,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2511',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3532,7 +3315,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '1',
                 p: '',
                 t: '',
               },
@@ -3541,7 +3323,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '1111',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3567,7 +3348,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '2',
                 p: '',
                 t: '',
               },
@@ -3576,7 +3356,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2345',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3602,7 +3381,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '3',
                 p: '',
                 t: '',
               },
@@ -3611,7 +3389,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '6789',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3637,7 +3414,6 @@ export function dataTableCheckboxFactory(
           cells: {
             A: {
               obj: {
-                k: '4',
                 p: '',
                 t: '',
               },
@@ -3646,7 +3422,6 @@ export function dataTableCheckboxFactory(
             },
             B: {
               obj: {
-                k: '2511',
                 p: 'BRC',
                 t: 'J4',
               },
@@ -3679,7 +3454,6 @@ export const dataTableDateTime = {
     {
       name: 'STRING',
       obj: {
-        k: '',
         p: '',
         t: '',
       },
@@ -3690,7 +3464,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
       title: 'Number',
     },
@@ -3699,7 +3472,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
       title: 'Decimal number',
       decimals: '5',
@@ -3709,7 +3481,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'D8',
         p: '',
-        k: '',
       },
       icon: 'calendar',
       title: 'Date (dd/mm/yyyy)',
@@ -3719,7 +3490,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'I1',
         p: '2',
-        k: '',
       },
       icon: 'clock',
       title: 'Time (hh:mm:ss)',
@@ -3729,7 +3499,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'I1',
         p: '',
-        k: '',
       },
       icon: 'clock',
       title: 'Time (hh:mm)',
@@ -3739,7 +3508,6 @@ export const dataTableDateTime = {
       obj: {
         t: 'I3',
         p: '2',
-        k: '',
       },
       icon: 'calendar',
       title: 'Timestamp',
@@ -3750,7 +3518,6 @@ export const dataTableDateTime = {
       cells: {
         STRING: {
           obj: {
-            k: 'String value',
             p: '',
             t: '',
           },
@@ -3758,15 +3525,13 @@ export const dataTableDateTime = {
         },
         NUMBER: {
           obj: {
-            k: '12345',
             p: '',
             t: 'NR',
           },
-          value: '12345.0',
+          value: '12345',
         },
         DECIMALNUMBER: {
           obj: {
-            k: '4567.123',
             p: '',
             t: 'NR',
           },
@@ -3776,33 +3541,30 @@ export const dataTableDateTime = {
           obj: {
             t: 'D8',
             p: '',
-            k: '',
           },
-          value: '2021-01-02',
+          value: '',
         },
         TIMESEC: {
           obj: {
             t: 'I1',
             p: '2',
-            k: '',
           },
-          value: '10:11:22',
+          value: '',
         },
         TIME: {
           obj: {
             t: 'I1',
             p: '',
-            k: '',
           },
-          value: '10:55',
+          value: '',
         },
         TIMESTAMP: {
           obj: {
             t: 'I3',
             p: '2',
-            k: '',
           },
-          value: '2021-07-19 10:33:44',
+          value: '',
+          decode: '2021-07-19 10:33:44',
         },
         id: '7',
         object: '',
@@ -3820,7 +3582,6 @@ export const reportDatatable = {
       obj: {
         t: 'NR',
         p: '',
-        k: '',
       },
     },
     {
@@ -3829,7 +3590,6 @@ export const reportDatatable = {
       obj: {
         t: 'D8',
         p: '',
-        k: '',
       },
       title: 'Event',
     },
@@ -3877,7 +3637,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -3885,7 +3644,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-01-30',
           },
           value: '1999-01-30',
         },
@@ -3907,7 +3665,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -3915,7 +3672,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-10',
           },
           value: '1999-02-10',
         },
@@ -3937,7 +3693,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3',
           },
           value: '3',
         },
@@ -3945,7 +3700,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-25',
           },
           value: '1999-02-25',
         },
@@ -3967,7 +3721,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -3975,7 +3728,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '2003-01-31',
           },
           value: '2003-01-31',
         },
@@ -3997,7 +3749,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -4005,7 +3756,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '2003-02-05',
           },
           value: '2003-02-05',
         },
@@ -4027,7 +3777,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
           },
           value: '6',
         },
@@ -4035,7 +3784,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '2003-02-07',
           },
           value: '2003-02-07',
         },
@@ -4074,7 +3822,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '7',
           },
           value: '7',
         },
@@ -4082,7 +3829,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '2003-12-05',
           },
           value: '2003-12-05',
         },
@@ -4104,7 +3850,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8',
           },
           value: '8',
         },
@@ -4112,7 +3857,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1997-12-21',
           },
           value: '1997-12-21',
         },
@@ -4134,7 +3878,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '9',
           },
           value: '9',
         },
@@ -4142,7 +3885,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1998-04-14',
           },
           value: '1998-04-14',
         },
@@ -4164,7 +3906,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -4172,7 +3913,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1998-04-28',
           },
           value: '1998-04-28',
         },
@@ -4194,7 +3934,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '11',
           },
           value: '11',
         },
@@ -4202,7 +3941,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-01-11',
           },
           value: '1999-01-11',
         },
@@ -4224,7 +3962,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
           },
           value: '12',
         },
@@ -4232,7 +3969,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-03-05',
           },
           value: '1999-03-05',
         },
@@ -4271,7 +4007,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '13',
           },
           value: '13',
         },
@@ -4279,7 +4014,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-09',
           },
           value: '1999-02-09',
         },
@@ -4301,7 +4035,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '14',
           },
           value: '14',
         },
@@ -4309,7 +4042,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-22',
           },
           value: '1999-02-22',
         },
@@ -4331,7 +4063,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '15',
           },
           value: '15',
         },
@@ -4339,7 +4070,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-23',
           },
           value: '1999-02-23',
         },
@@ -4361,7 +4091,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '16',
           },
           value: '16',
         },
@@ -4369,7 +4098,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-23',
           },
           value: '1999-02-23',
         },
@@ -4391,7 +4119,6 @@ export const reportDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17',
           },
           value: '17',
         },
@@ -4399,7 +4126,6 @@ export const reportDatatable = {
           obj: {
             t: 'D8',
             p: '',
-            k: '1999-02-25',
           },
           value: '1999-02-25',
         },
@@ -4524,7 +4250,6 @@ export const reportDatatable2 = {
       obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
       },
       style: {
         display: 'none',
@@ -4536,7 +4261,6 @@ export const reportDatatable2 = {
       obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
       },
       style: {
         display: 'none',
@@ -4548,7 +4272,6 @@ export const reportDatatable2 = {
       obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
       },
       style: {
         display: 'none',
@@ -4560,7 +4283,6 @@ export const reportDatatable2 = {
       obj: {
         t: 'J4',
         p: 'BTN',
-        k: '',
       },
       style: {
         display: 'none',
@@ -4591,12 +4313,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Modifica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Modifica',
         },
@@ -4608,12 +4329,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Cancella',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Cancella',
         },
@@ -4625,12 +4345,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Duplica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Duplica',
         },
@@ -4642,12 +4361,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Nuova riga',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Nuova riga',
         },
@@ -4803,7 +4521,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -4826,7 +4543,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -4834,7 +4550,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -4842,7 +4557,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -4850,7 +4564,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -4858,7 +4571,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '760',
           },
           value: '760',
         },
@@ -4867,7 +4579,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -4879,7 +4590,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -4891,7 +4601,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -4906,7 +4615,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -4929,7 +4637,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -4937,7 +4644,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -4945,7 +4651,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -4953,7 +4658,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -4961,7 +4665,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '180',
           },
           value: '180',
         },
@@ -4970,7 +4673,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -4982,7 +4684,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -4994,7 +4695,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5009,7 +4709,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -5032,7 +4731,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5040,7 +4738,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -5048,7 +4745,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -5056,7 +4752,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5064,7 +4759,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '124',
           },
           value: '124',
         },
@@ -5073,7 +4767,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5085,7 +4778,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5097,7 +4789,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5112,7 +4803,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -5135,7 +4825,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5143,7 +4832,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -5151,7 +4839,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -5159,7 +4846,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5167,7 +4853,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '400',
           },
           value: '400',
         },
@@ -5176,7 +4861,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5188,7 +4872,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5200,7 +4883,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5215,7 +4897,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -5238,7 +4919,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5246,7 +4926,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -5254,7 +4933,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -5262,7 +4940,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5270,7 +4947,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -5279,7 +4955,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5291,7 +4966,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5303,7 +4977,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5318,7 +4991,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -5341,7 +5013,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5349,7 +5020,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -5357,7 +5027,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25',
           },
           value: '25',
         },
@@ -5365,7 +5034,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5373,7 +5041,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -5382,7 +5049,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5394,7 +5060,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5406,7 +5071,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5492,7 +5156,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1808',
           },
           value: '1808',
           style: {
@@ -5560,12 +5223,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Modifica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Modifica',
         },
@@ -5577,12 +5239,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Cancella',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Cancella',
         },
@@ -5594,12 +5255,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Duplica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Duplica',
         },
@@ -5611,12 +5271,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Nuova riga',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Nuova riga',
         },
@@ -5772,7 +5431,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -5795,7 +5453,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5803,7 +5460,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -5811,7 +5467,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -5819,7 +5474,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5827,7 +5481,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -5836,7 +5489,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5848,7 +5500,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5860,7 +5511,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5875,7 +5525,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -5898,7 +5547,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5906,7 +5554,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -5914,7 +5561,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -5922,7 +5568,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -5930,7 +5575,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -5939,7 +5583,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -5951,7 +5594,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -5963,7 +5605,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -5978,7 +5619,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -6001,7 +5641,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6009,7 +5648,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -6017,7 +5655,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -6025,7 +5662,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6033,7 +5669,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -6042,7 +5677,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6054,7 +5688,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6066,7 +5699,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6081,7 +5713,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -6104,7 +5735,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6112,7 +5742,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -6120,7 +5749,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -6128,7 +5756,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6136,7 +5763,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -6145,7 +5771,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6157,7 +5782,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6169,7 +5793,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6184,7 +5807,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -6207,7 +5829,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6215,7 +5836,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -6223,7 +5843,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -6231,7 +5850,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6239,7 +5857,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -6248,7 +5865,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6260,7 +5876,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6272,7 +5887,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6287,7 +5901,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -6310,7 +5923,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6318,7 +5930,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -6326,7 +5937,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -6334,7 +5944,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6342,7 +5951,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -6351,7 +5959,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6363,7 +5970,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6375,7 +5981,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6461,7 +6066,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -6529,12 +6133,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Modifica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Modifica',
         },
@@ -6546,12 +6149,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Cancella',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Cancella',
         },
@@ -6563,12 +6165,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Duplica',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Duplica',
         },
@@ -6580,12 +6181,11 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'Nuova riga',
           },
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: '12px',
+            '--kup-button-font-size': '12px',
           },
           value: 'Nuova riga',
         },
@@ -6741,7 +6341,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -6764,7 +6363,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6772,7 +6370,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -6780,7 +6377,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -6788,7 +6384,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6796,7 +6391,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -6805,7 +6399,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6817,7 +6410,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6829,7 +6421,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6844,7 +6435,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -6867,7 +6457,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6875,7 +6464,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -6883,7 +6471,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -6891,7 +6478,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6899,7 +6485,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -6908,7 +6493,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -6920,7 +6504,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -6932,7 +6515,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -6947,7 +6529,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -6970,7 +6551,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -6978,7 +6558,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -6986,7 +6565,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -6994,7 +6572,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7002,7 +6579,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -7011,7 +6587,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -7023,7 +6598,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -7035,7 +6609,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -7050,7 +6623,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -7073,7 +6645,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7081,7 +6652,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -7089,7 +6659,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -7097,7 +6666,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7105,7 +6673,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -7114,7 +6681,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -7126,7 +6692,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -7138,7 +6703,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -7153,7 +6717,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -7176,7 +6739,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7184,7 +6746,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -7192,7 +6753,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -7200,7 +6760,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7208,7 +6767,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -7217,7 +6775,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -7229,7 +6786,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -7241,7 +6797,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -7256,7 +6811,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -7279,7 +6833,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7287,7 +6840,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -7295,7 +6847,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -7303,7 +6854,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7311,7 +6861,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -7320,7 +6869,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'pencil',
           },
           data: {
             resource: 'pencil',
@@ -7332,7 +6880,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'delete',
           },
           data: {
             resource: 'delete',
@@ -7344,7 +6891,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'content_copy',
           },
           data: {
             resource: 'content_copy',
@@ -7430,7 +6976,6 @@ export const reportDatatable2 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -7554,12 +7099,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -7568,12 +7113,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -7582,12 +7127,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                   {
                     children: [],
@@ -7596,12 +7141,12 @@ export const reportDatatable3 = {
                     icon: 'plus',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Nuova riga',
+                    value: '000050',
+                    decode: 'Nuova riga',
                   },
                 ],
                 data: {
@@ -7622,18 +7167,18 @@ export const reportDatatable3 = {
           obj: {
             t: 'VO',
             p: 'CODVER',
-            k: 'Modifica',
           },
           shape: 'BTN',
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
-            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
-            ['--kup-button-primary-color-rgb']:
+            '--kup-button-font-size': 'calc(var(--kup-font-size) * 1.25)',
+            '--kup-button-primary-color': 'var(--kup-text-on-primary-color)',
+            '--kup-button-primary-color-rgb':
               'var(--kup-text-on-primary-color-rgb)',
           },
-          value: '',
+          value: 'Modifica',
+          decode: '',
         },
         FLD13: {
           span: {
@@ -7789,12 +7334,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -7803,12 +7348,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -7817,12 +7362,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -7841,18 +7386,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -7875,7 +7419,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7883,7 +7426,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -7891,7 +7433,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -7899,7 +7440,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -7907,7 +7447,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '760',
           },
           value: '760',
         },
@@ -7928,12 +7467,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -7942,12 +7481,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -7956,12 +7495,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -7980,18 +7519,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -8014,7 +7552,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8022,7 +7559,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -8030,7 +7566,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -8038,7 +7573,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8046,7 +7580,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '180',
           },
           value: '180',
         },
@@ -8067,12 +7600,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8081,12 +7614,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8095,12 +7628,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -8119,18 +7652,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -8153,7 +7685,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8161,7 +7692,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -8169,7 +7699,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -8177,7 +7706,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8185,7 +7713,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '124',
           },
           value: '124',
         },
@@ -8206,12 +7733,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8220,12 +7747,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8234,12 +7761,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -8258,18 +7785,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -8292,7 +7818,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8300,7 +7825,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -8308,7 +7832,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -8316,7 +7839,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8324,7 +7846,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '400',
           },
           value: '400',
         },
@@ -8345,12 +7866,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8359,12 +7880,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8373,12 +7894,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -8397,18 +7918,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -8431,7 +7951,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8439,7 +7958,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -8447,7 +7965,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -8455,7 +7972,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8463,7 +7979,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -8484,12 +7999,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8498,12 +8013,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8512,12 +8027,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -8536,18 +8051,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -8570,7 +8084,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8578,7 +8091,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -8586,7 +8098,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25',
           },
           value: '25',
         },
@@ -8594,7 +8105,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -8602,7 +8112,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -8692,7 +8201,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1808',
           },
           value: '1808',
           style: {
@@ -8730,12 +8238,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8744,12 +8252,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8758,12 +8266,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                   {
                     children: [],
@@ -8772,12 +8280,12 @@ export const reportDatatable3 = {
                     icon: 'plus',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Nuova riga',
+                    value: '000050',
+                    decode: 'Nuova riga',
                   },
                 ],
                 data: {
@@ -8798,18 +8306,18 @@ export const reportDatatable3 = {
           obj: {
             t: 'VO',
             p: 'CODVER',
-            k: 'Modifica',
           },
           shape: 'BTN',
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
-            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
-            ['--kup-button-primary-color-rgb']:
+            '--kup-button-font-size': 'calc(var(--kup-font-size) * 1.25)',
+            '--kup-button-primary-color': 'var(--kup-text-on-primary-color)',
+            '--kup-button-primary-color-rgb':
               'var(--kup-text-on-primary-color-rgb)',
           },
-          value: '',
+          value: 'Modifica',
+          decode: '',
         },
         FLD13: {
           span: {
@@ -8965,12 +8473,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -8979,12 +8487,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -8993,12 +8501,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9017,18 +8525,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -9051,7 +8558,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9059,7 +8565,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -9067,7 +8572,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -9075,7 +8579,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9083,7 +8586,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -9104,12 +8606,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9118,12 +8620,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9132,12 +8634,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9156,18 +8658,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -9190,7 +8691,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9198,7 +8698,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -9206,7 +8705,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -9214,7 +8712,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9222,7 +8719,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -9243,12 +8739,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9257,12 +8753,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9271,12 +8767,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9295,18 +8791,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -9329,7 +8824,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9337,7 +8831,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -9345,7 +8838,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -9353,7 +8845,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9361,7 +8852,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -9382,12 +8872,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9396,12 +8886,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9410,12 +8900,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9434,18 +8924,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -9468,7 +8957,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9476,7 +8964,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -9484,7 +8971,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -9492,7 +8978,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9500,7 +8985,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -9521,12 +9005,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9535,12 +9019,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9549,12 +9033,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9573,18 +9057,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -9607,7 +9090,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9615,7 +9097,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -9623,7 +9104,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -9631,7 +9111,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9639,7 +9118,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -9660,12 +9138,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9674,12 +9152,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9688,12 +9166,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -9712,18 +9190,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -9746,7 +9223,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9754,7 +9230,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -9762,7 +9237,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -9770,7 +9244,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -9778,7 +9251,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -9868,7 +9340,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -9906,12 +9377,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -9920,12 +9391,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -9934,12 +9405,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                   {
                     children: [],
@@ -9948,12 +9419,12 @@ export const reportDatatable3 = {
                     icon: 'plus',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Nuova riga',
+                    value: '000050',
+                    decode: 'Nuova riga',
                   },
                 ],
                 data: {
@@ -9974,18 +9445,18 @@ export const reportDatatable3 = {
           obj: {
             t: 'VO',
             p: 'CODVER',
-            k: 'Modifica',
           },
           shape: 'BTN',
           style: {
             backgroundColor: 'var(--kup-primary-color)',
             border: 'none',
-            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
-            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
-            ['--kup-button-primary-color-rgb']:
+            '--kup-button-font-size': 'calc(var(--kup-font-size) * 1.25)',
+            '--kup-button-primary-color': 'var(--kup-text-on-primary-color)',
+            '--kup-button-primary-color-rgb':
               'var(--kup-text-on-primary-color-rgb)',
           },
-          value: '',
+          value: 'Modifica',
+          decode: '',
         },
         FLD13: {
           span: {
@@ -10141,12 +9612,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10155,12 +9626,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10169,12 +9640,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10193,18 +9664,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -10227,7 +9697,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10235,7 +9704,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -10243,7 +9711,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -10251,7 +9718,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10259,7 +9725,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -10280,12 +9745,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10294,12 +9759,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10308,12 +9773,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10332,18 +9797,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -10366,7 +9830,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10374,7 +9837,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -10382,7 +9844,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -10390,7 +9851,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10398,7 +9858,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -10419,12 +9878,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10433,12 +9892,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10447,12 +9906,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10471,18 +9930,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -10505,7 +9963,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10513,7 +9970,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -10521,7 +9977,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -10529,7 +9984,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10537,7 +9991,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -10558,12 +10011,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10572,12 +10025,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10586,12 +10039,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10610,18 +10063,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -10644,7 +10096,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10652,7 +10103,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -10660,7 +10110,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -10668,7 +10117,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10676,7 +10124,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -10697,12 +10144,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10711,12 +10158,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10725,12 +10172,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10749,18 +10196,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -10783,7 +10229,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10791,7 +10236,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -10799,7 +10243,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -10807,7 +10250,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10815,7 +10257,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -10836,12 +10277,12 @@ export const reportDatatable3 = {
                     icon: 'pencil',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Modifica',
+                    value: '000050',
+                    decode: 'Modifica',
                   },
                   {
                     children: [],
@@ -10850,12 +10291,12 @@ export const reportDatatable3 = {
                     icon: 'content_copy',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Duplica',
+                    value: '000050',
+                    decode: 'Duplica',
                   },
                   {
                     children: [],
@@ -10864,12 +10305,12 @@ export const reportDatatable3 = {
                     icon: 'delete',
                     isExpanded: false,
                     obj: {
-                      k: '000050',
                       p: 'COD_VER',
                       t: 'VO',
                     },
                     options: false,
-                    value: 'Elimina',
+                    value: '000050',
+                    decode: 'Elimina',
                   },
                 ],
                 data: {
@@ -10888,18 +10329,17 @@ export const reportDatatable3 = {
           },
           isEditable: false,
           obj: {
-            k: '000050',
             p: 'COD_VER',
             t: 'VO',
           },
           shape: 'BTN',
-          value: '',
+          value: '000050',
+          decode: '',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -10922,7 +10362,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10930,7 +10369,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -10938,7 +10376,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -10946,7 +10383,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -10954,7 +10390,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -11044,7 +10479,6 @@ export const reportDatatable3 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -11304,7 +10738,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -11327,7 +10760,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11335,7 +10767,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -11343,7 +10774,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -11351,7 +10781,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11359,7 +10788,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '760',
           },
           value: '760',
         },
@@ -11378,7 +10806,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -11401,7 +10828,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11409,7 +10835,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '2',
           },
           value: '2',
         },
@@ -11417,7 +10842,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -11425,7 +10849,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11433,7 +10856,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '180',
           },
           value: '180',
         },
@@ -11452,7 +10874,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -11475,7 +10896,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11483,7 +10903,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -11491,7 +10910,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -11499,7 +10917,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11507,7 +10924,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '124',
           },
           value: '124',
         },
@@ -11526,7 +10942,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -11549,7 +10964,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11557,7 +10971,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4',
           },
           value: '4',
         },
@@ -11565,7 +10978,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -11573,7 +10985,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11581,7 +10992,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '400',
           },
           value: '400',
         },
@@ -11600,7 +11010,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -11623,7 +11032,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11631,7 +11039,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -11639,7 +11046,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -11647,7 +11053,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11655,7 +11060,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -11674,7 +11078,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -11697,7 +11100,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11705,7 +11107,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -11713,7 +11114,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25',
           },
           value: '25',
         },
@@ -11721,7 +11121,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -11729,7 +11128,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -11819,7 +11217,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1808',
           },
           value: '1808',
           style: {
@@ -12014,7 +11411,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -12037,7 +11433,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12045,7 +11440,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12053,7 +11447,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -12061,7 +11454,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12069,7 +11461,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -12088,7 +11479,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -12111,7 +11501,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12119,7 +11508,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -12127,7 +11515,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -12135,7 +11522,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12143,7 +11529,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -12162,7 +11547,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -12185,7 +11569,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12193,7 +11576,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12201,7 +11583,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -12209,7 +11590,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12217,7 +11597,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -12236,7 +11615,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -12259,7 +11637,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12267,7 +11644,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12275,7 +11651,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -12283,7 +11658,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12291,7 +11665,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -12310,7 +11683,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -12333,7 +11705,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12341,7 +11712,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -12349,7 +11719,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -12357,7 +11726,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12365,7 +11733,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -12384,7 +11751,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -12407,7 +11773,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12415,7 +11780,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12423,7 +11787,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -12431,7 +11794,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12439,7 +11801,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -12529,7 +11890,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -12724,7 +12084,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
           },
           value: '10',
         },
@@ -12747,7 +12106,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12755,7 +12113,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12763,7 +12120,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '190',
           },
           value: '190',
         },
@@ -12771,7 +12127,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12779,7 +12134,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8170',
           },
           value: '8170',
         },
@@ -12798,7 +12152,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20',
           },
           value: '20',
         },
@@ -12821,7 +12174,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12829,7 +12181,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '39',
           },
           value: '39',
         },
@@ -12837,7 +12188,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '90',
           },
           value: '90',
         },
@@ -12845,7 +12195,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12853,7 +12202,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3510',
           },
           value: '3510',
         },
@@ -12872,7 +12220,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '30',
           },
           value: '30',
         },
@@ -12895,7 +12242,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12903,7 +12249,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12911,7 +12256,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '31',
           },
           value: '31',
         },
@@ -12919,7 +12263,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12927,7 +12270,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1333',
           },
           value: '1333',
         },
@@ -12946,7 +12288,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '40',
           },
           value: '40',
         },
@@ -12969,7 +12310,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -12977,7 +12317,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -12985,7 +12324,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100',
           },
           value: '100',
         },
@@ -12993,7 +12331,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -13001,7 +12338,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4300',
           },
           value: '4300',
         },
@@ -13020,7 +12356,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '50',
           },
           value: '50',
         },
@@ -13043,7 +12378,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -13051,7 +12385,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1',
           },
           value: '1',
         },
@@ -13059,7 +12392,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -13067,7 +12399,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -13075,7 +12406,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '244',
           },
           value: '244',
         },
@@ -13094,7 +12424,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60',
           },
           value: '60',
         },
@@ -13117,7 +12446,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -13125,7 +12453,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43',
           },
           value: '43',
         },
@@ -13133,7 +12460,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
         },
@@ -13141,7 +12467,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '',
           },
           value: '',
         },
@@ -13149,7 +12474,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '215',
           },
           value: '215',
         },
@@ -13239,7 +12563,6 @@ export const reportDatatable4 = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17772',
           },
           value: '17772',
           style: {
@@ -13528,9 +12851,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '19,334',
           },
-          value: '19,334',
+          value: '19.334',
         },
         5: {
           value: '',
@@ -13542,9 +12864,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20,552',
           },
-          value: '20,552',
+          value: '20.552',
         },
       },
     },
@@ -13563,9 +12884,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '19,334',
           },
-          value: '6,647',
+          value: '19.334',
           span: {
             col: 2,
           },
@@ -13577,9 +12897,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10,464',
           },
-          value: '10,464',
+          value: '10.464',
           span: {
             col: 2,
           },
@@ -13601,9 +12920,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '11,461',
           },
-          value: '11,461',
+          value: '11.461',
           span: {
             col: 2,
           },
@@ -13615,9 +12933,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '16,047',
           },
-          value: '16,047',
+          value: '16.047',
           span: {
             col: 2,
           },
@@ -13639,9 +12956,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8,338',
           },
-          value: '8,339',
+          value: '8.338',
           span: {
             col: 2,
           },
@@ -13653,9 +12969,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '13,164',
           },
-          value: '13,164',
+          value: '13.164',
           span: {
             col: 2,
           },
@@ -13723,9 +13038,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '45,781',
           },
-          value: '45,781',
+          value: '45.781',
           span: {
             col: 2,
           },
@@ -13737,9 +13051,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '60,197',
           },
-          value: '60,197',
+          value: '60.197',
           span: {
             col: 2,
           },
@@ -13758,9 +13071,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '29,114',
           },
-          value: '29,114',
+          value: '29.114',
           span: {
             col: 2,
           },
@@ -13772,9 +13084,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '48,866',
           },
-          value: '48,866',
+          value: '48.866',
           span: {
             col: 2,
           },
@@ -13793,9 +13104,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3,784',
           },
-          value: '3,784',
+          value: '3.784',
           span: {
             col: 2,
           },
@@ -13807,9 +13117,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '13,350',
           },
-          value: '13,350',
+          value: '13.350',
           span: {
             col: 2,
           },
@@ -13828,9 +13137,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4,723',
           },
-          value: '4,723',
+          value: '4.723',
           span: {
             col: 2,
           },
@@ -13842,9 +13150,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8,897',
           },
-          value: '8,897',
+          value: '8.897',
           span: {
             col: 2,
           },
@@ -13912,9 +13219,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '83,402',
           },
-          value: '83,402',
+          value: '83.402',
         },
         5: {
           value: '',
@@ -13926,9 +13232,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '131,310',
           },
-          value: '131,310',
+          value: '131.310',
         },
       },
     },
@@ -14066,9 +13371,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25,309',
           },
-          value: '25,309',
+          value: '25.309',
         },
         5: {
           value: '',
@@ -14080,9 +13384,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '34,616',
           },
-          value: '34,616',
+          value: '34.616',
         },
       },
     },
@@ -14101,9 +13404,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '13,739',
           },
-          value: '13,739',
+          value: '13.739',
           span: {
             col: 2,
           },
@@ -14115,9 +13417,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '18,170',
           },
-          value: '18,170',
+          value: '18.170',
           span: {
             col: 2,
           },
@@ -14139,9 +13440,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4,768',
           },
-          value: '4,768',
+          value: '4.768',
           span: {
             col: 2,
           },
@@ -14153,9 +13453,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5,097',
           },
-          value: '5,097',
+          value: '5.097',
           span: {
             col: 2,
           },
@@ -14223,9 +13522,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '43,816',
           },
-          value: '43,816',
+          value: '43.816',
           span: {
             col: 2,
           },
@@ -14237,9 +13535,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '57,883',
           },
-          value: '57,883',
+          value: '57.883',
           span: {
             col: 2,
           },
@@ -14258,9 +13555,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '7,694',
           },
-          value: '7,694',
+          value: '7.694',
           span: {
             col: 2,
           },
@@ -14272,9 +13568,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '24,743',
           },
-          value: '24,743',
+          value: '24.743',
           span: {
             col: 2,
           },
@@ -14293,9 +13588,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '12,607',
           },
-          value: '12,607',
+          value: '12.607',
           span: {
             col: 2,
           },
@@ -14307,9 +13601,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20,975',
           },
-          value: '20,975',
+          value: '20.975',
           span: {
             col: 2,
           },
@@ -14461,7 +13754,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
           span: {
@@ -14475,7 +13767,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
           },
           value: '5',
           span: {
@@ -14499,9 +13790,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '(1,837)',
           },
-          value: '(1,837)',
+          value: '(1.837)',
           span: {
             col: 2,
           },
@@ -14513,9 +13803,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '(1,837)',
           },
-          value: '(1,837)',
+          value: '(1.837)',
           span: {
             col: 2,
           },
@@ -14537,9 +13826,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '17,186',
           },
-          value: '17,186',
+          value: '17.186',
           span: {
             col: 2,
           },
@@ -14551,9 +13839,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '21,389',
           },
-          value: '21,389',
+          value: '21.389',
           span: {
             col: 2,
           },
@@ -14575,7 +13862,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '(985)',
           },
           value: '(985)',
           span: {
@@ -14589,7 +13875,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '(484)',
           },
           value: '(484)',
           span: {
@@ -14613,7 +13898,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4916',
           },
           value: '4916',
           span: {
@@ -14627,7 +13911,6 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '8636',
           },
           value: '8636',
           span: {
@@ -14697,9 +13980,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '19,285',
           },
-          value: '19,285',
+          value: '19.285',
           span: {
             col: 2,
           },
@@ -14711,9 +13993,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '27,709',
           },
-          value: '27,709',
+          value: '27.709',
           span: {
             col: 2,
           },
@@ -14793,9 +14074,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '83,402',
           },
-          value: '83,402',
+          value: '83.402',
         },
         7: {
           value: '',
@@ -14810,9 +14090,8 @@ export const documentDatatable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '131,310',
           },
-          value: '131,310',
+          value: '131.310',
         },
       },
     },
@@ -15300,7 +14579,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15309,7 +14587,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15318,7 +14595,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15327,7 +14603,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15336,7 +14611,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15376,7 +14650,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15385,7 +14658,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15394,7 +14666,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15403,7 +14674,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15412,7 +14682,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15438,50 +14707,55 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL02: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL03: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL04: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL05: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
       },
     },
@@ -15623,7 +14897,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15632,7 +14905,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15641,7 +14913,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15650,7 +14921,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15659,7 +14929,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15699,7 +14968,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15708,7 +14976,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15717,7 +14984,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15726,7 +14992,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15735,7 +15000,6 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
         },
@@ -15761,50 +15025,55 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL02: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL03: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL04: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
         COL05: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
           cssClass: 'strong-text',
-          style: { color: 'var(--kup-danger-color)' },
+          style: {
+            color: 'var(--kup-danger-color)',
+          },
         },
       },
     },
@@ -15854,45 +15123,50 @@ export const subfile = {
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-50)' },
+          style: {
+            backgroundColor: 'var(--kup-warning-color-50)',
+          },
         },
         COL02: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-50)' },
+          style: {
+            backgroundColor: 'var(--kup-warning-color-50)',
+          },
         },
         COL03: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-colo-50)' },
+          style: {
+            backgroundColor: 'var(--kup-warning-colo-50)',
+          },
         },
         COL04: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-50)' },
+          style: {
+            backgroundColor: 'var(--kup-warning-color-50)',
+          },
         },
         COL05: {
           value: '1000',
           obj: {
             t: 'NR',
             p: '',
-            k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-50)' },
+          style: {
+            backgroundColor: 'var(--kup-warning-color-50)',
+          },
         },
       },
     },
@@ -16051,9 +15325,14 @@ export const subfileDrop = {
         },
         IMPORTO: {
           cssClass: 'danger-text',
-          obj: { t: 'NR', p: '', k: '232.00' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           isEditable: true,
-          span: { col: 3 },
+          span: {
+            col: 3,
+          },
           value: '232.00',
         },
         CODIVA: {
@@ -16066,7 +15345,10 @@ export const subfileDrop = {
         },
         IND: {
           isEditable: true,
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '',
         },
         S: {
@@ -16124,9 +15406,14 @@ export const subfileDrop = {
           value: '',
         },
         IMPORTO: {
-          obj: { t: 'NR', p: '', k: '100.00' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           isEditable: true,
-          span: { col: 3 },
+          span: {
+            col: 3,
+          },
           value: '100.00',
         },
         CODIVA: {
@@ -16139,7 +15426,10 @@ export const subfileDrop = {
         },
         IND: {
           isEditable: true,
-          obj: { t: 'NR', p: '', k: '100.00' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '100.00',
         },
         S: {
@@ -16196,9 +15486,14 @@ export const subfileDrop = {
           value: '',
         },
         IMPORTO: {
-          obj: { t: 'NR', p: '', k: '100.00' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           isEditable: true,
-          span: { col: 3 },
+          span: {
+            col: 3,
+          },
           value: '100.00',
         },
         CODIVA: {
@@ -16211,7 +15506,10 @@ export const subfileDrop = {
         },
         IND: {
           isEditable: true,
-          obj: { t: 'NR', p: '', k: '100.00' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '100.00',
         },
         S: {
@@ -16268,8 +15566,13 @@ export const subfileDrop = {
         },
         IMPORTO: {
           cssClass: 'danger-text',
-          obj: { t: 'NR', p: '', k: '32.00' },
-          span: { col: 3 },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
+          span: {
+            col: 3,
+          },
           value: '32.00',
         },
         CODIVA: {
@@ -16280,7 +15583,10 @@ export const subfileDrop = {
           value: '',
         },
         IND: {
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '',
         },
         S: {
@@ -16334,8 +15640,13 @@ export const subfileDrop = {
           value: '',
         },
         IMPORTO: {
-          obj: { t: 'NR', p: '', k: '10.00' },
-          span: { col: 3 },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
+          span: {
+            col: 3,
+          },
           value: '10.00',
         },
         CODIVA: {
@@ -16346,7 +15657,10 @@ export const subfileDrop = {
           value: '',
         },
         IND: {
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '',
         },
         S: {
@@ -16399,8 +15713,13 @@ export const subfileDrop = {
           value: '',
         },
         IMPORTO: {
-          obj: { t: 'NR', p: '', k: '22.00' },
-          span: { col: 3 },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
+          span: {
+            col: 3,
+          },
           value: '22.00',
         },
         CODIVA: {
@@ -16411,7 +15730,10 @@ export const subfileDrop = {
           value: '',
         },
         IND: {
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '',
         },
         S: {
@@ -16465,9 +15787,14 @@ export const subfileDrop = {
           value: '',
         },
         IMPORTO: {
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           isEditable: true,
-          span: { col: 3 },
+          span: {
+            col: 3,
+          },
           value: '',
         },
         CODIVA: {
@@ -16480,7 +15807,10 @@ export const subfileDrop = {
         },
         IND: {
           isEditable: true,
-          obj: { t: 'NR', p: '', k: '' },
+          obj: {
+            t: 'NR',
+            p: '',
+          },
           value: '',
         },
         S: {
@@ -16530,7 +15860,6 @@ export const kupDataDataset = {
       isKey: false,
       name: 'PERSON',
       obj: {
-        k: '',
         p: 'COL',
         t: 'CN',
       },
@@ -16541,7 +15870,6 @@ export const kupDataDataset = {
       isKey: false,
       name: 'NUMBER',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -16552,7 +15880,6 @@ export const kupDataDataset = {
       isKey: false,
       name: 'BIRTH',
       obj: {
-        k: '',
         p: '',
         t: 'D8',
       },
@@ -16566,7 +15893,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Mark Wright',
             p: 'COL',
             t: 'CN',
           },
@@ -16575,7 +15901,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '43',
             p: '',
             t: 'NR',
           },
@@ -16583,7 +15908,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1900-12-12',
             p: '',
             t: 'D8',
           },
@@ -16599,7 +15923,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Jack Smith',
             p: 'COL',
             t: 'CN',
           },
@@ -16608,7 +15931,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '69',
             p: '',
             t: 'NR',
           },
@@ -16616,7 +15938,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1921-02-01',
             p: '',
             t: 'D8',
           },
@@ -16632,7 +15953,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Liz Johnson',
             p: 'COL',
             t: 'CN',
           },
@@ -16641,7 +15961,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '33',
             p: '',
             t: 'NR',
           },
@@ -16649,7 +15968,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1932-06-30',
             p: '',
             t: 'D8',
           },
@@ -16665,7 +15983,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Patrick Day',
             p: 'COL',
             t: 'CN',
           },
@@ -16674,7 +15991,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '24',
             p: '',
             t: 'NR',
           },
@@ -16682,7 +15998,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '2015-01-31',
             p: '',
             t: 'D8',
           },
@@ -16698,7 +16013,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Arya Jackson',
             p: 'COL',
             t: 'CN',
           },
@@ -16707,7 +16021,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '59',
             p: '',
             t: 'NR',
           },
@@ -16716,7 +16029,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '2000-01-01',
             p: '',
             t: 'D8',
           },
@@ -16732,7 +16044,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Frank Boyle',
             p: 'COL',
             t: 'CN',
           },
@@ -16741,7 +16052,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '33',
             p: '',
             t: 'NR',
           },
@@ -16749,7 +16059,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1999-05-12',
             p: '',
             t: 'D8',
           },
@@ -16765,7 +16074,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Victoria Fletcher',
             p: 'COL',
             t: 'CN',
           },
@@ -16774,7 +16082,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '51',
             p: '',
             t: 'NR',
           },
@@ -16782,7 +16089,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1807-08-21',
             p: '',
             t: 'D8',
           },
@@ -16798,7 +16104,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Patricia Stewart',
             p: 'COL',
             t: 'CN',
           },
@@ -16807,7 +16112,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '27',
             p: '',
             t: 'NR',
           },
@@ -16815,7 +16119,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1780-10-01',
             p: '',
             t: 'D8',
           },
@@ -16831,7 +16134,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Tom Styles',
             p: 'COL',
             t: 'CN',
           },
@@ -16840,7 +16142,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '51',
             p: '',
             t: 'NR',
           },
@@ -16848,7 +16149,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '2021-03-12',
             p: '',
             t: 'D8',
           },
@@ -16864,7 +16164,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Olivia Ridge',
             p: 'COL',
             t: 'CN',
           },
@@ -16873,7 +16172,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '79',
             p: '',
             t: 'NR',
           },
@@ -16882,7 +16180,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1790-11-11',
             p: '',
             t: 'D8',
           },
@@ -16898,7 +16195,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Ruby White',
             p: 'COL',
             t: 'CN',
           },
@@ -16907,7 +16203,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '29',
             p: '',
             t: 'NR',
           },
@@ -16916,7 +16211,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1990-12-02',
             p: '',
             t: 'D8',
           },
@@ -16932,7 +16226,6 @@ export const kupDataDataset = {
           cssClass: 'strong-text',
           isEditable: false,
           obj: {
-            k: 'Linda King',
             p: 'COL',
             t: 'CN',
           },
@@ -16941,7 +16234,6 @@ export const kupDataDataset = {
         NUMBER: {
           isEditable: false,
           obj: {
-            k: '51',
             p: '',
             t: 'NR',
           },
@@ -16949,7 +16241,6 @@ export const kupDataDataset = {
         },
         BIRTH: {
           obj: {
-            k: '1945-03-17',
             p: '',
             t: 'D8',
           },
