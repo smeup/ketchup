@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup-react",
-    "version": "11.0.0",
+    "version": "11.0.1",
     "main": "dist/components.js",
     "module": "dist/components.js",
     "types": "dist/components.d.ts",
@@ -22,7 +22,7 @@
     "license": "Apache-2.0",
     "repository": "https://github.com/smeup/ketchup",
     "dependencies": {
-        "@sme.up/ketchup": "11.0.0",
+        "@sme.up/ketchup": "11.0.1",
         "@stencil/react-output-target": "^0.8"
     },
     "devDependencies": {

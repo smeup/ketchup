@@ -259,10 +259,6 @@ export class KupInputPanel {
     >([
         ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
         ['SmeupDataTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
-
-        //FIXME: deprecated
-        ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
-        ['SmeupTable', this.#tableCMBandACPOptionsAdapter.bind(this)],
     ]);
 
     #originalData: KupInputPanelData = null;
@@ -1928,25 +1924,12 @@ export class KupInputPanel {
             return adapter(options, currentValue);
         } else {
             return options.map((option) => ({
-                value: option.decode,
+                value: option.value,
                 id: option.value,
+                decode: option.decode,
                 selected: currentValue === option.value,
             }));
         }
-    }
-
-    #treeOptionsNodeAdapter(
-        options: any,
-        currentValue: string
-    ): GenericObject[] {
-        return options.children.map((child) => ({
-            id: child.content.codice,
-            value: child.content.testo,
-            selected: currentValue === child.content.codice,
-            children: child.children?.length
-                ? this.#treeOptionsNodeAdapter(child, currentValue)
-                : [],
-        }));
     }
 
     #dataTreeOptionsChildrenAdapter(
@@ -1955,7 +1938,8 @@ export class KupInputPanel {
     ): GenericObject[] {
         return options.children.map((child) => ({
             id: child.value,
-            value: child.decode,
+            value: child.value,
+            decode: child.decode,
             selected: currentValue === child.value,
             children: child.children?.length
                 ? this.#dataTreeOptionsChildrenAdapter(child, currentValue)
@@ -1973,7 +1957,12 @@ export class KupInputPanel {
 
             return {
                 id: cells[id].value,
-                value: value ? cells[value].value : cells[id].value,
+                value: cells[id].value,
+                decode: value
+                    ? cells[value].decode
+                        ? cells[value].decode
+                        : cells[value].value
+                    : cells[id].value,
                 selected: currentValue === cells[id].value,
             };
         });
