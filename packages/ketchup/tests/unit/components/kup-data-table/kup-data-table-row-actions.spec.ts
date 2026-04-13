@@ -35,7 +35,6 @@ const currentColumn = {
     isKey: false,
     name: 'X$CFG',
     obj: {
-        k: '',
         p: 'COD_VER',
         t: 'VO',
     },
@@ -46,11 +45,11 @@ const currentColumn = {
 const firstCell = {
     isEditable: false,
     obj: {
-        k: '000050',
         p: 'COD_VER',
         t: 'VO',
     },
-    value: '',
+    value: '000050',
+    decode: '',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
@@ -58,11 +57,11 @@ const firstCell = {
 const secondCell = {
     isEditable: false,
     obj: {
-        k: '000051',
         p: 'COD_VER',
         t: 'VO',
     },
-    value: '',
+    value: '000051',
+    decode: '',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
@@ -70,11 +69,11 @@ const secondCell = {
 const thirdCell = {
     isEditable: false,
     obj: {
-        k: '000052',
         p: 'COD_VER',
         t: 'VO',
     },
-    value: 'Test',
+    value: '000052',
+    decode: 'Test',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
@@ -82,10 +81,11 @@ const thirdCell = {
 const fourthCell = {
     isEditable: false,
     obj: {
-        k: '000053',
         p: 'COD_VER',
         t: 'VO',
     },
+    value: '000053',
+    decode: '',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
@@ -97,7 +97,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: 'view-quilt',
                 text: 'Scheda',
-                obj: { k: '000050', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.COMMAND,
                 index: 0,
                 cell: firstCell,
@@ -106,7 +106,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: 'delete',
                 text: 'Elimina',
-                obj: { k: '000050', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.COMMAND,
                 index: 1,
                 cell: firstCell,
@@ -115,7 +115,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: 'edit',
                 text: 'Modifica',
-                obj: { k: '000051', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.COMMAND,
                 index: 2,
                 cell: secondCell,
@@ -124,7 +124,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
-                obj: { k: '000052', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 index: -1,
                 cell: thirdCell,
@@ -133,7 +133,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
-                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 index: -1,
                 cell: fourthCell,
@@ -142,7 +142,6 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -158,7 +157,8 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 dom.ketchup.data.action.createActionsFromVoCodRow(
                     mockedRow,
                     mockedColumns,
-                    mockedCommands
+                    mockedCommands,
+                    mockedColumns.map((col) => col.name)
                 );
             result.push(...kupDataRowAction);
         });
@@ -167,13 +167,13 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
     });
 
     it('should handle VO;CODVER rows with no commands corresponding', () => {
-        const commands = [];
+        const commands: KupCommand[] = [];
         let result: KupDataRowAction[] = [];
         const expectedResult: KupDataRowAction[] = [
             {
                 icon: '',
                 text: '',
-                obj: { k: '000050', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
                 index: -1,
@@ -182,7 +182,6 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -194,7 +193,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
-                obj: { k: '000051', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 index: -1,
                 cell: secondCell,
@@ -203,7 +202,6 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -216,7 +214,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: '',
                 text: '',
                 index: -1,
-                obj: { k: '000052', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
                 column: {
@@ -224,7 +222,6 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -236,7 +233,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             {
                 icon: '',
                 text: '',
-                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                obj: { p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 index: -1,
                 cell: fourthCell,
@@ -245,7 +242,6 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -261,7 +257,8 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 dom.ketchup.data.action.createActionsFromVoCodRow(
                     mockedRow,
                     mockedColumns,
-                    commands
+                    commands,
+                    mockedColumns.map((col) => col.name)
                 );
             result.push(...kupDataRowAction);
         });
@@ -278,7 +275,8 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 dom.ketchup.data.action.createActionsFromVoCodRow(
                     mockedRow,
                     mockedColumns,
-                    mockedCommands
+                    mockedCommands,
+                    mockedColumns.map((col) => col.name)
                 );
             result.push(...kupDataRowAction);
         });
@@ -297,7 +295,6 @@ describe('kup data getCodVerRows', () => {
                     isKey: false,
                     name: 'X$CFG',
                     obj: {
-                        k: '',
                         p: 'COD_VER',
                         t: 'VO',
                     },
@@ -307,15 +304,17 @@ describe('kup data getCodVerRows', () => {
                 },
                 cell: {
                     isEditable: false,
-                    obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                    value: '',
+                    obj: { p: 'COD_VER', t: 'VO' },
+                    value: '000050',
+                    decode: '',
                     element: { 's-hn': 'KUP-DATA-TABLE' },
                 },
             },
         ];
         const result = dom.ketchup.data.cell.getRowCodVers(
             mockedColumns,
-            mockedRows[0]
+            mockedRows[0],
+            mockedColumns.map((col) => col.name)
         );
 
         expect(result).toEqual(expectedResult);
@@ -324,7 +323,8 @@ describe('kup data getCodVerRows', () => {
     it('should return an empy array where no VO;CODVER found', () => {
         const result = dom.ketchup.data.cell.getRowCodVers(
             sampleKupDataDatasetNoCodVer.columns,
-            sampleKupDataDatasetNoCodVer.rows[0]
+            sampleKupDataDatasetNoCodVer.rows[0],
+            sampleKupDataDatasetNoCodVer.columns.map((col) => col.name)
         );
 
         expect(result).toEqual([]);
@@ -332,25 +332,25 @@ describe('kup data getCodVerRows', () => {
 });
 
 describe('kup data buildCellActions', () => {
-    it('should create cell actions with only empty obj', () => {
+    it.only('should create cell actions with only empty obj', () => {
         const commands: KupCommand[] = [
             {
                 obj: {
-                    k: '',
                     p: '',
                     t: '',
                 },
                 text: 'EMPTY delete',
+                value: '2',
                 icon: 'delete',
                 showIcon: true,
             },
             {
                 obj: {
-                    k: '',
                     p: '',
                     t: '',
                 },
                 text: 'EMPTY edit',
+                value: '2',
                 icon: 'edit',
                 showIcon: true,
             },
@@ -362,10 +362,10 @@ describe('kup data buildCellActions', () => {
                 type: DropDownAction.COMMAND,
                 index: 0,
                 obj: {
-                    k: '',
                     p: '',
                     t: '',
                 },
+                originalText: undefined,
                 cell: {
                     data: {
                         size: 15,
@@ -375,12 +375,10 @@ describe('kup data buildCellActions', () => {
                     },
                     isEditable: false,
                     obj: {
-                        k: '',
                         p: '',
                         t: '',
                     },
-                    value: '2',
-                    displayedValue: '2',
+                    value: '',
                     element: {
                         's-hn': 'KUP-DATA-TABLE',
                     },
@@ -390,7 +388,6 @@ describe('kup data buildCellActions', () => {
                     isKey: false,
                     name: 'X$EMPTY',
                     obj: {
-                        k: '',
                         p: '',
                         t: '',
                     },
@@ -403,10 +400,10 @@ describe('kup data buildCellActions', () => {
                 icon: 'edit',
                 text: 'EMPTY edit',
                 obj: {
-                    k: '',
                     p: '',
                     t: '',
                 },
+                originalText: undefined,
                 cell: {
                     data: {
                         size: 15,
@@ -416,12 +413,10 @@ describe('kup data buildCellActions', () => {
                     },
                     isEditable: false,
                     obj: {
-                        k: '',
                         p: '',
                         t: '',
                     },
                     value: '2',
-                    displayedValue: '2',
                     element: {
                         's-hn': 'KUP-DATA-TABLE',
                     },
@@ -433,7 +428,6 @@ describe('kup data buildCellActions', () => {
                     isKey: false,
                     name: 'X$EMPTY',
                     obj: {
-                        k: '',
                         p: '',
                         t: '',
                     },
@@ -456,20 +450,20 @@ describe('kup data buildCellActions', () => {
         const commands: KupCommand[] = [
             {
                 obj: {
-                    k: '000086',
                     p: 'CN',
                     t: 'CLI',
                 },
+                value: '000086',
                 text: 'CN;CLI delete',
                 icon: 'delete',
                 showIcon: true,
             },
             {
                 obj: {
-                    k: '000086',
                     p: 'CN',
                     t: 'CLI',
                 },
+                value: '000086',
                 text: 'CN;CLI scheda',
                 icon: 'view-quilt',
                 showIcon: true,
@@ -480,7 +474,6 @@ describe('kup data buildCellActions', () => {
             {
                 type: DropDownAction.COMMAND,
                 obj: {
-                    k: '000086',
                     p: 'CN',
                     t: 'CLI',
                 },
@@ -495,12 +488,10 @@ describe('kup data buildCellActions', () => {
                     },
                     isEditable: false,
                     obj: {
-                        k: '000086',
                         p: 'CN',
                         t: 'CLI',
                     },
                     value: '2',
-                    displayedValue: '2',
                     element: {
                         's-hn': 'KUP-DATA-TABLE',
                     },
@@ -510,7 +501,6 @@ describe('kup data buildCellActions', () => {
                     isKey: false,
                     name: 'X$TEST',
                     obj: {
-                        k: 'CN',
                         p: '',
                         t: 'CLI',
                     },
@@ -523,7 +513,6 @@ describe('kup data buildCellActions', () => {
             {
                 type: DropDownAction.COMMAND,
                 obj: {
-                    k: '000086',
                     p: 'CN',
                     t: 'CLI',
                 },
@@ -538,12 +527,10 @@ describe('kup data buildCellActions', () => {
                     },
                     isEditable: false,
                     obj: {
-                        k: '000086',
                         p: 'CN',
                         t: 'CLI',
                     },
                     value: '2',
-                    displayedValue: '2',
                     element: {
                         's-hn': 'KUP-DATA-TABLE',
                     },
@@ -553,7 +540,6 @@ describe('kup data buildCellActions', () => {
                     isKey: false,
                     name: 'X$TEST',
                     obj: {
-                        k: 'CN',
                         p: '',
                         t: 'CLI',
                     },

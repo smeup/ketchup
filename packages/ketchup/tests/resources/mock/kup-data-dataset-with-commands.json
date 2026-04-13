@@ -73,6 +73,7 @@
                             "t": "VO"
                         },
                         "value": "000050",
+                        "decode": "",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         }
@@ -145,6 +146,7 @@
                             "t": "VO"
                         },
                         "value": "000051",
+                        "decode": "",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         }
@@ -217,6 +219,7 @@
                             "t": "VO"
                         },
                         "value": "000052",
+                        "decode": "Test",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         }
@@ -291,7 +294,8 @@
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         },
-                        "value": "000053"
+                        "value": "000053",
+                        "decode": ""
                     },
                     "X$ARTI": {
                         "data": {

@@ -142,8 +142,7 @@
                             "p": "",
                             "t": "NR"
                         },
-                        "value": "1",
-                        "displayedValue": "2",
+                        "value": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         },
@@ -193,7 +192,6 @@
                             "t": "CLI"
                         },
                         "value": "000086",
-                        "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         },
@@ -212,11 +210,9 @@
                             "t": ""
                         },
                         "value": "",
-                        "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
-                        },
-                        "decode": "2"
+                        }
                     }
                 },
                 "cssClass": "clickable",
@@ -239,7 +235,6 @@
                             "t": "NR"
                         },
                         "value": "2",
-                        "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         },
@@ -319,7 +314,6 @@
                             "t": ""
                         },
                         "value": "",
-                        "displayedValue": "2",
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         },
