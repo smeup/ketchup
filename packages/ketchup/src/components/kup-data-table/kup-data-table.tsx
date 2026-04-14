@@ -4954,9 +4954,9 @@ export class KupDataTable {
         });
     };
 
-    #onBlurHandler({
+    #onBlurHandler = ({
         detail: { cell, column, row },
-    }: CustomEvent<FCellEventPayload>) {
+    }: CustomEvent<FCellEventPayload>) => {
         if (
             this.updatableData &&
             cell.isEditable &&
@@ -4979,7 +4979,7 @@ export class KupDataTable {
                 cell: cell,
             });
         }
-    }
+    };
 
     @Method() async defaultSortingFunction(
         columns: KupDataColumn[],

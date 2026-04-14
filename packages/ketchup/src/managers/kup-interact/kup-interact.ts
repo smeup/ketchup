@@ -388,6 +388,9 @@ export class KupInteract {
      * @param {KupResizeCallbacks} callback - Callback to invoke when the event fires.
      */
     on(el: HTMLElement, event: KupPointerEventTypes, callback: ListenersArg) {
+        if (!el) {
+            return;
+        }
         interact(el).on(event, callback);
         this.managedElements.add(el);
     }
