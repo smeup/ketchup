@@ -55,7 +55,9 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v11.0.1">v11.0.1</a></div
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v11.0.2"
+            >v11.0.2</a
+          ></div
         ></div
       >
     </kup-drawer>
