@@ -139,7 +139,6 @@ export default {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '20211101',
         },
         icon: 'calendar',
         value: '2021-11-01',
@@ -150,7 +149,6 @@ export default {
         obj: {
           t: 'NR',
           p: '',
-          k: '500',
         },
         icon: 'chart-bar',
         value: '500',

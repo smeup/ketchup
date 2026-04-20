@@ -19,24 +19,21 @@
                 "Col1": {
                     "obj": {
                         "t": "CN",
-                        "p": "COL",
-                        "k": "CASFRA"
+                        "p": "COL"
                     },
                     "value": "CASFRA"
                 },
                 "Col2": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "10"
+                        "p": ""
                     },
                     "value": "10"
                 },
                 "Col3": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "100.60"
+                        "p": ""
                     },
                     "value": "100.60"
                 }
@@ -47,24 +44,21 @@
                 "Col1": {
                     "obj": {
                         "t": "CN",
-                        "p": "COL",
-                        "k": "DELGIO"
+                        "p": "COL"
                     },
                     "value": "DELGIO"
                 },
                 "Col2": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "6"
+                        "p": ""
                     },
                     "value": "6"
                 },
                 "Col3": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "67.8"
+                        "p": ""
                     },
                     "value": "67.8"
                 }
@@ -75,24 +69,21 @@
                 "Col1": {
                     "obj": {
                         "t": "CN",
-                        "p": "COL",
-                        "k": "PARFRA"
+                        "p": "COL"
                     },
                     "value": "PARFRA"
                 },
                 "Col2": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "5"
+                        "p": ""
                     },
                     "value": "5"
                 },
                 "Col3": {
                     "obj": {
                         "t": "NR",
-                        "p": "",
-                        "k": "120.06"
+                        "p": ""
                     },
                     "value": "120.06"
                 }

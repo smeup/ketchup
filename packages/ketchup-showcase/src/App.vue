@@ -241,7 +241,6 @@ export default {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: 'smeup',
       },
       value: 'smeup',
     },
@@ -254,7 +253,6 @@ export default {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: 'ketchup',
       },
       value: 'ketchup',
     },

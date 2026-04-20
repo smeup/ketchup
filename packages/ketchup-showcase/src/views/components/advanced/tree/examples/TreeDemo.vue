@@ -300,17 +300,17 @@ function createComp() {
     {
       cells: {
         Mat: {
-          obj: { t: 'NR', p: '', k: '00Mat' },
+          obj: { t: 'NR', p: '' },
           value: '00Mat',
           options: true,
         },
         Program: {
-          obj: { t: 'NR', p: '', k: '00Program' },
+          obj: { t: 'NR', p: '' },
           value: '00Program',
           options: false,
         },
         Attack: {
-          obj: { t: 'NR', p: '', k: '00Attack' },
+          obj: { t: 'NR', p: '' },
           value: '00Attack',
           options: true,
         },
@@ -319,17 +319,17 @@ function createComp() {
         {
           cells: {
             Mat: {
-              obj: { t: 'NR', p: '', k: '10Mat' },
+              obj: { t: 'NR', p: '' },
               value: '10Mat',
               options: false,
             },
             Program: {
-              obj: { t: 'NR', p: '', k: '10Program' },
+              obj: { t: 'NR', p: '' },
               value: '10Program',
               options: false,
             },
             Attack: {
-              obj: { t: 'NR', p: '', k: '10Attack' },
+              obj: { t: 'NR', p: '' },
               value: '10Attack',
               options: true,
             },
@@ -340,24 +340,24 @@ function createComp() {
           npm: 'filter_1',
           id: '00100',
           isExpanded: false,
-          obj: { t: 'TN', p: '', k: 'First node' },
+          obj: { t: 'TN', p: '' },
           options: false,
           value: 'First node',
         },
         {
           cells: {
             Mat: {
-              obj: { t: 'NR', p: '', k: '11Mat' },
+              obj: { t: 'NR', p: '' },
               value: '11Mat',
               options: false,
             },
             Program: {
-              obj: { t: 'NR', p: '', k: '11Program' },
+              obj: { t: 'NR', p: '' },
               value: '11Program',
               options: true,
             },
             Attack: {
-              obj: { t: 'NR', p: '', k: '11Attack' },
+              obj: { t: 'NR', p: '' },
               value: '11Attack',
               options: false,
             },
@@ -366,17 +366,17 @@ function createComp() {
             {
               cells: {
                 Mat: {
-                  obj: { t: 'NR', p: '', k: '20Mat' },
+                  obj: { t: 'NR', p: '' },
                   value: '20Mat',
                   options: true,
                 },
                 Program: {
-                  obj: { t: 'NR', p: '', k: '20Program' },
+                  obj: { t: 'NR', p: '' },
                   value: '20Program',
                   options: false,
                 },
                 Attack: {
-                  obj: { t: 'NR', p: '', k: '20Attack' },
+                  obj: { t: 'NR', p: '' },
                   value: '20Attack',
                   options: true,
                 },
@@ -385,17 +385,17 @@ function createComp() {
                 {
                   cells: {
                     Mat: {
-                      obj: { t: 'NR', p: '', k: '30Mat' },
+                      obj: { t: 'NR', p: '' },
                       value: '30Mat',
                       options: false,
                     },
                     Program: {
-                      obj: { t: 'NR', p: '', k: '30Program' },
+                      obj: { t: 'NR', p: '' },
                       value: '30Program',
                       options: true,
                     },
                     Attack: {
-                      obj: { t: 'NR', p: '', k: '30Attack' },
+                      obj: { t: 'NR', p: '' },
                       value: '30Attack',
                       options: false,
                     },
@@ -406,7 +406,7 @@ function createComp() {
                   icon: 'account',
                   id: '0010300',
                   isExpanded: false,
-                  obj: { t: 'TN', p: '', k: 'FIOGIA30' },
+                  obj: { t: 'TN', p: '' },
                   options: false,
                   value: 'FIOGIA30',
                 },
@@ -416,7 +416,7 @@ function createComp() {
               icon: 'favorite',
               id: '001201',
               isExpanded: false,
-              obj: { t: 'TN', p: '', k: 'Second node item' },
+              obj: { t: 'TN', p: '' },
               options: true,
               value: 'Second node item',
             },
@@ -426,7 +426,7 @@ function createComp() {
           icon: 'filter_2',
           id: '00111',
           isExpanded: true,
-          obj: { t: 'TN', p: '', k: 'Second node' },
+          obj: { t: 'TN', p: '' },
           options: false,
           value: 'Second node',
         },
@@ -436,7 +436,7 @@ function createComp() {
       icon: 'widgets',
       id: '0005',
       isExpanded: true,
-      obj: { t: '', p: '', k: 'Demo' },
+      obj: { t: '', p: '' },
       options: true,
       value: 'Demo',
     },

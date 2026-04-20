@@ -1,15 +1,15 @@
-const defaultData = [
+﻿const defaultData = [
     {
         data: {
             trailingIcon: true,
             title: 'button 1 tooltip',
         },
         icon: 'favorite',
-        value: 'Button with Favorite icon',
+        value: 'b1',
+        decode: 'Button with Favorite icon',
         obj: {
             t: '',
             p: '',
-            k: 'b1',
         },
     },
     {
@@ -18,11 +18,11 @@ const defaultData = [
             title: 'button 2 tooltip',
         },
         icon: 'alarm',
-        value: 'Button with Alarm icon',
+        value: 'b2',
+        decode: 'Button with Alarm icon',
         obj: {
             t: '',
             p: '',
-            k: 'b2',
         },
     },
     {
@@ -30,11 +30,11 @@ const defaultData = [
             title: 'button 3 tooltip',
         },
         icon: 'favorite',
-        value: 'Button with Favorite icon left',
+        value: 'b3',
+        decode: 'Button with Favorite icon left',
         obj: {
             t: '',
             p: '',
-            k: 'b3',
         },
     },
     {
@@ -43,36 +43,36 @@ const defaultData = [
             title: 'button dropdown tooltip',
         },
         icon: 'favorite',
-        value: 'Raised trailing favorite dropdown',
+        value: 'bddb',
+        decode: 'Raised trailing favorite dropdown',
         obj: {
             t: '',
             p: '',
-            k: 'bddb',
         },
         children: [
             {
-                value: 'first child',
+                value: 'child1',
+                decode: 'first child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child1',
                 },
                 icon: 'favorite',
             },
             {
-                value: 'second child',
+                value: 'child2',
+                decode: 'second child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child2',
                 },
             },
             {
-                value: 'third child',
+                value: 'child3',
+                decode: 'third child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child3',
                 },
             },
         ],
@@ -87,32 +87,31 @@ const defaultData = [
         obj: {
             t: '',
             p: '',
-            k: 'bddb',
         },
         children: [
             {
-                value: 'first child',
+                value: 'child1',
+                decode: 'first child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child1',
                 },
                 icon: 'favorite',
             },
             {
-                value: 'second child',
+                value: 'child2',
+                decode: 'second child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child2',
                 },
             },
             {
-                value: 'third child',
+                value: 'child3',
+                decode: 'third child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child3',
                 },
             },
         ],
@@ -123,36 +122,36 @@ const defaultData = [
             dropdownOnly: true,
         },
         icon: '',
-        value: 'Test',
+        value: 'bddb',
+        decode: 'Test',
         obj: {
             t: '',
             p: '',
-            k: 'bddb',
         },
         children: [
             {
-                value: 'first child',
+                value: 'child1',
+                decode: 'first child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child1',
                 },
                 icon: 'favorite',
             },
             {
-                value: 'second child',
+                value: 'child2',
+                decode: 'second child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child2',
                 },
             },
             {
-                value: 'third child',
+                value: 'child3',
+                decode: 'third child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child3',
                 },
             },
         ],
@@ -187,11 +186,11 @@ const simpleData = [
         data: {
             title: 'button flat 1 tooltip',
         },
-        value: 'Button Flat 1',
+        value: 'b1',
+        decode: 'Button Flat 1',
         obj: {
             t: '',
             p: '',
-            k: 'b1',
         },
     },
     {
@@ -213,27 +212,27 @@ const simpleData = [
         value: 'Button Flat 4',
         children: [
             {
-                value: 'first child',
+                value: 'child1',
+                decode: 'first child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child1',
                 },
             },
             {
-                value: 'second child',
+                value: 'child2',
+                decode: 'second child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child2',
                 },
             },
             {
-                value: 'third child',
+                value: 'child3',
+                decode: 'third child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child3',
                 },
             },
         ],
@@ -252,11 +251,11 @@ const iconsData = [
             title: 'button flat 1 tooltip',
         },
         icon: 'favorite',
-        value: 'Button Flat 1',
+        value: 'b1',
+        decode: 'Button Flat 1',
         obj: {
             t: '',
             p: '',
-            k: 'b1',
         },
     },
     {
@@ -284,29 +283,29 @@ const iconsData = [
         value: 'Button Flat 4',
         children: [
             {
-                value: 'first child',
+                value: 'child1',
+                decode: 'first child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child1',
                 },
                 icon: 'favorite',
             },
             {
-                value: 'second child',
+                value: 'child2',
+                decode: 'second child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child2',
                 },
                 icon: 'favorite',
             },
             {
-                value: 'third child',
+                value: 'child3',
+                decode: 'third child',
                 obj: {
                     t: '',
                     p: '',
-                    k: 'child3',
                 },
                 icon: 'favorite',
             },
@@ -366,7 +365,6 @@ const errorData = [
         obj: {
             t: '',
             p: '',
-            k: 'b1',
         },
     },
     {
