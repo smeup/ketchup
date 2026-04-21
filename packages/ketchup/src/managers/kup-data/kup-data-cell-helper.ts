@@ -59,13 +59,11 @@ export function getCellValue(
         values.sort((n1, n2) => {
             return compareValues(
                 n1.obj,
-                kupObjects.isDate(n1.obj) || kupObjects.isNumber(n1.obj)
-                    ? n1.value
-                    : getValueForDisplay2(n1, column),
+                n1.value,
+                getValueForDisplay2(n1, column),
                 n2.obj,
-                kupObjects.isDate(n2.obj) || kupObjects.isNumber(n2.obj)
-                    ? n2.value
-                    : getValueForDisplay2(n2, column),
+                n2.value,
+                getValueForDisplay2(n2, column),
                 SortMode.A
             );
         });
