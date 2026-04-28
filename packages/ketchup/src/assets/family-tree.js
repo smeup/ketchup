@@ -1,4 +1,4 @@
-const dataStaff = {
+﻿const dataStaff = {
     columns: [],
     rows: [
         {
@@ -16,7 +16,6 @@ const dataStaff = {
                                             icon: 'favorite',
                                             isExpanded: false,
                                             obj: {
-                                                k: 'LOCEXD',
                                                 p: 'B£AMO',
                                                 t: 'TA',
                                             },
@@ -33,7 +32,6 @@ const dataStaff = {
                                             icon: 'favorite',
                                             isExpanded: false,
                                             obj: {
-                                                k: 'LOCEXD',
                                                 p: 'B£AMO',
                                                 t: 'TA',
                                             },
@@ -50,7 +48,6 @@ const dataStaff = {
                                     id: 'LOCEXD',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -66,7 +63,6 @@ const dataStaff = {
                             id: 'FOS',
                             isExpanded: true,
                             obj: {
-                                k: 'FOS',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -86,7 +82,6 @@ const dataStaff = {
                                             icon: 'favorite',
                                             isExpanded: false,
                                             obj: {
-                                                k: 'LOCEXD',
                                                 p: 'B£AMO',
                                                 t: 'TA',
                                             },
@@ -103,7 +98,6 @@ const dataStaff = {
                                             icon: 'favorite',
                                             isExpanded: false,
                                             obj: {
-                                                k: 'LOCEXD',
                                                 p: 'B£AMO',
                                                 t: 'TA',
                                             },
@@ -119,7 +113,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -136,7 +129,6 @@ const dataStaff = {
                                     id: 'LOCTML',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -152,7 +144,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -169,7 +160,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -186,7 +176,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -203,7 +192,6 @@ const dataStaff = {
                             id: 'FOS',
                             isExpanded: true,
                             obj: {
-                                k: 'FOS',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -219,7 +207,6 @@ const dataStaff = {
                             icon: 'favorite',
                             isExpanded: false,
                             obj: {
-                                k: 'LOCEXD',
                                 p: 'B£AMO',
                                 t: 'TA',
                             },
@@ -236,7 +223,6 @@ const dataStaff = {
                             icon: 'favorite',
                             isExpanded: false,
                             obj: {
-                                k: 'LOCEXD',
                                 p: 'B£AMO',
                                 t: 'TA',
                             },
@@ -255,7 +241,6 @@ const dataStaff = {
                             isExpanded: false,
                             isWeird: true,
                             obj: {
-                                k: 'AGE',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -274,7 +259,6 @@ const dataStaff = {
                                     id: 'LOCTML',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -290,7 +274,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -307,7 +290,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -324,7 +306,6 @@ const dataStaff = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -340,7 +321,6 @@ const dataStaff = {
                             id: 'BAN',
                             isExpanded: true,
                             obj: {
-                                k: 'BAN',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -356,7 +336,6 @@ const dataStaff = {
                     id: '03',
                     isExpanded: true,
                     obj: {
-                        k: '03',
                         p: 'V§R',
                         t: 'TA',
                     },
@@ -372,7 +351,6 @@ const dataStaff = {
                     icon: 'favorite',
                     isExpanded: false,
                     obj: {
-                        k: 'LOCEXD',
                         p: 'B£AMO',
                         t: 'TA',
                     },
@@ -389,7 +367,6 @@ const dataStaff = {
                     icon: 'favorite',
                     isExpanded: false,
                     obj: {
-                        k: 'LOCEXD',
                         p: 'B£AMO',
                         t: 'TA',
                     },
@@ -407,7 +384,6 @@ const dataStaff = {
                     id: '14',
                     isExpanded: false,
                     obj: {
-                        k: '14',
                         p: 'V§R',
                         t: 'TA',
                     },
@@ -423,7 +399,6 @@ const dataStaff = {
             id: 'D0',
             isExpanded: false,
             obj: {
-                k: 'D0',
                 p: 'B£A',
                 t: 'TA',
             },
@@ -448,7 +423,6 @@ const dataLayout = {
             isKey: false,
             name: 'NCOL',
             obj: {
-                k: '',
                 p: '',
                 t: 'NR',
             },
@@ -460,7 +434,6 @@ const dataLayout = {
             isKey: false,
             name: 'NFTE',
             obj: {
-                k: '',
                 p: '',
                 t: 'NR',
             },
@@ -475,7 +448,6 @@ const dataLayout = {
                     cssClass: 'strong-text top-right-indicator',
                     isEditable: false,
                     obj: {
-                        k: '',
                         p: '',
                         t: 'OG',
                     },
@@ -484,7 +456,6 @@ const dataLayout = {
                 NCOL: {
                     isEditable: false,
                     obj: {
-                        k: '0',
                         p: '',
                         t: 'NR',
                     },
@@ -494,7 +465,6 @@ const dataLayout = {
                     cssClass: ' top-right-indicator',
                     isEditable: false,
                     obj: {
-                        k: '',
                         p: '',
                         t: '',
                     },
@@ -503,7 +473,6 @@ const dataLayout = {
                 NFTE: {
                     isEditable: false,
                     obj: {
-                        k: '0',
                         p: '',
                         t: 'NR',
                     },
@@ -517,7 +486,6 @@ const dataLayout = {
                             cssClass: 'strong-text top-right-indicator',
                             isEditable: false,
                             obj: {
-                                k: 'CNAZI       ',
                                 p: '',
                                 t: 'OG',
                             },
@@ -526,7 +494,6 @@ const dataLayout = {
                         NCOL: {
                             isEditable: false,
                             obj: {
-                                k: '0',
                                 p: '',
                                 t: 'NR',
                             },
@@ -536,7 +503,6 @@ const dataLayout = {
                             cssClass: 'strong-text top-right-indicator',
                             isEditable: false,
                             obj: {
-                                k: '10',
                                 p: 'AZI       ',
                                 t: 'CN',
                             },
@@ -545,7 +511,6 @@ const dataLayout = {
                         NFTE: {
                             isEditable: false,
                             obj: {
-                                k: '0',
                                 p: '',
                                 t: 'NR',
                             },
@@ -559,7 +524,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'CFP0£02     ',
                                         p: '',
                                         t: 'OG',
                                     },
@@ -568,7 +532,6 @@ const dataLayout = {
                                 NCOL: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -578,7 +541,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'UO69',
                                         p: 'P0£02     ',
                                         t: 'CF',
                                     },
@@ -587,7 +549,6 @@ const dataLayout = {
                                 NFTE: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -602,7 +563,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -611,7 +571,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '28',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -622,7 +581,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -631,7 +589,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '23.620',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -645,7 +602,6 @@ const dataLayout = {
                                     id: 'PO72',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO72',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -660,7 +616,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -669,7 +624,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '65',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -680,7 +634,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -689,7 +642,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '52.200',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -703,7 +655,6 @@ const dataLayout = {
                                     id: 'PO71',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO71',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -718,7 +669,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -727,7 +677,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '30',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -738,7 +687,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -747,7 +695,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '28.700',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -761,7 +708,6 @@ const dataLayout = {
                                     id: 'PO69',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO69',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -776,7 +722,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -785,7 +730,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '63',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -796,7 +740,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -805,7 +748,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '52.840',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -819,7 +761,6 @@ const dataLayout = {
                                     id: 'PO70',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO70',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -834,7 +775,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -843,7 +783,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '9',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -854,7 +793,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -863,7 +801,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '9.000',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -877,7 +814,6 @@ const dataLayout = {
                                     id: 'PO68',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO68',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -892,7 +828,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -901,7 +836,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '2',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -912,7 +846,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO70           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -921,7 +854,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '1.750',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -935,7 +867,6 @@ const dataLayout = {
                                     id: 'PO73',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO73',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -950,7 +881,6 @@ const dataLayout = {
                             id: 'UO70',
                             isExpanded: true,
                             obj: {
-                                k: 'UO70',
                                 p: 'P0£02',
                                 t: 'CF',
                             },
@@ -964,7 +894,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'CFP0£02     ',
                                         p: '',
                                         t: 'OG',
                                     },
@@ -973,7 +902,6 @@ const dataLayout = {
                                 NCOL: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -983,7 +911,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'UO69',
                                         p: 'P0£02     ',
                                         t: 'CF',
                                     },
@@ -992,7 +919,6 @@ const dataLayout = {
                                 NFTE: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -1007,7 +933,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1016,7 +941,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '7',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1027,7 +951,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO71           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1036,7 +959,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '6.250',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1050,7 +972,6 @@ const dataLayout = {
                                     id: 'PO74',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO74',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -1065,7 +986,6 @@ const dataLayout = {
                             id: 'UO71',
                             isExpanded: true,
                             obj: {
-                                k: 'UO71',
                                 p: 'P0£02',
                                 t: 'CF',
                             },
@@ -1079,7 +999,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'CFP0£02     ',
                                         p: '',
                                         t: 'OG',
                                     },
@@ -1088,7 +1007,6 @@ const dataLayout = {
                                 NCOL: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -1098,7 +1016,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'UO69',
                                         p: 'P0£02     ',
                                         t: 'CF',
                                     },
@@ -1107,7 +1024,6 @@ const dataLayout = {
                                 NFTE: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -1122,7 +1038,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1131,7 +1046,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '15',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1142,7 +1056,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO72           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1151,7 +1064,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '14.200',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1165,7 +1077,6 @@ const dataLayout = {
                                     id: 'PO76',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO76',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -1180,7 +1091,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1189,7 +1099,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '3',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1200,7 +1109,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO72           ',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1209,7 +1117,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '3.000',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1223,7 +1130,6 @@ const dataLayout = {
                                     id: 'PO75',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'PO75',
                                         p: 'P0£03',
                                         t: 'CF',
                                     },
@@ -1238,7 +1144,6 @@ const dataLayout = {
                             id: 'UO72',
                             isExpanded: true,
                             obj: {
-                                k: 'UO72',
                                 p: 'P0£02',
                                 t: 'CF',
                             },
@@ -1252,7 +1157,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'CFP0£02     ',
                                         p: '',
                                         t: 'OG',
                                     },
@@ -1261,7 +1165,6 @@ const dataLayout = {
                                 NCOL: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -1271,7 +1174,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'UO69',
                                         p: 'P0£02     ',
                                         t: 'CF',
                                     },
@@ -1280,7 +1182,6 @@ const dataLayout = {
                                 NFTE: {
                                     isEditable: false,
                                     obj: {
-                                        k: '0',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -1295,7 +1196,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1304,7 +1204,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1315,7 +1214,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO73',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1324,7 +1222,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1339,7 +1236,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'CFP0£02     ',
                                                         p: '',
                                                         t: 'OG',
                                                     },
@@ -1348,7 +1244,6 @@ const dataLayout = {
                                                 NCOL: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1359,7 +1254,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'UO74',
                                                         p: 'P0£02     ',
                                                         t: 'CF',
                                                     },
@@ -1368,7 +1262,6 @@ const dataLayout = {
                                                 NFTE: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1383,7 +1276,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1392,7 +1284,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1403,7 +1294,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO77           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1412,7 +1302,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1426,7 +1315,6 @@ const dataLayout = {
                                                     id: 'PO78',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO78',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1441,7 +1329,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1450,7 +1337,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1461,7 +1347,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO77           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1470,7 +1355,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1484,7 +1368,6 @@ const dataLayout = {
                                                     id: 'PO77',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO77',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1499,7 +1382,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1508,7 +1390,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1519,7 +1400,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO77           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1528,7 +1408,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1542,7 +1421,6 @@ const dataLayout = {
                                                     id: 'PO79',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO79',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1557,7 +1435,6 @@ const dataLayout = {
                                             id: 'UO77',
                                             isExpanded: true,
                                             obj: {
-                                                k: 'UO77',
                                                 p: 'P0£02',
                                                 t: 'CF',
                                             },
@@ -1572,7 +1449,6 @@ const dataLayout = {
                                     id: 'UO74',
                                     isExpanded: true,
                                     obj: {
-                                        k: 'UO74',
                                         p: 'P0£02',
                                         t: 'CF',
                                     },
@@ -1587,7 +1463,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1596,7 +1471,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1607,7 +1481,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO73',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1616,7 +1489,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1631,7 +1503,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'CFP0£02     ',
                                                         p: '',
                                                         t: 'OG',
                                                     },
@@ -1640,7 +1511,6 @@ const dataLayout = {
                                                 NCOL: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1651,7 +1521,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'UO75',
                                                         p: 'P0£02     ',
                                                         t: 'CF',
                                                     },
@@ -1660,7 +1529,6 @@ const dataLayout = {
                                                 NFTE: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1675,7 +1543,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1684,7 +1551,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '4',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1695,7 +1561,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO78           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1704,7 +1569,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '3.750',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1718,7 +1582,6 @@ const dataLayout = {
                                                     id: 'PO80',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO80',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1733,7 +1596,6 @@ const dataLayout = {
                                             id: 'UO78',
                                             isExpanded: true,
                                             obj: {
-                                                k: 'UO78',
                                                 p: 'P0£02',
                                                 t: 'CF',
                                             },
@@ -1748,7 +1610,6 @@ const dataLayout = {
                                     id: 'UO75',
                                     isExpanded: true,
                                     obj: {
-                                        k: 'UO75',
                                         p: 'P0£02',
                                         t: 'CF',
                                     },
@@ -1763,7 +1624,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'CFP0£02     ',
                                                 p: '',
                                                 t: 'OG',
                                             },
@@ -1772,7 +1632,6 @@ const dataLayout = {
                                         NCOL: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1783,7 +1642,6 @@ const dataLayout = {
                                                 'strong-text top-right-indicator',
                                             isEditable: false,
                                             obj: {
-                                                k: 'UO73',
                                                 p: 'P0£02     ',
                                                 t: 'CF',
                                             },
@@ -1792,7 +1650,6 @@ const dataLayout = {
                                         NFTE: {
                                             isEditable: false,
                                             obj: {
-                                                k: '0',
                                                 p: '',
                                                 t: 'NR',
                                             },
@@ -1807,7 +1664,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'CFP0£02     ',
                                                         p: '',
                                                         t: 'OG',
                                                     },
@@ -1816,7 +1672,6 @@ const dataLayout = {
                                                 NCOL: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1827,7 +1682,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'UO76',
                                                         p: 'P0£02     ',
                                                         t: 'CF',
                                                     },
@@ -1836,7 +1690,6 @@ const dataLayout = {
                                                 NFTE: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -1851,7 +1704,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1860,7 +1712,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '4',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1871,7 +1722,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO79           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1880,7 +1730,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '3.620',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1894,7 +1743,6 @@ const dataLayout = {
                                                     id: 'PO83',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO83',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1909,7 +1757,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -1918,7 +1765,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1929,7 +1775,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO79           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -1938,7 +1783,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -1952,7 +1796,6 @@ const dataLayout = {
                                                     id: 'PO82',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO82',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -1967,7 +1810,6 @@ const dataLayout = {
                                             id: 'UO79',
                                             isExpanded: true,
                                             obj: {
-                                                k: 'UO79',
                                                 p: 'P0£02',
                                                 t: 'CF',
                                             },
@@ -1982,7 +1824,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'CFP0£02     ',
                                                         p: '',
                                                         t: 'OG',
                                                     },
@@ -1991,7 +1832,6 @@ const dataLayout = {
                                                 NCOL: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -2002,7 +1842,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'UO76',
                                                         p: 'P0£02     ',
                                                         t: 'CF',
                                                     },
@@ -2011,7 +1850,6 @@ const dataLayout = {
                                                 NFTE: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -2026,7 +1864,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -2035,7 +1872,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -2046,7 +1882,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO80           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -2055,7 +1890,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -2069,7 +1903,6 @@ const dataLayout = {
                                                     id: 'PO84',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO84',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -2084,7 +1917,6 @@ const dataLayout = {
                                             id: 'UO80',
                                             isExpanded: true,
                                             obj: {
-                                                k: 'UO80',
                                                 p: 'P0£02',
                                                 t: 'CF',
                                             },
@@ -2099,7 +1931,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'CFP0£02     ',
                                                         p: '',
                                                         t: 'OG',
                                                     },
@@ -2108,7 +1939,6 @@ const dataLayout = {
                                                 NCOL: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -2119,7 +1949,6 @@ const dataLayout = {
                                                         'strong-text top-right-indicator',
                                                     isEditable: false,
                                                     obj: {
-                                                        k: 'UO76',
                                                         p: 'P0£02     ',
                                                         t: 'CF',
                                                     },
@@ -2128,7 +1957,6 @@ const dataLayout = {
                                                 NFTE: {
                                                     isEditable: false,
                                                     obj: {
-                                                        k: '0',
                                                         p: '',
                                                         t: 'NR',
                                                     },
@@ -2143,7 +1971,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'CFP0£02     ',
                                                                 p: '',
                                                                 t: 'OG',
                                                             },
@@ -2152,7 +1979,6 @@ const dataLayout = {
                                                         NCOL: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -2163,7 +1989,6 @@ const dataLayout = {
                                                                 'strong-text top-right-indicator',
                                                             isEditable: false,
                                                             obj: {
-                                                                k: 'UO73           ',
                                                                 p: 'P0£02     ',
                                                                 t: 'CF',
                                                             },
@@ -2172,7 +1997,6 @@ const dataLayout = {
                                                         NFTE: {
                                                             isEditable: false,
                                                             obj: {
-                                                                k: '1.000',
                                                                 p: '',
                                                                 t: 'NR',
                                                             },
@@ -2186,7 +2010,6 @@ const dataLayout = {
                                                     id: 'PO86',
                                                     isExpanded: false,
                                                     obj: {
-                                                        k: 'PO86',
                                                         p: 'P0£03',
                                                         t: 'CF',
                                                     },
@@ -2201,7 +2024,6 @@ const dataLayout = {
                                             id: 'UO81',
                                             isExpanded: true,
                                             obj: {
-                                                k: 'UO81',
                                                 p: 'P0£02',
                                                 t: 'CF',
                                             },
@@ -2216,7 +2038,6 @@ const dataLayout = {
                                     id: 'UO76',
                                     isExpanded: true,
                                     obj: {
-                                        k: 'UO76',
                                         p: 'P0£02',
                                         t: 'CF',
                                     },
@@ -2231,7 +2052,6 @@ const dataLayout = {
                             id: 'UO73',
                             isExpanded: true,
                             obj: {
-                                k: 'UO73',
                                 p: 'P0£02',
                                 t: 'CF',
                             },
@@ -2246,7 +2066,6 @@ const dataLayout = {
                     id: 'UO69',
                     isExpanded: true,
                     obj: {
-                        k: 'UO69',
                         p: 'P0£02',
                         t: 'CF',
                     },
@@ -2260,7 +2079,6 @@ const dataLayout = {
                             cssClass: 'strong-text top-right-indicator',
                             isEditable: false,
                             obj: {
-                                k: 'CNAZI       ',
                                 p: '',
                                 t: 'OG',
                             },
@@ -2269,7 +2087,6 @@ const dataLayout = {
                         NCOL: {
                             isEditable: false,
                             obj: {
-                                k: '0',
                                 p: '',
                                 t: 'NR',
                             },
@@ -2279,7 +2096,6 @@ const dataLayout = {
                             cssClass: 'strong-text top-right-indicator',
                             isEditable: false,
                             obj: {
-                                k: '10',
                                 p: 'AZI       ',
                                 t: 'CN',
                             },
@@ -2288,7 +2104,6 @@ const dataLayout = {
                         NFTE: {
                             isEditable: false,
                             obj: {
-                                k: '0',
                                 p: '',
                                 t: 'NR',
                             },
@@ -2302,7 +2117,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'CFP0£02     ',
                                         p: '',
                                         t: 'OG',
                                     },
@@ -2311,7 +2125,6 @@ const dataLayout = {
                                 NCOL: {
                                     isEditable: false,
                                     obj: {
-                                        k: '4',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -2321,7 +2134,6 @@ const dataLayout = {
                                     cssClass: 'strong-text top-right-indicator',
                                     isEditable: false,
                                     obj: {
-                                        k: 'UO83           ',
                                         p: 'P0£02     ',
                                         t: 'CF',
                                     },
@@ -2330,7 +2142,6 @@ const dataLayout = {
                                 NFTE: {
                                     isEditable: false,
                                     obj: {
-                                        k: '4.000',
                                         p: '',
                                         t: 'NR',
                                     },
@@ -2344,7 +2155,6 @@ const dataLayout = {
                             id: 'PO88',
                             isExpanded: false,
                             obj: {
-                                k: 'PO88',
                                 p: 'P0£03',
                                 t: 'CF',
                             },
@@ -2359,7 +2169,6 @@ const dataLayout = {
                     id: 'UO83',
                     isExpanded: true,
                     obj: {
-                        k: 'UO83',
                         p: 'P0£02',
                         t: 'CF',
                     },
@@ -2374,7 +2183,6 @@ const dataLayout = {
             id: '10',
             isExpanded: true,
             obj: {
-                k: '10',
                 p: 'AZI',
                 t: 'CN',
             },
@@ -2401,7 +2209,6 @@ const dataStacked = {
                                     id: 'LOCEXD',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -2417,7 +2224,6 @@ const dataStacked = {
                             id: 'FOS',
                             isExpanded: true,
                             obj: {
-                                k: 'FOS',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -2434,7 +2240,6 @@ const dataStacked = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCEXD',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -2451,7 +2256,6 @@ const dataStacked = {
                                     id: 'LOCTML',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -2467,7 +2271,6 @@ const dataStacked = {
                             id: 'FOS',
                             isExpanded: true,
                             obj: {
-                                k: 'FOS',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -2485,7 +2288,6 @@ const dataStacked = {
                             isExpanded: false,
                             isWeird: true,
                             obj: {
-                                k: 'AGE',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -2504,7 +2306,6 @@ const dataStacked = {
                                     id: 'LOCTML',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -2520,7 +2321,6 @@ const dataStacked = {
                                     icon: 'favorite',
                                     isExpanded: false,
                                     obj: {
-                                        k: 'LOCTML',
                                         p: 'B£AMO',
                                         t: 'TA',
                                     },
@@ -2536,7 +2336,6 @@ const dataStacked = {
                             id: 'BAN',
                             isExpanded: true,
                             obj: {
-                                k: 'BAN',
                                 p: 'BRE',
                                 t: 'TA',
                             },
@@ -2552,7 +2351,6 @@ const dataStacked = {
                     id: '03',
                     isExpanded: true,
                     obj: {
-                        k: '03',
                         p: 'V§R',
                         t: 'TA',
                     },
@@ -2569,7 +2367,6 @@ const dataStacked = {
                     id: '14',
                     isExpanded: false,
                     obj: {
-                        k: '14',
                         p: 'V§R',
                         t: 'TA',
                     },
@@ -2585,7 +2382,6 @@ const dataStacked = {
             id: 'D0',
             isExpanded: true,
             obj: {
-                k: 'D0',
                 p: 'B£A',
                 t: 'TA',
             },

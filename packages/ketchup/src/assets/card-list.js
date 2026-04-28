@@ -1,4 +1,4 @@
-const data = {
+﻿const data = {
     columns: [
         {
             name: 'ICO',
@@ -46,65 +46,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 INTVAL: {
                     obj: {
-                        k: '34',
                         p: '',
                         t: 'NR',
                     },
                     value: '34',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '1',
-                    },
+                    obj: {},
                     value: '1',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '678',
-                    },
+                    obj: {},
                     value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
@@ -118,26 +100,19 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'trending-up',
-                    },
+                    obj: {},
                     value: 'trending-up',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(0, 187, 45)',
-                    },
+                    obj: {},
                     value: 'rgb(0, 187, 45)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '15',
                         p: '',
                         t: 'NR',
                     },
@@ -145,40 +120,29 @@ const data = {
                     displayedValue: '15',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '2',
-                    },
+                    obj: {},
                     value: '2',
                 },
                 UM: {
-                    obj: {
-                        k: '%',
-                    },
+                    obj: {},
                     value: '%',
                     displayedValue: '%',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '86',
-                    },
+                    obj: {},
                     value: '86',
                     displayedValue: '86',
                 },
                 VALUE: {
                     obj: {
-                        k: '15,86',
                         p: '',
                         t: 'NR',
                     },
@@ -191,65 +155,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 INTVAL: {
                     obj: {
-                        k: '34',
                         p: '',
                         t: 'NR',
                     },
                     value: '34',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '3',
-                    },
+                    obj: {},
                     value: '3',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '678',
-                    },
+                    obj: {},
                     value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
@@ -263,65 +209,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'account',
-                    },
+                    obj: {},
                     value: 'account',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(220, 248, 100)',
-                    },
+                    obj: {},
                     value: 'rgb(220, 248, 100)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '12',
                         p: '',
                         t: 'NR',
                     },
                     value: '12',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '4',
-                    },
+                    obj: {},
                     value: '4',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: 'rgb(220, 240, 100)',
-                    },
+                    obj: {},
                     value: 'rgb(220, 240, 100)',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUE: {
                     obj: {
-                        k: '12',
                         p: '',
                         t: 'NR',
                     },
@@ -335,65 +263,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'chart-bar',
-                    },
+                    obj: {},
                     value: 'chart-bar',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(252, 40, 200)',
-                    },
+                    obj: {},
                     value: 'rgb(252, 40, 200)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '34',
                         p: '',
                         t: 'NR',
                     },
                     value: '34',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '5',
-                    },
+                    obj: {},
                     value: '5',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '678',
-                    },
+                    obj: {},
                     value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
@@ -407,65 +317,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'chart-bar',
-                    },
+                    obj: {},
                     value: 'chart-bar',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(252, 40, 200)',
-                    },
+                    obj: {},
                     value: 'rgb(252, 40, 200)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '34',
                         p: '',
                         t: 'NR',
                     },
                     value: '34',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '6',
-                    },
+                    obj: {},
                     value: '6',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '678',
-                    },
+                    obj: {},
                     value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
@@ -479,65 +371,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'star-circle',
-                    },
+                    obj: {},
                     value: 'star-circle',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(0, 255, 0)',
-                    },
+                    obj: {},
                     value: 'rgb(0, 255, 0)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '35',
                         p: '',
                         t: 'NR',
                     },
                     value: '35',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '7',
-                    },
+                    obj: {},
                     value: '7',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'TASKS DONE',
-                    },
+                    obj: {},
                     value: 'TASKS DONE',
                     displayedValue: 'TASKS DONE',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUE: {
                     obj: {
-                        k: '35',
                         p: '',
                         t: 'NR',
                     },
@@ -551,65 +425,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'chart-bar',
-                    },
+                    obj: {},
                     value: 'chart-bar',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(252, 40, 200)',
-                    },
+                    obj: {},
                     value: 'rgb(252, 40, 200)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '34',
                         p: '',
                         t: 'NR',
                     },
                     value: '34',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '8',
-                    },
+                    obj: {},
                     value: '8',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'Admissions Count',
-                    },
+                    obj: {},
                     value: 'Admissions Count',
                     displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '678',
-                    },
+                    obj: {},
                     value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
@@ -623,65 +479,47 @@ const data = {
         {
             cells: {
                 TEXTCOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 ICO: {
-                    obj: {
-                        k: 'star-circle',
-                    },
+                    obj: {},
                     value: 'star-circle',
                 },
                 ICOCOLOR: {
-                    obj: {
-                        k: 'rgb(0, 255, 0)',
-                    },
+                    obj: {},
                     value: 'rgb(0, 255, 0)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '35',
                         p: '',
                         t: 'NR',
                     },
                     value: '35',
                 },
                 LAYOUT: {
-                    obj: {
-                        k: '8',
-                    },
+                    obj: {},
                     value: '8',
                 },
                 UM: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUECOLOR: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 TEXT: {
-                    obj: {
-                        k: 'TASKS DONE',
-                    },
+                    obj: {},
                     value: 'TASKS DONE',
                     displayedValue: 'TASKS DONE',
                 },
                 DECVAL: {
-                    obj: {
-                        k: '',
-                    },
+                    obj: {},
                     value: '',
                 },
                 VALUE: {
                     obj: {
-                        k: '35',
                         p: '',
                         t: 'NR',
                     },

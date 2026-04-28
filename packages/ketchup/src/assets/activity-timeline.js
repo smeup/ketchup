@@ -1,4 +1,4 @@
-const comp = document.getElementById('activity-timeline');
+﻿const comp = document.getElementById('activity-timeline');
 
 comp.addEventListener('kup-activitytimeline-ready', (e) => {
     console.log('Activity timeline ready', e);
@@ -20,7 +20,6 @@ const props = {
                 isKey: false,
                 name: 'XXDATA',
                 obj: {
-                    k: '',
                     p: '*YYMD',
                     t: 'D8',
                 },
@@ -32,7 +31,6 @@ const props = {
                 isKey: false,
                 name: 'XXORA',
                 obj: {
-                    k: '',
                     p: '2',
                     t: 'I1',
                 },
@@ -44,7 +42,6 @@ const props = {
                 isKey: false,
                 name: 'XXUTE',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'UP',
                 },
@@ -56,7 +53,6 @@ const props = {
                 isKey: false,
                 name: 'XXUTE_£',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'UP',
                 },
@@ -68,7 +64,6 @@ const props = {
                 isKey: false,
                 name: 'XXFON_£',
                 obj: {
-                    k: '',
                     p: '*PGM',
                     t: 'OJ',
                 },
@@ -81,12 +76,10 @@ const props = {
                 name: 'XXDES',
                 objs: [
                     {
-                        k: '',
                         p: '',
                         t: 'E5',
                     },
                     {
-                        k: '',
                         p: 'DA',
                         t: 'DO',
                     },
@@ -113,7 +106,6 @@ const props = {
                 isKey: false,
                 name: 'XXICO',
                 obj: {
-                    k: '',
                     p: 'ICO',
                     t: 'J4',
                 },
@@ -126,7 +118,6 @@ const props = {
                 isKey: false,
                 name: 'XXFON',
                 obj: {
-                    k: '',
                     p: '*PGM',
                     t: 'OJ',
                 },
@@ -139,7 +130,6 @@ const props = {
                 isKey: false,
                 name: 'XXTPO',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'OG',
                 },
@@ -152,7 +142,6 @@ const props = {
                 isKey: false,
                 name: 'XXTPO_£',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'OG',
                 },
@@ -166,12 +155,10 @@ const props = {
                 name: 'XXCDO',
                 objs: [
                     {
-                        k: '',
                         p: '',
                         t: 'E5',
                     },
                     {
-                        k: '',
                         p: 'DA',
                         t: 'DO',
                     },
@@ -209,7 +196,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R064G133B074',
                             p: '',
                             t: '',
                         },
@@ -224,11 +210,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'E5',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' Riga registrazione',
+                        value: 'E5',
+                        decode: ' Riga registrazione',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -240,7 +226,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '06',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -256,7 +241,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -271,11 +255,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '06',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Contabilità',
+                        value: '06',
+                        decode: 'Righe Contabilità',
                     },
                     XXDATA: {
                         data: {
@@ -286,7 +270,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200610',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -301,11 +284,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon Laura',
+                        value: 'SACLAU',
+                        decode: 'Saccon Laura',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -317,7 +300,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '100059920600000',
                             p: '',
                             t: 'E5',
                         },
@@ -332,7 +314,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Inserimento',
                             p: '',
                             t: '',
                         },
@@ -348,7 +329,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'E5',
                             p: '',
                             t: 'OG',
                         },
@@ -363,7 +343,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 2:1',
                             p: '',
                             t: '',
                         },
@@ -378,7 +357,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -393,11 +371,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '100059920600000',
                             p: '',
                             t: 'E5',
                         },
-                        value: '200059920600000',
+                        value: '100059920600000',
+                        decode: '200059920600000',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -412,11 +390,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000003',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'check',
+                        value: 'VO;COD_VER;000003',
+                        decode: 'check',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -428,7 +406,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '183000',
                             p: '2',
                             t: 'I1',
                         },
@@ -450,7 +427,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G255B000',
                             p: '',
                             t: '',
                         },
@@ -465,11 +441,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -481,7 +457,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '05',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -497,7 +472,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'CASFRA',
                             p: '',
                             t: 'UP',
                         },
@@ -512,11 +486,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '05',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '05',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -527,7 +501,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200609',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -542,11 +515,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'CASFRA',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Casetta',
+                        value: 'CASFRA',
+                        decode: 'Casetta',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -558,7 +531,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2007484',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -573,7 +545,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Modifica',
                             p: '',
                             t: '',
                         },
@@ -589,7 +560,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -604,7 +574,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 1:1',
                             p: '',
                             t: '',
                         },
@@ -619,7 +588,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -634,11 +602,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2007484',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3008888',
+                        value: 'D2007484',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3008888',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -653,11 +621,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000013',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'csv',
+                        value: 'VO;COD_VER;000013',
+                        decode: 'csv',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -669,7 +637,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '120000',
                             p: '2',
                             t: 'I1',
                         },
@@ -691,7 +658,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G255B000',
                             p: '',
                             t: '',
                         },
@@ -706,11 +672,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -722,7 +688,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '05',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -738,7 +703,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'CASFRA',
                             p: '',
                             t: 'UP',
                         },
@@ -753,11 +717,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '05',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '05',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -768,7 +732,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200609',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -783,11 +746,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'CASFRA',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Casetta',
+                        value: 'CASFRA',
+                        decode: 'Casetta',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -799,7 +762,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2007484',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -814,7 +776,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Modifica',
                             p: '',
                             t: '',
                         },
@@ -830,7 +791,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -845,7 +805,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 1:2',
                             p: '',
                             t: '',
                         },
@@ -860,7 +819,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -875,11 +833,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2007484',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4009999',
+                        value: 'D2007484',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4009999',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -894,11 +852,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000011',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'xml',
+                        value: 'VO;COD_VER;000011',
+                        decode: 'xml',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -910,7 +868,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '120000',
                             p: '2',
                             t: 'I1',
                         },
@@ -932,7 +889,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -947,11 +903,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -963,7 +919,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -979,7 +934,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -994,11 +948,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -1009,7 +963,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -1024,11 +977,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -1040,7 +993,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -1055,7 +1007,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -1071,7 +1022,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -1086,7 +1036,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -1101,7 +1050,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -1116,11 +1064,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -1135,11 +1083,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -1151,7 +1099,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '160000',
                             p: '2',
                             t: 'I1',
                         },
@@ -1173,7 +1120,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -1188,11 +1134,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -1204,7 +1150,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -1220,7 +1165,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -1235,11 +1179,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -1250,7 +1194,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -1265,11 +1208,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -1281,7 +1224,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -1296,7 +1238,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -1312,7 +1253,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -1327,7 +1267,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -1342,7 +1281,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -1357,11 +1295,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -1376,11 +1314,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -1392,7 +1330,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '160000',
                             p: '2',
                             t: 'I1',
                         },
@@ -1414,7 +1351,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -1429,11 +1365,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -1445,7 +1381,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -1461,7 +1396,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -1476,11 +1410,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -1491,7 +1425,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -1506,11 +1439,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -1522,7 +1455,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -1537,7 +1469,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -1553,7 +1484,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -1568,7 +1498,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -1583,7 +1512,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -1598,11 +1526,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -1617,11 +1545,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -1633,7 +1561,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '160000',
                             p: '2',
                             t: 'I1',
                         },
@@ -1655,7 +1582,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -1670,11 +1596,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -1686,7 +1612,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -1702,7 +1627,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -1717,11 +1641,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -1732,7 +1656,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -1747,11 +1670,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -1763,7 +1686,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -1778,7 +1700,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -1794,7 +1715,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -1809,7 +1729,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -1824,7 +1743,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -1839,11 +1757,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -1858,11 +1776,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -1874,7 +1792,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '160000',
                             p: '2',
                             t: 'I1',
                         },
@@ -1896,7 +1813,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G020B147',
                             p: '',
                             t: '',
                         },
@@ -1911,11 +1827,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -1927,7 +1843,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -1943,7 +1858,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'BERNIC',
                             p: '',
                             t: 'UP',
                         },
@@ -1958,11 +1872,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -1973,7 +1887,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -1988,11 +1901,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'BERNIC',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Nicolò',
+                        value: 'BERNIC',
+                        decode: 'Nicolò',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -2004,7 +1917,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000005',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -2019,7 +1931,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -2035,7 +1946,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -2050,7 +1960,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -2065,7 +1974,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -2080,11 +1988,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000005',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000005',
+                        value: 'D3000005',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000005',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -2099,11 +2007,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -2115,7 +2023,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '170000',
                             p: '2',
                             t: 'I1',
                         },
@@ -2137,7 +2044,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G020B147',
                             p: '',
                             t: '',
                         },
@@ -2152,11 +2058,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -2168,7 +2074,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -2184,7 +2089,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'BUFSIL',
                             p: '',
                             t: 'UP',
                         },
@@ -2199,11 +2103,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -2214,7 +2118,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -2229,11 +2132,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'BUFSIL',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Silvio',
+                        value: 'BUFSIL',
+                        decode: 'Silvio',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -2245,7 +2148,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000006',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -2260,7 +2162,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -2276,7 +2177,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -2291,7 +2191,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -2306,7 +2205,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -2321,11 +2219,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000006',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000006',
+                        value: 'D4000006',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000006',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -2340,11 +2238,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -2356,7 +2254,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '173000',
                             p: '2',
                             t: 'I1',
                         },
@@ -2378,7 +2275,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R064G133B074',
                             p: '',
                             t: '',
                         },
@@ -2393,11 +2289,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'E5',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' Riga registrazione',
+                        value: 'E5',
+                        decode: ' Riga registrazione',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -2409,7 +2305,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '04',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -2425,7 +2320,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'FOSLUC',
                             p: '',
                             t: 'UP',
                         },
@@ -2440,11 +2334,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '04',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Contabilità',
+                        value: '04',
+                        decode: 'Righe Contabilità',
                     },
                     XXDATA: {
                         data: {
@@ -2455,7 +2349,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200611',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -2470,11 +2363,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'FOSLUC',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Foscili',
+                        value: 'FOSLUC',
+                        decode: 'Foscili',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -2486,7 +2379,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '000000000000001',
                             p: '',
                             t: 'E5',
                         },
@@ -2501,7 +2393,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Cancella',
                             p: '',
                             t: '',
                         },
@@ -2517,7 +2408,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'E5',
                             p: '',
                             t: 'OG',
                         },
@@ -2532,7 +2422,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 3:1',
                             p: '',
                             t: '',
                         },
@@ -2547,7 +2436,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -2563,7 +2451,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '000000000000001',
                             p: '',
                             t: 'E5',
                         },
@@ -2582,11 +2469,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000011',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'xml',
+                        value: 'VO;COD_VER;000011',
+                        decode: 'xml',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -2598,7 +2485,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '150000',
                             p: '2',
                             t: 'I1',
                         },
@@ -2620,7 +2506,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -2635,11 +2520,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -2651,7 +2536,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -2667,7 +2551,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -2682,11 +2565,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -2697,7 +2580,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -2712,11 +2594,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -2728,7 +2610,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -2743,7 +2624,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -2759,7 +2639,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -2774,7 +2653,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -2789,7 +2667,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -2804,11 +2681,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -2823,11 +2700,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -2839,7 +2716,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '160000',
                             p: '2',
                             t: 'I1',
                         },
@@ -2861,7 +2737,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -2876,11 +2751,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -2892,7 +2767,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -2908,7 +2782,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -2923,11 +2796,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -2938,7 +2811,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -2953,11 +2825,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -2969,7 +2841,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -2984,7 +2855,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -3000,7 +2870,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -3015,7 +2884,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -3030,7 +2898,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -3045,11 +2912,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -3064,11 +2931,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -3080,7 +2947,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '163000',
                             p: '2',
                             t: 'I1',
                         },
@@ -3102,7 +2968,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -3117,11 +2982,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -3133,7 +2998,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -3149,7 +3013,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -3164,11 +3027,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -3179,7 +3042,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -3194,11 +3056,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -3210,7 +3072,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -3225,7 +3086,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -3241,7 +3101,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -3256,7 +3115,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -3271,7 +3129,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -3286,11 +3143,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -3305,11 +3162,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -3321,7 +3178,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '170000',
                             p: '2',
                             t: 'I1',
                         },
@@ -3343,7 +3199,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -3358,11 +3213,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -3374,7 +3229,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -3390,7 +3244,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -3405,11 +3258,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -3420,7 +3273,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -3435,11 +3287,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -3451,7 +3303,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -3466,7 +3317,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -3482,7 +3332,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -3497,7 +3346,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -3512,7 +3360,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -3527,11 +3374,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -3546,11 +3393,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -3562,7 +3409,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '173000',
                             p: '2',
                             t: 'I1',
                         },
@@ -3584,7 +3430,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -3599,11 +3444,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -3615,7 +3460,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -3631,7 +3475,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -3646,11 +3489,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -3661,7 +3504,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -3676,11 +3518,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -3692,7 +3534,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -3707,7 +3548,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -3723,7 +3563,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -3738,7 +3577,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -3753,7 +3591,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -3768,11 +3605,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -3787,11 +3624,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -3803,7 +3640,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '180000',
                             p: '2',
                             t: 'I1',
                         },
@@ -3825,7 +3661,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -3840,11 +3675,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -3856,7 +3691,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -3872,7 +3706,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -3887,11 +3720,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -3902,7 +3735,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -3917,11 +3749,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -3933,7 +3765,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -3948,7 +3779,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -3964,7 +3794,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -3979,7 +3808,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -3994,7 +3822,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -4009,11 +3836,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -4028,11 +3855,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -4044,7 +3871,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '183000',
                             p: '2',
                             t: 'I1',
                         },
@@ -4066,7 +3892,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -4081,11 +3906,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -4097,7 +3922,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -4113,7 +3937,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -4128,11 +3951,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -4143,7 +3966,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -4158,11 +3980,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -4174,7 +3996,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -4189,7 +4010,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -4205,7 +4025,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -4220,7 +4039,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -4235,7 +4053,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -4250,11 +4067,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -4269,11 +4086,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -4285,7 +4102,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '190000',
                             p: '2',
                             t: 'I1',
                         },
@@ -4307,7 +4123,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -4322,11 +4137,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -4338,7 +4153,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -4354,7 +4168,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -4369,11 +4182,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -4384,7 +4197,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -4399,11 +4211,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -4415,7 +4227,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -4430,7 +4241,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -4446,7 +4256,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -4461,7 +4270,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -4476,7 +4284,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -4491,11 +4298,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -4510,11 +4317,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -4526,7 +4333,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -4548,7 +4354,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -4563,11 +4368,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -4579,7 +4384,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -4595,7 +4399,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -4610,11 +4413,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -4625,7 +4428,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200613',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -4640,11 +4442,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -4656,7 +4458,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -4671,7 +4472,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -4687,7 +4487,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -4702,7 +4501,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -4717,7 +4515,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -4732,11 +4529,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -4751,11 +4548,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -4767,7 +4564,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -4789,7 +4585,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -4804,11 +4599,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -4820,7 +4615,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -4836,7 +4630,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -4851,11 +4644,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -4866,7 +4659,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200614',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -4881,11 +4673,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -4897,7 +4689,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -4912,7 +4703,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -4928,7 +4718,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -4943,7 +4732,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -4958,7 +4746,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -4973,11 +4760,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -4992,11 +4779,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -5008,7 +4795,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -5030,7 +4816,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -5045,11 +4830,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -5061,7 +4846,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -5077,7 +4861,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -5092,11 +4875,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -5107,7 +4890,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200615',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -5122,11 +4904,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -5138,7 +4920,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -5153,7 +4934,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -5169,7 +4949,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -5184,7 +4963,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -5199,7 +4977,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -5214,11 +4991,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -5233,11 +5010,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -5249,7 +5026,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -5271,7 +5047,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -5286,11 +5061,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -5302,7 +5077,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -5318,7 +5092,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -5333,11 +5106,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -5348,7 +5121,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200616',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -5363,11 +5135,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -5379,7 +5151,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -5394,7 +5165,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -5410,7 +5180,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -5425,7 +5194,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -5440,7 +5208,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -5455,11 +5222,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -5474,11 +5241,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -5490,7 +5257,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -5512,7 +5278,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -5527,11 +5292,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -5543,7 +5308,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -5559,7 +5323,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -5574,11 +5337,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -5589,7 +5352,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200617',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -5604,11 +5366,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -5620,7 +5382,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -5635,7 +5396,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -5651,7 +5411,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -5666,7 +5425,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -5681,7 +5439,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -5696,11 +5453,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -5715,11 +5472,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -5731,7 +5488,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -5753,7 +5509,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -5768,11 +5523,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -5784,7 +5539,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -5800,7 +5554,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -5815,11 +5568,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -5830,7 +5583,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200618',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -5845,11 +5597,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -5861,7 +5613,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -5876,7 +5627,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -5892,7 +5642,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -5907,7 +5656,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -5922,7 +5670,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -5937,11 +5684,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -5956,11 +5703,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -5972,7 +5719,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '105500',
                             p: '2',
                             t: 'I1',
                         },
@@ -5994,7 +5740,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -6009,11 +5754,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -6025,7 +5770,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -6041,7 +5785,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -6056,11 +5799,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -6071,7 +5814,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -6086,11 +5828,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -6102,7 +5844,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -6117,7 +5858,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -6133,7 +5873,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -6148,7 +5887,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -6163,7 +5901,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -6178,11 +5915,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -6197,11 +5934,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -6213,7 +5950,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155900',
                             p: '2',
                             t: 'I1',
                         },
@@ -6235,7 +5971,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -6250,11 +5985,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -6266,7 +6001,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -6282,7 +6016,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -6297,11 +6030,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -6312,7 +6045,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -6327,11 +6059,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -6343,7 +6075,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -6358,7 +6089,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -6374,7 +6104,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -6389,7 +6118,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -6404,7 +6132,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -6419,11 +6146,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -6438,11 +6165,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -6454,7 +6181,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155900',
                             p: '2',
                             t: 'I1',
                         },
@@ -6476,7 +6202,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -6491,11 +6216,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -6507,7 +6232,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -6523,7 +6247,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -6538,11 +6261,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -6553,7 +6276,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -6568,11 +6290,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -6584,7 +6306,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -6599,7 +6320,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -6615,7 +6335,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -6630,7 +6349,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -6645,7 +6363,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -6660,11 +6377,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -6679,11 +6396,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -6695,7 +6412,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155900',
                             p: '2',
                             t: 'I1',
                         },
@@ -6717,7 +6433,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -6732,11 +6447,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -6748,7 +6463,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -6764,7 +6478,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -6779,11 +6492,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -6794,7 +6507,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -6809,11 +6521,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -6825,7 +6537,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -6840,7 +6551,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -6856,7 +6566,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -6871,7 +6580,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -6886,7 +6594,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -6901,11 +6608,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -6920,11 +6627,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -6936,7 +6643,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '193100',
                             p: '2',
                             t: 'I1',
                         },
@@ -6958,7 +6664,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -6973,11 +6678,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -6989,7 +6694,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -7005,7 +6709,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -7020,11 +6723,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -7035,7 +6738,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -7050,11 +6752,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -7066,7 +6768,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -7081,7 +6782,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -7097,7 +6797,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -7112,7 +6811,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -7127,7 +6825,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -7142,11 +6839,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -7161,11 +6858,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -7177,7 +6874,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '193100',
                             p: '2',
                             t: 'I1',
                         },
@@ -7199,7 +6895,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -7214,11 +6909,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -7230,7 +6925,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -7246,7 +6940,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -7261,11 +6954,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -7276,7 +6969,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -7291,11 +6983,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -7307,7 +6999,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -7322,7 +7013,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -7338,7 +7028,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -7353,7 +7042,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -7368,7 +7056,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -7383,11 +7070,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -7402,11 +7089,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -7418,7 +7105,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '193100',
                             p: '2',
                             t: 'I1',
                         },
@@ -7440,7 +7126,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -7455,11 +7140,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -7471,7 +7156,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -7487,7 +7171,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -7502,11 +7185,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -7517,7 +7200,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -7532,11 +7214,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -7548,7 +7230,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -7563,7 +7244,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -7579,7 +7259,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -7594,7 +7273,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -7609,7 +7287,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -7624,11 +7301,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -7643,11 +7320,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -7659,7 +7336,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '193100',
                             p: '2',
                             t: 'I1',
                         },
@@ -7681,7 +7357,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -7696,11 +7371,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -7712,7 +7387,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -7728,7 +7402,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -7743,11 +7416,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -7758,7 +7431,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -7773,11 +7445,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -7789,7 +7461,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -7804,7 +7475,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -7820,7 +7490,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -7835,7 +7504,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -7850,7 +7518,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -7865,11 +7532,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -7884,11 +7551,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -7900,7 +7567,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -7922,7 +7588,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -7937,11 +7602,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -7953,7 +7618,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -7969,7 +7633,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -7984,11 +7647,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -7999,7 +7662,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -8014,11 +7676,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -8030,7 +7692,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -8045,7 +7706,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -8061,7 +7721,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -8076,7 +7735,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -8091,7 +7749,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -8106,11 +7763,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -8125,11 +7782,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -8141,7 +7798,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -8163,7 +7819,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -8178,11 +7833,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -8194,7 +7849,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -8210,7 +7864,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -8225,11 +7878,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -8240,7 +7893,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -8255,11 +7907,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -8271,7 +7923,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -8286,7 +7937,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -8302,7 +7952,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -8317,7 +7966,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -8332,7 +7980,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -8347,11 +7994,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -8366,11 +8013,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -8382,7 +8029,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -8404,7 +8050,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -8419,11 +8064,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -8435,7 +8080,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -8451,7 +8095,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -8466,11 +8109,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -8481,7 +8124,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -8496,11 +8138,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -8512,7 +8154,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -8527,7 +8168,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -8543,7 +8183,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -8558,7 +8197,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -8573,7 +8211,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -8588,11 +8225,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -8607,11 +8244,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -8623,7 +8260,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -8645,7 +8281,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -8660,11 +8295,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -8676,7 +8311,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -8692,7 +8326,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -8707,11 +8340,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -8722,7 +8355,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210102',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -8737,11 +8369,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -8753,7 +8385,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -8768,7 +8399,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -8784,7 +8414,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -8799,7 +8428,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -8814,7 +8442,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -8829,11 +8456,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -8848,11 +8475,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -8864,7 +8491,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -8886,7 +8512,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -8901,11 +8526,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -8917,7 +8542,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -8933,7 +8557,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -8948,11 +8571,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -8963,7 +8586,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210102',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -8978,11 +8600,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -8994,7 +8616,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -9009,7 +8630,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -9025,7 +8645,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -9040,7 +8659,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -9055,7 +8673,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -9070,11 +8687,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -9089,11 +8706,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -9105,7 +8722,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -9127,7 +8743,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -9142,11 +8757,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -9158,7 +8773,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -9174,7 +8788,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -9189,11 +8802,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -9204,7 +8817,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210102',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -9219,11 +8831,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -9235,7 +8847,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -9250,7 +8861,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -9266,7 +8876,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -9281,7 +8890,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -9296,7 +8904,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -9311,11 +8918,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -9330,11 +8937,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -9346,7 +8953,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '225700',
                             p: '2',
                             t: 'I1',
                         },
@@ -9368,7 +8974,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -9383,11 +8988,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -9399,7 +9004,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -9415,7 +9019,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -9430,11 +9033,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -9445,7 +9048,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -9460,11 +9062,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -9476,7 +9078,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -9491,7 +9092,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -9507,7 +9107,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -9522,7 +9121,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -9537,7 +9135,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -9552,11 +9149,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -9571,11 +9168,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -9587,7 +9184,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155900',
                             p: '2',
                             t: 'I1',
                         },
@@ -9609,7 +9205,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -9624,11 +9219,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -9640,7 +9235,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -9656,7 +9250,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -9671,11 +9264,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -9686,7 +9279,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -9701,11 +9293,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -9717,7 +9309,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -9732,7 +9323,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -9748,7 +9338,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -9763,7 +9352,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -9778,7 +9366,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -9793,11 +9380,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -9812,11 +9399,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -9828,7 +9415,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155800',
                             p: '2',
                             t: 'I1',
                         },
@@ -9850,7 +9436,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -9865,11 +9450,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -9881,7 +9466,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -9897,7 +9481,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -9912,11 +9495,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -9927,7 +9510,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -9942,11 +9524,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -9958,7 +9540,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -9973,7 +9554,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -9989,7 +9569,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -10004,7 +9583,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -10019,7 +9597,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -10034,11 +9611,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -10053,11 +9630,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -10069,7 +9646,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155700',
                             p: '2',
                             t: 'I1',
                         },
@@ -10091,7 +9667,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -10106,11 +9681,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -10122,7 +9697,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -10138,7 +9712,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -10153,11 +9726,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -10168,7 +9741,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -10183,11 +9755,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -10199,7 +9771,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -10214,7 +9785,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -10230,7 +9800,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -10245,7 +9814,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -10260,7 +9828,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -10275,11 +9842,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -10294,11 +9861,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -10310,7 +9877,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155600',
                             p: '2',
                             t: 'I1',
                         },
@@ -10332,7 +9898,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -10347,11 +9912,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -10363,7 +9928,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -10379,7 +9943,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -10394,11 +9957,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -10409,7 +9972,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -10424,11 +9986,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -10440,7 +10002,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -10455,7 +10016,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -10471,7 +10031,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -10486,7 +10045,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -10501,7 +10059,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -10516,11 +10073,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -10535,11 +10092,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -10551,7 +10108,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155500',
                             p: '2',
                             t: 'I1',
                         },
@@ -10573,7 +10129,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -10588,11 +10143,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -10604,7 +10159,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -10620,7 +10174,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -10635,11 +10188,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -10650,7 +10203,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -10665,11 +10217,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -10681,7 +10233,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -10696,7 +10247,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -10712,7 +10262,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -10727,7 +10276,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -10742,7 +10290,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -10757,11 +10304,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -10776,11 +10323,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -10792,7 +10339,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155400',
                             p: '2',
                             t: 'I1',
                         },
@@ -10814,7 +10360,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -10829,11 +10374,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -10845,7 +10390,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -10861,7 +10405,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -10876,11 +10419,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -10891,7 +10434,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20200612',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -10906,11 +10448,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -10922,7 +10464,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -10937,7 +10478,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -10953,7 +10493,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -10968,7 +10507,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -10983,7 +10521,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -10998,11 +10535,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -11017,11 +10554,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -11033,7 +10570,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '155300',
                             p: '2',
                             t: 'I1',
                         },
@@ -11055,7 +10591,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -11070,11 +10605,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -11086,7 +10621,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -11102,7 +10636,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -11117,11 +10650,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -11132,7 +10665,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -11147,11 +10679,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -11163,7 +10695,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -11178,7 +10709,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -11194,7 +10724,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -11209,7 +10738,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -11224,7 +10752,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -11239,11 +10766,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -11258,11 +10785,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -11274,7 +10801,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -11296,7 +10822,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -11311,11 +10836,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -11327,7 +10852,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -11343,7 +10867,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -11358,11 +10881,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -11373,7 +10896,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210102',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -11388,11 +10910,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -11404,7 +10926,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -11419,7 +10940,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -11435,7 +10955,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -11450,7 +10969,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -11465,7 +10983,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -11480,11 +10997,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -11499,11 +11016,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -11515,7 +11032,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -11537,7 +11053,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -11552,11 +11067,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -11568,7 +11083,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -11584,7 +11098,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -11599,11 +11112,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -11614,7 +11127,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210103',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -11629,11 +11141,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -11645,7 +11157,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -11660,7 +11171,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -11676,7 +11186,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -11691,7 +11200,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -11706,7 +11214,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -11721,11 +11228,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -11740,11 +11247,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -11756,7 +11263,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -11778,7 +11284,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -11793,11 +11298,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -11809,7 +11314,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -11825,7 +11329,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -11840,11 +11343,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -11855,7 +11358,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210104',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -11870,11 +11372,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -11886,7 +11388,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -11901,7 +11402,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -11917,7 +11417,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -11932,7 +11431,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -11947,7 +11445,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -11962,11 +11459,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -11981,11 +11478,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -11997,7 +11494,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -12019,7 +11515,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -12034,11 +11529,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -12050,7 +11545,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -12066,7 +11560,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -12081,11 +11574,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -12096,7 +11589,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210105',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -12111,11 +11603,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -12127,7 +11619,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -12142,7 +11633,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -12158,7 +11648,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -12173,7 +11662,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -12188,7 +11676,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -12203,11 +11690,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -12222,11 +11709,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -12238,7 +11725,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -12260,7 +11746,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -12275,11 +11760,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -12291,7 +11776,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -12307,7 +11791,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -12322,11 +11805,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -12337,7 +11820,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210106',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -12352,11 +11834,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -12368,7 +11850,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -12383,7 +11864,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -12399,7 +11879,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -12414,7 +11893,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -12429,7 +11907,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -12444,11 +11921,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -12463,11 +11940,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -12479,7 +11956,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -12501,7 +11977,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -12516,11 +11991,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -12532,7 +12007,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -12548,7 +12022,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -12563,11 +12036,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -12578,7 +12051,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20210107',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -12593,11 +12065,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -12609,7 +12081,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -12624,7 +12095,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -12640,7 +12110,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -12655,7 +12124,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -12670,7 +12138,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -12685,11 +12152,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -12704,11 +12171,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -12720,7 +12187,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '234800',
                             p: '2',
                             t: 'I1',
                         },
@@ -12742,7 +12208,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -12757,11 +12222,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -12773,7 +12238,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -12789,7 +12253,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
@@ -12804,11 +12267,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -12819,7 +12282,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -12834,11 +12296,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SACLAU',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Saccon',
+                        value: 'SACLAU',
+                        decode: 'Saccon',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -12850,7 +12312,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -12865,7 +12326,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -12881,7 +12341,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -12896,7 +12355,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:1',
                             p: '',
                             t: '',
                         },
@@ -12911,7 +12369,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -12926,11 +12383,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D1000001',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D1000001',
+                        value: 'D1000001',
+                        decode: 'Fattura/Bolla Ciclo Attivo D1000001',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -12945,11 +12402,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -12961,7 +12418,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -12983,7 +12439,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -12998,11 +12453,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -13014,7 +12469,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -13030,7 +12484,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -13045,11 +12498,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -13060,7 +12513,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -13075,11 +12527,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -13091,7 +12543,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -13106,7 +12557,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -13122,7 +12572,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -13137,7 +12586,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:2',
                             p: '',
                             t: '',
                         },
@@ -13152,7 +12600,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -13167,11 +12614,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -13186,11 +12633,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -13202,7 +12649,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -13224,7 +12670,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -13239,11 +12684,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -13255,7 +12700,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -13271,7 +12715,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -13286,11 +12729,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -13301,7 +12744,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -13316,11 +12758,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -13332,7 +12774,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -13347,7 +12788,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -13363,7 +12803,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -13378,7 +12817,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:3',
                             p: '',
                             t: '',
                         },
@@ -13393,7 +12831,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -13408,11 +12845,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -13427,11 +12864,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -13443,7 +12880,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -13465,7 +12901,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -13480,11 +12915,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -13496,7 +12931,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -13512,7 +12946,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -13527,11 +12960,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -13542,7 +12975,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -13557,11 +12989,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -13573,7 +13005,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -13588,7 +13019,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -13604,7 +13034,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -13619,7 +13048,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:4',
                             p: '',
                             t: '',
                         },
@@ -13634,7 +13062,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -13649,11 +13076,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -13668,11 +13095,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -13684,7 +13111,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -13706,7 +13132,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -13721,11 +13146,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -13737,7 +13162,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -13753,7 +13177,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
@@ -13768,11 +13191,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -13783,7 +13206,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -13798,11 +13220,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MOROLE',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Olesea',
+                        value: 'MOROLE',
+                        decode: 'Olesea',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -13814,7 +13236,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -13829,7 +13250,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -13845,7 +13265,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -13860,7 +13279,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:5',
                             p: '',
                             t: '',
                         },
@@ -13875,7 +13293,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -13890,11 +13307,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D4000004',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D4000004',
+                        value: 'D4000004',
+                        decode: 'Fattura/Bolla Ciclo Attivo D4000004',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -13909,11 +13326,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -13925,7 +13342,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -13947,7 +13363,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -13962,11 +13377,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -13978,7 +13393,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -13994,7 +13408,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
@@ -14009,11 +13422,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -14024,7 +13437,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -14039,11 +13451,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DELGIO',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Giovanni',
+                        value: 'DELGIO',
+                        decode: 'Giovanni',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -14055,7 +13467,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -14070,7 +13481,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -14086,7 +13496,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -14101,7 +13510,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:6',
                             p: '',
                             t: '',
                         },
@@ -14116,7 +13524,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -14131,11 +13538,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D3000003',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D3000003',
+                        value: 'D3000003',
+                        decode: 'Fattura/Bolla Ciclo Attivo D3000003',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -14150,11 +13557,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -14166,7 +13573,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },
@@ -14188,7 +13594,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'R255G000B000',
                             p: '',
                             t: '',
                         },
@@ -14203,11 +13608,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
-                        value: ' C.Attivo',
+                        value: 'DODA',
+                        decode: ' C.Attivo',
                     },
                     XXFON: {
                         cssClass: 'strong-text',
@@ -14219,7 +13624,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
@@ -14235,7 +13639,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
@@ -14250,11 +13653,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '03',
                             p: '*PGM',
                             t: 'OJ',
                         },
-                        value: 'Righe Documento',
+                        value: '03',
+                        decode: 'Righe Documento',
                     },
                     XXDATA: {
                         data: {
@@ -14265,7 +13668,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '19990101',
                             p: '*YYMD',
                             t: 'D8',
                         },
@@ -14280,11 +13682,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'SCIMAM',
                             p: '',
                             t: 'UP',
                         },
-                        value: 'Sciola',
+                        value: 'SCIMAM',
+                        decode: 'Sciola',
                     },
                     XXCDO: {
                         cssClass: 'strong-text',
@@ -14296,7 +13698,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
@@ -14311,7 +13712,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'Visualizza',
                             p: '',
                             t: '',
                         },
@@ -14327,7 +13727,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'DODA',
                             p: '',
                             t: 'OG',
                         },
@@ -14342,7 +13741,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'XML ORDER 4:7',
                             p: '',
                             t: '',
                         },
@@ -14357,7 +13755,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: ' F(EXD;*SCO;) 1(CN;COL;[XXUTE])',
                             p: '',
                             t: '',
                         },
@@ -14372,11 +13769,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'D2000002',
                             p: 'DA',
                             t: 'DO',
                         },
-                        value: 'Fattura/Bolla Ciclo Attivo D2000002',
+                        value: 'D2000002',
+                        decode: 'Fattura/Bolla Ciclo Attivo D2000002',
                     },
                     XXICO: {
                         cssClass: 'strong-text',
@@ -14391,11 +13788,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'VO;COD_VER;000002',
                             p: 'ICO',
                             t: 'J4',
                         },
-                        value: 'close-circle',
+                        value: 'VO;COD_VER;000002',
+                        decode: 'close-circle',
                     },
                     XXORA: {
                         cssClass: 'strong-text',
@@ -14407,7 +13804,6 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '235900',
                             p: '2',
                             t: 'I1',
                         },

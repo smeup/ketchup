@@ -497,7 +497,6 @@ export function getMockupPhaseDatas(taskRowId) {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -506,7 +505,6 @@ export function getMockupPhaseDatas(taskRowId) {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -515,7 +513,6 @@ export function getMockupPhaseDatas(taskRowId) {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -524,7 +521,6 @@ export function getMockupPhaseDatas(taskRowId) {
         obj: {
           t: 'D8',
           p: '*YYMD',
-          k: '',
         },
       },
       {
@@ -533,7 +529,6 @@ export function getMockupPhaseDatas(taskRowId) {
         obj: {
           t: '',
           p: '',
-          k: '',
         },
       },
     ],
@@ -551,7 +546,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-07-04',
           },
@@ -559,7 +553,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-08-04',
           },
@@ -567,7 +560,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-07-04',
           },
@@ -575,7 +567,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-08-04',
           },
@@ -603,7 +594,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-07-05',
           },
@@ -611,7 +601,6 @@ export function getMockupPhaseDatas(taskRowId) {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '',
             },
             value: '2022-08-05',
           },

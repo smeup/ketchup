@@ -38,7 +38,6 @@ const phases = {
       isKey: false,
       name: 'CODFAS',
       obj: {
-        k: '',
         p: '',
         t: 'OP',
       },
@@ -57,7 +56,6 @@ const phases = {
       isKey: false,
       name: 'GESNOT',
       obj: {
-        k: '',
         p: 'ICO',
         t: 'J4',
       },
@@ -69,7 +67,6 @@ const phases = {
       isKey: false,
       name: 'DATINI',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -81,7 +78,6 @@ const phases = {
       isKey: false,
       name: 'DATINZ',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -100,7 +96,6 @@ const phases = {
       isKey: false,
       name: 'DATDIC',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -112,7 +107,6 @@ const phases = {
       isKey: false,
       name: 'DATFIN',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -124,7 +118,6 @@ const phases = {
       isKey: false,
       name: 'DATFPO',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -137,7 +130,6 @@ const phases = {
       isKey: false,
       name: 'OREORD',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -150,7 +142,6 @@ const phases = {
       isKey: false,
       name: 'BDGORE',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -163,7 +154,6 @@ const phases = {
       isKey: false,
       name: 'BDGAVOG',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -176,7 +166,6 @@ const phases = {
       isKey: false,
       name: 'DICORE',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -203,7 +192,6 @@ const phases = {
       isKey: false,
       name: 'NUMRIS',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -215,7 +203,6 @@ const phases = {
       isKey: false,
       name: 'MODPIA',
       obj: {
-        k: '',
         p: 'ICO',
         t: 'J4',
       },
@@ -227,7 +214,6 @@ const phases = {
       isKey: false,
       name: 'ICOAVA',
       obj: {
-        k: '',
         p: 'ICO',
         t: 'J4',
       },
@@ -239,7 +225,6 @@ const phases = {
       isKey: false,
       name: 'COMPL',
       obj: {
-        k: '',
         p: 'SI/NO',
         t: 'V2',
       },
@@ -251,7 +236,6 @@ const phases = {
       isKey: false,
       name: 'DTARIL',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -263,7 +247,6 @@ const phases = {
       isKey: false,
       name: 'CDBASA',
       obj: {
-        k: '',
         p: '',
         t: 'AR',
       },
@@ -275,7 +258,6 @@ const phases = {
       isKey: false,
       name: 'DATUFF',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -294,7 +276,6 @@ const phases = {
       isKey: false,
       name: 'DTAFAB',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -320,7 +301,6 @@ const phases = {
       isKey: false,
       name: 'FASDDT',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -332,7 +312,6 @@ const phases = {
       isKey: false,
       name: 'CODCOM',
       obj: {
-        k: '',
         p: 'MVE',
         t: 'DO',
       },
@@ -361,7 +340,6 @@ const phases = {
       isKey: false,
       name: 'N§TEVE',
       obj: {
-        k: '',
         p: 'P5D',
         t: 'TA',
       },
@@ -375,7 +353,6 @@ const phases = {
       name: 'N§NREV',
       objs: [
         {
-          k: '',
           p: '',
           t: 'E3',
         },
@@ -390,7 +367,6 @@ const phases = {
       isKey: false,
       name: 'DLTINI',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -404,7 +380,6 @@ const phases = {
       isKey: false,
       name: 'DIFGIO',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -418,7 +393,6 @@ const phases = {
       isKey: false,
       name: 'ORERES',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -432,7 +406,6 @@ const phases = {
       isKey: false,
       name: 'BDGPERC',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -446,7 +419,6 @@ const phases = {
       isKey: false,
       name: 'DICPERC',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -460,7 +432,6 @@ const phases = {
       isKey: false,
       name: 'DIFPER',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -474,7 +445,6 @@ const phases = {
       isKey: false,
       name: 'STIPER',
       obj: {
-        k: '',
         p: '',
         t: 'NR',
       },
@@ -487,7 +457,6 @@ const phases = {
       isKey: false,
       name: 'AGGSTI',
       obj: {
-        k: '',
         p: '*YYMD',
         t: 'D8',
       },
@@ -508,7 +477,6 @@ const phases = {
       isKey: false,
       name: 'CODPMA',
       obj: {
-        k: '',
         p: 'XDP',
         t: 'TA',
       },
@@ -529,7 +497,6 @@ const phases = {
       isKey: false,
       name: 'MESAUT',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -542,7 +509,6 @@ const phases = {
       isKey: false,
       name: 'STILE',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -555,7 +521,6 @@ const phases = {
       isKey: false,
       name: 'EDTDDT',
       obj: {
-        k: '',
         p: '',
         t: '**',
       },
@@ -591,7 +556,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -605,7 +569,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -618,7 +581,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '61',
             p: '',
             t: 'NR',
           },
@@ -631,7 +593,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -645,7 +606,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -659,7 +619,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -671,7 +630,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -686,7 +644,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -699,7 +656,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#ED7D31',
             p: '',
             t: '',
           },
@@ -712,7 +668,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#ED7D31',
             p: '',
             t: '',
           },
@@ -725,7 +680,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -739,7 +693,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -752,7 +705,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -765,7 +717,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -778,11 +729,10 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '1440',
             p: '',
             t: 'NR',
           },
-          value: '1,440',
+          value: '1440',
         },
         OREORD: {
           data: {
@@ -791,11 +741,10 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '1440',
             p: '',
             t: 'NR',
           },
-          value: '1,440',
+          value: '1440',
         },
         DESPMA: {
           data: {
@@ -804,7 +753,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -818,7 +766,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20230109',
             p: '*YYMD',
             t: 'D8',
           },
@@ -831,7 +778,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -845,7 +791,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -858,7 +803,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -872,7 +816,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -884,7 +827,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -897,7 +839,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -910,7 +851,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -923,7 +863,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -936,7 +875,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -950,7 +888,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -963,11 +900,10 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '1440.00000',
             p: '',
             t: 'NR',
           },
-          value: '1,440',
+          value: '1440',
         },
         DLTINI: {
           data: {
@@ -976,7 +912,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-108',
             p: '',
             t: 'NR',
           },
@@ -990,7 +925,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1004,7 +938,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20230109',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1018,7 +951,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1032,7 +964,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P410           ',
             p: '',
             t: 'OP',
           },
@@ -1045,7 +976,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -1059,7 +989,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -1072,7 +1001,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1086,7 +1014,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1099,7 +1026,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -1112,7 +1038,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'MONTAGGIO MECCANICO                ',
             p: '',
             t: '',
           },
@@ -1127,7 +1052,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1140,7 +1064,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -1153,7 +1076,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '3.75',
             p: '',
             t: 'NR',
           },
@@ -1167,7 +1089,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1180,7 +1101,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -1194,7 +1114,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -1207,11 +1126,10 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '1440',
             p: '',
             t: 'NR',
           },
-          value: '1,440',
+          value: '1440',
         },
         STYAVA: {
           data: {
@@ -1220,7 +1138,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -1241,7 +1158,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -1255,7 +1171,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1268,7 +1183,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '46',
             p: '',
             t: 'NR',
           },
@@ -1281,7 +1195,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -1295,7 +1208,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -1309,7 +1221,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -1321,7 +1232,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -1336,7 +1246,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -1349,7 +1258,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#FF0000',
             p: '',
             t: '',
           },
@@ -1362,7 +1270,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#FF0000',
             p: '',
             t: '',
           },
@@ -1375,7 +1282,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -1389,7 +1295,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -1402,7 +1307,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -1415,7 +1319,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -1428,7 +1331,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '720',
             p: '',
             t: 'NR',
           },
@@ -1441,7 +1343,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '720',
             p: '',
             t: 'NR',
           },
@@ -1454,7 +1355,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -1468,7 +1368,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20230109',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1481,7 +1380,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -1495,7 +1393,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1508,7 +1405,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -1522,7 +1418,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -1534,7 +1429,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -1547,7 +1441,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '15',
             p: '',
             t: '',
           },
@@ -1560,7 +1453,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -1573,7 +1465,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -1586,7 +1477,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -1600,7 +1490,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -1613,7 +1502,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '720.00000',
             p: '',
             t: 'NR',
           },
@@ -1626,7 +1514,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-93',
             p: '',
             t: 'NR',
           },
@@ -1640,7 +1527,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221107',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1654,7 +1540,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20230109',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1668,7 +1553,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1682,7 +1566,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P420           ',
             p: '',
             t: 'OP',
           },
@@ -1695,7 +1578,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -1709,7 +1591,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -1722,7 +1603,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1736,7 +1616,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1749,7 +1628,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -1762,7 +1640,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'MONTAGGIO ELETTRICO                ',
             p: '',
             t: '',
           },
@@ -1777,7 +1654,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221107',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1790,7 +1666,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -1803,7 +1678,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '1.87',
             p: '',
             t: 'NR',
           },
@@ -1817,7 +1691,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1830,7 +1703,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -1844,7 +1716,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -1857,7 +1728,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '720',
             p: '',
             t: 'NR',
           },
@@ -1870,7 +1740,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -1891,7 +1760,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -1905,7 +1773,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -1918,7 +1785,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '30',
             p: '',
             t: 'NR',
           },
@@ -1931,7 +1797,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -1945,7 +1810,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -1959,7 +1823,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -1971,7 +1834,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -1986,7 +1848,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -1999,7 +1860,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#BDD7EE',
             p: '',
             t: '',
           },
@@ -2012,7 +1872,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#BDD7EE',
             p: '',
             t: '',
           },
@@ -2025,7 +1884,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2039,7 +1897,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -2052,7 +1909,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2065,7 +1921,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -2078,7 +1933,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40',
             p: '',
             t: 'NR',
           },
@@ -2091,7 +1945,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '120',
             p: '',
             t: 'NR',
           },
@@ -2104,7 +1957,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2118,7 +1970,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221125',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2131,7 +1982,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2145,7 +1995,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2158,7 +2007,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -2172,7 +2020,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -2184,7 +2031,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -2197,7 +2043,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2210,7 +2055,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -2223,7 +2067,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2236,7 +2079,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -2250,7 +2092,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -2263,7 +2104,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40.00000',
             p: '',
             t: 'NR',
           },
@@ -2276,7 +2116,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-108',
             p: '',
             t: 'NR',
           },
@@ -2290,7 +2129,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2304,7 +2142,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221125',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2318,7 +2155,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2332,7 +2168,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P630           ',
             p: '',
             t: 'OP',
           },
@@ -2345,7 +2180,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -2359,7 +2193,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -2372,7 +2205,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2386,7 +2218,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2399,7 +2230,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -2412,7 +2242,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'MESSA IN SERV. SW 2                ',
             p: '',
             t: '',
           },
@@ -2427,7 +2256,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2440,7 +2268,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -2453,7 +2280,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0.06',
             p: '',
             t: 'NR',
           },
@@ -2467,7 +2293,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2480,7 +2305,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -2494,7 +2318,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -2507,7 +2330,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '120',
             p: '',
             t: 'NR',
           },
@@ -2520,7 +2342,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -2541,7 +2362,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -2555,7 +2375,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2568,7 +2387,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '10',
             p: '',
             t: 'NR',
           },
@@ -2581,7 +2399,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -2595,7 +2412,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -2609,7 +2425,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -2621,7 +2436,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2636,7 +2450,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -2649,7 +2462,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#FFFF00',
             p: '',
             t: '',
           },
@@ -2662,7 +2474,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#FFFF00',
             p: '',
             t: '',
           },
@@ -2675,7 +2486,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2689,7 +2499,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -2702,7 +2511,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2715,7 +2523,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -2728,7 +2535,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '160',
             p: '',
             t: 'NR',
           },
@@ -2741,7 +2547,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '80',
             p: '',
             t: 'NR',
           },
@@ -2754,7 +2559,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2768,7 +2572,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221028',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2781,7 +2584,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -2795,7 +2597,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2808,7 +2609,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -2822,7 +2622,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -2834,7 +2633,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -2847,7 +2645,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2860,7 +2657,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -2873,7 +2669,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -2886,7 +2681,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -2900,7 +2694,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -2913,7 +2706,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '160.00000',
             p: '',
             t: 'NR',
           },
@@ -2926,7 +2718,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-108',
             p: '',
             t: 'NR',
           },
@@ -2940,7 +2731,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2954,7 +2744,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221028',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2968,7 +2757,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -2982,7 +2770,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P710           ',
             p: '',
             t: 'OP',
           },
@@ -2995,7 +2782,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -3009,7 +2795,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -3022,7 +2807,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3036,7 +2820,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3049,7 +2832,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -3062,7 +2844,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'PROVA DI LAVORAZIONE               ',
             p: '',
             t: '',
           },
@@ -3077,7 +2858,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3090,7 +2870,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -3103,7 +2882,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0.20',
             p: '',
             t: 'NR',
           },
@@ -3117,7 +2895,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3130,7 +2907,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -3144,7 +2920,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -3157,7 +2932,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '80',
             p: '',
             t: 'NR',
           },
@@ -3170,7 +2944,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -3191,7 +2964,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -3205,7 +2977,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3218,7 +2989,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '5',
             p: '',
             t: 'NR',
           },
@@ -3231,7 +3001,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -3245,7 +3014,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -3259,7 +3027,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -3271,7 +3038,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -3286,7 +3052,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -3299,7 +3064,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#BDD7EE',
             p: '',
             t: '',
           },
@@ -3312,7 +3076,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#BDD7EE',
             p: '',
             t: '',
           },
@@ -3325,7 +3088,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -3339,7 +3101,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -3352,7 +3113,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -3365,7 +3125,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -3378,7 +3137,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40',
             p: '',
             t: 'NR',
           },
@@ -3391,7 +3149,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40',
             p: '',
             t: 'NR',
           },
@@ -3404,7 +3161,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -3418,7 +3174,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221021',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3431,7 +3186,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -3445,7 +3199,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3458,7 +3211,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -3472,7 +3224,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -3484,7 +3235,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -3497,7 +3247,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -3510,7 +3259,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -3523,7 +3271,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -3536,7 +3283,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -3550,7 +3296,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -3563,7 +3308,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40.00000',
             p: '',
             t: 'NR',
           },
@@ -3576,7 +3320,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-108',
             p: '',
             t: 'NR',
           },
@@ -3590,7 +3333,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3604,7 +3346,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221021',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3618,7 +3359,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3632,7 +3372,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P720           ',
             p: '',
             t: 'OP',
           },
@@ -3645,7 +3384,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -3659,7 +3397,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -3672,7 +3409,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3686,7 +3422,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3699,7 +3434,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -3712,7 +3446,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'COLLAUDO CLIENTE                   ',
             p: '',
             t: '',
           },
@@ -3727,7 +3460,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3740,7 +3472,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -3753,7 +3484,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0.04',
             p: '',
             t: 'NR',
           },
@@ -3767,7 +3497,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3780,7 +3509,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -3794,7 +3522,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -3807,7 +3534,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '40',
             p: '',
             t: 'NR',
           },
@@ -3820,7 +3546,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -3841,7 +3566,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -3855,7 +3579,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -3868,7 +3591,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '6',
             p: '',
             t: 'NR',
           },
@@ -3881,7 +3603,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -3895,7 +3616,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -3909,7 +3629,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -3921,7 +3640,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -3936,7 +3654,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -3949,7 +3666,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#F8CBAD',
             p: '',
             t: '',
           },
@@ -3962,7 +3678,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#F8CBAD',
             p: '',
             t: '',
           },
@@ -3975,7 +3690,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -3989,7 +3703,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -4002,7 +3715,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -4015,7 +3727,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -4028,7 +3739,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '200',
             p: '',
             t: 'NR',
           },
@@ -4041,7 +3751,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '160',
             p: '',
             t: 'NR',
           },
@@ -4054,7 +3763,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4068,7 +3776,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221027',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4081,7 +3788,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -4095,7 +3801,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4108,7 +3813,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -4122,7 +3826,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -4134,7 +3837,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -4147,7 +3849,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '3',
             p: '',
             t: '',
           },
@@ -4160,7 +3861,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -4173,7 +3873,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4186,7 +3885,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -4200,7 +3898,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -4213,7 +3910,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '200.00000',
             p: '',
             t: 'NR',
           },
@@ -4226,7 +3922,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-105',
             p: '',
             t: 'NR',
           },
@@ -4240,7 +3935,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221020',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4254,7 +3948,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221027',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4268,7 +3961,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4282,7 +3974,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P730           ',
             p: '',
             t: 'OP',
           },
@@ -4295,7 +3986,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -4309,7 +3999,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -4322,7 +4011,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4336,7 +4024,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4349,7 +4036,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -4362,7 +4048,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'SPEDIZIONE                         ',
             p: '',
             t: '',
           },
@@ -4377,7 +4062,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221020',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4390,7 +4074,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -4403,7 +4086,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0.25',
             p: '',
             t: 'NR',
           },
@@ -4417,7 +4099,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4430,7 +4111,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -4444,7 +4124,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -4457,7 +4136,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '160',
             p: '',
             t: 'NR',
           },
@@ -4470,7 +4148,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -4491,7 +4168,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'XDP',
             t: 'TA',
           },
@@ -4505,7 +4181,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4518,7 +4193,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '16',
             p: '',
             t: 'NR',
           },
@@ -4531,7 +4205,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -4545,7 +4218,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503',
             p: 'MVE',
             t: 'DO',
           },
@@ -4559,7 +4231,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -4571,7 +4242,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4586,7 +4256,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'SI/NO',
             t: 'V2',
           },
@@ -4599,7 +4268,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#7030A0',
             p: '',
             t: '',
           },
@@ -4612,7 +4280,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '#7030A0',
             p: '',
             t: '',
           },
@@ -4625,7 +4292,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -4639,7 +4305,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '   ',
             p: 'P5D',
             t: 'TA',
           },
@@ -4652,7 +4317,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -4665,7 +4329,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'G503      0001',
             p: '',
             t: '',
           },
@@ -4678,7 +4341,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '320',
             p: '',
             t: 'NR',
           },
@@ -4691,7 +4353,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '320',
             p: '',
             t: 'NR',
           },
@@ -4704,7 +4365,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4718,7 +4378,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221107',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4731,7 +4390,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0',
             p: '',
             t: 'NR',
           },
@@ -4745,7 +4403,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4758,7 +4415,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -4772,7 +4428,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -4784,7 +4439,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100',
             p: '',
             t: 'NR',
           },
@@ -4797,7 +4451,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4810,7 +4463,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -4823,7 +4475,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '',
           },
@@ -4836,7 +4487,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '                                   ',
             p: '',
             t: '',
           },
@@ -4850,7 +4500,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '               ',
             p: '',
             t: 'AR',
           },
@@ -4863,7 +4512,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '320.00000',
             p: '',
             t: 'NR',
           },
@@ -4876,7 +4524,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '-108',
             p: '',
             t: 'NR',
           },
@@ -4890,7 +4537,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4904,7 +4550,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221107',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4918,7 +4563,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '        ',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4932,7 +4576,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'P750           ',
             p: '',
             t: 'OP',
           },
@@ -4945,7 +4588,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0%',
             p: '',
             t: '',
           },
@@ -4959,7 +4601,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: 'ICO',
             t: 'J4',
           },
@@ -4972,7 +4613,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4986,7 +4626,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -4999,7 +4638,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -5012,7 +4650,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'INSTALLAZIONE                      ',
             p: '',
             t: '',
           },
@@ -5027,7 +4664,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '20221017',
             p: '*YYMD',
             t: 'D8',
           },
@@ -5040,7 +4676,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '100%',
             p: '',
             t: '',
           },
@@ -5053,7 +4688,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '0.43',
             p: '',
             t: 'NR',
           },
@@ -5067,7 +4701,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '00000000',
             p: '*YYMD',
             t: 'D8',
           },
@@ -5080,7 +4713,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '',
             p: '',
             t: '**',
           },
@@ -5094,7 +4726,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '000000000',
             p: '   ',
             t: 'E3',
           },
@@ -5107,7 +4738,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: '320',
             p: '',
             t: 'NR',
           },
@@ -5120,7 +4750,6 @@ const phases = {
           },
           isEditable: false,
           obj: {
-            k: 'RED',
             p: '',
             t: '',
           },
@@ -5151,7 +4780,6 @@ export default {
               isKey: false,
               name: 'R§DELI',
               obj: {
-                k: '',
                 p: 'LS04',
                 t: 'H3',
               },
@@ -5163,7 +4791,6 @@ export default {
               isKey: false,
               name: 'DATSTA',
               obj: {
-                k: '',
                 p: '*YYMD',
                 t: 'D8',
               },
@@ -5175,7 +4802,6 @@ export default {
               isKey: false,
               name: 'DATSTO',
               obj: {
-                k: '',
                 p: '*YYMD',
                 t: 'D8',
               },
@@ -5187,7 +4813,6 @@ export default {
               isKey: false,
               name: 'DATCLO',
               obj: {
-                k: '',
                 p: '*YYMD',
                 t: 'D8',
               },
@@ -5206,7 +4831,6 @@ export default {
               isKey: false,
               name: 'R§COMM',
               obj: {
-                k: '',
                 p: '',
                 t: 'CM',
               },
@@ -5225,7 +4849,6 @@ export default {
               isKey: false,
               name: 'PREPLA',
               obj: {
-                k: '',
                 p: 'SI/NO',
                 t: 'V2',
               },
@@ -5246,7 +4869,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20240101',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5261,7 +4883,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'FORMAZIONE SU COMPONENTE PLANNER',
                     p: '',
                     t: '',
                   },
@@ -5278,7 +4899,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '',
                     p: 'SI/NO',
                     t: 'V2',
                   },
@@ -5293,7 +4913,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20240112',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5308,7 +4927,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '1',
                     p: '',
                     t: '',
                   },
@@ -5323,7 +4941,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'NW3000180',
                     p: 'LS04',
                     t: 'H3',
                   },
@@ -5339,7 +4956,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20231120',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5354,7 +4970,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'FOR-S.001',
                     p: '',
                     t: 'CM',
                   },
@@ -5376,7 +4991,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230427',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5391,7 +5005,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'SVILUPPO DEL COMPONENTE BTN',
                     p: '',
                     t: '',
                   },
@@ -5408,7 +5021,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '',
                     p: 'SI/NO',
                     t: 'V2',
                   },
@@ -5423,7 +5035,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230427',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5438,7 +5049,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '1',
                     p: '',
                     t: '',
                   },
@@ -5453,7 +5063,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'NW3000181',
                     p: 'LS04',
                     t: 'H3',
                   },
@@ -5469,7 +5078,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230407',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5484,7 +5092,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'GRN.OR1.01',
                     p: '',
                     t: 'CM',
                   },
@@ -5506,7 +5113,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230530',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5521,7 +5127,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'CORSO DI SICUREZZA',
                     p: '',
                     t: '',
                   },
@@ -5538,7 +5143,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '',
                     p: 'SI/NO',
                     t: 'V2',
                   },
@@ -5553,7 +5157,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230607',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5568,7 +5171,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '0',
                     p: '',
                     t: '',
                   },
@@ -5583,7 +5185,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'NW3000182',
                     p: 'LS04',
                     t: 'H3',
                   },
@@ -5599,7 +5200,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: '20230510',
                     p: '*YYMD',
                     t: 'D8',
                   },
@@ -5614,7 +5214,6 @@ export default {
                   },
                   isEditable: false,
                   obj: {
-                    k: 'FOR-S.001',
                     p: '',
                     t: 'CM',
                   },

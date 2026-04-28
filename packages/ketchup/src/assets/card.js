@@ -1,4 +1,4 @@
-addEventListener('kup-card-click', (e) => {
+﻿addEventListener('kup-card-click', (e) => {
     console.log(e);
 });
 addEventListener('kup-card-event', (e) => {
@@ -161,14 +161,13 @@ for (let index = 0; index < cards.length; index++) {
             },
         ],
         cell: [
-            { obj: { t: '', p: '', k: 'Cell 1' }, value: 'Cell 1' },
-            { obj: { t: '', p: '', k: 'Cell 2' }, value: 'Cell 2' },
-            { obj: { t: '', p: '', k: 'Cell 3' }, value: 'Cell 3' },
+            { obj: { t: '', p: '' }, value: 'Cell 1' },
+            { obj: { t: '', p: '' }, value: 'Cell 2' },
+            { obj: { t: '', p: '' }, value: 'Cell 3' },
             {
                 obj: {
                     t: 'J4',
                     p: 'IMG',
-                    k: 'https://www.w3schools.com/howto/img_avatar.png',
                 },
                 value: 'https://www.w3schools.com/howto/img_avatar.png',
             },
@@ -211,7 +210,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'CN',
                                         p: 'COL',
-                                        k: 'CASFRA',
                                     },
                                     value: 'CASFRA',
                                 },
@@ -219,7 +217,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '10',
                                     },
                                     value: '10',
                                 },
@@ -227,7 +224,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '100.60',
                                     },
                                     value: '100.60',
                                 },
@@ -235,7 +231,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '55',
                                     },
                                     value: '55',
                                 },
@@ -248,7 +243,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'CN',
                                         p: 'COL',
-                                        k: 'DELGIO',
                                     },
                                     value: 'DELGIO',
                                 },
@@ -256,7 +250,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '6',
                                     },
                                     value: '6',
                                 },
@@ -264,7 +257,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '67.8',
                                     },
                                     value: '67.8',
                                 },
@@ -272,7 +264,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '33',
                                     },
                                     value: '33',
                                 },
@@ -285,7 +276,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'CN',
                                         p: 'COL',
-                                        k: 'PARFRA',
                                     },
                                     value: 'PARFRA',
                                 },
@@ -293,7 +283,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '5',
                                     },
                                     value: '5',
                                 },
@@ -301,7 +290,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '120.06',
                                     },
                                     value: '120.06',
                                 },
@@ -309,7 +297,6 @@ for (let index = 0; index < cards.length; index++) {
                                     obj: {
                                         t: 'NR',
                                         p: '',
-                                        k: '77',
                                     },
                                     value: '77',
                                 },
@@ -650,7 +637,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'NR',
                                     p: '',
-                                    k: '00Mat',
                                 },
                                 value: '00Mat',
                                 options: true,
@@ -659,7 +645,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'NR',
                                     p: '',
-                                    k: '00Program',
                                 },
                                 value: '00Program',
                                 options: false,
@@ -668,7 +653,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'NR',
                                     p: '',
-                                    k: '00Attack',
                                 },
                                 value: '00Attack',
                                 options: true,
@@ -681,7 +665,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -690,7 +673,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -699,7 +681,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -714,7 +695,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -726,7 +706,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -735,7 +714,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -744,7 +722,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -759,7 +736,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -771,7 +747,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -780,7 +755,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -789,7 +763,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -804,7 +777,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -816,7 +788,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -825,7 +796,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -834,7 +804,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -849,7 +818,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -861,7 +829,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -870,7 +837,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -879,7 +845,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -894,7 +859,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -906,7 +870,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -915,7 +878,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -924,7 +886,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -939,7 +900,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -951,7 +911,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -960,7 +919,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -969,7 +927,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -984,7 +941,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -996,7 +952,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1005,7 +960,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1014,7 +968,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1029,7 +982,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1041,7 +993,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1050,7 +1001,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1059,7 +1009,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1074,7 +1023,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1086,7 +1034,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1095,7 +1042,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1104,7 +1050,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1119,7 +1064,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1131,7 +1075,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1140,7 +1083,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1149,7 +1091,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1164,7 +1105,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1176,7 +1116,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1185,7 +1124,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1194,7 +1132,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1209,7 +1146,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1221,7 +1157,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1230,7 +1165,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1239,7 +1173,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1254,7 +1187,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1266,7 +1198,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1275,7 +1206,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1284,7 +1214,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1299,7 +1228,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1311,7 +1239,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1320,7 +1247,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1329,7 +1255,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1344,7 +1269,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1356,7 +1280,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1365,7 +1288,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1374,7 +1296,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1389,7 +1310,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1401,7 +1321,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1410,7 +1329,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1419,7 +1337,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1434,7 +1351,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1446,7 +1362,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1455,7 +1370,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1464,7 +1378,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1479,7 +1392,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1491,7 +1403,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1500,7 +1411,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1509,7 +1419,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1524,7 +1433,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1536,7 +1444,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Mat',
                                         },
                                         value: '10Mat',
                                         options: false,
@@ -1545,7 +1452,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Program',
                                         },
                                         value: '10Program',
                                         options: false,
@@ -1554,7 +1460,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '10Attack',
                                         },
                                         value: '10Attack',
                                         options: true,
@@ -1569,7 +1474,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'First column',
                                 },
                                 options: false,
                                 value: 'First column',
@@ -1581,7 +1485,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '11Mat',
                                         },
                                         value: '11Mat',
                                         options: false,
@@ -1590,7 +1493,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '11Program',
                                         },
                                         value: '11Program',
                                         options: true,
@@ -1599,7 +1501,6 @@ for (let index = 0; index < cards.length; index++) {
                                         obj: {
                                             t: 'NR',
                                             p: '',
-                                            k: '11Attack',
                                         },
                                         value: '11Attack',
                                         options: false,
@@ -1613,7 +1514,6 @@ for (let index = 0; index < cards.length; index++) {
                                 obj: {
                                     t: 'TN',
                                     p: '',
-                                    k: 'Second column',
                                 },
                                 options: false,
                                 value: 'Second column',
@@ -1628,7 +1528,6 @@ for (let index = 0; index < cards.length; index++) {
                         obj: {
                             t: '',
                             p: '',
-                            k: 'Favorites',
                         },
                         options: true,
                         value: 'Favorites',
