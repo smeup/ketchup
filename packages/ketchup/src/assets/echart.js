@@ -1,4 +1,4 @@
-const echart1 = document.getElementById('piechart');
+﻿const echart1 = document.getElementById('piechart');
 const echart2 = document.getElementById('mapchart');
 const echart3 = document.getElementById('gaussianchart');
 const echart4 = document.getElementById('gaussian1chart');
@@ -41,7 +41,6 @@ const mockData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
                     },
                     value: 'CASFRA',
                 },
@@ -49,7 +48,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '10',
                     },
                     value: '10',
                 },
@@ -57,7 +55,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100.60',
                     },
                     value: '100.60',
                 },
@@ -65,7 +62,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '55',
                     },
                     value: '55',
                 },
@@ -78,7 +74,6 @@ const mockData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
                     },
                     value: 'DELGIO',
                 },
@@ -86,7 +81,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
                     },
                     value: '6',
                 },
@@ -94,7 +88,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
                     },
                     value: '67.8',
                 },
@@ -102,7 +95,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '33',
                     },
                     value: '33',
                 },
@@ -115,7 +107,6 @@ const mockData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'PARFRA',
                     },
                     value: 'PARFRA',
                 },
@@ -123,7 +114,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '5',
                     },
                     value: '5',
                 },
@@ -131,7 +121,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '120.06',
                     },
                     value: '120.06',
                 },
@@ -139,7 +128,6 @@ const mockData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '77',
                     },
                     value: '77',
                 },
@@ -191,7 +179,6 @@ echart2.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'DE',
                     },
                     value: 'DE',
                 },
@@ -199,7 +186,6 @@ echart2.data = {
                     obj: {
                         t: 'Color',
                         p: '',
-                        k: 'red',
                     },
                     value: 'red',
                 },
@@ -207,7 +193,6 @@ echart2.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100',
                     },
                     value: '100',
                 },
@@ -219,7 +204,6 @@ echart2.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'US',
                     },
                     value: 'US',
                 },
@@ -227,7 +211,6 @@ echart2.data = {
                     obj: {
                         t: 'Color',
                         p: '',
-                        k: 'Green',
                     },
                     value: 'Green',
                 },
@@ -235,7 +218,6 @@ echart2.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '2000000',
                     },
                     value: '2000000',
                 },
@@ -247,7 +229,6 @@ echart2.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Brazil',
                     },
                     value: 'Brazil',
                 },
@@ -255,7 +236,6 @@ echart2.data = {
                     obj: {
                         t: 'Color',
                         p: '',
-                        k: 'purple',
                     },
                     value: 'purple',
                 },
@@ -263,7 +243,6 @@ echart2.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '300.3',
                     },
                     value: '300.3',
                 },
@@ -275,7 +254,6 @@ echart2.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'Canada',
                     },
                     value: 'Canada',
                 },
@@ -283,7 +261,6 @@ echart2.data = {
                     obj: {
                         t: 'Color',
                         p: '',
-                        k: 'yellow',
                     },
                     value: 'yellow',
                 },
@@ -291,7 +268,6 @@ echart2.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '400',
                     },
                     value: '400',
                 },
@@ -303,7 +279,6 @@ echart2.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'France',
                     },
                     value: 'France',
                 },
@@ -311,7 +286,6 @@ echart2.data = {
                     obj: {
                         t: 'Color',
                         p: '',
-                        k: 'orange',
                     },
                     value: 'orange',
                 },
@@ -319,7 +293,6 @@ echart2.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '500',
                     },
                     value: '500',
                 },
@@ -342,7 +315,6 @@ const columns = [
         obj: {
             t: 'NR',
             p: '',
-            k: '',
         },
         title: 'Series 1',
     },
@@ -351,7 +323,6 @@ const columns = [
         obj: {
             t: 'NR',
             p: '',
-            k: '',
         },
         title: 'Series 2',
     },
@@ -360,7 +331,6 @@ const columns = [
         obj: {
             t: 'NR',
             p: '',
-            k: '',
         },
         title: 'Series 3',
     },
@@ -375,7 +345,6 @@ for (let index = 0; index < 200; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value1,
                 },
                 value: value1,
             },
@@ -383,7 +352,6 @@ for (let index = 0; index < 200; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value2,
                 },
                 value: value2,
             },
@@ -391,7 +359,6 @@ for (let index = 0; index < 200; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value3,
                 },
                 value: value3,
             },
@@ -440,7 +407,6 @@ for (let index = 0; index < testMock.length; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value1.toString(),
                 },
                 value: value1.toString(),
             },
@@ -448,7 +414,6 @@ for (let index = 0; index < testMock.length; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value2.toString(),
                 },
                 value: value2.toString(),
             },
@@ -459,7 +424,6 @@ for (let index = 0; index < testMock.length; index++) {
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: value1.toString(),
                 },
                 value: value1.toString(),
             },
@@ -472,7 +436,6 @@ const testMockColumns = [
         obj: {
             t: 'NR',
             p: '',
-            k: '',
         },
         title: 'Series 1',
     },
@@ -548,7 +511,6 @@ echart6.data = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
                     },
                     value: 'CASFRA',
                 },
@@ -556,7 +518,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '10',
                     },
                     value: '10',
                 },
@@ -564,7 +525,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100.60',
                     },
                     value: '100.60',
                 },
@@ -572,7 +532,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '55',
                     },
                     value: '55',
                 },
@@ -584,7 +543,6 @@ echart6.data = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'DELGIO',
                     },
                     value: 'DELGIO',
                 },
@@ -592,7 +550,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '6',
                     },
                     value: '6',
                 },
@@ -600,7 +557,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
                     },
                     value: '67.8',
                 },
@@ -608,7 +564,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '33',
                     },
                     value: '33',
                 },
@@ -620,7 +575,6 @@ echart6.data = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'PARFRA',
                     },
                     value: 'PARFRA',
                 },
@@ -628,7 +582,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '5',
                     },
                     value: '5',
                 },
@@ -636,7 +589,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '120.06',
                     },
                     value: '120.06',
                 },
@@ -644,7 +596,6 @@ echart6.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '77',
                     },
                     value: '77',
                 },
@@ -671,7 +622,6 @@ echart7.data = {
             isKey: false,
             name: 'COL1',
             obj: {
-                k: '',
                 p: 'STR',
                 t: 'J1',
             },
@@ -684,7 +634,6 @@ echart7.data = {
             isKey: false,
             name: 'COL2',
             obj: {
-                k: '',
                 p: '',
                 t: 'NR',
             },
@@ -697,7 +646,6 @@ echart7.data = {
             isKey: false,
             name: 'COL3',
             obj: {
-                k: '',
                 p: '',
                 t: 'NR',
             },
@@ -710,7 +658,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -718,7 +665,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -726,7 +672,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Sales',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -741,7 +686,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -749,7 +693,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -757,7 +700,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Administration',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -772,7 +714,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -780,7 +721,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -788,7 +728,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Information Technology',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -803,7 +742,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -811,7 +749,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -819,7 +756,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Customer Support',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -834,7 +770,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -842,7 +777,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -850,7 +784,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Development',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -865,7 +798,6 @@ echart7.data = {
             cells: {
                 COL3: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -873,7 +805,6 @@ echart7.data = {
                 },
                 COL2: {
                     obj: {
-                        k: '',
                         p: '',
                         t: 'NR',
                     },
@@ -881,7 +812,6 @@ echart7.data = {
                 },
                 COL1: {
                     obj: {
-                        k: 'Marketing',
                         p: 'STR',
                         t: 'J1',
                     },
@@ -938,7 +868,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '1516',
                     },
                     value: '1516',
                 },
@@ -946,7 +875,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '68',
                     },
                     value: '68',
                 },
@@ -954,7 +882,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '1154605773',
                     },
                     value: '1154605773',
                 },
@@ -972,7 +899,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '13334',
                     },
                     value: '13334',
                 },
@@ -980,7 +906,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '76.9',
                     },
                     value: '76.9',
                 },
@@ -988,7 +913,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '1376048943',
                     },
                     value: '1376048943',
                 },
@@ -1006,7 +930,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '37062',
                     },
                     value: '37062',
                 },
@@ -1014,7 +937,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '75.4',
                     },
                     value: '75.4',
                 },
@@ -1022,7 +944,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '252847810',
                     },
                     value: '252847810',
                 },
@@ -1040,7 +961,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '53354',
                     },
                     value: '53354',
                 },
@@ -1048,7 +968,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '79.1',
                     },
                     value: '79.1',
                 },
@@ -1056,7 +975,6 @@ echart8.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '321773631',
                     },
                     value: '321773631',
                 },
@@ -1094,7 +1012,6 @@ echart9.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'Value',
         },
@@ -1112,7 +1029,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '5',
                     },
                     value: '5',
                 },
@@ -1130,7 +1046,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '3',
                     },
                     value: '3',
                 },
@@ -1148,7 +1063,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '8',
                     },
                     value: '8',
                 },
@@ -1166,7 +1080,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '3',
                     },
                     value: '3',
                 },
@@ -1184,7 +1097,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '1',
                     },
                     value: '1',
                 },
@@ -1202,7 +1114,6 @@ echart9.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '2',
                     },
                     value: '2',
                 },
@@ -1229,7 +1140,6 @@ echart10.data = {
             obj: {
                 t: 'D8',
                 p: '*YYMD',
-                k: '',
             },
             title: 'Date',
         },
@@ -1238,7 +1148,6 @@ echart10.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'Low',
         },
@@ -1247,7 +1156,6 @@ echart10.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'High',
         },
@@ -1256,7 +1164,6 @@ echart10.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'Open',
         },
@@ -1265,7 +1172,6 @@ echart10.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'Close',
         },
@@ -1277,7 +1183,6 @@ echart10.data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20171024',
                     },
                     value: '2017-10-24',
                 },
@@ -1285,7 +1190,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '38',
                     },
                     value: '38',
                 },
@@ -1293,7 +1197,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '10',
                     },
                     value: '10',
                 },
@@ -1301,7 +1204,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '34',
                     },
                     value: '34',
                 },
@@ -1309,7 +1211,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '20',
                     },
                     value: '20',
                 },
@@ -1321,7 +1222,6 @@ echart10.data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20171025',
                     },
                     value: '2017-10-25',
                 },
@@ -1329,7 +1229,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '50',
                     },
                     value: '50',
                 },
@@ -1337,7 +1236,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '30',
                     },
                     value: '30',
                 },
@@ -1345,7 +1243,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '35',
                     },
                     value: '35',
                 },
@@ -1353,7 +1250,6 @@ echart10.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '40',
                     },
                     value: '40',
                 },
@@ -1380,7 +1276,6 @@ echart11.data = {
             obj: {
                 t: 'D8',
                 p: '*YYMD',
-                k: '',
             },
             title: 'Date',
         },
@@ -1389,7 +1284,6 @@ echart11.data = {
             obj: {
                 t: 'NR',
                 p: '',
-                k: '',
             },
             title: 'Value',
         },
@@ -1401,7 +1295,6 @@ echart11.data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20230401',
                     },
                     value: '2023-04-01',
                 },
@@ -1409,7 +1302,6 @@ echart11.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '50',
                     },
                     value: '50',
                 },
@@ -1421,7 +1313,6 @@ echart11.data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20230415',
                     },
                     value: '2023-04-15',
                 },
@@ -1429,7 +1320,6 @@ echart11.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '25',
                     },
                     value: '25',
                 },
@@ -1441,7 +1331,6 @@ echart11.data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20230430',
                     },
                     value: '2023-04-30',
                 },
@@ -1449,7 +1338,6 @@ echart11.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100',
                     },
                     value: '100',
                 },
@@ -1561,7 +1449,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '20241001',
                     },
                     tooltip: true,
                     data: {},
@@ -1572,7 +1459,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '20241001',
                     },
                     tooltip: true,
                     data: {},
@@ -1583,7 +1469,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '2024',
                     },
                     tooltip: false,
                     data: {},
@@ -1594,7 +1479,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '1',
                     },
                     tooltip: false,
                     data: {},
@@ -1605,7 +1489,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '100',
                     },
                     tooltip: false,
                     data: {},
@@ -1616,7 +1499,6 @@ echart12.data = {
                     obj: {
                         t: 'NR',
                         p: 'VE',
-                        k: '2639.17',
                     },
                     tooltip: false,
                     data: {},
@@ -1628,7 +1510,6 @@ echart12.data = {
                     obj: {
                         t: 'CL',
                         p: 'IFOR',
-                        k: '1100',
                     },
                     tooltip: true,
                     data: {},
@@ -1639,7 +1520,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'PALMACCI SRL',
                     },
                     tooltip: false,
                     data: {},
@@ -1656,7 +1536,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '20241881',
                     },
                     tooltip: true,
                     data: {},
@@ -1667,7 +1546,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '20241881',
                     },
                     tooltip: true,
                     data: {},
@@ -1678,7 +1556,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '2024',
                     },
                     tooltip: false,
                     data: {},
@@ -1689,7 +1566,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '1',
                     },
                     tooltip: false,
                     data: {},
@@ -1700,7 +1576,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '188',
                     },
                     tooltip: false,
                     data: {},
@@ -1711,7 +1586,6 @@ echart12.data = {
                     obj: {
                         t: 'NR',
                         p: 'VE',
-                        k: '454.86',
                     },
                     tooltip: false,
                     data: {},
@@ -1723,7 +1597,6 @@ echart12.data = {
                     obj: {
                         t: 'CL',
                         p: 'IFOR',
-                        k: '1188',
                     },
                     tooltip: true,
                     data: {},
@@ -1734,7 +1607,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'EDIL. CAMALDOLI SANSONE S.R.L.',
                     },
                     tooltip: false,
                     data: {},
@@ -1751,7 +1623,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '202441',
                     },
                     tooltip: true,
                     data: {},
@@ -1762,7 +1633,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '202441',
                     },
                     tooltip: true,
                     data: {},
@@ -1773,7 +1643,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '2024',
                     },
                     tooltip: false,
                     data: {},
@@ -1784,7 +1653,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '1',
                     },
                     tooltip: false,
                     data: {},
@@ -1795,7 +1663,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '4',
                     },
                     tooltip: false,
                     data: {},
@@ -1806,7 +1673,6 @@ echart12.data = {
                     obj: {
                         t: 'NR',
                         p: 'VE',
-                        k: '190.66',
                     },
                     tooltip: false,
                     data: {},
@@ -1818,7 +1684,6 @@ echart12.data = {
                     obj: {
                         t: 'CL',
                         p: 'IFOR',
-                        k: '14',
                     },
                     tooltip: true,
                     data: {},
@@ -1829,7 +1694,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'FORESTIERI GIUSEPPE E C RETTIFICA MOTORI',
                     },
                     tooltip: false,
                     data: {},
@@ -1846,7 +1710,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '2024735861',
                     },
                     tooltip: true,
                     data: {},
@@ -1857,7 +1720,6 @@ echart12.data = {
                     obj: {
                         t: 'G_',
                         p: 'FATT2',
-                        k: '2024735861',
                     },
                     tooltip: true,
                     data: {},
@@ -1868,7 +1730,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '2024',
                     },
                     tooltip: false,
                     data: {},
@@ -1879,7 +1740,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '1',
                     },
                     tooltip: false,
                     data: {},
@@ -1890,7 +1750,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '73586',
                     },
                     tooltip: false,
                     data: {},
@@ -1901,7 +1760,6 @@ echart12.data = {
                     obj: {
                         t: 'NR',
                         p: 'VE',
-                        k: '2.19',
                     },
                     tooltip: false,
                     data: {},
@@ -1913,7 +1771,6 @@ echart12.data = {
                     obj: {
                         t: 'CL',
                         p: 'IFOR',
-                        k: '173586',
                     },
                     tooltip: true,
                     data: {},
@@ -1924,7 +1781,6 @@ echart12.data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'SOLOMEO IMPIANTI S.N.C.DI BONDI FRANCESCO E ROTONI MATTEO',
                     },
                     tooltip: false,
                     data: {},

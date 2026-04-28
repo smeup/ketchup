@@ -1,4 +1,4 @@
-const data = {
+﻿const data = {
     columns: [
         {
             name: 'ACC',
@@ -6,7 +6,6 @@ const data = {
             obj: {
                 t: 'CF',
                 p: 'X1004',
-                k: '',
             },
             visible: false,
         },
@@ -20,7 +19,6 @@ const data = {
             obj: {
                 t: 'CN',
                 p: 'COL',
-                k: '',
             },
         },
         {
@@ -29,7 +27,6 @@ const data = {
             obj: {
                 t: 'CN',
                 p: 'SED',
-                k: '',
             },
         },
         {
@@ -38,7 +35,6 @@ const data = {
             obj: {
                 t: 'D8',
                 p: '*YYMD',
-                k: '',
             },
         },
         {
@@ -47,7 +43,6 @@ const data = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
         {
@@ -56,7 +51,6 @@ const data = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
         {
@@ -65,7 +59,6 @@ const data = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
     ],
@@ -77,7 +70,6 @@ const data = {
                     obj: {
                         t: 'CF',
                         p: 'X1004',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -89,7 +81,6 @@ const data = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -101,7 +92,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: 'sss',
                     },
                     isEditable: true,
                     data: {
@@ -114,7 +104,6 @@ const data = {
                     obj: {
                         t: 'CN',
                         p: 'SED',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -126,7 +115,6 @@ const data = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -138,7 +126,6 @@ const data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20220601',
                     },
                     isEditable: true,
                     data: {
@@ -150,7 +137,6 @@ const data = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -162,7 +148,6 @@ const data = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {
@@ -183,7 +168,6 @@ const layoutData = {
             obj: {
                 t: 'CF',
                 p: 'X1004',
-                k: '',
             },
             visible: false,
         },
@@ -197,7 +181,6 @@ const layoutData = {
             obj: {
                 t: 'CN',
                 p: 'COL',
-                k: '',
             },
         },
         {
@@ -206,7 +189,6 @@ const layoutData = {
             obj: {
                 t: 'CN',
                 p: 'SED',
-                k: '',
             },
         },
         {
@@ -215,7 +197,6 @@ const layoutData = {
             obj: {
                 t: 'D8',
                 p: '*YYMD',
-                k: '',
             },
         },
         {
@@ -224,7 +205,6 @@ const layoutData = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
         {
@@ -233,7 +213,6 @@ const layoutData = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
         {
@@ -242,7 +221,6 @@ const layoutData = {
             obj: {
                 t: 'V2',
                 p: 'ONOFF',
-                k: '',
             },
         },
     ],
@@ -254,7 +232,6 @@ const layoutData = {
                     obj: {
                         t: 'CF',
                         p: 'X1004',
-                        k: '',
                     },
                     isEditable: true,
                 },
@@ -263,7 +240,6 @@ const layoutData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'PASCAR',
                     },
                     isEditable: true,
                     shape: 'ACP',
@@ -284,7 +260,6 @@ const layoutData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     isEditable: true,
                     data: {},
@@ -294,7 +269,6 @@ const layoutData = {
                     obj: {
                         t: 'CN',
                         p: 'SED',
-                        k: 'PAR',
                     },
                     isEditable: true,
                     data: {},
@@ -304,7 +278,6 @@ const layoutData = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {},
@@ -314,7 +287,6 @@ const layoutData = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20220603',
                     },
                     isEditable: true,
                     data: {},
@@ -324,7 +296,6 @@ const layoutData = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {},
@@ -334,7 +305,6 @@ const layoutData = {
                     obj: {
                         t: 'V2',
                         p: 'ONOFF',
-                        k: '',
                     },
                     isEditable: true,
                     data: {},

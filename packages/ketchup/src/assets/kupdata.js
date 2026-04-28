@@ -1,4 +1,4 @@
-const inputTable = document.querySelector('#input-table');
+﻿const inputTable = document.querySelector('#input-table');
 const outputTable = document.querySelector('#output-table');
 outputTable.autoFillMissingCells = true;
 const props = {
@@ -10,7 +10,6 @@ const props = {
                 isKey: false,
                 name: 'COL',
                 obj: {
-                    k: '',
                     p: 'COL',
                     t: 'CN',
                 },
@@ -22,7 +21,6 @@ const props = {
                 isKey: false,
                 name: 'ETA',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'NR',
                 },
@@ -34,7 +32,6 @@ const props = {
                 isKey: false,
                 name: 'BIRTH',
                 obj: {
-                    k: '',
                     p: '',
                     t: 'D8',
                 },
@@ -49,7 +46,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Marco Rosasi',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -59,7 +55,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '43',
                             p: '',
                             t: 'NR',
                         },
@@ -68,7 +63,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1900-12-12',
                             p: '',
                             t: 'D8',
                         },
@@ -85,7 +79,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Alessandro Manzoni',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -95,7 +88,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '69',
                             p: '',
                             t: 'NR',
                         },
@@ -104,7 +96,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1921-02-01',
                             p: '',
                             t: 'D8',
                         },
@@ -121,7 +112,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Giuseppe Garibaldi',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -131,7 +121,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '33',
                             p: '',
                             t: 'NR',
                         },
@@ -140,7 +129,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1932-06-30',
                             p: '',
                             t: 'D8',
                         },
@@ -157,7 +145,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Ugo Foscolo',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -167,7 +154,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '24',
                             p: '',
                             t: 'NR',
                         },
@@ -176,7 +162,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '2015-01-31',
                             p: '',
                             t: 'D8',
                         },
@@ -193,7 +178,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Giovanni Pascoli',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -203,7 +187,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '59',
                             p: '',
                             t: 'NR',
                         },
@@ -212,7 +195,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '2000-01-01',
                             p: '',
                             t: 'D8',
                         },
@@ -229,7 +211,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Dante Alighieri',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -239,7 +220,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '33',
                             p: '',
                             t: 'NR',
                         },
@@ -248,7 +228,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1999-05-12',
                             p: '',
                             t: 'D8',
                         },
@@ -265,7 +244,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Eugenio Montale',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -275,7 +253,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '51',
                             p: '',
                             t: 'NR',
                         },
@@ -284,7 +261,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1807-08-21',
                             p: '',
                             t: 'D8',
                         },
@@ -301,7 +277,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Francesco Petrarca',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -311,7 +286,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '27',
                             p: '',
                             t: 'NR',
                         },
@@ -320,7 +294,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1780-10-01',
                             p: '',
                             t: 'D8',
                         },
@@ -337,7 +310,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Eugenio Montale',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -347,7 +319,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '51',
                             p: '',
                             t: 'NR',
                         },
@@ -356,7 +327,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '2021-03-12',
                             p: '',
                             t: 'D8',
                         },
@@ -373,7 +343,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Giuseppe Ungheretti',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -383,7 +352,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '79',
                             p: '',
                             t: 'NR',
                         },
@@ -392,7 +360,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1790-11-11',
                             p: '',
                             t: 'D8',
                         },
@@ -409,7 +376,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Umberto Saba',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -419,7 +385,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '29',
                             p: '',
                             t: 'NR',
                         },
@@ -428,7 +393,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1990-12-02',
                             p: '',
                             t: 'D8',
                         },
@@ -445,7 +409,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Salvatore Quasimodo',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -455,7 +418,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '51',
                             p: '',
                             t: 'NR',
                         },
@@ -464,7 +426,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1945-03-17',
                             p: '',
                             t: 'D8',
                         },
@@ -481,7 +442,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Giacomo Leopardi',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -491,7 +451,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '38',
                             p: '',
                             t: 'NR',
                         },
@@ -500,7 +459,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1968-08-15',
                             p: '',
                             t: 'D8',
                         },
@@ -517,7 +475,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Piero Angela',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -527,7 +484,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '99',
                             p: '',
                             t: 'NR',
                         },
@@ -536,7 +492,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1922-02-24',
                             p: '',
                             t: 'D8',
                         },
@@ -553,7 +508,6 @@ const props = {
                         cssClass: 'strong-text top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: 'Giosue Carducci',
                             p: 'COL',
                             t: 'CN',
                         },
@@ -563,7 +517,6 @@ const props = {
                         cssClass: ' top-right-indicator',
                         isEditable: false,
                         obj: {
-                            k: '77',
                             p: '',
                             t: 'NR',
                         },
@@ -572,7 +525,6 @@ const props = {
                     },
                     BIRTH: {
                         obj: {
-                            k: '1850-01-30',
                             p: '',
                             t: 'D8',
                         },
@@ -821,8 +773,8 @@ function newEvent(index) {
         index === 0
             ? newColumns
             : index === 1
-            ? newColumnsString
-            : newColumnsDate
+              ? newColumnsString
+              : newColumnsDate
     );
 }
 

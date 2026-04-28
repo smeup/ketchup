@@ -1,4 +1,4 @@
-const data = {
+﻿const data = {
     columns: [
         {
             name: 'date',
@@ -36,7 +36,6 @@ const data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20210919',
                     },
                     value: '2021-09-19',
                 },
@@ -44,7 +43,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: 'Dentist',
                 },
@@ -52,7 +50,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '10:00:00',
                 },
@@ -60,7 +57,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '11:00:00',
                 },
@@ -68,7 +64,6 @@ const data = {
                     obj: {
                         t: 'J4',
                         p: 'ICO',
-                        k: '...',
                     },
                     value: 'widgets;menu',
                 },
@@ -76,7 +71,6 @@ const data = {
                     obj: {
                         t: 'J4',
                         p: 'IMG',
-                        k: '...',
                     },
                     value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
@@ -84,7 +78,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '...',
                     },
                     value: '',
                     style: {
@@ -100,7 +93,6 @@ const data = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20210917',
                     },
                     value: '2021-09-17',
                 },
@@ -108,7 +100,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: 'Cinema',
                 },
@@ -116,7 +107,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '21:00:00',
                 },
@@ -124,7 +114,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '23:00:00',
                 },
@@ -132,7 +121,6 @@ const data = {
                     obj: {
                         t: 'J4',
                         p: 'ICO',
-                        k: '...',
                     },
                     value: 'wrench',
                 },
@@ -140,7 +128,6 @@ const data = {
                     obj: {
                         t: 'J4',
                         p: 'IMG',
-                        k: '...',
                     },
                     value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
@@ -148,7 +135,6 @@ const data = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '...',
                     },
                     value: '',
                     style: {
@@ -199,7 +185,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20210919',
                     },
                     value: '2021-09-19',
                 },
@@ -207,7 +192,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: 'Dentist',
                 },
@@ -215,7 +199,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '10:00:00',
                 },
@@ -223,7 +206,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '11:00:00',
                 },
@@ -231,7 +213,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'J4',
                         p: 'ICO',
-                        k: '...',
                     },
                     value: 'widgets;menu',
                 },
@@ -239,7 +220,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'J4',
                         p: 'IMG',
-                        k: '...',
                     },
                     value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
@@ -247,7 +227,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '...',
                     },
                     value: '',
                     style: {
@@ -263,7 +242,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'D8',
                         p: '*YYMD',
-                        k: '20210917',
                     },
                     value: '2021-09-17',
                 },
@@ -271,7 +249,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: 'Cinema',
                 },
@@ -279,7 +256,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '21:00:00',
                 },
@@ -287,7 +263,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '',
                     },
                     value: '23:00:00',
                 },
@@ -295,7 +270,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'J4',
                         p: 'ICO',
-                        k: '...',
                     },
                     value: 'wrench',
                 },
@@ -303,7 +277,6 @@ const calendarColumnsData = {
                     obj: {
                         t: 'J4',
                         p: 'IMG',
-                        k: '...',
                     },
                     value: 'https://placehold.co/64?text=PF;https://placehold.co/64?text=CF;https://placehold.co/64?text=DG',
                 },
@@ -311,7 +284,6 @@ const calendarColumnsData = {
                     obj: {
                         t: '',
                         p: '',
-                        k: '...',
                     },
                     value: '',
                     style: {

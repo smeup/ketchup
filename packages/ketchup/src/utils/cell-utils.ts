@@ -137,9 +137,11 @@ export function compareCell(
 ): number {
     return compareValues(
         cell1.obj,
-        cell1.decode ?? cell1.value,
+        cell1.value,
+        cell1.decode,
         cell2.obj,
-        cell2.decode ?? cell2.value,
+        cell2.value,
+        cell2.decode,
         sortMode
     );
 }
@@ -147,8 +149,10 @@ export function compareCell(
 export function compareValues(
     obj1: any,
     value1: any,
+    decode1: any,
     obj2: any,
     value2: any,
+    decode2: any,
     sortMode: SortMode
 ): number {
     const sm = sortMode === 'A' ? 1 : -1;
@@ -166,8 +170,8 @@ export function compareValues(
         return compare * sm;
     }
 
-    let s1: string = value1;
-    let s2: string = value2;
+    let s1: string = decode1 ?? value1;
+    let s2: string = decode2 ?? value2;
 
     if (s1 == s2) {
         return 0;
@@ -184,14 +188,14 @@ export function compareValues(
     let v1: any = s1;
     let v2: any = s2;
     if (dom.ketchup.objects.isNumber(obj1)) {
-        v1 = dom.ketchup.math.numberifySafe(s1);
-        v2 = dom.ketchup.math.numberifySafe(s2);
+        v1 = dom.ketchup.math.numberifySafe(value1);
+        v2 = dom.ketchup.math.numberifySafe(value2);
     } else if (dom.ketchup.objects.isDate(obj1)) {
         const firstDateValue = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(value1, KupDatesFormats.ISO_DATE)
         );
         const secondDateValue = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(value2, KupDatesFormats.ISO_DATE)
         );
         if (firstDateValue && secondDateValue) {
             v1 = firstDateValue;
@@ -202,19 +206,19 @@ export function compareValues(
         // returns an invalid date when it tries to parse a time
         // This solution is simpler and it works because the time format
         // was assumed to be equals to HH:mm:ss or HH:mm
-        const firstTimeValue = Number(s1.replace(/:/g, ''));
-        const secondTimeValue = Number(s2.replace(/:/g, ''));
+        const firstTimeValue = Number(value1.replace(/:/g, ''));
+        const secondTimeValue = Number(value2.replace(/:/g, ''));
         if (!Number.isNaN(firstTimeValue) && !Number.isNaN(secondTimeValue)) {
             v1 = firstTimeValue;
             v2 = secondTimeValue;
         }
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
         const firstTimestampValue = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE),
+            dom.ketchup.dates.format(value1, KupDatesFormats.ISO_DATE),
             KupDatesFormats.ISO_DATE_TIME
         );
         const secondTimestampValue = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE),
+            dom.ketchup.dates.format(value2, KupDatesFormats.ISO_DATE),
             KupDatesFormats.ISO_DATE_TIME
         );
         if (firstTimestampValue && secondTimestampValue) {

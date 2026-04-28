@@ -47,7 +47,6 @@ export default {
                 obj: {
                   t: '',
                   p: '',
-                  k: '',
                 },
                 data: {
                   type: 'chevron',

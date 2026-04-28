@@ -27,7 +27,7 @@
             "request": "launch",
             "name": "Spec Test Current File",
             "cwd": "${workspaceFolder}/packages/ketchup/",
-            "program": "${workspaceFolder}/packages/ketchup/node_modules/.bin/stencil",
+            "program": "${workspaceFolder}/packages/ketchup/node_modules/@stencil/core/bin/stencil",
             "args": ["test", "--spec", "--maxWorkers=0", "${fileBasename}"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
