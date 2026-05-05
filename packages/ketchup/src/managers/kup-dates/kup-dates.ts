@@ -901,7 +901,10 @@ export class KupDates {
         let date = this.toDate(
             this.normalize(value, KupDatesFormats.ISO_DATE_TIME)
         );
-        return date.toLocaleString(this.getLocale() + '-u-hc-h23', options);
+        return (
+            date?.toLocaleString(this.getLocale() + '-u-hc-h23', options) ??
+            `cannot format date time: ${value}`
+        );
     }
 
     /**
