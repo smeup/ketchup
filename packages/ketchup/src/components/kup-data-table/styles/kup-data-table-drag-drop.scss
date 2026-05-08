@@ -15,14 +15,13 @@ th[#{$kup-dd-draggable}] {
 
 .droparea {
   position: absolute;
-  animation: fade-in 0.25s ease-out;
   background: var(--kup_datatable_background_color);
   border-radius: 8px;
   box-shadow: var(--kup-box-shadow);
   display: flex;
   opacity: 0;
   padding: 1em 0.5em;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s ease-in-out;
 
   &--visible {
     opacity: 1;
