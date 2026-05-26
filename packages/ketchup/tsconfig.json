@@ -12,7 +12,8 @@
         "noUnusedLocals": false,
         "noUnusedParameters": true,
         "resolveJsonModule": true,
-        "target": "es2017"
+        "target": "es2017",
+        "strict": false
     },
     "include": ["src", "types/jsx.d.ts"],
     "exclude": ["node_modules"]
