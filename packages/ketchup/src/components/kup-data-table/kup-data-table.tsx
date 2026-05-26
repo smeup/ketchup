@@ -2515,11 +2515,15 @@ export class KupDataTable {
                     {
                         drop: (e: DropEvent) => {
                             const draggedTh = e.relatedTarget as HTMLElement;
-                            const grouped = getColumnByName(
-                                this.getColumns(),
-                                draggedTh.dataset.column
-                            );
-                            this.#handleColumnGroup(grouped);
+                            if (draggedTh.dataset?.column) {
+                                const grouped = getColumnByName(
+                                    this.getColumns(),
+                                    draggedTh.dataset.column
+                                );
+                                if (grouped) {
+                                    this.#handleColumnGroup(grouped);
+                                }
+                            }
                             this.#tableRef.removeAttribute(kupDragActiveAttr);
                         },
                     }
@@ -2538,11 +2542,15 @@ export class KupDataTable {
                     {
                         drop: (e: DropEvent) => {
                             const draggedTh = e.relatedTarget as HTMLElement;
-                            const deleted = getColumnByName(
-                                this.getColumns(),
-                                draggedTh.dataset.column
-                            );
-                            this.hideColumn(deleted);
+                            if (draggedTh.dataset?.column) {
+                                const deleted = getColumnByName(
+                                    this.getColumns(),
+                                    draggedTh.dataset.column
+                                );
+                                if (deleted) {
+                                    this.hideColumn(deleted);
+                                }
+                            }
                             this.#tableRef.removeAttribute(kupDragActiveAttr);
                         },
                     }
@@ -6879,7 +6887,6 @@ export class KupDataTable {
 
     #handleChipsContextMenu(chipColumnName: string, e) {
         e.preventDefault();
-
         this.openColumnMenu(
             chipColumnName,
             `.chip[data-value="${chipColumnName}"]`
