@@ -20,11 +20,13 @@ th[#{$kup-dd-draggable}] {
   box-shadow: var(--kup-box-shadow);
   display: flex;
   opacity: 0;
+  pointer-events: none;
   padding: 1em 0.5em;
   transition: opacity 0.25s ease-in-out;
 
   &--visible {
     opacity: 1;
+    pointer-events: auto;
   }
 
   &__groups {
