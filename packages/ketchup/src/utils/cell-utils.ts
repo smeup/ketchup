@@ -22,12 +22,13 @@ export function getCellValueForDisplay(
     column: KupDataColumn,
     cell: KupDataCell
 ): string {
-    if (cell != null) {
-        if (cell.displayedValue != null) {
-            return cell.displayedValue;
-        }
+    if (!cell) {
+        return '';
     }
-    if (cell.decode) {
+    if (cell.displayedValue != null) {
+        return cell.displayedValue;
+    }
+    if (cell.decode != null && cell.decode != undefined) {
         return cell.decode;
     }
     let formattedValue = _getCellValueForDisplay(cell.value, column, cell);

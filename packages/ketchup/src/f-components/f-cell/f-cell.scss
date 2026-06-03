@@ -138,7 +138,9 @@
   }
 
   &.image-cell {
-    max-height: 100%;
+    // with value `max-content` Firefox will adapt dimension based on contained image; if 100% is used Firefox cannot calculate correct height and that leads wrong visualization of the cell, because it referes to parent height
+    // with Chrome we do not have this problem since it seems to be 'smarter' and is able to fallback to contente height if parent height is not determined (not explicitly set with a 'fixed' value)
+    max-height: max-content;
     .f-cell__content .imageWrapIcon {
       position: relative;
       width: 100%;
