@@ -875,8 +875,8 @@ export class KupInputPanel {
         const value = isFormattableType
             ? getCellValueForDisplay(column, cell)
             : cell.decode
-            ? cell.decode
-            : cell.value;
+              ? cell.decode
+              : cell.value;
 
         return (
             <span class={classList.join(' ')} id={column.name}>
@@ -1149,8 +1149,8 @@ export class KupInputPanel {
             +field.colSpan > 0
                 ? field.colSpan
                 : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
@@ -1160,8 +1160,8 @@ export class KupInputPanel {
             +field.rowSpan > 0
                 ? field.rowSpan
                 : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
+                  ? 1
+                  : null;
 
         const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
 
@@ -1200,8 +1200,8 @@ export class KupInputPanel {
             length = fieldCell.cell.value
                 ? fieldCell.cell.value.length
                 : field.absoluteLength > 8
-                ? field.absoluteLength
-                : 8;
+                  ? field.absoluteLength
+                  : 8;
         } else {
             length = field.absoluteLength;
         }
@@ -1210,15 +1210,20 @@ export class KupInputPanel {
             field.absoluteHeight = 1;
         }
 
+        if (dom.ketchup.objects.isSwitch(fieldCell.cell.obj)) {
+            fieldCell.cell.data.leadingLabel = false;
+            fieldCell.cell.shape = FCellShapes.TEXT_FIELD;
+        }
+
         const absoluteWidth =
             fieldCell.cell.shape === FCellShapes.LABEL
                 ? getLabelAbsoluteWidth(length)
                 : fieldCell.cell.shape === FCellShapes.CHECKBOX
-                ? 15
-                : getAbsoluteWidth(
-                      length,
-                      graphicShapeHasIcon(fieldCell.cell.shape)
-                  );
+                  ? 15
+                  : getAbsoluteWidth(
+                        length,
+                        graphicShapeHasIcon(fieldCell.cell.shape)
+                    );
         const absoluteHeight = getAbsoluteHeight(field.absoluteHeight);
         const absoluteTop = getAbsoluteTop(
             field.absoluteRow,
@@ -2014,10 +2019,10 @@ export class KupInputPanel {
                     : cell.data?.data?.['kup-list'];
             if (kupListData) {
                 kupListData.data = filteredRows?.length
-                    ? this.#optionsTreeComboAdapter(
+                    ? (this.#optionsTreeComboAdapter(
                           visibleColumnsOptions,
                           cell.value
-                      ) ?? []
+                      ) ?? [])
                     : [];
                 kupListData.options = options?.columns ?? [];
             } else {
@@ -2090,10 +2095,10 @@ export class KupInputPanel {
                     // Update the autocomplete list data
                     const kupListData = targetCell.data.data['kup-list'];
                     kupListData.data = filteredRows.length
-                        ? this.#optionsTreeComboAdapter(
+                        ? (this.#optionsTreeComboAdapter(
                               visibleColumnsOptions,
                               cellValue
-                          ) ?? []
+                          ) ?? [])
                         : [];
                     kupListData.options = options.columns ?? [];
 
