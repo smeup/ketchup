@@ -19,8 +19,10 @@
   background-color: var(--kup_card_background_color);
   border-radius: var(--kup-radius-00);
   box-sizing: border-box;
-  box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
-    0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
+  box-shadow:
+    0 2px 1px -1px rgba(128, 128, 128, 0.1),
+    0 1px 1px 0 rgba(128, 128, 128, 0.1),
+    0 1px 3px 0 rgba(128, 128, 128, 0.6);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -111,6 +113,11 @@
   .item-disabled {
     .item-number {
       color: var(--kup-text-disabled);
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--kup_card_selected_color_hover);
+      }
     }
   }
 
