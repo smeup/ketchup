@@ -143,7 +143,7 @@ export const defaultStylingOptions = {
     barProgressSelectedColor: '#A2A415',
     barBackgroundColor: '#A2A415',
     barBackgroundSelectedColor: '#A2A415',
-    barDropZoneColor: '#4d9f0240'
+    barDropZoneColor: '#4d9f0240',
 };
 
 export interface KupPlannerDatesSanitized {
@@ -223,6 +223,20 @@ export interface KupPlannerScheduleItem {
     icon?: KupPlannerTaskIcon;
     startHour?: string;
     endHour?: string;
+}
+
+/** Dependency between tasks */
+export type KupPlannerDependencyType = 'FS' | 'SS' | 'FF' | 'SF';
+
+export interface KupPlannerDependency {
+    /** optional unique id for the dependency */
+    id?: string;
+    /** source task id */
+    sourceId: string;
+    /** target task id */
+    targetId: string;
+    /** dependency type: Finish-Start, Start-Start, Finish-Finish, Start-Finish */
+    type?: KupPlannerDependencyType;
 }
 
 export interface KupPlannerTask {
@@ -336,6 +350,8 @@ export interface KupPlannerGanttProps
         KupPlannerCustomOptions {
     id: string;
     tasks: KupPlannerTask[];
+    /** Structured dependencies to render as arrows */
+    dependencies?: KupPlannerDependency[];
     projection?: KupPlannerGanttPhaseProjection;
     filter: HTMLElement;
     initialScrollX?: number;
@@ -408,7 +424,7 @@ export interface KupPlannerEventOption {
         originalPhaseData: KupPlannerTask,
         originalTaskData: KupPlannerTask,
         finalPhaseData: KupPlannerTask,
-        destinationData: KupPlannerTask,
+        destinationData: KupPlannerTask
     ) => void | boolean | Promise<void> | Promise<boolean>;
 }
 
@@ -503,12 +519,13 @@ export interface KupPlannerBarTask extends KupPlannerTask {
         progressColor: string;
         progressSelectedColor: string;
     };
-    ySecondary?: number 
+    ySecondary?: number;
 }
 
 export type KupPlannerTaskTypeInternal = KupPlannerTaskType | 'smalltask';
 
 export type KupPlannerTaskGanttContentProps = {
+    dependencies: KupPlannerDependency[];
     tasks: KupPlannerBarTask[];
     dates: Date[];
     ganttEvent: KupPlannerGanttEvent;
@@ -664,7 +681,7 @@ export type KupPlannerBarDisplayProps = {
     xSecondary?: number;
     widthSecondary?: number;
     showSecondaryDates: boolean;
-    ySecondary?: number
+    ySecondary?: number;
 };
 
 export type KupPlannerBarDateHandleProps = {
@@ -709,6 +726,8 @@ export interface KupGanttPlannerProps {
     showSecondaryDates?: boolean;
     ganttHeight?: number;
     hideDependencies?: boolean;
+    /** Structured dependencies to render as arrows */
+    dependencies?: KupPlannerDependency[];
     title: string;
     filter: HTMLElement;
     initialScrollX?: number;
@@ -732,6 +751,8 @@ export interface KupGanttPlannerDetailsProps {
     hideLabel?: boolean;
     ganttHeight?: number;
     hideDependencies?: boolean;
+    /** Structured dependencies to render as arrows */
+    dependencies?: KupPlannerDependency[];
     title: string;
     filter: HTMLElement;
     initialScrollX?: number;
