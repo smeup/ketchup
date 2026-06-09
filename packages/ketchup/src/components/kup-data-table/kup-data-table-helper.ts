@@ -998,6 +998,38 @@ export function paginateRows(
     return pagRows;
 }
 
+export function getLazyLoadRowsIncrement(
+    rowsLength: number,
+    currentRowsPerPage: number,
+    loadMoreStep: number
+): number {
+    if (
+        !Number.isFinite(rowsLength) ||
+        !Number.isFinite(currentRowsPerPage) ||
+        !Number.isFinite(loadMoreStep) ||
+        rowsLength <= currentRowsPerPage ||
+        loadMoreStep <= 0
+    ) {
+        return 0;
+    }
+
+    return Math.min(rowsLength - currentRowsPerPage, loadMoreStep);
+}
+
+export function hasMoreLazyLoadRows(
+    rowsLength: number,
+    currentRowsPerPage: number
+): boolean {
+    if (
+        !Number.isFinite(rowsLength) ||
+        !Number.isFinite(currentRowsPerPage)
+    ) {
+        return false;
+    }
+
+    return currentRowsPerPage < rowsLength;
+}
+
 function _paginateRows(
     rows: KupDataTableRow[],
     pagRows: KupDataTableRow[],

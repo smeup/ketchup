@@ -65,7 +65,9 @@ import {
     calcTotals,
     normalizeRows,
     filterRows,
+    getLazyLoadRowsIncrement,
     groupRows,
+    hasMoreLazyLoadRows,
     paginateRows,
     sortRows,
     getDiffData,
@@ -2194,12 +2196,14 @@ export class KupDataTable {
                             this,
                             'Last row entering the viewport, loading more elements.'
                         );
-                        const delta =
-                            this.#rows.length - this.currentRowsPerPage;
-                        if (delta < this.loadMoreStep) {
+                        const delta = getLazyLoadRowsIncrement(
+                            this.#rowsLength,
+                            this.currentRowsPerPage,
+                            this.loadMoreStep
+                        );
+
+                        if (delta > 0) {
                             this.currentRowsPerPage += delta;
-                        } else {
-                            this.currentRowsPerPage += this.loadMoreStep;
                         }
                         entry.target.classList.remove('last-row');
                     }
@@ -2630,10 +2634,15 @@ export class KupDataTable {
     }
 
     #didRenderObservers() {
-        if (this.#paginatedRowsLength < this.#rowsLength && this.lazyLoadRows) {
-            this.#intObserver.observe(
-                this.#rowsRefs[this.#paginatedRowsLength - 1]
-            );
+        if (
+            this.lazyLoadRows &&
+            hasMoreLazyLoadRows(this.#rowsLength, this.currentRowsPerPage)
+        ) {
+            const lastRow = this.#rowsRefs[this.#rowsRefs.length - 1];
+
+            if (lastRow) {
+                this.#intObserver.observe(lastRow);
+            }
         }
     }
 
