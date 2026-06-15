@@ -1154,6 +1154,7 @@ export class KupDataTable {
     #insertCount = 0;
     #lastFocusedColumn: KupDataColumn = null;
     #lastFocusedCell: KupDataTableCell = null;
+    #lastFocusedCellElement: HTMLElement = null;
     #lastFocusedRow: KupDataTableRow = null;
     #maxRowsPerPage: number;
 
@@ -1903,7 +1904,7 @@ export class KupDataTable {
         );
         for (let index = 0; cells && index < cells.length; index++) {
             const cell = cells[index];
-            if (cell['data-row'] && cell['data-row'].id == rowId) {
+            if ((cell as HTMLElement).dataset.rowId === rowId) {
                 const input = cell.querySelector('input');
                 if (input) {
                     input.focus();
@@ -2250,6 +2251,49 @@ export class KupDataTable {
         } else {
             return this.#_getRow(id, this.#rows);
         }
+    }
+
+    #getRowFromElement(el: HTMLElement): KupDataTableRow {
+        const rowId = el?.dataset?.rowId;
+        return rowId ? (this.#getRow(rowId) as KupDataTableRow) : null;
+    }
+
+    #getCellFromElement(el: HTMLElement): KupDataTableCell {
+        const columnName = el?.dataset?.column;
+        const row = el ? this.#getRowFromElement(el.closest('tr')) : null;
+        return row && columnName ? row.cells?.[columnName] : null;
+    }
+
+    #getFCellProps(rowId: string, columnName: string): FCellProps {
+        const row = this.#getRow(rowId) as KupDataTableRow;
+        const column = getColumnByName(this.getColumns(), columnName);
+        const cell = row?.cells?.[columnName];
+        return {
+            ...this.#kupManager.data.cell.buildFCell(cell, column, row),
+            component: this,
+            density: this.density,
+            editable: this.editableData || this.updatableData,
+            renderKup: this.lazyLoadCells,
+        } as FCellProps;
+    }
+
+    #getRenderedCellElement(
+        row: KupDataTableRow,
+        column: KupDataColumn
+    ): HTMLElement {
+        if (!row || !column) {
+            return null;
+        }
+        const cells = this.rootElement.shadowRoot.querySelectorAll(
+            'td[data-column="' + column.name + '"]'
+        );
+        for (let i = 0; i < cells.length; i++) {
+            const td = cells[i] as HTMLElement;
+            if (td.dataset.rowId === row.id) {
+                return td.querySelector('.f-cell') as HTMLElement;
+            }
+        }
+        return null;
     }
 
     #_getRow(id: string | number, rows: KupDataTableRow[]): KupDataTableRow {
@@ -2981,6 +3025,15 @@ export class KupDataTable {
         this.persistState();
         // ***
         this.#oldWidth = this.rootElement.clientWidth;
+        if (
+            this.#lastFocusedCellElement &&
+            !this.#lastFocusedCellElement.isConnected
+        ) {
+            this.#lastFocusedCellElement = this.#getRenderedCellElement(
+                this.#lastFocusedRow,
+                this.#lastFocusedColumn
+            );
+        }
         this.#kupManager.debug.logRender(this, true);
         this.#kupManager.perfMonitoring.measure(
             'componentDidRender',
@@ -3657,15 +3710,21 @@ export class KupDataTable {
                 if (tr.classList.contains('group')) {
                     isGroupRow = true;
                 }
-                row = tr['data-row'];
+                row = this.#getRowFromElement(tr);
             }
         }
         if (isHeader || isBody) {
             if (td) {
-                cell = td['data-cell'];
+                cell = this.#getCellFromElement(td);
             }
             if (th) {
-                cell = th['data-cell'];
+                const columnName = th.dataset.column;
+                cell = columnName
+                    ? (getColumnByName(
+                          this.getColumns(),
+                          columnName
+                      ) as unknown as KupDataTableCell)
+                    : null;
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -3781,10 +3840,11 @@ export class KupDataTable {
             x = elCoords.x + elCoords.width / 2;
             y = elCoords.y + elCoords.height / 2;
         } else {
-            const elCoords = details.cell?.element?.getBoundingClientRect() ?? {
-                x: 0,
-                y: 0,
-            };
+            const elCoords =
+                this.#lastFocusedCellElement?.getBoundingClientRect() ?? {
+                    x: 0,
+                    y: 0,
+                };
             x = elCoords.x;
             y = elCoords.y;
         }
@@ -3799,6 +3859,8 @@ export class KupDataTable {
 
         const { cell, column } = details;
         this.#lastFocusedCell = cell;
+        this.#lastFocusedCellElement =
+            details.td?.querySelector('.f-cell') ?? null;
         this.#lastFocusedColumn = column;
         this.#lastFocusedRow = undefined;
 
@@ -4384,18 +4446,17 @@ export class KupDataTable {
     #horNav = (isRight: boolean) => {
         if (
             !this.#lastFocusedCell ||
+            !this.#lastFocusedCellElement ||
             this.selection == SelectionMode.MULTIPLE
         ) {
             return;
         }
         //this.#resetSelectedRows(true);
 
-        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
+        const tr = this.#lastFocusedCellElement.closest('tr:not(.group)');
         const cells = tr.querySelectorAll('.f-cell');
 
-        const oldIndex = Array.from(cells).indexOf(
-            this.#lastFocusedCell.element
-        );
+        const oldIndex = Array.from(cells).indexOf(this.#lastFocusedCellElement);
 
         let newIndex = isRight ? oldIndex + 1 : oldIndex - 1;
         if (newIndex < 0) {
@@ -4409,20 +4470,22 @@ export class KupDataTable {
 
         this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
         this.#lastFocusedCell = focusedProps.cell;
+        this.#lastFocusedCellElement = focused as HTMLElement;
     };
 
     #verNav = (isDown: boolean) => {
         if (
             !this.#lastFocusedCell ||
+            !this.#lastFocusedCellElement ||
             this.selection == SelectionMode.MULTIPLE
         ) {
             return;
         }
         //this.#resetSelectedRows(true);
 
-        const tr = this.#lastFocusedCell.element.closest('tr:not(.group)');
+        const tr = this.#lastFocusedCellElement.closest('tr:not(.group)');
         const cellXIndex = Array.from(tr.querySelectorAll('.f-cell')).indexOf(
-            this.#lastFocusedCell.element
+            this.#lastFocusedCellElement
         );
         const rows = tr.parentElement.querySelectorAll('tr:not(.group)');
         const index = Array.from(rows).indexOf(tr);
@@ -4439,6 +4502,7 @@ export class KupDataTable {
         const focused = focusedCells[cellXIndex];
         const focusedProps: FCellProps = focused['kup-get-cell-props']();
         this.#lastFocusedCell = focusedProps.cell;
+        this.#lastFocusedCellElement = focused as HTMLElement;
 
         this.#onRowClick(focusedProps.row, focused.closest('td'), true, true);
     };
@@ -5248,7 +5312,6 @@ export class KupDataTable {
                 return (
                     <th
                         ref={(el: HTMLElement) => this.#thRefs.push(el)}
-                        data-cell={column}
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
@@ -5874,7 +5937,7 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
-                        data-row={row}
+                        data-row-id={row.id}
                         class="group group-label"
                     >
                         {grouplabelcell}
@@ -5884,7 +5947,7 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
-                        data-row={row}
+                        data-row-id={row.id}
                         class="group group-total"
                     >
                         {cells}
@@ -5920,7 +5983,7 @@ export class KupDataTable {
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
                         data-id={row.id}
-                        data-row={row}
+                        data-row-id={row.id}
                         class="group"
                     >
                         <td colSpan={this.#calculateColspan()}>
@@ -6131,11 +6194,14 @@ export class KupDataTable {
 
                 if (!cell) {
                     if (this.autoFillMissingCells) {
-                        return <td data-column={name} data-row={row}></td>;
+                        return (
+                            <td data-column={name} data-row-id={row.id}></td>
+                        );
                     } else {
                         return null;
                     }
                 }
+                const rowId = row.id;
                 cell.isEditable = this.#setCellEditability(
                     currentColumn,
                     row,
@@ -6171,6 +6237,7 @@ export class KupDataTable {
                             ? (previousRow.cells[name].decode ??
                               previousRow.cells[name].value)
                             : undefined,
+                    getCellProps: () => this.#getFCellProps(rowId, name),
                     renderKup: this.lazyLoadCells,
                     cellActionIcon: this.#kupManager.data.cell.hasActionCell(
                         cell,
@@ -6254,9 +6321,8 @@ export class KupDataTable {
                         rowSpan={
                             cell.span && cell.span.row ? cell.span.row : null
                         }
-                        data-cell={cell}
                         data-column={name}
-                        data-row={row}
+                        data-row-id={row.id}
                         style={cellStyle}
                         class={cellClass}
                         {...eventHandlers}
@@ -6283,7 +6349,7 @@ export class KupDataTable {
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
                     data-id={row.id}
-                    data-row={row}
+                    data-row-id={row.id}
                     class={rowClass}
                 >
                     {selectRowCell}
@@ -7713,6 +7779,7 @@ export class KupDataTable {
         if (this.#columnMenuCard) {
             this.#columnMenuCard.remove();
         }
+        this.#lastFocusedCellElement = null;
         if (this.scrollOnHover) {
             this.#kupManager.scrollOnHover.unregister(this.#tableAreaRef);
         }
