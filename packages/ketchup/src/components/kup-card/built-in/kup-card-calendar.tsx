@@ -4,15 +4,11 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../../f-components/f-button/f-button-declarations';
-import {
-    KupDateTimeFormatOptionsMonth,
-    KupDatesFormats,
-} from '../../../managers/kup-dates/kup-dates-declarations';
+import { KupDateTimeFormatOptionsMonth } from '../../../managers/kup-dates/kup-dates-declarations';
 import {
     KupDom,
     KupManager,
 } from '../../../managers/kup-manager/kup-manager-declarations';
-import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
 import {
@@ -260,16 +256,31 @@ function createDaysCalendar(component: KupCard) {
     let daysForRowAdded = 0;
     const showPreviousNextMonthDays = isShowPreviousNextMonthDays(component);
     let substractDays = 0;
+
+    const prevMonth = lastPreviousMonthDate.getMonth(); // già il mese corretto
+    const prevYear = lastPreviousMonthDate.getFullYear();
+
     while (!finish) {
         if (currentDayIndex == firstMonthDayIndex) {
             break;
         }
+        const prevDay = lastPreviousMonthDate.getDate() - substractDays++;
+        const prevDataIndex =
+            prevYear.toString() +
+            '-' +
+            fillString((prevMonth + 1).toString(), '0', 2, true) +
+            '-' +
+            fillString(prevDay.toString(), '0', 2, true);
+
         row.unshift(
             <td class="item-disabled">
-                <span class="item-number">
-                    {showPreviousNextMonthDays
-                        ? lastPreviousMonthDate.getDate() - substractDays++
-                        : ''}
+                <span
+                    class="item-number"
+                    onClick={() =>
+                        onCalendarItemClick(component, prevDataIndex)
+                    }
+                >
+                    {showPreviousNextMonthDays ? prevDay : ''}
                 </span>
             </td>
         );
@@ -331,11 +342,30 @@ function createDaysCalendar(component: KupCard) {
             }
         }
         let nextMonthDay = 1;
+
+        // Il mese successivo: se selectedMonth è 11, si va a gennaio dell'anno dopo
+        const nextMonthNum = selectedMonth === 11 ? 0 : selectedMonth + 1;
+        const nextYearNum =
+            selectedMonth === 11 ? selectedYear + 1 : selectedYear;
+
         for (let i = currentRowLastItem + 1; i < 7; i++) {
+            const nextDay = nextMonthDay++;
+            const nextDateIndex =
+                nextYearNum.toString() +
+                '-' +
+                fillString((nextMonthNum + 1).toString(), '0', 2, true) +
+                '-' +
+                fillString(nextDay.toString(), '0', 2, true);
+
             row.push(
                 <td class="item-disabled">
-                    <span class="item-number">
-                        {showPreviousNextMonthDays ? nextMonthDay++ : ''}
+                    <span
+                        class="item-number"
+                        onClick={() =>
+                            onCalendarItemClick(component, nextDateIndex)
+                        }
+                    >
+                        {showPreviousNextMonthDays ? nextDay : ''}
                     </span>
                 </td>
             );
