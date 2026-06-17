@@ -942,6 +942,27 @@ export class KupDataTable {
     }
 
     @Watch('data')
+    checkHiddenColumnErrors() {
+        if (!this.showMessage || !this.data?.rows || !this.data?.columns) {
+            return;
+        }
+        const hasHiddenError = this.data.rows.some((row) =>
+            this.data.columns.some(
+                (column) =>
+                    column.visible === false &&
+                    row.cells?.[column.name]?.data?.error
+            )
+        );
+        if (hasHiddenError) {
+            this.showMessage(
+                this.#kupManager.language.translate(
+                    KupLanguageRow.ERRORS_IN_ROWS
+                )
+            );
+        }
+    }
+
+    @Watch('data')
     identifyAndInitRows() {
         if (this.data.rows.filter((r) => r.id == undefined).length) {
             identify(this.getRows());
@@ -2989,27 +3010,18 @@ export class KupDataTable {
 
         // Focus first editable cell with an error
         if (this.data?.rows && this.data?.columns && this.#paginatedRows) {
-            let hasHiddenError = false;
             outerLoop: for (const row of this.#paginatedRows) {
                 for (const column of this.data.columns) {
                     const cell = row.cells?.[column.name];
-                    if (cell?.data?.error) {
-                        if (column.visible !== false) {
-                            if (this.#getCellEditability(column, row, cell)) {
-                                this.setFocus(column.name, row.id);
-                                break outerLoop;
-                            }
-                        } else {
-                            hasHiddenError = true;
-                        }
+                    if (
+                        cell?.data?.error &&
+                        column.visible !== false &&
+                        this.#getCellEditability(column, row, cell)
+                    ) {
+                        this.setFocus(column.name, row.id);
+                        break outerLoop;
                     }
                 }
-            }
-            if (hasHiddenError && this.showMessage) {
-                const msg = this.#kupManager.language.translate(
-                    KupLanguageRow.ERRORS_IN_ROWS
-                );
-                this.showMessage(msg);
             }
         }
 
