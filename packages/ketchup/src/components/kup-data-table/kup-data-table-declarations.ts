@@ -80,6 +80,7 @@ export enum KupDataTableProps {
     updatableData = 'When set to true, editable cells will be rendered using input components and update button will appair below the matrix',
     updateOnClick = 'When set to true, editable checkbox will call update',
     visibleColumns = 'Defines the columns that are visible in the table',
+    showMessage = 'Callback invoked to display an error message (e.g. errors on hidden columns). When provided, the default built-in dialog is not shown.',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
@@ -310,16 +311,14 @@ export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     row: KupDataRow;
 }
 
-export interface KupDatatableRowActionClickEventPayload
-    extends KupEventPayload {
+export interface KupDatatableRowActionClickEventPayload extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
     row: KupDataRow;
     action?: KupDataRowAction;
     index?: number;
 }
 
-export interface KupDatatableRowActionItemClickEventPayload
-    extends KupEventPayload {
+export interface KupDatatableRowActionItemClickEventPayload extends KupEventPayload {
     row: KupDataRow;
     type:
         | DropDownAction.CODVER
@@ -331,8 +330,7 @@ export interface KupDatatableRowActionItemClickEventPayload
     index?: number;
 }
 
-export interface KupDataTableCellButtonClickEventPayload
-    extends KupEventPayload {
+export interface KupDataTableCellButtonClickEventPayload extends KupEventPayload {
     cell: KupDataTableCell;
     column: KupDataColumn;
     row: KupDataRow;
