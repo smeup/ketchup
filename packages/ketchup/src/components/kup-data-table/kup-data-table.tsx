@@ -843,6 +843,11 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) visibleColumns: string[];
     /**
+     * Callback invoked to display an error message (e.g. errors on hidden columns).
+     * When provided, the built-in dialog is not shown and the consumer is responsible for the display.
+     */
+    @Prop() showMessage: (message: string) => void;
+    /**
      *
      */
     @Prop({ mutable: true }) pendingRowsToUpdate: KupDataRow[] = [];
@@ -2981,6 +2986,33 @@ export class KupDataTable {
         this.persistState();
         // ***
         this.#oldWidth = this.rootElement.clientWidth;
+
+        // Focus first editable cell with an error
+        if (this.data?.rows && this.data?.columns && this.#paginatedRows) {
+            let hasHiddenError = false;
+            outerLoop: for (const row of this.#paginatedRows) {
+                for (const column of this.data.columns) {
+                    const cell = row.cells?.[column.name];
+                    if (cell?.data?.error) {
+                        if (column.visible !== false) {
+                            if (this.#getCellEditability(column, row, cell)) {
+                                this.setFocus(column.name, row.id);
+                                break outerLoop;
+                            }
+                        } else {
+                            hasHiddenError = true;
+                        }
+                    }
+                }
+            }
+            if (hasHiddenError && this.showMessage) {
+                const msg = this.#kupManager.language.translate(
+                    KupLanguageRow.ERRORS_IN_ROWS
+                );
+                this.showMessage(msg);
+            }
+        }
+
         this.#kupManager.debug.logRender(this, true);
         this.#kupManager.perfMonitoring.measure(
             'componentDidRender',
@@ -4188,7 +4220,7 @@ export class KupDataTable {
         }
     }
 
-    #setCellEditability(
+    #getCellEditability(
         column: KupDataColumn,
         row: KupDataTableRow,
         cell: KupDataTableCell
@@ -6136,7 +6168,7 @@ export class KupDataTable {
                         return null;
                     }
                 }
-                cell.isEditable = this.#setCellEditability(
+                cell.isEditable = this.#getCellEditability(
                     currentColumn,
                     row,
                     cell
