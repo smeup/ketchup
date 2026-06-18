@@ -2005,10 +2005,11 @@ export class KupDataTable {
         }
 
         if (emitEvent !== false) {
+            const selectedRowsSnapshot = [...this.selectedRows];
             this.kupRowSelected.emit({
                 comp: this,
                 id: this.rootElement.id,
-                selectedRows: this.selectedRows,
+                selectedRows: selectedRowsSnapshot,
                 clickedColumn: null,
                 clickedRow: null,
             });
@@ -2025,6 +2026,7 @@ export class KupDataTable {
         const row = this.#getRow(id);
 
         if (row) {
+            //console.log('scrollToRow', row);
             const start = (this.currentPage - 1) * this.currentRowsPerPage;
             const end = this.currentPage * this.currentRowsPerPage;
             const index = this.#rows.indexOf(row) % (end - start);
@@ -3848,6 +3850,7 @@ export class KupDataTable {
     }
 
     #clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        //console.log('clickHandler', e);
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
@@ -4619,6 +4622,7 @@ export class KupDataTable {
         emitEvent?: boolean,
         isKeyboardNav = false
     ) {
+        //console.log('Row clicked:', row, 'TD:', td, 'Emit event:', emitEvent);
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -4656,11 +4660,12 @@ export class KupDataTable {
             this.#selectColumn(this.selectedColumn);
 
             if (emitEvent !== false) {
+                const selectedRowsSnapshot = [...this.selectedRows];
                 // emit event
                 this.kupRowSelected.emit({
                     comp: this,
                     id: this.rootElement.id,
-                    selectedRows: this.selectedRows,
+                    selectedRows: selectedRowsSnapshot,
                     clickedRow: row,
                     clickedColumn,
                     isKeyboardNav,
@@ -4720,10 +4725,11 @@ export class KupDataTable {
             this.selectedRows.splice(index, 1);
             this.selectedRows = [...this.selectedRows];
         }
+        const selectedRowsSnapshot = [...this.selectedRows];
         this.kupRowSelected.emit({
             comp: this,
             id: this.rootElement.id,
-            selectedRows: this.selectedRows,
+            selectedRows: selectedRowsSnapshot,
             clickedRow: null,
             clickedColumn: null,
         });
@@ -4743,12 +4749,13 @@ export class KupDataTable {
     #onSelectAll({ target }) {
         if (target.checked) {
             // select all rows
-            this.selectedRows = this.#renderedRows;
+            this.selectedRows = [...this.#renderedRows];
             // triggering event
+            const selectedRowsSnapshot = [...this.selectedRows];
             this.kupRowSelected.emit({
                 comp: this,
                 id: this.rootElement.id,
-                selectedRows: this.selectedRows,
+                selectedRows: selectedRowsSnapshot,
                 clickedColumn: null,
                 clickedRow: null,
             });
@@ -7204,6 +7211,7 @@ export class KupDataTable {
     }
 
     componentShouldUpdate(_newValue: any, _oldValue: any, propName: string) {
+        //console.log('componentShouldUpdate', propName, _newValue, _oldValue);
         switch (propName) {
             case 'columnMenuAnchor':
                 return false;
@@ -7214,6 +7222,7 @@ export class KupDataTable {
     }
 
     render() {
+        //console.log('kup-data-table render');
         this.#kupManager.perfMonitoring.mark('componentRender');
         this.#thRefs = [];
         this.#rowsRefs = [];
