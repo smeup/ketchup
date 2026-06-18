@@ -942,6 +942,27 @@ export class KupDataTable {
     }
 
     @Watch('data')
+    checkFocusErrorCell() {
+        this.#cellToFocus = null;
+        if (!this.data?.rows || !this.data?.columns) {
+            return;
+        }
+        outer: for (const row of this.data.rows) {
+            for (const col of this.data.columns) {
+                const cell = row.cells?.[col.name];
+                if (
+                    cell?.data?.error &&
+                    col.visible !== false &&
+                    this.#getCellEditability(col, row, cell)
+                ) {
+                    this.#cellToFocus = { column: col.name, rowId: row.id };
+                    break outer;
+                }
+            }
+        }
+    }
+
+    @Watch('data')
     checkHiddenColumnErrors() {
         if (!this.showMessage || !this.data?.rows || !this.data?.columns) {
             return;
@@ -1079,6 +1100,7 @@ export class KupDataTable {
     }
 
     #initialized = false;
+    #cellToFocus: { column: string; rowId: string } | null = null;
     #rows: Array<KupDataTableRow>;
     #rowsLength: number = 0;
 
@@ -3009,20 +3031,10 @@ export class KupDataTable {
         this.#oldWidth = this.rootElement.clientWidth;
 
         // Focus first editable cell with an error
-        if (this.data?.rows && this.data?.columns && this.#paginatedRows) {
-            outerLoop: for (const row of this.#paginatedRows) {
-                for (const column of this.data.columns) {
-                    const cell = row.cells?.[column.name];
-                    if (
-                        cell?.data?.error &&
-                        column.visible !== false &&
-                        this.#getCellEditability(column, row, cell)
-                    ) {
-                        this.setFocus(column.name, row.id);
-                        break outerLoop;
-                    }
-                }
-            }
+        if (this.#cellToFocus) {
+            const { column, rowId } = this.#cellToFocus;
+            this.#cellToFocus = null;
+            this.setFocus(column, rowId);
         }
 
         this.#kupManager.debug.logRender(this, true);
