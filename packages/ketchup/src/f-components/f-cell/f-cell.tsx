@@ -247,19 +247,14 @@ export const FCell: FunctionalComponent<FCellProps> = (
         }
     }
 
-    const getCellProps = props.getCellProps;
-
     return (
         <div
             onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
             class={classObj}
-            kup-get-cell-props={
-                getCellProps
-                    ? getCellProps
-                    : () => {
-                          return props;
-                      }
-            }
+            kup-get-cell-props={() => {
+                return props;
+            }}
+            ref={(el) => (cell.element = el)}
             style={cell.style}
         >
             <div
@@ -1677,7 +1672,7 @@ function cellEvent(
                 event: e,
                 row: row,
                 type: cellType,
-                inputValue: getInputValueFromEvent(e),
+                inputValue: cell.element?.querySelector('input')?.value || null,
             },
         });
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
@@ -1693,22 +1688,6 @@ function cellEvent(
             }
         }
     }
-}
-
-function getInputValueFromEvent(
-    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent | FocusEvent
-): string {
-    const target = e.target as HTMLElement;
-    if (!target) {
-        return null;
-    }
-    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-        return (target as HTMLInputElement).value;
-    }
-    if (!target.closest) {
-        return null;
-    }
-    return target.closest('.f-cell')?.querySelector('input')?.value || null;
 }
 
 function getValueFromEventTarget(

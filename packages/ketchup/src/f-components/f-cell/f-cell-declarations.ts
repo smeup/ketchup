@@ -22,7 +22,6 @@ export interface FCellProps extends FComponent {
     column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
-    getCellProps?: () => FCellProps;
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
