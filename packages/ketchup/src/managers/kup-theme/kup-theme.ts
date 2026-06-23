@@ -226,6 +226,19 @@ export class KupTheme {
             sheet.replaceSync(this.getSharedStyle(tagName as KupTagNames));
         });
     }
+    private hasManagedComponentForTag(tagName: KupTagNames): boolean {
+        for (const comp of this.managedComponents) {
+            const compTagName = comp.tagName as KupTagNames;
+            if (
+                compTagName === tagName &&
+                this.adoptedStyleSheetsTargets.has(compTagName) &&
+                comp.isConnected
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Sets the theme using this.name or the function's argument.
      * @param {string} name - When present, this theme will be set.
@@ -321,6 +334,13 @@ export class KupTheme {
             this.managedComponents.delete(
                 comp.rootElement ? comp.rootElement : comp
             );
+        }
+
+        if (this.supportsConstructable) {
+            const tagName: KupTagNames = comp.tagName as KupTagNames;
+            if (!this.hasManagedComponentForTag(tagName)) {
+                this.sharedSheets.delete(tagName);
+            }
         }
     }
     /**
