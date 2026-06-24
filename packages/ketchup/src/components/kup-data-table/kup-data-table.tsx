@@ -2217,6 +2217,9 @@ export class KupDataTable {
         this.#kupManager.dynamicPosition.stop(
             this.#columnDropCard as KupDynamicPositionElement
         );
+        this.#kupManager.dynamicPosition.unregister([
+            this.#columnDropCard as KupDynamicPositionElement,
+        ]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#columnDropCard.remove();
         this.#columnDropCard = null;
@@ -3419,6 +3422,9 @@ export class KupDataTable {
         this.#kupManager.dynamicPosition.stop(
             this.#actionsCard as KupDynamicPositionElement
         );
+        this.#kupManager.dynamicPosition.unregister([
+            this.#actionsCard as KupDynamicPositionElement,
+        ]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#actionsCard.remove();
         this.#actionsCard = null;
@@ -4764,6 +4770,16 @@ export class KupDataTable {
 
     #closeTotalMenu() {
         this.openedTotalMenu = null;
+        const menu: HTMLKupListElement =
+            this.rootElement.shadowRoot?.querySelector('#totals-menu');
+        if (menu) {
+            this.#kupManager.dynamicPosition.stop(
+                menu as unknown as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                menu as unknown as KupDynamicPositionElement,
+            ]);
+        }
         this.#kupManager.removeClickCallback(this.#clickCb);
     }
 
@@ -7754,6 +7770,32 @@ export class KupDataTable {
             this.#kupManager.dynamicPosition.unregister([
                 this.#customizeTopPanelRef,
             ]);
+        if (this.#columnDropCard) {
+            this.#kupManager.dynamicPosition.stop(
+                this.#columnDropCard as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                this.#columnDropCard as KupDynamicPositionElement,
+            ]);
+        }
+        if (this.#actionsCard) {
+            this.#kupManager.dynamicPosition.stop(
+                this.#actionsCard as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                this.#actionsCard as KupDynamicPositionElement,
+            ]);
+        }
+        const totalMenu: HTMLKupListElement =
+            this.rootElement.shadowRoot?.querySelector('#totals-menu');
+        if (totalMenu) {
+            this.#kupManager.dynamicPosition.stop(
+                totalMenu as unknown as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                totalMenu as unknown as KupDynamicPositionElement,
+            ]);
+        }
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'
