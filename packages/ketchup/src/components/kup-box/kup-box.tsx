@@ -2199,7 +2199,9 @@ export class KupBox {
 
     disconnectedCallback() {
         this.#kupManager.interact.unregister(
-            this.interactableDrag.concat(this.interactableDrop)
+            this.interactableDrag
+                .concat(this.interactableDrop)
+                .concat(this.interactableTouch)
         );
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
