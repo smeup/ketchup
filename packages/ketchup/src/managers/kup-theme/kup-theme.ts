@@ -61,6 +61,67 @@ export class KupTheme {
     managedComponents: Set<KupComponent>;
     name: string;
     styleTag: HTMLStyleElement;
+    private supportsConstructable: boolean =
+        typeof window !== 'undefined' &&
+        typeof window.CSSStyleSheet !== 'undefined' &&
+        'adoptedStyleSheets' in Document.prototype &&
+        'adoptedStyleSheets' in ShadowRoot.prototype;
+    private adoptedStyleSheetsTargets: Set<string> = new Set([
+        'KUP-AUTOCOMPLETE',
+        'KUP-ACCORDION',
+        'KUP-ACTIVITY-TIMELINE',
+        'KUP-BADGE',
+        'KUP-BUTTON',
+        'KUP-BUTTON-LIST',
+        'KUP-BOX',
+        'KUP-CARD',
+        'KUP-CARD-LIST',
+        'KUP-CALENDAR',
+        'KUP-CHIP',
+        'KUP-CHECKBOX',
+        'KUP-CHART',
+        'KUP-COLOR-PICKER',
+        'KUP-COMBOBOX',
+        'KUP-DASHBOARD',
+        'KUP-DATA-TABLE',
+        'KUP-DATE-PICKER',
+        'KUP-DIALOG',
+        'KUP-DROPDOWN-BUTTON',
+        'KUP-DRAWER',
+        'KUP-ECHART',
+        'KUP-FILE-UPLOAD',
+        'KUP-FAMILY-TREE',
+        'KUP-FORM',
+        'KUP-GAUGE',
+        'KUP-GRID',
+        'KUP-HTM',
+        'KUP-IMAGE',
+        'KUP-IMAGE-LIST',
+        'KUP-INPUT-PANEL',
+        'KUP-LAZY',
+        'KUP-LIST',
+        'KUP-MAGIC-BOX',
+        'KUP-NAV-BAR',
+        'KUP-NUMERIC-PICKER',
+        'KUP-OBJECT-FIELD',
+        'KUP-PLANNER',
+        'KUP-PROGRESS-BAR',
+        'KUP-PROBE',
+        'KUP-RATING',
+        'KUP-RADIO',
+        'KUP-SNACKBAR',
+        'KUP-SPINNER',
+        'KUP-SWITCH',
+        'KUP-TAB-BAR',
+        'KUP-TEXT-FIELD',
+        'KUP-TIME-PICKER',
+        'KUP-TOOLBAR',
+        'KUP-TREE',
+        'KUP-TXT',
+        'KUP-TYPOGRAPHY',
+        'KUP-TYPOGRAPHY-LIST',
+    ]);
+    private sharedSheets: Map<string, CSSStyleSheet> = new Map();
     /**
      * Initializes KupTheme.
      */
@@ -155,6 +216,30 @@ export class KupTheme {
         });
     }
     /**
+     * Updates Constructable StyleSheets stored in cache.
+     */
+    private updateSharedSheets(): void {
+        if (!this.supportsConstructable) {
+            return;
+        }
+        this.sharedSheets.forEach((sheet, tagName) => {
+            sheet.replaceSync(this.getSharedStyle(tagName as KupTagNames));
+        });
+    }
+    private hasManagedComponentForTag(tagName: KupTagNames): boolean {
+        for (const comp of this.managedComponents) {
+            const compTagName = comp.tagName as KupTagNames;
+            if (
+                compTagName === tagName &&
+                this.adoptedStyleSheetsTargets.has(compTagName) &&
+                comp.isConnected
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * Sets the theme using this.name or the function's argument.
      * @param {string} name - When present, this theme will be set.
      */
@@ -187,6 +272,7 @@ export class KupTheme {
             this.icons() +
             '}' +
             applicationCSS['default'];
+        this.updateSharedSheets();
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);
@@ -217,6 +303,7 @@ export class KupTheme {
                 this.cssVariables() +
                 this.icons() +
                 '}';
+            this.updateSharedSheets();
             this.customStyle();
             dom.ketchup.debug.logMessage(
                 'kup-theme',
@@ -248,24 +335,30 @@ export class KupTheme {
                 comp.rootElement ? comp.rootElement : comp
             );
         }
+
+        if (this.supportsConstructable) {
+            const tagName: KupTagNames = comp.tagName as KupTagNames;
+            if (!this.hasManagedComponentForTag(tagName)) {
+                this.sharedSheets.delete(tagName);
+            }
+        }
     }
     /**
      * Combines global (style every component should have), theme's and component's customStyles, returning the result.
      * @param comp - The component calling this function.
      * @returns {string} Combined customStyle.
      */
-    setKupStyle(comp: KupComponent): string {
+    /**
+     * Helper to get the shared style (components common styles, global and component overrides, F-components styles).
+     */
+    private getSharedStyle(tagName: KupTagNames): string {
         const styles: GenericObject = this.list[this.name].customStyles;
-        const tagName: KupTagNames = comp.tagName as KupTagNames;
         let completeStyle = componentCSS['default'];
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
         }
-        if (styles && styles[comp.tagName]) {
-            completeStyle += ' ' + styles[comp.tagName];
-        }
-        if (comp.customStyle) {
-            completeStyle += ' ' + comp.customStyle;
+        if (styles && styles[tagName]) {
+            completeStyle += ' ' + styles[tagName];
         }
         if (tagName) {
             if (fButtonUsers.includes(tagName)) {
@@ -313,6 +406,42 @@ export class KupTheme {
             if (fObjectFieldUsers.includes(tagName)) {
                 completeStyle += fObjectFieldCSS['default'];
             }
+        }
+        return completeStyle;
+    }
+    /**
+     * Combines global (style every component should have), theme's and component's customStyles, returning the result.
+     * @param comp - The component calling this function.
+     * @returns {string} Combined customStyle.
+     */
+    setKupStyle(comp: KupComponent): string {
+        const tagName: KupTagNames = comp.tagName as KupTagNames;
+        const hasAdoptedSupport =
+            this.supportsConstructable &&
+            this.adoptedStyleSheetsTargets.has(tagName);
+
+        if (hasAdoptedSupport) {
+            const shadowRoot = comp.shadowRoot;
+            if (shadowRoot) {
+                let sheet = this.sharedSheets.get(tagName);
+                if (!sheet) {
+                    sheet = new CSSStyleSheet();
+                    sheet.replaceSync(this.getSharedStyle(tagName));
+                    this.sharedSheets.set(tagName, sheet);
+                }
+                if (!shadowRoot.adoptedStyleSheets.includes(sheet)) {
+                    shadowRoot.adoptedStyleSheets = [
+                        ...shadowRoot.adoptedStyleSheets,
+                        sheet,
+                    ];
+                }
+            }
+            return comp.customStyle ? comp.customStyle : null;
+        }
+
+        let completeStyle = this.getSharedStyle(tagName);
+        if (comp.customStyle) {
+            completeStyle += ' ' + comp.customStyle;
         }
         return completeStyle ? completeStyle : null;
     }

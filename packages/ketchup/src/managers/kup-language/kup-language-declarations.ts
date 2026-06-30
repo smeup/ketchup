@@ -218,6 +218,7 @@ export enum KupLanguagePage {
 export enum KupLanguageRow {
     DETAIL = 'rowDetail',
     EDITABLE_KEY = 'rowEditableKey',
+    ERRORS_IN_ROWS = 'rowErrorsInRows',
     KEY = 'rowKey',
     NEXT = 'rowNext',
     PREVIOUS = 'rowPrevious',

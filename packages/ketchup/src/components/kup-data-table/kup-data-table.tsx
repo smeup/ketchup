@@ -843,6 +843,11 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) visibleColumns: string[];
     /**
+     * Callback invoked to display an error message (e.g. errors on hidden columns).
+     * When provided, the built-in dialog is not shown and the consumer is responsible for the display.
+     */
+    @Prop() showMessage: (message: string) => void;
+    /**
      *
      */
     @Prop({ mutable: true }) pendingRowsToUpdate: KupDataRow[] = [];
@@ -933,6 +938,48 @@ export class KupDataTable {
     recalculateRows() {
         if (!this.#isRestoringState) {
             this.#initRows();
+        }
+    }
+
+    @Watch('data')
+    checkFocusErrorCell() {
+        this.#cellToFocus = null;
+        if (!this.data?.rows || !this.data?.columns) {
+            return;
+        }
+        outer: for (const row of this.data.rows) {
+            for (const col of this.data.columns) {
+                const cell = row.cells?.[col.name];
+                if (
+                    cell?.data?.error &&
+                    col.visible !== false &&
+                    this.#getCellEditability(col, row, cell)
+                ) {
+                    this.#cellToFocus = { column: col.name, rowId: row.id };
+                    break outer;
+                }
+            }
+        }
+    }
+
+    @Watch('data')
+    checkHiddenColumnErrors() {
+        if (!this.showMessage || !this.data?.rows || !this.data?.columns) {
+            return;
+        }
+        const hasHiddenError = this.data.rows.some((row) =>
+            this.data.columns.some(
+                (column) =>
+                    column.visible === false &&
+                    row.cells?.[column.name]?.data?.error
+            )
+        );
+        if (hasHiddenError) {
+            this.showMessage(
+                this.#kupManager.language.translate(
+                    KupLanguageRow.ERRORS_IN_ROWS
+                )
+            );
         }
     }
 
@@ -1053,6 +1100,7 @@ export class KupDataTable {
     }
 
     #initialized = false;
+    #cellToFocus: { column: string; rowId: string } | null = null;
     #rows: Array<KupDataTableRow>;
     #rowsLength: number = 0;
 
@@ -2169,6 +2217,9 @@ export class KupDataTable {
         this.#kupManager.dynamicPosition.stop(
             this.#columnDropCard as KupDynamicPositionElement
         );
+        this.#kupManager.dynamicPosition.unregister([
+            this.#columnDropCard as KupDynamicPositionElement,
+        ]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#columnDropCard.remove();
         this.#columnDropCard = null;
@@ -2981,6 +3032,14 @@ export class KupDataTable {
         this.persistState();
         // ***
         this.#oldWidth = this.rootElement.clientWidth;
+
+        // Focus first editable cell with an error
+        if (this.#cellToFocus) {
+            const { column, rowId } = this.#cellToFocus;
+            this.#cellToFocus = null;
+            this.setFocus(column, rowId);
+        }
+
         this.#kupManager.debug.logRender(this, true);
         this.#kupManager.perfMonitoring.measure(
             'componentDidRender',
@@ -3363,6 +3422,9 @@ export class KupDataTable {
         this.#kupManager.dynamicPosition.stop(
             this.#actionsCard as KupDynamicPositionElement
         );
+        this.#kupManager.dynamicPosition.unregister([
+            this.#actionsCard as KupDynamicPositionElement,
+        ]);
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#actionsCard.remove();
         this.#actionsCard = null;
@@ -4188,7 +4250,7 @@ export class KupDataTable {
         }
     }
 
-    #setCellEditability(
+    #getCellEditability(
         column: KupDataColumn,
         row: KupDataTableRow,
         cell: KupDataTableCell
@@ -4708,6 +4770,16 @@ export class KupDataTable {
 
     #closeTotalMenu() {
         this.openedTotalMenu = null;
+        const menu: HTMLKupListElement =
+            this.rootElement.shadowRoot?.querySelector('#totals-menu');
+        if (menu) {
+            this.#kupManager.dynamicPosition.stop(
+                menu as unknown as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                menu as unknown as KupDynamicPositionElement,
+            ]);
+        }
         this.#kupManager.removeClickCallback(this.#clickCb);
     }
 
@@ -6136,7 +6208,7 @@ export class KupDataTable {
                         return null;
                     }
                 }
-                cell.isEditable = this.#setCellEditability(
+                cell.isEditable = this.#getCellEditability(
                     currentColumn,
                     row,
                     cell
@@ -7698,6 +7770,32 @@ export class KupDataTable {
             this.#kupManager.dynamicPosition.unregister([
                 this.#customizeTopPanelRef,
             ]);
+        if (this.#columnDropCard) {
+            this.#kupManager.dynamicPosition.stop(
+                this.#columnDropCard as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                this.#columnDropCard as KupDynamicPositionElement,
+            ]);
+        }
+        if (this.#actionsCard) {
+            this.#kupManager.dynamicPosition.stop(
+                this.#actionsCard as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                this.#actionsCard as KupDynamicPositionElement,
+            ]);
+        }
+        const totalMenu: HTMLKupListElement =
+            this.rootElement.shadowRoot?.querySelector('#totals-menu');
+        if (totalMenu) {
+            this.#kupManager.dynamicPosition.stop(
+                totalMenu as unknown as KupDynamicPositionElement
+            );
+            this.#kupManager.dynamicPosition.unregister([
+                totalMenu as unknown as KupDynamicPositionElement,
+            ]);
+        }
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'

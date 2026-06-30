@@ -131,8 +131,19 @@ export class KupDynamicPosition {
     unregister(elements: KupDynamicPositionElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
-                this.removeRepositionListeners(elements[index]);
-                this.managedElements.delete(elements[index]);
+                const el = elements[index];
+                this.removeRepositionListeners(el);
+                this.managedElements.delete(el);
+                // If the element was detached (moved to the global container),
+                // remove it from the container to avoid orphaned DOM nodes.
+                if (el?.kupDynamicPosition?.detach && el.parentElement === this.container) {
+                    this.container.removeChild(el);
+                }
+                // Sever all object references (originalPath, anchor, etc.)
+                // so the GC can collect detached ancestor nodes.
+                if (el) {
+                    el.kupDynamicPosition = null;
+                }
             }
         }
     }
@@ -350,32 +361,43 @@ export class KupDynamicPosition {
         window.addEventListener('scroll', repositionListener);
 
         if (el?.kupDynamicPosition?.anchor) {
+            const scrollTargets: HTMLElement[] = [];
             let container = this.getAnchorContainer(el);
 
-            this.updateEventListenerOnAncestors(container, (el) => {
-                if (this.isScrollable(el)) {
-                    el.addEventListener('scroll', repositionListener);
+            this.updateEventListenerOnAncestors(container, (ancestor) => {
+                if (this.isScrollable(ancestor)) {
+                    ancestor.addEventListener('scroll', repositionListener);
+                    scrollTargets.push(ancestor);
                 }
             });
+            // Store which ancestors received scroll listeners for reliable cleanup.
+            if (el.kupDynamicPosition) {
+                el.kupDynamicPosition.scrollListenerTargets = scrollTargets;
+            }
         }
         (el as any)._repositionListener = repositionListener;
     }
 
     removeRepositionListeners(el: KupDynamicPositionElement): void {
         const repositionListener = (el as any)._repositionListener;
+        if (!repositionListener) {
+            return;
+        }
 
         window.removeEventListener('resize', repositionListener);
         window.removeEventListener('scroll', repositionListener);
 
-        if (el?.kupDynamicPosition?.anchor) {
-            let container = this.getAnchorContainer(el);
-
-            this.updateEventListenerOnAncestors(container, (el) => {
-                if (this.isScrollable(el)) {
-                    el.removeEventListener('scroll', repositionListener);
-                }
-            });
+        // Use the stored list of scroll targets for reliable removal:
+        // re-evaluating isScrollable during teardown is unreliable because
+        // computed styles may have changed, causing listeners to leak.
+        const scrollTargets = el?.kupDynamicPosition?.scrollListenerTargets;
+        if (scrollTargets?.length) {
+            for (const target of scrollTargets) {
+                target.removeEventListener('scroll', repositionListener);
+            }
+            el.kupDynamicPosition.scrollListenerTargets = [];
         }
+
         delete (el as any)._repositionListener;
     }
 
