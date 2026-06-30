@@ -38,6 +38,7 @@ import {
     KupCardClickPayload,
     KupCardColorPickerOptions,
 } from './kup-card-declarations';
+import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -670,6 +671,16 @@ export class KupCard {
     }
 
     disconnectedCallback() {
+        if (
+            (this.rootElement as KupDynamicPositionElement).kupDynamicPosition
+        ) {
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as KupDynamicPositionElement
+            );
+            this.kupManager.dynamicPosition.unregister([
+                this.rootElement as KupDynamicPositionElement,
+            ]);
+        }
         this.kupManager.interact.unregister([this.rootElement]);
         this.kupManager.language.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);

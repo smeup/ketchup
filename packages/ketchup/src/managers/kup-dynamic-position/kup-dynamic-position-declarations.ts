@@ -27,6 +27,8 @@ export interface KupDynamicPositionElement extends HTMLElement {
         originalPath: HTMLElement[];
         placement: KupDynamicPositionPlacement;
         rAF: number;
+        /** Elements that had scroll reposition listeners actually attached. */
+        scrollListenerTargets?: HTMLElement[];
     };
 }
 /**

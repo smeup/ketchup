@@ -12,6 +12,7 @@
         "noUnusedLocals": false,
         "noUnusedParameters": true,
         "resolveJsonModule": true,
+        "skipLibCheck": true,
         "target": "es2017",
         "strict": false
     },

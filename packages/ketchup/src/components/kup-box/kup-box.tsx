@@ -427,6 +427,7 @@ export class KupBox {
     #intObserver: IntersectionObserver = undefined;
     #rowsRefs: HTMLElement[] = [];
     #navBarHeight: number = 0;
+    #boundClickFunction = this.clickFunction.bind(this);
 
     #loadMoreEventCounter: number = 0;
     #loadMoreEventPreviousQuantity: number = 0;
@@ -1972,7 +1973,7 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
 
         // When component is created, then the listener is set. @See clickFunction for more details
-        document.addEventListener('click', this.clickFunction.bind(this));
+        document.addEventListener('click', this.#boundClickFunction);
 
         this.currentPage = this.pageSelected;
 
@@ -2198,7 +2199,9 @@ export class KupBox {
 
     disconnectedCallback() {
         this.#kupManager.interact.unregister(
-            this.interactableDrag.concat(this.interactableDrop)
+            this.interactableDrag
+                .concat(this.interactableDrop)
+                .concat(this.interactableTouch)
         );
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
@@ -2206,7 +2209,7 @@ export class KupBox {
             this.#kupManager.scrollOnHover.unregister(this.boxContainer);
         }
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
-        document.removeEventListener('click', this.clickFunction.bind(this));
+        document.removeEventListener('click', this.#boundClickFunction);
         this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
 }

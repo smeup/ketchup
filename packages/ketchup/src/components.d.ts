@@ -1893,6 +1893,10 @@ export namespace Components {
          */
         "showLoadMore": boolean;
         /**
+          * Callback invoked to display an error message (e.g. errors on hidden columns). When provided, the built-in dialog is not shown and the consumer is responsible for the display.
+         */
+        "showMessage": (message: string) => void;
+        /**
           * Set the paginator visibility
          */
         "showPaginator": boolean;
@@ -7910,6 +7914,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore"?: boolean;
+        /**
+          * Callback invoked to display an error message (e.g. errors on hidden columns). When provided, the built-in dialog is not shown and the consumer is responsible for the display.
+         */
+        "showMessage"?: (message: string) => void;
         /**
           * Set the paginator visibility
          */
