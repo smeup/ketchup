@@ -31,6 +31,7 @@
 | --------------------------------------------- | ----------------------------------------- | --------------------------------------------- |
 | `kup-input-panel-ready`                       | When component load is complete           | `CustomEvent<KupEventPayload>`                |
 | `kup-inputpanel-contextmenu`                  | Generic right click event on input panel. | `CustomEvent<KupInputPanelClickEventPayload>` |
+| `kup-inputpanel-datatable-contextmenu`        |                                           | `CustomEvent<KupDatatableClickEventPayload>`  |
 | `kup-inputpanel-objectfield-opensearchmenu`   |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
 | `kup-inputpanel-objectfield-searchpayload`    |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
 | `kup-inputpanel-objectfield-selectedmenuitem` |                                           | `CustomEvent<FObjectFieldEventPayload>`       |
