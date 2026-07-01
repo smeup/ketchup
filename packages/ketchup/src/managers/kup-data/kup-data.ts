@@ -82,8 +82,13 @@ export class KupData {
         ): KupDataCell[] {
             return replaceCell(dataset, cell, columns);
         },
-        getType(cell: KupDataCell, shape?: FCellShapes): FCellTypes {
+        getType(
+            column: KupDataColumn,
+            cell: KupDataCell,
+            shape?: FCellShapes
+        ): FCellTypes {
             const obj = cell.obj;
+            const maxLength = cell.data?.maxLength ?? column?.maxLength;
             if (shape) {
                 switch (shape.toUpperCase()) {
                     case FCellShapes.AUTOCOMPLETE:
@@ -179,7 +184,7 @@ export class KupData {
                 return FCellTypes.TIME;
             } else if (dom.ketchup.objects.isVoCodver(obj)) {
                 return FCellTypes.ICON;
-            } else if (cell.data?.maxLength >= 256) {
+            } else if (maxLength >= 256) {
                 return FCellTypes.MEMO;
             } else {
                 return FCellTypes.STRING;

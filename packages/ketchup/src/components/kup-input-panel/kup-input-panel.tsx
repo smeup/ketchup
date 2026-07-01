@@ -690,7 +690,7 @@ export class KupInputPanel {
             renderKup: true,
             setSizes: true,
         };
-        const label = this.#getLabelComponent(cell, column.title);
+        const label = this.#getLabelComponent(column, cell);
         const fcell = <FCell {...cellProps} />;
 
         if (label) {
@@ -885,12 +885,17 @@ export class KupInputPanel {
         );
     }
 
-    #getLabelComponent(cell: KupDataCell, label: string) {
+    #getLabelComponent(column: KupDataColumn, cell: KupDataCell) {
+        const label = column.title;
         if (!label) {
             return null;
         }
 
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const cellType = dom.ketchup.data.cell.getType(
+            column,
+            cell,
+            cell.shape
+        );
 
         if (cellType === FCellTypes.RADIO) {
             return <span>{label}</span>;
@@ -1312,6 +1317,7 @@ export class KupInputPanel {
         inpuPanelCells.map(({ cells }: InputPanelCells) =>
             cells.map(({ cell, column }) => {
                 const cellType = dom.ketchup.data.cell.getType(
+                    column,
                     cell,
                     cell.shape
                 );
@@ -1350,7 +1356,11 @@ export class KupInputPanel {
             id: column.name,
         };
 
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const cellType = dom.ketchup.data.cell.getType(
+            column,
+            cell,
+            cell.shape
+        );
         const { data, ...noDataProps } = cell.data || {};
 
         return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
@@ -1450,7 +1460,7 @@ export class KupInputPanel {
             fieldLabel = col.title;
         }
         const currentValue = cell.value;
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const cellType = dom.ketchup.data.cell.getType(col, cell, cell.shape);
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
             [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter.bind(this)],
@@ -1482,7 +1492,7 @@ export class KupInputPanel {
     }
 
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const cellType = dom.ketchup.data.cell.getType(col, cell, cell.shape);
 
         if (cellType === FCellTypes.CHIP) {
             return {

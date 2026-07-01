@@ -4148,7 +4148,11 @@ export class KupDataTable {
         );
 
         const { cell, column, row } = details;
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const cellType = dom.ketchup.data.cell.getType(
+            column,
+            cell,
+            cell.shape
+        );
 
         if (!TypesToDuplicate.includes(cellType)) {
             return;

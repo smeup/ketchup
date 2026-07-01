@@ -44,6 +44,7 @@ export interface KupDataColumn {
     tooltip?: boolean;
     useAs?: UseAsValue;
     helper?: string;
+    maxLength?: number;
 }
 export interface KupDataColumnChild {
     name: string;
