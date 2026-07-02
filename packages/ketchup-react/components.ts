@@ -799,8 +799,7 @@ type KupInputPanelEvents = {
     onKupInputpanelObjectfieldSearchpayload: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>,
     onKupInputpanelObjectfieldOpensearchmenu: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>,
     onKupInputpanelObjectfieldSelectedmenuitem: EventName<KupInputPanelCustomEvent<FObjectFieldEventPayload>>,
-    onKupInputpanelUpload: EventName<KupInputPanelCustomEvent<KupFileUploadEventPayload>>,
-    onKupInputpanelDatatableContextmenu: EventName<KupInputPanelCustomEvent<KupDatatableClickEventPayload>>
+    onKupInputpanelUpload: EventName<KupInputPanelCustomEvent<KupFileUploadEventPayload>>
 };
 
 export const KupInputPanel: StencilReactComponent<KupInputPanelElement, KupInputPanelEvents> = /*@__PURE__*/ createComponent<KupInputPanelElement, KupInputPanelEvents>({
@@ -814,8 +813,7 @@ export const KupInputPanel: StencilReactComponent<KupInputPanelElement, KupInput
         onKupInputpanelObjectfieldSearchpayload: 'kup-inputpanel-objectfield-searchpayload',
         onKupInputpanelObjectfieldOpensearchmenu: 'kup-inputpanel-objectfield-opensearchmenu',
         onKupInputpanelObjectfieldSelectedmenuitem: 'kup-inputpanel-objectfield-selectedmenuitem',
-        onKupInputpanelUpload: 'kup-inputpanel-upload',
-        onKupInputpanelDatatableContextmenu: 'kup-inputpanel-datatable-contextmenu'
+        onKupInputpanelUpload: 'kup-inputpanel-upload'
     } as KupInputPanelEvents,
     defineCustomElement: defineKupInputPanel
 });

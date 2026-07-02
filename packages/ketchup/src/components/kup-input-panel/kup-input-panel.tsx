@@ -467,13 +467,13 @@ export class KupInputPanel {
     })
     kupCellUpload: EventEmitter<KupFileUploadEventPayload>;
 
-    @Event({
-        eventName: 'kup-inputpanel-datatable-contextmenu',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInputPanelDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
+    // @Event({
+    //     eventName: 'kup-inputpanel-datatable-contextmenu',
+    //     composed: true,
+    //     cancelable: false,
+    //     bubbles: true,
+    // })
+    // kupInputPanelDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
     //#endregion
 
     //#region PRIVATE METHODS
@@ -861,15 +861,15 @@ export class KupInputPanel {
                     e.preventDefault();
                     e.stopPropagation();
                 }}
-                onKup-datatable-contextmenu={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    this.kupInputPanelDataTableContextMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        details: e.detail.details,
-                    });
-                }}
+                // onKup-datatable-contextmenu={(e) => {
+                //     e.stopPropagation();
+                //     e.preventDefault();
+                //     this.kupInputPanelDataTableContextMenu.emit({
+                //         comp: this,
+                //         id: this.rootElement.id,
+                //         details: e.detail.details,
+                //     });
+                // }}
             ></kup-data-table>
         );
     }
@@ -2467,6 +2467,31 @@ export class KupInputPanel {
     }
 
     componentDidLoad() {
+        /** input panel unloaded meanwhile... */
+        if (!this.#formRef) return;
+
+        // this could seems like a duplication because this.#kupManager.interact.on already does it but removing this causes an error on righ-clicking a TBL cell with tooltip when set as shape of an input panel cell
+        this.#kupManager.interact.managedElements.add(this.#formRef);
+
+        const tapCb = (e: PointerEvent) => {
+            if (e.button == 2) {
+                const details = this.#getEventDetails(e);
+
+                if (details) {
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details,
+                    });
+                }
+            }
+        };
+
+        this.#kupManager.interact.on(
+            this.#formRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
 
         this.#setFocusOnInputElement();
