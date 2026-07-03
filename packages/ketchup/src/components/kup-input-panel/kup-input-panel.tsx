@@ -432,7 +432,7 @@ export class KupInputPanel {
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
+    kupInputPanelContextMenu: EventEmitter<KupInputPanelClickEventPayload>;
 
     @Event({
         eventName: 'kup-inputpanel-objectfield-searchpayload',
@@ -2311,7 +2311,7 @@ export class KupInputPanel {
         const columnName = props.column.name;
 
         const anchor = fcell;
-        const cell = currState.rows[0].cells[columnName];
+        const cell = currState.rows[0].cells[columnName] ?? props?.cell;
         const column = currState.columns.find((c) => c.name == columnName);
         const row = currState.rows[0];
 
@@ -2336,7 +2336,7 @@ export class KupInputPanel {
                 const details = this.#getEventDetails(e);
 
                 if (details) {
-                    this.kupDataTableContextMenu.emit({
+                    this.kupInputPanelContextMenu.emit({
                         comp: this,
                         id: this.rootElement.id,
                         details,
