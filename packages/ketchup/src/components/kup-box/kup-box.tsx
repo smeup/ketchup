@@ -1728,12 +1728,16 @@ export class KupBox {
                         clone[key] = e[key];
                     }
                     const details = this.clickHandler(clone as PointerEvent);
-                    this.kupBoxClick.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        row: details.row,
-                        column: details.column?.name,
-                    });
+                    // If the box or a cell without fun is clicked
+                    // emit the box click, else leave the managment to onKup-cell-click handler
+                    if (!details?.cell?.['fun']) {
+                        this.kupBoxClick.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            row: details.row,
+                            column: details.column?.name,
+                        });
+                    }
                     break;
                 case 2:
                     this.kupBoxContextMenu.emit({
