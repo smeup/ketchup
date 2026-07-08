@@ -988,7 +988,13 @@ export class KupDataTable {
         if (this.data.rows.filter((r) => r.id == undefined).length) {
             identify(this.getRows());
         }
-        this.expandGroupsHandler();
+        // Group expansion is triggered at the end of decorateAndInitForUpdTable()
+        // instead, so the grouped row tree (which clones rows, severing the live
+        // reference to this.data.rows) is rebuilt from already-decorated and
+        // already-patched (pendingRowsToUpdate) cell data. Doing it here, before
+        // decorateDataTable() runs, caused cells in grouped tables to keep a
+        // stale cell.data missing the 'kup-list'/'kup-text-field' slot data,
+        // crashing kup-autocomplete's consistency check on the next value change.
         this.#resetSelectedRows();
     }
 
@@ -1035,6 +1041,9 @@ export class KupDataTable {
             this.#insertedRowIds = [];
             this.#modifiedRowsIds = [];
         }
+        // Runs after pendingRowsToUpdate patching and decorateDataTable() above,
+        // so grouped rows are (re)built from fully decorated, up-to-date cells.
+        this.expandGroupsHandler();
     }
 
     @Watch('data')

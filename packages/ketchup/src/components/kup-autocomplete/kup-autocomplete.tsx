@@ -547,7 +547,7 @@ export class KupAutocomplete {
             return false;
         }
 
-        if (forceOpen && !this.data['kup-list']?.data?.length) {
+        if (forceOpen && !this.data?.['kup-list']?.data?.length) {
             this.kupIconClick.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -618,7 +618,7 @@ export class KupAutocomplete {
         } else {
             const ret = consistencyCheck(
                 idIn,
-                this.data['kup-list'],
+                this.data?.['kup-list'],
                 this.#listEl,
                 this.selectMode,
                 this.DescrMode
@@ -644,7 +644,7 @@ export class KupAutocomplete {
         return (
             <kup-list
                 DescrMode={this.ListDescrMode}
-                {...this.data['kup-list']}
+                {...this.data?.['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
@@ -756,7 +756,7 @@ export class KupAutocomplete {
                                 : null
                         }
                         trailingIcon={true}
-                        {...this.data['kup-text-field']}
+                        {...this.data?.['kup-text-field']}
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
