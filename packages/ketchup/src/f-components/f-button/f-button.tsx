@@ -21,7 +21,9 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         props.styling.toLowerCase() === FButtonStyling.ICON ||
         (props.styling.toLowerCase() === FButtonStyling.RAISED &&
             props.icon &&
-            (props.label === null || props.label === undefined || props.label === ""))
+            (props.label === null ||
+                props.label === undefined ||
+                props.label === ''))
     );
     const classObj: Record<string, boolean> = {
         'f-button': true,
@@ -72,10 +74,10 @@ function renderButton(props: FButtonProps): VNode {
         color: props.neutral
             ? `var(--kup-text-primary)`
             : props.disabled
-            ? `var(--kup_button_text_color_disabled)`
-            : isOutlined || isFlat
-            ? `var(--kup_button_text_color)` // metter colore per sfondo bianco
-            : `var(--kup_button_text_color)`,
+              ? `var(--kup_button_text_color_disabled)`
+              : isOutlined || isFlat
+                ? `var(--kup_button_text_color)` // metter colore per sfondo bianco
+                : `var(--kup_button_text_color)`,
         resource: props.icon,
         placeholderResource: props.placeholderIcon,
         sizeX: isFloating ? '1.75em' : '1.475em',
@@ -145,8 +147,8 @@ function renderIconButton(props: FButtonProps): VNode {
         color: props.neutral
             ? `var(--kup-text-primary)`
             : props.disabled
-            ? `var(--kup_button_text_color_disabled)`
-            : `var(--kup_button_text_color)`,
+              ? `var(--kup_button_text_color_disabled)`
+              : `var(--kup_button_text_color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };

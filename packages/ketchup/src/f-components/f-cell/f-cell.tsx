@@ -107,7 +107,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     let _value = cell.decode ?? cell.value;
 
     const valueToDisplay = props.previousValue !== _value ? _value : '';
-    const cellType = dom.ketchup.data.cell.getType(cell, shape);
+    const cellType = dom.ketchup.data.cell.getType(column, cell, shape);
     const sizing =
         props.density === 'extra_dense' ? 'extra-small' : cell.data?.sizing;
 
@@ -317,7 +317,7 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
         ? cell.data.label
         : column.title;
     const currentValue = cell.value;
-    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+    const cellType = dom.ketchup.data.cell.getType(column, cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
         [FCellTypes.STRING, MainITXAdapter.bind(this)],
