@@ -7293,16 +7293,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"echarts@npm:^5.5.1":
-  version: 5.6.0
-  resolution: "echarts@npm:5.6.0"
-  dependencies:
-    tslib: 2.3.0
-    zrender: 5.6.1
-  checksum: 4b545444155f9457daa89a4ea45f9e08177a9a59d9df7e5ea5206f66e290964fb0a1a273b0dfdeb24a4aa264f6afc925918aa2b76190917abf390bef092ba95c
-  languageName: node
-  linkType: hard
-
 "echarts@npm:^6.1.0":
   version: 6.1.0
   resolution: "echarts@npm:6.1.0"
@@ -17047,15 +17037,6 @@ __metadata:
     normalize-path: ^1.0.0
     strip-indent: ^2.0.0
   checksum: 6810adaf6be7b6cc115ed9454e5a4e8e0949deecb107d65dc0c196051e862f04d6394ad12fbef0d51e6c730329992ae98625ba82cba5e34775023ddb6dc921b8
-  languageName: node
-  linkType: hard
-
-"zrender@npm:5.6.1":
-  version: 5.6.1
-  resolution: "zrender@npm:5.6.1"
-  dependencies:
-    tslib: 2.3.0
-  checksum: 01caeac2d30f0083009aafa531ccb7fe991b6ac0ddd8134dc7b0015f794ed7e3d4fbfe5d32f61cb591014245eca15aeebcfc962cdebfe3829598f0c94ba3dc29
   languageName: node
   linkType: hard
 
