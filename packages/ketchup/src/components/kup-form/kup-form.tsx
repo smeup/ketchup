@@ -567,6 +567,7 @@ export class KupForm {
         function setPlaceholderLabel() {
             switch (
                 dom.ketchup.data.cell.getType(
+                    column,
                     cell,
                     cell.shape || column.shape || null
                 )
