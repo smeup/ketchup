@@ -341,7 +341,11 @@ export class KupEchart {
                 // Data are grouped than i need to return a right row not obtained by using dataIndex.
                 row = structuredClone(
                     this.data.rows.find(
-                        (r) => r.cells[this.axis]?.value === e.name
+                        (r) =>
+                            getCellValueForDisplay(
+                                column,
+                                r.cells[this.axis]
+                            ) === e.name
                     )
                 );
                 // I need to set the value of the cell related to the series, by using the value calculated
@@ -1814,9 +1818,7 @@ export class KupEchart {
                 data: isHorizontal ? undefined : x,
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
-                    ...(isHorizontal
-                        ? { formatter: axisLabelFormatter }
-                        : {}),
+                    ...(isHorizontal ? { formatter: axisLabelFormatter } : {}),
                     ...this.#buildResponsiveAxisLabel(x),
                 },
                 ...this.xAxis,
