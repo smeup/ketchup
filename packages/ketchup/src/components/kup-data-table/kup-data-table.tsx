@@ -2149,19 +2149,44 @@ export class KupDataTable {
         }
     }
 
-    @Listen('keydown')
-    listenCopyCellValueInColumnListener(e: KeyboardEvent) {
-        if (
-            this.updatableData &&
-            e.key.toLowerCase() === 'd' &&
-            e.ctrlKey === true
-        ) {
-            const input = this.rootElement.shadowRoot
-                .activeElement as HTMLInputElement;
-            if (input) {
-                this.#copyCellValueInColumnHandler(e, input);
-            }
+    /**
+     * Copies the value of the currently focused cell to all visible rows in the same column.
+     * Only cell types included in TypesToDuplicate are supported.
+     */
+    @Method()
+    async copyCellValueInColumn(): Promise<void> {
+        const input = this.rootElement.shadowRoot
+            .activeElement as HTMLInputElement;
+        if (!input) {
+            return;
         }
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(input, this.rootElement)
+        );
+        const { cell, column, row } = details;
+        if (!cell || !column || !row) {
+            return;
+        }
+        const cellType = dom.ketchup.data.cell.getType(
+            column,
+            cell,
+            cell.shape
+        );
+        if (!TypesToDuplicate.includes(cellType)) {
+            return;
+        }
+        input.blur();
+        const filteredRowIds = this.#rows.map((r) => r.id);
+        this.data.rows = this.data.rows.map((currRow) => {
+            if (filteredRowIds.includes(currRow.id) && currRow.id !== row.id) {
+                currRow.cells[column.name].value = cell.value;
+                currRow.cells[column.name].obj = cell.obj;
+                currRow.cells[column.name].decode = cell.decode;
+                currRow.cells[column.name].data = cell.data;
+            }
+            return currRow;
+        });
+        this.refresh();
     }
 
     //#endregion
@@ -3743,8 +3768,8 @@ export class KupDataTable {
             const columnName = td
                 ? td.dataset.column
                 : th
-                  ? th.dataset.column
-                  : null;
+                ? th.dataset.column
+                : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -3754,10 +3779,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                  ? 'body'
-                  : isFooter
-                    ? 'footer'
-                    : null,
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -3815,10 +3840,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                  ? 'body'
-                  : isFooter
-                    ? 'footer'
-                    : null,
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -4149,39 +4174,6 @@ export class KupDataTable {
 
     #hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
-    }
-
-    #copyCellValueInColumnHandler(e: KeyboardEvent, el: HTMLInputElement) {
-        const details = this.#getEventDetails(
-            this.#kupManager.getEventPath(el, this.rootElement)
-        );
-
-        const { cell, column, row } = details;
-        const cellType = dom.ketchup.data.cell.getType(
-            column,
-            cell,
-            cell.shape
-        );
-
-        if (!TypesToDuplicate.includes(cellType)) {
-            return;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-        el.blur();
-
-        const filteredRowIds = this.#rows.map((row) => row.id);
-        this.data.rows = this.data.rows.map((currRow) => {
-            if (filteredRowIds.includes(currRow.id) && currRow.id !== row.id) {
-                currRow.cells[column.name].value = cell.value;
-                currRow.cells[column.name].obj = cell.obj;
-                currRow.cells[column.name].decode = cell.decode;
-                currRow.cells[column.name].data = cell.data;
-            }
-            return currRow;
-        });
-        this.refresh();
     }
 
     /**
@@ -6253,8 +6245,8 @@ export class KupDataTable {
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
-                            ? (previousRow.cells[name].decode ??
-                              previousRow.cells[name].value)
+                            ? previousRow.cells[name].decode ??
+                              previousRow.cells[name].value
                             : undefined,
                     renderKup: this.lazyLoadCells,
                     cellActionIcon: this.#kupManager.data.cell.hasActionCell(

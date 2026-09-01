@@ -32,7 +32,10 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { getColumnByName } from '../../utils/cell-utils';
+import {
+    getCellValueForDisplay,
+    getColumnByName,
+} from '../../utils/cell-utils';
 import {
     KupDataColumn,
     KupDataDataset,
@@ -338,7 +341,11 @@ export class KupEchart {
                 // Data are grouped than i need to return a right row not obtained by using dataIndex.
                 row = structuredClone(
                     this.data.rows.find(
-                        (r) => r.cells[this.axis]?.value === e.name
+                        (r) =>
+                            getCellValueForDisplay(
+                                column,
+                                r.cells[this.axis]
+                            ) === e.name
                     )
                 );
                 // I need to set the value of the cell related to the series, by using the value calculated
@@ -858,9 +865,10 @@ export class KupEchart {
             for (let i = 0; i < dataset.rows.length; i++) {
                 const cells = dataset.rows[i].cells;
                 const treatedCells: KupDataRowCells = {};
-                const title = getColumnByName(dataset.columns, this.axis).title;
+                const column = getColumnByName(dataset.columns, this.axis);
+                const title = column.title;
                 treatedCells[title] = cells[this.axis];
-                x.push(treatedCells[title].value);
+                x.push(getCellValueForDisplay(column, treatedCells[title]));
             }
         }
         return x;
@@ -935,7 +943,10 @@ export class KupEchart {
             return y;
         }
         for (const row of this.data.rows) {
-            const title = row.cells[this.axis]?.value ?? '[not found]';
+            const axisCell = row.cells[this.axis];
+            const title = axisCell
+                ? getCellValueForDisplay(column, axisCell)
+                : '[not found]';
             for (const key of Object.keys(row.cells)) {
                 if (
                     !this.series ||
@@ -1807,9 +1818,7 @@ export class KupEchart {
                 data: isHorizontal ? undefined : x,
                 type: isHorizontal ? 'value' : 'category',
                 axisLabel: {
-                    ...(isHorizontal
-                        ? { formatter: axisLabelFormatter }
-                        : {}),
+                    ...(isHorizontal ? { formatter: axisLabelFormatter } : {}),
                     ...this.#buildResponsiveAxisLabel(x),
                 },
                 ...this.xAxis,
