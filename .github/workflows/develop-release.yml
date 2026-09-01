@@ -11,10 +11,10 @@ jobs:
   run-cicd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Trigger jenkins workflow
-        uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@v2
         with:
           url: 'https://webuptest.smeup.com/jenkins/job/WebupKetchupOutsourcingPipeline/build?token=${{ secrets.JENKINS_WEBHOOK_TOKEN }}'
           method: 'GET'

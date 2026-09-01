@@ -180,6 +180,17 @@ Type: `Promise<void>`
 
 
 
+### `copyCellValueInColumn() => Promise<void>`
+
+Copies the value of the currently focused cell to all visible rows in the same column.
+Only cell types included in TypesToDuplicate are supported.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `defaultSortingFunction(columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>`
 
 

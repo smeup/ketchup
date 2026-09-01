@@ -1572,6 +1572,10 @@ export namespace Components {
          */
         "commands": Array<KupCommand>;
         /**
+          * Copies the value of the currently focused cell to all visible rows in the same column. Only cell types included in TypesToDuplicate are supported.
+         */
+        "copyCellValueInColumn": () => Promise<void>;
+        /**
           * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
