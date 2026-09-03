@@ -3768,8 +3768,8 @@ export class KupDataTable {
             const columnName = td
                 ? td.dataset.column
                 : th
-                ? th.dataset.column
-                : null;
+                  ? th.dataset.column
+                  : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -3779,10 +3779,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -3840,10 +3840,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                  ? 'body'
+                  : isFooter
+                    ? 'footer'
+                    : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -6225,6 +6225,16 @@ export class KupDataTable {
                         this.density === 'extra_dense'
                             ? 'extra-small'
                             : cell.data?.sizing,
+                    maxLength:
+                        cell.data?.maxLength !== null &&
+                        cell.data?.maxLength !== undefined
+                            ? cell.data['maxLength']
+                            : currentColumn?.['maxLength'],
+                    size:
+                        cell.data?.length !== null &&
+                        cell.data?.length !== undefined
+                            ? cell.data['length']
+                            : currentColumn?.['length'],
                 };
                 if (!cell.isEditable) {
                     cell.cssClass =
@@ -6239,14 +6249,15 @@ export class KupDataTable {
                         currentColumn,
                         row
                     ),
+
                     component: this,
                     density: this.density,
                     editable: this.editableData || this.updatableData,
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
-                            ? previousRow.cells[name].decode ??
-                              previousRow.cells[name].value
+                            ? (previousRow.cells[name].decode ??
+                              previousRow.cells[name].value)
                             : undefined,
                     renderKup: this.lazyLoadCells,
                     cellActionIcon: this.#kupManager.data.cell.hasActionCell(
