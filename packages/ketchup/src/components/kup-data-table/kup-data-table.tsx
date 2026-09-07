@@ -7052,7 +7052,7 @@ export class KupDataTable {
             newRow = this.#createRowWithInputFields();
         }
         Object.values(newRow.cells).forEach((cell) => {
-            if (selectedRows.length == 0 && !row) {
+            if (selectedRows.length === 0 && !row) {
                 cell.value = '';
             }
         });
