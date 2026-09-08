@@ -7054,6 +7054,9 @@ export class KupDataTable {
         Object.values(newRow.cells).forEach((cell) => {
             if (selectedRows.length === 0 && !row) {
                 cell.value = '';
+                if (cell?.data?.initialValue) {
+                    cell.data.initialValue = '';
+                }
             }
         });
         newRow.id = (
@@ -7073,13 +7076,15 @@ export class KupDataTable {
                       shape: c.shape ?? FCellShapes.TEXT_FIELD,
                       obj: { ...c.obj },
                       isEditable: c.isEditable ?? true,
-                      data:
-                          c['length'] && c['maxLength']
+                      data: {
+                          ...c?.['data'],
+                          ...(c['length'] && c['maxLength']
                               ? {
                                     size: c['length'],
                                     maxLength: c['maxLength'],
                                 }
-                              : {},
+                              : {}),
+                      },
                   };
             row.cells[c.name] = cell as KupDataCell;
         });
