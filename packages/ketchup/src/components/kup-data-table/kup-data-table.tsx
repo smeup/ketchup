@@ -1021,7 +1021,9 @@ export class KupDataTable {
                     if (originalDataRowIndex > -1) {
                         this.data.rows[originalDataRowIndex].cells =
                             structuredClone(row.cells);
-                        this.#modifiedRowsIds.push(`${originalDataRowIndex}`);
+                        // Track the row by its id (consistent with the other
+                        // places where #modifiedRowsIds is populated).
+                        this.#modifiedRowsIds.push(row.id);
                     } else {
                         this.#addRowHandler(row);
                     }
@@ -1548,6 +1550,14 @@ export class KupDataTable {
         }
         if (deletedRows.length > 0) {
             this.data.rows = newRows;
+            // Clean up the tracking arrays so deleted rows are no longer
+            // considered inserted or modified.
+            this.#insertedRowIds = this.#insertedRowIds.filter(
+                (id) => !ids.includes(id)
+            );
+            this.#modifiedRowsIds = this.#modifiedRowsIds.filter(
+                (id) => !ids.includes(id)
+            );
             await this.refresh(true);
         }
         return deletedRows;
@@ -7063,11 +7073,14 @@ export class KupDataTable {
                 }
             }
         });
-        // Assigns a unique id to the new row, computed from the highest id of the
-        // originally loaded data plus the number of rows inserted so far.
-        newRow.id = (
-            this.#originalDataLoadedMaxId + ++this.#insertCount
-        ).toString();
+        // Assigns an id to the new row. The id is always the highest id
+        // currently present in the data plus one, so inserted rows are always
+        // ordered (0, 1, 2, 3, ...) regardless of insertions or deletions.
+        const currentMaxId = this.data.rows.reduce(
+            (max, r) => Math.max(max, parseInt(r.id) || 0),
+            this.#originalDataLoadedMaxId
+        );
+        newRow.id = (currentMaxId + 1).toString();
 
         // Tracks the new row as inserted and prepends it to the table data.
         this.#insertedRowIds.push(newRow.id);
