@@ -1021,7 +1021,9 @@ export class KupDataTable {
                     if (originalDataRowIndex > -1) {
                         this.data.rows[originalDataRowIndex].cells =
                             structuredClone(row.cells);
-                        this.#modifiedRowsIds.push(`${originalDataRowIndex}`);
+                        // Track the row by its id (consistent with the other
+                        // places where #modifiedRowsIds is populated).
+                        this.#modifiedRowsIds.push(row.id);
                     } else {
                         this.#addRowHandler(row);
                     }
@@ -1548,6 +1550,14 @@ export class KupDataTable {
         }
         if (deletedRows.length > 0) {
             this.data.rows = newRows;
+            // Clean up the tracking arrays so deleted rows are no longer
+            // considered inserted or modified.
+            this.#insertedRowIds = this.#insertedRowIds.filter(
+                (id) => !ids.includes(id)
+            );
+            this.#modifiedRowsIds = this.#modifiedRowsIds.filter(
+                (id) => !ids.includes(id)
+            );
             await this.refresh(true);
         }
         return deletedRows;
@@ -7039,18 +7049,22 @@ export class KupDataTable {
 
     #addRowHandler = async (row?: KupDataRow) => {
         let newRow: KupDataRow;
+        // Retrieves the currently selected rows, if any. They will be used as a
+        // template for the new row when available.
         const selectedRows = await this.getSelectedRows();
         if (selectedRows.length > 0) {
-            newRow = JSON.parse(JSON.stringify(selectedRows[0]));
-        } else if (this.#originalDataLoaded?.rows?.length > 0 && !row) {
-            newRow = JSON.parse(
-                JSON.stringify(this.#originalDataLoaded.rows[0])
-            );
+            newRow = this.#createRowWithInputFields(selectedRows[0]);
         } else if (row) {
+            // An explicit row was provided: build the new row from it, applying
+            // the column input-field configuration.
             newRow = this.#createRowWithInputFields(row);
         } else {
+            // Nothing to copy from: build a blank row with input fields based on
+            // the current column definitions.
             newRow = this.#createRowWithInputFields();
         }
+        // When no template was used (no selection and no explicit row), reset the
+        // value of every cell so the new record is empty and ready for input.
         Object.values(newRow.cells).forEach((cell) => {
             if (selectedRows.length === 0 && !row) {
                 cell.value = '';
@@ -7059,10 +7073,16 @@ export class KupDataTable {
                 }
             }
         });
-        newRow.id = (
-            this.#originalDataLoadedMaxId + ++this.#insertCount
-        ).toString();
+        // Assigns an id to the new row. The id is always the highest id
+        // currently present in the data plus one, so inserted rows are always
+        // ordered (0, 1, 2, 3, ...) regardless of insertions or deletions.
+        const currentMaxId = this.data.rows.reduce(
+            (max, r) => Math.max(max, parseInt(r.id) || 0),
+            this.#originalDataLoadedMaxId
+        );
+        newRow.id = (currentMaxId + 1).toString();
 
+        // Tracks the new row as inserted and prepends it to the table data.
         this.#insertedRowIds.push(newRow.id);
         this.insertNewRow(newRow, true);
     };
@@ -7070,21 +7090,33 @@ export class KupDataTable {
     #createRowWithInputFields = (rowToCopy?: KupDataRow): KupDataRow => {
         const row: KupDataRow = { cells: {} };
         this.data?.columns.forEach((c) => {
+            const columnData = {
+                ...c?.['data'],
+                ...(c['length'] && c['maxLength']
+                    ? {
+                          size: c['length'],
+                          maxLength: c['maxLength'],
+                      }
+                    : {}),
+            };
             const cell: Partial<KupDataCell> = rowToCopy?.cells?.[c.name]
-                ? structuredClone(rowToCopy.cells[c.name])
+                ? (() => {
+                      const clonedCell = structuredClone(
+                          rowToCopy.cells[c.name]
+                      );
+                      return {
+                          ...clonedCell,
+                          data: {
+                              ...columnData,
+                              ...clonedCell?.data,
+                          },
+                      };
+                  })()
                 : {
                       shape: c.shape ?? FCellShapes.TEXT_FIELD,
                       obj: { ...c.obj },
                       isEditable: c.isEditable ?? true,
-                      data: {
-                          ...c?.['data'],
-                          ...(c['length'] && c['maxLength']
-                              ? {
-                                    size: c['length'],
-                                    maxLength: c['maxLength'],
-                                }
-                              : {}),
-                      },
+                      data: columnData,
                   };
             row.cells[c.name] = cell as KupDataCell;
         });
@@ -7152,14 +7184,12 @@ export class KupDataTable {
                             (row) => row.id
                         );
                         const insertedRowsIds = this.#insertedRowIds;
-                        if (
-                            this.#arraysContainSameElements(
-                                selectedRowsIds,
-                                insertedRowsIds
-                            )
-                        ) {
-                            //If the only rows to delete are the ones inserted by the user
-                            //AND NOT CONFIRMED, avoid calling the update
+                        // If every selected row is an inserted (unconfirmed) row,
+                        // delete them locally without calling the update.
+                        const allSelectedAreInserted = selectedRowsIds.every(
+                            (id) => insertedRowsIds.includes(id)
+                        );
+                        if (allSelectedAreInserted) {
                             this.deleteRows(selectedRowsIds);
                         } else {
                             this.kupUpdate.emit({
@@ -7218,15 +7248,6 @@ export class KupDataTable {
 
     #isRowModified(rowId: string) {
         return this.#modifiedRowsIds.includes(rowId);
-    }
-
-    #arraysContainSameElements<T>(arr1: T[], arr2: T[]): boolean {
-        if (arr1.length !== arr2.length) return false;
-
-        const sorted1 = [...arr1].sort();
-        const sorted2 = [...arr2].sort();
-
-        return sorted1.every((val, index) => val === sorted2[index]);
     }
 
     calculateScrollToRowOffset(): number {
