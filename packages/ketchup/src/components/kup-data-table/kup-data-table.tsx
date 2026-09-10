@@ -7101,8 +7101,8 @@ export class KupDataTable {
             };
             const cell: Partial<KupDataCell> = rowToCopy?.cells?.[c.name]
                 ? (() => {
-                      const clonedCell = structuredClone(
-                          rowToCopy.cells[c.name]
+                      const clonedCell = JSON.parse(
+                          JSON.stringify(rowToCopy.cells[c.name])
                       );
                       return {
                           ...clonedCell,
