@@ -237,7 +237,6 @@ export class KupDataTable {
                 this.showFilters = state.showFilters;
                 this.showGroups = state.showGroups;
                 this.showHeader = state.showHeader;
-                this.showLoadMore = state.showLoadMore;
                 this.showPaginator = state.showPaginator;
                 this.hiddenSubmitButton = state.hiddenSubmitButton;
                 this.sortEnabled = state.sortEnabled;
@@ -439,15 +438,6 @@ export class KupDataTable {
             )
         ) {
             this.state.showHeader = this.showHeader;
-            somethingChanged = true;
-        }
-        if (
-            !this.#kupManager.objects.deepEqual(
-                this.state.showLoadMore,
-                this.showLoadMore
-            )
-        ) {
-            this.state.showLoadMore = this.showLoadMore;
             somethingChanged = true;
         }
         if (
