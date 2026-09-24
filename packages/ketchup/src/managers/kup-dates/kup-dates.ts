@@ -557,6 +557,25 @@ export class KupDates {
     }
 
     /**
+     * Cleans a time string (e.g., "08:20:08" -> "082008", "123" -> "0123").
+     * Unlike dates, a 6-digit time must not be interpreted as a day/month/year.
+     * @param input - Input time string
+     * @returns Numeric string with an even number of digits (HH, HHMM, HHMMSS, HHMMSSCC)
+     */
+    private cleanInputTimeString(input: string): string {
+        if (!input) {
+            return '';
+        }
+        if (this.isIsoDate(input)) {
+            return input;
+        }
+        const cleanedNumbers = input.replace(/[^0-9]/g, '').trim();
+        return cleanedNumbers.length % 2 === 1 && cleanedNumbers.length > 1
+            ? '0' + cleanedNumbers
+            : cleanedNumbers;
+    }
+
+    /**
      * Helper method to pad unseparated date strings (e.g., "1122023" -> "01122023")
      * @param input - Clean numeric string
      * @returns Padded string with leading zeros where appropriate
@@ -595,7 +614,12 @@ export class KupDates {
      */
     normalize(input: string, type?: KupDatesFormats | string): dayjs.Dayjs {
         const l = type ?? dayjs.Ls[this.locale].formats.L;
-        input = this.cleanInputDateString(input);
+        const isTime =
+            type === KupDatesFormats.ISO_TIME ||
+            type === KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
+        input = isTime
+            ? this.cleanInputTimeString(input)
+            : this.cleanInputDateString(input);
         switch (type) {
             case KupDatesFormats.ISO_TIME:
             case KupDatesFormats.ISO_TIME_WITHOUT_SECONDS:
