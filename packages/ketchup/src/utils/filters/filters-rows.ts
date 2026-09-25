@@ -186,7 +186,10 @@ export class FiltersRows extends Filters {
                 !columnFilters.hasFiltersForColumn(filters, currentColumn);
 
             let b2 = _filterIsNegative;
+            // Cells without obj have nothing to be checked against: b2 must stay neutral
+            // (true for negative filters, which are ANDed, false for positive ones, which are ORed).
             if (
+                cell.obj &&
                 !kupObjects.isNumber(cell.obj) &&
                 !kupObjects.isDate(cell.obj) &&
                 !kupObjects.isTime(cell.obj) &&
