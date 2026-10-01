@@ -69,7 +69,6 @@ export class KupObjects {
             !this.isCheckbox(obj) &&
             !this.isIcon(obj) &&
             !this.isImage(obj) &&
-            !this.isLink(obj) &&
             !this.isProgressBar(obj) &&
             !this.isRadio(obj) &&
             !this.isVoCodver(obj) &&

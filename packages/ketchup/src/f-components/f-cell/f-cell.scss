@@ -223,6 +223,10 @@
     }
   }
 
+  &.checkbox-cell .f-image {
+    --kup-icon-color: var(--kup-border-disabled);
+  }
+
   &.clickable {
     cursor: pointer;
   }
