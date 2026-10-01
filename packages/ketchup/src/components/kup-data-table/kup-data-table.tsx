@@ -5700,7 +5700,7 @@ export class KupDataTable {
 
                     // Add list elements
                     const listData: KupListNode[] = [];
-                    if (column.formula) {
+                    if (column.formula && !column.formula.includes('ATT(')) {
                         /* Formula cloumn */
                         const formula = (
                             (this.#hasTotals() && this.totals[column.name]) ||
