@@ -1829,15 +1829,27 @@ export class KupEchart {
     }
 
     #setColors(requiredNumber: number) {
+        const isValidColor = (value: unknown): value is string =>
+            typeof value === 'string' && value.trim().length > 0;
         let colorArray: string[] =
-            this.colors && this.colors.length > 0 ? [...this.colors] : [];
-        let key: string = '--kup-chart-color-';
+            this.colors && this.colors.length > 0
+                ? this.colors.filter(isValidColor)
+                : [];
+        const key: string = '--kup-chart-color-';
         for (
             let index = 1;
             this.#kupManager.theme.cssVars[key + index];
             index++
         ) {
-            colorArray.push(this.#kupManager.theme.cssVars[key + index]);
+            const themeColor = this.#kupManager.theme.cssVars[key + index];
+            if (isValidColor(themeColor)) {
+                colorArray.push(themeColor);
+            }
+        }
+        //Ensuring there is at least one valid color to compute the heat map
+        //colors from, avoiding NaN values when no color is available.
+        if (colorArray.length === 0) {
+            colorArray.push(this.#kupManager.theme.randomColor(128));
         }
         if (this.colors && this.colors[0]) {
             this.#maxColorHeatMap = this.colors[0];
