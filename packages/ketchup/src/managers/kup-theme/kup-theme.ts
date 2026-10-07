@@ -523,6 +523,24 @@ export class KupTheme {
             );
         }
 
+        //Guarding against null/undefined or non-string values, which would
+        //otherwise crash on the substring calls below (e.g. when an invalid
+        //entry is passed through a component's "colors" prop).
+        if (typeof color !== 'string' || color.length === 0) {
+            dom.ketchup.debug.logMessage(
+                'theme manager',
+                'Invalid color received (' +
+                    color +
+                    '), falling back to theme background color.',
+                KupDebugCategory.WARNING
+            );
+            const fallback: string = this.cssVars['--kup-background-color'];
+            color =
+                typeof fallback === 'string' && fallback.length > 0
+                    ? fallback
+                    : '#ffffff';
+        }
+
         const altRgbRe: RegExp = /R(\d{1,3})G(\d{1,3})B(\d{1,3})/;
         const altRgb: boolean = altRgbRe.test(color);
         if (altRgb) {
