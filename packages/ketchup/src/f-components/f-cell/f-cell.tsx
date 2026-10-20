@@ -624,7 +624,7 @@ function setCellSizeKup(
     switch (cellType) {
         case FCellTypes.BAR:
             if (!(subcomponentProps as FImageProps).sizeY) {
-                (subcomponentProps as FImageProps).sizeY = '26px';
+                (subcomponentProps as FImageProps).sizeY = '22px'; // 18 + space-01 * 2
             }
             if (!(subcomponentProps as FImageProps).sizeX && column.size) {
                 (subcomponentProps as FImageProps).sizeX = column.size;
