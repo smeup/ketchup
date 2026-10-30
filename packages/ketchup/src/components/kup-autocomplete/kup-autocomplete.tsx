@@ -284,15 +284,16 @@ export class KupAutocomplete {
     })
     kupItemClick: EventEmitter<KupAutocompleteEventPayload>;
 
-    onKupBlur() {
-        if (!this.#isListOpened()) {
-            this.kupBlur.emit({
-                comp: this,
-                id: this.rootElement.id,
-                value: this.value,
-                inputValue: this.#textfieldEl.value,
-            });
+    onKupBlur(e?: FocusEvent) {
+        if (this.#isInList(e?.relatedTarget as Node)) {
+            return;
         }
+        this.kupBlur.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            inputValue: this.#textfieldEl.value,
+        });
     }
 
     onKupChangeSubmit(value: string, eventToEmit: EventEmitter) {
@@ -604,6 +605,27 @@ export class KupAutocomplete {
         return this.#listEl.menuVisible == true;
     }
 
+    /**
+     * Checks whether the given node belongs to the list, even when it is placed
+     * inside the list's shadow DOM or in a deeper nested shadow tree.
+     * @param {Node} node - Node to check.
+     * @returns {boolean} True if the node is the list or one of its descendants.
+     */
+    #isInList(node: Node): boolean {
+        if (!node || !this.#listEl) {
+            return false;
+        }
+        let current: Node = node;
+        while (current) {
+            if (current === this.#listEl) {
+                return true;
+            }
+            const parent: Node = current.parentNode;
+            current = parent ?? (current as ShadowRoot).host;
+        }
+        return false;
+    }
+
     #consistencyCheck(
         idIn: string,
         idInDecode: string,
@@ -761,7 +783,7 @@ export class KupAutocomplete {
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
                         value={this.displayedValue}
-                        onBlur={() => this.onKupBlur()}
+                        onBlur={(e: FocusEvent) => this.onKupBlur(e)}
                         onClick={() => this.onKupClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChangeSubmit(
